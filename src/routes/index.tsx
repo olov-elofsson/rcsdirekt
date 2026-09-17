@@ -1,247 +1,80 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Bell,
-  CheckCheck,
-  Code2,
-  MessagesSquare,
-  Send,
-  Smartphone,
-  Store,
-} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, BadgeCheck, CalendarDays, Check, ChevronRight, Code2, HeartHandshake, Hotel, Linkedin, Menu, MessageSquareText, PackageCheck, Play, ShoppingBag, Smartphone, Store, Ticket, Utensils, X, Youtube } from "lucide-react";
 
 import { RcsPhone } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
+import { campaigns, industries, type Campaign } from "@/data/rcs-content";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "RCS Direkt – RCS Business Messaging för företag" },
-      {
-        name: "description",
-        content:
-          "Nå kunder direkt i meddelandeappen. RCS Direkt hjälper svenska företag med kampanjer, aviseringar och interaktiv kunddialog via RCS.",
-      },
-      { property: "og:title", content: "RCS Direkt – RCS Business Messaging för företag" },
-      {
-        property: "og:description",
-        content: "Kampanjer, aviseringar och interaktiv kunddialog via RCS – med verifierad avsändare och läskvitto.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => ({ meta: [
+    { title: "RCS Direkt – Sveriges enklaste sätt att börja med RCS" },
+    { name: "description", content: "Skapa rika, interaktiva kundmeddelanden med RCS. Kom igång själv eller få personlig hjälp av RCS Direkt." },
+    { property: "og:title", content: "RCS Direkt – Sveriges enklaste sätt att börja med RCS" },
+    { property: "og:description", content: "Från vanligt SMS till en kundupplevelse med bilder, knappar och handling direkt i mobilen." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: Index,
 });
 
-const services = [
-  { icon: Send, title: "Kampanjer & utskick", body: "Rika utskick med bilder, gallerier och klickbara knappar – från produktlanseringar till helgkampanjer. Segmentera, schemalägg och följ resultatet live." },
-  { icon: Bell, title: "Aviseringar & påminnelser", body: "Leveransstatus, bokningar och betalningspåminnelser som kommer fram. Automatiserade flöden med läs- och leveranskvitto i realtid." },
-  { icon: MessagesSquare, title: "Interaktiv kunddialog", body: "Snabbsvar, formulär och botar direkt i konversationen. Låt kunder bekräfta, boka och köpa – utan att lämna meddelandeappen." },
-  { icon: Code2, title: "RCS via API", body: "Skicka RCS från era egna system. Väl dokumenterat API med sandbox-miljö, webhooks och stöd för att falla tillbaka till SMS när RCS saknas." },
-];
-
-const steps = [
-  { icon: Store, title: "1. Verifiera ert varumärke", body: "Vi registrerar och verifierar er avsändare hos operatörerna så att kunderna ser ert namn, er logotyp och en verifieringsmarkering." },
-  { icon: Smartphone, title: "2. Bygg ert meddelande", body: "Sätt ihop kampanjer och flöden med bilder, knappar och snabbsvar – själva eller tillsammans med vårt team." },
-  { icon: CheckCheck, title: "3. Skicka & följ upp", body: "Leverans, läsning och klick visas i realtid. Saknar mottagaren RCS-stöd går meddelandet automatiskt som SMS." },
-];
-
-const benefits = [
-  { value: "Ingen", label: "app som ska laddas ner" },
-  { value: "10x", label: "större meddelandeyta än SMS" },
-  { value: "Realtid", label: "leverans- och läskvitton" },
-  { value: "100 %", label: "verifierade avsändare" },
-];
+const primaryHref = "#prova";
+const assistedHref = "#kontakt";
 
 function Index() {
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
-      <main>
-        <Hero />
-        <CompatibilityStrip />
-        <Services />
-        <HowItWorks />
-        <BenefitsBand />
-        <ContactCta />
-      </main>
-      <SiteFooter />
-    </div>
-  );
+  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroRCSShowcase /><SMSvsRCS /><IndustryShowcase /><CapabilityDemo /><IntegrationFlow /><SMSUpgradeDemo /><FinalCTA /></main><Footer /></div>;
 }
 
-function Logo() {
-  return (
-    <span className="flex items-center gap-3 font-display text-lg font-bold">
-      <span className="grid size-7 place-items-center rounded-sm bg-ink text-xs text-gold" aria-hidden="true">R</span>
-      RCS Direkt
-    </span>
-  );
+function Logo() { return <span className="flex items-center gap-2.5 font-display text-base font-bold"><span className="grid size-7 place-items-center rounded-sm bg-ink text-[10px] text-gold">R</span>RCS Direkt</span>; }
+
+function Header() {
+  const [open, setOpen] = useState(false);
+  const links = [["Så fungerar det", "#jamforelse"], ["Branscher", "#branscher"], ["Integrationer", "#integrationer"], ["Pris", "#kontakt"], ["Inspiration", "#branscher"]];
+  return <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-lg"><div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8"><a href="#top" aria-label="RCS Direkt, startsida"><Logo /></a><nav className="hidden items-center gap-7 lg:flex" aria-label="Huvudmeny">{links.map(([label, href]) => <a key={label} href={href} className="text-xs font-semibold text-muted-foreground transition-colors hover:text-primary">{label}</a>)}</nav><div className="hidden items-center gap-5 sm:flex"><a href="#kontakt" className="text-xs font-semibold">Logga in</a><Button asChild size="sm"><a href={primaryHref}>Kom igång <ArrowRight /></a></Button></div><Button aria-label={open ? "Stäng meny" : "Öppna meny"} variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div>{open ? <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobilmeny">{links.map(([label, href]) => <a key={label} href={href} onClick={() => setOpen(false)} className="block border-b border-border py-3 text-sm font-semibold">{label}</a>)}</nav> : null}</header>;
 }
 
-function SiteHeader() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-border-strong bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5">
-        <a href="#top" aria-label="RCS Direkt, startsida"><Logo /></a>
-        <nav aria-label="Huvudmeny" className="hidden items-center gap-1 md:flex">
-          <a href="#tjanster" className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Tjänster</a>
-          <a href="#safunkar" className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Så funkar det</a>
-          <a href="#kontakt" className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Kontakt</a>
-        </nav>
-        <Button asChild size="sm">
-          <a href="#kontakt">Boka demo <ArrowRight /></a>
-        </Button>
-      </div>
-    </header>
-  );
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) { return <p className={cn("text-[11px] font-bold uppercase tracking-[0.14em]", dark ? "text-gold" : "text-primary")}>{children}</p>; }
+function DualCtas({ dark = false }: { dark?: boolean }) { return <div className="flex flex-col gap-3 sm:flex-row"><Button asChild size="lg"><a href={primaryHref}>Kom igång enkelt <ArrowRight /></a></Button><Button asChild size="lg" variant="outline" className={dark ? "border-ink-foreground/40 bg-transparent text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground" : ""}><a href={assistedHref}>Hjälp mig komma igång</a></Button></div>; }
+
+function HeroRCSShowcase() {
+  const [index, setIndex] = useState(0); const [paused, setPaused] = useState(false); const touch = useRef<number | null>(null);
+  useEffect(() => { if (paused) return; const id = window.setInterval(() => setIndex((value) => (value + 1) % campaigns.length), 4800); return () => window.clearInterval(id); }, [paused]);
+  const campaign = campaigns[index] ?? campaigns[0];
+  const change = (direction: number) => setIndex((index + direction + campaigns.length) % campaigns.length);
+  return <section id="top" className="overflow-hidden border-b border-border bg-background"><div className="mx-auto grid min-h-[690px] max-w-7xl items-center gap-10 px-5 py-16 lg:grid-cols-[1.04fr_1.16fr] lg:px-8 lg:py-20"><div className="max-w-2xl"><Eyebrow>Mer än ett meddelande</Eyebrow><h1 className="mt-5 text-5xl font-semibold leading-[0.98] sm:text-6xl xl:text-7xl">Skicka upplevelser<br />som skapar resultat.</h1><p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">RCS gör det möjligt att kommunicera med bilder, video, knappar och interaktion – direkt i kundens vanliga meddelandeapp. Enklare för dig. Bättre för dina kunder.</p><div className="mt-8"><DualCtas /></div><div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-xs font-semibold text-muted-foreground">{["Verifierad avsändare", "SMS fallback", "iPhone & Android"].map((item) => <span key={item} className="flex items-center gap-2"><span className="grid size-4 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="size-2.5" /></span>{item}</span>)}</div></div><div className="relative grid min-h-[550px] items-center gap-8 lg:grid-cols-[0.9fr_1fr]" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)} onTouchStart={(event) => { touch.current = event.touches[0]?.clientX ?? null; setPaused(true); }} onTouchEnd={(event) => { const start = touch.current; const end = event.changedTouches[0]?.clientX; if (start !== null && end !== undefined && Math.abs(start - end) > 45) change(start > end ? 1 : -1); touch.current = null; }}><div key={`phone-${index}`} className="campaign-slide py-2"><RcsPhone campaign={campaign} eager={index === 0} /></div><div key={`copy-${index}`} className="campaign-slide max-w-sm lg:pl-4"><Eyebrow>{campaign.industry}</Eyebrow><h2 className="mt-3 text-3xl font-semibold leading-tight">{campaign.headline}</h2><p className="mt-4 text-sm leading-relaxed text-muted-foreground">{campaign.copy}</p><a href="#branscher" className="mt-5 inline-flex items-center gap-1 border-b border-primary pb-1 text-sm font-bold text-primary">Se fler exempel <ArrowRight className="size-3.5" /></a><div className="mt-10 flex items-center gap-4"><span className="text-xs font-bold text-primary">{String(index + 1).padStart(2, "0")} / 06</span><div className="h-px flex-1 bg-border"><div key={index} className="hero-progress h-px bg-primary" /></div><div className="flex gap-1"><Button variant="ghost" size="icon" aria-label="Föregående kampanj" onClick={() => change(-1)} className="size-8">←</Button><Button variant="ghost" size="icon" aria-label="Nästa kampanj" onClick={() => change(1)} className="size-8">→</Button></div></div></div></div></div></section>;
 }
 
-function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden border-b border-border bg-background py-14 sm:py-20 lg:py-24">
-      <div className="absolute inset-y-0 right-0 hidden w-[39%] bg-ink lg:block" aria-hidden="true" />
-      <div className="absolute inset-y-0 right-[39%] hidden w-px bg-border-strong lg:block" aria-hidden="true" />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.12fr_0.88fr]">
-        <div className="max-w-3xl lg:pr-10">
-          <p className="animate-fade-up flex items-center gap-2 text-sm font-semibold text-primary">
-            <BadgeCheck className="size-4" /> SMS:ens arvtagare – nu för företag
-          </p>
-          <h1 className="animate-fade-up-1 mt-6 text-[2.7rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[4.6rem]">
-            Få kunderna att agera direkt i meddelandet.
-          </h1>
-          <div className="editorial-rule mt-8 h-1 w-20" aria-hidden="true" />
-          <p className="animate-fade-up-2 mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            RCS Direkt hjälper svenska företag att nå kunder med rika, verifierade meddelanden – bilder, knappar och läskvitton, rakt in i meddelandeappen. Ingen app att ladda ner.
-          </p>
-          <div className="animate-fade-up-3 mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg"><a href="#kontakt">Boka en demo <ArrowRight /></a></Button>
-            <Button asChild size="lg" variant="outline"><a href="#tjanster">Utforska tjänsterna</a></Button>
-          </div>
-          <p className="mt-6 max-w-lg border-l border-border-strong pl-4 text-sm font-medium leading-relaxed text-muted-foreground">
-            Ingen app. Verifierad avsändare. Leverans- och läskvitton i realtid.
-          </p>
-        </div>
-        <div className="relative -mx-5 bg-ink px-5 py-10 sm:mx-0 sm:rounded-lg lg:bg-transparent lg:p-0">
-          <RcsPhone />
-        </div>
-      </div>
-    </section>
-  );
+function SimplePhone({ rich }: { rich?: boolean }) {
+  return <div className="mx-auto w-full max-w-[230px] rounded-[2rem] border-8 border-phone-edge bg-phone-screen shadow-card"><div className="mx-auto mt-2 h-4 w-20 rounded-full bg-phone-edge" /><div className="flex min-h-[350px] flex-col p-4"><p className="text-[9px] font-bold">{rich ? "MOTO  ✓" : "Meddelande"}</p><div className={cn("mt-12 rounded-lg p-3 text-[11px] leading-relaxed", rich ? "bg-card shadow-soft" : "bg-muted")}>{rich ? <><p className="font-bold">Din provkörning är bokad</p><div className="my-4 flex gap-2"><span className="bg-primary-soft p-2 text-center font-bold text-primary">21<br />SEP</span><span className="p-2 font-bold">14:00<br /><span className="font-normal">MOTO Örebro</span></span></div><div className="grid gap-2"><span className="rounded-sm bg-primary p-2 text-center text-[8px] font-bold text-primary-foreground">LÄGG I KALENDER</span><span className="rounded-sm border border-primary p-2 text-center text-[8px] font-bold text-primary">HITTA HIT · BOKA OM</span></div></> : <>Din provkörning är bokad<br />21 september kl 14.00.<br /><br />För ombokning besök<br />moto.se/bokning.</>}</div></div></div>;
 }
 
-function CompatibilityStrip() {
-  return (
-    <section className="border-b border-border bg-card">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-5 py-6 text-sm text-muted-foreground">
-        <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Fungerar i</span>
-        <span className="font-display font-semibold text-foreground">Google Messages</span>
-        <span className="font-display font-semibold text-foreground">Samsung Messages</span>
-        <span className="font-display font-semibold text-foreground">Apple Messages</span>
-        <span className="text-xs">– utan extra app</span>
-      </div>
-    </section>
-  );
+function SMSvsRCS() { return <section id="jamforelse" className="border-b border-border bg-card py-24 sm:py-32"><div className="mx-auto grid max-w-7xl items-center gap-16 px-5 lg:grid-cols-[0.68fr_1.32fr] lg:px-8"><div><Eyebrow>Samma meddelande.</Eyebrow><h2 className="mt-4 text-4xl font-semibold leading-none sm:text-5xl">Helt olika<br />upplevelse.</h2><p className="mt-6 text-lg leading-relaxed text-muted-foreground">Med SMS kan du informera.<br />Med RCS kan kunden agera direkt<br />i meddelandet.</p></div><div className="grid items-center gap-8 sm:grid-cols-[1fr_auto_1fr]"><div><p className="mb-4 text-center text-xs font-bold text-muted-foreground">SMS</p><SimplePhone /></div><span className="mx-auto grid size-10 place-items-center rounded-full border border-primary text-primary">→</span><div><p className="mb-4 text-center text-xs font-bold text-primary">RCS</p><SimplePhone rich /></div></div></div></section>; }
+
+const industryIcons = [ShoppingBag, Store, PackageCheck, HeartHandshake, Utensils, Ticket, Hotel, ShoppingBag, HeartHandshake, CalendarDays, HeartHandshake, Menu];
+function IndustryShowcase() {
+  const [selected, setSelected] = useState(0); const industry = industries[selected];
+  if (!industry) return null;
+  return <section id="branscher" className="overflow-hidden border-b border-border bg-background py-24 sm:py-32"><div className="mx-auto max-w-7xl px-5 lg:px-8"><div className="grid gap-6 lg:grid-cols-2"><div><Eyebrow>En lösning. Oändliga möjligheter.</Eyebrow><h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">Upptäck vad RCS kan göra<br />för din bransch.</h2></div><p className="self-end text-base leading-relaxed text-muted-foreground">Från kampanjer och kundklubbar till bokningar, leveranser och service. Välj din bransch och se konkreta exempel på hur RCS kan skapa värde.</p></div><div className="scrollbar-none -mx-5 mt-10 flex gap-2 overflow-x-auto px-5 pb-3 lg:mx-0 lg:px-0">{industries.map((item, itemIndex) => { const Icon = industryIcons[itemIndex] ?? Menu; return <Button key={item.name} variant={selected === itemIndex ? "default" : "outline"} onClick={() => setSelected(itemIndex)} className="h-16 min-w-[94px] shrink-0 flex-col gap-1 px-3 text-[10px]"><Icon className="size-4" />{item.name}</Button>; })}</div><div key={industry.name} className="industry-enter mt-16 grid items-center gap-14 lg:grid-cols-[0.38fr_1fr]"><div><Eyebrow>{industry.name}</Eyebrow><h3 className="mt-3 text-3xl font-semibold leading-tight">{industry.headline}</h3><p className="mt-5 text-sm leading-relaxed text-muted-foreground">{industry.copy}</p><Button type="button" variant="link" className="mt-6 h-auto px-0">Se fler {industry.name.toLocaleLowerCase("sv-SE")}-exempel <ArrowRight className="size-3.5" /></Button></div><div className="scrollbar-none flex snap-x gap-5 overflow-x-auto pb-6">{industry.examples.map((example, exampleIndex) => <div key={example} className="min-w-[205px] snap-start"><RcsPhone campaign={{ ...industry.campaign, messageTitle: example, messageBody: exampleIndex === 0 ? industry.campaign.messageBody : ["Utvalt för dig.", "Allt samlat på ett ställe.", "Enklare att agera direkt."][exampleIndex - 1] ?? industry.campaign.messageBody }} compact /><p className="mt-4 text-center text-xs font-bold">{example}</p></div>)}</div></div></div></section>;
 }
 
-function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
-  return (
-    <div className="max-w-2xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">{eyebrow}</p>
-      <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-5xl">{title}</h2>
-      {text ? <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{text}</p> : null}
-    </div>
-  );
+const capabilities = [
+  ["Verifierad avsändare", "Företagsnamn, logotyp och trygg identitet."], ["Rich cards & carousel", "Visa produkter, erbjudanden och innehåll visuellt."], ["Knappar & actions", "Handla, boka, ring, navigera eller lägg till i kalendern."], ["Tvåvägskommunikation", "Låt kunden svara direkt i meddelandet."], ["SMS fallback", "RCS när det går. SMS när det behövs."], ["Mätbara resultat", "Följ leverans, läsning och interaktion."],
+];
+function CapabilityDemo() {
+  const [active, setActive] = useState(0); const base = campaigns[(active + 4) % campaigns.length] ?? campaigns[0];
+  return <section id="funktioner" className="bg-ink py-24 text-ink-foreground sm:py-28"><div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-[0.7fr_1fr_0.7fr] lg:px-8"><div><Eyebrow dark>Ett meddelande.</Eyebrow><h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">Betydligt fler<br /><span className="text-primary-light">möjligheter.</span></h2><p className="mt-6 text-base leading-relaxed text-ink-muted">RCS ger dig fler sätt att engagera, informera och konvertera – direkt i kundens meddelandeapp.</p><Button asChild className="mt-8"><a href="#branscher">Upptäck alla funktioner <ArrowRight /></a></Button></div><div className="grid gap-1">{capabilities.map(([title, body], index) => <Button key={title} variant="ghost" onMouseEnter={() => setActive(index)} onClick={() => setActive(index)} className={cn("h-auto justify-start whitespace-normal border-l-2 px-4 py-3 text-left text-ink-foreground hover:bg-ink-foreground/8 hover:text-ink-foreground", active === index ? "border-gold bg-ink-foreground/8" : "border-ink-foreground/15")}><span className="grid size-7 shrink-0 place-items-center rounded-sm border border-ink-foreground/20"><Play className="size-3" /></span><span><span className="block text-xs font-bold uppercase">{title}</span><span className="mt-1 block text-xs font-normal text-ink-muted">{body}</span></span></Button>)}</div><div key={active} className="phone-change"><RcsPhone campaign={base} /></div></div></section>;
 }
 
-function Services() {
-  return (
-    <section id="tjanster" className="border-b border-border bg-background py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5">
-        <SectionHeading eyebrow="Tjänster" title="Allt ni behöver för att kommunicera via RCS" text="Från första kampanjen till fullständiga API-integrationer – vi tar er från tanke till levererat meddelande." />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          {services.map(({ icon: Icon, title, body }, index) => (
-            <article key={title} className="group border-t border-border-strong bg-card p-7 shadow-soft transition-shadow hover:shadow-card">
-              <div className="flex items-start justify-between gap-4">
-                <span className="inline-flex size-10 items-center justify-center rounded-sm bg-primary-soft text-primary"><Icon className="size-5" /></span>
-                <span className="font-display text-sm font-semibold text-gold">0{index + 1}</span>
-              </div>
-              <h3 className="mt-7 text-xl font-semibold">{title}</h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground">{body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+function IntegrationFlow() { const systems = ["CRM", "E-handel", "Bokning", "ERP", "Eget system"]; return <section id="integrationer" className="border-b border-border bg-card py-24"><div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[1fr_0.34fr] lg:px-8"><div><h2 className="text-4xl font-semibold">RCS där ni redan arbetar.</h2><p className="mt-4 text-muted-foreground">Ni behöver inte byta system för att börja med RCS.<br />Koppla ert befintliga system via API eller webhook.</p><div className="mt-10 flex flex-col items-center gap-4 md:flex-row"><div className="grid flex-1 grid-cols-3 gap-2 sm:grid-cols-5">{systems.map((system) => <div key={system} className="grid min-h-20 place-items-center rounded-md border border-border bg-background p-3 text-center text-xs font-bold"><Code2 className="mb-2 size-4 text-primary" />{system}</div>)}</div><ArrowRight className="shrink-0 rotate-90 text-primary md:rotate-0" /><div className="rounded-md bg-primary px-6 py-5 text-center text-xs font-bold text-primary-foreground">API /<br />WEBHOOK</div><ArrowRight className="shrink-0 rotate-90 text-primary md:rotate-0" /><div className="rounded-md bg-ink px-6 py-5 text-center text-xs font-bold text-ink-foreground">RCS DIREKT</div><ArrowRight className="shrink-0 rotate-90 text-primary md:rotate-0" /><Smartphone className="size-10 text-primary" /></div></div><aside className="border-l border-border pl-7"><Eyebrow>Exempel på automatiska utskick</Eyebrow><ul className="mt-5 space-y-3 text-sm">{["Ny order → RCS", "Paket skickat → RCS", "Bokning skapad → RCS", "Tid ändrad → RCS", "Ny medlemsbonus → RCS"].map((item) => <li key={item} className="flex gap-2"><Check className="size-4 text-primary" />{item}</li>)}</ul><a href="#kontakt" className="mt-7 inline-flex items-center gap-1 text-sm font-bold text-primary">Utforska integrationer <ArrowRight className="size-3.5" /></a></aside></div></section>; }
+
+function SMSUpgradeDemo() {
+  const [text, setText] = useState(""); const [state, setState] = useState<"idle" | "loading" | "done">("idle");
+  const nordlyCampaign = campaigns[2] ?? campaigns[0];
+  const transform = () => { setState("loading"); window.setTimeout(() => setState("done"), 850); };
+  return <section id="prova" className="bg-background py-24 sm:py-32"><div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-[0.8fr_0.65fr_0.8fr] lg:px-8"><div><Eyebrow>Redan SMS-kund?</Eyebrow><h2 className="mt-4 text-4xl font-semibold leading-tight">Ge ditt SMS<br />en uppgradering.</h2><p className="mt-5 text-sm leading-relaxed text-muted-foreground">Klistra in ett meddelande ni skickar idag.<br />Vi visar vad det skulle kunna bli med RCS.</p><textarea value={text} onChange={(event) => setText(event.target.value)} placeholder="Din order #12893 har skickats och beräknas levereras..." className="mt-6 min-h-28 w-full resize-none rounded-md border border-input bg-card p-4 text-sm outline-none transition-shadow focus:ring-2 focus:ring-ring" /><Button onClick={transform} disabled={state === "loading"} className="mt-3 w-full sm:w-auto">{state === "loading" ? "Skapar upplevelsen…" : "Gör om till RCS ✨"}</Button></div><div className={cn("transition-all duration-500", state === "loading" ? "scale-95 opacity-50" : "opacity-100")}><RcsPhone campaign={state === "done" ? nordlyCampaign : { ...nordlyCampaign, messageTitle: "Ditt RCS visas här", messageBody: text || "Klistra in ert SMS och se hur det kan bli mer användbart." }} /></div><div><h3 className="text-3xl font-semibold leading-tight">Snyggare. Smartare.<br />Mer användbart.</h3><p className="mt-5 text-sm leading-relaxed text-muted-foreground">RCS gör ett vanligt meddelande till en kundupplevelse – med bilder, information och handling direkt i meddelandet.</p><div className="mt-7"><DualCtas /></div></div></div></section>;
 }
 
-function HowItWorks() {
-  return (
-    <section id="safunkar" className="border-b border-ink-foreground/15 bg-ink py-20 text-ink-foreground sm:py-28">
-      <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.12em] text-gold">Så funkar det</p>
-          <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-5xl">Från verifiering till leverans på dagar, inte månader</h2>
-        </div>
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-lg border border-ink-foreground/15 bg-ink-foreground/15 md:grid-cols-3">
-          {steps.map(({ icon: Icon, title, body }) => (
-            <li key={title} className="bg-ink p-7">
-              <span className="inline-flex size-10 items-center justify-center rounded-sm bg-ink-foreground/8 text-gold"><Icon className="size-5" /></span>
-              <h3 className="mt-7 text-lg font-semibold">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{body}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
+function FinalCTA() { const lumenCampaign = campaigns[5] ?? campaigns[0]; return <section id="kontakt" className="overflow-hidden bg-ink text-ink-foreground"><div className="mx-auto grid min-h-[570px] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1fr_0.72fr] lg:px-8"><div className="max-w-2xl"><Eyebrow dark>Redo för nästa nivå?</Eyebrow><h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-6xl">Redo att skicka<br />ert första RCS?</h2><p className="mt-6 text-lg leading-relaxed text-ink-muted">Kom igång själv eller låt oss hjälpa dig.<br />Det ska vara enkelt att börja med RCS.</p><div className="mt-8"><DualCtas dark /></div></div><div className="relative translate-y-12"><div className="absolute inset-8 translate-x-16 rotate-6 rounded-[2rem] bg-ink-foreground/5" /><RcsPhone campaign={lumenCampaign} /></div></div></section>; }
 
-function BenefitsBand() {
-  return (
-    <section className="border-b border-border bg-surface-tint py-16 sm:py-20">
-      <div className="mx-auto grid max-w-6xl gap-x-10 gap-y-10 px-5 sm:grid-cols-2 lg:grid-cols-4">
-        {benefits.map(({ value, label }) => (
-          <div key={value} className="border-l border-border-strong pl-5">
-            <p className="font-display text-4xl font-semibold text-primary">{value}</p>
-            <p className="mt-2 text-sm text-muted-foreground">{label}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ContactCta() {
-  return (
-    <section id="kontakt" className="bg-card py-20 sm:py-28">
-      <div className="mx-auto grid max-w-6xl items-end gap-10 px-5 md:grid-cols-[1fr_auto]">
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">Nästa steg</p>
-          <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-5xl">Redo att nå kunderna direkt?</h2>
-          <div className="editorial-rule mt-7 h-1 w-20" aria-hidden="true" />
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">Boka en 20-minuters demo så visar vi hur RCS kan fungera för just er verksamhet – med exempel från er bransch.</p>
-        </div>
-        <Button asChild size="lg"><a href="mailto:hej@rcsdirekt.se"><Send /> hej@rcsdirekt.se</a></Button>
-      </div>
-    </section>
-  );
-}
-
-function SiteFooter() {
-  return (
-    <footer className="border-t border-ink-foreground/15 bg-ink py-12 text-ink-foreground">
-      <div className="mx-auto flex max-w-6xl flex-col justify-between gap-8 px-5 sm:flex-row sm:items-end">
-        <div>
-          <Logo />
-          <div className="editorial-rule mt-4 h-1 w-14" aria-hidden="true" />
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-muted">RCS Business Messaging för svenska företag.</p>
-        </div>
-        <p className="text-sm text-ink-muted">© {new Date().getFullYear()} RCS Direkt · rcsdirekt.se</p>
-      </div>
-    </footer>
-  );
-}
+function Footer() { return <footer className="bg-card py-12"><div className="mx-auto grid max-w-7xl gap-10 px-5 sm:grid-cols-[1.2fr_2fr_auto] lg:px-8"><Logo /><div className="grid grid-cols-3 gap-6 text-xs"><div><p className="font-bold">Produkt</p>{["Så fungerar det", "Branscher", "Integrationer", "Pris", "Inspiration"].map((item) => <a key={item} href="#top" className="mt-2 block text-muted-foreground">{item}</a>)}</div><div><p className="font-bold">Företag</p><a href="#kontakt" className="mt-2 block text-muted-foreground">Om oss</a><a href="#kontakt" className="mt-2 block text-muted-foreground">Kontakt</a></div><div><p className="font-bold">Juridiskt</p><a href="#kontakt" className="mt-2 block text-muted-foreground">Integritet</a><a href="#kontakt" className="mt-2 block text-muted-foreground">Villkor</a></div></div><div className="flex items-start gap-3"><a href="#top" aria-label="LinkedIn" className="text-primary"><Linkedin className="size-4" /></a><a href="#top" aria-label="Youtube" className="text-primary"><Youtube className="size-4" /></a></div></div><div className="mx-auto mt-10 max-w-7xl border-t border-border px-5 pt-6 text-right text-[10px] text-muted-foreground lg:px-8">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</div></footer>; }

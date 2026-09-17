@@ -1,87 +1,59 @@
-import { BadgeCheck, CheckCheck, Sparkles } from "lucide-react";
+import { BadgeCheck, Check, ChevronRight, MapPin } from "lucide-react";
+import type { Campaign } from "@/data/rcs-content";
+import { cn } from "@/lib/utils";
 
 /**
  * Statisk RCS-telefonmockup som demonstrerar formatets möjligheter:
  * verifierad avsändare, media, snabbsvar och läs-kvitto.
  */
-export function RcsPhone() {
+export function RcsPhone({ campaign, compact = false, className, eager = false }: { campaign: Campaign; compact?: boolean; className?: string; eager?: boolean }) {
   return (
-    <div className="animate-float relative mx-auto w-full max-w-[320px]">
-      <div className="rounded-[2rem] border border-ink-foreground/15 bg-ink-foreground/8 p-2.5 shadow-lift">
-        <div className="overflow-hidden rounded-[1.55rem] bg-ink text-ink-foreground">
-          {/* Notch + status */}
-          <div className="flex items-center justify-center pt-2.5">
-            <div className="h-5 w-24 rounded-full bg-ink-foreground/10" />
+    <div className={cn("relative mx-auto w-full", compact ? "max-w-[218px]" : "max-w-[286px]", className)}>
+      <div className="rounded-[2rem] border border-phone-edge bg-phone-edge p-2 shadow-lift">
+        <div className="overflow-hidden rounded-[1.55rem] bg-phone-screen text-foreground">
+          <div className="relative flex h-7 items-center justify-center bg-phone-screen">
+            <div className="h-4 w-20 rounded-full bg-phone-edge" />
+            <span className="absolute left-3 text-[8px] font-semibold">9:41</span>
           </div>
-
-          {/* Chatt-header med verifierad avsändare */}
-          <div className="mt-2 flex items-center gap-3 border-b border-ink-foreground/10 bg-ink-foreground/5 px-4 py-3">
-            <div className="flex size-9 items-center justify-center rounded-sm bg-gold font-display text-sm font-bold text-ink">
-              RD
+          <div className={cn("flex items-center gap-2 border-b border-border bg-card", compact ? "px-2.5 py-2" : "px-3 py-2.5")}>
+            <div className="flex size-7 items-center justify-center rounded-full bg-primary font-display text-[9px] font-bold text-primary-foreground">
+              {campaign.brand.slice(0, 1)}
             </div>
             <div className="min-w-0">
-              <p className="flex items-center gap-1 text-sm font-semibold">
-                RCS Direkt
-                <BadgeCheck className="size-4 shrink-0 text-gold" />
+              <p className="flex items-center gap-1 text-[10px] font-bold">
+                {campaign.brand}
+                <BadgeCheck className="size-3 shrink-0 text-primary" />
               </p>
-              <p className="text-xs text-ink-muted">Företagskonto</p>
+              <p className="text-[7px] text-muted-foreground">Verifierad avsändare</p>
             </div>
           </div>
-
-          {/* Meddelanden */}
-          <div className="flex min-h-[340px] flex-col gap-2.5 px-3 py-4">
-            <p className="text-center text-[10px] uppercase tracking-wider text-ink-muted">
-              Idag 14:02
-            </p>
-
-            {/* Media + text-bubbla */}
-            <div className="animate-bubble-in max-w-[85%] self-start overflow-hidden rounded-xl rounded-bl-sm bg-ink-foreground/8">
-              <div className="relative flex h-28 items-center justify-center bg-primary/35">
-                <Sparkles className="size-8 text-gold" />
-                <span className="absolute bottom-1.5 right-2 rounded-sm bg-ink/70 px-2 py-0.5 text-[9px] font-medium">
-                  Kampanj
-                </span>
-              </div>
-              <div className="px-3.5 pb-2 pt-2.5">
-                <p className="text-[13px] leading-snug">
-                  Hej Sara! Vårens nyheter har landat – som nyhetsbrevs-
-                  medlem får du 20 % hela helgen.
-                </p>
+          <div className={cn("bg-phone-chat", compact ? "min-h-[300px] p-2" : "min-h-[390px] p-2.5")}>
+            <div className="overflow-hidden rounded-lg bg-card shadow-soft">
+              <img src={campaign.image} alt="" width={1024} height={640} loading={eager ? "eager" : "lazy"} className={cn("w-full object-cover", compact ? "h-24" : "h-40")} />
+              <div className={cn(compact ? "p-2.5" : "p-3.5")}>
+                <p className={cn("font-display font-bold leading-tight", compact ? "text-xs" : "text-base")}>{campaign.messageTitle}</p>
+                <p className={cn("mt-1.5 leading-snug text-muted-foreground", compact ? "text-[9px]" : "text-[11px]")}>{campaign.messageBody}</p>
+                {campaign.detail ? <p className={cn("mt-2 font-semibold text-primary", compact ? "text-[8px]" : "text-[10px]")}>{campaign.detail}</p> : null}
+                {campaign.theme === "delivery" ? (
+                  <div className="mt-3 flex items-center gap-1">
+                    {[0, 1, 2, 3].map((step) => <span key={step} className={cn("h-1.5 flex-1 rounded-full", step < 3 ? "bg-primary" : "bg-border")} />)}
+                  </div>
+                ) : null}
+                <div className="mt-3 grid gap-1.5">
+                  {campaign.actions.slice(0, compact ? 2 : 3).map((action, index) => (
+                    <div key={action} className={cn("flex items-center justify-center gap-1 rounded-sm border px-2 font-bold uppercase", compact ? "min-h-6 text-[7px]" : "min-h-8 text-[9px]", index === 0 ? "border-primary bg-primary text-primary-foreground" : "border-primary text-primary")}>{action}{index === 0 ? <ChevronRight className="size-2.5" /> : null}</div>
+                  ))}
+                </div>
               </div>
             </div>
-
-            {/* Snabbsvar */}
-            <div className="animate-bubble-in-2 flex flex-wrap gap-2 self-end">
-               <span className="rounded-md border border-gold/60 bg-gold/10 px-3.5 py-1.5 text-xs font-semibold text-gold">
-                Se produkten
-              </span>
-               <span className="rounded-md border border-ink-foreground/15 bg-ink-foreground/8 px-3.5 py-1.5 text-xs font-medium">
-                Spåra order
-              </span>
-            </div>
-
-            {/* Läskvitto */}
-             <div className="animate-bubble-in-3 flex items-center gap-1 self-end text-[10px] text-gold">
-              Läst 14:03
-              <CheckCheck className="size-3.5" />
-            </div>
-
-            {/* Skriv-indikator */}
-            <div className="mt-auto flex items-center gap-1.5 self-start rounded-xl rounded-bl-sm bg-ink-foreground/8 px-3.5 py-2.5">
-              <span className="animate-pulse-dot size-1.5 rounded-full bg-ink-muted" />
-              <span className="animate-pulse-dot size-1.5 rounded-full bg-ink-muted [animation-delay:0.2s]" />
-              <span className="animate-pulse-dot size-1.5 rounded-full bg-ink-muted [animation-delay:0.4s]" />
+            <div className="mt-2 flex items-center justify-between px-1 text-[8px] text-muted-foreground">
+              <span className="flex items-center gap-1"><Check className="size-2.5 text-primary" /> Levererat</span>
+              <MapPin className="size-3" />
             </div>
           </div>
-
-          {/* Inmatningsfält */}
-          <div className="flex items-center gap-2 border-t border-ink-foreground/10 px-4 py-3">
-            <div className="flex-1 rounded-md bg-ink-foreground/8 px-3.5 py-2 text-xs text-ink-muted">
-              Skriv ett svar…
-            </div>
-            <div className="flex size-8 items-center justify-center rounded-md bg-gold">
-              <span className="text-sm text-ink">↑</span>
-            </div>
+          <div className="flex items-center gap-2 border-t border-border bg-card p-2">
+            <div className="flex-1 rounded-full bg-muted px-3 py-1.5 text-[8px] text-muted-foreground">Skriv ett meddelande…</div>
+            <div className="size-5 rounded-full bg-primary" />
           </div>
         </div>
       </div>
