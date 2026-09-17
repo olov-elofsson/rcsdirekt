@@ -18,7 +18,7 @@ export type Campaign = {
   theme: "fashion" | "auto" | "delivery" | "property" | "food" | "event";
 };
 
-export const campaigns: Campaign[] = [
+export const campaigns: [Campaign, ...Campaign[]] = [
   { industry: "E-handel", brand: "AERA", headline: "Från inspiration till köp.", copy: "Visa dina produkter, erbjudanden och nyheter direkt i kundens meddelandeapp. Med snygga bilder, knappar och karuseller blir det enklare att inspirera – och få fler affärer.", messageTitle: "Hösten är här.", messageBody: "Upptäck våra nyheter – utvalda för dig.", image: aeraImage, actions: ["Shoppa dam", "Shoppa herr"], theme: "fashion" },
   { industry: "Bil & service", brand: "MOTO", headline: "Från besked till handling.", copy: "Service, provkörning och viktiga besked blir enklare när kunden kan agera direkt i meddelandet.", messageTitle: "Din bil är klar.", messageBody: "Vi är färdiga med servicen och bilen är redo att hämtas.", image: motoImage, actions: ["Boka hämtning", "Hitta hit", "Ring oss"], detail: "Idag · 16:30 · MOTO Örebro", theme: "auto" },
   { industry: "Leverans", brand: "NORDLY", headline: "Från order till dörr.", copy: "Håll kunden uppdaterad hela vägen – och låt dem följa eller ändra leveransen direkt i meddelandet.", messageTitle: "På väg till dig 📦", messageBody: "Din order #48291 har lämnat vårt lager.", image: nordlyImage, actions: ["Följ paketet", "Ändra leverans"], detail: "Beställd ✓  Packad ✓  Skickad ✓", theme: "delivery" },
@@ -55,5 +55,5 @@ export const industries: Industry[] = industrySeed.map(([name, headline, copy, e
   headline,
   copy,
   examples: [...examples],
-  campaign: campaigns[campaignIndex],
+  campaign: campaigns[campaignIndex] ?? campaigns[0],
 }));
