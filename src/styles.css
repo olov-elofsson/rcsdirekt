@@ -40,6 +40,10 @@
   --color-border-strong: var(--border-strong);
   --color-surface-tint: var(--surface-tint);
   --color-gold: var(--gold);
+  --color-primary-light: var(--primary-light);
+  --color-phone-edge: var(--phone-edge);
+  --color-phone-screen: var(--phone-screen);
+  --color-phone-chat: var(--phone-chat);
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --shadow-soft: 0 1px 2px oklch(0.2 0.04 250 / 5%), 0 12px 32px -22px oklch(0.2 0.04 250 / 20%);
@@ -75,6 +79,10 @@
   --input: oklch(0.875 0.025 80);
   --ring: oklch(0.42 0.075 210);
   --surface-tint: oklch(0.925 0.022 88);
+  --primary-light: oklch(0.72 0.105 198);
+  --phone-edge: oklch(0.15 0.018 245);
+  --phone-screen: oklch(0.985 0.006 82);
+  --phone-chat: oklch(0.955 0.009 80);
 }
 
 @layer base {
@@ -115,43 +123,15 @@
   background-image: linear-gradient(90deg, var(--accent), var(--gold));
 }
 
-@layer utilities {
-  .animate-fade-up {
-    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .animate-fade-up-1 {
-    animation: fade-up 0.7s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .animate-fade-up-2 {
-    animation: fade-up 0.7s 0.16s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .animate-fade-up-3 {
-    animation: fade-up 0.7s 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .animate-float {
-    animation: float 7s ease-in-out infinite;
-  }
-
-  .animate-pulse-dot {
-    animation: pulse-dot 1.6s ease-in-out infinite;
-  }
-
-  .animate-bubble-in {
-    animation: bubble-in 0.5s 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  .animate-bubble-in-2 {
-    animation: bubble-in 0.5s 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  .animate-bubble-in-3 {
-    animation: bubble-in 0.5s 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
+
+@utility campaign-slide { animation: campaign-slide 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility industry-enter { animation: soft-rise 0.4s ease-out both; }
+@utility phone-change { animation: phone-change 0.35s ease-out both; }
+@utility hero-progress { animation: progress 4.8s linear both; }
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -162,46 +142,7 @@
   }
 }
 
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
-
-@keyframes bubble-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+@keyframes campaign-slide { from { opacity: 0; transform: translateX(42px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes soft-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes phone-change { from { opacity: 0.5; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+@keyframes progress { from { width: 0; } to { width: 100%; } }
