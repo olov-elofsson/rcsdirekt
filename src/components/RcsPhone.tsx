@@ -10,12 +10,12 @@ export function RcsPhone({ campaign, compact = false, className, eager = false }
   return (
     <div className={cn("relative mx-auto w-full", compact ? "max-w-[218px]" : "max-w-[286px]", className)}>
       <div className="rounded-[2rem] border border-phone-edge bg-phone-edge p-2 shadow-lift">
-        <div className="overflow-hidden rounded-[1.55rem] bg-phone-screen text-foreground">
+        <div className="overflow-hidden rounded-[1.55rem] bg-phone-screen text-phone-foreground">
           <div className="relative flex h-7 items-center justify-center bg-phone-screen">
             <div className="h-4 w-20 rounded-full bg-phone-edge" />
             <span className="absolute left-3 text-[8px] font-semibold">9:41</span>
           </div>
-          <div className={cn("flex items-center gap-2 border-b border-border bg-card", compact ? "px-2.5 py-2" : "px-3 py-2.5")}>
+          <div className={cn("flex items-center gap-2 border-b border-phone-border bg-phone-card", compact ? "px-2.5 py-2" : "px-3 py-2.5")}>
             <div className="flex size-7 items-center justify-center rounded-full bg-primary font-display text-[9px] font-bold text-primary-foreground">
               {campaign.brand.slice(0, 1)}
             </div>
@@ -24,19 +24,19 @@ export function RcsPhone({ campaign, compact = false, className, eager = false }
                 {campaign.brand}
                 <BadgeCheck className="size-3 shrink-0 text-primary" />
               </p>
-              <p className="text-[7px] text-muted-foreground">Verifierad avsändare</p>
+              <p className="text-[7px] text-phone-muted">Verifierad avsändare</p>
             </div>
           </div>
           <div className={cn("bg-phone-chat", compact ? "min-h-[300px] p-2" : "min-h-[390px] p-2.5")}>
-            <div className="overflow-hidden rounded-lg bg-card shadow-soft">
+            <div className="overflow-hidden rounded-lg bg-phone-card shadow-soft">
               <img src={campaign.image} alt="" width={1024} height={640} loading={eager ? "eager" : "lazy"} className={cn("w-full object-cover", compact ? "h-24" : "h-40")} />
               <div className={cn(compact ? "p-2.5" : "p-3.5")}>
                 <p className={cn("font-display font-bold leading-tight", compact ? "text-xs" : "text-base")}>{campaign.messageTitle}</p>
-                <p className={cn("mt-1.5 leading-snug text-muted-foreground", compact ? "text-[9px]" : "text-[11px]")}>{campaign.messageBody}</p>
+                <p className={cn("mt-1.5 leading-snug text-phone-muted", compact ? "text-[9px]" : "text-[11px]")}>{campaign.messageBody}</p>
                 {campaign.detail ? <p className={cn("mt-2 font-semibold text-primary", compact ? "text-[8px]" : "text-[10px]")}>{campaign.detail}</p> : null}
                 {campaign.theme === "delivery" ? (
                   <div className="mt-3 flex items-center gap-1">
-                    {[0, 1, 2, 3].map((step) => <span key={step} className={cn("h-1.5 flex-1 rounded-full", step < 3 ? "bg-primary" : "bg-border")} />)}
+                    {[0, 1, 2, 3].map((step) => <span key={step} className={cn("h-1.5 flex-1 rounded-full", step < 3 ? "bg-primary" : "bg-phone-border")} />)}
                   </div>
                 ) : null}
                 <div className="mt-3 grid gap-1.5">
@@ -46,13 +46,13 @@ export function RcsPhone({ campaign, compact = false, className, eager = false }
                 </div>
               </div>
             </div>
-            <div className="mt-2 flex items-center justify-between px-1 text-[8px] text-muted-foreground">
+            <div className="mt-2 flex items-center justify-between px-1 text-[8px] text-phone-muted">
               <span className="flex items-center gap-1"><Check className="size-2.5 text-primary" /> Levererat</span>
               <MapPin className="size-3" />
             </div>
           </div>
-          <div className="flex items-center gap-2 border-t border-border bg-card p-2">
-            <div className="flex-1 rounded-full bg-muted px-3 py-1.5 text-[8px] text-muted-foreground">Skriv ett meddelande…</div>
+          <div className="flex items-center gap-2 border-t border-phone-border bg-phone-card p-2">
+            <div className="flex-1 rounded-full bg-phone-chat px-3 py-1.5 text-[8px] text-phone-muted">Skriv ett meddelande…</div>
             <div className="size-5 rounded-full bg-primary" />
           </div>
         </div>
