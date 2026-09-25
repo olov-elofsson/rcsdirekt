@@ -128,7 +128,25 @@
   &::-webkit-scrollbar { display: none; }
 }
 
-@utility campaign-slide { animation: campaign-slide 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility hero-phone-stage {
+  isolation: isolate;
+  position: relative;
+  &::after {
+    animation: hero-trail 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+    background-color: var(--color-primary-light);
+    content: "";
+    filter: blur(18px);
+    inset-block: 12%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 18px;
+    z-index: -1;
+  }
+}
+@utility hero-phone-content { animation: hero-swipe 0.72s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility hero-scenario { position: relative; animation: hero-swipe 0.72s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility hero-phone { contain: layout paint; }
 @utility industry-enter { animation: soft-rise 0.4s ease-out both; }
 @utility phone-change { animation: phone-change 0.35s ease-out both; }
 @utility hero-progress { animation: progress 4.8s linear both; }
@@ -142,7 +160,12 @@
   }
 }
 
-@keyframes campaign-slide { from { opacity: 0; transform: translateX(42px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes hero-swipe {
+  0% { opacity: 0; filter: blur(7px); transform: translateX(34px); }
+  45% { opacity: 0.82; filter: blur(1.5px); }
+  100% { opacity: 1; filter: blur(0); transform: translateX(0); }
+}
+@keyframes hero-trail { 0% { left: 76%; opacity: 0; } 35% { opacity: 0.22; } 100% { left: 8%; opacity: 0; } }
 @keyframes soft-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes phone-change { from { opacity: 0.5; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 @keyframes progress { from { width: 0; } to { width: 100%; } }
