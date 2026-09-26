@@ -53,7 +53,7 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.965 0.014 83);
+  --background: oklch(0.955 0.025 95);
   --foreground: oklch(0.22 0.045 246);
   --card: oklch(0.992 0.008 82);
   --card-foreground: oklch(0.22 0.045 246);
@@ -68,7 +68,7 @@
   --muted-foreground: oklch(0.49 0.032 244);
   --accent: oklch(0.53 0.075 201);
   --accent-foreground: oklch(0.985 0.008 82);
-  --gold: oklch(0.77 0.105 82);
+  --gold: oklch(0.68 0.19 45);
   --ink: oklch(0.205 0.052 247);
   --ink-foreground: oklch(0.975 0.012 82);
   --ink-muted: oklch(0.79 0.023 223);
@@ -79,7 +79,7 @@
   --input: oklch(0.875 0.025 80);
   --ring: oklch(0.42 0.075 210);
   --surface-tint: oklch(0.925 0.022 88);
-  --primary-light: oklch(0.72 0.105 198);
+  --primary-light: oklch(0.77 0.12 55);
   --phone-edge: oklch(0.15 0.018 245);
   --phone-screen: oklch(0.985 0.006 82);
   --phone-chat: oklch(0.955 0.009 80);
@@ -106,8 +106,8 @@
   }
 
   ::selection {
-    background-color: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background-color: var(--color-gold);
+    color: var(--color-ink-foreground);
   }
 
   h1,
@@ -120,7 +120,14 @@
 }
 
 @utility editorial-rule {
-  background-image: linear-gradient(90deg, var(--accent), var(--gold));
+  background-image: linear-gradient(90deg, #f6f0df, #efa078 40%, #f06b36 60%, #f3c2a6 80%, #f6f0df);
+}
+
+@utility brand-gradient-text {
+  background-image: linear-gradient(90deg, #efa078, #f06b36 55%, #f3c2a6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @utility scrollbar-none {
