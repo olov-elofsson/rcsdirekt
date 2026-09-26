@@ -106,8 +106,8 @@
   }
 
   ::selection {
-    background-color: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background-color: var(--color-gold);
+    color: var(--color-ink-foreground);
   }
 
   h1,
