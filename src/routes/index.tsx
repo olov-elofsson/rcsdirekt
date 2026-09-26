@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CalendarDays, Check, Code2, HeartHandshake, Hotel, Linkedin, Menu, PackageCheck, Play, ShoppingBag, Smartphone, Store, Ticket, Utensils, X, Youtube } from "lucide-react";
 
+import logoAsset from "@/assets/rcsdirekt-logo.svg.asset.json";
 import { RcsPhone } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { campaigns, industries, type Campaign } from "@/data/rcs-content";
@@ -26,7 +27,7 @@ function Index() {
   return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroRCSShowcase /><SMSvsRCS /><IndustryShowcase /><CapabilityDemo /><IntegrationFlow /><SMSUpgradeDemo /><FinalCTA /></main><Footer /></div>;
 }
 
-function Logo() { return <span className="flex items-center gap-2.5 font-display text-base font-bold"><span className="grid size-7 place-items-center rounded-sm bg-ink text-[10px] text-gold">R</span>RCS Direkt</span>; }
+function Logo() { return <img src={logoAsset.url} alt="RCS Direkt" className="h-7 w-auto" />; }
 
 function Header() {
   const [open, setOpen] = useState(false);
