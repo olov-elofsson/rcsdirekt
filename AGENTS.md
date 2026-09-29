@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Visuell arkitektur: använd en svartvit, SendRCS-inspirerad produktberättelse med stora tekniska kontrastfält och RCS Direkts orange/persika accenter, eftersom varumärket ska kännas exklusivt utan att kopiera referensen.
