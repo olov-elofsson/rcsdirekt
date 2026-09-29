@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* RCS Direkt — samma redaktionella färgsystem som referensprojektet. */
+/* RCS Direkt — tekniskt svartvitt brandkit med loggans orange färger. */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 6px);
@@ -44,18 +44,18 @@
   --color-phone-edge: var(--phone-edge);
   --color-phone-screen: var(--phone-screen);
   --color-phone-chat: var(--phone-chat);
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Black", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
   --shadow-soft: 0 1px 2px oklch(0.1 0.002 60 / 6%), 0 12px 32px -22px oklch(0.1 0.002 60 / 22%);
   --shadow-card: 0 1px 2px oklch(0.1 0.002 60 / 6%), 0 24px 60px -38px oklch(0.1 0.002 60 / 30%);
   --shadow-lift: 0 2px 8px oklch(0.1 0.002 60 / 9%), 0 50px 100px -50px oklch(0.1 0.002 60 / 45%);
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.99 0.002 85);
+  --radius: 0.5rem;
+  --background: oklch(0.975 0.003 85);
   --foreground: oklch(0.1 0.002 60);
-  --card: oklch(0.965 0.004 85);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.1 0.002 60);
   --popover: oklch(0.99 0.002 85);
   --popover-foreground: oklch(0.1 0.002 60);
@@ -64,12 +64,12 @@
   --primary-soft: oklch(0.93 0.04 55);
   --secondary: oklch(0.1 0.002 60);
   --secondary-foreground: oklch(0.99 0.002 85);
-  --muted: oklch(0.95 0.004 80);
+  --muted: oklch(0.94 0.004 80);
   --muted-foreground: oklch(0.42 0.008 65);
   --accent: oklch(0.1 0.002 60);
   --accent-foreground: oklch(0.99 0.002 85);
   --gold: oklch(0.68 0.208 41);
-  --ink: oklch(0.08 0.001 60);
+  --ink: oklch(0.075 0.004 40);
   --ink-foreground: oklch(0.98 0.004 85);
   --ink-muted: oklch(0.7 0.01 80);
   --destructive: oklch(0.577 0.245 27.325);
@@ -78,7 +78,7 @@
   --border-strong: oklch(0.2 0.004 60);
   --input: oklch(0.88 0.005 70);
   --ring: oklch(0.68 0.208 41);
-  --surface-tint: oklch(0.94 0.006 80);
+  --surface-tint: oklch(0.925 0.008 70);
   --primary-light: oklch(0.77 0.12 55);
   --phone-edge: oklch(0.1 0.002 60);
   --phone-screen: oklch(0.99 0.003 90);
@@ -114,20 +114,53 @@
   h2,
   h3 {
     font-family: var(--font-display);
+    font-weight: 400;
     letter-spacing: 0;
     text-wrap: balance;
   }
 }
 
 @utility editorial-rule {
-  background-image: linear-gradient(90deg, #f6f0df, #efa078 40%, #f06b36 60%, #f3c2a6 80%, #f6f0df);
+  background-image: linear-gradient(90deg, var(--color-ink), var(--color-primary) 52%, var(--color-primary-light));
 }
 
 @utility brand-gradient-text {
-  background-image: linear-gradient(90deg, #efa078, #f06b36 55%, #f3c2a6);
+  background-image: linear-gradient(90deg, var(--color-primary-light), var(--color-primary) 55%, var(--color-gold));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@utility technical-stage {
+  isolation: isolate;
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    transform: skewX(-24deg);
+    z-index: -1;
+  }
+  &::before {
+    background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary) 46%, transparent), color-mix(in oklab, var(--color-primary) 4%, transparent));
+    height: 72%;
+    right: -12%;
+    top: 2%;
+    width: 54%;
+  }
+  &::after {
+    background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary-light) 30%, transparent), transparent 70%);
+    bottom: -20%;
+    height: 54%;
+    right: 14%;
+    width: 42%;
+  }
+}
+
+@utility technical-panel {
+  background-image: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 14%, transparent), transparent 48%);
+  border: 1px solid color-mix(in oklab, var(--color-ink-foreground) 12%, transparent);
 }
 
 @utility scrollbar-none {

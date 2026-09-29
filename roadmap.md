@@ -6,4 +6,5 @@
 - [x] Lägg till sex automatiska, svepbara RCS-kampanjer
 - [x] Lägg till interaktiv branschvisning, funktionsdemo och SMS-uppgradering
 - [x] Finjustera hero med låst höjd, fast telefon och synkroniserade scenariosvep
+- [x] Anpassa startsidan till en SendRCS-inspirerad svartvit produktberättelse med loggans färger
 - [ ] Koppla leverantör, inloggning och verkligt utskick — senare fas
