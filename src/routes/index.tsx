@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const primaryHref = "#prova";
+const primaryHref = "#jamforelse";
 const assistedHref = "#kontakt";
 
 function Index() {
