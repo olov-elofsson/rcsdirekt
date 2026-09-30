@@ -46,9 +46,9 @@
   --color-phone-chat: var(--phone-chat);
   --font-display: "Archivo Black", "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
-  --shadow-soft: 0 1px 2px oklch(0.1 0.002 60 / 6%), 0 12px 32px -22px oklch(0.1 0.002 60 / 22%);
-  --shadow-card: 0 1px 2px oklch(0.1 0.002 60 / 6%), 0 24px 60px -38px oklch(0.1 0.002 60 / 30%);
-  --shadow-lift: 0 2px 8px oklch(0.1 0.002 60 / 9%), 0 50px 100px -50px oklch(0.1 0.002 60 / 45%);
+  --shadow-soft: 0 1px 2px oklch(0.1 0.002 60 / 5%), 0 10px 28px -22px oklch(0.1 0.002 60 / 16%);
+  --shadow-card: 0 1px 2px oklch(0.1 0.002 60 / 5%), 0 20px 54px -40px oklch(0.1 0.002 60 / 24%);
+  --shadow-lift: 0 2px 8px oklch(0.1 0.002 60 / 7%), 0 42px 90px -52px oklch(0.1 0.002 60 / 34%);
 }
 
 :root {
@@ -105,6 +105,13 @@
     overflow-x: hidden;
   }
 
+  a,
+  button,
+  textarea {
+    transition-duration: 220ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   ::selection {
     background-color: var(--color-gold);
     color: var(--color-ink-foreground);
@@ -143,14 +150,14 @@
     z-index: -1;
   }
   &::before {
-    background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary) 46%, transparent), color-mix(in oklab, var(--color-primary) 4%, transparent));
-    height: 72%;
-    right: -12%;
+    background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary) 26%, transparent), color-mix(in oklab, var(--color-primary) 2%, transparent));
+    height: 68%;
+    right: -16%;
     top: 2%;
     width: 54%;
   }
   &::after {
-    background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary-light) 30%, transparent), transparent 70%);
+    background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary-light) 14%, transparent), transparent 70%);
     bottom: -20%;
     height: 54%;
     right: 14%;
@@ -159,8 +166,8 @@
 }
 
 @utility technical-panel {
-  background-image: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 14%, transparent), transparent 48%);
-  border: 1px solid color-mix(in oklab, var(--color-ink-foreground) 12%, transparent);
+  background-image: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 8%, transparent), transparent 52%);
+  border: 1px solid color-mix(in oklab, var(--color-ink-foreground) 8%, transparent);
 }
 
 @utility scrollbar-none {
