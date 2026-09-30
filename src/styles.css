@@ -108,7 +108,7 @@
   a,
   button,
   textarea {
-    transition-duration: 220ms;
+    transition-duration: 280ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
