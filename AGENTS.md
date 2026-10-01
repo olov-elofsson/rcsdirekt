@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Visuell arkitektur: använd en svartvit, SendRCS-inspirerad produktberättelse med stora tekniska kontrastfält och RCS Direkts orange/persika accenter, eftersom varumärket ska kännas exklusivt utan att kopiera referensen.
+- Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas, svart typografi och RCS Direkts orange/persika accenter, eftersom tjänsten ska kännas enkel och mänsklig utan att kopiera referensens varumärke.
