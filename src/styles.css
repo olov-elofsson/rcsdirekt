@@ -140,6 +140,21 @@
   color: transparent;
 }
 
+@theme {
+  --color-logo-cream: #f6f0df;
+  --color-logo-peach: #efa078;
+  --color-logo-orange: #f06b36;
+  --color-logo-blush: #f3c2a6;
+}
+
+/* Logotypens gradient — används enbart där klienten begärt den. */
+@utility logo-gradient-text {
+  background-image: linear-gradient(90deg, var(--color-logo-peach), var(--color-logo-orange) 52%, var(--color-logo-blush));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @utility technical-stage {
   isolation: isolate;
   position: relative;
