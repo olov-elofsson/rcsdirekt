@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* RCS Direkt — tekniskt svartvitt brandkit med loggans orange färger. */
+/* RCS Direkt — luftigt svartvitt brandkit med loggans persikaorange färger. */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -53,7 +53,7 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.975 0.003 85);
+  --background: oklch(0.995 0.001 85);
   --foreground: oklch(0.1 0.002 60);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.1 0.002 60);
@@ -61,10 +61,10 @@
   --popover-foreground: oklch(0.1 0.002 60);
   --primary: oklch(0.68 0.208 41);
   --primary-foreground: oklch(0.12 0.006 60);
-  --primary-soft: oklch(0.93 0.04 55);
+  --primary-soft: oklch(0.965 0.025 55);
   --secondary: oklch(0.1 0.002 60);
   --secondary-foreground: oklch(0.99 0.002 85);
-  --muted: oklch(0.94 0.004 80);
+  --muted: oklch(0.965 0.003 80);
   --muted-foreground: oklch(0.42 0.008 65);
   --accent: oklch(0.1 0.002 60);
   --accent-foreground: oklch(0.99 0.002 85);
@@ -78,7 +78,7 @@
   --border-strong: oklch(0.2 0.004 60);
   --input: oklch(0.88 0.005 70);
   --ring: oklch(0.68 0.208 41);
-  --surface-tint: oklch(0.925 0.008 70);
+  --surface-tint: oklch(0.965 0.01 70);
   --primary-light: oklch(0.77 0.12 55);
   --phone-edge: oklch(0.1 0.002 60);
   --phone-screen: oklch(0.99 0.003 90);
@@ -163,6 +163,17 @@
     right: 14%;
     width: 42%;
   }
+}
+
+@utility hero-halo {
+  background: radial-gradient(circle, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 68%);
+  height: 30rem;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  width: 30rem;
 }
 
 @utility technical-panel {

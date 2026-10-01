@@ -7,4 +7,5 @@
 - [x] Lägg till interaktiv branschvisning, funktionsdemo och SMS-uppgradering
 - [x] Finjustera hero med låst höjd, fast telefon och synkroniserade scenariosvep
 - [x] Anpassa startsidan till en SendRCS-inspirerad svartvit produktberättelse med loggans färger
+- [x] Anpassa startsidan till en luftig 46elks-inspirerad RCS-presentation
 - [ ] Koppla leverantör, inloggning och verkligt utskick — senare fas
