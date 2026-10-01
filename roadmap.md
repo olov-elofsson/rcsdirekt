@@ -9,4 +9,5 @@
 - [x] Anpassa startsidan till en SendRCS-inspirerad svartvit produktberättelse med loggans färger
 - [x] Anpassa startsidan till en luftig 46elks-inspirerad RCS-presentation
 - [x] Förenkla hela sidans copy och styckesordning i samma raka berättarstil
+- [x] Flytta prislistan till toppmenyn, lyft fördelarna och ta bort startsidans prisblock
 - [ ] Koppla leverantör, inloggning och verkligt utskick — senare fas
