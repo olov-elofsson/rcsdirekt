@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, BadgeCheck, Braces, Check, Headphones, Linkedin, Menu, Smartphone, X, Youtube } from "lucide-react";
+import { ArrowRight, BadgeCheck, Braces, Check, Code2, Globe, Headphones, Linkedin, Sparkles, X, Youtube } from "lucide-react";
 
 import logoAsset from "@/assets/rcsdirekt-logo.svg.asset.json";
 import { RcsPhone } from "@/components/RcsPhone";
@@ -24,8 +24,10 @@ export const Route = createFileRoute("/")({
 const assistedHref = "#kontakt";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Pricing /><IndustryShowcase /><IntegrationFlow /></main><Footer /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Pricing /></main><Footer /></div>;
 }
+
+const sectionTitle = "text-[2rem] font-extrabold leading-[1.08] tracking-[-0.02em] sm:text-[2.5rem]";
 
 function Logo({ white = false }: { white?: boolean }) { return <img src={logoAsset.url} alt="RCS Direkt" className={cn("h-7 w-auto", white && "brightness-0 invert")} />; }
 
