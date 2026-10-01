@@ -20,11 +20,10 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const primaryHref = "#jamforelse";
 const assistedHref = "#kontakt";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><SMSvsRCS /><IndustryShowcase /><CapabilityDemo /><IntegrationFlow /><SMSUpgradeDemo /></main><Footer /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Pricing /><IndustryShowcase /><IntegrationFlow /><SMSUpgradeDemo /></main><Footer /></div>;
 }
 
 function Logo({ white = false }: { white?: boolean }) { return <img src={logoAsset.url} alt="RCS Direkt" className={cn("h-7 w-auto", white && "brightness-0 invert")} />; }
@@ -35,7 +34,6 @@ function Header() {
   return <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-lg"><div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 lg:px-8"><a href="#top" aria-label="RCS Direkt, startsida" className="inline-flex items-center"><Logo /></a><nav className="hidden items-center gap-7 lg:flex" aria-label="Huvudmeny">{links.map(([label, href]) => <a key={label} href={href} className="text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground">{label}</a>)}<details className="group relative"><summary className="cursor-pointer list-none text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground">Pris</summary><div className="absolute left-1/2 top-7 w-64 -translate-x-1/2 rounded-2xl border border-border bg-card p-5 shadow-card"><p className="text-xs font-bold">Pris per meddelande</p><div className="mt-3 grid gap-2 text-xs">{pricingPlans.map((plan) => <div key={plan.name} className="flex justify-between gap-5"><span className="text-muted-foreground">{plan.name}</span><span className="font-bold text-primary">{plan.price}</span></div>)}</div><p className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">Inga månadskostnader</p></div></details></nav><div className="hidden items-center gap-5 sm:flex"><a href="#kontakt" className="text-xs font-semibold text-foreground hover:text-ink-foreground">Logga in</a><Button asChild size="sm" variant="secondary"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button></div><Button aria-label={open ? "Stäng meny" : "Öppna meny"} variant="ghost" size="icon" className="text-foreground lg:hidden" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div>{open ? <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobilmeny">{links.map(([label, href]) => <a key={label} href={href} onClick={() => setOpen(false)} className="block border-b border-border py-3 text-sm font-semibold text-foreground">{label}</a>)}<div className="border-b border-border py-4"><p className="text-sm font-semibold">Pris</p><div className="mt-3 grid gap-2">{pricingPlans.map((plan) => <p key={plan.name} className="flex justify-between text-xs"><span className="text-muted-foreground">{plan.name}</span><span className="font-bold text-primary">{plan.price}</span></p>)}</div><p className="mt-2 text-[11px] text-muted-foreground">Inga månadskostnader</p></div><Button asChild className="mt-5 w-full"><a href={assistedHref} onClick={() => setOpen(false)}>Skapa konto</a></Button></nav> : null}</header>;
 }
 
-function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) { return <p className={cn("text-[10px] font-bold uppercase tracking-[0.14em]", dark ? "text-primary-light" : "text-primary")}>{children}</p>; }
 function DualCtas({ dark = false }: { dark?: boolean }) { return <div className="flex flex-col gap-3 sm:flex-row"><Button asChild size="lg"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button><Button asChild size="lg" variant="outline" className={dark ? "border-ink-foreground/40 bg-transparent text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground" : ""}><a href={assistedHref}>Prata med oss</a></Button></div>; }
 
 const heroBenefits = [
