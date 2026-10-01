@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* RCS Direkt — luftigt svartvitt brandkit med loggans persikaorange färger. */
+/* RCS Direkt — luftigt svartvitt brandkit; orange finns enbart i logotypen. */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -60,17 +60,17 @@
   --card-foreground: oklch(0.1 0.002 60);
   --popover: oklch(0.99 0.002 85);
   --popover-foreground: oklch(0.1 0.002 60);
-  --primary: oklch(0.68 0.208 41);
-  --primary-foreground: oklch(0.12 0.006 60);
-  --primary-deep: oklch(0.58 0.2 33);
-  --primary-soft: oklch(0.965 0.025 55);
+  --primary: oklch(0.1 0.002 60);
+  --primary-foreground: oklch(0.99 0.002 85);
+  --primary-deep: oklch(0.075 0.004 40);
+  --primary-soft: oklch(0.955 0.003 80);
   --secondary: oklch(0.1 0.002 60);
   --secondary-foreground: oklch(0.99 0.002 85);
   --muted: oklch(0.965 0.003 80);
   --muted-foreground: oklch(0.42 0.008 65);
   --accent: oklch(0.1 0.002 60);
   --accent-foreground: oklch(0.99 0.002 85);
-  --gold: oklch(0.68 0.208 41);
+  --gold: oklch(0.1 0.002 60);
   --ink: oklch(0.075 0.004 40);
   --ink-foreground: oklch(0.98 0.004 85);
   --ink-muted: oklch(0.7 0.01 80);
@@ -79,9 +79,9 @@
   --border: oklch(0.88 0.005 70);
   --border-strong: oklch(0.2 0.004 60);
   --input: oklch(0.88 0.005 70);
-  --ring: oklch(0.68 0.208 41);
-  --surface-tint: oklch(0.965 0.01 70);
-  --primary-light: oklch(0.77 0.12 55);
+  --ring: oklch(0.1 0.002 60);
+  --surface-tint: oklch(0.965 0.003 80);
+  --primary-light: oklch(0.86 0.004 80);
   --phone-edge: oklch(0.1 0.002 60);
   --phone-screen: oklch(0.99 0.003 90);
   --phone-chat: oklch(0.96 0.006 85);
