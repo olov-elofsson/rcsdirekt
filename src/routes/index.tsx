@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "#kontakt";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Pricing /><IndustryShowcase /><IntegrationFlow /><SMSUpgradeDemo /></main><Footer /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Pricing /><IndustryShowcase /><IntegrationFlow /></main><Footer /></div>;
 }
 
 function Logo({ white = false }: { white?: boolean }) { return <img src={logoAsset.url} alt="RCS Direkt" className={cn("h-7 w-auto", white && "brightness-0 invert")} />; }
@@ -70,7 +70,7 @@ const pricingPlans = [
 
 const planExplanations = [
   { name: "RCS Basic", price: "0,30 SEK", copy: "Enklaste meddelandet. Text med verifierad avsändare. Passar påminnelser, kvitton och kort information." },
-  { name: "RCS Single", price: "0,425 SEK", copy: "Ett riktare meddelande med bilder och knappar. Kunden agerar direkt i meddelandet utan att läsms." },
+  { name: "RCS Single", price: "0,425 SEK", copy: "Ett riktare meddelande med bilder och knappar. Kunden agerar direkt i meddelandet, utan att lämna sidan." },
   { name: "RCS Conversation", price: "0,63 SEK", copy: "Tvåvägskommunikation. Kunden kan svara och ni fortsätter konversationen direkt i meddelandeappen." },
 ];
 function Footer() { return <footer id="kontakt" className="bg-ink py-10 text-ink-foreground"><div className="mx-auto grid max-w-7xl gap-10 px-5 sm:grid-cols-[1.2fr_2fr_auto] lg:px-8"><Logo /><div className="grid grid-cols-3 gap-6 text-xs"><div><p className="font-bold">Produkt</p>{["Så fungerar det", "Branscher", "Integrationer", "Pris", "Inspiration"].map((item) => <a key={item} href={item === "Pris" ? "#pris" : "#top"} className="mt-2 block text-ink-muted transition-colors hover:text-ink-foreground">{item}</a>)}</div><div><p className="font-bold">Företag</p><a href="#kontakt" className="mt-2 block text-ink-muted transition-colors hover:text-ink-foreground">Om oss</a><a href="#kontakt" className="mt-2 block text-ink-muted transition-colors hover:text-ink-foreground">Kontakt</a></div><div><p className="font-bold">Juridiskt</p><a href="#kontakt" className="mt-2 block text-ink-muted transition-colors hover:text-ink-foreground">Integritet</a><a href="#kontakt" className="mt-2 block text-ink-muted transition-colors hover:text-ink-foreground">Villkor</a></div></div><div className="flex items-start gap-3"><a href="#top" aria-label="LinkedIn" className="text-ink-foreground"><Linkedin className="size-4" /></a><a href="#top" aria-label="Youtube" className="text-ink-foreground"><Youtube className="size-4" /></a></div></div><div className="mx-auto mt-10 max-w-7xl border-t border-ink-foreground/10 px-5 pt-6 text-right text-[10px] text-ink-muted lg:px-8">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</div></footer>; }
