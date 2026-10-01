@@ -29,7 +29,7 @@ function Index() {
 
 const sectionTitle = "text-[2rem] font-extrabold leading-[1.08] tracking-[-0.02em] sm:text-[2.5rem]";
 
-function Logo({ white = false, className }: { white?: boolean; className?: string }) { return <img src={logoAsset.url} alt="RCS Direkt" className={cn("h-8 w-auto drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)] saturate-[1.15]", white && "brightness-0 invert", className)} />; }
+function Logo({ white = false, className }: { white?: boolean; className?: string }) { return <img src={logoAsset.url} alt="RCS Direkt" className={cn("h-7 w-auto", white && "brightness-0 invert", className)} />; }
 
 function Header() {
   const [open, setOpen] = useState(false);
