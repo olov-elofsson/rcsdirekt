@@ -20,12 +20,12 @@ export type Campaign = {
 };
 
 export const campaigns: [Campaign, ...Campaign[]] = [
-  { industry: "E-handel", brand: "AERA", headline: "Från inspiration till köp.", copy: "Visa dina produkter, erbjudanden och nyheter direkt i kundens meddelandeapp. Med snygga bilder, knappar och karuseller blir det enklare att inspirera – och få fler affärer.", messageTitle: "Hösten är här.", messageBody: "Upptäck våra nyheter – utvalda för dig.", image: aeraImage, actions: ["Shoppa dam", "Shoppa herr", "Se fler"], meta: ["Nyheter", "Dam", "Herr"], theme: "fashion" },
-  { industry: "Bil & service", brand: "MOTO", headline: "Från besked till handling.", copy: "Service, provkörning och viktiga besked blir enklare när kunden kan agera direkt i meddelandet.", messageTitle: "Din bil är klar.", messageBody: "Vi är färdiga med servicen och bilen är redo att hämtas.", image: motoImage, actions: ["Boka hämtning", "Hitta hit", "Ring oss"], detail: "Idag · 16:30 · MOTO Örebro", meta: ["Service klar", "Redo att hämtas"], theme: "auto" },
-  { industry: "Leverans", brand: "NORDLY", headline: "Från order till dörr.", copy: "Håll kunden uppdaterad hela vägen – och låt dem följa eller ändra leveransen direkt i meddelandet.", messageTitle: "På väg till dig 📦", messageBody: "Din order #48291 har lämnat vårt lager.", image: nordlyImage, actions: ["Följ paketet", "Ändra leverans"], detail: "Levereras imorgon", meta: ["Beställd", "Packad", "Skickad", "Leverans"], theme: "delivery" },
-  { industry: "Mäklare", brand: "HAVN", headline: "Från intresse till visning.", copy: "Visa bostaden, skapa intresse och låt kunden boka visning direkt – utan onödiga mellansteg.", messageTitle: "Ny visning i ditt område", messageBody: "Ekbacksvägen 14, Örebro", image: havnImage, actions: ["Se bostaden", "Boka visning", "Visa på karta"], detail: "Visning söndag 13:00", meta: ["Villa", "156 m²", "5 rum"], theme: "property" },
-  { industry: "Restaurang & loyalty", brand: "VELA", headline: "Från kund till stamkund.", copy: "Belöna lojala gäster, fyll lediga bord och skapa anledningar att komma tillbaka.", messageTitle: "Du har något gott att hämta 🎁", messageBody: "Din medlemsbonus är redo.", image: velaImage, actions: ["Använd bonus", "Se meny", "Boka bord"], detail: "Gäller till söndag", meta: ["150", "BONUSPOÄNG"], theme: "food" },
-  { industry: "Event", brand: "LUMEN", headline: "Från påminnelse till upplevelse.", copy: "Biljetter, information och praktiska detaljer samlade där kunden redan har dem – i mobilen.", messageTitle: "Ikväll smäller det.", messageBody: "LUMEN LIVE · Din biljett är redo.", image: lumenImage, actions: ["Visa biljett", "Hitta hit", "Lägg i kalender"], detail: "19:30 · Entré B", meta: ["24 SEP", "19:30", "ENTRÉ B"], theme: "event" },
+  { industry: "E-handel", brand: "AERA", headline: "Visa och sälj produkter", copy: "Skicka produktbilder, erbjudanden och köpknappar direkt till kunden.", messageTitle: "Hösten är här", messageBody: "Upptäck våra nyheter – utvalda för dig.", image: aeraImage, actions: ["Shoppa dam", "Shoppa herr", "Se fler"], meta: ["Nyheter", "Dam", "Herr"], theme: "fashion" },
+  { industry: "Bil & service", brand: "MOTO", headline: "Boka och ge besked", copy: "Bekräfta service, erbjud provkörning och låt kunden boka en tid direkt.", messageTitle: "Din bil är klar", messageBody: "Vi är färdiga med servicen och bilen är redo att hämtas.", image: motoImage, actions: ["Boka hämtning", "Hitta hit", "Ring oss"], detail: "Idag · 16:30 · MOTO Örebro", meta: ["Service klar", "Redo att hämtas"], theme: "auto" },
+  { industry: "Leverans", brand: "NORDLY", headline: "Följ varje leverans", copy: "Visa aktuell status och låt kunden följa eller ändra leveransen.", messageTitle: "På väg till dig 📦", messageBody: "Din order #48291 har lämnat vårt lager.", image: nordlyImage, actions: ["Följ paketet", "Ändra leverans"], detail: "Levereras imorgon", meta: ["Beställd", "Packad", "Skickad", "Leverans"], theme: "delivery" },
+  { industry: "Mäklare", brand: "HAVN", headline: "Visa och boka bostäder", copy: "Presentera bostaden och låt kunden boka en visning i samma meddelande.", messageTitle: "Ny visning i ditt område", messageBody: "Ekbacksvägen 14, Örebro", image: havnImage, actions: ["Se bostaden", "Boka visning", "Visa på karta"], detail: "Visning söndag 13:00", meta: ["Villa", "156 m²", "5 rum"], theme: "property" },
+  { industry: "Restaurang & loyalty", brand: "VELA", headline: "Boka bord och ge bonus", copy: "Fyll lediga bord och ge medlemmar erbjudanden som går att använda direkt.", messageTitle: "Du har något gott att hämta 🎁", messageBody: "Din medlemsbonus är redo.", image: velaImage, actions: ["Använd bonus", "Se meny", "Boka bord"], detail: "Gäller till söndag", meta: ["150", "BONUSPOÄNG"], theme: "food" },
+  { industry: "Event", brand: "LUMEN", headline: "Samla allt inför eventet", copy: "Skicka biljett, starttid, vägbeskrivning och påminnelser i ett meddelande.", messageTitle: "Ikväll smäller det", messageBody: "LUMEN LIVE · Din biljett är redo.", image: lumenImage, actions: ["Visa biljett", "Hitta hit", "Lägg i kalender"], detail: "19:30 · Entré B", meta: ["24 SEP", "19:30", "ENTRÉ B"], theme: "event" },
 ];
 
 export type Industry = {
@@ -37,18 +37,18 @@ export type Industry = {
 };
 
 const industrySeed = [
-  ["E-handel", "Från inspiration till köp.", "Visa produkter, lansera nyheter, belöna lojala kunder och följ upp köp – utan att kunden lämnar meddelandeappen.", ["Produktlansering", "Nyheter", "Loyalty", "Orderuppföljning"], 0],
-  ["Bil & service", "Från bokning till bättre service.", "Gör varje kontakt enklare – före, under och efter verkstadsbesöket.", ["Provkörning", "Servicepåminnelse", "Bilen är klar", "Personligt erbjudande"], 1],
-  ["Leverans", "Full koll, hela vägen.", "Ge tydlig status och låt kunden styra sin leverans direkt i mobilen.", ["Orderbekräftelse", "Paket skickat", "Live-status", "Ändra leverans"], 2],
-  ["Mäklare", "Fler visningar. Färre steg.", "Presentera bostäder och gör vägen från intresse till bokning kortare.", ["Ny bostad", "Visningsinbjudan", "Boka visning", "Bud & status"], 3],
-  ["Restaurang", "Fyll bord och bygg lojalitet.", "Gör bokning, erbjudanden och återbesök till en naturlig del av dialogen.", ["Boka bord", "Medlemsbonus", "Ny meny", "Personligt erbjudande"], 4],
-  ["Event", "Bygg förväntan före start.", "Samla biljetter, påminnelser och praktisk information på ett ställe.", ["Biljett", "Eventpåminnelse", "Praktisk information", "Merförsäljning"], 5],
-  ["Resor & hotell", "En smidigare resa börjar i mobilen.", "Förenkla allt från bokning till incheckning och personliga tillval.", ["Bokningsbekräftelse", "Check-in", "Uppgradera rum", "Loyalty"], 3],
-  ["Retail", "Gör butik och mobil till en upplevelse.", "Driv besök, köp och lojalitet med relevanta meddelanden.", ["Produktlansering", "Medlemserbjudande", "Kundklubb", "Click & collect"], 0],
-  ["Hälsa", "Trygga besked i rätt tid.", "Minska missade tider och gör viktig information lätt att agera på.", ["Bokningsbekräftelse", "Påminnelse", "Ombokning", "Praktisk information"], 4],
-  ["Utbildning", "Information som når fram.", "Samla schema, påminnelser och viktiga besked i en tydlig dialog.", ["Kursstart", "Påminnelse", "Schema", "Viktig information"], 5],
-  ["Ideell sektor", "När engagemang blir handling.", "Gör det enkelt att delta, bidra och hålla sig uppdaterad.", ["Event", "Medlemskap", "Donation", "Information"], 2],
-  ["Fler branscher", "RCS formas efter er vardag.", "Vi hjälper er hitta de tillfällen där en rikare dialog gör mest nytta.", ["Bekräftelse", "Påminnelse", "Erbjudande", "Kunddialog"], 1],
+  ["E-handel", "Visa och sälj produkter", "Skicka produktbilder, erbjudanden och köpknappar direkt till kunden.", ["Produktlansering", "Nyheter", "Loyalty", "Orderuppföljning"], 0],
+  ["Bil & service", "Boka och ge besked", "Bekräfta service, erbjud provkörning och låt kunden boka en tid direkt.", ["Provkörning", "Servicepåminnelse", "Bilen är klar", "Personligt erbjudande"], 1],
+  ["Leverans", "Följ varje leverans", "Visa aktuell status och låt kunden ändra leveransen i mobilen.", ["Orderbekräftelse", "Paket skickat", "Live-status", "Ändra leverans"], 2],
+  ["Mäklare", "Visa och boka bostäder", "Presentera bostaden och låt kunden boka en visning direkt.", ["Ny bostad", "Visningsinbjudan", "Boka visning", "Bud & status"], 3],
+  ["Restaurang", "Boka bord och ge bonus", "Skicka erbjudanden, ta emot bokningar och visa medlemsbonus.", ["Boka bord", "Medlemsbonus", "Ny meny", "Personligt erbjudande"], 4],
+  ["Event", "Samla allt inför eventet", "Skicka biljett, starttid, vägbeskrivning och påminnelser.", ["Biljett", "Eventpåminnelse", "Praktisk information", "Merförsäljning"], 5],
+  ["Resor & hotell", "Hjälp gästen hela vägen", "Skicka bokning, incheckning och tillval direkt till mobilen.", ["Bokningsbekräftelse", "Check-in", "Uppgradera rum", "Loyalty"], 3],
+  ["Retail", "Få fler besök och köp", "Visa produkter, medlemserbjudanden och information om hämtning.", ["Produktlansering", "Medlemserbjudande", "Kundklubb", "Click & collect"], 0],
+  ["Hälsa", "Minska missade tider", "Bekräfta, påminn och låt patienten boka om direkt.", ["Bokningsbekräftelse", "Påminnelse", "Ombokning", "Praktisk information"], 4],
+  ["Utbildning", "Samla viktig information", "Skicka schema, påminnelser och besked i samma dialog.", ["Kursstart", "Påminnelse", "Schema", "Viktig information"], 5],
+  ["Ideell sektor", "Gör det enkelt att delta", "Skicka information om event, medlemskap och donationer.", ["Event", "Medlemskap", "Donation", "Information"], 2],
+  ["Fler branscher", "Anpassa RCS efter er vardag", "Vi hjälper er hitta rätt meddelanden att börja med.", ["Bekräftelse", "Påminnelse", "Erbjudande", "Kunddialog"], 1],
 ] as const;
 
 export const industries: Industry[] = industrySeed.map(([name, headline, copy, examples, campaignIndex]) => ({
