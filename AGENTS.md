@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas, svart typografi och RCS Direkts orange/persika accenter, eftersom tjänsten ska kännas enkel och mänsklig utan att kopiera referensens varumärke.
+- Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas och monokrom svartvit design; orange/persika får enbart förekomma i logotypen, inte i gränssnittet, eftersom tjänsten ska kännas enkel, rak och mänsklig.
