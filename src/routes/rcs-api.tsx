@@ -42,29 +42,38 @@ function RcsApiPage() {
     >
       <ContentBlock title="En enkel struktur">
         <p>Ett RCS-meddelande skickas med ett vanligt HTTPS-anrop. Tre uppgifter räcker: mottagare, avsändare och själva meddelandet. Allt annat — knappar, bilder, karuseller — lägger du till först när du behöver det.</p>
-        <div id="exempel" className="mt-8 grid gap-4 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl border border-ink-foreground/10 bg-ink">
-            <p className="border-b border-ink-foreground/10 px-5 py-3 text-xs font-bold text-ink-muted">Begäran</p>
-            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:text-sm">{`POST /rcs/send
-Authorization: Bearer DIN_API_NYCKEL
-Content-Type: application/json
-
-{
-  "to": "+46700000000",
-  "sender": "DittForetag",
-  "text": "Din order är på väg",
-  "suggestion": "Spåra leveransen"
-}`}</pre>
+        <div id="exempel" className="mt-8 grid gap-4">
+          <div className="overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
+            <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
+              <span className="rounded-md bg-ink-foreground/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-ink-foreground">POST</span>
+              <span className="font-mono text-xs text-ink-muted sm:text-sm">/rcs/send</span>
+              <span className="ml-auto hidden text-[11px] text-ink-muted sm:inline">Begäran</span>
+            </div>
+            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:p-6 sm:text-sm">
+              <span className="font-bold">POST</span>{" "}<span className="text-ink-muted">/rcs/send</span>{"\n"}
+              <span className="text-ink-muted">Authorization:</span> Bearer DIN_API_NYCKEL{"\n"}
+              <span className="text-ink-muted">Content-Type:</span> application/json{"\n\n"}
+              {"{\n"}
+              {"  "}<span className="text-ink-muted">"to"</span>: "+46700000000",{"\n"}
+              {"  "}<span className="text-ink-muted">"sender"</span>: "DittForetag",{"\n"}
+              {"  "}<span className="text-ink-muted">"text"</span>: "Din order är på väg",{"\n"}
+              {"  "}<span className="text-ink-muted">"suggestion"</span>: "Spåra leveransen"{"\n"}
+              {"}"}
+            </pre>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-ink-foreground/10 bg-ink">
-            <p className="border-b border-ink-foreground/10 px-5 py-3 text-xs font-bold text-ink-muted">Svar</p>
-            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:text-sm">{`200 OK
-
-{
-  "messageId": "msg_8f4a21",
-  "status": "ACCEPTED",
-  "to": "+46700000000"
-}`}</pre>
+          <div className="overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
+            <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
+              <span className="rounded-md bg-ink-foreground/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-ink-foreground">200</span>
+              <span className="font-mono text-xs text-ink-muted sm:text-sm">OK</span>
+              <span className="ml-auto hidden text-[11px] text-ink-muted sm:inline">Svar</span>
+            </div>
+            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:p-6 sm:text-sm">
+              {"{\n"}
+              {"  "}<span className="text-ink-muted">"messageId"</span>: "msg_8f4a21",{"\n"}
+              {"  "}<span className="text-ink-muted">"status"</span>: "ACCEPTED",{"\n"}
+              {"  "}<span className="text-ink-muted">"to"</span>: "+46700000000"{"\n"}
+              {"}"}
+            </pre>
           </div>
         </div>
         <p className="mt-4 text-sm text-muted-foreground">Exemplet visar principen. Adresser och API-nycklar lämnas ut när API-tillgången aktiveras för ert konto.</p>
