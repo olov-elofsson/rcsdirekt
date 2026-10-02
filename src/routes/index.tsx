@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, BadgeCheck, Braces, Headphones, Linkedin, Menu, X, Youtube } from "lucide-react";
+import { ArrowRight, BadgeCheck, Braces, Code2, Globe, Headphones, Linkedin, Menu, Sparkles, X, Youtube } from "lucide-react";
 
 import logoAsset from "@/assets/rcsdirekt-logo.svg.asset.json";
 import { RcsPhone } from "@/components/RcsPhone";
@@ -47,13 +47,13 @@ const heroBenefits = [
 
 
 const waysToSend = [
-  { label: "Skicka RCS online", title: "Komplett webbgränssnitt", copy: "Skapa kampanjen, lägg in mottagare, bilder och meddelande — och skicka direkt i webbläsaren." },
-  { label: "RCS API", title: "REST API", copy: "Koppla ert befintliga system via API eller webhook och låt meddelanden gå ut automatiskt." },
-  { label: "RCS via AI", title: "AI-verktyg", copy: "Beskriv vad du vill säga och låt AI sätta ihop meddelandet. Du godkänner alltid innan det skickas." },
+  { icon: Globe, title: "Komplett webbgränssnitt", copy: "Skapa kampanjen, lägg in mottagare, bilder och meddelande — och skicka direkt i webbläsaren." },
+  { icon: Code2, title: "REST API", copy: "Koppla ert befintliga system via API eller webhook och låt meddelanden gå ut automatiskt." },
+  { icon: Sparkles, title: "AI-verktyg", copy: "Beskriv vad du vill säga och låt AI sätta ihop meddelandet. Du godkänner alltid innan det skickas." },
 ];
 
 function WhatIsRcs() {
-  return <section id="vad-ar-rcs" className="border-b border-border bg-background py-20 sm:py-24"><div className="mx-auto max-w-6xl px-5 lg:px-8"><div className="max-w-3xl"><h2 className={sectionTitle}>RCS, fast med fler möjligheter</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS är nästa generations meddelanden. Meddelandet kommer direkt till mobilens vanliga meddelandeapp. Kunden behöver inte ladda ner något.</p><p className="mt-4 text-base leading-relaxed text-muted-foreground">Du kan skicka bilder och video, visa flera produkter och lägga in knappar för köp, bokning eller svar. Företagsnamn och logotyp visar vem som är avsändare.</p></div><p className="mt-12 text-sm font-bold">Tre sätt att skicka</p><div className="mt-4 flex flex-wrap gap-3">{waysToSend.map(({ label, title, copy }) => <Dialog key={label}><DialogTrigger asChild><Button size="lg">{label}</Button></DialogTrigger><DialogContent className="max-w-lg"><DialogHeader><DialogTitle className="text-left text-2xl font-bold">{label}</DialogTitle><DialogDescription className="text-left">{title}</DialogDescription></DialogHeader><p className="text-left text-sm leading-relaxed text-muted-foreground">{copy}</p></DialogContent></Dialog>)}</div></div></section>;
+  return <section id="vad-ar-rcs" className="border-b border-border bg-background py-20 sm:py-24"><div className="mx-auto grid max-w-6xl gap-14 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-8"><div className="max-w-xl"><h2 className={sectionTitle}>RCS, fast med fler möjligheter</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS är nästa generations meddelanden. Meddelandet kommer direkt till mobilens vanliga meddelandeapp. Kunden behöver inte ladda ner något.</p><p className="mt-4 text-base leading-relaxed text-muted-foreground">Du kan skicka bilder och video, visa flera produkter och lägga in knappar för köp, bokning eller svar. Företagsnamn och logotyp visar vem som är avsändare.</p></div><div className="rounded-[2rem] border border-border bg-card p-8 shadow-card sm:p-10"><div className="grid gap-6">{waysToSend.map(({ icon: Icon, title, copy }) => <div key={title} className="flex gap-4"><span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-full bg-primary-soft text-primary"><Icon className="size-4.5" /></span><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-sm leading-relaxed text-muted-foreground">{copy}</p></div></div>)}</div></div></div></section>;
 }
 
 function Pricing() {
