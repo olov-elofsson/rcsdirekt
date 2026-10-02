@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, BadgeCheck, Braces, Check, Code2, Globe, Headphones, Linkedin, Menu, Sparkles, X, Youtube } from "lucide-react";
+import { ArrowRight, BadgeCheck, Braces, Headphones, Linkedin, Menu, X, Youtube } from "lucide-react";
 
 import logoAsset from "@/assets/rcsdirekt-logo.svg.asset.json";
 import { RcsPhone } from "@/components/RcsPhone";
@@ -47,13 +47,13 @@ const heroBenefits = [
 
 
 const waysToSend = [
-  { icon: Globe, title: "Komplett webbgränssnitt för RCS & SMS-kampanjer", copy: "Skapa kampanjen, lägg in mottagare, bilder och meddelande — och skicka direkt i webbläsaren." },
-  { icon: Code2, title: "REST API för att bygga in RCS & SMS i era applikationer", copy: "Koppla ert befintliga system via API eller webhook och låt meddelanden gå ut automatiskt." },
-  { icon: Sparkles, title: "AI-verktyg — skicka RCS & SMS via Claude, ChatGPT med flera", copy: "Beskriv vad du vill säga och låt AI sätta ihop meddelandet. Du godkänner alltid innan det skickas." },
+  { label: "Skicka RCS online", title: "Komplett webbgränssnitt", copy: "Skapa kampanjen, lägg in mottagare, bilder och meddelande — och skicka direkt i webbläsaren." },
+  { label: "RCS API", title: "REST API", copy: "Koppla ert befintliga system via API eller webhook och låt meddelanden gå ut automatiskt." },
+  { label: "RCS via AI", title: "AI-verktyg", copy: "Beskriv vad du vill säga och låt AI sätta ihop meddelandet. Du godkänner alltid innan det skickas." },
 ];
 
 function WhatIsRcs() {
-  return <section id="vad-ar-rcs" className="border-b border-border bg-background py-20 sm:py-24"><div className="mx-auto grid max-w-6xl gap-14 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:px-8"><div><h2 className={sectionTitle}>SMS, fast med fler möjligheter</h2><p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">RCS är nästa generation SMS. Meddelandet kommer direkt till mobilens vanliga meddelandeapp. Kunden behöver inte ladda ner något.</p><p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">Du kan skicka bilder och video, visa flera produkter och lägga in knappar för köp, bokning eller svar. Företagsnamn och logotyp visar vem som är avsändare.</p><div className="mt-12 grid gap-6">{waysToSend.map(({ icon: Icon, title, copy }) => <div key={title} className="flex gap-4"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary-soft text-primary"><Icon className="size-4" /></span><div><p className="text-sm font-bold leading-snug">{title}</p><p className="mt-1 max-w-md text-sm leading-relaxed text-muted-foreground">{copy}</p></div></div>)}</div></div><div className="relative overflow-hidden rounded-[2.25rem] bg-ink p-9 text-ink-foreground shadow-lift sm:p-12"><div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink-foreground/5 to-transparent" /><ul className="relative grid gap-5 text-sm">{["Verifierad avsändare med namn och logotyp", "Bilder, video och produktkort", "Knappar för köp, bokning och svar", "Leveransstatus, läskvitton och klick", "SMS fallback när RCS inte kan levereras"].map((item) => <li key={item} className="flex gap-3 border-b border-ink-foreground/15 pb-5 text-base last:border-0 last:pb-0"><Check className="mt-1 size-4 shrink-0 text-ink-foreground" /><span className="leading-relaxed">{item}</span></li>)}</ul></div></div></section>;
+  return <section id="vad-ar-rcs" className="border-b border-border bg-background py-20 sm:py-24"><div className="mx-auto max-w-6xl px-5 lg:px-8"><div className="max-w-3xl"><h2 className={sectionTitle}>RCS, fast med fler möjligheter</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS är nästa generations meddelanden. Meddelandet kommer direkt till mobilens vanliga meddelandeapp. Kunden behöver inte ladda ner något.</p><p className="mt-4 text-base leading-relaxed text-muted-foreground">Du kan skicka bilder och video, visa flera produkter och lägga in knappar för köp, bokning eller svar. Företagsnamn och logotyp visar vem som är avsändare.</p></div><p className="mt-12 text-sm font-bold">Tre sätt att skicka</p><div className="mt-4 flex flex-wrap gap-3">{waysToSend.map(({ label, title, copy }) => <Dialog key={label}><DialogTrigger asChild><Button size="lg">{label}</Button></DialogTrigger><DialogContent className="max-w-lg"><DialogHeader><DialogTitle className="text-left text-2xl font-bold">{label}</DialogTitle><DialogDescription className="text-left">{title}</DialogDescription></DialogHeader><p className="text-left text-sm leading-relaxed text-muted-foreground">{copy}</p></DialogContent></Dialog>)}</div></div></section>;
 }
 
 function Pricing() {
