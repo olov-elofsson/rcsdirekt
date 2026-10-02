@@ -11,3 +11,6 @@
 - [x] Förenkla hela sidans copy och styckesordning i samma raka berättarstil
 - [x] Flytta prislistan till toppmenyn, lyft fördelarna och ta bort startsidans prisblock
 - [ ] Koppla leverantör, inloggning och verkligt utskick — senare fas
+- [ ] Skapa undersidor för RCS online och RCS API
+- [ ] Skapa separata undersidor för Basic, Single och Conversation
+- [ ] Länka startsidans produkt- och priskort till de nya undersidorna
