@@ -47,9 +47,9 @@
   --color-phone-chat: var(--phone-chat);
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
-  --shadow-soft: 0 1px 2px oklch(0.1 0.002 60 / 5%), 0 12px 32px -22px oklch(0.1 0.002 60 / 18%);
-  --shadow-card: 0 1px 2px oklch(0.1 0.002 60 / 5%), 0 26px 64px -40px oklch(0.1 0.002 60 / 27%);
-  --shadow-lift: 0 2px 8px oklch(0.1 0.002 60 / 7%), 0 50px 100px -52px oklch(0.1 0.002 60 / 38%);
+  --shadow-soft: 0 1px 2px oklch(0.14 0.01 55 / 5%), 0 12px 32px -22px oklch(0.14 0.01 55 / 18%);
+  --shadow-card: 0 1px 2px oklch(0.14 0.01 55 / 5%), 0 26px 64px -40px oklch(0.14 0.01 55 / 27%);
+  --shadow-lift: 0 2px 8px oklch(0.14 0.01 55 / 7%), 0 50px 100px -52px oklch(0.14 0.01 55 / 38%);
 }
 
 :root {
