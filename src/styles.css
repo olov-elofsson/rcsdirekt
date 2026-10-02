@@ -24,7 +24,6 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-deep: var(--primary-deep);
   --color-primary-soft: var(--primary-soft);
-  --color-primary-soft-deep: var(--primary-soft-deep);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -65,7 +64,6 @@
   --primary-foreground: #ffffff;
   --primary-deep: #0d0a45;
   --primary-soft: #efeefc;
-  --primary-soft-deep: #e7e5f8;
   --secondary: #15115f;
   --secondary-foreground: #ffffff;
   --muted: #f5f5fc;
