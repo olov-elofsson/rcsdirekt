@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, BadgeCheck, BarChart3, Braces, Check, Code2, Globe, Headphones, Images, Linkedin, Menu, TrendingUp, X, Youtube } from "lucide-react";
+import { ArrowRight, BadgeCheck, BarChart3, Braces, Code2, Globe, Headphones, Images, Linkedin, Menu, TrendingUp, X, Youtube } from "lucide-react";
 
 import logoUrl from "@/assets/rcsdirekt-logo.svg";
 import { RcsPhone } from "@/components/RcsPhone";
