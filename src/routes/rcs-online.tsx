@@ -50,7 +50,7 @@ function RcsOnlinePage() {
       eyebrow="RCS online"
       title="Skicka RCS-meddelanden direkt från webben"
       intro="Skapa kampanjer, hantera kontakter och svara på meddelanden direkt i webbläsaren. Ingen kod krävs."
-      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Allt samlat online</h2><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="#kontakt">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}
+      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Allt samlat online</h2><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}
     >
       <ContentBlock title="Ett webbgränssnitt för hela flödet">
         <p>Från första utkast till uppföljning finns allt på samma plats. Välj mottagare, bygg meddelandet visuellt och förhandsgranska resultatet innan du skickar.</p>
@@ -78,7 +78,7 @@ function RcsOnlinePage() {
         <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att skicka online?</h2>
         <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Skapa ett konto och bygg ert första RCS-meddelande direkt i webbläsaren.</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button asChild variant="inverted"><a href="#kontakt">Skapa konto <ArrowRight /></a></Button>
+          <Button asChild variant="inverted"><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button>
           <Button asChild variant="inverted"><Link to="/rcs-api">Se RCS API</Link></Button>
         </div>
       </div>

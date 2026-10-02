@@ -17,7 +17,7 @@ export function SiteHeader() {
             Startsida
           </Link>
           <Button asChild size="sm">
-            <a href="#kontakt">Skapa konto <ArrowRight /></a>
+            <a href="/skapa-konto">Skapa konto <ArrowRight /></a>
           </Button>
         </div>
       </div>

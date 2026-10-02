@@ -113,7 +113,7 @@ function RcsApiPage() {
               <a href="#exempel">Se exemplen <ArrowRight /></a>
             </Button>
             <Button asChild variant="outline">
-              <a href="#kontakt">Få API-tillgång <ArrowRight /></a>
+              <a href="/kontakt">Få API-tillgång <ArrowRight /></a>
             </Button>
           </div>
         </div>
@@ -175,7 +175,7 @@ function RcsApiPage() {
         <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Kontakta oss för API-tillgång och hjälp med att planera er första integration.</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild variant="inverted">
-            <a href="#kontakt">Kontakta oss <ArrowRight /></a>
+            <a href="/kontakt">Kontakta oss <ArrowRight /></a>
           </Button>
           <Button asChild variant="inverted">
             <Link to="/rcs-online">Se RCS online</Link>
