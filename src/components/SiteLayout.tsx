@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Linkedin, Youtube } from "lucide-react";
 import type { ReactNode } from "react";
 
-import logoUrl from "@/assets/rcsdirekt-logo.svg";
+import { BrandLogo, BrandSymbol } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
@@ -10,28 +10,14 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida">
-          <img src={logoUrl} alt="RCS Direkt" className="h-9 w-auto" />
+          <BrandLogo />
         </Link>
-        <div className="flex items-center gap-6">
-          <nav className="hidden items-center gap-6 md:flex">
-            <Link to="/" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
-              Startsida
-            </Link>
-            <Link to="/rcs-online" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
-              RCS online
-            </Link>
-            <Link to="/rcs-api" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
-              RCS API
-            </Link>
-            <Link to="/jamfor-planer" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
-              Meddelandetyper
-            </Link>
-            <Link to="/kontakt" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
-              Kontakt
-            </Link>
-          </nav>
+        <div className="flex items-center gap-5">
+          <Link to="/skapa-konto" className="hidden text-xs font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
+            Logga in
+          </Link>
           <Button asChild size="sm">
-            <a href="/skapa-konto">Skapa konto <ArrowRight /></a>
+            <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
           </Button>
         </div>
       </div>
@@ -44,7 +30,7 @@ export function SiteFooter() {
     <footer id="kontakt" className="bg-ink py-12 text-ink-foreground sm:py-16">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:grid-cols-[1.2fr_2fr_auto] lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida">
-          <img src={logoUrl} alt="RCS Direkt" className="h-10 w-auto brightness-0 invert" />
+          <BrandSymbol inverse className="h-11" />
         </Link>
         <div className="grid grid-cols-2 gap-6 text-xs sm:grid-cols-3">
           <div><p className="font-bold">Skicka</p><Link to="/rcs-online" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS online</Link><Link to="/rcs-api" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS API</Link></div>

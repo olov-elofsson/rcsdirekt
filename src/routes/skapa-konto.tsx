@@ -3,7 +3,7 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import { Check, Github, KeyRound } from "lucide-react";
 
-import logoUrl from "@/assets/rcsdirekt-logo.svg";
+import { SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -54,10 +54,7 @@ function SignupPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-primary-soft">
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-6 lg:px-8">
-        <Link to="/" aria-label="Till startsidan"><img src={logoUrl} alt="RCS Direkt" className="h-9 w-auto" /></Link>
-        <Link to="/" className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">Till startsidan</Link>
-      </header>
+      <SiteHeader />
 
       <main className="flex flex-1 items-center justify-center px-5 py-10">
         <div className="w-full max-w-md rounded-[2rem] border border-border bg-card p-8 shadow-card sm:p-10">
