@@ -10,7 +10,7 @@ import {
   Send,
 } from "lucide-react";
 
-import { AssuranceChecks, ContentBlock, DetailPage } from "@/components/SiteLayout";
+import { ContentBlock, DetailPage } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/rcs-online")({
@@ -49,7 +49,7 @@ function RcsOnlinePage() {
     <DetailPage
       title="Skicka RCS-meddelanden direkt från webben"
       intro="Skapa kampanjer, hantera kontakter och svara på meddelanden direkt i webbläsaren. Ingen kod krävs."
-      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Allt samlat online</h2><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div><AssuranceChecks className="mt-6" /></div>}
+      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Allt samlat online</h2><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}
     >
       <ContentBlock title="Ett webbgränssnitt för hela flödet">
         <p>Från första utkast till uppföljning finns allt på samma plats. Välj mottagare, bygg meddelandet visuellt och förhandsgranska resultatet innan du skickar.</p>
@@ -80,7 +80,6 @@ function RcsOnlinePage() {
           <Button asChild variant="inverted"><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button>
 <Button asChild variant="inverted"><Link to="/rcs-api">Se RCS API</Link></Button>
         </div>
-        <AssuranceChecks dark className="mt-6" />
       </div>
     </DetailPage>
   );
