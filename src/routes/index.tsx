@@ -4,6 +4,7 @@ import { ArrowRight, BadgeCheck, BarChart3, Braces, Check, Code2, Globe, Headpho
 
 import logoUrl from "@/assets/rcsdirekt-logo.svg";
 import { RcsPhone } from "@/components/RcsPhone";
+import { LeadForm } from "@/components/LeadForm";
 import { Button } from "@/components/ui/button";
 import { campaigns, industries } from "@/data/rcs-content";
 import { pricingPlans } from "@/data/pricing-plans";
