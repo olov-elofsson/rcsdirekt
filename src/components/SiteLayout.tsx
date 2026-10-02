@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida">
-          <BrandLogo />
+          <BrandLogo className="h-10" />
         </Link>
-        <div className="flex items-center gap-5">
-          <Link to="/skapa-konto" className="hidden text-xs font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
+        <div className="flex items-center gap-6">
+          <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
             Logga in
           </Link>
           <Button asChild size="sm">
