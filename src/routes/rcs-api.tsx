@@ -144,7 +144,7 @@ function RcsApiPage() {
               <span className="font-mono text-xs text-ink-muted sm:text-sm">/rcs/send</span>
               <span className="ml-auto hidden text-[11px] text-ink-muted sm:inline">Begäran</span>
             </div>
-            <JsonBlock code={examples[active].code} />
+            <JsonBlock code={examples[active]?.code ?? ""} />
           </div>
           <div className="mt-4 overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
             <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
