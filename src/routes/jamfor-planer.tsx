@@ -7,9 +7,9 @@ import { pricingPlans } from "@/data/pricing-plans";
 export const Route = createFileRoute("/jamfor-planer")({
   head: () => ({
     meta: [
-      { title: "Vilken meddelandetyp behöver jag? — RCS Direkt" },
-      { name: "description", content: "Jämför RCS Basic, RCS Single och RCS Conversation — alla betalas per skickat meddelande, utan månadskostnad." },
-      { property: "og:title", content: "Vilken meddelandetyp behöver jag? — RCS Direkt" },
+      { title: "Vilken meddelandetyp behöver jag? · RCS Direkt" },
+      { name: "description", content: "Jämför RCS Basic, RCS Single och RCS Conversation. Alla betalas per skickat meddelande, utan månadskostnad." },
+      { property: "og:title", content: "Vilken meddelandetyp behöver jag? · RCS Direkt" },
       { property: "og:description", content: "Jämför de tre RCS-meddelandetyperna och hitta rätt nivå för era utskick." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -22,9 +22,8 @@ export const Route = createFileRoute("/jamfor-planer")({
 function ComparePlansPage() {
   return (
     <DetailPage
-      eyebrow="Jämför meddelandetyperna"
       title="Vilken behöver jag?"
-      intro="Alla meddelandetyper betalas per skickat meddelande. Priset styrs av vad meddelandet kan innehålla — välj den typ som passar era utskick."
+      intro="Alla meddelandetyper betalas per skickat meddelande. Priset styrs av vad meddelandet kan innehålla. Välj den typ som passar era utskick."
       aside={
         <div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9">
           <h2 className="text-lg font-extrabold tracking-tight">Samma villkor för alla</h2>

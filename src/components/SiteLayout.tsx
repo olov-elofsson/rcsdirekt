@@ -44,7 +44,7 @@ export function SiteFooter() {
   );
 }
 
-export function DetailPage({ eyebrow, title, intro, children, aside }: { eyebrow: string; title: string; intro: string; children: ReactNode; aside?: ReactNode }) {
+export function DetailPage({ title, intro, children, aside }: { title: string; intro: string; children: ReactNode; aside?: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
@@ -52,8 +52,7 @@ export function DetailPage({ eyebrow, title, intro, children, aside }: { eyebrow
         <section className="relative overflow-hidden bg-primary-soft pt-20 pb-24 sm:pt-28 sm:pb-32">
           <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 top-12 size-56 opacity-[0.07]" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <p className="text-sm font-bold text-logo-blush">{eyebrow}</p>
-            <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">{title}</h1>
+            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">{title}</h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{intro}</p>
           </div>
         </section>

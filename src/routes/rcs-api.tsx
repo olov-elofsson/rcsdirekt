@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/rcs-api")({
   head: () => ({
     meta: [
-      { title: "RCS API för era system — RCS Direkt" },
-      { name: "description", content: "Integrera RCS i era egna system med ett enkelt REST API. Tre fält räcker för ett RCS-meddelande." },
-      { property: "og:title", content: "Bygg in RCS i era egna system — RCS Direkt" },
+      { title: "RCS API för era system · RCS Direkt" },
+      { name: "description", content: "Skicka rika RCS-meddelanden från era egna system." },
+      { property: "og:title", content: "Bygg in RCS i era egna system · RCS Direkt" },
       { property: "og:description", content: "Skicka rika RCS-meddelanden med ett enkelt REST API och webhooks." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -101,9 +101,8 @@ function RcsApiPage() {
 
   return (
     <DetailPage
-      eyebrow="RCS API"
       title="Ett enkelt API för RCS"
-      intro="Skicka rika RCS-meddelanden från era egna system. Ett vanligt HTTPS-anrop räcker — mottagare, avsändare och meddelandet."
+      intro="Skicka rika RCS-meddelanden från era egna system. Ett vanligt HTTPS-anrop räcker: mottagare, avsändare och meddelandet."
       aside={
         <div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9">
           <h2 className="text-2xl font-extrabold">Så enkelt är det</h2>
@@ -120,7 +119,7 @@ function RcsApiPage() {
       }
     >
       <ContentBlock title="En enkel struktur">
-        <p>Ett RCS-meddelande skickas med ett vanligt HTTPS-anrop. Tre uppgifter räcker: mottagare, avsändare och själva meddelandet. Allt annat — knappar, bilder, karuseller — lägger du till först när du behöver det.</p>
+        <p>Ett RCS-meddelande skickas med ett vanligt HTTPS-anrop. Tre uppgifter räcker: mottagare, avsändare och själva meddelandet. Allt annat, som knappar, bilder och karuseller, lägger du till först när du behöver det.</p>
         <div id="exempel" className="mt-8">
           <div className="flex flex-wrap gap-2">
             {examples.map((ex, i) => (

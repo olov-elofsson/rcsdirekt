@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "RCS Direkt – Sveriges enklaste sätt att börja med RCS" },
+    { title: "RCS Direkt · Sveriges enklaste sätt att börja med RCS" },
     { name: "description", content: "Skicka RCS med bilder, knappar och verifierad avsändare. Enkel prissättning och personlig hjälp när du behöver den." },
-    { property: "og:title", content: "RCS Direkt – Sveriges enklaste sätt att börja med RCS" },
+    { property: "og:title", content: "RCS Direkt · Sveriges enklaste sätt att börja med RCS" },
     { property: "og:description", content: "Ett enkelt sätt för svenska företag att skicka RCS direkt till kundens meddelandeapp." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -59,7 +59,7 @@ function WhatIsRcs() {
 
 const rcsAdvantages = [
   { icon: TrendingUp, title: "Upp till 35 % klickfrekvens", copy: "RCS-meddelanden ger betydligt högre engagemang än sms. Interaktiva knappar och rikt innehåll får kunderna att agera direkt." },
-  { icon: Images, title: "Rikt innehåll och karuseller", copy: "Skicka bilder i hög upplösning, videor och produktkaruseller. Visa era produkter direkt i meddelandet – inga externa länkar behövs." },
+  { icon: Images, title: "Rikt innehåll och karuseller", copy: "Skicka bilder i hög upplösning, videor och produktkaruseller. Visa era produkter direkt i meddelandet. Inga externa länkar behövs." },
   { icon: BadgeCheck, title: "Verifierad avsändare", copy: "Er företagsnamn och er logotyp visas direkt i meddelandet. Verifieringsmarkeringen skapar trygghet och skyddar mot bedrägeriförsök." },
   { icon: BarChart3, title: "Statistik i realtid", copy: "Följ leverans, läsningar och klick i realtid. Mät resultatet av varje utskick och förbättra kontinuerligt." },
 ];
@@ -67,7 +67,7 @@ const rcsAdvantages = [
 const advantageChecks = ["Ingen prenumeration", "Inga bindningstider", "Betala per meddelande"];
 
 function Advantages() {
-  return <section className="relative overflow-hidden bg-background pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip className="h-12 sm:h-16 lg:h-24" fill="var(--color-primary-soft)" /><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-28 h-52 w-52 opacity-[0.06] lg:left-16" /><div aria-hidden className="deco-dots pointer-events-none absolute bottom-28 right-8 h-52 w-52 opacity-[0.06] lg:right-16" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>Fördelarna med RCS</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS kombinerar sms:ets räckvidd med möjligheterna i moderna meddelandeappar – ingen app att ladda ner, levererat direkt i kundens meddelandeapp.</p></div><div className="mx-auto mt-14 grid max-w-4xl gap-10 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">{rcsAdvantages.map(({ icon: Icon, title, copy }) => <div key={title} className="flex items-start gap-4"><span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary-soft text-primary ring-1 ring-border/60"><Icon className="size-5" /></span><div><h3 className="text-base font-extrabold tracking-[-0.01em]">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy}</p></div></div>)}</div><div className="mt-14 flex justify-center"><DualCtas /></div><ul className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">{advantageChecks.map((item) => <li key={item} className="flex items-center gap-2 text-xs font-semibold text-muted-foreground"><Check className="size-3.5 text-primary" />{item}</li>)}</ul></div></section>;
+  return <section className="relative overflow-hidden bg-background pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip className="h-12 sm:h-16 lg:h-24" fill="var(--color-primary-soft)" /><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-28 h-52 w-52 opacity-[0.06] lg:left-16" /><div aria-hidden className="deco-dots pointer-events-none absolute bottom-28 right-8 h-52 w-52 opacity-[0.06] lg:right-16" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>Fördelarna med RCS</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS kombinerar sms:ets räckvidd med möjligheterna i moderna meddelandeappar. Ingen app att ladda ner, levererat direkt i kundens meddelandeapp.</p></div><div className="mx-auto mt-14 grid max-w-4xl gap-10 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">{rcsAdvantages.map(({ icon: Icon, title, copy }) => <div key={title} className="flex items-start gap-4"><span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary-soft text-primary ring-1 ring-border/60"><Icon className="size-5" /></span><div><h3 className="text-base font-extrabold tracking-[-0.01em]">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy}</p></div></div>)}</div><div className="mt-14 flex justify-center"><DualCtas /></div><ul className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">{advantageChecks.map((item) => <li key={item} className="flex items-center gap-2 text-xs font-semibold text-muted-foreground"><Check className="size-3.5 text-primary" />{item}</li>)}</ul></div></section>;
 }
 
 function Pricing() {
