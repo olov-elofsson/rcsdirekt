@@ -145,6 +145,10 @@
   --color-logo-blush: #5a53cf;
 }
 
+@utility deco-dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--color-ink) 60%, transparent) 1.1px, transparent 1.3px);
+  background-size: 20px 20px;
+}
 
 @utility technical-stage {
   isolation: isolate;
