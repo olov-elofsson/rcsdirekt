@@ -16,9 +16,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/rcs-online")({
   head: () => ({
     meta: [
-      { title: "Skicka RCS online — RCS Direkt" },
+      { title: "Skicka RCS online · RCS Direkt" },
       { name: "description", content: "Skapa, förhandsgranska och skicka RCS-meddelanden direkt från webben utan installation eller kod." },
-      { property: "og:title", content: "Skicka RCS direkt från webben — RCS Direkt" },
+      { property: "og:title", content: "Skicka RCS direkt från webben · RCS Direkt" },
       { property: "og:description", content: "Skapa kampanjer med bilder, knappar och verifierad avsändare direkt i webbläsaren." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,7 +47,6 @@ const steps = [
 function RcsOnlinePage() {
   return (
     <DetailPage
-      eyebrow="RCS online"
       title="Skicka RCS-meddelanden direkt från webben"
       intro="Skapa kampanjer, hantera kontakter och svara på meddelanden direkt i webbläsaren. Ingen kod krävs."
       aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Allt samlat online</h2><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}

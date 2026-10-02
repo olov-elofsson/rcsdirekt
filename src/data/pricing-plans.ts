@@ -4,7 +4,7 @@ export const pricingPlans = [
     slug: "/rcs-basic" as const,
     price: "0,30 SEK",
     short: "Verifierade textmeddelanden för korta och tydliga besked.",
-    copy: "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt sms. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare — mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
+    copy: "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt sms. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare. Mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
   },
   {
     name: "RCS Single",

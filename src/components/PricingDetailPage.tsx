@@ -8,7 +8,6 @@ import { pricingPlans, type PricingPlan } from "@/data/pricing-plans";
 export function PricingDetailPage({ plan }: { plan: PricingPlan }) {
   return (
     <DetailPage
-      eyebrow="Pris per meddelande"
       title={plan.name}
       intro={plan.short}
       aside={<div className="rounded-[2rem] border border-border bg-card p-7 shadow-card sm:p-9"><p className="text-sm font-bold">{plan.name}</p><p className="mt-5 text-4xl font-extrabold">{plan.price}</p><p className="mt-2 text-sm text-muted-foreground">per skickat meddelande</p><div className="mt-7 flex items-center gap-3 border-t border-border pt-6 text-sm font-bold"><span className="grid size-7 place-items-center rounded-full bg-primary-soft"><Check className="size-4" /></span>Inga månadskostnader</div><Button asChild className="mt-7 w-full"><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button></div>}
