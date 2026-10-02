@@ -55,7 +55,7 @@ function SignupPage() {
   return (
     <div className="flex min-h-screen flex-col bg-primary-soft">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-6 lg:px-8">
-        <Link to="/" aria-label="Till startsidan"><img src={logoUrl} alt="RCS Direkt" className="h-8 w-auto" /></Link>
+        <Link to="/" aria-label="Till startsidan"><img src={logoUrl} alt="RCS Direkt" className="h-9 w-auto" /></Link>
         <Link to="/" className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">Till startsidan</Link>
       </header>
 
