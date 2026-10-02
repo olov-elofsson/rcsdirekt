@@ -47,44 +47,44 @@
   --color-phone-chat: var(--phone-chat);
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
-  --shadow-soft: 0 1px 2px oklch(0.14 0.01 55 / 5%), 0 12px 32px -22px oklch(0.14 0.01 55 / 18%);
-  --shadow-card: 0 1px 2px oklch(0.14 0.01 55 / 5%), 0 26px 64px -40px oklch(0.14 0.01 55 / 27%);
-  --shadow-lift: 0 2px 8px oklch(0.14 0.01 55 / 7%), 0 50px 100px -52px oklch(0.14 0.01 55 / 38%);
+  --shadow-soft: 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 12px 32px -22px oklch(0.25 0.09 285 / 18%);
+  --shadow-card: 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 26px 64px -40px oklch(0.25 0.09 285 / 27%);
+  --shadow-lift: 0 2px 8px oklch(0.25 0.09 285 / 7%), 0 50px 100px -52px oklch(0.25 0.09 285 / 38%);
 }
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.978 0.012 72);
-  --foreground: oklch(0.14 0.01 55);
-  --card: oklch(0.995 0.006 80);
-  --card-foreground: oklch(0.14 0.01 55);
-  --popover: oklch(0.985 0.01 75);
-  --popover-foreground: oklch(0.14 0.01 55);
-  --primary: oklch(0.14 0.01 55);
-  --primary-foreground: oklch(0.985 0.01 75);
-  --primary-deep: oklch(0.1 0.012 45);
-  --primary-soft: oklch(0.935 0.032 62);
-  --secondary: oklch(0.14 0.01 55);
-  --secondary-foreground: oklch(0.985 0.01 75);
-  --muted: oklch(0.95 0.02 68);
-  --muted-foreground: oklch(0.44 0.015 60);
-  --accent: oklch(0.14 0.01 55);
-  --accent-foreground: oklch(0.985 0.01 75);
-  --gold: oklch(0.14 0.01 55);
-  --ink: oklch(0.1 0.012 45);
-  --ink-foreground: oklch(0.975 0.012 72);
-  --ink-muted: oklch(0.72 0.015 70);
+  --background: #ffffff;
+  --foreground: #15115f;
+  --card: #ffffff;
+  --card-foreground: #15115f;
+  --popover: #ffffff;
+  --popover-foreground: #15115f;
+  --primary: #15115f;
+  --primary-foreground: #ffffff;
+  --primary-deep: #0d0a45;
+  --primary-soft: #efeefc;
+  --secondary: #15115f;
+  --secondary-foreground: #ffffff;
+  --muted: #f5f5fc;
+  --muted-foreground: oklch(0.42 0.05 285);
+  --accent: #15115f;
+  --accent-foreground: #ffffff;
+  --gold: #15115f;
+  --ink: #15115f;
+  --ink-foreground: #f5f5fc;
+  --ink-muted: oklch(0.75 0.04 285);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.875 0.02 65);
-  --border-strong: oklch(0.22 0.012 55);
-  --input: oklch(0.875 0.02 65);
-  --ring: oklch(0.14 0.01 55);
-  --surface-tint: oklch(0.95 0.02 68);
-  --primary-light: oklch(0.86 0.03 65);
-  --phone-edge: oklch(0.14 0.01 55);
-  --phone-screen: oklch(0.985 0.008 80);
-  --phone-chat: oklch(0.955 0.014 75);
+  --border: #e3e2f5;
+  --border-strong: #15115f;
+  --input: #e3e2f5;
+  --ring: #15115f;
+  --surface-tint: #f5f5fc;
+  --primary-light: #efeefc;
+  --phone-edge: #15115f;
+  --phone-screen: #ffffff;
+  --phone-chat: #f5f5fc;
 }
 
 @layer base {
@@ -141,10 +141,10 @@
 }
 
 @theme {
-  --color-logo-cream: #f9e9d9;
-  --color-logo-peach: #f2b28c;
-  --color-logo-orange: #e8805a;
-  --color-logo-blush: #f6cdb2;
+  --color-logo-cream: #efeefc;
+  --color-logo-peach: #8f8ad8;
+  --color-logo-orange: #15115f;
+  --color-logo-blush: #c9c7f0;
 }
 
 @utility deco-dots {
