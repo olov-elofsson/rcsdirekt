@@ -1,5 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BarChart3, LayoutTemplate, MousePointerClick } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  CalendarClock,
+  ContactRound,
+  Inbox,
+  LayoutTemplate,
+  MessageSquareText,
+  MousePointerClick,
+  Send,
+} from "lucide-react";
 
 import { ContentBlock, DetailPage } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -20,17 +30,43 @@ export const Route = createFileRoute("/rcs-online")({
 });
 
 function RcsOnlinePage() {
+  const features = [
+    { icon: Send, title: "Skapa utskick", text: "Bygg meddelandet steg för steg och välj mottagare direkt i webbläsaren." },
+    { icon: CalendarClock, title: "Kampanjer", text: "Planera utskick, schemalägg rätt tid och samla kampanjer på ett ställe." },
+    { icon: Inbox, title: "Inkorg", text: "Se kundernas svar och fortsätt konversationen i realtid." },
+    { icon: ContactRound, title: "Kontakter", text: "Importera listor, skapa grupper och håll mottagarna organiserade." },
+    { icon: LayoutTemplate, title: "Mallar", text: "Spara återkommande upplägg med text, bilder, karuseller och knappar." },
+    { icon: BarChart3, title: "Statistik", text: "Följ leverans, läsningar och klick för varje utskick." },
+  ];
+
   return (
     <DetailPage
       eyebrow="RCS online"
       title="Skicka RCS-meddelanden direkt från webben"
-      intro="Ingen installation, ingen kod. Logga in, skapa ditt meddelande och nå dina kunder med bilder, knappar och verifierad avsändare – på några minuter."
-      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Skapa och skicka själv</h2><p className="mt-3 leading-relaxed text-muted-foreground">Passar kampanjer, erbjudanden, påminnelser och nyhetsutskick när teamet vill arbeta utan hjälp från utvecklare.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="#kontakt">Kom igång <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#kontakt">Boka en demo</a></Button></div></div>}
+      intro="Skapa kampanjer, hantera kontakter, svara på meddelanden och följ resultaten direkt i webbläsaren. Ingen kod krävs."
+      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Allt samlat online</h2><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer, erbjudanden, påminnelser och andra utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="#kontakt">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}
     >
-      <ContentBlock title="Enkelt att komma igång"><p>Med RCS Direkts webbgränssnitt skapar och skickar du RCS-utskick lika enkelt som ett vanligt meddelande. Du laddar upp din mottagarlista, väljer en mall eller bygger ett eget meddelande och trycker på skicka. Allt sker i webbläsaren, så du kan arbeta från vilken dator som helst.</p></ContentBlock>
-      <ContentBlock title="Rikt innehåll utan krångel"><p>Lägg till bilder, karuseller, knappar och snabbsvar med några klick. Du ser en förhandsvisning av hur meddelandet kommer att se ut i mottagarens telefon innan det går iväg.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><MousePointerClick className="size-5" />Bygg visuellt och förhandsgranska direkt</div></ContentBlock>
-      <ContentBlock title="Följ resultaten"><p>Se hur många som har fått, läst och klickat i dina meddelanden. Statistiken hjälper dig att förstå vad som fungerar och förbättra nästa utskick.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><BarChart3 className="size-5" />Leverans, läsningar och klick på ett ställe</div></ContentBlock>
-      <Link to="/rcs-api" className="inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4">Behöver ni automatisera? Läs om RCS API <ArrowRight className="size-4" /></Link>
+      <ContentBlock title="Ett webbgränssnitt för hela flödet">
+        <p>Från första utkast till uppföljning finns allt på samma plats. Välj mottagare, bygg meddelandet visuellt och förhandsgranska resultatet innan du skickar.</p>
+        <div id="funktioner" className="mt-8 grid gap-3 sm:grid-cols-2">
+          {features.map(({ icon: Icon, title, text }) => (
+            <div key={title} className="rounded-2xl bg-muted p-5">
+              <Icon className="size-5 text-primary" />
+              <h3 className="mt-4 text-base font-extrabold">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
+            </div>
+          ))}
+        </div>
+      </ContentBlock>
+      <ContentBlock title="Skapa, förhandsgranska och skicka"><p>Lägg till bilder, karuseller, knappar och snabbsvar med några klick. En tydlig förhandsvisning visar hur innehållet kommer att se ut i mottagarens meddelandeapp.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><MousePointerClick className="size-5" />Visuellt arbetsflöde utan kod</div></ContentBlock>
+      <ContentBlock title="Planera kampanjer"><p>Schemalägg utskicket till rätt tid, återanvänd mallar och håll olika kampanjer organiserade. Kontakter kan importeras och delas in i grupper för mer relevanta budskap.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><CalendarClock className="size-5" />Schemaläggning och mottagargrupper</div></ContentBlock>
+      <ContentBlock title="Fortsätt dialogen"><p>När kunden svarar samlas konversationen i inkorgen. Där ser ni nya meddelanden, hela historiken och kan svara direkt från webben.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><MessageSquareText className="size-5" />Svar och konversationer i realtid</div></ContentBlock>
+      <ContentBlock title="Se vad som fungerar"><p>Följ leverans, läsningar och klick per kampanj. Resultaten ger en enkel bild av vad mottagarna reagerar på och vad nästa utskick kan förbättra.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><BarChart3 className="size-5" />Tydlig statistik på ett ställe</div></ContentBlock>
+      <div className="rounded-[2rem] bg-primary p-7 text-primary-foreground sm:p-9">
+        <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att skicka online?</h2>
+        <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Skapa ett konto och bygg ert första RCS-meddelande direkt i webbläsaren.</p>
+        <div className="mt-6 flex flex-wrap gap-3"><Button asChild variant="outline"><a href="#kontakt">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><Link to="/rcs-api">Se RCS API</Link></Button></div>
+      </div>
     </DetailPage>
   );
 }

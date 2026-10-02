@@ -14,3 +14,4 @@
 - [x] Skapa undersidor för RCS online och RCS API
 - [x] Skapa separata undersidor för Basic, Single och Conversation
 - [x] Länka startsidans produkt- och priskort till de nya undersidorna
+- [x] Utöka RCS Online och RCS API med förenklad struktur från referenssidorna
