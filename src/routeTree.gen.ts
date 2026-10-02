@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as JamforPlanerRouteImport } from './routes/jamfor-planer'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as RcsApiRouteImport } from './routes/rcs-api'
 import { Route as RcsBasicRouteImport } from './routes/rcs-basic'
 import { Route as RcsConversationRouteImport } from './routes/rcs-conversation'
 import { Route as RcsOnlineRouteImport } from './routes/rcs-online'
 import { Route as RcsSingleRouteImport } from './routes/rcs-single'
+import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -25,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
 const JamforPlanerRoute = JamforPlanerRouteImport.update({
   id: '/jamfor-planer',
   path: '/jamfor-planer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RcsApiRoute = RcsApiRouteImport.update({
@@ -52,73 +59,92 @@ const RcsSingleRoute = RcsSingleRouteImport.update({
   path: '/rcs-single',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SkapaKontoRoute = SkapaKontoRouteImport.update({
+  id: '/skapa-konto',
+  path: '/skapa-konto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/jamfor-planer': typeof JamforPlanerRoute
+  '/kontakt': typeof KontaktRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
   '/rcs-online': typeof RcsOnlineRoute
   '/rcs-single': typeof RcsSingleRoute
+  '/skapa-konto': typeof SkapaKontoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/jamfor-planer': typeof JamforPlanerRoute
+  '/kontakt': typeof KontaktRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
   '/rcs-online': typeof RcsOnlineRoute
   '/rcs-single': typeof RcsSingleRoute
+  '/skapa-konto': typeof SkapaKontoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/jamfor-planer': typeof JamforPlanerRoute
+  '/kontakt': typeof KontaktRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
   '/rcs-online': typeof RcsOnlineRoute
   '/rcs-single': typeof RcsSingleRoute
+  '/skapa-konto': typeof SkapaKontoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/jamfor-planer'
+    | '/kontakt'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
     | '/rcs-online'
     | '/rcs-single'
+    | '/skapa-konto'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/jamfor-planer'
+    | '/kontakt'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
     | '/rcs-online'
     | '/rcs-single'
+    | '/skapa-konto'
   id:
     | '__root__'
     | '/'
     | '/jamfor-planer'
+    | '/kontakt'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
     | '/rcs-online'
     | '/rcs-single'
+    | '/skapa-konto'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   JamforPlanerRoute: typeof JamforPlanerRoute
+  KontaktRoute: typeof KontaktRoute
   RcsApiRoute: typeof RcsApiRoute
   RcsBasicRoute: typeof RcsBasicRoute
   RcsConversationRoute: typeof RcsConversationRoute
   RcsOnlineRoute: typeof RcsOnlineRoute
   RcsSingleRoute: typeof RcsSingleRoute
+  SkapaKontoRoute: typeof SkapaKontoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -135,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/jamfor-planer'
       fullPath: '/jamfor-planer'
       preLoaderRoute: typeof JamforPlanerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rcs-api': {
@@ -172,17 +205,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RcsSingleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/skapa-konto': {
+      id: '/skapa-konto'
+      path: '/skapa-konto'
+      fullPath: '/skapa-konto'
+      preLoaderRoute: typeof SkapaKontoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   JamforPlanerRoute: JamforPlanerRoute,
+  KontaktRoute: KontaktRoute,
   RcsApiRoute: RcsApiRoute,
   RcsBasicRoute: RcsBasicRoute,
   RcsConversationRoute: RcsConversationRoute,
   RcsOnlineRoute: RcsOnlineRoute,
   RcsSingleRoute: RcsSingleRoute,
+  SkapaKontoRoute: SkapaKontoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
