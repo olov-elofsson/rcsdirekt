@@ -40,18 +40,18 @@ function ComparePlansPage() {
       }
     >
       <ContentBlock title="De tre planerna i korthet">
-        <div className="grid gap-5 sm:grid-cols-3">
-          {pricingPlans.map((plan) => (
+        <div className="grid gap-4 sm:grid-cols-3">
+          {pricingPlans.map((plan, i) => (
             <Link
               key={plan.name}
               to={plan.slug}
-              className="group flex flex-col rounded-[2rem] border border-border/80 bg-card p-7 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-foreground/25 hover:shadow-lift"
+              className={`group relative flex flex-col rounded-[1.75rem] border p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift ${i === 1 ? "border-primary bg-primary text-primary-foreground shadow-card" : "border-border/80 bg-card shadow-soft hover:border-foreground/25"}`}
             >
+              {i === 1 ? <span className="absolute -top-3 left-6 rounded-full bg-background px-3 py-1 text-[11px] font-bold text-foreground ring-1 ring-border">Populärast</span> : null}
               <p className="text-sm font-bold">{plan.name}</p>
-              <p className="mt-4 text-[2.2rem] font-extrabold leading-none tracking-[-0.03em]">{plan.price}</p>
-              <p className="mt-1.5 text-xs text-muted-foreground">per meddelande</p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{plan.short}</p>
-              <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold">
+              <p className="mt-5 text-[2rem] font-extrabold leading-none tracking-[-0.03em]">{plan.price}</p>
+              <p className={`mt-1.5 text-xs ${i === 1 ? "opacity-75" : "text-muted-foreground"}`}>per meddelande</p>
+              <span className={`mt-auto inline-flex items-center gap-2 pt-6 text-xs font-bold`}>
                 Läs mer <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
@@ -59,11 +59,18 @@ function ComparePlansPage() {
         </div>
       </ContentBlock>
       <ContentBlock title="Så tänker du">
-        <ul className="space-y-4 text-sm leading-relaxed text-muted-foreground">
-          <li><strong className="text-foreground">RCS Basic</strong> — korta, tydliga besked som bekräftelser och påminnelser, där budskapet är det viktiga.</li>
-          <li><strong className="text-foreground">RCS Single</strong> — kampanjer och erbjudanden där bilder, karuseller och knappar ska fånga uppmärksamheten.</li>
-          <li><strong className="text-foreground">RCS Conversation</strong> — kundservice och dialoger där mottagaren ska kunna svara och få hjälp direkt i meddelandeappen.</li>
-        </ul>
+        <div className="space-y-3">
+          {[
+            ["RCS Basic", "Korta, tydliga besked som bekräftelser och påminnelser."],
+            ["RCS Single", "Kampanjer med bilder, karuseller och knappar."],
+            ["RCS Conversation", "Kundservice och dialoger där mottagaren kan svara."],
+          ].map(([name, text]) => (
+            <div key={name} className="flex items-center gap-4 rounded-2xl border border-border/70 bg-card px-5 py-4 shadow-soft">
+              <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>
+              <p className="text-sm leading-relaxed text-muted-foreground"><strong className="text-foreground">{name}</strong> — {text}</p>
+            </div>
+          ))}
+        </div>
       </ContentBlock>
     </DetailPage>
   );
