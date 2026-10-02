@@ -5,6 +5,7 @@ import { ArrowRight, BadgeCheck, BarChart3, Braces, Check, Code2, Globe, Headpho
 import logoUrl from "@/assets/rcsdirekt-logo.svg";
 import { RcsPhone } from "@/components/RcsPhone";
 import { LeadForm } from "@/components/LeadForm";
+import { AssuranceChecks } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { campaigns, industries } from "@/data/rcs-content";
 import { pricingPlans } from "@/data/pricing-plans";
@@ -39,7 +40,7 @@ function Header() {
   return <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl"><div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 lg:px-8"><a href="#top" aria-label="RCS Direkt, startsida" className="inline-flex items-center"><Logo /></a><div className="hidden items-center gap-5 sm:flex"><a href="/skapa-konto" className="text-xs font-semibold text-foreground hover:text-ink-foreground">Logga in</a><Button asChild size="sm" variant="secondary"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button></div><Button aria-label={open ? "Stäng meny" : "Öppna meny"} variant="ghost" size="icon" className="text-foreground lg:hidden" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div>{open ? <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobilmeny"><Button asChild className="mt-5 w-full"><a href={assistedHref} onClick={() => setOpen(false)}>Skapa konto</a></Button></nav> : null}</header>;
 }
 
-function DualCtas({ dark = false }: { dark?: boolean }) { return <div className="flex flex-col gap-3 sm:flex-row"><Button asChild size="lg"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button><Button asChild size="lg" variant={dark ? "inverted" : "outline"}><a href="/kontakt">Prata med oss</a></Button></div>; }
+function DualCtas({ dark = false }: { dark?: boolean }) { return <div className="flex flex-col items-center gap-5"><div className="flex flex-col gap-3 sm:flex-row"><Button asChild size="lg"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button><Button asChild size="lg" variant={dark ? "inverted" : "outline"}><a href="/kontakt">Prata med oss</a></Button></div><AssuranceChecks dark={dark} className="justify-center" /></div>; }
 
 const heroBenefits = [
   { icon: BadgeCheck, title: "Enkel prissättning", copy: "Från 0,30 SEK per meddelande. Inga månadskostnader." },
