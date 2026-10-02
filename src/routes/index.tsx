@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, BadgeCheck, Braces, Code2, Globe, Headphones, Linkedin, Menu, X, Youtube } from "lucide-react";
 
-import logoAsset from "@/assets/rcsdirekt-logo.svg.asset.json";
+import logoUrl from "@/assets/rcsdirekt-logo.svg";
 import { RcsPhone } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -29,7 +29,7 @@ function Index() {
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]";
 
-function Logo({ white = false, className }: { white?: boolean; className?: string }) { return <img src={logoAsset.url} alt="RCS Direkt" className={cn("h-7 w-auto", white && "brightness-0 invert", className)} />; }
+function Logo({ white = false, className }: { white?: boolean; className?: string }) { return <img src={logoUrl} alt="RCS Direkt" className={cn("h-7 w-auto", white && "brightness-0 invert", className)} />; }
 
 function Wave({ fill, flip = false, className }: { fill: string; flip?: boolean; className?: string }) { return <svg aria-hidden="true" className={cn("pointer-events-none absolute inset-x-0 z-0 h-14 w-full sm:h-20 lg:h-28", flip ? "-top-px rotate-180" : "-bottom-px", className)} viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 62 C240 12 480 6 720 38 C960 70 1200 110 1440 54 L1440 120 L0 120 Z" fill={fill} /></svg>; }
 

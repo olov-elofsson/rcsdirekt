@@ -54,37 +54,37 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.995 0.001 85);
-  --foreground: oklch(0.1 0.002 60);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.1 0.002 60);
-  --popover: oklch(0.99 0.002 85);
-  --popover-foreground: oklch(0.1 0.002 60);
-  --primary: oklch(0.1 0.002 60);
-  --primary-foreground: oklch(0.99 0.002 85);
-  --primary-deep: oklch(0.075 0.004 40);
-  --primary-soft: oklch(0.955 0.003 80);
-  --secondary: oklch(0.1 0.002 60);
-  --secondary-foreground: oklch(0.99 0.002 85);
-  --muted: oklch(0.965 0.003 80);
-  --muted-foreground: oklch(0.42 0.008 65);
-  --accent: oklch(0.1 0.002 60);
-  --accent-foreground: oklch(0.99 0.002 85);
-  --gold: oklch(0.1 0.002 60);
-  --ink: oklch(0.075 0.004 40);
-  --ink-foreground: oklch(0.98 0.004 85);
-  --ink-muted: oklch(0.7 0.01 80);
+  --background: oklch(0.978 0.012 72);
+  --foreground: oklch(0.14 0.01 55);
+  --card: oklch(0.995 0.006 80);
+  --card-foreground: oklch(0.14 0.01 55);
+  --popover: oklch(0.985 0.01 75);
+  --popover-foreground: oklch(0.14 0.01 55);
+  --primary: oklch(0.14 0.01 55);
+  --primary-foreground: oklch(0.985 0.01 75);
+  --primary-deep: oklch(0.1 0.012 45);
+  --primary-soft: oklch(0.935 0.032 62);
+  --secondary: oklch(0.14 0.01 55);
+  --secondary-foreground: oklch(0.985 0.01 75);
+  --muted: oklch(0.95 0.02 68);
+  --muted-foreground: oklch(0.44 0.015 60);
+  --accent: oklch(0.14 0.01 55);
+  --accent-foreground: oklch(0.985 0.01 75);
+  --gold: oklch(0.14 0.01 55);
+  --ink: oklch(0.1 0.012 45);
+  --ink-foreground: oklch(0.975 0.012 72);
+  --ink-muted: oklch(0.72 0.015 70);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.88 0.005 70);
-  --border-strong: oklch(0.2 0.004 60);
-  --input: oklch(0.88 0.005 70);
-  --ring: oklch(0.1 0.002 60);
-  --surface-tint: oklch(0.965 0.003 80);
-  --primary-light: oklch(0.86 0.004 80);
-  --phone-edge: oklch(0.1 0.002 60);
-  --phone-screen: oklch(0.99 0.003 90);
-  --phone-chat: oklch(0.96 0.006 85);
+  --border: oklch(0.875 0.02 65);
+  --border-strong: oklch(0.22 0.012 55);
+  --input: oklch(0.875 0.02 65);
+  --ring: oklch(0.14 0.01 55);
+  --surface-tint: oklch(0.95 0.02 68);
+  --primary-light: oklch(0.86 0.03 65);
+  --phone-edge: oklch(0.14 0.01 55);
+  --phone-screen: oklch(0.985 0.008 80);
+  --phone-chat: oklch(0.955 0.014 75);
 }
 
 @layer base {
@@ -141,10 +141,10 @@
 }
 
 @theme {
-  --color-logo-cream: #f6f0df;
-  --color-logo-peach: #efa078;
-  --color-logo-orange: #f06b36;
-  --color-logo-blush: #f3c2a6;
+  --color-logo-cream: #f9e9d9;
+  --color-logo-peach: #f2b28c;
+  --color-logo-orange: #e8805a;
+  --color-logo-blush: #f6cdb2;
 }
 
 @utility deco-dots {
