@@ -1,5 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Braces, MessageSquareReply, Workflow } from "lucide-react";
+import {
+  ArrowRight,
+  Braces,
+  CalendarClock,
+  GalleryHorizontal,
+  MousePointerClick,
+  Send,
+  Tags,
+  Webhook,
+} from "lucide-react";
 
 import { ContentBlock, DetailPage } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -20,17 +29,57 @@ export const Route = createFileRoute("/rcs-api")({
 });
 
 function RcsApiPage() {
+  const capabilities = [
+    { icon: Braces, title: "Text", text: "Korta besked eller längre meddelanden med verifierad avsändare." },
+    { icon: GalleryHorizontal, title: "Rika kort", text: "Bilder, video, rubriker och karuseller med flera val." },
+    { icon: MousePointerClick, title: "Knappar", text: "Länka vidare, ring, öppna kartan eller låt kunden svara direkt." },
+    { icon: Send, title: "Större utskick", text: "Skicka samma meddelande till många mottagare i ett samlat flöde." },
+    { icon: Tags, title: "Personanpassning", text: "Använd kund- och orderdata för att göra varje meddelande relevant." },
+    { icon: Webhook, title: "Webhooks", text: "Ta emot leveransstatus, läskvittenser, klick och svar i era system." },
+  ];
+
   return (
     <DetailPage
       eyebrow="RCS API"
       title="Bygg in RCS i era egna system"
-      intro="Koppla RCS Direkts API till ert affärssystem, er app eller e-handel och skicka rika meddelanden automatiskt – i realtid och i stor skala."
-      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><Braces className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Full kontroll via API</h2><p className="mt-3 leading-relaxed text-muted-foreground">Passar företag med egna system eller utvecklingsresurser som vill automatisera transaktionella flöden och större volymer.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="#kontakt">Kontakta oss <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#kontakt">Prata med en utvecklare</a></Button></div></div>}
+      intro="Integrera interaktiva RCS-meddelanden i era applikationer. Skicka text, bilder, karuseller och knappar genom ett enkelt REST API."
+      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><Braces className="size-7 text-primary" /><h2 className="mt-6 text-2xl font-extrabold">Bygg på ert sätt</h2><p className="mt-3 leading-relaxed text-muted-foreground">För företag som vill automatisera kommunikation från e-handel, bokningssystem, CRM eller egna applikationer.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="#kontakt">Få API-tillgång <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#exempel">Se ett exempel</a></Button></div></div>}
     >
-      <ContentBlock title="Automatisera kommunikationen"><p>Med vårt API triggas meddelanden direkt från era befintliga system. Orderbekräftelser, leveransaviseringar, bokningspåminnelser och kontoaviseringar går iväg automatiskt när något händer – utan manuellt arbete.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><Workflow className="size-5" />Händelsestyrda utskick i realtid</div></ContentBlock>
-      <ContentBlock title="Full flexibilitet för utvecklare"><p>API:t är byggt för att vara enkelt att integrera. Ni skickar meddelanden med bilder, knappar och förslag på svar via vanliga anrop och får statusuppdateringar och svar från mottagarna tillbaka via webhooks.</p></ContentBlock>
-      <ContentBlock title="Tvåvägskommunikation"><p>Låt kunderna svara, välja tid eller bekräfta direkt i meddelandet. Svaren landar i ert system så att ni kan agera på dem automatiskt – till exempel boka om en tid eller uppdatera en order.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><MessageSquareReply className="size-5" />Svar och status tillbaka till ert system</div></ContentBlock>
-      <Link to="/rcs-online" className="inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4">Vill ni skicka manuellt? Läs om RCS online <ArrowRight className="size-4" /></Link>
+      <ContentBlock title="Format för varje meddelande">
+        <p>Gå från enkla textmeddelanden till visuella och interaktiva upplevelser. Samma integration kan hantera både enskilda händelser och större kampanjer.</p>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {capabilities.map(({ icon: Icon, title, text }) => (
+            <div key={title} className="rounded-2xl bg-muted p-5">
+              <Icon className="size-5 text-primary" />
+              <h3 className="mt-4 text-base font-extrabold">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
+            </div>
+          ))}
+        </div>
+      </ContentBlock>
+      <ContentBlock title="Automatisera kommunikationen"><p>Låt en order, bokning eller annan händelse starta rätt meddelande automatiskt. API:t passar både transaktionella flöden och större utskick till många mottagare.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><Send className="size-5" />Enstaka meddelanden eller större volymer</div></ContentBlock>
+      <ContentBlock title="Personligt och tidsstyrt"><p>Infoga kunduppgifter, orderinformation och andra egna fält i innehållet. Schemalägg utskick med rätt tidszon när meddelandet ska nå fram vid en bestämd tid.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><CalendarClock className="size-5" />Personanpassning och schemaläggning</div></ContentBlock>
+      <ContentBlock title="Svar och händelser tillbaka"><p>Webhooks skickar leveransstatus, läskvittenser, knapptryck och kundens svar tillbaka till ert system. Det gör det möjligt att fortsätta ett flöde utan manuella steg.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><Webhook className="size-5" />Reagera på det som händer i realtid</div></ContentBlock>
+      <ContentBlock title="En enkel struktur">
+        <p>Ett anrop beskriver mottagare, avsändare och innehåll. Exemplet visar principen; adresser och nycklar lämnas när API-tillgången aktiveras.</p>
+        <div id="exempel" className="mt-6 overflow-x-auto rounded-2xl bg-primary p-5 font-mono text-xs leading-6 text-primary-foreground sm:p-7 sm:text-sm">
+          <pre>{`POST /rcs/send
+Authorization: Bearer DIN_API_NYCKEL
+
+{
+  "to": "+46700000000",
+  "type": "richCard",
+  "title": "Din order är på väg",
+  "button": "Spåra leveransen"
+}`}</pre>
+        </div>
+      </ContentBlock>
+      <ContentBlock title="Testa innan ni går live"><p>En separat testmiljö gör det möjligt att validera innehåll och se en förhandsvisning innan något skickas. API-nycklar hanteras per konto och används för att skydda anropen.</p></ContentBlock>
+      <div className="rounded-[2rem] bg-primary p-7 text-primary-foreground sm:p-9">
+        <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att bygga med RCS?</h2>
+        <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Kontakta oss för API-tillgång och hjälp med att planera er första integration.</p>
+        <div className="mt-6 flex flex-wrap gap-3"><Button asChild variant="outline"><a href="#kontakt">Kontakta oss <ArrowRight /></a></Button><Button asChild variant="outline"><Link to="/rcs-online">Se RCS online</Link></Button></div>
+      </div>
     </DetailPage>
   );
 }

@@ -11,3 +11,4 @@
 
 - Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas och monokrom svartvit design; orange/persika får enbart förekomma i logotypen, inte i gränssnittet, eftersom tjänsten ska kännas enkel, rak och mänsklig.
 - Sidstruktur: återanvänd SiteLayout för offentliga undersidor så att navigation, sidfot och innehållsbredd hålls konsekventa.
+- Produktsidor: använd korta, skannbara funktionsöversikter och märk ännu ej anslutna tjänster som kommande eller kontoaktiverade för att undvika felaktiga produktlöften.
