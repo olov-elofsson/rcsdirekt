@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Braces,
   CalendarClock,
+  Check,
   GalleryHorizontal,
   MousePointerClick,
   Send,
@@ -61,17 +62,45 @@ function RcsApiPage() {
       <ContentBlock title="Personligt och tidsstyrt"><p>Infoga kunduppgifter, orderinformation och andra egna fält i innehållet. Schemalägg utskick med rätt tidszon när meddelandet ska nå fram vid en bestämd tid.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><CalendarClock className="size-5" />Personanpassning och schemaläggning</div></ContentBlock>
       <ContentBlock title="Svar och händelser tillbaka"><p>Webhooks skickar leveransstatus, läskvittenser, knapptryck och kundens svar tillbaka till ert system. Det gör det möjligt att fortsätta ett flöde utan manuella steg.</p><div className="mt-6 flex items-center gap-3 text-sm font-semibold text-foreground"><Webhook className="size-5" />Reagera på det som händer i realtid</div></ContentBlock>
       <ContentBlock title="En enkel struktur">
-        <p>Ett anrop beskriver mottagare, avsändare och innehåll. Exemplet visar principen; adresser och nycklar lämnas när API-tillgången aktiveras.</p>
-        <div id="exempel" className="mt-6 overflow-x-auto rounded-2xl bg-primary p-5 font-mono text-xs leading-6 text-primary-foreground sm:p-7 sm:text-sm">
-          <pre>{`POST /rcs/send
+        <p>Ett RCS-meddelande skickas med ett vanligt HTTPS-anrop. Tre uppgifter räcker: mottagare, avsändare och själva meddelandet. Allt annat — knappar, bilder, karuseller — lägger du till först när du behöver det.</p>
+        <div id="exempel" className="mt-8 grid gap-4 lg:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl border border-ink-foreground/10 bg-ink">
+            <p className="border-b border-ink-foreground/10 px-5 py-3 text-xs font-bold text-ink-muted">Begäran</p>
+            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:text-sm">{`POST /rcs/send
 Authorization: Bearer DIN_API_NYCKEL
+Content-Type: application/json
 
 {
   "to": "+46700000000",
-  "type": "richCard",
-  "title": "Din order är på väg",
-  "button": "Spåra leveransen"
+  "sender": "DittForetag",
+  "text": "Din order är på väg",
+  "suggestion": "Spåra leveransen"
 }`}</pre>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-ink-foreground/10 bg-ink">
+            <p className="border-b border-ink-foreground/10 px-5 py-3 text-xs font-bold text-ink-muted">Svar</p>
+            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:text-sm">{`200 OK
+
+{
+  "messageId": "msg_8f4a21",
+  "status": "ACCEPTED",
+  "to": "+46700000000"
+}`}</pre>
+          </div>
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground">Exemplet visar principen. Adresser och API-nycklar lämnas ut när API-tillgången aktiveras för ert konto.</p>
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          {[
+            { title: "Tre fält räcker", text: "Mottagare, avsändare och meddelandet. Resten är valfritt." },
+            { title: "Vanlig HTTP och JSON", text: "Fungerar från vilket programmeringsspråk eller ramverk som helst." },
+            { title: "Svar direkt i JSON", text: "Besked om meddelandet är accepterat kommer i samma anrop." },
+          ].map(({ title, text }) => (
+            <div key={title} className="rounded-2xl bg-muted p-5">
+              <Check className="size-5 text-primary" />
+              <h3 className="mt-4 text-base font-extrabold">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
+            </div>
+          ))}
         </div>
       </ContentBlock>
       <ContentBlock title="Testa innan ni går live"><p>En separat testmiljö gör det möjligt att validera innehåll och se en förhandsvisning innan något skickas. API-nycklar hanteras per konto och används för att skydda anropen.</p></ContentBlock>
