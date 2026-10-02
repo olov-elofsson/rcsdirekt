@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RcsApiRouteImport } from './routes/rcs-api'
+import { Route as RcsBasicRouteImport } from './routes/rcs-basic'
+import { Route as RcsConversationRouteImport } from './routes/rcs-conversation'
+import { Route as RcsOnlineRouteImport } from './routes/rcs-online'
+import { Route as RcsSingleRouteImport } from './routes/rcs-single'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RcsApiRoute = RcsApiRouteImport.update({
+  id: '/rcs-api',
+  path: '/rcs-api',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RcsBasicRoute = RcsBasicRouteImport.update({
+  id: '/rcs-basic',
+  path: '/rcs-basic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RcsConversationRoute = RcsConversationRouteImport.update({
+  id: '/rcs-conversation',
+  path: '/rcs-conversation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RcsOnlineRoute = RcsOnlineRouteImport.update({
+  id: '/rcs-online',
+  path: '/rcs-online',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RcsSingleRoute = RcsSingleRouteImport.update({
+  id: '/rcs-single',
+  path: '/rcs-single',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/rcs-api': typeof RcsApiRoute
+  '/rcs-basic': typeof RcsBasicRoute
+  '/rcs-conversation': typeof RcsConversationRoute
+  '/rcs-online': typeof RcsOnlineRoute
+  '/rcs-single': typeof RcsSingleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/rcs-api': typeof RcsApiRoute
+  '/rcs-basic': typeof RcsBasicRoute
+  '/rcs-conversation': typeof RcsConversationRoute
+  '/rcs-online': typeof RcsOnlineRoute
+  '/rcs-single': typeof RcsSingleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/rcs-api': typeof RcsApiRoute
+  '/rcs-basic': typeof RcsBasicRoute
+  '/rcs-conversation': typeof RcsConversationRoute
+  '/rcs-online': typeof RcsOnlineRoute
+  '/rcs-single': typeof RcsSingleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/rcs-api'
+    | '/rcs-basic'
+    | '/rcs-conversation'
+    | '/rcs-online'
+    | '/rcs-single'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/rcs-api'
+    | '/rcs-basic'
+    | '/rcs-conversation'
+    | '/rcs-online'
+    | '/rcs-single'
+  id:
+    | '__root__'
+    | '/'
+    | '/rcs-api'
+    | '/rcs-basic'
+    | '/rcs-conversation'
+    | '/rcs-online'
+    | '/rcs-single'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RcsApiRoute: typeof RcsApiRoute
+  RcsBasicRoute: typeof RcsBasicRoute
+  RcsConversationRoute: typeof RcsConversationRoute
+  RcsOnlineRoute: typeof RcsOnlineRoute
+  RcsSingleRoute: typeof RcsSingleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rcs-api': {
+      id: '/rcs-api'
+      path: '/rcs-api'
+      fullPath: '/rcs-api'
+      preLoaderRoute: typeof RcsApiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rcs-basic': {
+      id: '/rcs-basic'
+      path: '/rcs-basic'
+      fullPath: '/rcs-basic'
+      preLoaderRoute: typeof RcsBasicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rcs-conversation': {
+      id: '/rcs-conversation'
+      path: '/rcs-conversation'
+      fullPath: '/rcs-conversation'
+      preLoaderRoute: typeof RcsConversationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rcs-online': {
+      id: '/rcs-online'
+      path: '/rcs-online'
+      fullPath: '/rcs-online'
+      preLoaderRoute: typeof RcsOnlineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rcs-single': {
+      id: '/rcs-single'
+      path: '/rcs-single'
+      fullPath: '/rcs-single'
+      preLoaderRoute: typeof RcsSingleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RcsApiRoute: RcsApiRoute,
+  RcsBasicRoute: RcsBasicRoute,
+  RcsConversationRoute: RcsConversationRoute,
+  RcsOnlineRoute: RcsOnlineRoute,
+  RcsSingleRoute: RcsSingleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
