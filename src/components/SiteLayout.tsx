@@ -12,10 +12,24 @@ export function SiteHeader() {
         <Link to="/" aria-label="RCS Direkt, startsida">
           <img src={logoUrl} alt="RCS Direkt" className="h-9 w-auto" />
         </Link>
-        <div className="flex items-center gap-4">
-          <Link to="/" className="hidden text-xs font-semibold text-foreground hover:text-muted-foreground sm:inline-flex">
-            Startsida
-          </Link>
+        <div className="flex items-center gap-6">
+          <nav className="hidden items-center gap-6 md:flex">
+            <Link to="/" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
+              Startsida
+            </Link>
+            <Link to="/rcs-online" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
+              RCS online
+            </Link>
+            <Link to="/rcs-api" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
+              RCS API
+            </Link>
+            <Link to="/jamfor-planer" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
+              Meddelandetyper
+            </Link>
+            <Link to="/kontakt" className="text-xs font-semibold text-foreground/70 transition-colors hover:text-foreground">
+              Kontakt
+            </Link>
+          </nav>
           <Button asChild size="sm">
             <a href="/skapa-konto">Skapa konto <ArrowRight /></a>
           </Button>
