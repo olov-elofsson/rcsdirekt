@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { useState } from "react";
 
-import { ContentBlock, DetailPage } from "@/components/SiteLayout";
+import { AssuranceChecks, ContentBlock, DetailPage } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -115,6 +115,7 @@ function RcsApiPage() {
               <a href="/kontakt">Få API-tillgång <ArrowRight /></a>
             </Button>
           </div>
+          <AssuranceChecks className="mt-6" />
         </div>
       }
     >
@@ -180,6 +181,7 @@ function RcsApiPage() {
             <Link to="/rcs-online">Se RCS online</Link>
           </Button>
         </div>
+        <AssuranceChecks dark className="mt-6" />
       </div>
     </DetailPage>
   );

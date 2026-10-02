@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Linkedin, Youtube } from "lucide-react";
+import { ArrowRight, Check, Linkedin, Youtube } from "lucide-react";
 import type { ReactNode } from "react";
 
 import logoUrl from "@/assets/rcsdirekt-logo.svg";
@@ -65,6 +65,21 @@ export function DetailPage({ title, intro, children, aside }: { title: string; i
       </main>
       <SiteFooter />
     </div>
+  );
+}
+
+export const assurancePoints = ["Ingen prenumeration", "Inga bindningstider", "Betala per meddelande"];
+
+export function AssuranceChecks({ dark = false, className = "" }: { dark?: boolean; className?: string }) {
+  return (
+    <ul className={`flex flex-wrap items-center gap-x-6 gap-y-2 ${className}`}>
+      {assurancePoints.map((item) => (
+        <li key={item} className={`flex items-center gap-2 text-xs font-semibold ${dark ? "text-ink-muted" : "text-muted-foreground"}`}>
+          <Check className={`size-3.5 ${dark ? "text-ink-foreground" : "text-primary"}`} />
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 
