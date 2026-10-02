@@ -174,10 +174,10 @@ function RcsApiPage() {
         <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att bygga med RCS?</h2>
         <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Kontakta oss för API-tillgång och hjälp med att planera er första integration.</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button asChild variant="outline">
+          <Button asChild variant="inverted">
             <a href="#kontakt">Kontakta oss <ArrowRight /></a>
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild variant="inverted">
             <Link to="/rcs-online">Se RCS online</Link>
           </Button>
         </div>
