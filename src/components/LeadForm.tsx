@@ -70,8 +70,8 @@ export function LeadForm({ mode }: { mode: Mode }) {
       </div>
       <div className="space-y-2">
         <Label htmlFor="message">{signup ? "Vad vill ni skicka? (valfritt)" : "Meddelande"}</Label>
-        <Textarea id="message" name="message" rows={4} className="rounded-xl bg-background" aria-invalid={!!errors.message} />
-        {errors.message ? <p className="text-xs font-semibold text-destructive">{errors.message}</p> : null}
+        <Textarea id="message" name="message" rows={4} className="rounded-xl bg-background" aria-invalid={!!errors['message']} />
+        {errors['message'] ? <p className="text-xs font-semibold text-destructive">{errors['message']}</p> : null}
       </div>
       {signup ? (
         <div>
@@ -79,7 +79,7 @@ export function LeadForm({ mode }: { mode: Mode }) {
             <input type="checkbox" name="terms" className="mt-1 size-4 accent-primary" />
             Jag godkänner villkoren och att RCS Direkt kontaktar mig om kontot.
           </label>
-          {errors.terms ? <p className="mt-1 text-xs font-semibold text-destructive">{errors.terms}</p> : null}
+          {errors['terms'] ? <p className="mt-1 text-xs font-semibold text-destructive">{errors['terms']}</p> : null}
         </div>
       ) : null}
       <Button type="submit" size="lg" className="w-full">{signup ? "Skapa konto" : "Skicka meddelande"}</Button>
