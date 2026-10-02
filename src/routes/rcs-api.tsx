@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
+import { useState } from "react";
 
 import { ContentBlock, DetailPage } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/rcs-api")({
   head: () => ({
@@ -19,7 +21,84 @@ export const Route = createFileRoute("/rcs-api")({
   component: RcsApiPage,
 });
 
+const examples = [
+  {
+    label: "Text",
+    code: `{
+  "to": "+46700000000",
+  "sender": "DittForetag",
+  "text": "Hej! Din order har just skickats."
+}`,
+  },
+  {
+    label: "Rikt kort",
+    code: `{
+  "to": "+46700000000",
+  "sender": "DittForetag",
+  "card": {
+    "title": "Din order är på väg",
+    "text": "Paketet levereras i morgon.",
+    "image": "https://exempel.se/bild.jpg",
+    "buttons": ["Spåra leveransen", "Kontakta oss"]
+  }
+}`,
+  },
+  {
+    label: "Karusell",
+    code: `{
+  "to": "+46700000000",
+  "sender": "DittForetag",
+  "carousel": [
+    { "title": "Sommarjacka", "image": "https://exempel.se/1.jpg", "button": "Se mer" },
+    { "title": "Regnbyxa", "image": "https://exempel.se/2.jpg", "button": "Se mer" }
+  ]
+}`,
+  },
+  {
+    label: "Knappar",
+    code: `{
+  "to": "+46700000000",
+  "sender": "DittForetag",
+  "text": "Kommer du till bokningen på fredag?",
+  "suggestions": ["Bekräfta", "Flytta tiden", "Avboka"]
+}`,
+  },
+  {
+    label: "Schemalagt",
+    code: `{
+  "to": "+46700000000",
+  "sender": "DittForetag",
+  "text": "Glad fredag! Handla 20 % billigare i helgen.",
+  "sendAt": "2026-10-03T09:00:00+02:00"
+}`,
+  },
+];
+
+function JsonBlock({ code }: { code: string }) {
+  return (
+    <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:p-6 sm:text-sm">
+      {code.split("\n").map((line, i) => {
+        const match = line.match(/^(\s*)"([^"]+)":(.*)$/);
+        return (
+          <div key={i}>
+            {match ? (
+              <>
+                {match[1]}
+                <span className="text-ink-muted">"{match[2]}"</span>:{match[3]}
+              </>
+            ) : (
+              line
+            )}
+          </div>
+        );
+      })}
+    </pre>
+  );
+}
+
 function RcsApiPage() {
+  const [active, setActive] = useState(0);
+
   return (
     <DetailPage
       eyebrow="RCS API"
@@ -31,7 +110,7 @@ function RcsApiPage() {
           <p className="mt-3 leading-relaxed text-muted-foreground">Ett anrop, tre fält och ett svar i JSON. Allt annat lägger du till när du behöver det.</p>
           <div className="mt-7 flex flex-col gap-3">
             <Button asChild>
-              <a href="#exempel">Se ett exempel <ArrowRight /></a>
+              <a href="#exempel">Se exemplen <ArrowRight /></a>
             </Button>
             <Button asChild variant="outline">
               <a href="#kontakt">Få API-tillgång <ArrowRight /></a>
@@ -42,41 +121,41 @@ function RcsApiPage() {
     >
       <ContentBlock title="En enkel struktur">
         <p>Ett RCS-meddelande skickas med ett vanligt HTTPS-anrop. Tre uppgifter räcker: mottagare, avsändare och själva meddelandet. Allt annat — knappar, bilder, karuseller — lägger du till först när du behöver det.</p>
-        <div id="exempel" className="mt-8 grid gap-4">
-          <div className="overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
+        <div id="exempel" className="mt-8">
+          <div className="flex flex-wrap gap-2">
+            {examples.map((ex, i) => (
+              <button
+                key={ex.label}
+                onClick={() => setActive(i)}
+                className={cn(
+                  "cursor-pointer rounded-full border px-4 py-2 text-sm font-bold transition-colors",
+                  i === active
+                    ? "border-primary bg-primary text-primary-foreground shadow-soft"
+                    : "border-border bg-background text-muted-foreground hover:border-foreground/30 hover:text-foreground",
+                )}
+              >
+                {ex.label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-4 overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
             <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
               <span className="rounded-md bg-ink-foreground/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-ink-foreground">POST</span>
               <span className="font-mono text-xs text-ink-muted sm:text-sm">/rcs/send</span>
               <span className="ml-auto hidden text-[11px] text-ink-muted sm:inline">Begäran</span>
             </div>
-            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:p-6 sm:text-sm">
-              <span className="font-bold">POST</span>{" "}<span className="text-ink-muted">/rcs/send</span>{"\n"}
-              <span className="text-ink-muted">Authorization:</span> Bearer DIN_API_NYCKEL{"\n"}
-              <span className="text-ink-muted">Content-Type:</span> application/json{"\n\n"}
-              {"{\n"}
-              {"  "}<span className="text-ink-muted">"to"</span>: "+46700000000",{"\n"}
-              {"  "}<span className="text-ink-muted">"sender"</span>: "DittForetag",{"\n"}
-              {"  "}<span className="text-ink-muted">"text"</span>: "Din order är på väg",{"\n"}
-              {"  "}<span className="text-ink-muted">"suggestion"</span>: "Spåra leveransen"{"\n"}
-              {"}"}
-            </pre>
+            <JsonBlock code={examples[active].code} />
           </div>
-          <div className="overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
+          <div className="mt-4 overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
             <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
               <span className="rounded-md bg-ink-foreground/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-ink-foreground">200</span>
               <span className="font-mono text-xs text-ink-muted sm:text-sm">OK</span>
               <span className="ml-auto hidden text-[11px] text-ink-muted sm:inline">Svar</span>
             </div>
-            <pre className="overflow-x-auto p-5 font-mono text-xs leading-6 text-ink-foreground sm:p-6 sm:text-sm">
-              {"{\n"}
-              {"  "}<span className="text-ink-muted">"messageId"</span>: "msg_8f4a21",{"\n"}
-              {"  "}<span className="text-ink-muted">"status"</span>: "ACCEPTED",{"\n"}
-              {"  "}<span className="text-ink-muted">"to"</span>: "+46700000000"{"\n"}
-              {"}"}
-            </pre>
+            <JsonBlock code={'{\n  "messageId": "msg_8f4a21",\n  "status": "ACCEPTED",\n  "to": "+46700000000"\n}'} />
           </div>
         </div>
-        <p className="mt-4 text-sm text-muted-foreground">Exemplet visar principen. Adresser och API-nycklar lämnas ut när API-tillgången aktiveras för ert konto.</p>
+        <p className="mt-4 text-sm text-muted-foreground">Exemplen visar principen. Adresser och API-nycklar lämnas ut när API-tillgången aktiveras för ert konto.</p>
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           {[
             { title: "Tre fält räcker", text: "Mottagare, avsändare och meddelandet. Resten är valfritt." },
