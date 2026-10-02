@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JamforPlanerRouteImport } from './routes/jamfor-planer'
 import { Route as RcsApiRouteImport } from './routes/rcs-api'
 import { Route as RcsBasicRouteImport } from './routes/rcs-basic'
 import { Route as RcsConversationRouteImport } from './routes/rcs-conversation'
@@ -19,6 +20,11 @@ import { Route as RcsSingleRouteImport } from './routes/rcs-single'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JamforPlanerRoute = JamforPlanerRouteImport.update({
+  id: '/jamfor-planer',
+  path: '/jamfor-planer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RcsApiRoute = RcsApiRouteImport.update({
@@ -49,6 +55,7 @@ const RcsSingleRoute = RcsSingleRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/jamfor-planer': typeof JamforPlanerRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/jamfor-planer': typeof JamforPlanerRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/jamfor-planer': typeof JamforPlanerRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/jamfor-planer'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/jamfor-planer'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/jamfor-planer'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  JamforPlanerRoute: typeof JamforPlanerRoute
   RcsApiRoute: typeof RcsApiRoute
   RcsBasicRoute: typeof RcsBasicRoute
   RcsConversationRoute: typeof RcsConversationRoute
@@ -115,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jamfor-planer': {
+      id: '/jamfor-planer'
+      path: '/jamfor-planer'
+      fullPath: '/jamfor-planer'
+      preLoaderRoute: typeof JamforPlanerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rcs-api': {
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  JamforPlanerRoute: JamforPlanerRoute,
   RcsApiRoute: RcsApiRoute,
   RcsBasicRoute: RcsBasicRoute,
   RcsConversationRoute: RcsConversationRoute,

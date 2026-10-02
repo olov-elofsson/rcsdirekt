@@ -34,7 +34,7 @@ export function SiteFooter() {
         </Link>
         <div className="grid grid-cols-2 gap-6 text-xs sm:grid-cols-3">
           <div><p className="font-bold">Skicka</p><Link to="/rcs-online" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS online</Link><Link to="/rcs-api" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS API</Link></div>
-          <div><p className="font-bold">Priser</p><Link to="/rcs-basic" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Basic</Link><Link to="/rcs-single" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Single</Link><Link to="/rcs-conversation" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Conversation</Link></div>
+          <div><p className="font-bold">Priser</p><Link to="/rcs-basic" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Basic</Link><Link to="/rcs-single" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Single</Link><Link to="/rcs-conversation" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Conversation</Link><Link to="/jamfor-planer" className="mt-2 block text-ink-muted hover:text-ink-foreground">Jämför planerna</Link></div>
           <div><p className="font-bold">Företag</p><a href="#kontakt" className="mt-2 block text-ink-muted hover:text-ink-foreground">Kontakt</a></div>
         </div>
         <div className="flex items-start gap-3"><a href="#kontakt" aria-label="LinkedIn"><Linkedin className="size-4" /></a><a href="#kontakt" aria-label="Youtube"><Youtube className="size-4" /></a></div>
