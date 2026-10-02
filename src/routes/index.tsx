@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, BadgeCheck, Braces, Code2, Globe, Headphones, Linkedin, Menu, X, Youtube } from "lucide-react";
+import { ArrowRight, BadgeCheck, BarChart3, Braces, Check, Code2, Globe, Headphones, Images, Linkedin, Menu, TrendingUp, X, Youtube } from "lucide-react";
 
 import logoUrl from "@/assets/rcsdirekt-logo.svg";
 import { RcsPhone } from "@/components/RcsPhone";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "#kontakt";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Pricing /></main><Footer /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><Header /><main><HeroFirst /><WhatIsRcs /><Advantages /><Pricing /></main><Footer /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]";
