@@ -50,9 +50,6 @@ function ComparePlansPage() {
               <p className="text-sm font-bold">{plan.name}</p>
               <p className="mt-5 text-[2rem] font-extrabold leading-none tracking-[-0.03em]">{plan.price}</p>
               <p className={`mt-1.5 text-xs ${i === 1 ? "opacity-75" : "text-muted-foreground"}`}>per meddelande</p>
-              <span className={`mt-auto inline-flex items-center gap-2 pt-6 text-xs font-bold`}>
-                Läs mer <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-              </span>
             </Link>
           ))}
         </div>
