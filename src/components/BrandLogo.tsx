@@ -4,9 +4,9 @@ import symbolUrl from "@/assets/rcsdirekt-symbol.svg";
 import { cn } from "@/lib/utils";
 
 export function BrandLogo({ className }: { className?: string }) {
-  return <img src={logoUrl} alt="RCS Direkt" className={cn("h-10 w-auto", className)} />;
+  return <img src={logoUrl} alt="RCS Direkt" className={cn("h-9 w-auto", className)} />;
 }
 
 export function BrandSymbol({ inverse = false, className }: { inverse?: boolean; className?: string }) {
-  return <img src={inverse ? symbolWhiteUrl : symbolUrl} alt="RCS Direkt" className={cn("h-10 w-auto", className)} />;
+  return <img src={inverse ? symbolWhiteUrl : symbolUrl} alt="RCS Direkt" className={cn("h-9 w-auto", className)} />;
 }
