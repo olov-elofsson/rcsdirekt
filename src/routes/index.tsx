@@ -51,18 +51,27 @@ const rcsAdvantages = [
   { icon: Globe, title: "En internationell standard", copy: "RCS är en branschstandard som stöds av operatörer och telefontillverkare världen över. Samma teknik fungerar oavsett var era kunder finns." },
 ];
 
-const comparisonRows = [
+const comparisonRows: { label: string; sms: boolean | string; rcs: boolean | string }[] = [
+  { label: "Verifierad avsändare", sms: false, rcs: true },
+  { label: "Avsändarprofil", sms: "Endast nummer", rcs: "Namn och logotyp" },
+  { label: "Tecken per meddelande", sms: "160", rcs: "ca 4 000" },
   { label: "Bilder, video och karuseller", sms: false, rcs: true },
   { label: "Interaktiva knappar", sms: false, rcs: true },
-  { label: "Verifierad avsändare", sms: false, rcs: true },
-  { label: "Läskvitton och statistik i realtid", sms: false, rcs: true },
+  { label: "Läskvitton i realtid", sms: false, rcs: true },
+  { label: "Analys och insikter", sms: "Levererat", rcs: "Levererat, sett och klick" },
+  { label: "AI-stöd", sms: "Ja, till viss del", rcs: "Ja" },
+  { label: "Tillgänglighet i Sverige", sms: "Alla mobiler", rcs: "Android 5.0+ och iOS 27" },
   { label: "Fungerar i kundens vanliga meddelandeapp", sms: true, rcs: true },
+  { label: "Installation", sms: true, rcs: true },
 ];
 
-function CompareCell({ ok }: { ok: boolean }) { return <span className="flex justify-center">{ok ? <Check className="size-5 text-logo-blush" /> : <X className="size-5 text-muted-foreground/50" />}</span>; }
+function CompareCell({ value, highlight }: { value: boolean | string; highlight: boolean }) {
+  const tone = highlight ? "text-logo-blush" : "text-muted-foreground";
+  return <span className={cn("flex justify-center text-center text-[0.7rem] font-semibold leading-snug sm:text-xs", tone)}>{typeof value === "boolean" ? (value ? <Check className="size-5" /> : <X className="size-5 text-muted-foreground/50" />) : value}</span>;
+}
 
 function Comparison() {
-  return <div className="mx-auto mt-20 max-w-3xl"><h3 className="text-center text-[1.6rem] font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-[2rem]">RCS jämfört med SMS</h3><p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground">Båda hamnar i kundens meddelandeapp och betalas per meddelande. Skillnaden är vad som ryms i varje meddelande.</p><div className="mt-8 rounded-[2rem] border border-border/80 bg-card p-6 shadow-card sm:p-8"><div className="grid grid-cols-[1fr_3.5rem_3.5rem] items-center gap-x-2"><span aria-hidden /><span className="text-center text-xs font-bold uppercase tracking-wide text-muted-foreground">SMS</span><span className="text-center text-xs font-bold uppercase tracking-wide text-logo-blush">RCS</span></div><div className="mt-3 divide-y divide-border">{comparisonRows.map((row) => <div key={row.label} className="grid grid-cols-[1fr_3.5rem_3.5rem] items-center gap-x-2 py-3.5"><span className="text-sm font-semibold leading-snug">{row.label}</span><CompareCell ok={row.sms} /><CompareCell ok={row.rcs} /></div>)}</div></div></div>;
+  return <section className="relative overflow-hidden bg-background pt-20 pb-20 sm:pt-24 sm:pb-24"><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-16 h-56 w-56 opacity-[0.05] lg:left-16" /><div className="relative mx-auto max-w-3xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>RCS jämfört med SMS</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">Båda hamnar i kundens meddelandeapp och betalas per meddelande. Skillnaden är vad som ryms i varje meddelande.</p></div><div className="mt-10 rounded-[2rem] border border-border/80 bg-card p-6 shadow-card sm:p-8"><div className="grid grid-cols-[1fr_5.5rem_5.5rem] items-center gap-x-2 sm:grid-cols-[1fr_9rem_9rem]"><span aria-hidden /><span className="text-center text-xs font-bold uppercase tracking-wide text-muted-foreground">SMS</span><span className="text-center text-xs font-bold uppercase tracking-wide text-logo-blush">RCS</span></div><div className="mt-3 divide-y divide-border">{comparisonRows.map((row) => <div key={row.label} className="grid grid-cols-[1fr_5.5rem_5.5rem] items-center gap-x-2 py-3 sm:grid-cols-[1fr_9rem_9rem]"><span className="text-sm font-semibold leading-snug">{row.label}</span><CompareCell value={row.sms} highlight={false} /><CompareCell value={row.rcs} highlight={typeof row.rcs === "string"} /></div>)}</div></div></div></section>;
 }
 
 function Advantages() {
