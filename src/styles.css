@@ -178,7 +178,7 @@
 }
 
 @utility hero-wash {
-  background: radial-gradient(58rem 30rem at 50% -4rem, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 72%);
+  background: radial-gradient(58rem 30rem at 50% -4rem, color-mix(in oklab, var(--color-background) 78%, transparent), transparent 72%);
   inset-inline: 0;
   min-height: 46rem;
   pointer-events: none;
