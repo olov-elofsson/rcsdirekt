@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, BarChart3, Braces, Code2, Globe, Headphones, Images, TrendingUp } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
+import { RcsPhone } from "@/components/RcsPhone";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { campaigns, industries } from "@/data/rcs-content";
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "/skapa-konto";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><WhatIsRcs /><Advantages /><Pricing /><ContactSection /></main><Footer /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><WhatIsRcs /><Advantages /><Pricing /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]";
