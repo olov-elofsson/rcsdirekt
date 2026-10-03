@@ -7,11 +7,11 @@ import { pricingPlans } from "@/data/pricing-plans";
 export const Route = createFileRoute("/jamfor-planer")({
   head: () => ({
     meta: [
-      { title: "Vilken meddelandetyp behöver jag? · RCS Direkt" },
-      { name: "description", content: "Jämför RCS Basic, RCS Single och RCS Conversation. Alla betalas per skickat meddelande, utan månadskostnad." },
-      { property: "og:title", content: "Vilken meddelandetyp behöver jag? · RCS Direkt" },
-      { property: "og:description", content: "Jämför de tre RCS-meddelandetyperna och hitta rätt nivå för era utskick." },
-      { property: "og:type", content: "website" },
+      { title: "RCS-priser: jämför meddelandetyper | RCS Direkt" },
+      { name: "description", content: "Jämför RCS Basic, Single och Conversation. Se vad det kostar att skicka RCS för ert företag, betala bara per meddelande." },
+      { property: "og:title", content: "RCS-priser: jämför meddelandetyper | RCS Direkt" },
+      { property: "og:description", content: "Jämför RCS Basic, Single och Conversation. Se vad det kostar att skicka RCS för ert företag, betala bara per meddelande." },
+      { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/jamfor-planer" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://rcsdirekt.se/jamfor-planer" }],

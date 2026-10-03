@@ -11,13 +11,16 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "RCS Direkt · Sveriges enklaste sätt att börja med RCS" },
-    { name: "description", content: "Skicka RCS med bilder, knappar och verifierad avsändare. Enkel prissättning och personlig hjälp när du behöver den." },
-    { property: "og:title", content: "RCS Direkt · Sveriges enklaste sätt att börja med RCS" },
-    { property: "og:description", content: "Ett enkelt sätt för svenska företag att skicka RCS direkt till kundens meddelandeapp." },
-    { property: "og:type", content: "website" },
+    { title: "RCS för företag: skicka RCS enkelt | RCS Direkt" },
+    { name: "description", content: "Skicka RCS för företag direkt från webben eller via API. Bilder, knappar och verifierad avsändare. Från 0,30 SEK per meddelande, inga månadskostnader." },
+    { property: "og:title", content: "RCS för företag: skicka RCS enkelt | RCS Direkt" },
+    { property: "og:description", content: "Skicka RCS för företag direkt från webben eller via API. Bilder, knappar och verifierad avsändare. Från 0,30 SEK per meddelande, inga månadskostnader." },
+    { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/" },
     { name: "twitter:card", content: "summary_large_image" },
-  ] }),
+  ],
+  links: [{ rel: "canonical", href: "https://rcsdirekt.se/" }],
+  scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context":"https://schema.org","@type":"Organization","name":"RCS Direkt","url":"https://rcsdirekt.se/","logo":"https://rcsdirekt.se/favicon.svg","description":"RCS för företag. Skicka RCS från webben eller via API."}) }],
+  }),
   component: Index,
 });
 

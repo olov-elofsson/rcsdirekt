@@ -6,11 +6,11 @@ import { LeadForm } from "@/components/LeadForm";
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
     meta: [
-      { title: "Kontakta oss · RCS Direkt" },
-      { name: "description", content: "Har du frågor om RCS, API-tillgång eller priser? Skriv till oss så återkommer vi." },
-      { property: "og:title", content: "Kontakta oss · RCS Direkt" },
-      { property: "og:description", content: "Prata med oss om RCS för er verksamhet." },
-      { property: "og:type", content: "website" },
+      { title: "Kontakta oss om RCS för företag | RCS Direkt" },
+      { name: "description", content: "Frågor om att skicka RCS, API-tillgång eller priser? Kontakta RCS Direkt så hjälper vi ert företag igång." },
+      { property: "og:title", content: "Kontakta oss om RCS för företag | RCS Direkt" },
+      { property: "og:description", content: "Frågor om att skicka RCS, API-tillgång eller priser? Kontakta RCS Direkt så hjälper vi ert företag igång." },
+      { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/kontakt" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://rcsdirekt.se/kontakt" }],
