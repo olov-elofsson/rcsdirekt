@@ -13,17 +13,11 @@ import {
   Mic,
   MousePointerClick,
   ShieldCheck,
+  X,
 } from "lucide-react";
 
 import symbolUrl from "@/assets/rcsdirekt-symbol.svg";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
 import { cn } from "@/lib/utils";
 
@@ -59,6 +53,12 @@ export function InteractiveRcsDemo() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
+  useEffect(() => {
+    if (!dialogOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setDialogOpen(false); };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [dialogOpen]);
 
   const scrollChat = () => requestAnimationFrame(() => chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" }));
   const chooseReply = (reply: ReplyOption) => {
@@ -132,6 +132,13 @@ export function InteractiveRcsDemo() {
 
     {showNotes ? <div className="mx-auto mt-10 grid max-w-2xl gap-3 sm:grid-cols-2 min-[1000px]:hidden">{demoFeatures.map((item) => <button type="button" key={item.id} onFocus={() => setActive(item.id)} onBlur={() => setActive(null)} onMouseEnter={() => setActive(item.id)} onMouseLeave={() => setActive(null)} className="flex items-start gap-3 rounded-lg border border-border bg-card p-4 text-left shadow-soft"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground">{item.id}</span><span><strong className="block text-sm">{item.title}</strong><span className="mt-1 block text-xs leading-relaxed text-muted-foreground">{item.copy}</span></span></button>)}</div> : null}
 
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}><DialogContent className="rounded-lg"><DialogHeader><DialogTitle>Boka en demo</DialogTitle><DialogDescription>Fyll i dina uppgifter så återkommer vi.</DialogDescription></DialogHeader><form className="grid gap-4" onSubmit={(event) => { event.preventDefault(); setDialogOpen(false); }}><label className="grid gap-1 text-sm font-semibold">Namn<input required className="h-11 rounded-md border border-input bg-background px-3 font-normal outline-none focus:ring-2 focus:ring-ring" /></label><label className="grid gap-1 text-sm font-semibold">Företag<input required className="h-11 rounded-md border border-input bg-background px-3 font-normal outline-none focus:ring-2 focus:ring-ring" /></label><label className="grid gap-1 text-sm font-semibold">E-post<input required type="email" className="h-11 rounded-md border border-input bg-background px-3 font-normal outline-none focus:ring-2 focus:ring-ring" /></label><Button type="submit" className="mt-1 w-full">Skicka</Button></form></DialogContent></Dialog>
+    {dialogOpen ? <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/70 px-5" onMouseDown={(event) => { if (event.target === event.currentTarget) setDialogOpen(false); }}>
+      <section role="dialog" aria-modal="true" aria-labelledby="demo-dialog-title" aria-describedby="demo-dialog-description" className="relative w-full max-w-lg rounded-lg border border-border bg-background p-6 text-left shadow-lift animate-scale-in">
+        <Button type="button" variant="ghost" size="icon" className="absolute right-3 top-3" onClick={() => setDialogOpen(false)} aria-label="Stäng"><X /></Button>
+        <h2 id="demo-dialog-title" className="pr-10 text-xl font-bold">Boka en demo</h2>
+        <p id="demo-dialog-description" className="mt-2 text-sm text-muted-foreground">Fyll i dina uppgifter så återkommer vi.</p>
+        <form className="mt-6 grid gap-4" onSubmit={(event) => { event.preventDefault(); setDialogOpen(false); }}><label className="grid gap-1 text-sm font-semibold">Namn<input autoFocus required className="h-11 rounded-md border border-input bg-background px-3 font-normal outline-none focus:ring-2 focus:ring-ring" /></label><label className="grid gap-1 text-sm font-semibold">Företag<input required className="h-11 rounded-md border border-input bg-background px-3 font-normal outline-none focus:ring-2 focus:ring-ring" /></label><label className="grid gap-1 text-sm font-semibold">E-post<input required type="email" className="h-11 rounded-md border border-input bg-background px-3 font-normal outline-none focus:ring-2 focus:ring-ring" /></label><Button type="submit" className="mt-1 w-full">Skicka</Button></form>
+      </section>
+    </div> : null}
   </div>;
 }
