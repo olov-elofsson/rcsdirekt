@@ -73,6 +73,7 @@ export function InteractiveRcsDemo() {
       <div aria-hidden className="deco-dots pointer-events-none absolute -left-8 top-10 h-52 w-52 opacity-[0.07]" />
       <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 bottom-12 h-52 w-52 opacity-[0.07]" />
       <div aria-hidden className="phone-halo" />
+      <div className="relative mb-7 min-[1000px]:hidden"><h2 className="text-center text-xl font-extrabold tracking-[-0.01em]">Så fungerar RCS</h2><p className="mx-auto mt-2 max-w-xs text-center text-sm leading-relaxed text-muted-foreground">Tryck på siffrorna i telefonen så förklarar vi vad du ser.</p></div>
       <div className="relative grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[600px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div>
 
