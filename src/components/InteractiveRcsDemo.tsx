@@ -69,7 +69,7 @@ export function InteractiveRcsDemo() {
   const answer = selectedReply ? replyContent[selectedReply] : null;
 
   return <div className="mx-auto w-full max-w-6xl">
-    <div className="demo-stage relative isolate overflow-hidden rounded-[2.5rem] px-3 py-10 shadow-card ring-1 ring-border/70 sm:rounded-[3.5rem] sm:px-8 sm:py-14">
+    <div className="demo-stage relative isolate -mx-5 overflow-hidden border-y border-border/80 px-5 py-12 sm:mx-0 sm:rounded-[3rem] sm:border-y-0 sm:px-8 sm:py-14 sm:shadow-card sm:ring-1 sm:ring-border/70">
       <div aria-hidden className="deco-dots pointer-events-none absolute -left-8 top-10 h-52 w-52 opacity-[0.07]" />
       <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 bottom-12 h-52 w-52 opacity-[0.07]" />
       <div aria-hidden className="phone-halo" />
@@ -77,11 +77,11 @@ export function InteractiveRcsDemo() {
       <div className="relative grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[600px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div>
 
-      <div className="relative mx-auto w-full max-w-[330px] min-w-0 rounded-[3rem] border-[9px] border-phone-edge bg-phone-edge p-1.5 shadow-lift">
+      <div className="relative mx-auto w-full max-w-[350px] min-w-0 rounded-[3rem] border-[9px] border-phone-edge bg-phone-edge p-1.5 shadow-lift min-[1000px]:max-w-[330px]">
         <div className="overflow-hidden rounded-[2.4rem] bg-phone-screen">
           <div className="relative flex h-8 items-center justify-center px-5 text-[10px] font-bold"><span className="absolute left-5">09:41</span><span className="h-4 w-20 rounded-full bg-phone-edge" /></div>
           <div className="flex h-10 items-center gap-3 border-b border-border bg-card px-4"><ArrowLeft className="size-4 text-muted-foreground" /><img src={symbolUrl} alt="" className="size-6 object-contain" /><strong className="min-w-0 flex-1 text-xs">RCS Direkt</strong><ShieldCheck className="size-4 text-logo-blush" /><Menu className="size-4 text-muted-foreground" /></div>
-          <div ref={chatRef} className="scrollbar-none h-[540px] overflow-y-auto scroll-smooth bg-phone-chat px-3 pb-4 pt-3">
+          <div ref={chatRef} className="bg-phone-chat px-3 pb-4 pt-3 min-[1000px]:scrollbar-none min-[1000px]:h-[540px] min-[1000px]:overflow-y-auto min-[1000px]:scroll-smooth">
             <FeatureTarget id={1} active={active} onActive={setActive} onOpen={openFeature} className="mx-auto mb-4 w-fit px-8 py-1 text-center">
               <div className="relative mx-auto grid size-14 place-items-center rounded-full bg-card shadow-soft ring-1 ring-border"><img src={symbolUrl} alt="RCS Direkt" className="size-8 object-contain" /><BadgeCheck className="absolute -bottom-0.5 -right-0.5 size-5 fill-primary-foreground text-logo-blush" /></div>
               <p className="mt-2 text-xs font-bold">RCS Direkt</p><p className="text-[9px] text-muted-foreground">Nästa generations meddelanden</p>
@@ -113,7 +113,7 @@ export function InteractiveRcsDemo() {
           </div>
           <div className="flex h-12 items-center gap-2 border-t border-border bg-card px-3"><div className="flex h-8 flex-1 items-center rounded-full bg-muted px-4 text-[10px] text-muted-foreground">RCS-meddelande</div><span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground"><Mic className="size-4" /></span></div>
         </div>
-        {active ? (() => { const item = demoFeatures.find((feature) => feature.id === active); return item ? <div className="absolute inset-x-3 bottom-4 z-30 flex items-start gap-3 rounded-2xl border border-border bg-background p-3.5 text-left shadow-lift animate-fade-in min-[1000px]:hidden"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">{item.id}</span><span className="min-w-0 flex-1"><strong className="block text-xs">{item.title}</strong><span className="mt-1 block text-[11px] leading-snug text-muted-foreground">{item.copy}</span></span><button type="button" aria-label="Stäng" onClick={() => setActive(null)} className="grid size-6 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground"><X className="size-3.5" /></button></div> : null; })() : null}
+        {active ? (() => { const item = demoFeatures.find((feature) => feature.id === active); return item ? <div className="fixed inset-x-4 bottom-4 z-[60] mx-auto flex max-w-sm items-start gap-3 rounded-2xl border border-border bg-background p-3.5 text-left shadow-lift animate-fade-in min-[1000px]:hidden"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">{item.id}</span><span className="min-w-0 flex-1"><strong className="block text-xs">{item.title}</strong><span className="mt-1 block text-[11px] leading-snug text-muted-foreground">{item.copy}</span></span><Button type="button" variant="ghost" size="icon" aria-label="Stäng" onClick={() => setActive(null)} className="size-7 shrink-0"><X className="size-3.5" /></Button></div> : null; })() : null}
       </div>
 
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[600px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={2} align="right" active={active} onActive={setActive} /><Annotation id={4} align="right" active={active} onActive={setActive} /><Annotation id={6} align="right" active={active} onActive={setActive} /></div>
