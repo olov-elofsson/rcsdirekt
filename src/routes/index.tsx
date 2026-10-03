@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BarChart3, Code2, Globe, TrendingUp } from "lucide-react";
+import { ArrowRight, BarChart3, Check, Code2, Globe, TrendingUp, Wallet, X } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
@@ -47,7 +47,23 @@ function WhatIsRcs() {
 const rcsAdvantages = [
   { icon: TrendingUp, title: "Upp till 35 % klickfrekvens", copy: "RCS-meddelanden ger betydligt högre engagemang än ett vanligt textutskick. Interaktiva knappar och rikt innehåll får kunderna att agera direkt." },
   { icon: BarChart3, title: "Statistik i realtid", copy: "Följ leverans, läsningar och klick medan utskicket pågår. Se vad som fungerar och justera nästa utskick." },
+  { icon: Wallet, title: "Mer resultat för pengarna", copy: "När fler kunder öppnar, klickar och svarar får ni mer utav samma budget. Betala bara för de meddelanden som faktiskt skickas." },
+  { icon: Globe, title: "En international standard", copy: "RCS är en branschstandard som stöds av operatörer och telefontillverkare världen över. Samma teknik fungerar oavsett var era kunder finns." },
 ];
+
+const comparisonRows = [
+  { label: "Bilder, video och karuseller", sms: false, rcs: true },
+  { label: "Interaktiva knappar", sms: false, rcs: true },
+  { label: "Verifierad avsändare", sms: false, rcs: true },
+  { label: "Läskvitton och statistik i realtid", sms: false, rcs: true },
+  { label: "Fungerar i kundens vanliga meddelandeapp", sms: true, rcs: true },
+];
+
+function CompareCell({ ok }: { ok: boolean }) { return <span className="flex justify-center">{ok ? <Check className="size-5 text-logo-blush" /> : <X className="size-5 text-muted-foreground/50" />}</span>; }
+
+function Comparison() {
+  return <div className="mx-auto mt-20 max-w-3xl"><h3 className="text-center text-[1.6rem] font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-[2rem]">RCS jämfört med SMS</h3><p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-muted-foreground">Båda hamnar i kundens meddelandeapp och betalas per meddelande. Skillnaden är vad som ryms i varje meddelande.</p><div className="mt-8 rounded-[2rem] border border-border/80 bg-card p-6 shadow-card sm:p-8"><div className="grid grid-cols-[1fr_3.5rem_3.5rem] items-center gap-x-2"><span aria-hidden /><span className="text-center text-xs font-bold uppercase tracking-wide text-muted-foreground">SMS</span><span className="text-center text-xs font-bold uppercase tracking-wide text-logo-blush">RCS</span></div><div className="mt-3 divide-y divide-border">{comparisonRows.map((row) => <div key={row.label} className="grid grid-cols-[1fr_3.5rem_3.5rem] items-center gap-x-2 py-3.5"><span className="text-sm font-semibold leading-snug">{row.label}</span><CompareCell ok={row.sms} /><CompareCell ok={row.rcs} /></div>)}</div></div></div>;
+}
 
 function Advantages() {
   return <section className="relative overflow-hidden bg-primary-soft pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip className="h-12 sm:h-16 lg:h-24" fill="var(--color-background)" /><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-36 h-56 w-56 opacity-[0.08] lg:left-16" /><div aria-hidden className="deco-dots pointer-events-none absolute bottom-28 right-8 h-56 w-56 opacity-[0.08] lg:right-16" /><div className="relative mx-auto max-w-5xl px-5 lg:px-8"><div className="max-w-2xl"><h2 className={sectionTitle}>Fördelarna med RCS</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">Mycket av det som gör RCS bra syns redan i demonstrationen. Här är två saker som dessutom går att mäta.</p></div><div className="mt-12 grid gap-5 sm:grid-cols-2">{rcsAdvantages.map(({ icon: Icon, title, copy }) => <div key={title} className="rounded-[2rem] border border-border/80 bg-card p-8 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-foreground/25 hover:shadow-lift"><span className="grid size-11 place-items-center rounded-full bg-primary-soft text-primary ring-1 ring-border/60"><Icon className="size-5" /></span><h3 className="mt-6 text-lg font-extrabold tracking-[-0.01em]">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy}</p></div>)}</div><div className="mt-12 flex justify-center"><DualCtas /></div></div></section>;
