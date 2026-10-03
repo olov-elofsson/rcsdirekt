@@ -48,7 +48,7 @@ const rcsAdvantages = [
   { icon: TrendingUp, title: "Upp till 35 % klickfrekvens", copy: "RCS-meddelanden ger betydligt högre engagemang än ett vanligt textutskick. Interaktiva knappar och rikt innehåll får kunderna att agera direkt." },
   { icon: BarChart3, title: "Statistik i realtid", copy: "Följ leverans, läsningar och klick medan utskicket pågår. Se vad som fungerar och justera nästa utskick." },
   { icon: Wallet, title: "Mer resultat för pengarna", copy: "När fler kunder öppnar, klickar och svarar får ni mer utav samma budget. Betala bara för de meddelanden som faktiskt skickas." },
-  { icon: Globe, title: "En international standard", copy: "RCS är en branschstandard som stöds av operatörer och telefontillverkare världen över. Samma teknik fungerar oavsett var era kunder finns." },
+  { icon: Globe, title: "En internationell standard", copy: "RCS är en branschstandard som stöds av operatörer och telefontillverkare världen över. Samma teknik fungerar oavsett var era kunder finns." },
 ];
 
 const comparisonRows = [
