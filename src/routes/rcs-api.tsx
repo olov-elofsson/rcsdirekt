@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/rcs-api")({
   head: () => ({
     meta: [
-      { title: "RCS API för era system · RCS Direkt" },
-      { name: "description", content: "Skicka rika RCS-meddelanden från era egna system." },
-      { property: "og:title", content: "Bygg in RCS i era egna system · RCS Direkt" },
-      { property: "og:description", content: "Skicka rika RCS-meddelanden med ett enkelt REST API och webhooks." },
-      { property: "og:type", content: "website" },
+      { title: "RCS API för företag – skicka RCS via API | RCS Direkt" },
+      { name: "description", content: "Skicka RCS från era egna system med ett enkelt REST API. Tre fält räcker, JSON-svar och webhooks. Från 0,30 SEK per meddelande." },
+      { property: "og:title", content: "RCS API för företag – skicka RCS via API | RCS Direkt" },
+      { property: "og:description", content: "Skicka RCS från era egna system med ett enkelt REST API. Tre fält räcker, JSON-svar och webhooks. Från 0,30 SEK per meddelande." },
+      { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/rcs-api" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://rcsdirekt.se/rcs-api" }],

@@ -11,11 +11,11 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/skapa-konto")({
   head: () => ({
     meta: [
-      { title: "Skapa konto · RCS Direkt" },
-      { name: "description", content: "Skapa ett konto hos RCS Direkt. Inga månadskostnader och inga startavgifter. Betala per meddelande." },
-      { property: "og:title", content: "Skapa konto · RCS Direkt" },
-      { property: "og:description", content: "Kom igång med RCS på några minuter." },
-      { property: "og:type", content: "website" },
+      { title: "Skapa konto och skicka RCS | RCS Direkt" },
+      { name: "description", content: "Skapa ett konto och börja skicka RCS för ert företag. Inga startavgifter, inga månadskostnader. Betala per meddelande." },
+      { property: "og:title", content: "Skapa konto och skicka RCS | RCS Direkt" },
+      { property: "og:description", content: "Skapa ett konto och börja skicka RCS för ert företag. Inga startavgifter, inga månadskostnader. Betala per meddelande." },
+      { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/skapa-konto" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://rcsdirekt.se/skapa-konto" }],
