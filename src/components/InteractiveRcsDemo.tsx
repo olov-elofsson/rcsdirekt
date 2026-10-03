@@ -26,7 +26,7 @@ function FeatureMarker({ id, active, onOpen }: { id: DemoFeatureId; active: Demo
 }
 
 function FeatureTarget({ id, active, onActive, onOpen, children, className }: { id: DemoFeatureId; active: DemoFeatureId | null; onActive: (id: DemoFeatureId | null) => void; onOpen: (id: DemoFeatureId) => void; children: React.ReactNode; className?: string }) {
-  return <div tabIndex={0} onMouseEnter={() => onActive(id)} onMouseLeave={() => onActive(null)} onFocus={() => onActive(id)} onBlur={() => onActive(null)} onClick={() => { if (window.matchMedia("(min-width: 1000px)").matches) return; onOpen(id); }} className={cn("relative cursor-pointer rounded-2xl outline-none transition-[box-shadow,transform] duration-300", active === id && "z-10 ring-2 ring-logo-blush ring-offset-2 ring-offset-phone-chat shadow-lift", className)}><FeatureMarker id={id} active={active} onToggle={onToggle} />{children}</div>;
+  return <div tabIndex={0} onMouseEnter={() => onActive(id)} onMouseLeave={() => onActive(null)} onFocus={() => onActive(id)} onBlur={() => onActive(null)} onClick={() => { if (window.matchMedia("(min-width: 1000px)").matches) return; onOpen(id); }} className={cn("relative cursor-pointer rounded-2xl outline-none transition-[box-shadow,transform] duration-300", active === id && "z-10 ring-2 ring-logo-blush ring-offset-2 ring-offset-phone-chat shadow-lift", className)}><FeatureMarker id={id} active={active} onOpen={onOpen} />{children}</div>;
 }
 
 function Annotation({ id, active, onActive, align }: { id: DemoFeatureId; active: DemoFeatureId | null; onActive: (id: DemoFeatureId | null) => void; align: "left" | "right" }) {
