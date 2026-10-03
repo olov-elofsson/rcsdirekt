@@ -66,7 +66,6 @@ export function RcsPhone({ campaign, compact = false, className, eager = false, 
           </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }
