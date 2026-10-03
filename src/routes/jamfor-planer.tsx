@@ -44,7 +44,7 @@ function ComparePlansPage() {
             <Link
               key={plan.name}
               to={plan.slug}
-              className={`group relative flex flex-col rounded-[1.75rem] border p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift ${i === 1 ? "border-primary bg-primary text-primary-foreground shadow-card" : "border-border/80 bg-card shadow-soft hover:border-foreground/25"}`}
+              className={`group relative flex flex-col rounded-[2rem] border p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift ${i === 1 ? "border-primary bg-primary text-primary-foreground shadow-card" : "border-border/80 bg-card shadow-soft hover:border-foreground/25"}`}
             >
               {i === 1 ? <span className="absolute -top-3 left-6 rounded-full bg-background px-3 py-1 text-[11px] font-bold text-foreground ring-1 ring-border">Populärast</span> : null}
               <p className="text-sm font-bold">{plan.name}</p>
