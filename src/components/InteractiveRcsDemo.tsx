@@ -84,7 +84,7 @@ export function InteractiveRcsDemo() {
             <FeatureTarget id={2} active={active} onActive={setActive} className="ml-auto w-[78%]">
               <div className="rounded-2xl rounded-br-md bg-primary-soft p-3 text-left text-[11px] leading-relaxed">Hej! Vad är skillnaden mot ett vanligt SMS?</div><p className="mt-1 pr-1 text-right text-[8px] text-muted-foreground">✓✓ Läst · 09:41</p>
             </FeatureTarget>
-            <div className="mt-3 w-[88%] rounded-2xl rounded-bl-md bg-card p-3 text-left text-[11px] leading-relaxed shadow-soft">Mer än ett SMS. Mindre krångel än en app. Här är det viktigaste:</div>
+            <div className="mt-3 w-[88%] rounded-2xl rounded-bl-md bg-card p-3 text-left text-[11px] leading-relaxed shadow-soft">RCS är nästa generations meddelanden. Det hamnar direkt i kundens vanliga meddelandeapp, med bilder, video, flera produkter att svepa mellan och knappar som kunden trycker på för att köpa, boka eller svara. Ingen app att ladda ner.</div>
 
             <FeatureTarget id={3} active={active} onActive={setActive} className="mt-3 min-w-0 rounded-none">
               <div className="mb-2 hidden justify-end gap-1 min-[1000px]:flex"><Button type="button" variant="outline" size="icon" className="size-7" onClick={() => scrollCards(-1)} aria-label="Föregående kort"><ChevronLeft /></Button><Button type="button" variant="outline" size="icon" className="size-7" onClick={() => scrollCards(1)} aria-label="Nästa kort"><ChevronRight /></Button></div>
