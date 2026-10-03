@@ -179,14 +179,14 @@ export function DetailPage({ title, intro, children, aside }: { title: string; i
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden bg-primary-soft pt-20 pb-24 sm:pt-28 sm:pb-32">
+        <section className="relative overflow-hidden bg-primary-soft pt-24 pb-24 sm:pt-28 sm:pb-28">
           <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 top-12 size-56 opacity-[0.07]" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">{title}</h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{intro}</p>
           </div>
         </section>
-        <section className="py-20 sm:py-28">
+        <section className="py-24 sm:py-28">
           <div className="mx-auto grid max-w-6xl gap-14 px-5 lg:grid-cols-[1fr_0.72fr] lg:gap-20 lg:px-8">
             <div className="space-y-12">{children}</div>
             {aside ? <aside className="lg:sticky lg:top-24 lg:self-start">{aside}</aside> : null}
