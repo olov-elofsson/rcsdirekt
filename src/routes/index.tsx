@@ -1,10 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, BarChart3, Braces, Code2, Globe, Headphones, Images, Linkedin, TrendingUp, Youtube } from "lucide-react";
+import { ArrowRight, BadgeCheck, BarChart3, Braces, Code2, Globe, Headphones, Images, TrendingUp } from "lucide-react";
 
-import { BrandSymbol } from "@/components/BrandLogo";
-import { RcsPhone } from "@/components/RcsPhone";
 import { LeadForm } from "@/components/LeadForm";
-import { SiteHeader } from "@/components/SiteLayout";
+import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { campaigns, industries } from "@/data/rcs-content";
 import { pricingPlans } from "@/data/pricing-plans";
