@@ -89,7 +89,7 @@ export function InteractiveRcsDemo() {
     <div className={cn("grid items-center gap-x-4", showNotes ? "min-[1000px]:grid-cols-[minmax(210px,1fr)_440px_minmax(210px,1fr)]" : "min-[1000px]:grid-cols-[440px] min-[1000px]:justify-center")}>
       {showNotes ? <div className="hidden min-[1000px]:flex min-[1000px]:h-[820px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div> : null}
 
-      <div className="relative mx-auto w-full max-w-[440px] rounded-[3.25rem] border-[10px] border-phone-edge bg-phone-edge p-1.5 shadow-lift">
+      <div className="relative mx-auto w-[min(440px,calc(100vw-40px))] min-w-0 rounded-[3.25rem] border-[10px] border-phone-edge bg-phone-edge p-1.5 shadow-lift">
         <div className="overflow-hidden rounded-[2.5rem] bg-phone-screen">
           <div className="relative flex h-9 items-center justify-center px-5 text-[10px] font-bold"><span className="absolute left-5">09:41</span><span className="h-4 w-24 rounded-full bg-phone-edge" /></div>
           <div className="flex h-11 items-center gap-3 border-b border-border bg-card px-4"><ArrowLeft className="size-4 text-muted-foreground" /><img src={symbolUrl} alt="" className="size-7 object-contain" /><strong className="min-w-0 flex-1 text-xs">RCS Direkt</strong><ShieldCheck className="size-4 text-logo-blush" /><Menu className="size-4 text-muted-foreground" /></div>
@@ -104,7 +104,7 @@ export function InteractiveRcsDemo() {
             </FeatureTarget>
             <div className="mt-3 w-[88%] rounded-2xl rounded-bl-md bg-card p-3 text-left text-[11px] leading-relaxed shadow-soft">Mer än ett SMS. Mindre krångel än en app. Här är det viktigaste:</div>
 
-            <FeatureTarget id={3} active={active} onActive={setActive} className="mt-3 rounded-none">
+            <FeatureTarget id={3} active={active} onActive={setActive} className="mt-3 min-w-0 rounded-none">
               <div className="mb-2 hidden justify-end gap-1 min-[1000px]:flex"><Button type="button" variant="outline" size="icon" className="size-7" onClick={() => scrollCards(-1)} aria-label="Föregående kort"><ChevronLeft /></Button><Button type="button" variant="outline" size="icon" className="size-7" onClick={() => scrollCards(1)} aria-label="Nästa kort"><ChevronRight /></Button></div>
               <div ref={carouselRef} className="scrollbar-none flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2">
                 {richCards.map((card, index) => { const Icon = cardIcons[card.icon]; return <article key={card.title} className="w-[220px] shrink-0 snap-center overflow-hidden rounded-2xl bg-card text-left shadow-soft ring-1 ring-border/60"><div className={cn("grid h-24 place-items-center", index % 2 === 0 ? "bg-primary-soft" : "bg-muted")}><Icon className="size-8 text-logo-blush" /></div><div className="p-3"><h3 className="text-xs font-bold tracking-normal">{card.title}</h3><p className="mt-1 text-[9px] leading-relaxed text-muted-foreground">{card.copy}</p><span className="mt-2 flex items-center text-[9px] font-bold text-logo-blush">Läs mer <ChevronRight className="size-3" /></span></div></article>; })}
