@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, BarChart3, Braces, Code2, Globe, Headphones, Images, TrendingUp } from "lucide-react";
+import { ArrowRight, BadgeCheck, BarChart3, Check, Code2, Globe, Images, TrendingUp } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
@@ -35,11 +35,7 @@ function Wave({ fill, flip = false, className }: { fill: string; flip?: boolean;
 
 function DualCtas({ dark = false }: { dark?: boolean }) { return <div className="flex flex-col gap-3 sm:flex-row"><Button asChild size="lg"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button><Button asChild size="lg" variant={dark ? "inverted" : "outline"}><a href="/kontakt">Prata med oss</a></Button></div>; }
 
-const heroBenefits = [
-  { icon: BadgeCheck, title: "Enkel prissättning", copy: "Från 0,30 SEK per meddelande. Inga månadskostnader." },
-  { icon: Braces, title: "Lätt att integrera", copy: "Anslut ert befintliga system via API eller webhook." },
-  { icon: Headphones, title: "Vi hjälper dig", copy: "Ring oss när du vill. Vi hjälper dig från idé till första utskick." },
-];
+const heroBenefits = ["Enkel prissättning", "Lätt att integrera", "Vi hjälper dig"];
 
 
 const waysToSend = [
