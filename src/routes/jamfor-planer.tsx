@@ -7,9 +7,9 @@ import { pricingPlans } from "@/data/pricing-plans";
 export const Route = createFileRoute("/jamfor-planer")({
   head: () => ({
     meta: [
-      { title: "RCS-priser: jämför meddelandetyper | RCS Direkt" },
+      { title: "Jämför RCS-meddelandetyperna" },
       { name: "description", content: "Jämför RCS Basic, Single och Conversation. Se vad det kostar att skicka RCS för ert företag, betala bara per meddelande." },
-      { property: "og:title", content: "RCS-priser: jämför meddelandetyper | RCS Direkt" },
+      { property: "og:title", content: "Jämför RCS-meddelandetyperna" },
       { property: "og:description", content: "Jämför RCS Basic, Single och Conversation. Se vad det kostar att skicka RCS för ert företag, betala bara per meddelande." },
       { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/jamfor-planer" },
       { name: "twitter:card", content: "summary_large_image" },

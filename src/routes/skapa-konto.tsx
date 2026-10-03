@@ -11,9 +11,9 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/skapa-konto")({
   head: () => ({
     meta: [
-      { title: "Skapa konto och skicka RCS | RCS Direkt" },
+      { title: "Skapa konto och skicka RCS" },
       { name: "description", content: "Skapa ett konto och börja skicka RCS för ert företag. Inga startavgifter, inga månadskostnader. Betala per meddelande." },
-      { property: "og:title", content: "Skapa konto och skicka RCS | RCS Direkt" },
+      { property: "og:title", content: "Skapa konto och skicka RCS" },
       { property: "og:description", content: "Skapa ett konto och börja skicka RCS för ert företag. Inga startavgifter, inga månadskostnader. Betala per meddelande." },
       { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/skapa-konto" },
       { name: "twitter:card", content: "summary_large_image" },

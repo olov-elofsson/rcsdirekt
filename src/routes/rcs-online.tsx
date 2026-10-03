@@ -16,9 +16,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/rcs-online")({
   head: () => ({
     meta: [
-      { title: "Skicka RCS online från webben | RCS Direkt" },
+      { title: "Skicka RCS online från webben" },
       { name: "description", content: "Skicka RCS online utan kod. Skapa, schemalägg och följ RCS-utskick för ert företag direkt i webbläsaren. Betala per meddelande." },
-      { property: "og:title", content: "Skicka RCS online från webben | RCS Direkt" },
+      { property: "og:title", content: "Skicka RCS online från webben" },
       { property: "og:description", content: "Skicka RCS online utan kod. Skapa, schemalägg och följ RCS-utskick för ert företag direkt i webbläsaren. Betala per meddelande." },
       { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/rcs-online" },
       { name: "twitter:card", content: "summary_large_image" },
