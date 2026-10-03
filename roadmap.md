@@ -15,3 +15,4 @@
 - [x] Skapa separata undersidor för Basic, Single och Conversation
 - [x] Länka startsidans produkt- och priskort till de nya undersidorna
 - [x] Utöka RCS Online och RCS API med förenklad struktur från referenssidorna
+- [x] Ersätt hero-bilden med en interaktiv RCS-demonstration
