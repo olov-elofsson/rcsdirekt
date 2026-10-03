@@ -21,11 +21,11 @@ import { cn } from "@/lib/utils";
 
 const cardIcons = { image: ImageIcon, layers: Layers3, pointer: MousePointerClick, message: MessageSquare };
 
-function FeatureMarker({ id, active, onToggle }: { id: DemoFeatureId; active: DemoFeatureId | null; onOpen: (id: DemoFeatureId) => void }) {
+function FeatureMarker({ id, active, onOpen }: { id: DemoFeatureId; active: DemoFeatureId | null; onOpen: (id: DemoFeatureId) => void }) {
   return <button type="button" aria-label={`Förklaring ${id}`} aria-expanded={active === id} onClick={(event) => { event.stopPropagation(); onOpen(id); }} className={cn("absolute -right-2 -top-2 z-20 grid size-6 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground shadow-soft outline-none transition-transform min-[1000px]:hidden", active === id && "scale-110 ring-2 ring-logo-blush ring-offset-1 ring-offset-phone-chat")}>{id}</button>;
 }
 
-function FeatureTarget({ id, active, onActive, onToggle, children, className }: { id: DemoFeatureId; active: DemoFeatureId | null; onActive: (id: DemoFeatureId | null) => void; onOpen: (id: DemoFeatureId) => void; children: React.ReactNode; className?: string }) {
+function FeatureTarget({ id, active, onActive, onOpen, children, className }: { id: DemoFeatureId; active: DemoFeatureId | null; onActive: (id: DemoFeatureId | null) => void; onOpen: (id: DemoFeatureId) => void; children: React.ReactNode; className?: string }) {
   return <div tabIndex={0} onMouseEnter={() => onActive(id)} onMouseLeave={() => onActive(null)} onFocus={() => onActive(id)} onBlur={() => onActive(null)} onClick={() => { if (window.matchMedia("(min-width: 1000px)").matches) return; onOpen(id); }} className={cn("relative cursor-pointer rounded-2xl outline-none transition-[box-shadow,transform] duration-300", active === id && "z-10 ring-2 ring-logo-blush ring-offset-2 ring-offset-phone-chat shadow-lift", className)}><FeatureMarker id={id} active={active} onToggle={onToggle} />{children}</div>;
 }
 
