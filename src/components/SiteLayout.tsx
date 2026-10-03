@@ -10,7 +10,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida">
-          <BrandLogo className="h-10" />
+          <BrandLogo className="h-9" />
         </Link>
         <div className="flex items-center gap-6">
           <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
@@ -27,19 +27,35 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer id="kontakt" className="bg-ink py-12 text-ink-foreground sm:py-16">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:grid-cols-[1.2fr_2fr_auto] lg:px-8">
-        <Link to="/" aria-label="RCS Direkt, startsida">
-          <BrandSymbol inverse className="h-11" />
+    <footer id="kontakt" className="bg-ink py-14 text-ink-foreground sm:py-20">
+      <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:grid-cols-[1fr_2fr_auto] lg:px-8">
+        <Link to="/" aria-label="RCS Direkt, startsida" className="self-start">
+          <BrandSymbol inverse className="h-9" />
         </Link>
-        <div className="grid grid-cols-2 gap-6 text-xs sm:grid-cols-3">
-          <div><p className="font-bold">Skicka</p><Link to="/rcs-online" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS online</Link><Link to="/rcs-api" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS API</Link></div>
-          <div><p className="font-bold">Priser</p><Link to="/rcs-basic" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Basic</Link><Link to="/rcs-single" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Single</Link><Link to="/rcs-conversation" className="mt-2 block text-ink-muted hover:text-ink-foreground">RCS Conversation</Link><Link to="/jamfor-planer" className="mt-2 block text-ink-muted hover:text-ink-foreground">Jämför meddelandetyperna</Link></div>
-          <div><p className="font-bold">Företag</p><a href="/kontakt" className="mt-2 block text-ink-muted hover:text-ink-foreground">Kontakt</a></div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 text-sm sm:grid-cols-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">Skicka</p>
+            <Link to="/rcs-online" className="mt-4 block text-ink-muted transition-colors hover:text-ink-foreground">RCS online</Link>
+            <Link to="/rcs-api" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">RCS API</Link>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">Priser</p>
+            <Link to="/rcs-basic" className="mt-4 block text-ink-muted transition-colors hover:text-ink-foreground">RCS Basic</Link>
+            <Link to="/rcs-single" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">RCS Single</Link>
+            <Link to="/rcs-conversation" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">RCS Conversation</Link>
+            <Link to="/jamfor-planer" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">Jämför meddelandetyperna</Link>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">Företag</p>
+            <a href="/kontakt" className="mt-4 block text-ink-muted transition-colors hover:text-ink-foreground">Kontakt</a>
+          </div>
         </div>
-        <div className="flex items-start gap-3"><a href="#kontakt" aria-label="LinkedIn"><Linkedin className="size-4" /></a><a href="#kontakt" aria-label="Youtube"><Youtube className="size-4" /></a></div>
+        <div className="flex items-start gap-3">
+          <a href="#kontakt" aria-label="LinkedIn" className="rounded-full border border-ink-foreground/15 p-2.5 text-ink-muted transition-colors hover:border-ink-foreground/40 hover:text-ink-foreground"><Linkedin className="size-4" /></a>
+          <a href="#kontakt" aria-label="Youtube" className="rounded-full border border-ink-foreground/15 p-2.5 text-ink-muted transition-colors hover:border-ink-foreground/40 hover:text-ink-foreground"><Youtube className="size-4" /></a>
+        </div>
       </div>
-      <div className="mx-auto mt-10 max-w-6xl border-t border-ink-foreground/10 px-5 pt-6 text-right text-[10px] text-ink-muted lg:px-8">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</div>
+      <div className="mx-auto mt-14 max-w-6xl border-t border-ink-foreground/10 px-5 pt-6 text-xs text-ink-muted lg:px-8">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</div>
     </footer>
   );
 }
