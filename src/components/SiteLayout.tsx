@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Linkedin, Youtube } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { BrandLogo, BrandSymbol } from "@/components/BrandLogo";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
@@ -25,37 +25,82 @@ export function SiteHeader() {
   );
 }
 
+const footerNav = [
+  {
+    title: "Skicka",
+    links: [
+      { label: "RCS online", to: "/rcs-online" },
+      { label: "RCS API", to: "/rcs-api" },
+    ],
+  },
+  {
+    title: "Meddelandetyper",
+    links: [
+      { label: "RCS Basic", to: "/rcs-basic" },
+      { label: "RCS Single", to: "/rcs-single" },
+      { label: "RCS Conversation", to: "/rcs-conversation" },
+      { label: "Jämför meddelandetyperna", to: "/jamfor-planer" },
+    ],
+  },
+  {
+    title: "Kom igång",
+    links: [
+      { label: "Skapa konto", to: "/skapa-konto" },
+      { label: "Logga in", to: "/skapa-konto" },
+      { label: "Kontakt", to: "/kontakt" },
+    ],
+  },
+] as const;
+
+function FooterWave({ fill }: { fill: string }) {
+  return (
+    <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-px z-0 h-14 w-full -rotate-180 sm:h-20 lg:h-28" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0 62 C240 12 480 6 720 38 C960 70 1200 110 1440 54 L1440 120 L0 120 Z" fill={fill} />
+    </svg>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer id="kontakt" className="bg-ink py-14 text-ink-foreground sm:py-20">
-      <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:grid-cols-[1fr_2fr_auto] lg:px-8">
-        <Link to="/" aria-label="RCS Direkt, startsida" className="self-start">
-          <BrandSymbol inverse className="h-9" />
-        </Link>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 text-sm sm:grid-cols-3">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">Skicka</p>
-            <Link to="/rcs-online" className="mt-4 block text-ink-muted transition-colors hover:text-ink-foreground">RCS online</Link>
-            <Link to="/rcs-api" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">RCS API</Link>
+    <footer className="relative overflow-hidden bg-ink pt-28 pb-12 text-ink-foreground sm:pt-36 sm:pb-14">
+      <FooterWave fill="var(--color-background)" />
+      <div aria-hidden className="deco-dots pointer-events-none absolute -right-4 top-28 h-52 w-52 opacity-[0.06]" />
+      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1.55fr] lg:gap-20">
+          <div className="max-w-xs">
+            <Link to="/" aria-label="RCS Direkt, startsida" className="inline-flex">
+              <BrandLogo inverse className="h-8" />
+            </Link>
+            <p className="mt-6 text-sm leading-relaxed text-ink-muted">
+              RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
+            </p>
           </div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">Priser</p>
-            <Link to="/rcs-basic" className="mt-4 block text-ink-muted transition-colors hover:text-ink-foreground">RCS Basic</Link>
-            <Link to="/rcs-single" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">RCS Single</Link>
-            <Link to="/rcs-conversation" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">RCS Conversation</Link>
-            <Link to="/jamfor-planer" className="mt-3 block text-ink-muted transition-colors hover:text-ink-foreground">Jämför meddelandetyperna</Link>
-          </div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">Företag</p>
-            <a href="/kontakt" className="mt-4 block text-ink-muted transition-colors hover:text-ink-foreground">Kontakt</a>
-          </div>
+          <nav className="grid gap-10 sm:grid-cols-3 sm:gap-8">
+            {footerNav.map((group) => (
+              <div key={group.title}>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-foreground/55">{group.title}</p>
+                <ul className="mt-5 space-y-3">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      <Link to={link.to} className="text-sm text-ink-muted transition-colors hover:text-ink-foreground">{link.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
-        <div className="flex items-start gap-3">
-          <a href="#kontakt" aria-label="LinkedIn" className="rounded-full border border-ink-foreground/15 p-2.5 text-ink-muted transition-colors hover:border-ink-foreground/40 hover:text-ink-foreground"><Linkedin className="size-4" /></a>
-          <a href="#kontakt" aria-label="Youtube" className="rounded-full border border-ink-foreground/15 p-2.5 text-ink-muted transition-colors hover:border-ink-foreground/40 hover:text-ink-foreground"><Youtube className="size-4" /></a>
+        <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-ink-muted">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</p>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="self-start text-xs font-semibold text-ink-muted transition-colors hover:text-ink-foreground sm:self-auto"
+          >
+            Till toppen
+          </button>
         </div>
       </div>
-      <div className="mx-auto mt-14 max-w-6xl border-t border-ink-foreground/10 px-5 pt-6 text-xs text-ink-muted lg:px-8">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</div>
     </footer>
   );
 }
