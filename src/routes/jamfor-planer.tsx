@@ -26,7 +26,7 @@ function ComparePlansPage() {
       intro="Alla meddelandetyper betalas per skickat meddelande. Priset styrs av vad meddelandet kan innehålla. Välj den typ som passar era utskick."
       aside={
         <div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9">
-          <h2 className="text-lg font-extrabold tracking-tight">Samma villkor för alla</h2>
+          <h3 className="text-lg font-extrabold tracking-tight">Samma villkor för alla</h3>
           <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground">
             {["Inga månadskostnader", "Inga startavgifter", "Inga bindningstider", "Betala per skickat meddelande"].map((point) => (
               <li key={point} className="flex items-start gap-2.5">
