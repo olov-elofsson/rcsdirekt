@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 const cardIcons = { image: ImageIcon, layers: Layers3, pointer: MousePointerClick, message: MessageSquare };
 
 function FeatureMarker({ id, active, onToggle }: { id: DemoFeatureId; active: DemoFeatureId | null; onToggle: (id: DemoFeatureId) => void }) {
-  return <button type="button" aria-label={`Förklaring ${id}`} aria-expanded={active === id} onClick={() => onToggle(id)} className={cn("absolute -right-2 -top-2 z-20 grid size-6 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground shadow-soft outline-none transition-transform min-[1000px]:hidden", active === id && "scale-110 ring-2 ring-logo-blush ring-offset-1 ring-offset-phone-chat")}>{id}</button>;
+  return <button type="button" aria-label={`Förklaring ${id}`} aria-expanded={active === id} onClick={(event) => { event.stopPropagation(); onToggle(id); }} className={cn("absolute -right-2 -top-2 z-20 grid size-6 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground shadow-soft outline-none transition-transform min-[1000px]:hidden", active === id && "scale-110 ring-2 ring-logo-blush ring-offset-1 ring-offset-phone-chat")}>{id}</button>;
 }
 
 function FeatureTarget({ id, active, onActive, onToggle, children, className }: { id: DemoFeatureId; active: DemoFeatureId | null; onActive: (id: DemoFeatureId | null) => void; onToggle: (id: DemoFeatureId) => void; children: React.ReactNode; className?: string }) {
