@@ -1,26 +1,95 @@
-import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import type { ReactNode } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 
+const mobileNav = [
+  { label: "Startsida", to: "/" },
+  { label: "RCS online", to: "/rcs-online" },
+  { label: "RCS API", to: "/rcs-api" },
+  { label: "Meddelandetyper", to: "/jamfor-planer" },
+  { label: "Kontakt", to: "/kontakt" },
+] as const;
+
 export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const pathname = useLocation({ select: (location) => location.pathname });
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 lg:px-8">
-        <Link to="/" aria-label="RCS Direkt, startsida">
-          <BrandLogo className="h-9" />
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-5 lg:px-8">
+        <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
+          <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="flex shrink-0 items-center gap-6">
           <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
             Logga in
           </Link>
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
           </Button>
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Stäng menyn" : "Öppna menyn"}
+            className="grid size-11 shrink-0 place-items-center rounded-full border border-border/70 text-foreground transition-colors hover:bg-primary-soft md:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </div>
+      {open ? (
+        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 md:hidden">
+          <button
+            type="button"
+            aria-label="Stäng menyn"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 h-full w-full bg-foreground/10 backdrop-blur-[2px]"
+          />
+          <nav aria-label="Huvudmeny" className="relative mx-4 overflow-hidden rounded-3xl border border-border/70 bg-background p-5 shadow-lift">
+            <ul className="divide-y divide-border">
+              {mobileNav.map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className="flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush"
+                  >
+                    {item.label}
+                    <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 flex flex-col gap-3">
+              <Link to="/skapa-konto" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
+                Logga in
+              </Link>
+              <Button asChild size="lg" className="w-full">
+                <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
+              </Button>
+            </div>
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }
