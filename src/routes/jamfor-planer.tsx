@@ -1,73 +1,73 @@
-import{createFileRoute,Link}from"@tanstack/react-router";
-import{Check}from"lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Check } from "lucide-react";
 
-import{ContentBlock,DetailPage}from"@/components/SiteLayout";
-import{pricingPlans}from"@/data/pricing-plans";
+import { ContentBlock, DetailPage } from "@/components/SiteLayout";
+import { pricingPlans } from "@/data/pricing-plans";
 
-exportconstRoute=createFileRoute("/jamfor-planer")({
-head:()=>({
-meta:[
-{title:"RCS-priser:jämförmeddelandetyper|"},
-{name:"description",content:"JämförRCSBasic,SingleochConversation.SevaddetkostarattskickaRCSförertföretag,betalabarapermeddelande."},
-{property:"og:title",content:"RCS-priser:jämförmeddelandetyper|"},
-{property:"og:description",content:"JämförRCSBasic,SingleochConversation.SevaddetkostarattskickaRCSförertföretag,betalabarapermeddelande."},
-{property:"og:type",content:"website"},{property:"og:url",content:"https://rcsdirekt.se/jamfor-planer"},
-{name:"twitter:card",content:"summary_large_image"},
-],
-links:[{rel:"canonical",href:"https://rcsdirekt.se/jamfor-planer"}],
-}),
-component:ComparePlansPage,
+export const Route = createFileRoute("/jamfor-planer")({
+  head: () => ({
+    meta: [
+      { title: "RCS-priser: jämför meddelandetyper | RCS Direkt" },
+      { name: "description", content: "Jämför RCS Basic, Single och Conversation. Se vad det kostar att skicka RCS för ert företag, betala bara per meddelande." },
+      { property: "og:title", content: "RCS-priser: jämför meddelandetyper | RCS Direkt" },
+      { property: "og:description", content: "Jämför RCS Basic, Single och Conversation. Se vad det kostar att skicka RCS för ert företag, betala bara per meddelande." },
+      { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/jamfor-planer" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "https://rcsdirekt.se/jamfor-planer" }],
+  }),
+  component: ComparePlansPage,
 });
 
-functionComparePlansPage(){
-return(
-<DetailPage
-title="Vilkenbehöverjag?"
-intro="Allameddelandetyperbetalasperskickatmeddelande.Prisetstyrsavvadmeddelandetkaninnehålla.Väljdentypsompassarerautskick."
-aside={
-<divclassName="rounded-[2rem]borderborder-borderbg-primary-softp-7shadow-cardsm:p-9">
-<h3className="text-lgfont-extraboldtracking-tight">Sammavillkorföralla</h3>
-<ulclassName="mt-5space-y-3text-smleading-relaxedtext-muted-foreground">
-{["Ingamånadskostnader","Ingastartavgifter","Ingabindningstider","Betalaperskickatmeddelande"].map((point)=>(
-<likey={point}className="flexitems-startgap-2.5">
-<CheckclassName="mt-0.5size-4shrink-0text-foreground"/>
-<span>{point}</span>
-</li>
-))}
-</ul>
-</div>
-}
->
-<ContentBlocktitle="Detremeddelandetypernaikorthet">
-<divclassName="gridgap-4sm:grid-cols-3">
-{pricingPlans.map((plan,i)=>(
-<Link
-key={plan.name}
-to={plan.slug}
-className={`grouprelativeflexflex-colrounded-[2rem]borderp-6transition-allduration-300hover:-translate-y-1.5hover:shadow-lift${i===1?"border-primarybg-primarytext-primary-foregroundshadow-card":"border-border/80bg-cardshadow-softhover:border-foreground/25"}`}
->
-{i===1?<spanclassName="absolute-top-3left-6rounded-fullbg-backgroundpx-3py-1text-[11px]font-boldtext-foregroundring-1ring-border">Populärast</span>:null}
-<pclassName="text-smfont-bold">{plan.name}</p>
-<pclassName="mt-5text-[2rem]font-extraboldleading-nonetracking-[-0.03em]">{plan.price}</p>
-<pclassName={`mt-1.5text-xs${i===1?"opacity-75":"text-muted-foreground"}`}>permeddelande</p>
-</Link>
-))}
-</div>
-</ContentBlock>
-<ContentBlocktitle="Såtänkerdu">
-<divclassName="space-y-3">
-{[
-["RCSBasic","Korta,tydligabeskedsombekräftelserochpåminnelser."],
-["RCSSingle","Kampanjermedbilder,karusellerochknappar."],
-["RCSConversation","Kundserviceochdialogerdärmottagarenkansvara."],
-].map(([name,text])=>(
-<divkey={name}className="flexitems-centergap-4rounded-2xlborderborder-border/70bg-cardpx-5py-4shadow-soft">
-<spanclassName="gridsize-9shrink-0place-items-centerrounded-fullbg-primary-softring-1ring-border/60"><CheckclassName="size-4"/></span>
-<pclassName="text-smleading-relaxedtext-muted-foreground"><strongclassName="text-foreground">{name}</strong>—{text}</p>
-</div>
-))}
-</div>
-</ContentBlock>
-</DetailPage>
-);
+function ComparePlansPage() {
+  return (
+    <DetailPage
+      title="Vilken behöver jag?"
+      intro="Alla meddelandetyper betalas per skickat meddelande. Priset styrs av vad meddelandet kan innehålla. Välj den typ som passar era utskick."
+      aside={
+        <div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9">
+          <h3 className="text-lg font-extrabold tracking-tight">Samma villkor för alla</h3>
+          <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground">
+            {["Inga månadskostnader", "Inga startavgifter", "Inga bindningstider", "Betala per skickat meddelande"].map((point) => (
+              <li key={point} className="flex items-start gap-2.5">
+                <Check className="mt-0.5 size-4 shrink-0 text-foreground" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      }
+    >
+      <ContentBlock title="De tre meddelandetyperna i korthet">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {pricingPlans.map((plan, i) => (
+            <Link
+              key={plan.name}
+              to={plan.slug}
+              className={`group relative flex flex-col rounded-[2rem] border p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift ${i === 1 ? "border-primary bg-primary text-primary-foreground shadow-card" : "border-border/80 bg-card shadow-soft hover:border-foreground/25"}`}
+            >
+              {i === 1 ? <span className="absolute -top-3 left-6 rounded-full bg-background px-3 py-1 text-[11px] font-bold text-foreground ring-1 ring-border">Populärast</span> : null}
+              <p className="text-sm font-bold">{plan.name}</p>
+              <p className="mt-5 text-[2rem] font-extrabold leading-none tracking-[-0.03em]">{plan.price}</p>
+              <p className={`mt-1.5 text-xs ${i === 1 ? "opacity-75" : "text-muted-foreground"}`}>per meddelande</p>
+            </Link>
+          ))}
+        </div>
+      </ContentBlock>
+      <ContentBlock title="Så tänker du">
+        <div className="space-y-3">
+          {[
+            ["RCS Basic", "Korta, tydliga besked som bekräftelser och påminnelser."],
+            ["RCS Single", "Kampanjer med bilder, karuseller och knappar."],
+            ["RCS Conversation", "Kundservice och dialoger där mottagaren kan svara."],
+          ].map(([name, text]) => (
+            <div key={name} className="flex items-center gap-4 rounded-2xl border border-border/70 bg-card px-5 py-4 shadow-soft">
+              <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>
+              <p className="text-sm leading-relaxed text-muted-foreground"><strong className="text-foreground">{name}</strong> — {text}</p>
+            </div>
+          ))}
+        </div>
+      </ContentBlock>
+    </DetailPage>
+  );
 }
