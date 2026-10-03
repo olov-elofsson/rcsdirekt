@@ -71,7 +71,7 @@ export function InteractiveRcsDemo() {
     <div className="grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[740px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div>
 
-      <div className="relative mx-auto w-[min(380px,calc(100vw-40px))] min-w-0 rounded-[3rem] border-9 border-phone-edge bg-phone-edge p-1.5 shadow-lift">
+      <div className="relative mx-auto w-[min(380px,calc(100vw-40px))] min-w-0 rounded-[3rem] border-[9px] border-phone-edge bg-phone-edge p-1.5 shadow-lift">
         <div className="overflow-hidden rounded-[2.4rem] bg-phone-screen">
           <div className="relative flex h-8 items-center justify-center px-5 text-[10px] font-bold"><span className="absolute left-5">09:41</span><span className="h-4 w-20 rounded-full bg-phone-edge" /></div>
           <div className="flex h-10 items-center gap-3 border-b border-border bg-card px-4"><ArrowLeft className="size-4 text-muted-foreground" /><img src={symbolUrl} alt="" className="size-6 object-contain" /><strong className="min-w-0 flex-1 text-xs">RCS Direkt</strong><ShieldCheck className="size-4 text-logo-blush" /><Menu className="size-4 text-muted-foreground" /></div>
