@@ -12,6 +12,14 @@ const mobileNav = [
   { label: "Kontakt", to: "/kontakt" },
 ] as const;
 
+const sectionLinks = [
+  { label: "Så fungerar RCS", hash: "sa-fungerar" },
+  { label: "RCS mot SMS", hash: "rcs-mot-sms" },
+  { label: "Fördelar", hash: "fordelar" },
+  { label: "Pris", hash: "pris" },
+  { label: "Kontakt", hash: "kontakt" },
+] as const;
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = useLocation({ select: (location) => location.pathname });
@@ -37,6 +45,18 @@ export function SiteHeader() {
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
+        <nav aria-label="Avdelningar" className="hidden min-w-0 items-center gap-5 xl:flex">
+          {sectionLinks.map((item) => (
+            <Link
+              key={item.hash}
+              to="/"
+              hash={item.hash}
+              className="whitespace-nowrap text-sm font-semibold text-foreground/80 transition-colors hover:text-logo-blush"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
         <div className="flex shrink-0 items-center gap-6">
           <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
             Logga in
