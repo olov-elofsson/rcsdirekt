@@ -16,10 +16,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/rcs-online")({
   head: () => ({
     meta: [
-      { title: "Skicka RCS online från webben" },
-      { name: "description", content: "Skicka RCS online utan kod. Skapa, schemalägg och följ RCS-utskick för ert företag direkt i webbläsaren. Betala per meddelande." },
-      { property: "og:title", content: "Skicka RCS online från webben" },
-      { property: "og:description", content: "Skicka RCS online utan kod. Skapa, schemalägg och följ RCS-utskick för ert företag direkt i webbläsaren. Betala per meddelande." },
+      { title: "Skicka RCS i webbgränssnittet" },
+      { name: "description", content: "Skicka RCS utan kod. Skapa, schemalägg och följ RCS-utskick för ert företag direkt i webbgränssnittet. Betala per meddelande." },
+      { property: "og:title", content: "Skicka RCS i webbgränssnittet" },
+      { property: "og:description", content: "Skicka RCS utan kod. Skapa, schemalägg och följ RCS-utskick för ert företag direkt i webbgränssnittet. Betala per meddelande." },
       { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/rcs-online" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -49,7 +49,7 @@ function RcsOnlinePage() {
     <DetailPage
       title="Skicka RCS-meddelanden direkt från webben"
       intro="Skapa kampanjer, hantera kontakter och svara på meddelanden direkt i webbläsaren. Ingen kod krävs."
-      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h3 className="mt-6 text-2xl font-extrabold">Allt samlat online</h3><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}
+      aside={<div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9"><LayoutTemplate className="size-7 text-primary" /><h3 className="mt-6 text-2xl font-extrabold">Allt i webbgränssnittet</h3><p className="mt-3 leading-relaxed text-muted-foreground">För team som vill skapa kampanjer och utskick utan en teknisk integration.</p><div className="mt-7 flex flex-col gap-3"><Button asChild><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button><Button asChild variant="outline"><a href="#funktioner">Se funktionerna</a></Button></div></div>}
     >
       <ContentBlock title="Ett webbgränssnitt för hela flödet">
         <p>Från första utkast till uppföljning finns allt på samma plats. Välj mottagare, bygg meddelandet visuellt och förhandsgranska resultatet innan du skickar.</p>
@@ -74,7 +74,7 @@ function RcsOnlinePage() {
         </ul>
       </ContentBlock>
       <div className="rounded-[2rem] bg-primary p-7 text-primary-foreground sm:p-9">
-        <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att skicka online?</h2>
+        <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att skicka i webbgränssnittet?</h2>
         <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Skapa ett konto och bygg ert första RCS-meddelande direkt i webbläsaren.</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild variant="inverted"><a href="/skapa-konto">Skapa konto <ArrowRight /></a></Button>

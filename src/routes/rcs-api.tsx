@@ -177,7 +177,7 @@ function RcsApiPage() {
             <a href="/kontakt">Kontakta oss <ArrowRight /></a>
           </Button>
           <Button asChild variant="inverted">
-            <Link to="/rcs-online">Se RCS online</Link>
+            <Link to="/rcs-online">Se webbgränssnittet</Link>
           </Button>
         </div>
       </div>
