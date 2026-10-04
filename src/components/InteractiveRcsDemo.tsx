@@ -69,9 +69,7 @@ export function InteractiveRcsDemo() {
   const answer = selectedReply ? replyContent[selectedReply] : null;
 
   return <div className="mx-auto w-full max-w-6xl">
-    <div className="demo-stage relative isolate -mx-5 overflow-hidden border-y border-border/80 px-5 py-12 sm:mx-0 sm:rounded-[3rem] sm:border-y-0 sm:px-8 sm:py-14 sm:shadow-card sm:ring-1 sm:ring-border/70">
-      <div aria-hidden className="deco-dots pointer-events-none absolute -left-8 top-10 h-52 w-52 opacity-[0.07]" />
-      <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 bottom-12 h-52 w-52 opacity-[0.07]" />
+    <div className="relative isolate">
       <div aria-hidden className="phone-halo" />
       <div className="relative mb-8"><h2 className="text-center text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]">Så fungerar RCS</h2><p className="mx-auto mt-4 max-w-md text-center text-base leading-relaxed text-muted-foreground">Peka eller tryck på siffrorna så förklarar vi vad du ser.</p></div>
       <div className="relative grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
