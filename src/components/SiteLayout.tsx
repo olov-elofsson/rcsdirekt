@@ -45,7 +45,7 @@ export function SiteHeader() {
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <nav aria-label="Avdelningar" className="hidden min-w-0 items-center gap-5 xl:flex">
+        <nav aria-label="Avdelningar" className="hidden min-w-0 items-center gap-5 lg:flex">
           {sectionLinks.map((item) => (
             <Link
               key={item.hash}
