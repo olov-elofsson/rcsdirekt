@@ -54,16 +54,13 @@ const rcsAdvantages = [
 
 const comparisonRows: { label: string; sms: boolean | string; rcs: boolean | string }[] = [
   { label: "Verifierad avsändare", sms: false, rcs: true },
-  { label: "Avsändarprofil", sms: "Endast nummer", rcs: "Namn och logotyp" },
-  { label: "Tecken per meddelande", sms: "160", rcs: "ca 4 000" },
-  { label: "Bilder, video och karuseller", sms: false, rcs: true },
-  { label: "Interaktiva knappar", sms: false, rcs: true },
-  { label: "Läskvitton i realtid", sms: false, rcs: true },
-  { label: "Analys och insikter", sms: "Levererat", rcs: "Levererat, sett och klick" },
-  { label: "AI-stöd", sms: "Ja, till viss del", rcs: "Ja" },
-  { label: "Tillgänglighet i Sverige", sms: "Alla mobiler", rcs: "Android 5.0+ och iOS 27" },
-  { label: "Fungerar i kundens vanliga meddelandeapp", sms: true, rcs: true },
-  { label: "Installation", sms: true, rcs: true },
+  { label: "Avsändarprofil", sms: "Begränsad", rcs: "Stark" },
+  { label: "Tecken per meddelande", sms: "160 tecken", rcs: "Upp till ca 4 000" },
+  { label: "Analys och insikter", sms: "Levererat", rcs: "Levererat, sett, klick" },
+  { label: "AI-/GenAI-stöd", sms: "Ja, till viss del", rcs: "Ja" },
+  { label: "Tillgänglighet i Sverige", sms: "Alla mobiler", rcs: "Android 5.0 eller senare, iOS 27" },
+  { label: "Rich features (bilder, knappar m.m.)", sms: false, rcs: true },
+  { label: "Installation", sms: "Ingen", rcs: "Ingen (inbyggt där det finns)" },
 ];
 
 function CompareCell({ value, highlight }: { value: boolean | string; highlight: boolean }) {
