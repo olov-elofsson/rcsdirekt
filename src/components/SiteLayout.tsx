@@ -78,6 +78,7 @@ export function SiteHeader() {
                   </Link>
                 </li>
               ))}
+            </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Link to="/skapa-konto" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
                 Logga in
