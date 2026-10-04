@@ -12,13 +12,6 @@ const mobileNav = [
   { label: "Kontakt", to: "/kontakt" },
 ] as const;
 
-const sectionLinks = [
-  { label: "Så fungerar RCS", hash: "sa-fungerar" },
-  { label: "RCS mot SMS", hash: "rcs-mot-sms" },
-  { label: "Fördelar", hash: "fordelar" },
-  { label: "Pris", hash: "pris" },
-  { label: "Kontakt", hash: "kontakt" },
-] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -45,18 +38,6 @@ export function SiteHeader() {
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <nav aria-label="Avdelningar" className="hidden min-w-0 items-center gap-5 lg:flex">
-          {sectionLinks.map((item) => (
-            <Link
-              key={item.hash}
-              to="/"
-              hash={item.hash}
-              className="whitespace-nowrap text-sm font-semibold text-foreground/80 transition-colors hover:text-logo-blush"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
         <div className="flex shrink-0 items-center gap-6">
           <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
             Logga in
@@ -97,20 +78,6 @@ export function SiteHeader() {
                   </Link>
                 </li>
               ))}
-            </ul>
-            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-4">
-              {sectionLinks.filter((item) => item.hash !== "kontakt").map((item) => (
-                <li key={item.hash}>
-                  <Link
-                    to="/"
-                    hash={item.hash}
-                    className="text-sm font-semibold text-foreground/70 transition-colors hover:text-logo-blush"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Link to="/skapa-konto" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
                 Logga in
