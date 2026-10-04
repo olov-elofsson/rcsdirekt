@@ -98,6 +98,19 @@ export function SiteHeader() {
                 </li>
               ))}
             </ul>
+            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-4">
+              {sectionLinks.filter((item) => item.hash !== "kontakt").map((item) => (
+                <li key={item.hash}>
+                  <Link
+                    to="/"
+                    hash={item.hash}
+                    className="text-sm font-semibold text-foreground/70 transition-colors hover:text-logo-blush"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Link to="/skapa-konto" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
                 Logga in
