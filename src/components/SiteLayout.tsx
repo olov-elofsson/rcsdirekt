@@ -36,7 +36,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
-          <BrandLogo className="h-6 sm:h-9" />
+          <BrandLogo className="h-5 sm:h-8" />
         </Link>
         <div className="flex shrink-0 items-center gap-6">
           <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
@@ -138,7 +138,7 @@ export function SiteFooter() {
         <div className="grid gap-14 lg:grid-cols-[1fr_1.55fr] lg:gap-20">
           <div className="max-w-xs">
             <Link to="/" aria-label="RCS Direkt, startsida" className="inline-flex">
-              <BrandLogo inverse className="h-8" />
+              <BrandLogo inverse className="h-7" />
             </Link>
             <p className="mt-6 text-sm leading-relaxed text-ink-muted">
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
