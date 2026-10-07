@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "RCS för företag: skicka RCS enkelt" },
+    { title: "Det smidiga sättet att skicka RCS" },
     { name: "description", content: "Skicka RCS för företag direkt från webben eller via API. Bilder, knappar och verifierad avsändare. Från 0,30 SEK per meddelande, inga månadskostnader." },
-    { property: "og:title", content: "RCS för företag: skicka RCS enkelt" },
+    { property: "og:title", content: "Det smidiga sättet att skicka RCS" },
     { property: "og:description", content: "Skicka RCS för företag direkt från webben eller via API. Bilder, knappar och verifierad avsändare. Från 0,30 SEK per meddelande, inga månadskostnader." },
     { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/" },
     { name: "twitter:card", content: "summary_large_image" },
