@@ -11,7 +11,7 @@ export const pricingPlans = [
     name: "RCS Single",
     slug: "/rcs-single" as const,
     price: "0,69 SEK",
-    badge: "Flersta väljer",
+    badge: "Populärast",
     short: "Rika utskick med bilder, video, karuseller och knappar.",
     copy: "Använd hela bredden av vad RCS kan erbjuda i ett enskilt utskick. Ett meddelande kan innehålla bilder, video, GIF-animationer, rika kort med rubrik och beskrivning, karuseller där mottagaren bläddrar mellan flera produkter, samt klickbara knappar och förslag som leder vidare till er webbplats, ett telefonsamtal, en karta eller en kalenderhändelse. Även rena textmeddelanden längre än 160 tecken räknas hit. Single passar för kampanjer, nyhetsutskick, produktlanseringar och erbjudanden där ni vill fånga uppmärksamheten visuellt och göra det enkelt för kunden att agera direkt i meddelandet.",
   },
