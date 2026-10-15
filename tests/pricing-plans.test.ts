@@ -11,7 +11,7 @@ test("meddelandetyperna har rätt styckpris", () => {
   });
 });
 
-test("bara RCS Single märks som flesta väljer", () => {
+test("bara RCS Single märks som Populärast", () => {
   const badged = pricingPlans.filter((plan) => plan.badge);
-  expect(badged.map((plan) => [plan.name, plan.badge])).toEqual([["RCS Single", "Flersta väljer"]]);
+  expect(badged.map((plan) => [plan.name, plan.badge])).toEqual([["RCS Single", "Populärast"]]);
 });
