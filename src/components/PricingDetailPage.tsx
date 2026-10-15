@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { DetailPage } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { pricingPlans, type PricingPlan } from "@/data/pricing-plans";
+import { cn } from "@/lib/utils";
 
 export function PricingDetailPage({ plan }: { plan: PricingPlan }) {
   return (
