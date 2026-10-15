@@ -22,7 +22,7 @@ export type ReplyOption = (typeof replyOptions)[number];
 export const replyContent: Record<ReplyOption, { title: string; copy: string; actions?: string[] }> = {
   "Vad kostar det?": {
     title: "Betala per meddelande",
-    copy: "Priset börjar på 0,30 SEK per meddelande, utan månadskostnad eller bindningstid.",
+    copy: "Priset börjar på 0,49 SEK per meddelande, utan månadskostnad eller bindningstid.",
     actions: ["Se meddelandetyper"],
   },
   "Visa ett exempel": {

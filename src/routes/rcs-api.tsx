@@ -10,9 +10,9 @@ export const Route = createFileRoute("/rcs-api")({
   head: () => ({
     meta: [
       { title: "RCS API: skicka RCS från era egna system" },
-      { name: "description", content: "Skicka RCS från era egna system med ett enkelt REST API. Tre fält räcker, JSON-svar och webhooks. Från 0,30 SEK per meddelande." },
+      { name: "description", content: "Skicka RCS från era egna system med ett enkelt REST API. Tre fält räcker, JSON-svar och webhooks. Från 0,49 SEK per meddelande." },
       { property: "og:title", content: "RCS API: skicka RCS från era egna system" },
-      { property: "og:description", content: "Skicka RCS från era egna system med ett enkelt REST API. Tre fält räcker, JSON-svar och webhooks. Från 0,30 SEK per meddelande." },
+      { property: "og:description", content: "Skicka RCS från era egna system med ett enkelt REST API. Tre fält räcker, JSON-svar och webhooks. Från 0,49 SEK per meddelande." },
       { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/rcs-api" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
