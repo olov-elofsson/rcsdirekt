@@ -17,3 +17,4 @@
 - Knowledge content uses browser-safe typed data with editorial summaries and optional practical explanations composed before search and rendering, shared single-column article views and synchronous lookup loaders; glossary entries reuse exact-match dedicated articles to keep citations, search and reading estimates consistent.
 - The blog is the single discovery route for guides and glossary articles; permanently redirect the legacy /ordlista URL to /blogg to preserve existing links.
 - Customer reference assets and names live in one browser-safe data module, rendered by a shared reference band on the homepage and product pages, so verified brands stay consistent without invented testimonials.
+- Large editorial expansions live in separate browser-safe article and source modules composed into the shared collection; keep an explicit keyword-intent map and count regression test to prevent accidental duplicate or missing articles.

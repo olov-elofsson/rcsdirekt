@@ -1,5 +1,6 @@
 import { expect, test } from "bun:test";
 import { articles, glossary, searchArticles, searchGlossary, sources } from "../src/data/rcs-knowledge";
+import { expandedArticles } from "../src/data/rcs-articles-expanded";
 
 test("varje sakavsnitt och ordlistebegrepp har en befintlig https-källa", () => {
   for (const article of articles) {
@@ -22,6 +23,12 @@ test("ordlistan hittar svensk reservkanal som fallback", () => {
 test("ämnesfilter kombineras med sökning", () => {
   expect(searchArticles("webhook", "Integration").map((article) => article.slug)).toEqual(["rcs-api-webhooks"]);
   expect(searchArticles("webhook", "Grunder")).toEqual([]);
+});
+
+test("utökningen innehåller exakt 100 egna artiklar utöver de 57 befintliga", () => {
+  expect(expandedArticles).toHaveLength(100);
+  expect(articles).toHaveLength(157);
+  expect(new Set(expandedArticles.map((article) => article.slug)).size).toBe(100);
 });
 
 test("alla fördjupningar och relaterade guider har befintliga artiklar", () => {
