@@ -150,10 +150,10 @@ export function SiteFooter() {
                 <ul className="mt-5 space-y-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
-                      {"href" in link && link.href ? (
-                        <a href={link.href} className="text-sm text-ink-muted transition-colors hover:text-ink-foreground">{link.label}</a>
-                      ) : (
+                      {"to" in link ? (
                         <Link to={link.to} className="text-sm text-ink-muted transition-colors hover:text-ink-foreground">{link.label}</Link>
+                      ) : (
+                        <a href={link.href} className="text-sm text-ink-muted transition-colors hover:text-ink-foreground">{link.label}</a>
                       )}
                     </li>
                   ))}
