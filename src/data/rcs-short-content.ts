@@ -293,25 +293,67 @@ export const shortContent: Record<string, ShortContent> = {
 };
 
 export const termDetails: Record<string, string[]> = {
-  "Agent": ["Agenten behöver registreras och lanseras innan publika utskick i Googles modell.", "Den kan vara kopplad till vanliga system eller personal. AI är inget krav."],
-  "Agentprofil": ["Använd ett namn och en logotyp som kunden känner igen.", "En ifylld profil betyder inte att avsändaren redan är verifierad eller lanserad."],
-  "API": ["Ert system kan begära utskick vid exempelvis en orderändring.", "Ett accepterat anrop är inte en leveranskvittens. Följ senare händelser och er leverantörs dokumentation."],
-  "Asynkron leverans": ["Behåll meddelandets identifierare så senare händelser kan kopplas till rätt ärende.", "Skilj accepterat, levererat och läst åt. En senare händelse kan också ange ett fel."],
-  "Brand verification": ["En behörig varumärkesrepresentant bekräftar uppgifter och partnerns behörighet i Googles process.", "Verifiering och lansering är separata steg. Kontrollen garanterar inte varje framtida meddelandes innehåll."],
-  "Föreslagen åtgärd": ["Knappen kan öppna en extern sida; hela handlingen sker inte alltid i chatten.", "Stöd beror på klient och tjänst. Ett tryck betyder inte att ett köp eller en bokning har slutförts."],
-  "Karusell": ["Använd formatet för flera alternativ som behöver visas på liknande sätt.", "Testa text, bilder och mottagarstöd. Lägg inte ett viktigt enskilt besked bakom ett svep."],
-  "Leveranskvittens": ["Ett accepterat API-anrop är inte samma sak som leverans till telefonen.", "Kvittensen visar inte att personen har läst, förstått eller godkänt innehållet."],
-  "Läskvitto": ["Klientens stöd och inställningar påverkar om en läshändelse rapporteras.", "Ingen rapport betyder inte säkert oläst. En rapport bevisar inte samtycke eller ett slutfört köp."],
-  "MaaP": ["Begreppet handlar om plattformsstöd för företagskommunikation.", "Det är inte namnet på en enskild app och fastställer inte en leverantörs priser eller kontofunktioner."],
-  "MMS": ["MMS och RCS kan visas i samma app men använder olika tjänster.", "Mediegränser och kostnad beror på operatören. En MMS-bild är inte ett interaktivt rich card."],
-  "Operatör": ["Operatören kan påverka RCS-stödet, även när telefonen och appen har rätt version.", "För företagsutskick behöver räckvidden bekräftas för agenten, marknaden och den valda tjänsten."],
-  "P2P": ["P2P är privat chatt, inte företagsmeddelanden från en registrerad agent.", "Uppgifter om kryptering och tillgänglighet i privat chatt gäller inte automatiskt företags-RCS."],
-  "Postback-data": ["Använd en stabil identifierare så ett knappval kan kopplas till rätt flöde.", "Systemet behöver hantera valet. Data från ett tryck innebär inte att kundärendet redan är ändrat."],
-  "RBM": ["Företaget representeras av en registrerad avsändare, i Googles modell kallad agent.", "Verifiering, lansering och mottagarstöd behöver vara bekräftade. Privat RCS-stöd räcker inte som garanti."],
-  "RCS-chatt": ["RCS behöver uppkoppling och stöd hos deltagarna.", "Appen kan använda SMS eller MMS i stället, beroende på stöd och inställningar. Reservleverans är inte garanterad."],
-  "RCS-klient": ["Google Messages och Apples Meddelanden är exempel på appar som kan använda RCS.", "Appversion, operatör och inställningar påverkar funktionerna. Samma meddelande kan visas olika."],
-  "Rich card": ["I Googles modell behöver kortet innehålla media, rubrik eller beskrivning, inte nödvändigtvis alla tre.", "Förslag och återgivning beror på format och mottagarstöd. Viktig information bör även finnas som text."],
-  "Skrivindikator": ["Indikatorn visar skrivaktivitet, inte att ett svar säkert kommer.", "Den är dokumenterad för RCS-chattar men ska inte antas finnas i varje företagsflöde."],
-  "SMS": ["Ett enskilt SMS rymmer normalt 160 GSM-7-tecken. Annan teckenkodning och längre text kan ge fler delar.", "SMS har inte RCS-kort eller inbyggda rich-card-knappar. En leveransrapport är inte ett läskvitto."],
-  "Webhook": ["Koppla inkommande händelser till rätt meddelande och kundärende.", "Kontrollera anropets ursprung enligt leverantörens instruktioner. Att ett anrop innehåller JSON gör det inte betrott."]
+  "Agent": [
+    "En webbutiks ordersystem kan till exempel bestämma när agenten skickar ett leveransbesked. Agenten behöver registreras och lanseras för publika utskick. Den är inte en AI; automatisering och AI är separata val."
+  ],
+  "Agentprofil": [
+    "Använd varumärket kunden möter, även om det juridiska företagsnamnet är ett annat. En ifylld profil betyder inte att verifiering och lansering är klara."
+  ],
+  "API": [
+    "API:ets svar visar först om begäran accepterats. Leveransstatus kommer senare. Adresser, fält och autentisering finns i dokumentationen för leverantören ni använder."
+  ],
+  "Asynkron leverans": [
+    "Spara meddelande-id så att senare leverans-, läs- eller felhändelser hamnar på rätt ärende. Behandla inte det första svaret som en bekräftelse på leverans."
+  ],
+  "Brand verification": [
+    "Verifiering och lansering är skilda steg. Kontrollen handlar om identitet och behörighet, inte om kvaliteten på varje framtida erbjudande eller länk."
+  ],
+  "Föreslagen åtgärd": [
+    "Knappen kan lämna chatten. Öppna bokningssidan är därför tydligare än Bokat om kunden fortfarande behöver välja en tid. Stödet beror på app och tjänst, och klicket säger inte att uppgiften blev slutförd."
+  ],
+  "Karusell": [
+    "Låt första kortet förklara sammanhanget. Viktiga tider eller villkor ska inte kräva att kunden sveper till slutet. Testa korten på telefon och kontrollera mottagarstödet."
+  ],
+  "Leveranskvittens": [
+    "Ett accepterat API-anrop är alltså inte en leveranskvittens. Kvittensen visar heller inte att kunden läst eller förstått innehållet."
+  ],
+  "Läskvitto": [
+    "Appen och dess inställningar påverkar rapporteringen. Ett saknat kvitto räcker därför inte för att säga att meddelandet är oläst. Det är inte heller ett mått på köp eller samtycke."
+  ],
+  "MaaP": [
+    "Det beskriver en teknisk del av RCS-ekosystemet, inte en app kunden ska installera. En leverantörs funktioner och priser behöver framgå av dess egna villkor."
+  ],
+  "MMS": [
+    "En MMS-bild är inte ett RCS-kort med interaktiva val. Operatören bestämmer villkor som mediegränser och kostnader för MMS."
+  ],
+  "Operatör": [
+    "En kompatibel telefon räcker inte om funktionen saknas för abonnemanget. För ett företagsutskick behöver leverantören även bekräfta räckvidden från den registrerade avsändaren."
+  ],
+  "P2P": [
+    "Företagsmeddelanden från en registrerad agent är en annan användning. Uppgifter om kryptering eller stöd i privat chatt ska därför inte överföras till ett företagsflöde utan kontroll."
+  ],
+  "Postback-data": [
+    "En knapp kan visa Bekräfta medan datan identifierar bokningen. Använd en stabil identifierare i stället för att tolka knapptexten. Systemet måste sedan hantera valet; datan i sig ändrar ingen bokning."
+  ],
+  "RBM": [
+    "I Googles modell kallas avsändaren agent. Den behöver verifieras och lanseras, och tjänsten måste kunna nå mottagarna. Ett fungerande privat RCS-samtal räcker inte som test av ett sådant utskick."
+  ],
+  "RCS-chatt": [
+    "Båda sidor behöver stöd och uppkoppling. Samma app kan använda SMS eller MMS i ett annat samtal, eller som reserv när inställningarna tillåter det. Läs kanaltexten för att se vad som används."
+  ],
+  "RCS-klient": [
+    "Klientens version och inställningar påverkar funktionerna, tillsammans med operatören. Samma innehåll behöver därför provas i de appar kunderna använder."
+  ],
+  "Rich card": [
+    "I Googles modell behöver kortet innehålla media, rubrik eller beskrivning; alla delar måste inte finnas samtidigt. Lägg nödvändiga uppgifter som text och prova formatet på mottagarenheterna."
+  ],
+  "Skrivindikator": [
+    "Google beskriver funktionen för privata chattar. Om ett företagsflöde ska använda den behöver ni kontrollera stödet för den tjänsten."
+  ],
+  "SMS": [
+    "Ett enskilt SMS rymmer normalt 160 GSM-7-tecken. Andra tecken och längre text kan ge fler delar. SMS har inte RCS-kort eller deras inbyggda knappar, och en leveransrapport är inget läskvitto."
+  ],
+  "Webhook": [
+    "Koppla händelsen till meddelande-id och rätt ärende. Verifiera också anropets ursprung enligt leverantörens dokumentation innan det får ändra något. Giltig JSON bevisar inte att avsändaren är betrodd."
+  ]
 };
