@@ -7,7 +7,7 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["Meddelandena skickas över wifi eller mobildata. Både appen och mottagaren behöver stöd för RCS.", "Privat RCS-chatt och företags-RCS har olika funktioner och säkerhetsvillkor. Stöd för det ena garanterar inte det andra.", "Företag kan använda registrerade avsändare med namn, logotyp och knappar. Tillgängligheten beror på tjänst, operatör och marknad."]
   },
   "rcs-vs-sms": {
-    title: "RCS, SMS och MMS: vad skiljer dem åt?",
+    title: "Vad skiljer RCS från SMS och MMS?",
     description: "SMS skickar text. MMS kan skicka bilder och annat medieinnehåll. RCS använder internet och kan dessutom ge läskvitton, bättre mediedelning och interaktiva företagsmeddelanden. Alla tre kan visas i samma app.",
     points: ["RCS kräver wifi eller mobildata och stöd hos mottagaren. SMS behöver inte en aktiv internetanslutning, men behöver mobilnätsstöd.", "Ett SMS rymmer normalt 160 GSM-7-tecken i ett enskilt meddelande. Andra tecken och längre texter kan ge fler meddelandedelar.", "SMS-fallback är en separat reservlösning. Den ingår inte automatiskt i varje företags-RCS-tjänst."]
   },
@@ -22,27 +22,27 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["I Googles process bekräftar en behörig varumärkesrepresentant agentuppgifterna och partnerns behörighet före lansering.", "Verifiering identifierar avsändaren. Den garanterar inte att varje länk, erbjudande eller framtida meddelande är ofarligt.", "Märkningen säger inget om end-to-end-kryptering. Företagsprofil, leveransstatus och kryptering är tre olika saker."]
   },
   "rich-cards-karuseller": {
-    title: "Rich cards och karuseller i RCS",
+    title: "Vad är rich cards och karuseller?",
     description: "Ett rich card samlar media, rubrik, beskrivning och val i ett strukturerat meddelandekort. En karusell är flera sådana kort som mottagaren kan bläddra mellan, till exempel olika produkter.",
     points: ["I Googles modell behöver ett kort innehålla media, rubrik eller beskrivning. Alla delar är inte obligatoriska.", "Föreslagna svar skickar tillbaka ett val. Åtgärdsknappar kan exempelvis öppna en länk och därmed lämna chatten.", "Testa återgivningen och mottagarens stöd. En karusell blir inte automatiskt ett läsbart SMS; reservtexten måste skrivas separat."]
   },
   "rcs-api-webhooks": {
-    title: "RCS API och webhooks: så fungerar flödet",
+    title: "Hur fungerar RCS API och webhooks?",
     description: "Ett RCS API låter era system begära ett utskick. Webhooks tar emot det som händer senare, exempelvis leverans, lässtatus och kundsvar. Det första API-svaret är inte en leveranskvittens.",
     points: ["Använd er leverantörs dokumentation för adresser, fält och autentisering. Exempel från Google gäller inte automatiskt andra API:er.", "Koppla händelser till rätt meddelande och kontrollera att inkommande webhook-anrop kommer från rätt avsändare.", "Bestäm när reserv-SMS ska användas och hur väntande RCS-meddelanden hanteras, så kunden inte får dubbla besked."]
   },
   "rcs-pa-iphone": {
-    title: "RCS på iPhone: vad krävs?",
+    title: "Vad krävs för RCS på iPhone?",
     description: "RCS i appen Meddelanden kan ge rikare mediedelning, läskvitton och skrivindikatorer i samtal med andra telefoner. Funktionen kräver stöd från operatören och är inte tillgänglig överallt.",
     points: ["RCS kräver iOS 18 eller senare samt stöd i aktuell region och hos operatören. En uppdatering ensam räcker inte.", "Leta efter RCS-meddelanden under Inställningar, Appar, Meddelanden. Om valet saknas, kontrollera operatörens stöd.", "Privat RCS-stöd innebär inte automatiskt stöd för företags-RCS eller varje rich card. Företag behöver kontrollera sin tjänsts mottagarstöd."]
   },
   "rcs-pa-android": {
-    title: "RCS på Android: så fungerar det",
+    title: "Hur fungerar RCS på Android?",
     description: "På Android används RCS ofta via Google Messages. När RCS-chattar är anslutna kan appen skicka meddelanden över wifi eller mobildata och visa läskvitton och skrivindikatorer där det stöds.",
     points: ["Öppna Google Messages, profilbilden, meddelandeinställningar och RCS-chattar för att kontrollera anslutningsstatus.", "App, operatör, nummerregistrering och mottagarens stöd påverkar om en konversation använder RCS.", "Omsändning som SMS eller MMS beror på inställningarna och tillgång till rätt nät. RCS garanterar inte leverans utan uppkoppling."]
   },
   "aktivera-rcs": {
-    title: "Så aktiverar du RCS",
+    title: "Hur aktiverar jag RCS?",
     description: "RCS slås på i telefonens meddelandeinställningar. Funktionen behöver en internetanslutning och stöd i appen och hos operatören. Ett påslaget reglage är inte samma sak som en färdig anslutning.",
     points: ["Android: öppna Google Messages, profilbilden, meddelandeinställningar, RCS-chattar och aktivera funktionen. Kontrollera sedan status.", "iPhone: gå till Inställningar, Appar, Meddelanden och aktivera RCS-meddelanden om valet finns.", "Om anslutningen fastnar, kontrollera internet, rätt telefonnummer och uppdateringar. Ett saknat iPhone-val kan bero på operatörens eller regionens stöd."]
   },
@@ -57,7 +57,7 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["Google beskriver end-to-end-kryptering för vissa privata RCS-chattar. Det innebär inte att alla företagsmeddelanden har samma skydd.", "En verifieringsmarkering är inte en garanti för alla länkar eller meddelanden från avsändaren.", "Kontrollera skyddet för den tjänst ni använder. Skicka inte lösenord och undvik känsliga personuppgifter utan en bedömd, lämplig lösning."]
   },
   "rcs-historia": {
-    title: "RCS historia, kort förklarad",
+    title: "Hur utvecklades RCS?",
     description: "RCS utvecklades inom mobilbranschen för att ge meddelandetjänster fler funktioner än SMS och MMS. GSMA:s Universal Profile skapade en gemensam teknisk grund för olika aktörer.",
     points: ["Standarden är inte en enskild app. Operatörer och meddelandeappar inför stöd för den.", "Google Messages och Apples Meddelanden kan använda RCS, men tillgängligheten beror på app, operatör och region.", "En gemensam standard betyder inte att alla funktioner finns på varje enhet. Företags-RCS har dessutom egen avsändarhantering och lansering."]
   },
@@ -72,57 +72,57 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["Google Messages kan skicka om som SMS eller MMS när inställningarna tillåter det. Reservkanalen behöver också nätstöd.", "SMS-fallback för företag måste finnas i leverantörens tjänst eller byggas i integrationen. Den är inte automatisk överallt.", "Sätt en relevant giltighetstid för påminnelser och tidsbundna besked. Ett sent meddelande kan vara lika olämpligt som ett uteblivet."]
   },
   "rcs-myter": {
-    title: "Vanliga missförstånd om RCS",
+    title: "Vilka missförstånd finns om RCS?",
     description: "RCS är en standard, inte en egen app. Den kan ge rikare meddelanden, men funktioner, räckvidd och säkerhet beror på den aktuella tjänsten och mottagarens stöd.",
     points: ["Alla RCS-meddelanden är inte end-to-end-krypterade. Privat chatt och företags-RCS ska bedömas var för sig.", "RCS kan fungera på iPhone, men operatör och region spelar roll. Alla telefoner visar inte samma funktioner.", "RCS ersätter inte automatiskt SMS, och alla tjänster har inte SMS-reserv. Företagsutskick är heller inte gratis bara för att privat chatt använder data."]
   },
   "rcs-ordforklaring-pa-svenska": {
-    title: "RCS-termer på vanlig svenska",
+    title: "Vad betyder RCS-termerna på svenska?",
     description: "Engelska RCS-termer beskriver ofta ganska enkla saker: vem som skickar, vad mottagaren ser och hur systemen tar hand om svaret. Här är de vanligaste översättningarna.",
     points: ["Agent betyder företagsavsändare. Rich card är ett meddelandekort och carousel är flera sådana kort att bläddra mellan.", "Suggested reply är ett färdigt svar. Suggested action är en åtgärd, till exempel att öppna en länk. Det är inte samma sak.", "Fallback betyder reservkanal. En webhook är en adress som tar emot händelser, exempelvis ett kundsvar. Exakt stöd beror på tjänsten."]
   },
   "rcs-marknadsforing": {
-    title: "RCS i marknadsföring",
+    title: "Hur används RCS i marknadsföring?",
     description: "RCS-kampanjer kan visa erbjudanden med företagsprofil, bilder och knappar i meddelandeappen. Formatet hjälper mottagaren att förstå och agera, men ger inte bättre resultat av sig självt.",
     points: ["Välj ett huvudbudskap och ett tydligt nästa steg. Ett rich card passar en produkt; en karusell kan visa flera alternativ.", "Säkerställ att mottagaren får kontaktas och att avregistrering fungerar. En verifierad avsändare ersätter inte de kraven.", "Kontrollera mottagarstöd och reservtext före utskick. Mät verkliga resultat, inte bara klick, och undvik generella löften om försäljning."]
   },
   "rcs-e-handel": {
-    title: "RCS för e-handel",
+    title: "Hur kan e-handlare använda RCS?",
     description: "E-handlare kan använda RCS för orderbekräftelser, leveransbesked och produktvisning. Ett rich card kan samla produktbild, orderinformation och en länk till rätt sida.",
     points: ["Använd ett känt företagsnamn och skriv vilken order beskedet gäller. Länken ska leda till en tydlig och korrekt destination.", "En öppnad produktsida är inte ett köp. Knyt uppföljningen till utfallet i webbshoppen.", "Skilj servicemeddelanden från marknadsföring, exempelvis kundvagnspåminnelser. Kontrollera reglerna för kontakt och ha en reserv för mottagare utan RCS-stöd."]
   },
   "rcs-kundservice": {
-    title: "RCS i kundservice",
+    title: "Hur används RCS i kundservice?",
     description: "RCS kan låta kunder ställa frågor och välja färdiga svar i meddelandeappen. Företagets system eller personal behöver sedan ta hand om ärendet. Knappar löser inget på egen hand.",
     points: ["Föreslagna svar passar tydliga val, exempelvis orderstatus eller begäran om ombokning.", "Visa en väg till en person när automatiska svar inte räcker. Berätta när kunden kan förvänta sig hjälp.", "Koppla svaret till rätt kundärende och bekräfta vad som faktiskt har gjorts. En mottagen begäran är inte en genomförd ändring."]
   },
   "rcs-bokningspaminnelser": {
-    title: "Bokningspåminnelser med RCS",
+    title: "Hur fungerar bokningspåminnelser med RCS?",
     description: "En RCS-påminnelse kan visa bokad tid och erbjuda val som bekräfta, boka om eller avboka. Det gör svaret enkelt för kunden, men bokningssystemet måste hantera valet.",
     points: ["Visa datum, tid och plats direkt. Kunden ska inte behöva svepa genom en karusell för att hitta sin bokning.", "Knyt svaret till rätt bokning. Bekräfta om tiden har ändrats eller om en begäran bara har tagits emot.", "Undvik känsliga detaljer och sätt en giltighetstid. Planera eventuell SMS-reserv utan att skicka dubbla eller passerade påminnelser."]
   },
   "rcs-leveransnotiser": {
-    title: "Leveransbesked med RCS",
+    title: "Hur skickas leveransbesked med RCS?",
     description: "RCS kan ge kunden leveransstatus, tidsfönster och en spårningslänk i ett meddelande från företagets registrerade avsändare. Beskedet ska svara på vad som händer med just kundens beställning.",
     points: ["Skriv vilken leverans det gäller, när den väntas och var kunden kan följa den. Lägg inte in mer information än ärendet behöver.", "Verifiering hjälper kunden att känna igen avsändaren, men garanterar inte att allt innehåll eller alla länkar är säkra.", "Bekräfta SMS-reserv med leverantören för viktiga besked. Ingen kanal ger en ovillkorlig leveransgaranti."]
   },
   "rcs-restaurang-cafe": {
-    title: "RCS för restauranger och caféer",
+    title: "Hur kan restauranger använda RCS?",
     description: "Restauranger kan använda RCS för bokningsbesked, menyer med bilder och erbjudanden till kunder som får kontaktas. En knapp kan öppna bokningssidan eller erbjuda ett samtal.",
     points: ["Visa det kunden behöver: tid, plats, meny eller erbjudandets villkor. En tydlig bild kan hjälpa, men ersätter inte nödvändig text.", "En bokningsknapp öppnar ofta en extern sida. Ett tryck betyder inte att bordet redan är bokat.", "Låt kunderna välja relevant kontakt och kunna avregistrera sig. Kontrollera mottagarstöd; bilder och knappar garanterar inte fler bokningar."]
   },
   "rcs-gdpr-samtycke": {
-    title: "RCS, personuppgifter och samtycke",
+    title: "Vilka regler gäller för RCS-utskick?",
     description: "RCS ändrar inte företagets ansvar för personuppgifter eller marknadsföring. Telefonnummer, kundsvar och leveranshändelser kan vara personuppgifter när de går att koppla till en person.",
     points: ["Bedöm rättslig grund för behandlingen och vilka regler som gäller för kontakten. GDPR:s rättsliga grund och tillstånd för marknadsföring är inte samma fråga.", "Informera mottagaren, gör avregistrering möjlig och begränsa vilka uppgifter ni sparar och hur länge.", "Googles plattformsriktlinjer är inte svensk lag. Kontrollera ert upplägg med dataskyddskunnig rådgivare. Detta är en översikt, inte juridisk rådgivning."]
   },
   "rcs-roi": {
-    title: "Så mäter du resultat av RCS",
+    title: "Hur mäter jag resultat av RCS?",
     description: "RCS kan rapportera leverans, lässtatus och kundval. ROI handlar däremot om värdet av resultatet jämfört med kostnaden. Ett klick eller läskvitto är inte ett färdigt köp.",
     points: ["Skilj accepterat, levererat, läst och slutfört ärende åt. Definiera varje mått innan ni jämför kanaler.", "Koppla köp och bokningar till systemet där de sker. Uteblivet läskvitto betyder inte säkert att ingen har läst.", "Testa en förändring i taget i jämförbara grupper och räkna med meddelande-, integrations- och hanteringskostnader. RCS ger inte en fast avkastning för alla."]
   },
   "rcs-kampanjplan": {
-    title: "Planera din första RCS-kampanj",
+    title: "Hur planerar jag en RCS-kampanj?",
     description: "En första RCS-kampanj behöver ett tydligt mål, rätt mottagare och ett meddelande med ett begripligt nästa steg. Börja med ett litet test innan ni skickar brett.",
     points: ["Bestäm vad mottagaren ska göra och hur ni mäter det. Välj format efter uppgiften, inte efter antalet möjliga funktioner.", "Kontrollera att kontakten är tillåten, avsändaren är lanserad och mottagarna stöder innehållet.", "Testa länkar, svarshantering, giltighetstid och reservtext. Skala upp först när hela flödet fungerar, inte bara förhandsvisningen."]
   },
@@ -142,12 +142,12 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["Använd tydligt olika val, exempelvis Bekräfta och Begär ombokning. Kunden ska förstå vad varje val betyder.", "Svaret måste hanteras av en person eller ett system. Ett knapptryck ändrar inte automatiskt bokningen eller ordern.", "Föreslagna svar är inte åtgärdsknappar som öppnar en länk. Funktioner och antal tillåtna förslag beror på format och tjänst."]
   },
   "rcs-bilder-video": {
-    title: "Bilder och video i RCS",
+    title: "Hur fungerar bilder och video i RCS?",
     description: "RCS kan skicka bilder och video som fristående media eller som delar av rich cards. Formatet kan ge bättre mediedelning än MMS, men kvalitet och återgivning beror på filen, appen och stödet.",
     points: ["Låt motivet synas på en liten skärm. Skriv viktig information som text, inte bara inuti bilden.", "Kontrollera tjänstens stödda filtyper, storleksgränser och medieadresser. Utgå inte från samma gränser hos alla leverantörer.", "Testa laddning och beskärning på stödda telefoner. Skriv en separat SMS-version om utskicket ska ha reservkanal."]
   },
   "skriva-bra-rcs-meddelanden": {
-    title: "Så skriver du ett tydligt RCS-meddelande",
+    title: "Hur skriver jag ett tydligt RCS-meddelande?",
     description: "Ett bra RCS-meddelande ger kunden ett begripligt besked och ett tydligt nästa steg. Mer plats och fler funktioner är inte en anledning att skriva mer.",
     points: ["Säg vad meddelandet gäller direkt. Håll ihop ett ärende eller erbjudande och använd bild när den faktiskt förklarar något.", "Skriv knapptext efter det som händer: Öppna ordern, Ring oss eller Begär ombokning. Undvik löften som knappen inte uppfyller.", "Kontrollera text, länkar och svar på riktiga telefoner. Reservtexten ska ge samma viktiga besked utan bild och knappar."]
   },
@@ -162,7 +162,7 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["Fallback ingår inte automatiskt i alla RCS-tjänster och ger ingen absolut leveransgaranti.", "Skriv en egen SMS-text med samma viktiga information. Bilder, karuseller och knappar kan inte flyttas över oförändrade.", "Bestäm tidsgränser och hur väntande RCS-meddelanden hanteras före reservutskick, så kunden inte får dubbla besked. Kontrollera separat debitering."]
   },
   "rcs-leveransstatus": {
-    title: "RCS-status: accepterat, levererat och läst",
+    title: "Vad betyder leveransstatus i RCS?",
     description: "Leveransstatus beskriver olika steg efter ett utskick. Ett accepterat API-anrop betyder att begäran har tagits emot. Levererat och läst är senare händelser, när tjänsten och klienten kan rapportera dem.",
     points: ["Accepterat är inte detsamma som levererat till telefonen. Ett läskvitto är inte bevis för förståelse eller samtycke.", "Utebliven läsrapport betyder inte säkert att meddelandet är oläst. Klient, inställningar och tjänst påverkar rapporteringen.", "Koppla händelser till rätt meddelande och håll dem åtskilda från kundens faktiska köp, bokning eller svar."]
   },
@@ -177,7 +177,7 @@ export const shortContent: Record<string, ShortContent> = {
     points: ["Stöd för RCS som kanal är inte samma sak som stöd för varje kort, karusell eller åtgärd.", "Använd resultatet för att välja rätt innehåll eller en bekräftad reservkanal. Ett positivt svar garanterar inte senare leverans.", "Stödet kan ändras med app, operatör och inställningar. Följ leverantörens regler för kontroller i stället för att lita obegränsat på gamla resultat."]
   },
   "rcs-agent-registrering": {
-    title: "Så registreras en RCS-avsändare",
+    title: "Hur registreras en RCS-avsändare?",
     description: "En företagsavsändare behöver registreras och godkännas innan publika RCS-utskick. I Googles modell skapas en agent med företagsuppgifter, följt av varumärkesverifiering och lansering.",
     points: ["Förbered ett igenkännbart företagsnamn, logotyp, kontaktuppgifter och en behörig varumärkesrepresentant.", "Ett testkonto eller en skapad agent är inte ett lanseringsgodkännande. Bekräfta marknader, operatörer och process med partnern.", "Verifiering kontrollerar koppling och behörighet, inte varje framtida meddelandes innehåll. Agenten är en avsändare, inte automatiskt en AI."]
   }
