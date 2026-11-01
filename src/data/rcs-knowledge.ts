@@ -1,6 +1,7 @@
 import { grunderArticles } from "./rcs-articles-grunder";
 import { foretagArticles } from "./rcs-articles-foretag";
 import { teknikArticles } from "./rcs-articles-teknik";
+import { shortContent, termDetails } from "./rcs-short-content";
 
 export type Source = { id: string; title: string; url: string };
 export type Section = { id: string; title: string; paragraphs: string[]; points?: string[]; sources: string[] };
@@ -232,26 +233,8 @@ const baseArticles: Article[] = [
   }
 ];
 
-const playfulIntros: Record<string, string> = {
-  "vad-ar-rcs": "Föreställ dig att sms fick gå på gym, lära sig visa bilder och plötsligt kunde svara med knappar. Ungefär där har du RCS. Här reder vi ut vad det faktiskt är, utan att det blir en teknisk manual.",
-  "rcs-vs-sms": "SMS är den pålitliga gamla Volvon. RCS är samma bil med navigator, stolsvärme och backkamera. Båda tar dig fram, men resan ser rätt olika ut.",
-  "rcs-for-foretag": "När ett företag dyker upp i din meddelandeapp vill du veta två saker: vem är det, och vad vill de? RCS för företag är byggt för att svara på båda.",
-  "verifierad-avsandare": "Den lilla bocken bredvid företagsnamnet ser oskyldig ut, men den gör ett tungt jobb. Den berättar att avsändaren är den den säger sig vara.",
-  "rich-cards-karuseller": "Ett vanligt meddelande är en lapp. Ett rich card är ett vykort med knappar. En karusell är en hel bunt vykort du kan bläddra i med tummen.",
-  "rcs-api-webhooks": "Ett API låter era system skicka meddelanden. Webhooks låter dem lyssna på svaren. Tillsammans blir det ett samtal mellan maskiner som kunden aldrig behöver tänka på.",
-};
-
-export const articles: Article[] = [
-  ...baseArticles.map((article) => { const intro = playfulIntros[article.slug]; return intro
-    ? { ...article, sections: article.sections.map((section, index) => index === 0 ? { ...section, paragraphs: [intro, ...section.paragraphs] } : section) }
-    : article; }),
-  ...grunderArticles,
-  ...foretagArticles,
-  ...teknikArticles,
-];
-
 export type GlossaryTerm = { term: string; aliases: string; definition: string; source: string; article: string };
-export const glossary: GlossaryTerm[] = [
+const glossaryEntries: GlossaryTerm[] = [
   { term: "Agent", aliases: "företagsagent", definition: "En programmatisk företagsavsändare i Googles RBM-modell. Agenten representerar ett varumärke och använder plattformens API för att kommunicera med mottagare. Agent betyder inte automatiskt AI.", source: "agent", article: "rcs-for-foretag" },
   { term: "Agentprofil", aliases: "avsändarprofil företagsprofil", definition: "Den företagsinformation som hör till en agent, exempelvis namn och logotyp. Profilen hjälper mottagaren att identifiera företagsavsändaren i meddelandeappen.", source: "agent", article: "verifierad-avsandare" },
   { term: "API", aliases: "application programming interface integration", definition: "Ett programmerbart gränssnitt som låter system skicka förfrågningar till en tjänst. Fält, autentisering och funktioner beror på vilket API som används.", source: "send", article: "rcs-api-webhooks" },
@@ -280,6 +263,30 @@ export const glossary: GlossaryTerm[] = [
   { term: "Verifierad avsändare", aliases: "verified sender", definition: "En företagsavsändare vars identitet och behörighet har godkänts enligt en definierad process. Verifiering ska inte blandas ihop med kryptering eller en garanti för varje meddelandes innehåll.", source: "verification", article: "verifierad-avsandare" },
   { term: "Webhook", aliases: "https händelse callback", definition: "En HTTPS-adress som tar emot händelser från en plattform, exempelvis leveranshändelser eller kundsvar. Inkommande anrop behöver verifieras enligt leverantörens instruktioner.", source: "webhooks", article: "rcs-api-webhooks" },
 ];
+
+const guides: Article[] = [...baseArticles, ...grunderArticles, ...foretagArticles, ...teknikArticles].map((article) => {
+  const content = shortContent[article.slug];
+  if (!content) return article;
+  return { ...article, title: content.title, description: content.description, sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: [], points: content.points, sources: [...new Set(article.sections.flatMap((section) => section.sources))] }] };
+});
+
+const dedicatedTerms: Record<string, string> = {
+  RCS: "vad-ar-rcs", "Verifierad avsändare": "verifierad-avsandare", "Universal Profile": "universal-profile",
+  "Capability check": "kapabilitetskontroll", Fallback: "rcs-fallback-sms", "Föreslaget svar": "foreslagna-svar",
+};
+function termSlug(term: string) {
+  return dedicatedTerms[term] ?? `begrepp-${term.toLocaleLowerCase("sv").replaceAll("å", "a").replaceAll("ä", "a").replaceAll("ö", "o").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+}
+
+export const glossary = glossaryEntries.map((entry) => ({ ...entry, article: termSlug(entry.term) }));
+
+const termArticles: Article[] = glossaryEntries.filter((entry) => !dedicatedTerms[entry.term]).map((entry) => ({
+  slug: termSlug(entry.term), title: `Vad är ${entry.term}?`, description: entry.definition,
+  category: "Begrepp", keywords: [entry.term, entry.aliases], published: "2026-11-01", related: [entry.article],
+  sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: [], points: termDetails[entry.term] ?? [], sources: [entry.source] }],
+}));
+
+export const articles: Article[] = [...guides, ...termArticles];
 
 export function searchArticles(query: string, category = "Alla") {
   const needle = query.trim().toLocaleLowerCase("sv");
