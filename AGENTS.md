@@ -18,3 +18,4 @@
 - The blog is the single discovery route for guides and glossary articles; permanently redirect the legacy /ordlista URL to /blogg to preserve existing links.
 - Customer reference assets and names live in one browser-safe data module rendered by a shared logo-only section on the homepage and product pages, keeping verified brands consistent without invented testimonials.
 - Large editorial expansions live in separate browser-safe article and source modules composed into the shared collection; keep an explicit keyword-intent map and count regression test to prevent accidental duplicate or missing articles.
+- Compose individually authored per-slug article depth and typed primary-source findings before reading-time calculation and rendering; distinguish publisher documentation from measured customer results to avoid fabricated first-party evidence.

@@ -1,6 +1,30 @@
 import { expect, test } from "bun:test";
 import { articles, glossary, searchArticles, searchGlossary, sources } from "../src/data/rcs-knowledge";
 import { expandedArticles } from "../src/data/rcs-articles-expanded";
+import { articleDepth } from "../src/data/rcs-article-depth";
+import { factsForSources } from "../src/data/rcs-source-facts";
+
+test("alla 157 artiklar får en egen fördjupning utan återanvänd utfyllnad", () => {
+  expect(Object.keys(articleDepth)).toHaveLength(157);
+  const paragraphs = articles.map((article) => {
+    const depth = articleDepth[article.slug];
+    expect(depth).toBeDefined();
+    expect(article.sections.find((section) => section.id === "fordjupning")?.paragraphs).toEqual(depth.paragraphs);
+    return depth.paragraphs.join(" ");
+  });
+  expect(new Set(paragraphs).size).toBe(157);
+});
+
+test("sammanställda originaluppgifter har källor och skapar inte egna mätresultat", () => {
+  for (const article of articles) {
+    expect(article.facts?.length).toBeGreaterThan(0);
+    for (const fact of article.facts ?? []) {
+      expect(sources.some((source) => source.id === fact.sourceId)).toBe(true);
+      expect(article.sections.some((section) => section.sources.includes(fact.sourceId))).toBe(true);
+    }
+  }
+  expect(factsForSources(["unknown"])).toEqual([]);
+});
 
 test("varje sakavsnitt och ordlistebegrepp har en befintlig https-källa", () => {
   for (const article of articles) {
