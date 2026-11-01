@@ -1,7 +1,7 @@
 import { grunderArticles } from "./rcs-articles-grunder";
 import { foretagArticles } from "./rcs-articles-foretag";
 import { teknikArticles } from "./rcs-articles-teknik";
-import { shortContent, termDetails } from "./rcs-short-content";
+import { shortContent, termDetails, articleExamples } from "./rcs-short-content";
 
 export type Source = { id: string; title: string; url: string };
 export type Section = { id: string; title: string; paragraphs: string[]; points?: string[]; sources: string[] };
@@ -289,7 +289,11 @@ const termArticles: Article[] = glossaryEntries.filter((entry) => !dedicatedTerm
 export const articles: Article[] = [
   ...guides.map((article) => ({ ...article, sections: article.sections.map((section) => ({ ...section, sources: [...new Set([...section.sources, ...glossary.filter((entry) => entry.article === article.slug).map((entry) => entry.source)])] })) })),
   ...termArticles,
-];
+].map((article) => {
+  const example = articleExamples[article.slug];
+  if (!example) return article;
+  return { ...article, sections: article.sections.map((section, index) => index === article.sections.length - 1 ? { ...section, paragraphs: [...section.paragraphs, example] } : section) };
+});
 
 export function searchArticles(query: string, category = "Alla") {
   const needle = query.trim().toLocaleLowerCase("sv");

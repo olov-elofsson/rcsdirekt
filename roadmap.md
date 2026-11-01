@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Visa bloggkategorier som taggar, ta bort fotnoter och relaterade artiklar, och förklara ämnena i sammanhängande text med praktiska exempel
+
 - [x] Förenkla blogg och artikelvyer, korta alla artiklar och skapa egna begreppsartiklar
 - [x] Kontrollera sökning, begreppslänkar och läsning på dator och mobil
 
