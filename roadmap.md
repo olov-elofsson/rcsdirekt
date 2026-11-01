@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Samla begrepp och guider i bloggen, ta bort separata flikar och ordlistelänkar, och behåll gamla adresser genom vidarebefordran
+
 - [x] Visa bloggkategorier som taggar, ta bort fotnoter och relaterade artiklar, och förklara ämnena i sammanhängande text med praktiska exempel
 
 - [x] Förenkla blogg och artikelvyer, korta alla artiklar och skapa egna begreppsartiklar

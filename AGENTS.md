@@ -15,3 +15,4 @@
 - Meddelandetyper: det finns ingen jämförelsesida; RCS Basic, Single och Conversation lever bara på sina egna undersidor (/rcs-basic, /rcs-single, /rcs-conversation). Gamla länkar till /jamfor-planer vidarebefordras till startsidan. Uppmuntra inte nya länkar till en samlad jämförelsesida.
 - RCS-demonstration: håll startsidans telefon och allt redigerbart demoinnehåll separerade i en komponent och datafil så upplevelsen kan utvecklas utan att belasta sidrutten.
 - Knowledge content uses browser-safe typed data with editorial summaries and optional practical explanations composed before search and rendering, shared single-column article views and synchronous lookup loaders; glossary entries reuse exact-match dedicated articles to keep citations, search and reading estimates consistent.
+- The blog is the single discovery route for guides and glossary articles; permanently redirect the legacy /ordlista URL to /blogg to preserve existing links.

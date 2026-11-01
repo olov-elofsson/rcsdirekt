@@ -10,7 +10,6 @@ const mobileNav = [
   { label: "Webbgränssnitt", to: "/rcs-online" },
   { label: "RCS API", to: "/rcs-api" },
   { label: "Blogg", to: "/blogg" },
-  { label: "RCS-ordlista", to: "/ordlista" },
   { label: "Kontakt", to: "/kontakt" },
 ] as const;
 
@@ -103,7 +102,6 @@ const footerNav = [
       { label: "Webbgränssnitt", to: "/rcs-online" },
       { label: "RCS API", to: "/rcs-api" },
       { label: "Blogg", to: "/blogg" },
-      { label: "RCS-ordlista", to: "/ordlista" },
     ],
   },
   {
