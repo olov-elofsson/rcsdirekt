@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { pricingPlans } from "@/data/pricing-plans";
 import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
-import { Wave } from "@/components/BandWave";
+import { CustomerReferences } from "@/components/CustomerReferences";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
