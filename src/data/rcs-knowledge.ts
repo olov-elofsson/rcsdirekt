@@ -4,10 +4,12 @@ import { teknikArticles } from "./rcs-articles-teknik";
 import { shortContent, termDetails } from "./rcs-short-content";
 import { expandedArticles } from "./rcs-articles-expanded";
 import { currentSources } from "./rcs-current-sources";
+import { articleDepth } from "./rcs-article-depth";
+import { factsForSources, type SourceFact } from "./rcs-source-facts";
 
 export type Source = { id: string; title: string; url: string };
 export type Section = { id: string; title: string; paragraphs: string[]; points?: string[]; sources: string[] };
-export type Article = { slug: string; title: string; description: string; category: string; keywords: string[]; published: string; sections: Section[]; related: string[] };
+export type Article = { slug: string; title: string; description: string; category: string; keywords: string[]; published: string; sections: Section[]; related: string[]; facts?: SourceFact[] };
 
 export const sources: Source[] = [
   ...currentSources,
@@ -32,7 +34,7 @@ export function findSources(ids: string[]) {
 }
 
 export function readingMinutes(article: Article) {
-  const text = [article.description, ...article.sections.flatMap((section) => [section.title, ...section.paragraphs, ...(section.points ?? [])])].join(" ");
+  const text = [article.description, ...article.sections.flatMap((section) => [section.title, ...section.paragraphs, ...(section.points ?? [])]), ...(article.facts ?? []).flatMap((fact) => [fact.finding, fact.implication])].join(" ");
   return Math.max(1, Math.ceil(text.split(/\s+/).length / 200));
 }
 
@@ -293,7 +295,15 @@ export const articles: Article[] = [
   ...guides.map((article) => ({ ...article, sections: article.sections.map((section) => ({ ...section, sources: [...new Set([...section.sources, ...glossary.filter((entry) => entry.article === article.slug).map((entry) => entry.source)])] })) })),
   ...termArticles,
   ...expandedArticles,
-];
+].map((article) => {
+  const depth = articleDepth[article.slug];
+  const sourceIds = [...new Set(article.sections.flatMap((section) => section.sources))];
+  return {
+    ...article,
+    sections: depth ? [...article.sections, { id: "fordjupning", title: depth.heading, paragraphs: depth.paragraphs, sources: sourceIds }] : article.sections,
+    facts: factsForSources(sourceIds),
+  };
+});
 
 export function searchArticles(query: string, category = "Alla") {
   const needle = query.trim().toLocaleLowerCase("sv");
