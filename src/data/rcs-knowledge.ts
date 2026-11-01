@@ -1,3 +1,7 @@
+import { grunderArticles } from "./rcs-articles-grunder";
+import { foretagArticles } from "./rcs-articles-foretag";
+import { teknikArticles } from "./rcs-articles-teknik";
+
 export type Source = { id: string; title: string; url: string };
 export type Section = { id: string; title: string; paragraphs: string[]; points?: string[]; sources: string[] };
 export type Article = { slug: string; title: string; description: string; category: string; keywords: string[]; published: string; sections: Section[]; related: string[] };
@@ -28,7 +32,7 @@ export function readingMinutes(article: Article) {
   return Math.max(1, Math.ceil(text.split(/\s+/).length / 200));
 }
 
-export const articles: Article[] = [
+const baseArticles: Article[] = [
   {
     slug: "vad-ar-rcs", title: "Vad är RCS och vad betyder RCS-meddelande?", category: "Grunder", published: "2026-11-01",
     description: "RCS står för Rich Communication Services. Här får du veta hur meddelanden skickas, vad som skiljer RCS från en app och varför företagsmeddelanden är en egen del av tekniken.",
@@ -226,6 +230,24 @@ export const articles: Article[] = [
       ], points: ["Vad betyder det första API-svaret?", "Hur kopplas senare händelser till rätt meddelande?", "Hur verifieras inkommande webhook-anrop?", "När används reservkanalen och hur undviks dubbel leverans?", "Vilka funktioner och marknader stöds för den aktuella agenten?"] }
     ]
   }
+];
+
+const playfulIntros: Record<string, string> = {
+  "vad-ar-rcs": "Föreställ dig att sms fick gå på gym, lära sig visa bilder och plötsligt kunde svara med knappar. Ungefär där har du RCS. Här reder vi ut vad det faktiskt är, utan att det blir en teknisk manual.",
+  "rcs-vs-sms": "SMS är den pålitliga gamla Volvon. RCS är samma bil med navigator, stolsvärme och backkamera. Båda tar dig fram, men resan ser rätt olika ut.",
+  "rcs-for-foretag": "När ett företag dyker upp i din meddelandeapp vill du veta två saker: vem är det, och vad vill de? RCS för företag är byggt för att svara på båda.",
+  "verifierad-avsandare": "Den lilla bocken bredvid företagsnamnet ser oskyldig ut, men den gör ett tungt jobb. Den berättar att avsändaren är den den säger sig vara.",
+  "rich-cards-karuseller": "Ett vanligt meddelande är en lapp. Ett rich card är ett vykort med knappar. En karusell är en hel bunt vykort du kan bläddra i med tummen.",
+  "rcs-api-webhooks": "Ett API låter era system skicka meddelanden. Webhooks låter dem lyssna på svaren. Tillsammans blir det ett samtal mellan maskiner som kunden aldrig behöver tänka på.",
+};
+
+export const articles: Article[] = [
+  ...baseArticles.map((article) => { const intro = playfulIntros[article.slug]; return intro
+    ? { ...article, sections: article.sections.map((section, index) => index === 0 ? { ...section, paragraphs: [intro, ...section.paragraphs] } : section) }
+    : article; }),
+  ...grunderArticles,
+  ...foretagArticles,
+  ...teknikArticles,
 ];
 
 export type GlossaryTerm = { term: string; aliases: string; definition: string; source: string; article: string };
