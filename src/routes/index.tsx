@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { pricingPlans } from "@/data/pricing-plans";
 import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
+import { CustomerReferences } from "@/components/CustomerReferences";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "/skapa-konto";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><CustomerReferences /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
