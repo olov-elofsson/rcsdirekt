@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Visa de fyra önskade kundlogotyperna enligt referensen och rätta Maptun; bekräfta Nervia/Nercia
+
 - [x] Bearbeta språket i alla 157 blogginlägg, ta bort mekaniska tillägg och kontrollera läsning och sökning
 
 - [x] Förbättra bloggens översikt, källförteckning och etiketter
