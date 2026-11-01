@@ -4,7 +4,6 @@ import { KnowledgeLayout, knowledgeHead } from "@/components/KnowledgeLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { articles, findSources, readingMinutes } from "@/data/rcs-knowledge";
-import { factPublisher } from "@/data/rcs-source-facts";
 
 export const Route = createFileRoute("/blogg/$slug")({
   loader: ({ params }) => {
