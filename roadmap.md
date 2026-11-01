@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Bygg RCS-blogg med ordlista och första källbelagda guider
-- [ ] Ta fram svensk sökordsplan och publiceringsordning samtidigt
-- [ ] Kontrollera artikelvisning, sökning och interna länkar
+- [x] Bygg RCS-blogg med ordlista och första källbelagda guider
+- [x] Ta fram svensk sökordsplan och publiceringsordning samtidigt
+- [x] Kontrollera artikelvisning, sökning och interna länkar
 
 - [x] Matcha RCSdirekt med färgerna och designspråket i My Next Project
 - [x] Ta bort bakgrundsrutnät
