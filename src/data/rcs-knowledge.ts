@@ -2,12 +2,15 @@ import { grunderArticles } from "./rcs-articles-grunder";
 import { foretagArticles } from "./rcs-articles-foretag";
 import { teknikArticles } from "./rcs-articles-teknik";
 import { shortContent, termDetails, articleExamples } from "./rcs-short-content";
+import { expandedArticles } from "./rcs-articles-expanded";
+import { currentSources } from "./rcs-current-sources";
 
 export type Source = { id: string; title: string; url: string };
 export type Section = { id: string; title: string; paragraphs: string[]; points?: string[]; sources: string[] };
 export type Article = { slug: string; title: string; description: string; category: string; keywords: string[]; published: string; sections: Section[]; related: string[] };
 
 export const sources: Source[] = [
+  ...currentSources,
   { id: "gsma", title: "GSMA: RCS Universal Profile", url: "https://www.gsma.com/solutions-and-impact/technologies/networks/rcs/universal-profile/" },
   { id: "chat", title: "Google Messages: Vanliga frågor om RCS-chattar", url: "https://support.google.com/messages/answer/9487020?hl=sv" },
   { id: "business", title: "Google Messages: RCS-chattar med företag", url: "https://support.google.com/messages/answer/7513219?hl=sv" },
@@ -289,6 +292,7 @@ const termArticles: Article[] = glossaryEntries.filter((entry) => !dedicatedTerm
 export const articles: Article[] = [
   ...guides.map((article) => ({ ...article, sections: article.sections.map((section) => ({ ...section, sources: [...new Set([...section.sources, ...glossary.filter((entry) => entry.article === article.slug).map((entry) => entry.source)])] })) })),
   ...termArticles,
+  ...expandedArticles,
 ].map((article) => {
   const example = articleExamples[article.slug];
   if (!example) return article;
