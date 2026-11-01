@@ -33,20 +33,6 @@ function ArticlePage() {
     <Link to="/blogg" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-logo-blue"><ArrowLeft className="size-4" /> Alla artiklar</Link>
     <header className="mt-8"><h1 className="text-3xl leading-tight tracking-normal sm:text-4xl">{article.title}</h1><div className="mt-5 flex items-center gap-3"><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span></div><p className="mt-7 text-lg leading-[1.75] text-foreground">{article.description}</p></header>
     <div className="mt-7 space-y-5 text-lg leading-[1.75] text-muted-foreground">{blocks.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-    {article.facts?.length ? <section aria-labelledby="originalkallor" className="mt-12 bg-muted px-5 py-6 sm:px-7 sm:py-7">
-      <h2 id="originalkallor" className="text-xl leading-snug sm:text-2xl">Vad säger originalkällorna?</h2>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Sammanställda uppgifter från originalkällorna, inte RCS direkts egna utskicksresultat.</p>
-      <div className="mt-6 space-y-7">{article.facts.map((fact) => {
-        const source = references.find((item) => item.id === fact.sourceId);
-        if (!source) return null;
-        return <div key={fact.sourceId}>
-          <Badge variant="secondary">{factPublisher(source)}</Badge>
-          <p className="mt-3 text-base leading-relaxed text-foreground">{fact.finding}</p>
-          <p className="mt-2 text-base leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Det betyder för dig: </span>{fact.implication}</p>
-          <a href={source.url} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Läs originalkällan <ExternalLink aria-hidden className="size-3.5" /></a>
-        </div>;
-      })}</div>
-    </section> : null}
     <section aria-label="Källor" className="mt-14"><h2 className="font-sans text-sm font-semibold text-muted-foreground">Källor</h2><ul className="mt-5 space-y-4">{references.map((source) => <li key={source.id}><a href={source.url} target="_blank" rel="noreferrer" className="group inline-flex max-w-full items-start gap-3 rounded-sm text-sm leading-relaxed text-muted-foreground outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4"><ExternalLink aria-hidden className="mt-1 size-3.5 shrink-0 opacity-60" /><span className="min-w-0"><span className="block underline-offset-4 group-hover:underline">{source.title}</span><span className="mt-0.5 block text-xs opacity-70">{new URL(source.url).hostname}</span></span></a></li>)}</ul></section>
   </article></KnowledgeLayout>;
 }
