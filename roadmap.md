@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Bearbeta språket i alla blogginlägg, ta bort mekaniska tillägg och kontrollera läsning och sökning
+
 - [x] Förbättra bloggens översikt, källförteckning och etiketter
 - [x] Lägg till 100 nya källbelagda artiklar och motsvarande sökordslista, med särskilt fokus på aktuellt mottagarstöd
 - [x] Lyft startsidan och offentliga produktsidor med sex bekräftade kundreferenser och riktiga logotyper
