@@ -10,14 +10,14 @@ export const expandedArticles: Article[] = [
       "rcs operatörer sverige tillgänglighet"
     ],
     "published": "2026-11-01",
-    "description": "Tele2 och Comviq bekräftar på sina supportsidor att RCS fungerar på både iPhone och Android. Det är operatörernas besked om privat meddelandeanvändning, inte en garanti för varje företagsutskick.",
+    "description": "Tele2 och Comviq uppger att RCS fungerar på både iPhone och Android. För andra svenska operatörer behöver du fråga om stödet för ditt abonnemang och din telefon.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Vid kontrollen den 1 november 2026 listar Apples Europasida inte RCS i Sveriges operatörsavsnitt. Uppgifterna är alltså inte helt samstämmiga. Kontrollera ditt eget abonnemang hos operatören och att RCS faktiskt visas i den aktuella konversationen.",
-          "För företag behöver räckvidden dessutom bekräftas för den registrerade avsändaren och tjänsten. En kund som kan chatta privat med RCS är inte automatiskt nåbar av varje företagsagent."
+          "Apples operatörslista och operatörernas egna supportsidor ger inte samma besked: den 1 november 2026 saknade Sveriges avsnitt hos Apple RCS-markeringar, trots Tele2s och Comviqs uppgifter om iPhone-stöd. Därför går det inte att ge ett säkert svar för hela Sverige utifrån den listan.",
+          "Ska ett företag skicka RCS behövs en annan kontroll. Leverantören måste kunna nå kunderna från företagets registrerade avsändare. Att två personer kan chatta med RCS säger inte om ett företagsutskick når samma telefoner."
         ],
         "sources": [
           "tele2-rcs",
@@ -37,14 +37,14 @@ export const expandedArticles: Article[] = [
       "rcs tele2 iphone android"
     ],
     "published": "2026-11-01",
-    "description": "Ja, enligt Tele2s egen support fungerar RCS på iPhone och Android. Operatören anger iOS 18 eller senare för iPhone och Android 5.0 eller senare med Google Meddelanden för Android.",
+    "description": "Ja, enligt Tele2s support. Där anges iOS 18 eller senare för iPhone och Android 5.0 eller senare med Google Meddelanden för Android.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Både du och mottagaren behöver ha RCS aktiverat och internetanslutning. Kontrollera i meddelandeappen vilken kanal samtalet använder; ett kompatibelt abonnemang räcker inte om mottagaren saknar stöd.",
-          "Om inställningen saknas trots uppdaterad telefon bör Tele2 kontrollera förutsättningarna för din linje. Uppgifterna kontrollerades den 1 november 2026 och beskriver privat RCS, inte garanterad räckvidd för företagsmeddelanden."
+          "Du och den du skriver till behöver ha RCS aktiverat och vara uppkopplade. Titta i konversationens skrivfält för att se om den använder RCS. Telefonens huvudinställning säger bara att funktionen är påslagen.",
+          "Saknas valet på en uppdaterad telefon, fråga Tele2 om just ditt abonnemang. Beskedet här gäller privat chatt och bygger på supportsidan den 1 november 2026. Företagsutskick behöver kontrolleras med utskicksleverantören."
         ],
         "sources": [
           "tele2-rcs",
@@ -62,14 +62,14 @@ export const expandedArticles: Article[] = [
       "rcs comviq iphone android"
     ],
     "published": "2026-11-01",
-    "description": "Comviq uppger att deras kunder kan använda RCS på både iPhone och Android. På supportsidan anges iOS 18 eller senare för iPhone samt Google Meddelanden på en kompatibel Android-telefon.",
+    "description": "Comviq säger att RCS fungerar på iPhone och Android. Deras support anger iOS 18 eller senare för iPhone och Google Meddelanden på en kompatibel Android-telefon.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera att RCS är påslaget hos båda deltagarna och att internet fungerar. På Android visar anslutningsstatusen om tjänsten är redo; på iPhone behöver du också kontrollera att den aktuella konversationen använder RCS.",
-          "Beskedet är kontrollerat den 1 november 2026. Frågor om kontantkort, särskilda abonnemang eller en saknad inställning bör Comviq besvara för just ditt nummer, inte utifrån ett annat företags abonnemang."
+          "På Android ser du anslutningsstatus under RCS-chattar i appens inställningar. På iPhone kan du se vilken kanal en konversation använder i skrivfältet. Även den du skriver till behöver ha RCS och internet.",
+          "Uppgifterna kommer från Comviqs supportsida den 1 november 2026. Om du undrar över kontantkort eller om inställningen saknas, be Comviq kontrollera ditt nummer. Stödet hos en annan operatör besvarar inte den frågan."
         ],
         "sources": [
           "comviq-rcs",
@@ -87,14 +87,14 @@ export const expandedArticles: Article[] = [
       "rcs telia iphone abonnemang"
     ],
     "published": "2026-11-01",
-    "description": "Kontrollera stödet för din telefon och ditt exakta abonnemang direkt med Telia. Apples operatörslista för Europa visar vid vår kontroll den 1 november 2026 ingen RCS-markering i Telias svenska avsnitt.",
+    "description": "Fråga Telia om RCS för din telefon och ditt abonnemang. Apples svenska operatörslista saknade en RCS-markering för Telia den 1 november 2026, så den ger inget bekräftat ja.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Det är inte samma sak som ett säkert besked att RCS aldrig fungerar. Listan säger inte heller hur privat RCS på Android fungerar. På Android kan du kontrollera statusen i Google Meddelanden; på iPhone ska operatören bekräfta stöd för linjen.",
-          "Fråga uttryckligen om privat RCS på iPhone eller Android. Ett besked om en företagstjänst för RCS besvarar en annan fråga och ska inte användas som bevis för ditt mobilabonnemang."
+          "Frånvaron i listan räcker inte heller för ett säkert nej, särskilt inte för Android. Där kan du själv öppna Google Meddelanden och läsa statusen under RCS-chattar. På iPhone behöver abonnemanget ha operatörsstöd.",
+          "Säg vilken telefon du har när du frågar Telia. Ett svar om företagets utskickstjänst är inte ett svar om privat RCS på ditt mobilnummer."
         ],
         "sources": [
           "apple-carriers",
@@ -113,14 +113,14 @@ export const expandedArticles: Article[] = [
       "rcs telenor iphone stöd"
     ],
     "published": "2026-11-01",
-    "description": "Be Telenor kontrollera privat RCS för den telefon, linje och abonnemangstyp du använder. Vid kontrollen den 1 november 2026 listar Apples Europasida inte RCS i det svenska Telenor-avsnittet.",
+    "description": "Be Telenor bekräfta RCS för ditt abonnemang och ange om du använder iPhone eller Android. Apples svenska Telenor-avsnitt saknade RCS-markering vid kontrollen den 1 november 2026.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "En utelämnad funktion i listan är inte ett fullständigt tekniskt test av ditt nummer. På Android kan anslutningsstatusen i Google Meddelanden ge konkret information. På iPhone behöver både programvara och operatörsstöd stämma.",
-          "Skilj alltid mobilabonnemangets chattfunktion från RCS för företag. Ett erbjudande om företagsutskick innebär inte automatiskt att samma operatör stöder alla privata iPhone-konversationer."
+          "På Android kan du få ett mer konkret besked genom anslutningsstatusen i Google Meddelanden. För iPhone behöver både iOS-versionen och abonnemangets stöd stämma. En uppdaterad telefon löser inte ett saknat operatörsstöd.",
+          "Om Telenor beskriver en tjänst för företagsutskick gäller det en annan användning. Be om ett uttryckligt besked om privat chatt för din linje."
         ],
         "sources": [
           "apple-carriers",
@@ -139,14 +139,14 @@ export const expandedArticles: Article[] = [
       "rcs tre 3 iphone stöd"
     ],
     "published": "2026-11-01",
-    "description": "Utgå från Tres besked för ditt eget abonnemang, inte från forum eller från att telefonen stöder RCS i andra länder. Apples svenska operatörsavsnitt listar inte RCS för 3 vid kontrollen den 1 november 2026.",
+    "description": "Tre behöver bekräfta om RCS fungerar på ditt abonnemang. Vid kontrollen den 1 november 2026 listade Apple inte RCS i sitt svenska avsnitt för 3.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Det ger inte ett säkert nej för varje enhet eller Android-app. Kontrollera RCS-status i Google Meddelanden på Android. På iPhone bör du fråga Tre om stöd och inställningar för just den aktiva linjen.",
-          "Ange telefonmodell, systemversion och om du använder SIM eller eSIM när du frågar. En saknad RCS-inställning behöver inte lösas genom att upprepade gånger nollställa hela telefonen."
+          "Det säger inte allt om Android, där RCS-statusen i Google Meddelanden kan visa om anslutningen fungerar. För iPhone bör Tre bekräfta stödet för den linje du använder.",
+          "Ha telefonmodell och systemversion till hands när du kontaktar supporten. Berätta också om du har SIM eller eSIM. Börja där, snarare än att återställa telefonen för en funktion som kanske inte är aktiverad hos operatören."
         ],
         "sources": [
           "apple-carriers",
@@ -165,14 +165,14 @@ export const expandedArticles: Article[] = [
       "rcs hallon fello vimla halebop nät"
     ],
     "published": "2026-11-01",
-    "description": "Nej. Att exempelvis ett lågprisvarumärke använder en större operatörs nät bekräftar inte i sig samma RCS-stöd. Funktioner kan behöva vara aktiverade för det aktuella varumärket och abonnemanget.",
+    "description": "Du kan inte utgå från att Hallon, Fello, Vimla eller Halebop har samma RCS-stöd som operatören vars nät de använder. Nättäckning och meddelandefunktioner är skilda saker.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Fråga därför Hallon, Fello, Vimla eller Halebop om din egen linje, och ange om frågan gäller iPhone eller Android. Ett generellt besked om nätets täckning handlar inte om samma sak som meddelandetjänstens stöd.",
-          "Testa därefter anslutningsstatus och en konversation med en person som har bekräftat stöd. Om svaret är oklart ska tillgängligheten betraktas som obekräftad, inte som ett automatiskt ja eller nej."
+          "Fråga ditt eget varumärke om abonnemanget och ange iPhone eller Android. Funktioner kan behöva aktiveras separat även när två abonnemang använder samma mobilnät.",
+          "Prova sedan med en kontakt som har fungerande RCS och läs kanaltexten i appen. Ett oklart supportbesked bör stå som obekräftat stöd, inte omvandlas till ett ja."
         ],
         "sources": [
           "apple",
@@ -191,14 +191,14 @@ export const expandedArticles: Article[] = [
       "apple rcs operatör olika uppgifter"
     ],
     "published": "2026-11-01",
-    "description": "En operatörs supportsida och Apples samlade operatörslista kan visa olika uppgifter. Den 1 november 2026 bekräftar Tele2 och Comviq iPhone-stöd, medan Apples svenska operatörsavsnitt inte listar RCS.",
+    "description": "Tele2 och Comviq bekräftade iPhone-stöd på sina supportsidor den 1 november 2026. Samma dag saknade Apples svenska operatörslista RCS-markeringar. Sidorna gav alltså olika besked.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Vi kan inte avgöra varför sidorna skiljer sig åt eller vilken uppdatering som kommer först. Beskriv därför skillnaden öppet i stället för att göra en utelämnad markering till ett säkert nej.",
-          "För ditt nummer är operatörens konkreta besked och ett faktiskt test i meddelandeappen mest användbart. För företagsutskick behövs därutöver leverantörens besked om avsändarens räckvidd."
+          "Vi vet inte varför uppgifterna skiljer sig. Det vore därför fel att välja en förklaring, till exempel att en viss sida ligger efter, utan belägg.",
+          "För dig som vill chatta är ett besked om ditt abonnemang och ett test i appen mest användbart. För ett företagsutskick måste leverantören dessutom bekräfta vilka kunder den registrerade avsändaren kan nå."
         ],
         "sources": [
           "apple-carriers",
@@ -217,14 +217,14 @@ export const expandedArticles: Article[] = [
       "rcs byta operatör nummerflytt"
     ],
     "published": "2026-11-01",
-    "description": "Ett oförändrat telefonnummer betyder inte att alla meddelandefunktioner följer med oförändrade. Den nya operatören behöver stödja tjänsten för din linje, särskilt när det gäller RCS på iPhone.",
+    "description": "När du byter operatör kan RCS behöva kontrolleras på nytt, även om du behåller numret. Den nya operatören kan ha andra förutsättningar, särskilt för iPhone.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Efter nummerflytten bör du kontrollera vilket nummer appen använder, internetanslutningen och RCS-statusen. Testa med en kontakt som har fungerande RCS innan du förlitar dig på kanalen för viktiga besked.",
-          "Om problemet började exakt vid flytten är tidpunkten viktig för supporten. Ange när numret flyttades och undvik att anta att ett gammalt operatörsbesked gäller hos den nya."
+          "När nummerflytten är klar: se att rätt nummer används i meddelandeappen och läs RCS-statusen. Prova med någon som redan har fungerande RCS.",
+          "Om det slutade fungera vid bytet, berätta det för supporten tillsammans med datumet för nummerflytten. Det hjälper dem att skilja registreringsproblem från problem i en enskild chatt."
         ],
         "sources": [
           "chat",
@@ -242,14 +242,14 @@ export const expandedArticles: Article[] = [
       "rcs nytt sim esim fungerar inte"
     ],
     "published": "2026-11-01",
-    "description": "Ett SIM- eller eSIM-byte kan sammanfalla med att nummerregistrering eller linjeval behöver kontrolleras igen. Börja med att se att rätt nummer är aktivt och att vanlig uppkoppling fungerar.",
+    "description": "Efter ett SIM- eller eSIM-byte kan appens nummerregistrering eller val av linje behöva ses över. Kontrollera först att rätt nummer är aktivt och att internet fungerar.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera sedan RCS-statusen i appen och operatörens stöd för den nya linjen. På iPhone är en synlig RCS-inställning relevant; på Android behöver statusen i Google Meddelanden visa en fungerande anslutning.",
-          "Om problemet kvarstår ska supporten få veta att SIM-kortet byttes och när det skedde. Gissa inte att det är ett meddelandefel hos alla kontakter när felet kan gälla den egna linjen."
+          "Läs sedan RCS-statusen i meddelandeappen. På Android finns den i Google Meddelanden. På iPhone behöver du också se att RCS är tillgängligt för den nya linjen.",
+          "Kvarstår felet, berätta för supporten när SIM-kortet byttes och vad appen visar. Det är bättre underlag än att bara rapportera att meddelanden inte kommer fram."
         ],
         "sources": [
           "chat",
@@ -267,14 +267,14 @@ export const expandedArticles: Article[] = [
       "rcs dual sim två nummer"
     ],
     "published": "2026-11-01",
-    "description": "Med två SIM behöver du kontrollera vilket nummer och vilken linje meddelandeappen använder. RCS-stöd för en av linjerna betyder inte automatiskt stöd för den andra.",
+    "description": "Med dubbla SIM kan RCS använda ett annat nummer än du tänkt. Kontrollera vilken linje konversationen och meddelandeappen är inställda på.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Öppna inställningarna för den aktuella konversationen och telefonens linjer. Kontrollera också vilken linje som används för uppkoppling och vilken som registrerats i appen. Exakt hantering varierar mellan telefoner och appar.",
-          "Testa linjerna var för sig med en kontakt som har stöd. Be operatören eller appens support hjälpa dig om numret i RCS-inställningarna inte stämmer med den linje du vill använda."
+          "Telefonens linje för mobildata och numret som registrerats för RCS behöver inte vara samma sak. Hur de väljs skiljer sig mellan appar och telefoner.",
+          "Testa en linje i taget med en känd RCS-kontakt. Om numret i inställningarna är fel, ta det vidare till operatören eller appens support. Stöd på den ena linjen bekräftar inte stöd på den andra."
         ],
         "sources": [
           "chat",
@@ -292,14 +292,14 @@ export const expandedArticles: Article[] = [
       "rcs inställning saknas iphone"
     ],
     "published": "2026-11-01",
-    "description": "En saknad inställning kan bero på att RCS inte är tillgängligt för den aktuella operatören eller linjen. Apple anger att funktionen kräver kompatibel iOS-version och ett abonnemang med RCS-stöd.",
+    "description": "RCS-valet kan saknas på iPhone när operatören eller abonnemanget inte stöder funktionen. Apple kräver både kompatibel iOS-version och operatörsstöd.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera telefonens uppdateringar och be operatören bekräfta stöd för just ditt nummer. Att en annan person har samma iPhone-modell eller ett annat abonnemang är inte ett fullständigt jämförelsetest.",
-          "När operatören bekräftar stöd men valet ändå saknas behöver supporten telefonmodell, systemversion och linjeinformation. Slå inte ihop detta med frågan om företagsmeddelanden, som kan ha egna inställningar."
+          "Uppdatera telefonen och fråga operatören om ditt nummer. Att en vän har RCS på samma iPhone-modell säger inte att ditt abonnemang har samma stöd.",
+          "Om operatören bekräftar att det ska fungera, uppge telefonmodell, iOS-version och vilken linje som är aktiv. Då kan supporten undersöka varför valet ändå saknas."
         ],
         "sources": [
           "apple",
@@ -317,14 +317,14 @@ export const expandedArticles: Article[] = [
       "rcs verifierar nummer ansluter fastnar"
     ],
     "published": "2026-11-01",
-    "description": "Kontrollera först att telefonnumret i appen är rätt och att telefonen har fungerande internet. Ett påslaget RCS-reglage betyder inte att nummerregistreringen är klar.",
+    "description": "När RCS står kvar på verifiering är nummerregistreringen inte klar. Se först att appen visar rätt nummer och att telefonen har internet.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd appens officiella felsökningssteg och kontrollera att Google Meddelanden är uppdaterad. Upprepade av- och påslag utan att kontrollera grundorsaken ger inte säkert en snabbare aktivering.",
-          "Om statusen fortsätter att fastna, ange exakt statusmeddelande och när problemet började för supporten. Uppge också om du nyligen bytt nummer, telefon, SIM eller operatör; det avgränsar vad som behöver undersökas."
+          "Uppdatera Google Meddelanden och följ Googles felsökningsråd. Att slå av och på reglaget om och om igen är ingen säker genväg.",
+          "Skriv ned statusmeddelandet om du behöver hjälp. Berätta om du nyligen bytt telefon, nummer, SIM eller operatör; det kan göra det lättare att hitta orsaken."
         ],
         "sources": [
           "chat"
@@ -341,14 +341,14 @@ export const expandedArticles: Article[] = [
       "rcs fungerar bara vissa kontakter"
     ],
     "published": "2026-11-01",
-    "description": "RCS kräver stöd hos båda deltagarna i den aktuella konversationen. Därför kan samma telefon använda RCS med en person och SMS eller MMS med en annan.",
+    "description": "En telefon kan använda RCS med en kontakt och SMS med en annan. Båda deltagarna måste ha fungerande RCS i just den konversationen.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera vilket nummer kontakten använder, om RCS är aktiverat hos mottagaren och om uppkopplingen fungerar. En gammal konversation eller ett felaktigt sparat nummer kan göra jämförelsen missvisande.",
-          "Testa ett enkelt textmeddelande till en bekräftat fungerande kontakt och jämför sedan med den som saknar RCS. Det hjälper dig skilja ett generellt anslutningsproblem från ett problem i en enskild konversation."
+          "Be kontakten kontrollera att RCS är på och internet fungerar. Se även att du skriver till rätt nummer, särskilt om personen nyligen bytt det.",
+          "Prova en enkel text till någon som brukar fungera med RCS. Om det går är din egen anslutning sannolikt inte hela problemet. Fortsätt då felsöka den kontakt eller chatt där felet uppstår."
         ],
         "sources": [
           "chat",
@@ -366,14 +366,14 @@ export const expandedArticles: Article[] = [
       "se rcs sms kanal meddelande"
     ],
     "published": "2026-11-01",
-    "description": "Titta på kanaltexten och meddelandets information i appen, inte bara på bubblans färg. På iPhone är även RCS grönt, precis som SMS och MMS.",
+    "description": "Läs kanaltexten i konversationens skrivfält eller meddelandets information. Bubblans färg räcker inte: på iPhone är RCS grönt, precis som SMS och MMS.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Tele2 beskriver att inmatningsfältet visar RCS-meddelande när konversationen använder RCS. På Android kan både appens kanalmarkering och RCS-status hjälpa dig. Kontrollera själva samtalet, inte bara huvudinställningen.",
-          "Om ett tidigare RCS-meddelande skickades om behöver du kontrollera dess status separat. En aktiv RCS-anslutning garanterar inte att varje skickat meddelande använde den kanalen."
+          "Tele2 beskriver att skrivfältet visar RCS-meddelande när kanalen används. På Android kan appens kanalmarkering och anslutningsstatus ge motsvarande ledning.",
+          "För ett meddelande som har skickats om behöver du läsa dess egen status. En fungerande RCS-anslutning just nu säger inte hur ett tidigare meddelande skickades."
         ],
         "sources": [
           "tele2-rcs",
@@ -392,14 +392,14 @@ export const expandedArticles: Article[] = [
       "grön bubbla iphone rcs sms"
     ],
     "published": "2026-11-01",
-    "description": "Nej. På iPhone kan gröna meddelandebubblor vara RCS, SMS eller MMS. Blå bubblor hör till iMessage, men färgen ensam skiljer inte alla andra kanaler åt.",
+    "description": "En grön bubbla på iPhone kan vara RCS, SMS eller MMS. Blå bubblor är iMessage. Grönt betyder alltså inte automatiskt SMS.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Läs kanaltexten i konversationen och eventuell meddelandeinformation. RCS kan ge bland annat läskvitton och bättre mediedelning, men en viss funktion behöver också vara stödd och aktiverad.",
-          "Om du felsöker ett misslyckat utskick ska du därför notera vad appen faktiskt säger. Att rapportera grön bubbla räcker inte för att supporten ska veta om meddelandet var RCS eller SMS."
+          "Titta på kanaltexten i skrivfältet för ett bättre besked. Läskvitton och bättre bilddelning kan förekomma med RCS, men de beror också på inställningar och mottagarstöd.",
+          "Vid felsökning, skriv ned vad appen säger om kanalen. Färgen ensam ger supporten för lite information för att skilja ett SMS-fel från ett RCS-fel."
         ],
         "sources": [
           "apple-channels",
@@ -417,14 +417,14 @@ export const expandedArticles: Article[] = [
       "rcs roaming utomlands"
     ],
     "published": "2026-11-01",
-    "description": "RCS använder internet, men en fungerande internetanslutning är inte det enda villkoret. Appens anslutning, ditt abonnemang och mottagarens stöd behöver också fungera när du reser.",
+    "description": "RCS kan fungera utomlands via wifi eller mobildata. Appen behöver fortfarande vara ansluten och både ditt abonnemang och mottagaren måste ha stöd.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera vad operatören säger om tjänsten och om dataroaming. Wi-Fi kan ge uppkoppling utan mobildata, men innebär inte ett löfte om att varje meddelande levereras eller att en SMS-reserv är kostnadsfri.",
-          "Testa kanalen innan du behöver den för ett viktigt besked. Om ett meddelande skickas som SMS eller MMS i stället kan andra avgifter gälla; fråga operatören om just ditt abonnemang."
+          "Fråga operatören om dataroaming och villkoren för landet du besöker. Wifi kan ge internet utan mobildata, men avgifterna för ett eventuellt reserv-SMS är en separat fråga.",
+          "Prova innan du behöver skicka ett viktigt besked. Om appen väljer SMS eller MMS kan andra priser gälla än för din vanliga dataanvändning."
         ],
         "sources": [
           "chat",
@@ -442,14 +442,14 @@ export const expandedArticles: Article[] = [
       "rcs kontantkort stöd"
     ],
     "published": "2026-11-01",
-    "description": "Det behöver kontrolleras för det specifika kontantkortet och operatören. Ett generellt RCS-besked för en operatör ska inte automatiskt tolkas som identiska villkor för alla typer av abonnemang.",
+    "description": "RCS med kontantkort behöver bekräftas av operatören för just det kortet. Ett besked om operatörens abonnemang täcker inte nödvändigtvis alla kontantkort.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "RCS kräver internet och en fungerande registrering i appen. Kontrollera därför både surfmöjligheten och om operatören bekräftar RCS för din linje. På iPhone behöver stödet uttryckligen gälla iPhone.",
-          "Fråga också vad en eventuell omsändning som SMS eller MMS kostar. Privat RCS över Wi-Fi och operatörens avgifter för reservkanaler är olika delar av kostnaden."
+          "Du behöver internet och en fungerande registrering i appen. För iPhone ska operatörens besked också gälla iPhone, inte bara Android.",
+          "Kontrollera priset för SMS och MMS om appen använder dem som reserv. Ett RCS-meddelande över wifi och ett reserv-SMS kan belasta olika delar av kontantkortet."
         ],
         "sources": [
           "chat",
@@ -467,14 +467,14 @@ export const expandedArticles: Article[] = [
       "rcs byta telefon gammal enhet"
     ],
     "published": "2026-11-01",
-    "description": "Kontrollera RCS på den gamla och den nya telefonen när du flyttar numret. Den nya appen behöver använda rätt nummer och visa en fungerande anslutning.",
+    "description": "När du flyttar numret till en ny telefon, kontrollera att RCS använder rätt nummer där. Appen ska visa att anslutningen fungerar innan du förlitar dig på den.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Följ appens officiella råd om att stänga av RCS på den gamla enheten om du lämnar den eller byter meddelandeapp. Kontrollera därefter operatörsstöd och inställningar på den nya telefonen.",
-          "Prova både en känd RCS-kontakt och en vanlig SMS-konversation. Om problem uppstod under flytten ska supporten få veta vilken telefon och app du använde före och efter bytet."
+          "Följ appens råd om att stänga av eller avregistrera RCS på den gamla enheten, särskilt om du byter meddelandeapp. Se sedan över inställningarna på den nya.",
+          "Testa både RCS och vanligt SMS. Om något slutade fungera vid flytten, ge supporten modell och app för båda telefonerna så att de kan följa vad som ändrats."
         ],
         "sources": [
           "chat",
@@ -492,14 +492,14 @@ export const expandedArticles: Article[] = [
       "stänga av rcs inaktivera"
     ],
     "published": "2026-11-01",
-    "description": "Stäng av RCS i meddelandeappens inställningar. På iPhone finns reglaget under Inställningar, Appar, Meddelanden och RCS-meddelanden. I Google Meddelanden finns det under inställningarna för RCS-chattar.",
+    "description": "På iPhone stänger du av RCS under Inställningar, Appar, Meddelanden och RCS-meddelanden. På Android finns reglaget i Google Meddelandens inställningar för RCS-chattar.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Om du inte längre har tillgång till den gamla Android-telefonen ska du följa Googles hjälp för att avregistrera RCS. Att radera appen är inte samma sak som att medvetet kontrollera registreringen.",
-          "Efteråt kan meddelanden använda SMS eller MMS när det är möjligt. Kontrollera kostnader och uppkopplingskrav för de kanalerna, och anta inte att avstängningen garanterar leverans av alla gamla väntande meddelanden."
+          "Har du inte kvar Android-telefonen, använd Googles hjälp för avregistrering. Att bara radera appen är inte samma sak som att stänga av registreringen.",
+          "Efter avstängningen kan appen använda SMS eller MMS där det går. De har egna avgifter och nätkrav. Kontrollera separat om äldre väntande meddelanden kommit fram."
         ],
         "sources": [
           "chat",
@@ -517,14 +517,14 @@ export const expandedArticles: Article[] = [
       "stänga av rcs företagsmeddelanden iphone"
     ],
     "published": "2026-11-01",
-    "description": "Apple beskriver ett separat reglage för RCS-företagsmeddelanden under Inställningar, Appar, Meddelanden och RCS-meddelanden. Där kan du stänga av eller slå på företagsmeddelanden när funktionen finns.",
+    "description": "Apple beskriver ett eget reglage för RCS-företagsmeddelanden. Det finns under Inställningar, Appar, Meddelanden och RCS-meddelanden när funktionen är tillgänglig.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Detta är inte samma inställning som att stänga av all privat RCS-chatt. Om reglaget saknas behöver du kontrollera aktuell programvara och tillgänglighet för operatören.",
-          "Att stänga av en kanal ändrar inte nödvändigtvis dina marknadsföringsval hos företaget i andra kanaler. Vill du sluta få erbjudanden från en viss avsändare ska du också använda företagets avregistrering."
+          "Med det kan du stänga av företagsmeddelanden utan att stänga av privat RCS-chatt. Saknas valet, kontrollera programvaran och vad operatören stöder.",
+          "Vill du sluta få reklam från ett visst företag bör du även avregistrera dig hos företaget. Ett kanalreglage i telefonen ändrar inte säkert dina val för e-post eller andra utskick."
         ],
         "sources": [
           "apple"
@@ -541,14 +541,14 @@ export const expandedArticles: Article[] = [
       "blockera företag rcs google meddelanden"
     ],
     "published": "2026-11-01",
-    "description": "Google Meddelanden har kontroller för att hantera oönskade företagskonversationer. Öppna den aktuella chatten och följ appens alternativ för blockering, rapportering eller avregistrering där de finns.",
+    "description": "Öppna företagschatten i Google Meddelanden och använd appens alternativ för blockering, rapportering eller avregistrering. Vilka val du ser kan variera.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "En rapport om skräppost och ett meddelande till företaget om att sluta skicka är inte alltid samma handling. Läs vad det valda alternativet gör innan du använder det.",
-          "Om du vill invända mot direktmarknadsföring även utanför appen kan du kontakta företaget och be att framtida erbjudanden stoppas. Spara gärna beskedet om du behöver följa upp att invändningen respekteras."
+          "Läs vad alternativet gör. Att rapportera skräppost till appen och att be företaget sluta skicka kan vara olika handlingar.",
+          "Du kan även kontakta företaget för att invända mot dess direktmarknadsföring. Spara bekräftelsen om du vill kunna följa upp att utskicken har stoppats."
         ],
         "sources": [
           "business"
@@ -565,14 +565,14 @@ export const expandedArticles: Article[] = [
       "rcs gruppchatt deltagare stöd"
     ],
     "published": "2026-11-01",
-    "description": "Gruppens funktioner beror på vilka tjänster deltagarnas appar kan använda tillsammans. En grupp med deltagare utan RCS-stöd ska inte förväntas ha samma funktioner som en fungerande RCS-grupp.",
+    "description": "En grupp där någon saknar RCS kan få andra funktioner än en RCS-grupp. Vad som fungerar beror på vilka kanaler deltagarnas appar kan använda tillsammans.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera kanalinformationen för gruppen och vilka funktioner appen faktiskt erbjuder. Bildkvalitet, läskvitton och deltagarhantering kan skilja sig när gruppen använder en annan kanal.",
-          "Ett test med två personer bevisar inte hur en större grupp fungerar. Prova den riktiga gruppsammansättningen innan du förlitar dig på en viss funktion, och håll privat gruppchatt åtskild från företagsutskick."
+          "Läs kanaltexten för gruppen. Bildkvalitet, läskvitton och hantering av deltagare kan ändras när en annan kanal används.",
+          "Testa med de personer som faktiskt ska vara med. Ett fungerande samtal mellan två personer säger inte hur hela gruppen fungerar. Privat gruppchatt är också något annat än ett företagsutskick."
         ],
         "sources": [
           "chat",
@@ -590,14 +590,14 @@ export const expandedArticles: Article[] = [
       "rcs support felsökning underlag"
     ],
     "published": "2026-11-01",
-    "description": "Beskriv vad som händer, i vilken app och när problemet började. Telefonmodell, systemversion, operatör och den exakta RCS-statusen är mer användbart än att bara säga att meddelanden inte fungerar.",
+    "description": "Supporten behöver veta vad som händer, när det började och vilken app du använder. Lägg till telefonmodell, systemversion, operatör och den RCS-status som visas.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Ange om felet gäller alla kontakter eller en viss konversation och om SIM, nummer eller telefon nyligen ändrats. Testa också om internet fungerar och vilken kanal appen visar.",
-          "Skicka inte lösenord, engångskoder eller hela privata konversationer. Maskera nummer och personuppgifter i skärmbilder om de inte behövs för den säkra supportkanal du använder."
+          "Berätta om felet gäller en kontakt eller alla, och om du nyligen bytt SIM, telefon eller nummer. Kontrollera också om internet fungerar och vilken kanal chatten använder.",
+          "Skicka inte lösenord eller engångskoder. Om en skärmbild behövs, dölj privata samtal och personuppgifter som inte behövs för felsökningen."
         ],
         "sources": [
           "chat",
@@ -615,14 +615,14 @@ export const expandedArticles: Article[] = [
       "rcs webhook signatur säkerhet"
     ],
     "published": "2026-11-01",
-    "description": "En webhook tar emot anrop från en extern tjänst och måste kontrollera att anropen är äkta. Att innehållet är giltig JSON eller innehåller ett känt meddelandenummer räcker inte.",
+    "description": "En RCS-webhook måste kontrollera vem som skickar anropet innan den behandlar händelsen. Giltig JSON eller ett känt meddelande-id bevisar inte att anropet är äkta.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Följ leverantörens dokumenterade metod för verifiering och behandla händelsen först efter godkänd kontroll. Googles anvisningar gäller Googles plattform; samma metod ska inte antas fungera för varje leverantör.",
-          "Felaktiga anrop ska inte kunna ändra ett kundärende eller markera en order som levererad. Logga verifieringsfel utan att spara fler personuppgifter eller hemligheter än vad felsökningen kräver."
+          "Använd verifieringsmetoden i er leverantörs dokumentation. Googles metod gäller Googles plattform; en annan leverantör kan kräva en annan kontroll.",
+          "Ett underkänt anrop ska inte ändra en bokning eller markera en order som levererad. Logga felet så att det går att undersöka, men lämna hemligheter och onödiga kunduppgifter utanför loggen."
         ],
         "sources": [
           "webhooks"
@@ -639,14 +639,14 @@ export const expandedArticles: Article[] = [
       "rcs dubbla events idempotens"
     ],
     "published": "2026-11-01",
-    "description": "Bygg mottagningen så att samma händelse inte utför samma kundåtgärd två gånger. Leverans via webhooks kräver att systemet kan hantera omsändning eller upprepade rapporter på ett säkert sätt.",
+    "description": "Samma webhook-händelse kan behöva tas emot mer än en gång utan att kundens ärende ändras flera gånger. Det brukar kallas idempotent hantering.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Spara en stabil identifierare enligt leverantörens händelsemodell och kontrollera om händelsen redan behandlats. En bokning ska exempelvis inte avbokas igen bara för att samma svar kommit en gång till.",
-          "Skilj teknisk kvittens från affärsåtgärden. Systemet kan bekräfta mottagandet även när en redan behandlad händelse inte behöver göra något nytt i kundärendet."
+          "Spara händelsens identifierare och kontrollera om den redan behandlats. Ett upprepat avbokningssvar ska exempelvis inte starta en ny avbokning eller återbetalning.",
+          "Mottagningen kan kvittera en dubblett utan att upprepa åtgärden. Håll därför isär att händelsen tagits emot och att en ändring gjorts i bokningssystemet."
         ],
         "sources": [
           "webhooks",
@@ -664,14 +664,14 @@ export const expandedArticles: Article[] = [
       "rcs webhook retry omsändning"
     ],
     "published": "2026-11-01",
-    "description": "En omsänd webhook ska behandlas enligt samma regler som den första, men utan dubbla bieffekter. Kontrollera leverantörens aktuella omsändningsvillkor i stället för att anta ett visst antal försök eller tidsintervall.",
+    "description": "Om en webhook levereras igen ska systemet kunna ta emot den utan att utföra samma åtgärd en gång till. Leverantörens dokumentation anger villkoren för omsändning.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Ta emot och lagra en verifierad händelse säkert innan du gör långsam bearbetning. Om något misslyckas ska du kunna se om mottagandet eller själva kundåtgärden var problemet.",
-          "Testa genom att låta samma händelse komma flera gånger. Resultatet ska bli ett korrekt uppdaterat ärende, inte flera meddelanden, beställningar eller återbetalningar för samma kundval."
+          "Verifiera och spara händelsen innan långsam bearbetning börjar. Då går det att skilja ett misslyckat mottagande från ett fel i kundsystemet.",
+          "Testa genom att skicka samma händelse flera gånger. En kund ska få en korrekt uppdaterad beställning, inte flera beställningar eller meddelanden för samma val."
         ],
         "sources": [
           "webhooks"
@@ -688,14 +688,14 @@ export const expandedArticles: Article[] = [
       "rcs event ordning status"
     ],
     "published": "2026-11-01",
-    "description": "Utgå inte från att tiden då ert system tar emot en händelse alltid är tiden då den inträffade. Rapporter och bearbetning kan komma senare än själva meddelandeaktiviteten.",
+    "description": "Planera för att en händelse kan komma fram senare än den inträffade. Mottagningstiden i ert system behöver inte motsvara meddelandets händelsetid.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Koppla händelserna till rätt meddelande och använd de tids- och statusfält som leverantören faktiskt dokumenterar. En sen rapport ska inte oavsiktligt skriva över en mer relevant status i kundärendet.",
-          "Bestäm vilka tillstånd som får ändras och hur upprepade eller sena händelser hanteras. Det gör uppföljningen begriplig även när nätverk eller intern bearbetning fördröjer ett besked."
+          "Använd leverantörens dokumenterade tidsfält och koppla varje händelse till rätt meddelande. En sen leveransrapport ska till exempel inte skriva över en senare rapport om läsning.",
+          "Bestäm vilka statusändringar som är tillåtna. Då kan systemet hantera både sena rapporter och dubbletter utan att kundärendet går bakåt av misstag."
         ],
         "sources": [
           "events",
@@ -713,14 +713,14 @@ export const expandedArticles: Article[] = [
       "rcs kö asynkron bearbetning"
     ],
     "published": "2026-11-01",
-    "description": "En kö kan skilja snabb mottagning av händelser från långsamma kundsystem. Webhooken kan då verifiera och ta emot informationen utan att vänta på varje efterföljande order- eller supportåtgärd.",
+    "description": "En kö låter webhooken ta emot händelser snabbt medan order- eller supportsystemet arbetar i sin egen takt. Det kan vara användbart när bearbetningen tar tid.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Det är en möjlig integrationsdesign, inte ett krav på en viss produkt. Kön behöver ha tydlig felhantering och skydd så att en mottagen händelse inte försvinner eller behandlas dubbelt.",
-          "Kontrollera att ni kan läsa tillbaka vilka händelser som väntar, är färdiga eller behöver åtgärdas. En lyckad mottagningskvittens betyder inte att hela affärsflödet är slutfört."
+          "Kön är ett sätt att bygga integrationen, inte ett krav för RCS. Den behöver skydd mot förlorade och dubbelt behandlade händelser.",
+          "Se till att ni kan hitta det som väntar, det som är färdigt och det som misslyckats. En kvittens från webhooken säger att händelsen tagits emot, inte att kundens ärende är klart."
         ],
         "sources": [
           "webhooks",
@@ -738,14 +738,14 @@ export const expandedArticles: Article[] = [
       "rcs messageId kundärende korrelation"
     ],
     "published": "2026-11-01",
-    "description": "Spara kopplingen mellan meddelandets identifierare och ert eget order-, boknings- eller ärendenummer. Då går senare leveranshändelser och svar att hänföra till rätt utskick.",
+    "description": "Spara vilket meddelande-id som hör till vilken order, bokning eller supportfråga. När svar och status kommer tillbaka kan systemet då hitta rätt ärende.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd stabila identifierare, inte bara synlig text eller mottagarens nummer. En kund kan ha flera beställningar och få flera meddelanden under samma dag.",
-          "Begränsa vilken information som skickas med i händelsedata. Ett internt ärende-id kan ofta räcka utan att lägga hela ordern eller känsliga kunduppgifter i varje knappval."
+          "Telefonnumret räcker inte alltid. Samma kund kan ha flera beställningar och få flera besked samma dag. Synlig knapptext är också för ospecifik för den kopplingen.",
+          "Skicka bara den data som behövs i ett knappval. Ett ärende-id kan ofta ersätta en hel uppsättning kund- och orderuppgifter."
         ],
         "sources": [
           "send",
@@ -763,14 +763,14 @@ export const expandedArticles: Article[] = [
       "rcs loggar felsökning integration"
     ],
     "published": "2026-11-01",
-    "description": "Logga tillräckligt för att följa ett meddelande från begäran till händelser och kundåtgärd. Identifierare, tidpunkt och dokumenterad status kan ge en begriplig kedja utan att hela meddelandetexten sparas överallt.",
+    "description": "En användbar logg visar meddelandets identifierare, tidpunkter och status från begäran till senare händelser. Hela meddelandetexten behöver inte kopieras till varje logg.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Maskera hemligheter som API-nycklar och begränsa tillgången till personuppgifter. Ett felsökningsbehov är inte ett automatiskt skäl att kopiera kundsvar till alla tekniska loggar.",
-          "Bestäm hur länge loggarna behövs och vem som får läsa dem. Kontrollera också att fel från mottagning och bearbetning går att skilja åt när något inte uppdaterats i kundsystemet."
+          "API-nycklar ska aldrig hamna där. Begränsa även kundsvar och andra personuppgifter till det som behövs för felsökningen, med rätt åtkomst och lagringstid.",
+          "Logga mottagning och bearbetning var för sig. Då går det att se om en utebliven orderuppdatering beror på att händelsen aldrig kom eller att kundsystemet inte kunde behandla den."
         ],
         "sources": [
           "send",
@@ -789,14 +789,14 @@ export const expandedArticles: Article[] = [
       "rcs api nyckel skydda hemlighet"
     ],
     "published": "2026-11-01",
-    "description": "Förvara hemliga API-nycklar i en skyddad servermiljö, inte i webbsidans kod, ett publikt dokument eller en skärmbild. Den som får nyckeln kan få den behörighet som nyckeln representerar.",
+    "description": "En hemlig API-nyckel ska finnas i en skyddad servermiljö. Lägg den inte i webbsidans kod, ett publikt dokument eller en supportskärmbild.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd leverantörens möjligheter att begränsa åtkomst och byta nycklar. Dokumentera vem som ansvarar för dem och hur en misstänkt läcka hanteras.",
-          "Skilj produktionsnycklar från testuppgifter när tjänsten tillåter det. Ta inte med hemligheter i supportloggar och testa att personal kan byta nyckel utan att tappa kontrollen över pågående meddelanden."
+          "Begränsa nyckelns åtkomst där leverantören erbjuder det. Bestäm vem som kan byta den och hur ni agerar vid en misstänkt läcka.",
+          "Håll test och produktion åtskilda när tjänsten tillåter det. Prova också nyckelbyte i förväg, så att ett nödvändigt byte inte behöver bli ett okontrollerat avbrott."
         ],
         "sources": [
           "send",
@@ -814,14 +814,14 @@ export const expandedArticles: Article[] = [
       "rcs api fel validering"
     ],
     "published": "2026-11-01",
-    "description": "Ett felaktigt anrop kan avvisas innan någon leverans påbörjas. Läs den faktiska felkoden och leverantörens dokumentation för att se om felet gäller format, behörighet, mottagare eller innehåll.",
+    "description": "Ett felaktigt RCS-anrop kan avvisas innan någon leverans börjar. Felkoden visar om problemet gäller exempelvis format, behörighet eller innehåll.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skicka inte om samma begäran blint om felet kräver en ändring. Ett felaktigt fält blir normalt inte rätt bara för att det skickas igen.",
-          "Separera anropsfel från senare leveransproblem. Ett godkänt anrop och en levererad telefonnotis är olika steg, och supporten behöver veta i vilket steg felet uppstod."
+          "Läs svaret innan du försöker igen. Ett felaktigt fält behöver rättas; att skicka samma begäran fler gånger gör det inte giltigt.",
+          "Skilj detta från ett meddelande som accepterats men senare inte kan levereras. De två fallen uppstår i olika steg och behöver olika felsökning."
         ],
         "sources": [
           "send"
@@ -838,14 +838,14 @@ export const expandedArticles: Article[] = [
       "rcs telefonnummer format landskod"
     ],
     "published": "2026-11-01",
-    "description": "Använd det nummerformat som den aktuella leverantören kräver. Internationellt format med landskod är vanligt i meddelande-API:er, men detaljerna ska hämtas från er dokumentation.",
+    "description": "Följ API:ets krav på nummerformat. Internationellt format med landskod är vanligt, men er leverantörs dokumentation avgör detaljerna.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Normalisera inkommande kontaktdata innan ni skickar och kontrollera att ett svenskt lokalt nummer inte fått fel landskod. Ett format som ser korrekt ut bevisar inte att numret finns eller stöder RCS.",
-          "Spara gärna både ursprungligt underlag och den kontrollerade normaliserade representationen där det är motiverat. Rätta inte osäkra nummer genom gissningar som riskerar att skicka kundinformation till någon annan."
+          "Kontrollera importerade nummer före utskick, särskilt när svenska lokala nummer ska få landskod. Ett korrekt formaterat nummer kan fortfarande vara fel nummer eller sakna RCS-stöd.",
+          "Gissa inte när underlaget är oklart. Det kan skicka kundinformation till fel person. Bevara det ursprungliga numret där det behövs för att kunna reda ut en osäker normalisering."
         ],
         "sources": [
           "send"
@@ -862,14 +862,14 @@ export const expandedArticles: Article[] = [
       "rcs ttl giltighetstid utgång"
     ],
     "published": "2026-11-01",
-    "description": "Tidsbundna besked kan bli fel om de levereras för sent. En påminnelse efter bokningen eller ett erbjudande efter sista köpdag behöver därför ett genomtänkt slut på leveransförsöken.",
+    "description": "En bokningspåminnelse som kommer efter besöket hjälper ingen. Giltighetstid sätter en gräns för hur länge ett tidsbundet RCS-besked ska få försöka levereras.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera hur er tjänst uttrycker giltighetstid och vad som händer när den passerats. En utgången begäran betyder inte automatiskt att en annan kanal används.",
-          "Sätt tiden efter kundens behov, inte bara efter ett tekniskt standardvärde. Hantera även reservkanalen så att kunden inte får ett sent SMS med samma passerade erbjudande."
+          "Kontrollera hur tjänsten anger tiden och vad som händer när den går ut. Det kan behövas ett separat beslut om SMS-reserv.",
+          "Låt gränsen följa ärendet. En påminnelse och ett erbjudande kan behöva olika tider, och ett reserv-SMS ska inte fortsätta sprida samma besked efter att det blivit inaktuellt."
         ],
         "sources": [
           "send",
@@ -887,14 +887,14 @@ export const expandedArticles: Article[] = [
       "rcs avbryta revoke väntande"
     ],
     "published": "2026-11-01",
-    "description": "Det beror på tjänstens dokumenterade möjlighet att återkalla eller stoppa ett meddelande och på dess aktuella tillstånd. Utgå inte från att ett redan levererat meddelande kan tas bort hos kunden.",
+    "description": "Vissa tjänster kan stoppa eller återkalla väntande RCS-meddelanden. Möjligheten beror på tjänsten och meddelandets status. Ett redan levererat besked ska inte antas kunna raderas hos kunden.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera identifieraren, statusen och svaret på stoppförsöket. Ett försök att avbryta är inte samma sak som ett bekräftat avbrott.",
-          "Om stoppet hör ihop med ett reservutskick måste ni även hantera risken för dubbla besked. Låt inte ett obekräftat stopp bli bevis för att RCS-versionen aldrig kan nå mottagaren."
+          "Kontrollera meddelande-id, status och svaret från stoppförsöket. Först en bekräftelse visar att stoppet lyckats.",
+          "Ska ett reserv-SMS skickas efteråt behöver stoppet ingå i samma beslut. Ett obekräftat avbrott kan annars följas av både SMS och ett sent RCS-meddelande."
         ],
         "sources": [
           "send"
@@ -911,14 +911,14 @@ export const expandedArticles: Article[] = [
       "rcs sms dubbla besked fallback timing"
     ],
     "published": "2026-11-01",
-    "description": "Planera reservflödet tillsammans med hanteringen av väntande RCS. Om SMS skickas medan RCS fortfarande får levereras finns risk att kunden får två versioner av samma besked.",
+    "description": "Kunden kan få både SMS och RCS om reserv-SMS skickas medan RCS-versionen fortfarande väntar på leverans. Planera de två kanalerna som ett gemensamt flöde.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd dokumenterad status, giltighetstid och eventuell återkallelse i den tjänst ni har. Bestäm tydligt när ett reservutskick får ske och hur sena händelser hanteras.",
-          "Testa hela flödet med fördröjd leverans. Det viktiga är ett begripligt slutresultat för kunden, inte att varje kanal för sig visar att ett försök har skickats."
+          "Använd status, giltighetstid och eventuell återkallelse enligt er tjänsts dokumentation. Bestäm när SMS får skickas och hur ett sent RCS-besked ska hanteras.",
+          "Prova med fördröjd leverans, inte bara ett direkt fel. Det testet kan visa en dubbelleverans som inte märks när varje kanal testas för sig."
         ],
         "sources": [
           "send",
@@ -937,14 +937,14 @@ export const expandedArticles: Article[] = [
       "rcs inkommande fil kundsvar"
     ],
     "published": "2026-11-01",
-    "description": "Googles RCS for Business-dokumentation beskriver inkommande meddelanden som kan innehålla bland annat text, plats och filer. Det innebär inte att ert kundsystem redan kan visa eller behandla alla sådana svar.",
+    "description": "Kunder kan skicka filer i de inkommande meddelandetyper som Googles RCS for Business stöder. Er tjänst och ert kundsystem behöver också kunna ta emot och hantera dem.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera vad den valda tjänsten skickar vidare och vilka filtyper ni får hantera. Inkommande filer behöver bedömas som externt innehåll, med lämpligt skydd och åtkomst.",
-          "Berätta för kunden om en bilaga inte kan öppnas eller användas. Ett vänligt besked med en alternativ säker väg är bättre än att låta ett ärende fastna utan svar."
+          "Ta reda på vilka filtyper som skickas vidare. Bilagor är externt innehåll och behöver lämpliga säkerhetskontroller och begränsad åtkomst.",
+          "Om en fil inte kan användas, säg det till kunden och erbjud en säker alternativ väg. Ett ärende ska inte bli liggande för att en bilaga inte kunde öppnas."
         ],
         "sources": [
           "receive"
@@ -961,14 +961,14 @@ export const expandedArticles: Article[] = [
       "rcs fritext oväntat svar bot"
     ],
     "published": "2026-11-01",
-    "description": "En kund kan skriva något annat än de föreslagna knapparna. Systemet behöver därför en fungerande väg för fritext och oväntade svar, inte bara för det planerade lyckliga flödet.",
+    "description": "Kunder kan skriva fritt även när ni har planerat för svarsknappar. Integrationens svarshantering behöver därför täcka mer än de förvalda alternativen.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bekräfta vad ni kan förstå och erbjud en väg till rätt hjälp när automatiken inte räcker. Gör inte en osäker tolkning till en avbokning, beställning eller annan bindande åtgärd.",
-          "Spara kopplingen till rätt konversation och ärende. Om en människa tar över ska personen kunna förstå vad kunden redan försökt göra, utan att kunden måste börja om helt."
+          "Om texten är oklar, be om ett förtydligande eller lämna över till personal. En gissning ska inte bli en beställning eller avbokning.",
+          "Behåll kopplingen till konversationen när någon tar över. Då kan personalen se vad kunden försökt göra, i stället för att ställa samma frågor på nytt."
         ],
         "sources": [
           "receive",
@@ -986,14 +986,14 @@ export const expandedArticles: Article[] = [
       "rcs location kund plats"
     ],
     "published": "2026-11-01",
-    "description": "En plats som kunden skickar kan hjälpa i ett konkret ärende, men måste först tas emot och kopplas till rätt konversation. Googles modell beskriver plats som en möjlig inkommande meddelandetyp.",
+    "description": "Googles företagsmodell kan ta emot en plats från kunden. För att använda den behöver ni koppla platsen till rätt konversation och veta vad den ska användas till.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Berätta vad platsen ska användas till och kontrollera om kunden behöver bekräfta en adress. En kartposition är inte automatiskt en korrekt leveransadress eller ett godkännande att fortsätta följa personen.",
-          "Begränsa åtkomst och lagring efter ändamålet. Om systemet inte kan ta hand om en delad plats ska kunden få ett tydligt alternativ, exempelvis att skriva den adress som är relevant."
+          "En kartposition är inte alltid en leveransadress. Be kunden bekräfta adressen när ärendet kräver det. Platsdelning är heller inget medgivande till fortsatt spårning.",
+          "Begränsa åtkomst och lagring. Kan systemet inte hantera platsen, förklara det och be kunden skriva den adress som behövs."
         ],
         "sources": [
           "receive",
@@ -1011,14 +1011,14 @@ export const expandedArticles: Article[] = [
       "rcs flera varumärken agent"
     ],
     "published": "2026-11-01",
-    "description": "Avsändaren ska representera det varumärke som kunden faktiskt möter. Om ett företag driver flera tydligt skilda varumärken behöver strukturen därför bedömas utifrån igenkänning, behörighet och plattformens regler.",
+    "description": "Flera varumärken kan behöva olika RCS-avsändare om kunderna känner igen dem som skilda företag. Utgå från identiteten kunden möter, inte bara er interna organisation.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "En avsändare per intern avdelning är inte ett automatiskt krav. Bedöm om kunden behöver se olika identiteter eller bara olika ärendetyper från samma företag.",
-          "Stäm av upplägget med leverantören innan registrering. Verifiering och lansering gäller den registrerade identiteten; ett godkännande för ett namn ska inte antas omfatta alla andra varumärken."
+          "En agent per avdelning är inte ett generellt krav. Support och leverans kan höra till samma varumärke även om olika team arbetar med dem.",
+          "Stäm av strukturen före registreringen. Godkännandet för en avsändare gäller den registrerade identiteten och bör inte behandlas som ett godkännande för alla koncernens namn."
         ],
         "sources": [
           "agent",
@@ -1036,14 +1036,14 @@ export const expandedArticles: Article[] = [
       "rcs launch underlag godkännande"
     ],
     "published": "2026-11-01",
-    "description": "Googles lanseringsunderlag omfattar information om hur agenten ska användas, hur kunder interagerar och hur bland annat avregistrering hanteras. Företagsidentitet och behörig kontakt behöver också vara korrekta.",
+    "description": "Inför en lansering behöver företaget beskriva vem avsändaren är, hur meddelandena används och hur kunder kan svara eller avregistrera sig. Google beskriver sådana uppgifter i sitt lanseringsunderlag.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Beskriv det verkliga flödet, inte bara en attraktiv förhandsvisning. Den som granskar ska kunna förstå hur en mottagare får ett meddelande och vad som händer efter ett svar.",
-          "Kraven kan variera med marknad och leverantör. Be om aktuellt underlag för er lansering, och skilj inskickade uppgifter från ett faktiskt godkännande att börja skicka."
+          "Visa det verkliga flödet. En bild av ett kort säger inte hur en kund hamnar i utskicket eller hur ett svar tas om hand.",
+          "Be partnern om kraven för er marknad. Att underlaget är inskickat betyder inte att avsändaren är godkänd för att börja skicka."
         ],
         "sources": [
           "launch",
@@ -1061,14 +1061,14 @@ export const expandedArticles: Article[] = [
       "rcs testagent produktion lansering"
     ],
     "published": "2026-11-01",
-    "description": "En skapad eller testbar agent är inte automatiskt godkänd för publika utskick. Testläget hjälper er kontrollera innehåll och integration med de testmottagare som plattformen tillåter.",
+    "description": "En testagent används för att prova innehåll och integration med tillåtna testmottagare. En lanserad avsändare har dessutom gått igenom plattformens godkännande för publika utskick.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Lansering innebär ytterligare kontroll av bland annat varumärke, användning och relevant marknad. Kontrollera vilket tillstånd er avsändare faktiskt har innan kundlistor används.",
-          "Håll testmottagare och produktionsmottagare tydligt åtskilda. En lyckad demo visar att ett testflöde fungerar, inte att alla vanliga kunder kan nås eller att utskick är tillåtna."
+          "Kontrollera vilket läge avsändaren befinner sig i innan kundlistan används. En skapad agent kan fortfarande vänta på verifiering eller lansering.",
+          "Håll testnummer och riktiga mottagare åtskilda. En lyckad demo bekräftar testet, inte räckvidden till alla kunder."
         ],
         "sources": [
           "agent",
@@ -1086,14 +1086,14 @@ export const expandedArticles: Article[] = [
       "rcs automatisk bekräftelse svarstid"
     ],
     "published": "2026-11-01",
-    "description": "Berätta om kunden får hjälp direkt eller om en människa behöver återkomma. En automatisk mottagningsbekräftelse ska inte beskrivas som om ärendet redan är löst.",
+    "description": "Säg när kunden kan få ett svar från personal. En automatisk bekräftelse visar att frågan kommit fram, men ska inte ge intrycket att ärendet redan är löst.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd de tider och bemanningsrutiner som faktiskt gäller hos företaget. Skriv inte öppettider eller löften om omedelbar hjälp som ingen kan hålla.",
-          "Om ärendet skickas vidare bör kunden förstå nästa steg. Koppla bekräftelsen till rätt ärende så att personalen kan fortsätta på samma fråga när de tar över."
+          "Ange de tider ni faktiskt kan hålla. Om nästa svar kommer under nästa bemannade pass, skriv det i stället för att lova omedelbar hjälp.",
+          "Koppla bekräftelsen till ärendet så att personalen kan fortsätta där kunden slutade. Kunden ska inte behöva starta en ny kontakt bara för att första svaret var automatiskt."
         ],
         "sources": [
           "practice",
@@ -1111,14 +1111,14 @@ export const expandedArticles: Article[] = [
       "rcs image url media tillgänglig"
     ],
     "published": "2026-11-01",
-    "description": "En bild- eller filadress behöver fungera enligt tjänstens krav när mediet hämtas. Kontrollera dokumentationen för åtkomst, filtyp och storlek i den aktuella tjänsten.",
+    "description": "Adressen till en RCS-bild eller fil måste kunna hämtas på det sätt tjänsten kräver. Filtyp, storlek och åtkomst behöver följa leverantörens dokumentation.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "En länk som bara fungerar när en anställd är inloggad är inte ett bra test av extern mediehämtning. Kontrollera också att adressen inte avslöjar känsliga uppgifter eller försvinner innan meddelandet levererats.",
-          "Testa med den riktiga filen och den slutliga adressen. En fungerande bild i redigerarens förhandsvisning betyder inte säkert att mottagarens meddelandeapp kan visa den."
+          "En adress som bara fungerar när du är inloggad kan misslyckas när tjänsten hämtar bilden. Se också till att länken inte löper ut innan meddelandet levererats eller avslöjar känsliga uppgifter.",
+          "Prova den slutliga adressen och filen. Att bilden syns i redigeraren är inte ett test av den externa hämtningen."
         ],
         "sources": [
           "cards",
@@ -1136,14 +1136,14 @@ export const expandedArticles: Article[] = [
       "rcs bild beskärning rich card"
     ],
     "published": "2026-11-01",
-    "description": "Kortets layout och telefonens visning kan påverka vilken del av bilden som syns. Därför bör ett viktigt motiv inte bara finnas längst ute vid bildens kant.",
+    "description": "Bilden i ett RCS-kort kan beskäras olika beroende på kortets layout och telefonen. Placera inte produktens viktigaste detalj precis vid kanten.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Testa den valda layouten på de mottagarenheter som ska stödjas och lägg nödvändig information som vanlig text. En bild som ser perfekt ut i en bred förhandsvisning kan bli mindre tydlig på en smal skärm.",
-          "Kontrollera även att rubrik, beskrivning och knappar går att läsa tillsammans. Lösningen är inte alltid en större bild, utan ett motiv och en text som fungerar inom det verkliga formatet."
+          "Prova bilden på de telefoner och appar ni stöder. Lägg pris, tid och annan nödvändig information som text så att beskärningen inte tar bort själva beskedet.",
+          "Granska bilden tillsammans med rubrik och knappar. Ibland är ett enklare motiv bättre än att försöka få in mer i samma bildyta."
         ],
         "sources": [
           "cards"
@@ -1160,14 +1160,14 @@ export const expandedArticles: Article[] = [
       "rcs unsupported capability anpassning"
     ],
     "published": "2026-11-01",
-    "description": "Anpassa innehållet efter mottagarens dokumenterade stöd. Att telefonen kan använda RCS betyder inte säkert att varje rikt kort, karusell eller åtgärd fungerar.",
+    "description": "Om en mottagare saknar stöd för en funktion behöver ni välja ett enklare meddelande eller en annan kanal. RCS-stöd i sig bekräftar inte varje karusell eller åtgärd.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bestäm ett enklare RCS-format eller en bekräftad reservkanal för det aktuella behovet. Viktig information bör finnas kvar även när en interaktiv funktion inte kan användas.",
-          "Prova det reducerade flödet, inte bara originalet. Kunden behöver kunna förstå beskedet och nå nästa steg utan den funktion som saknas."
+          "Låt mottagarkontrollen styra valet. Behåll den information kunden behöver även om en bild eller knapp tas bort.",
+          "Testa den enklare versionen också. Den ska gå att förstå och använda på egen hand, utan att kunden har sett det planerade originalet."
         ],
         "sources": [
           "capabilities",
@@ -1185,14 +1185,14 @@ export const expandedArticles: Article[] = [
       "rcs webhook övervakning larm"
     ],
     "published": "2026-11-01",
-    "description": "Följ både teknisk mottagning och den efterföljande bearbetningen. Ett utskick kan accepteras samtidigt som senare händelser inte når eller inte behandlas av ert system.",
+    "description": "Övervaka både inkommande RCS-händelser och bearbetningen av dem. API:et kan acceptera ett utskick även när leveransrapporter eller kundsvar inte når ert system.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bestäm vilka avbrott och fel som ska ge larm. Jämför med kända testflöden och normal aktivitet, utan att tolka varje uteblivet läskvitto som ett driftstopp.",
-          "Larmet behöver leda till en ansvarig person och ett felsökningsunderlag. Ange meddelandeidentifierare och tidpunkter så att leverantören och den interna gruppen kan undersöka samma händelsekedja."
+          "Jämför med normal aktivitet och kända testflöden. Ett enstaka saknat läskvitto räcker inte för att konstatera ett avbrott.",
+          "Larm behöver ha en mottagare. Spara identifierare och tidpunkter så att den ansvariga kan följa samma meddelande hos er och hos leverantören."
         ],
         "sources": [
           "webhooks",
@@ -1210,14 +1210,14 @@ export const expandedArticles: Article[] = [
       "rcs återstart kö driftstopp"
     ],
     "published": "2026-11-01",
-    "description": "Börja med att avgöra vilka händelser och meddelanden som verkligen har behandlats. En återstart ska inte automatiskt skicka om hela kundlistan eller utföra alla tidigare knappval igen.",
+    "description": "Efter ett stopp behöver ni först se vilka meddelanden och händelser som redan behandlats. Att skicka om hela listan kan ge kunderna dubbletter.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Läs tillbaka sparade identifierare och tillstånd och kontrollera om meddelandets innehåll fortfarande är aktuellt. Tidsbundna erbjudanden eller bokningar kan ha passerat medan systemet var stoppat.",
-          "Återuppta stegvis och följ resultatet. Den tekniska målsättningen är ett korrekt slutläge, inte bara att tömma en kö så snabbt som möjligt."
+          "Läs sparade identifierare och statusar. Se även om innehållet fortfarande gäller; ett erbjudande kan ha löpt ut under avbrottet.",
+          "Återuppta i mindre steg och följ utfallet. Målet är att avsluta rätt ärenden en gång, inte att tömma kön till varje pris."
         ],
         "sources": [
           "webhooks",
@@ -1236,14 +1236,14 @@ export const expandedArticles: Article[] = [
       "rcs tillgänglighet stor text"
     ],
     "published": "2026-11-01",
-    "description": "Kort och knappar behöver testas med telefonens större textinställningar där de stöds. Utgå inte från att en vanlig förhandsvisning visar hur alla kunder läser meddelandet.",
+    "description": "Testa RCS-kort och knappar med telefonens större textinställningar. En förhandsvisning med standardtext visar inte hur det blir för kunder som behöver större bokstäver.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Håll rubriker och knapptexter tydliga och lägg viktig information i text, inte bara i bilder. En kund ska kunna förstå ärendet även när mer innehåll behöver brytas till flera rader.",
-          "Testa på faktiska enheter och kontrollera läsordning och hela nästa steg. Det är mer användbart än att bara minska texten tills den ser snygg ut i ett enda standardläge."
+          "Rubriker och knapptexter ska fortfarande gå att läsa när raderna blir fler. Viktiga uppgifter behöver finnas som text, inte enbart inuti en bild.",
+          "Följ även länken eller svaret vidare. Det hjälper föga att kortet är läsbart om bokningssidan efteråt inte fungerar med samma inställningar."
         ],
         "sources": [
           "cards",
@@ -1261,14 +1261,14 @@ export const expandedArticles: Article[] = [
       "rcs skärmläsare tillgänglighet"
     ],
     "published": "2026-11-01",
-    "description": "Skriv så att själva texten förklarar ärendet och nästa steg. En bild eller en dekorativ ikon ska inte vara det enda som berättar vad kunden behöver göra.",
+    "description": "Ett RCS-meddelande behöver gå att förstå genom texten. Om bara en bild berättar tiden eller erbjudandet kan en skärmläsaranvändare missa själva beskedet.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd knapptexter som namnger handlingen, exempelvis Öppna ordern. Flera identiska Läs mer-knappar kan vara svåra att förstå när de läses utan samma visuella sammanhang.",
-          "Testa med skärmläsare i de appar som mottagarna använder. Ni kan inte lova samma stöd i alla klienter, men ni kan undvika innehåll som blir obegripligt utan den visuella utformningen."
+          "Skriv vad knappen gör, exempelvis Öppna ordern. Flera knappar med texten Läs mer ger sämre ledning när de läses utan det visuella sammanhanget.",
+          "Prova med skärmläsare i de appar kunderna använder. Stödet kan skilja sig mellan appar, så utlovad tillgänglighet behöver bygga på faktiska tester."
         ],
         "sources": [
           "cards",
@@ -1286,14 +1286,14 @@ export const expandedArticles: Article[] = [
       "rcs karusell första kort information"
     ],
     "published": "2026-11-01",
-    "description": "Första kortet ska ge tillräckligt sammanhang för att kunden ska förstå vad meddelandet gäller. Alla mottagare kommer inte att svepa vidare genom hela karusellen.",
+    "description": "Första kortet behöver förklara vad meddelandet gäller. En del kunder kommer inte att bläddra vidare, så avgörande information får inte kräva ett svep.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Lägg därför inte centrala villkor eller ett viktigt besked enbart på sista kortet. Använd karusellen för alternativ som behöver visas, inte som en gömma för nödvändig information.",
-          "Prova hur budskapet fungerar om kunden bara ser det första kortet. Kunden bör fortfarande förstå avsändaren, ämnet och ett rimligt nästa steg."
+          "Använd de följande korten för alternativ, till exempel olika produkter. Ett viktigt villkor eller en bokad tid hör inte hemma enbart på sista kortet.",
+          "Läs bara första kortet vid testet. Går det att förstå vem som skickar, vad saken gäller och vad kunden kan göra?"
         ],
         "sources": [
           "cards",
@@ -1311,14 +1311,14 @@ export const expandedArticles: Article[] = [
       "rcs karusell produktordning"
     ],
     "published": "2026-11-01",
-    "description": "Använd en ordning som hjälper kunden att jämföra alternativen. Samma typ av information bör ligga på motsvarande plats i varje kort, exempelvis produktnamn, relevant beskrivning och handling.",
+    "description": "Lägg produkterna i en ordning som hjälper kunden att välja. Visa samma sorts uppgifter på samma plats i varje kort så att jämförelsen blir enkel.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Blanda inte ett viktigt servicebesked med flera lösa reklamalternativ om syftet blir otydligt. En karusell ska göra valet lättare, inte skapa flera konkurrerande ärenden.",
-          "Testa både första kortet och hela följden. Kontrollera att länkarna leder till rätt alternativ och att reservversionen ger det viktigaste beskedet utan att kräva samma layout."
+          "Produktnamn, beskrivning och länk ska höra ihop. Undvik att blanda in ett servicebesked bland reklamalternativen om det gör syftet oklart.",
+          "Prova varje länk och bestäm vad ett reserv-SMS behöver säga. Det kan inte återge hela karusellen, men måste fortfarande ge ett begripligt besked."
         ],
         "sources": [
           "cards",
@@ -1336,14 +1336,14 @@ export const expandedArticles: Article[] = [
       "rcs antal knappar val"
     ],
     "published": "2026-11-01",
-    "description": "Använd så många val som är nödvändiga för uppgiften, inte så många som formatet tekniskt tillåter. Ett tydligt nästa steg kan vara bättre än flera likvärdiga knappar.",
+    "description": "Antalet knappar bör följa kundens uppgift. En spårningslänk kan räcka för ett leveransbesked, medan en bokning kan behöva både Bekräfta och Begär ombokning.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skilj huvudhandlingen från andra alternativ. För en bokning kan det vara rimligt att bekräfta eller be om ändring, medan en leveransnotis kanske bara behöver en spårningslänk.",
-          "Tekniska maxgränser hämtas från er leverantörs aktuella dokumentation. Prova med kunder eller kollegor om de förstår skillnaden mellan valen utan ytterligare förklaring."
+          "Fler knappar ger inte alltid fler användbara val. Om två alternativ verkar göra samma sak behöver de förtydligas eller slås ihop.",
+          "Maxantalet beror på format och tjänst. Kontrollera den tekniska gränsen, men låt inte den bli ett mål för hur många knappar ni ska fylla med."
         ],
         "sources": [
           "features",
@@ -1361,14 +1361,14 @@ export const expandedArticles: Article[] = [
       "rcs fritext snabbsvar val"
     ],
     "published": "2026-11-01",
-    "description": "Svarsknappar passar tydligt avgränsade val. Fritext behövs när kunden ska beskriva ett problem eller när ni inte vet vilka alternativ som täcker situationen.",
+    "description": "Svarsknappar passar när alternativen är kända. Fritext är bättre när kunden behöver beskriva ett fel, ställa en egen fråga eller förklara något oväntat.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Om ni erbjuder knappar bör det också finnas en väg vidare när inget val passar. Tvinga inte kunden att välja ett felaktigt alternativ för att få kontakt med rätt hjälp.",
-          "Fritext kräver faktisk hantering av personal eller ett säkert automatiserat flöde. Visa därför inte en öppen fråga om ingen tar emot och besvarar kundens text."
+          "Låt kunden komma vidare om inget knappval passar. Ett felaktigt val ska inte vara enda vägen till hjälp.",
+          "En öppen fråga behöver någon som tar hand om svaret. Ordna bemanning eller fungerande automatisk hantering innan ni bjuder in till fritext."
         ],
         "sources": [
           "features",
@@ -1387,14 +1387,14 @@ export const expandedArticles: Article[] = [
       "rcs knapp bekräftelse handling"
     ],
     "published": "2026-11-01",
-    "description": "Kunden behöver få veta om handlingen är slutförd eller bara har tagits emot. Ett tryck på Begär ombokning bör exempelvis inte ge beskedet Ombokat innan en ny tid faktiskt finns.",
+    "description": "Efter ett knapptryck ska kunden veta vad som faktiskt hänt. Begär ombokning betyder att ett önskemål skickats, inte att en ny tid redan är bokad.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Knyt återkopplingen till det system där ändringen sker. Om processen tar tid kan ni bekräfta mottagandet och berätta nästa steg utan att lova ett färdigt resultat.",
-          "Prova även när ändringen misslyckas. Ett tydligt felbesked med en möjlig väg vidare är bättre än att chatten ser lyckad ut medan kundens bokning är oförändrad."
+          "Låt boknings- eller ordersystemet avgöra bekräftelsen. Tar hanteringen tid, bekräfta mottagandet och säg vad som händer härnäst.",
+          "Testa även ett misslyckat försök. Kunden behöver få veta om bokningen är oförändrad och hur det går att få hjälp."
         ],
         "sources": [
           "events",
@@ -1412,14 +1412,14 @@ export const expandedArticles: Article[] = [
       "rcs flera språk språkval"
     ],
     "published": "2026-11-01",
-    "description": "Använd ett språk som är relevant för den aktuella kunden och som företaget kan hantera även i svaren. Ett svenskt telefonnummer bevisar inte vilket språk personen föredrar.",
+    "description": "Välj språk utifrån vad kunden föredrar när ni har den uppgiften. Ett svenskt telefonnummer säger inte vilket språk personen vill läsa.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Översätt både meddelandet, knapparna och det efterföljande flödet. En tydlig svensk knapp blir inte en komplett flerspråkig upplevelse om bokningssidan eller supporten bara fungerar på ett annat språk.",
-          "Kontrollera längre översättningar på riktiga skärmar. Behåll betydelsen och villkoren, även när texten behöver kortas för ett tydligt kort eller en knapp."
+          "Översätt hela vägen: meddelande, knappar och sidan eller svaret efteråt. En knapp på ett språk hjälper inte mycket om nästa steg bara finns på ett annat.",
+          "Längre översättningar behöver provas på telefon. Korta vid behov, men behåll betydelsen och villkoren."
         ],
         "sources": [
           "practice",
@@ -1437,14 +1437,14 @@ export const expandedArticles: Article[] = [
       "rcs erbjudande pris villkor tydlighet"
     ],
     "published": "2026-11-01",
-    "description": "Kunden ska kunna förstå erbjudandets pris och viktiga villkor innan nästa steg. Dölj inte avgörande begränsningar i en bild som är svår att läsa eller långt efter den knapp som lockar till köp.",
+    "description": "Visa priset och avgörande villkor så att kunden förstår erbjudandet före nästa steg. Lägg inte en viktig begränsning bara i en liten bildtext.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Håll ihop priset med vad kunden faktiskt får. Om mer information behövs ska länken gå till tydliga villkor och inte ge en annan bild av erbjudandet.",
-          "Bedöm utformningen enligt de regler som gäller för marknadsföringen och köpet. RCS-formatets begränsningar befriar inte företaget från att ge korrekt och begriplig information."
+          "Håll ihop priset med vad som ingår. Om villkoren kräver mer utrymme ska länken leda till en tydlig beskrivning som stämmer med kortet.",
+          "Marknadsförings- och köpregler gäller även i RCS. Ett begränsat kortformat är inget skäl att utelämna information som kunden behöver."
         ],
         "sources": [
           "marketing-law",
@@ -1462,14 +1462,14 @@ export const expandedArticles: Article[] = [
       "rcs emoji företag tonalitet"
     ],
     "published": "2026-11-01",
-    "description": "Emoji kan stödja ett lättförståeligt budskap, men ska inte ersätta den information kunden behöver. Symboler kan uppfattas olika och visas olika i meddelandeappar.",
+    "description": "Emoji kan passa i företagsmeddelanden när de kompletterar texten. De bör inte bära en tid, ett villkor eller nästa steg på egen hand.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd dem sparsamt i serviceärenden där tydlighet är viktigare än stämning. En leveranstid eller ett betalningsvillkor ska stå i text, inte vara beroende av tolkningen av en symbol.",
-          "Testa hur meddelandet läses utan emoji. Om betydelsen ändras eller nästa steg blir oklart behöver formuleringen bli tydligare innan utskicket görs."
+          "Symboler kan visas och uppfattas olika. I ett servicebesked är en tydlig formulering oftast viktigare än att skapa rätt stämning.",
+          "Läs meddelandet utan emoji. Om innebörden då försvinner behöver texten säga mer, inte fler symboler läggas till."
         ],
         "sources": [
           "practice"
@@ -1486,14 +1486,14 @@ export const expandedArticles: Article[] = [
       "rcs orderlänk rätt kund"
     ],
     "published": "2026-11-01",
-    "description": "Länken behöver kopplas till rätt order och kontrolleras innan utskicket. Kundens telefonnummer är inte ett säkert substitut för att kontrollera rätt order eller rätt behörighet på målsidan.",
+    "description": "En orderlänk behöver kopplas till rätt beställning och rätt åtkomst. Kundens telefonnummer ersätter inte behörighetskontrollen på sidan som öppnas.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd den säkerhet som orderflödet kräver. En länk som skickas till någon ska inte automatiskt ge åtkomst till andra kunders beställningar eller känsliga uppgifter.",
-          "Testa både rätt mottagare och felaktig eller utgången länk. Kunden bör få ett begripligt besked om sidan inte längre kan öppnas, i stället för att fastna utan nästa steg."
+          "Länken ska inte ge åtkomst till andra kunders order eller uppgifter. Använd det skydd som informationen kräver även när länken skickats till en känd mottagare.",
+          "Prova rätt länk, fel länk och en utgången länk. Vid fel ska kunden få ett begripligt besked och en väg till sitt ärende."
         ],
         "sources": [
           "features",
@@ -1511,14 +1511,14 @@ export const expandedArticles: Article[] = [
       "rcs förhandsvisning riktiga telefoner"
     ],
     "published": "2026-11-01",
-    "description": "Nej. En förhandsvisning hjälper er granska innehållet, men visar inte säkert exakt hur varje app och telefon återger meddelandet.",
+    "description": "En förhandsvisning räcker för att granska ett utkast, men inte för att godkänna hela utskicket. Telefonen och meddelandeappen kan visa innehållet på andra sätt.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Testa med verkliga mottagarenheter och klicka igenom länkar och svar. Kontrollera också långa texter, stora textinställningar och mediahämtning när nätverket inte är optimalt.",
-          "Ta med den enklare versionen för mottagare som saknar stöd. Ett korrekt originalkort räcker inte om kundens verkliga väg blir ett otydligt reservmeddelande."
+          "Skicka till verkliga testenheter och använd länkarna och svaren. Prova även långa texter, större textinställningar och långsam bildladdning.",
+          "Ta med reservversionen. Ett perfekt RCS-kort hjälper inte en kund som i stället får ett otydligt SMS."
         ],
         "sources": [
           "cards",
@@ -1536,14 +1536,14 @@ export const expandedArticles: Article[] = [
       "rcs reserv sms knapp länktext"
     ],
     "published": "2026-11-01",
-    "description": "Skriv vad länken öppnar och vilket ärende den gäller. En SMS-reserv har inte samma knappar och visuella sammanhang som RCS-versionen.",
+    "description": "Skriv vad länken öppnar och vilket ärende reserv-SMS:et gäller. Utan RCS-kortets knappar och bilder behöver texten bära mer av sammanhanget.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Behåll nödvändig information som ordernummer, tid eller villkor i själva texten där det behövs. Kunden ska förstå beskedet även om RCS-kortet aldrig visades.",
-          "Kontrollera länkens destination och hela SMS-texten, inklusive eventuella meddelandedelar och kostnader. En kort länk är inte i sig ett bevis för en säker eller begriplig kundupplevelse."
+          "Behåll nödvändiga uppgifter som bokningstid eller ordernummer. Kunden kan ha fått enbart SMS och ska ändå förstå beskedet.",
+          "Kontrollera sidan länken leder till och hur många SMS-delar texten ger. Att länken är kort säger inget om dess säkerhet eller tydlighet."
         ],
         "sources": [
           "practice",
@@ -1561,14 +1561,14 @@ export const expandedArticles: Article[] = [
       "rcs bildtext viktig information"
     ],
     "published": "2026-11-01",
-    "description": "Undvik det. En bild kan laddas långsamt, beskäras eller vara svår att läsa på en liten skärm. Kunden bör inte behöva tyda en affisch för att förstå bokningstid, pris eller villkor.",
+    "description": "Lägg inte viktig information enbart i en RCS-bild. Den kan beskäras, laddas långsamt eller bli svårläst på en liten skärm.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skriv det viktiga som vanlig text och låt bilden visa produkten eller ge relevant sammanhang. Det hjälper också när kunden använder större text eller hjälpmedel.",
-          "Prova meddelandet med bilden borttagen. Om huvudbudskapet eller nästa steg då saknas behöver texten kompletteras, även om originalet ser snyggt ut."
+          "Skriv tid, pris och villkor som vanlig text. Låt bilden visa produkten eller det som är lättare att förklara visuellt.",
+          "Ta bort bilden när du granskar meddelandet. Om ärendet eller nästa steg inte går att förstå behöver texten kompletteras."
         ],
         "sources": [
           "cards",
@@ -1586,14 +1586,14 @@ export const expandedArticles: Article[] = [
       "rcs video produkt demonstration"
     ],
     "published": "2026-11-01",
-    "description": "Video kan vara relevant när rörelse eller en kort demonstration förklarar mer än en stillbild. För ett enkelt leveransbesked behövs det ofta inte.",
+    "description": "Video passar när rörelse förklarar något, till exempel hur en produkt används. Ett kort statusbesked behöver sällan en film.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Lägg nödvändig information även i text och kontrollera filens stöd och laddning. Anta inte att kunden vill eller kan spela upp innehållet just när meddelandet kommer.",
-          "Testa på faktiska telefoner och välj ett format som hjälper uppgiften. En större fil eller längre film är inte automatiskt ett bättre meddelande."
+          "Ge nödvändig information även i text. Kunden kanske inte kan spela upp video där och då, och filen behöver stödjas av tjänsten.",
+          "Testa filen på telefon och se hur den laddar. Välj längd och format efter det som ska visas, inte efter hur mycket utrymme som finns."
         ],
         "sources": [
           "cards",
@@ -1611,14 +1611,14 @@ export const expandedArticles: Article[] = [
       "rcs personalisering namn fel"
     ],
     "published": "2026-11-01",
-    "description": "Använd namn endast när uppgifterna är tillförlitliga och relevanta. Ett felaktigt Hej följt av ett systemfält eller någon annans namn kan minska förtroendet för hela beskedet.",
+    "description": "Använd kundnamn när uppgiften är pålitlig. En hälsning med fel namn eller ett synligt systemfält kan göra resten av beskedet svårt att lita på.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Ha en neutral formulering för mottagare där namnet saknas och testa hur importerat innehåll ersätts. Kontrollera också att orderinformation inte blandas mellan kunder.",
-          "Personalisering behöver inte betyda fler personuppgifter i meddelandet. Ett korrekt och användbart ärendebesked kan vara mer personligt än en hälsning med ett osäkert namn."
+          "Ha en neutral hälsning när namn saknas. Testa importen med tomma fält och kontrollera att orderuppgifter inte blandas mellan kunder.",
+          "Personligt behöver inte betyda namngivet. Ett korrekt besked om kundens ärende kan vara mer omtänksamt än ett osäkert Hej följt av förnamnet."
         ],
         "sources": [
           "practice"
@@ -1635,14 +1635,14 @@ export const expandedArticles: Article[] = [
       "rcs lång dialog avsändare igenkänning"
     ],
     "published": "2026-11-01",
-    "description": "Använd en konsekvent avsändarprofil och tydliga besked om vilket ärende samtalet gäller. Företagsnamnet och logotypen hjälper igenkänningen, men ersätter inte sammanhang i själva texten.",
+    "description": "Behåll samma igenkännbara företagsprofil i dialogen och skriv vilket ärende varje nytt besked gäller. Namn och logotyp ger inte hela sammanhanget.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "När en ny fråga tas upp ska kunden förstå om den hör till samma ärende eller en ny kontakt. Blanda inte flera lösa erbjudanden med ett pågående supportproblem.",
-          "Om personal byts behöver svaret ändå vara sammanhängande. Kunden ska inte behöva veta vilka interna system eller avdelningar som står bakom varje steg för att få hjälp."
+          "Markera när samtalet går över till en ny fråga. Undvik att blanda ett pågående supportproblem med erbjudanden som inte hör dit.",
+          "Vid ett personalbyte ska nästa person kunna fortsätta ärendet. Kunden behöver inte känna till era avdelningar för att förstå svaret."
         ],
         "sources": [
           "agent",
@@ -1661,14 +1661,14 @@ export const expandedArticles: Article[] = [
       "rcs köp extern sida app"
     ],
     "published": "2026-11-01",
-    "description": "Nej. En åtgärdsknapp kan öppna en extern webbsida där kunden slutför köp, betalning eller bokning. RCS kan vara ingången utan att hela processen sker i meddelandeappen.",
+    "description": "Hela köpet behöver inte ske i RCS-chatten. En knapp kan öppna en webbplats där kunden betalar, bokar eller slutför beställningen.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skriv vart knappen leder och vad kunden förväntas göra där. Ett öppnat köpflöde är inte ett slutfört köp, och kunden behöver förstå den skillnaden.",
-          "Se till att målsidan fungerar på telefonen och ger samma erbjudande eller ärende som meddelandet. En elegant chatt hjälper inte om nästa steg är svårt att använda."
+          "Skriv vad knappen öppnar. Köp nu kan vara missvisande om den bara leder till information, medan Öppna produktsidan beskriver det faktiska steget.",
+          "Kontrollera målsidan på telefon och håll erbjudandet lika på båda ställena. Mät köpet där det slutförs, inte bara klicket i meddelandet."
         ],
         "sources": [
           "features",
@@ -1686,14 +1686,14 @@ export const expandedArticles: Article[] = [
       "rcs bot människa handover"
     ],
     "published": "2026-11-01",
-    "description": "Ge kunden en tydlig väg till personal när automatiska svar inte räcker. Bekräfta att frågan tagits emot och undvik att fortsätta samma automatiska fråga om kunden redan beskrivit problemet.",
+    "description": "När automatiska svar inte hjälper behöver kunden kunna nå personal. Bekräfta överlämningen och sluta ställa samma fråga om kunden redan har svarat.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Den som tar över behöver relevant sammanhang och kopplingen till rätt ärende. Kunden ska inte behöva upprepa sådant som systemet redan har fått, om det kan överföras på ett säkert sätt.",
-          "Berätta när kunden kan förvänta sig nästa besked enligt den bemanning som faktiskt finns. Ett automatiskt system ska inte låtsas vara en person eller lova hjälp som ingen kan ge."
+          "För över relevant samtalshistorik och ärendenummer med lämplig åtkomst. Då kan personen som tar över fortsätta utan att kunden måste börja om.",
+          "Ange en svarstid som bemanningen kan hålla. Ett automatiskt svar ska inte låtsas komma från en människa."
         ],
         "sources": [
           "receive",
@@ -1711,14 +1711,14 @@ export const expandedArticles: Article[] = [
       "rcs felmeddelande kundupplevelse"
     ],
     "published": "2026-11-01",
-    "description": "Säg vad som inte gick och vad kunden kan göra nu. Ett internt felnummer utan sammanhang hjälper sällan mottagaren vidare.",
+    "description": "Ett användbart felbesked säger vad som inte gick och hur kunden kan komma vidare. Ett internt felnummer behöver en förklaring.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skilj mellan att en begäran inte kunde tas emot och att en ändring inte kunde slutföras. Om en bokning är oförändrad behöver kunden få veta det tydligt.",
-          "Ge ett relevant alternativ, som en länk till rätt ärende eller kontakt med personal. Undvik att uppmana till samma knapptryck om det riskerar att skapa dubbla beställningar eller flera supportärenden."
+          "Skriv om bokningen eller ordern är oförändrad. Det är skillnad på att en begäran inte kom fram och att den togs emot men inte kunde genomföras.",
+          "Erbjud en relevant kontaktväg eller länk. Be inte kunden trycka igen om det kan skapa en andra beställning eller ett dubbelt ärende."
         ],
         "sources": [
           "practice",
@@ -1736,14 +1736,14 @@ export const expandedArticles: Article[] = [
       "rcs avisering frekvens uppdateringar"
     ],
     "published": "2026-11-01",
-    "description": "Skicka vid relevanta ändringar, inte vid varje intern systemhändelse. Kunden behöver besked som gör skillnad för det aktuella ärendet.",
+    "description": "Skicka ett nytt besked när något relevant har ändrats för kunden. Varje intern uppdatering behöver inte bli en notis.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Samordna meddelanden så att en order inte ger flera snarlika notiser inom kort tid. Kontrollera att texten tydligt visar vad som är nytt jämfört med föregående besked.",
-          "Ge möjlighet att hantera marknadsföringsval där det behövs och skilj dem från nödvändiga servicebesked. Mer teknisk aktivitet är inte samma sak som mer värde för mottagaren."
+          "Samordna besked som annars kommer tätt och låter nästan likadana. Skriv vad som är nytt, inte bara att ordern har uppdaterats.",
+          "Håll marknadsföringsval åtskilda från serviceinformation. Målet är att kunden får rätt besked, inte så många meddelanden som systemet kan producera."
         ],
         "sources": [
           "practice"
@@ -1760,14 +1760,14 @@ export const expandedArticles: Article[] = [
       "rcs schemalägga tidszon sommartid"
     ],
     "published": "2026-11-01",
-    "description": "Kontrollera vilken tidszon den valda tjänsten använder och hur tidpunkten uttrycks. Svensk lokal tid och UTC är inte samma sak, och skillnaden ändras vid sommar- och vintertid.",
+    "description": "Ta reda på vilken tidszon schemaläggningen använder. UTC och svensk lokal tid skiljer sig, och skillnaden ändras med sommar- och vintertid.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd ett entydigt datum med tidszon enligt dokumentationen. Granska också att ett bokningsbesked visar tiden som kunden faktiskt ska förhålla sig till.",
-          "Testa schemaläggningen före ett större utskick, särskilt när mottagarna finns i olika länder. En korrekt teknisk tid kan ändå vara en olämplig lokal tid för kunden."
+          "Ange datum och tid entydigt enligt tjänstens dokumentation. En bokningstid i meddelandet ska vara den tid kunden ska följa, inte en intern systemtid.",
+          "Prova schemat före ett större utskick. För mottagare i flera länder behöver ni även bedöma om samma sändningstid är rimlig lokalt."
         ],
         "sources": [
           "send",
@@ -1785,14 +1785,14 @@ export const expandedArticles: Article[] = [
       "rcs ab test text jämförelse"
     ],
     "published": "2026-11-01",
-    "description": "Jämför en tydligt avgränsad förändring mellan likvärdiga mottagargrupper. Om både erbjudande, målgrupp och tidpunkt ändras blir det svårt att veta varför resultaten skiljer sig.",
+    "description": "Ett rättvist A/B-test jämför en avgränsad ändring i likvärdiga grupper. Byter ni text, erbjudande och sändningstid samtidigt blir orsaken till skillnaden oklar.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bestäm huvudmåttet innan ni skickar, exempelvis slutförda bokningar. Läsning och knapptryck kan ge stöd, men ersätter inte det resultat testet egentligen ska förbättra.",
-          "Räkna även med räckvidd och reservkanaler när ni jämför. Ett högre klicktal behöver granskas i sitt sammanhang, inte automatiskt utses till det bästa affärsresultatet."
+          "Bestäm vad som räknas före utskicket. Om målet är bokningar ska genomförda bokningar vara huvudmåttet, inte bara klick.",
+          "Redovisa räckvidd och användning av reservkanaler också. Grupper med olika leveransförutsättningar kan ge en missvisande jämförelse av själva texten."
         ],
         "sources": [
           "practice",
@@ -1810,14 +1810,14 @@ export const expandedArticles: Article[] = [
       "rcs orderbesked konversation struktur"
     ],
     "published": "2026-11-01",
-    "description": "Skriv vilken order varje besked gäller och vad som förändrats. En kund kan ha flera beställningar i samma konversation, så ett generellt Din order är klar kan vara otydligt.",
+    "description": "Skriv ordernummer eller annan relevant referens och vad som ändrats. Din order är klar kan vara oklart för en kund med flera beställningar i samma chatt.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd relevant identifierare och en länk till rätt order utan att skicka onödiga personuppgifter. Säkerställ att statusen kommer från det riktiga ordersystemet.",
-          "Samordna automatiska besked och personalsvar. Om ett problem uppstått bör inte en annan rutin fortsätta skicka glada standardtexter som motsäger vad kunden redan fått veta."
+          "Hämta status från ordersystemet och länka till rätt order. Lägg inte till personuppgifter som inte behövs för att förstå beskedet.",
+          "Samordna automatiska notiser med personalens svar. Har kunden fått veta att det finns ett problem ska nästa standardbesked inte motsäga det."
         ],
         "sources": [
           "practice",
@@ -1835,14 +1835,14 @@ export const expandedArticles: Article[] = [
       "rcs sms konsekvent innehåll"
     ],
     "published": "2026-11-01",
-    "description": "Utgå från samma viktiga information men skriv versionerna för sina respektive format. RCS kan använda bild och knappar; SMS behöver en tydlig text och eventuell vanlig länk.",
+    "description": "RCS och SMS behöver säga samma viktiga sak, men med olika utformning. RCS kan ha bild och knappar; SMS behöver text och en vanlig länk.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera att datum, pris, status och villkor inte skiljer sig mellan versionerna. En reservkanal ska inte ge ett annat erbjudande eller ett äldre orderbesked.",
-          "Låt båda versionerna fungera självständigt. Kunden kan få bara den ena, och ska inte behöva veta att ett annat format var planerat för att förstå nästa steg."
+          "Kontrollera datum, pris, status och villkor i båda versionerna. Reserven får inte hämta äldre uppgifter än originalet.",
+          "Läs versionerna var för sig. Kunden ska förstå den som kommer fram utan att behöva känna till den andra."
         ],
         "sources": [
           "practice",
@@ -1860,14 +1860,14 @@ export const expandedArticles: Article[] = [
       "rcs direktmarknadsföring invändning"
     ],
     "published": "2026-11-01",
-    "description": "IMY beskriver rätten att invända mot behandling för direktmarknadsföring som absolut. När en sådan invändning görs ska personuppgifterna inte längre behandlas för det ändamålet.",
+    "description": "En kund har enligt IMY en absolut rätt att invända mot behandling för direktmarknadsföring. Efter invändningen ska personuppgifterna inte längre användas för det ändamålet.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Se till att beskedet når de system och leverantörer som hanterar era utskick. En notering i ett supportärende räcker inte om kampanjlistan fortsätter att användas.",
-          "Skilj marknadsföring från andra rättsligt bedömda serviceändamål. Detta är en översikt, inte juridisk rådgivning; bedöm det konkreta upplägget med dataskyddskunnig hjälp."
+          "Stoppa utskicken i alla berörda listor och verktyg. Det räcker inte att lägga en anteckning hos supporten om nästa kampanj ändå använder numret.",
+          "Serviceärenden kan ha andra rättsliga förutsättningar och behöver bedömas separat. Ta dataskyddskunnig hjälp med gränsdragningen i ert upplägg; detta är en översikt, inte juridisk rådgivning."
         ],
         "sources": [
           "imy-objection"
@@ -1884,14 +1884,14 @@ export const expandedArticles: Article[] = [
       "rcs svar samtycke marknadsföring"
     ],
     "published": "2026-11-01",
-    "description": "Inte automatiskt. Ett svar på en bokningsfråga eller ett tryck på en supportknapp säger vad kunden vill göra i det ärendet, inte att personen vill få framtida erbjudanden.",
+    "description": "Ett svar om en bokning är inte i sig samtycke till reklam. Kunden kan vilja bekräfta en tid utan att vilja få framtida erbjudanden.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Marknadsföring och behandling av personuppgifter behöver bedömas enligt sina respektive regler. Använd inte läskvitton eller leveransstatus som bevis för ett medgivande.",
-          "Om ni samlar in ett marknadsföringsval ska innebörden vara tydlig och hanteras separat från nödvändiga kundärenden. Låt en juridiskt kunnig person bedöma villkoren för er situation."
+          "Varken leveransstatus eller läskvitton visar ett marknadsföringsval. Bedöm kontaktregler och behandling av personuppgifter för sina respektive syften.",
+          "Om ni ber om ett sådant val, skriv tydligt vad kunden tackar ja till och hantera det separat från bokningen. Villkoren behöver bedömas för den konkreta situationen."
         ],
         "sources": [
           "imy-objection",
@@ -1909,14 +1909,14 @@ export const expandedArticles: Article[] = [
       "rcs reklamidentifiering avsändare"
     ],
     "published": "2026-11-01",
-    "description": "Marknadsföring ska kunna identifieras som marknadsföring och den ansvariga avsändaren ska framgå. Ett snyggt RCS-kort ska inte få reklam att se ut som ett nödvändigt servicebesked.",
+    "description": "Reklam i RCS ska gå att känna igen som reklam, och den ansvariga avsändaren ska framgå. Ett erbjudande bör inte utformas som om det vore ett nödvändigt orderbesked.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd ett tydligt företagsnamn och en text som gör erbjudandets syfte begripligt. Verifieringsmarkeringen ersätter inte kraven på korrekt och identifierbar reklam.",
-          "Bedöm också pris, villkor och påståenden i det konkreta erbjudandet. Det är innehållet och sammanhanget som behöver vara rätt, inte bara etiketten på en knapp."
+          "Använd företagsnamnet och en text som visar syftet. En verifierad profil ersätter inte en tydlig reklambeskrivning.",
+          "Pris, villkor och påståenden behöver också vara korrekta. Det är hela erbjudandet som bedöms, inte bara märkningen."
         ],
         "sources": [
           "marketing-law"
@@ -1933,14 +1933,14 @@ export const expandedArticles: Article[] = [
       "rcs transaktion marknadsföring blanda"
     ],
     "published": "2026-11-01",
-    "description": "Ett orderbesked och ett reklamerbjudande har olika syften. Att kunden behöver en leveransuppdatering är inte ett automatiskt tillstånd att lägga till orelaterad marknadsföring.",
+    "description": "Att skicka ett nödvändigt orderbesked ger inte automatiskt rätt att lägga till reklam. Leveransinformation och ett nytt erbjudande har olika syften.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bedöm varje del av kontakten och vilka regler som gäller för den. Om reklamen gör servicebeskedet otydligt blir även kundupplevelsen sämre.",
-          "Håll därför nödvändig orderinformation tydlig och hantera marknadsföringsval separat. Ett pågående kundärende ska inte bli en väg runt en invändning mot framtida erbjudanden."
+          "Bedöm kontaktreglerna för reklamdelen separat. Den får inte heller göra det svårare att hitta själva orderinformationen.",
+          "Håll marknadsföringsval åtskilda från ärendet. En kund som har invänt mot reklam ska inte få den inbakad i en leveransuppdatering."
         ],
         "sources": [
           "marketing-law",
@@ -1958,14 +1958,14 @@ export const expandedArticles: Article[] = [
       "rcs avregistrering extern leverantör"
     ],
     "published": "2026-11-01",
-    "description": "En avregistrering behöver slå igenom där företaget faktiskt styr sina marknadsföringsutskick. Om flera verktyg används ska kundens invändning inte stanna i bara ett av dem.",
+    "description": "Avregistreringen måste nå alla verktyg som styr företagets marknadsföringsutskick. Annars kan kunden stoppas i en tjänst men ligga kvar i en annan.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Definiera vilket system som håller det aktuella spärrläget och hur ändringar förs vidare. Kontrollera också importer som annars kan lägga tillbaka en spärrad mottagare i nästa kampanj.",
-          "Testa stoppet från kundens val till nästa utskickslista. Den avgörande kontrollen är att marknadsföringen upphör, inte bara att en knapp visar en bekräftelse."
+          "Bestäm vilket system som håller det gällande spärrläget och hur det förs vidare. Se över importer så att en äldre lista inte återaktiverar ett spärrat nummer.",
+          "Testa hela vägen från avregistreringen till nästa utskickslista. Bekräftelsen i chatten räcker inte om reklamen fortsätter."
         ],
         "sources": [
           "imy-objection",
@@ -1983,14 +1983,14 @@ export const expandedArticles: Article[] = [
       "rcs dataminimering kunduppgifter"
     ],
     "published": "2026-11-01",
-    "description": "Använd de uppgifter som behövs för det bestämda ärendet och undvik att kopiera hela kundprofiler till varje meddelande eller händelse. Ett order-id kan ibland räcka för kopplingen till kundsystemet.",
+    "description": "Ett RCS-flöde behöver de kunduppgifter som är relevanta för ärendet, inte en kopia av hela kundprofilen. Ett order-id kan räcka för att hitta resten i kundsystemet.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bedöm syftet, åtkomsten och hur länge informationen behövs. Telefonnummer och kundsvar kan vara personuppgifter när de går att koppla till en person.",
-          "Samordna med företagets dataskyddsarbete och leverantörsvillkor. En teknisk möjlighet att samla in ett fält är inte i sig ett skäl att använda det."
+          "Telefonnummer och svar kan vara personuppgifter. Bedöm därför syfte, åtkomst och lagringstid för uppgifterna som skickas och sparas.",
+          "Stäm av med ert dataskyddsarbete och leverantörens villkor. Ta inte med ett extra fält enbart för att API:et kan ta emot det."
         ],
         "sources": [
           "imy-objection",
@@ -2008,14 +2008,14 @@ export const expandedArticles: Article[] = [
       "rcs lagring kundsvar gallring"
     ],
     "published": "2026-11-01",
-    "description": "Det finns inte ett enda lagringsantal som passar alla RCS-ärenden. Tiden behöver bedömas efter syftet, tillämpliga krav och hur länge uppgifterna faktiskt behövs.",
+    "description": "Det finns ingen lagringstid som passar alla RCS-svar. Hur länge de behövs beror på ärendet, syftet och de krav som gäller för verksamheten.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skilj aktiv ärendehantering från statistik och tekniska loggar. Samma fullständiga konversation behöver inte kopieras och behållas lika länge i alla system.",
-          "Dokumentera gallring och ansvar och kontrollera att även exporter och leverantörssystem hanteras. Be dataskyddskunnig hjälp bedöma ert konkreta upplägg i stället för att använda ett generellt standardvärde."
+          "En aktiv supportfråga, sammanställd statistik och en teknisk logg kan behöva olika hantering. Hela samtalet behöver inte finnas lika länge i alla system.",
+          "Bestäm vem som gallrar och hur det fungerar i exporter och hos leverantörer. Låt en dataskyddskunnig person bedöma tiderna för ert upplägg."
         ],
         "sources": [
           "imy-objection",
@@ -2033,14 +2033,14 @@ export const expandedArticles: Article[] = [
       "rcs behörighet support kundsvar"
     ],
     "published": "2026-11-01",
-    "description": "Ge åtkomst till de personer som behöver uppgifterna för att hantera ärendet. En integration som tekniskt tar emot svar innebär inte att alla anställda behöver kunna läsa varje konversation.",
+    "description": "Kundernas RCS-svar bör vara åtkomliga för dem som behöver dem i arbetet. Att ett system tar emot svaren innebär inte att alla anställda ska kunna läsa dem.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skilj åt administration, felsökning och kundservice där det är relevant. Maskera eller begränsa information i verktyg som bara behöver identifierare och status.",
-          "Kontrollera även åtkomst när personal byter roll eller slutar. Företaget behöver förstå var svaren finns, vem som kan läsa dem och hur behörigheter ändras."
+          "Kundservice kan behöva samtalstext, medan teknisk felsökning ibland klarar sig med status och identifierare. Anpassa åtkomsten efter uppgiften.",
+          "Ta bort eller ändra behörigheter när personal slutar eller byter roll. Se även till att ni vet i vilka verktyg konversationerna finns."
         ],
         "sources": [
           "receive",
@@ -2058,14 +2058,14 @@ export const expandedArticles: Article[] = [
       "rcs känsliga uppgifter kundsupport"
     ],
     "published": "2026-11-01",
-    "description": "Hantera svaret enligt företagets rutiner för den typen av information. Att kunden själv skickade uppgifterna gör inte vidare spridning eller obegränsad lagring lämplig.",
+    "description": "Om en kund skickar känsliga uppgifter, följ verksamhetens rutiner för den informationen. Att uppgifterna kom frivilligt gör inte vidare spridning eller lång lagring lämplig.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Be inte kunden skicka mer känslig information än vad ärendet kräver och erbjud en säkrare eller mer lämplig väg när det behövs. Undvik att kopiera innehållet till öppna tekniska loggar.",
-          "Gör en dataskydds- och säkerhetsbedömning för flödet. Privat RCS-kryptering, verifierad företagsavsändare och hantering i era system är olika frågor som måste bedömas var för sig."
+          "Be inte om mer än ärendet kräver. Flytta vid behov fortsättningen till en säkrare, lämplig kanal och undvik att innehållet kopieras till allmänna loggar.",
+          "Bedöm både dataskydd och säkerhet. Verifierad avsändare säger vem som skickar; den beskriver inte hur kundens svar skyddas i era system."
         ],
         "sources": [
           "receive",
@@ -2083,14 +2083,14 @@ export const expandedArticles: Article[] = [
       "rcs statistik sena rapporter"
     ],
     "published": "2026-11-01",
-    "description": "Leverans- och läshändelser kan rapporteras efter det första utskicket. Därför kan en rapport tagen direkt efter sändning skilja sig från en rapport för samma utskick senare.",
+    "description": "RCS-statistik kan ändras när nya leverans- och läshändelser kommer in. En rapport direkt efter utskick är därför inte alltid slutläget.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera vilka tidsfält och rapportperioder den valda tjänsten använder. Skilj tidpunkt för utskick från tidpunkt för aktivitet och rapportering.",
-          "Ange när jämförelsen gjordes och jämför likvärdiga tidsfönster. Att ett antal ändras senare betyder inte automatiskt att kampanjens mottagarlista ändrades eller att ett nytt meddelande skickades."
+          "Se vilka tidsfält och rapportperioder tjänsten använder. Sändningstid, aktivitetstid och tiden då rapporten kom fram kan skilja sig.",
+          "Jämför rapporter vid likvärdiga tidpunkter och ange när de togs ut. Ett växande antal läsningar betyder inte att fler meddelanden har skickats."
         ],
         "sources": [
           "analytics",
@@ -2108,14 +2108,14 @@ export const expandedArticles: Article[] = [
       "rcs klick konvertering köp"
     ],
     "published": "2026-11-01",
-    "description": "Ett knapptryck visar en handling i meddelandeflödet, inte att ett köp är slutfört. Köpet behöver bekräftas i det system där beställningen faktiskt genomförs.",
+    "description": "Ett klick i RCS visar att kunden valt en handling. Ett köp är ett senare resultat som behöver bekräftas där beställningen genomförs.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Koppla mätningen med relevanta identifierare och ett tydligt definierat resultat. Var försiktig med att kalla varje öppnad produktsida för en konvertering om målet är försäljning.",
-          "Beskriv båda måtten i rapporten. Klick kan hjälpa er förstå intresse och friktion, medan genomförda köp visar ett annat steg och behöver en annan datakälla."
+          "Koppla uppföljningen till rätt utskick med relevanta identifierare. Om försäljning är målet ska en öppnad produktsida inte räknas som ett färdigt köp.",
+          "Redovisa klick och köp var för sig. Då går det att se både intresset för meddelandet och hur många som slutförde nästa steg."
         ],
         "sources": [
           "events",
@@ -2133,14 +2133,14 @@ export const expandedArticles: Article[] = [
       "rcs sms statistik jämför mått"
     ],
     "published": "2026-11-01",
-    "description": "Inte som om de vore samma mått. En leveransrapport och ett läskvitto beskriver olika händelser. SMS och RCS kan dessutom rapportera olika delar av flödet.",
+    "description": "RCS-läsningar och SMS-leveranser är olika mått och ska inte jämföras som om de betydde samma sak. En leveransrapport säger inte att kunden läst.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Jämför ett gemensamt affärsresultat, som bekräftade bokningar, när det är möjligt. Redovisa räckvidd, kostnader och respektive kanals mätmöjligheter separat.",
-          "Ett större rapporterat antal i en kanal behöver inte betyda en bättre kundupplevelse. Först när definitionerna och jämförelsegrupperna stämmer blir slutsatsen meningsfull."
+          "Välj om möjligt ett gemensamt resultat, till exempel bekräftade bokningar. Visa respektive kanals räckvidd, kostnad och statusmått bredvid det.",
+          "Definitioner och jämförbara grupper behövs för en användbar slutsats. Fler rapporterade händelser kan annars bara bero på att en kanal kan mäta mer."
         ],
         "sources": [
           "analytics",
@@ -2158,14 +2158,14 @@ export const expandedArticles: Article[] = [
       "rcs kundservice mått svarstid"
     ],
     "published": "2026-11-01",
-    "description": "För kundservice är det viktigt om kunden får hjälp och ärendet går vidare, inte bara om meddelandet läses. Relevanta mått kan vara tid till första meningsfulla svar och andel slutförda ärenden.",
+    "description": "Kundservice bör mäta om kunden får hjälp, inte enbart om svaret läses. Tid till ett meningsfullt svar och andelen avslutade ärenden kan vara relevanta mått.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Definiera vad slutfört betyder i er verksamhet. En automatisk hälsning är inte samma sak som en löst fråga, och ett knapptryck är inte alltid en utförd ändring.",
-          "Använd leverans- och läsdata som stöd tillsammans med uppgifter från ärendesystemet. Då kan ni skilja kanalproblem från väntetid eller brister i den faktiska hjälpen."
+          "Bestäm vad ett avslutat ärende betyder hos er. En automatisk hälsning löser ingen fråga, och en knapp kan bara skicka en begäran.",
+          "Använd data från ärendesystemet tillsammans med RCS-status. Då blir det lättare att skilja väntan på leverans från väntan på faktisk hjälp."
         ],
         "sources": [
           "receive",
@@ -2184,14 +2184,14 @@ export const expandedArticles: Article[] = [
       "rcs sms reserv kostnad budget"
     ],
     "published": "2026-11-01",
-    "description": "Räkna med den debitering som er tjänst faktiskt använder för RCS och den eventuella reservkanalen. Anta inte att ett reserv-SMS är inkluderat bara för att flödet ser ut som ett enda utskick.",
+    "description": "Budgetera RCS och SMS-reserven enligt tjänstens egna villkor. Ett reserv-SMS behöver inte ingå i priset bara för att utskicket ser ut som ett sammanhängande flöde.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera när en kanal blir debiterad, vilka meddelandedelar som kan uppstå och hur status används för att starta reserven. Begär tydliga villkor innan ni budgeterar större kampanjer.",
-          "Jämför sedan kostnaden med faktiska resultat och räckvidd. En generell prisuppgift för RCS förklarar inte på egen hand totalsumman för ett blandat flöde."
+          "Ta reda på när debitering sker och om SMS-texten blir flera delar. Klargör också vilken status eller tidsgräns som startar reserven.",
+          "Räkna därefter på hela utskicket och dess resultat. Ett RCS-pris ensamt förklarar inte kostnaden för kunder som nås genom olika kanaler."
         ],
         "sources": [
           "send",
@@ -2209,14 +2209,14 @@ export const expandedArticles: Article[] = [
       "rcs debitering leverans rapport"
     ],
     "published": "2026-11-01",
-    "description": "Nej, de beskriver olika saker. En leveransrapport visar dokumenterad meddelandestatus, medan debitering följer tjänstens avtalade prismodell och definitioner.",
+    "description": "En leveransrapport visar meddelandets status. En fakturarapport visar det som debiterats enligt avtalet. De två rapporterna besvarar olika frågor.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera vilka händelser som är fakturerbara och hur olika meddelandetyper eller reservkanaler redovisas. Utgå inte från att ordet accepterat eller levererat ensam avgör priset.",
-          "För uppföljning bör ni kunna koppla rapporterna med identifierare utan att blanda deras betydelse. Be leverantören förklara en avvikelse med konkreta poster, inte bara en totalsiffra."
+          "Läs vilka händelser och meddelandetyper som är fakturerbara. Orden accepterat och levererat avgör inte priset utan tjänstens definitioner.",
+          "Koppla posterna med meddelande-id när summorna behöver följas upp. Be om en förklaring på postnivå om fakturan avviker, inte bara en ny totalsiffra."
         ],
         "sources": [
           "analytics",
@@ -2234,14 +2234,14 @@ export const expandedArticles: Article[] = [
       "rcs pilot testgrupp mottagare"
     ],
     "published": "2026-11-01",
-    "description": "Välj mottagare som är relevanta för det konkreta flödet och som får kontaktas. En pilot ska inte bara bestå av interna telefoner med bästa möjliga stöd om riktiga kunder ser något annat.",
+    "description": "En pilot bör innehålla kunder som passar det valda ärendet och får kontaktas. Enbart interna testtelefoner med bästa möjliga stöd kan ge för snävt underlag.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Ta med variation i telefoner, appar och bekräftat mottagarstöd. Testa också den planerade vägen när RCS eller en viss funktion inte kan användas.",
-          "Bestäm vad ni vill lära er innan starten. En användbar pilot visar hur kunden förstår och slutför uppgiften, inte bara att en förhandsvisning kan skickas."
+          "Ta med relevanta variationer i telefoner och appar. Prova också vägen för mottagare som saknar RCS eller någon av funktionerna.",
+          "Bestäm frågorna före testet: förstår kunden beskedet, fungerar svaret och blir ärendet rätt? Det ger mer än att bara bekräfta att meddelandet gick att skicka."
         ],
         "sources": [
           "practice",
@@ -2259,14 +2259,14 @@ export const expandedArticles: Article[] = [
       "rcs pilot stoppa fel"
     ],
     "published": "2026-11-01",
-    "description": "Pausa när kundinformationen blir fel, avregistrering inte fungerar eller svar leder till fel ärende. Ett tekniskt accepterat utskick ska inte få fortsätta om den verkliga kundupplevelsen är osäker.",
+    "description": "Pausa en pilot om kunduppgifter blir fel, avregistrering misslyckas eller ett svar kopplas till fel ärende. Ett godkänt API-anrop väger inte upp sådana fel.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bestäm ansvar och stoppvillkor innan ni börjar. Kontrollera vad som redan skickats och vilka meddelanden som fortfarande väntar, så att stoppet inte följs av nya automatiska försök.",
-          "Rätta orsaken och prova hela flödet igen innan ni återupptar. En liten pilot gör det möjligt att upptäcka problem utan att utsätta en stor kundgrupp för dem."
+          "Utse en ansvarig och bestäm stoppvillkoren i förväg. Vid stopp behöver ni även se vilka meddelanden som redan skickats och vilka som väntar.",
+          "Rätta orsaken och testa samma fall innan ni fortsätter. Pilotens begränsade storlek är till för att upptäcka fel innan fler kunder påverkas."
         ],
         "sources": [
           "practice",
@@ -2284,14 +2284,14 @@ export const expandedArticles: Article[] = [
       "rcs leverantör välja upphandling"
     ],
     "published": "2026-11-01",
-    "description": "Fråga om räckvidd för er målgrupp, avsändarprocess, innehållsstöd, svarshantering och reservkanal. Be om konkreta villkor för ert konto och er marknad.",
+    "description": "Be en RCS-leverantör visa hur ert eget flöde fungerar: vilka kunder ni kan nå, hur avsändaren godkänns och hur innehåll, svar och reservkanal hanteras.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Klargör prisdefinitioner och vilka delar som är aktiverade eller ännu inte anslutna. En generell funktionslista behöver inte beskriva den tjänst ni faktiskt får tillgång till.",
-          "Be även om dokumentation för datahantering, support och teknisk integration. Ett verkligt test av ert flöde ger bättre underlag än ett löfte att RCS fungerar för alla."
+          "Klargör priser och vad som verkligen är aktiverat för kontot. En allmän funktionslista kan innehålla sådant ni ännu inte har tillgång till.",
+          "Be om villkor för datahantering, support och integration. Ett test med era meddelanden ger bättre beslutsunderlag än ett generellt löfte om täckning."
         ],
         "sources": [
           "send",
@@ -2310,14 +2310,14 @@ export const expandedArticles: Article[] = [
       "rcs företagsmeddelanden iphone räckvidd"
     ],
     "published": "2026-11-01",
-    "description": "Bekräfta först att tjänsten och den registrerade agenten kan nå den avsedda iPhone-målgruppen. Privat RCS mellan två personer är inte ett tillräckligt test av företags-RCS.",
+    "description": "Testa iPhone-räckvidd med företagets registrerade avsändare och den tjänst ni ska använda. En privat RCS-chatt mellan två personer testar inte samma sak.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Använd de kontroller och testmottagare som leverantören erbjuder och prova innehållet på verkliga enheter. Kontrollera också mottagarens inställningar för företagsmeddelanden.",
-          "Redovisa vad testet faktiskt visade och vilka begränsningar som kvarstår. Ett lyckat utskick till en telefon är inte en täckningsgaranti för hela den svenska iPhone-marknaden."
+          "Använd leverantörens mottagarkontroller och skicka det avsedda innehållet till riktiga testenheter. Se också att företagsmeddelanden är tillåtna i mottagarens inställningar.",
+          "Beskriv vilka telefoner och abonnemang testet täckte. En lyckad leverans till en iPhone ger inget säkert besked om alla svenska iPhone-kunder."
         ],
         "sources": [
           "apple",
@@ -2336,14 +2336,14 @@ export const expandedArticles: Article[] = [
       "rcs lansering nyhet operatör stöd"
     ],
     "published": "2026-11-01",
-    "description": "Läs vilket land, vilken operatör, vilken telefon och vilken användning nyheten gäller. Privat chatt på Android, privat iPhone-stöd och företags-RCS är inte utbytbara besked.",
+    "description": "En RCS-nyhet behöver läsas med sitt sammanhang: land, operatör, telefon och typ av användning. Stöd för privat Android-chatt är inte ett besked om företagsutskick till iPhone.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skilj ett annonserat test från allmän tillgänglighet och kontrollera datum och officiell källa. En artikel om framtida planer ska inte bli ett påstående att funktionen redan fungerar på ert konto.",
-          "Vid motstridiga uppgifter ska skillnaden framgå. Be operatören eller utskicksleverantören bekräfta den konkreta räckvidd ni behöver innan kampanjen bygger på nyheten."
+          "Kontrollera datum och officiell källa. En annonserad pilot eller kommande lansering är inte samma sak som en funktion tillgänglig för alla kunder.",
+          "Om beskeden skiljer sig, behåll osäkerheten i planeringen. Fråga operatören eller utskicksleverantören om den räckvidd just er kampanj behöver."
         ],
         "sources": [
           "apple",
@@ -2362,14 +2362,14 @@ export const expandedArticles: Article[] = [
       "rcs ändra namn logotyp agent"
     ],
     "published": "2026-11-01",
-    "description": "Stäm av namn- och profiländringar med tjänstens regler. En redan godkänd avsändare ska inte antas kunna byta varumärke fritt utan ny kontroll.",
+    "description": "En ändring av företagsnamn eller RCS-profil kan kräva ny kontroll enligt tjänstens regler. En godkänd avsändare kan inte förutsättas få byta varumärke fritt.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Se till att den nya profilen motsvarar företaget kunden känner igen och att kontaktuppgifterna är aktuella. Kontrollera även mallar och länkar som annars kan fortsätta visa det gamla namnet.",
-          "Testa hur profilen visas i en verklig konversation. Verifieringen gäller identitet och behörighet, inte bara att en bildfil har laddats upp."
+          "Stäm av ändringen med partnern och uppdatera kontaktuppgifter, mallar och länkar. Det gamla namnet ska inte ligga kvar i nästa steg efter en ny profil.",
+          "Prova profilen i en riktig konversation. Kunden behöver känna igen avsändaren; verifieringen handlar om identitet och behörighet, inte bara om logotypfilen."
         ],
         "sources": [
           "agent",
@@ -2387,14 +2387,14 @@ export const expandedArticles: Article[] = [
       "rcs support marknad agent struktur"
     ],
     "published": "2026-11-01",
-    "description": "Det beror på hur kunden känner igen företaget och hur flödena hanteras. Samma varumärke kan behöva en sammanhängande identitet, men interna behörigheter och marknadsföringsval måste ändå hållas tydliga.",
+    "description": "Support och marknad kan behöva samma igenkännbara RCS-identitet när de representerar samma varumärke. Organisationens interna gränser behöver inte synas för kunden.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Bestäm hur ett pågående supportärende skyddas från orelaterade kampanjer. Kunden ska inte få motsägelsefulla eller störande besked bara för att flera team använder samma kanal.",
-          "Kontrollera med leverantören hur flera agenter eller en gemensam agent fungerar. Välj efter kundupplevelse och faktiska krav, inte enbart efter företagets organisationsschema."
+          "Håll ändå behörigheter och marknadsföringsval tydliga. Ett supportärende ska inte avbrytas av en kampanj som kunden valt bort.",
+          "Fråga leverantören hur en gemensam agent eller flera agenter kan användas. Välj det som passar kundens kontakt med företaget och de regler tjänsten ställer."
         ],
         "sources": [
           "agent",
@@ -2412,14 +2412,14 @@ export const expandedArticles: Article[] = [
       "rcs import kundlista kontroll"
     ],
     "published": "2026-11-01",
-    "description": "Kontrollera numrens kvalitet, relevansen för utskicket och att mottagarna får kontaktas för det aktuella syftet. En importerbar fil är inte ett bevis för tillåten marknadsföring.",
+    "description": "Kontrollera telefonnummer, dubbletter och aktuella spärrar innan en kundlista används. Mottagarna behöver också få kontaktas för utskickets syfte.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Ta bort dubbletter där samma person annars skulle få samma besked flera gånger och respektera aktuella spärrar. Kontrollera att importer inte skriver över en senare avregistrering.",
-          "Prova en liten del av flödet innan hela listan används. Kopplingen mellan mottagare och eventuella orderuppgifter måste också stämma, så att information inte skickas till fel kund."
+          "En gammal import får inte skriva över en ny avregistrering. Se till att rätt orderuppgifter hör till rätt nummer om innehållet anpassas per kund.",
+          "Prova en liten del först. Att filen går att importera säger varken att numren stöder RCS eller att utskicket är tillåtet."
         ],
         "sources": [
           "practice",
@@ -2437,14 +2437,14 @@ export const expandedArticles: Article[] = [
       "rcs kundcase resultat påståenden"
     ],
     "published": "2026-11-01",
-    "description": "Beskriv resultat som går att styrka och ange relevant sammanhang. Ett utfall från en viss kampanj ska inte göras till ett generellt löfte om vad alla kunder kommer att få.",
+    "description": "Kundresultat behöver gå att styrka. Beskriv vad som mättes och i vilken kampanj, i stället för att göra en enskild siffra till ett löfte för alla kunder.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Klargör vad som mättes, exempelvis klick eller slutförda köp, och hur jämförelsen gjordes. En logotyp eller ett omdöme ersätter inte underlag för ett sifferpåstående.",
-          "Använd bara kundnamn och referenser som företaget har rätt att visa. Om resultat saknas är ett tydligt märkt exempel bättre än ett påhittat kundcase."
+          "Skilj klick från köp och ange hur en jämförelse gjordes. En logotyp belägger inte ett resultatpåstående.",
+          "Använd kundnamn och referenser som ni har rätt att visa. Saknas ett kundcase kan ni ge ett tydligt märkt exempel, men inte hitta på en kunds erfarenhet."
         ],
         "sources": [
           "marketing-law"
@@ -2461,14 +2461,14 @@ export const expandedArticles: Article[] = [
       "rcs tillgänglighet uppdatering källkontroll"
     ],
     "published": "2026-11-01",
-    "description": "Ange när uppgiften kontrollerades och vilken källa som gäller. Operatörsstöd och plattformsfunktioner kan förändras, så en gammal lanseringsartikel ska inte stå ensam som aktuellt besked.",
+    "description": "Information om RCS-stöd behöver ett datum för kontrollen och en tydlig källa. En gammal lanseringsnyhet räcker inte alltid för ett aktuellt besked.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Kontrollera officiella operatörssidor och skilj privat chatt från företagsräckvidd. Dokumentera om källor är motstridiga eller om ett stöd inte kunnat bekräftas.",
-          "Uppdatera datum först efter en faktisk kontroll eller innehållsändring. Ett automatiskt nytt datum gör inte en äldre uppgift mer korrekt och kan vilseleda den som försöker välja kanal."
+          "Följ officiella operatörs- och plattformssidor. Skilj privat chatt från företagsräckvidd och notera när källorna säger olika saker.",
+          "Byt kontrolldatum först när uppgiften faktiskt har kontrollerats igen. Ett nytt datum utan ny kontroll gör informationen mer vilseledande, inte mer aktuell."
         ],
         "sources": [
           "apple-carriers",
@@ -2487,14 +2487,14 @@ export const expandedArticles: Article[] = [
       "rcs test mellan operatörer"
     ],
     "published": "2026-11-01",
-    "description": "Använd två telefoner med bekräftat RCS-stöd och kontrollera att båda apparna visar fungerande anslutning. Ett test mellan olika operatörer behöver avgränsa både avsändarens och mottagarens förutsättningar.",
+    "description": "Testa med två telefoner som har fungerande RCS och olika operatörer. Kontrollera anslutningsstatusen på båda innan du börjar.",
     "sections": [
       {
         "id": "forklaring",
-        "title": "Så fungerar det",
+        "title": "",
         "paragraphs": [
-          "Skicka först en enkel text och kontrollera vilken kanal den faktiskt använder. Prova därefter det innehåll ni behöver, som en bild, och ändra bara en förutsättning i taget om något misslyckas.",
-          "Dokumentera operatör, app, systemversion och tidpunkt utan att sprida privata konversationer. Testet visar det aktuella parets funktion, inte generell räckvidd för alla abonnemang eller företagsagenter."
+          "Skicka en enkel text och läs vilken kanal som användes. Prova sedan bilden eller funktionen du vill undersöka. Vid fel, ändra en förutsättning i taget.",
+          "Anteckna app, systemversion, operatör och tid utan att sprida privata samtal. Resultatet gäller det testade paret, inte alla abonnemang eller företagsavsändare."
         ],
         "sources": [
           "tele2-rcs",
