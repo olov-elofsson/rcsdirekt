@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Visa de fyra önskade kundlogotyperna enligt referensen och rätta Maptun; bekräfta Nervia/Nercia
+- [x] Visa Nercia, Bilia, Maptun och Deligate enligt referensen och rätta Maptuns logotyp; kontrollera dator, mobil och produktsida
 
 - [x] Bearbeta språket i alla 157 blogginlägg, ta bort mekaniska tillägg och kontrollera läsning och sökning
 
