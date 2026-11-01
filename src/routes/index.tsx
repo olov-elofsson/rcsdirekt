@@ -7,7 +7,7 @@ import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { pricingPlans } from "@/data/pricing-plans";
-import { articles, readingMinutes } from "@/data/rcs-knowledge";
+import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
