@@ -28,6 +28,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-reference-tile: var(--reference-tile);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
@@ -77,6 +78,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
   --border: #e3e2f5;
+  --reference-tile: #e7e5fa;
   --border-strong: #15115f;
   --input: #e3e2f5;
   --ring: #15115f;

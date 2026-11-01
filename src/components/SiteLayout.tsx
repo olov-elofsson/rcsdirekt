@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { CustomerReferences } from "@/components/CustomerReferences";
 
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -199,6 +200,7 @@ export function DetailPage({ title, intro, children, aside }: { title: string; i
             {aside ? <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">{aside}</aside> : null}
           </div>
         </section>
+        <CustomerReferences compact />
       </main>
       <SiteFooter />
     </div>
