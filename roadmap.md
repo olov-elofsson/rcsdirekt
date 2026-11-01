@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Förenkla blogg och artikelvyer, korta alla artiklar och skapa egna begreppsartiklar
+- [ ] Kontrollera sökning, begreppslänkar och läsning på dator och mobil
+
 - [x] Bygg RCS-blogg med ordlista och första källbelagda guider
 - [x] Ta fram svensk sökordsplan och publiceringsordning samtidigt
 - [x] Kontrollera artikelvisning, sökning och interna länkar
