@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { articles, readingMinutes, searchArticles } from "@/data/rcs-knowledge";
 
 export const Route = createFileRoute("/blogg/")({
-  head: () => knowledgeHead("RCS-blogg: korta svar om RCS, företag och teknik", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
+  head: () => knowledgeHead("RCS, enkelt förklarat – RCS-bloggen", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
   component: BlogPage,
 });
 
