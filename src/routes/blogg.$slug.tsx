@@ -32,7 +32,7 @@ function ArticlePage() {
   return <KnowledgeLayout><article className="mx-auto max-w-3xl px-5 py-12 sm:py-16 lg:px-8">
     <Link to="/blogg" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-logo-blue"><ArrowLeft className="size-4" /> Alla artiklar</Link>
     <header className="mt-8"><h1 className="text-3xl leading-tight tracking-normal sm:text-4xl">{article.title}</h1><div className="mt-5 flex items-center gap-3"><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span></div><p className="mt-7 text-lg leading-[1.75] text-foreground">{article.description}</p></header>
-    <div className="mt-7 space-y-10">{article.sections.map((section) => <section key={section.id} id={section.id}>{section.title ? <h2 className="mb-5 text-xl leading-snug tracking-normal sm:text-2xl">{section.title}</h2> : null}<div className="space-y-5 text-lg leading-[1.75] text-muted-foreground">{[...section.paragraphs, ...(section.points ?? [])].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section>)}</div>
+    <div className="mt-7 space-y-5 text-lg leading-[1.75] text-muted-foreground">{blocks.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
     {article.facts?.length ? <section aria-labelledby="originalkallor" className="mt-12 bg-muted px-5 py-6 sm:px-7 sm:py-7">
       <h2 id="originalkallor" className="text-xl leading-snug sm:text-2xl">Vad säger originalkällorna?</h2>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Sammanställda uppgifter från originalkällorna, inte RCS direkts egna utskicksresultat.</p>
