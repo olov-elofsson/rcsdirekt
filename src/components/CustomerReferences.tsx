@@ -16,7 +16,7 @@ export function CustomerReferences({ compact = false }: { compact?: boolean }) {
                 src={customer.logo}
                 alt={customer.name}
                 loading="lazy"
-                className="max-h-7 w-full max-w-24 object-contain opacity-60 brightness-0 grayscale mix-blend-multiply sm:max-h-8 sm:max-w-28"
+                className="max-h-7 w-full max-w-24 object-contain opacity-60 grayscale mix-blend-multiply sm:max-h-8 sm:max-w-28"
               />
             </div>
           ))}
