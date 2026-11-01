@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Kontrollera alla sidors linjering, proportioner, rubriker, knappar, kort och avstånd på dator och mobil
+- [x] Kontrollera alla sidors linjering, proportioner, rubriker, knappar, kort och avstånd på dator och mobil
 
 - [x] Samla begrepp och guider i bloggen, ta bort separata flikar och ordlistelänkar, och behåll gamla adresser genom vidarebefordran
 
