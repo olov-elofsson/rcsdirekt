@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Förbättra bloggens översikt, källförteckning och etiketter
-- [ ] Lägg till 100 nya källbelagda artiklar och motsvarande sökordslista, med särskilt fokus på aktuellt mottagarstöd
-- [ ] Lyft startsidan och offentliga undersidor med bekräftade kundreferenser och riktiga logotyper
+- [x] Förbättra bloggens översikt, källförteckning och etiketter
+- [x] Lägg till 100 nya källbelagda artiklar och motsvarande sökordslista, med särskilt fokus på aktuellt mottagarstöd
+- [x] Lyft startsidan och offentliga produktsidor med sex bekräftade kundreferenser och riktiga logotyper
 
 - [x] Kontrollera alla sidors linjering, proportioner, rubriker, knappar, kort och avstånd på dator och mobil
 

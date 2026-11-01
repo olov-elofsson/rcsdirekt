@@ -1,5 +1,5 @@
-import deligate from "@/assets/customer-deligate.svg.asset.json";
-import bigBowl from "@/assets/customer-big-bowl.svg.asset.json";
+import deligate from "@/assets/customer-deligate-ink.svg.asset.json";
+import bigBowl from "@/assets/customer-big-bowl-ink.svg.asset.json";
 import nercia from "@/assets/customer-nercia.png.asset.json";
 import budgetGolf from "@/assets/customer-budget-golf.png.asset.json";
 import leica from "@/assets/customer-leica.jpg.asset.json";
