@@ -30,3 +30,18 @@ test("alla fördjupningar och relaterade guider har befintliga artiklar", () => 
   for (const term of glossary) expect(slugs.includes(term.article)).toBe(true);
   for (const article of articles) for (const slug of article.related) expect(slugs.includes(slug)).toBe(true);
 });
+
+test("vart och ett av de 27 begreppen har en egen unik artikel", () => {
+  expect(glossary).toHaveLength(27);
+  expect(new Set(glossary.map((entry) => entry.article)).size).toBe(27);
+  for (const entry of glossary) {
+    const article = articles.find((item) => item.slug === entry.article);
+    expect(article).toBeDefined();
+    expect(article?.sections.flatMap((section) => section.sources).includes(entry.source)).toBe(true);
+  }
+});
+
+test("nya begreppsartiklar går att hitta i bloggens sökning", () => {
+  expect(searchArticles("postbackData", "Begrepp").map((article) => article.slug)).toEqual(["begrepp-postback-data"]);
+  expect(searchArticles("webhook", "Begrepp").map((article) => article.slug)).toEqual(["begrepp-webhook"]);
+});
