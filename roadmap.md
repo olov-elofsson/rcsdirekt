@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Fördjupa alla 157 artiklar med ämnesspecifik text och visa sammanställda originalkällor
+- [ ] Komplettera med RCS direkts egen statistik när underlaget har delats
+
 - [x] Ta bort de avvisade förtroendesignalerna och gör en ny kompakt logotyppresentation; kontrollera dator och mobil
 
 - [x] Flytta kundreferenserna högt upp, förenkla logotypsektionen och lägg till sakliga förtroendesignaler; kontrollera dator och mobil
