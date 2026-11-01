@@ -5,7 +5,7 @@ import deligate from "@/assets/customer-deligate-mono.svg";
 
 export const customerReferences = [
   { name: "Nercia", logo: nercia },
+  { name: "Deligate", logo: deligate },
   { name: "Bilia", logo: bilia },
   { name: "Maptun", logo: maptun },
-  { name: "Deligate", logo: deligate },
 ];
