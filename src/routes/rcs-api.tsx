@@ -123,7 +123,10 @@ function RcsApiPage() {
         <div id="exempel" className="mt-8">
           <div className="flex flex-wrap gap-2">
             {examples.map((ex, i) => (
-              <button
+              <Button
+                type="button"
+                variant={i === active ? "default" : "outline"}
+                aria-pressed={i === active}
                 key={ex.label}
                 onClick={() => setActive(i)}
                 className={cn(
@@ -134,7 +137,7 @@ function RcsApiPage() {
                 )}
               >
                 {ex.label}
-              </button>
+              </Button>
             ))}
           </div>
           <div className="mt-4 overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">

@@ -35,18 +35,20 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-5 lg:px-8">
+      <div className="mx-auto grid h-20 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <div className="flex shrink-0 items-center gap-6">
-          <a href="https://portal.rcsdirekt.se/login" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
+        <div className="flex shrink-0 items-center gap-5">
+          <a href="https://portal.rcsdirekt.se/login" className="hidden h-10 items-center text-sm font-semibold leading-none text-foreground transition-colors hover:text-logo-blush sm:inline-flex">
             Logga in
           </a>
-          <Button asChild size="sm" className="hidden sm:inline-flex">
+          <Button asChild className="hidden sm:inline-flex">
             <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
           </Button>
-          <button
+          <Button
+            variant="outline"
+            size="icon"
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
@@ -55,7 +57,7 @@ export function SiteHeader() {
             className="grid size-11 shrink-0 place-items-center rounded-full border border-border/70 text-foreground transition-colors hover:bg-primary-soft md:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+          </Button>
         </div>
       </div>
       {open ? (
@@ -66,7 +68,7 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
             className="absolute inset-0 h-full w-full bg-foreground/10 backdrop-blur-[2px]"
           />
-          <nav aria-label="Huvudmeny" className="relative mx-4 overflow-hidden rounded-3xl border border-border/70 bg-background p-5 shadow-lift">
+          <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-lg border border-border/70 bg-background p-5 shadow-lift">
             <ul className="divide-y divide-border">
               {mobileNav.map((item) => (
                 <li key={item.to}>
@@ -184,17 +186,17 @@ export function DetailPage({ title, intro, children, aside }: { title: string; i
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden bg-primary-soft pt-24 pb-24 sm:pt-28 sm:pb-28">
+        <section className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-28">
           <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 top-12 size-56 opacity-[0.07]" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">{title}</h1>
+            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-normal sm:text-5xl lg:text-6xl">{title}</h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{intro}</p>
           </div>
         </section>
-        <section className="py-24 sm:py-28">
-          <div className="mx-auto grid max-w-6xl gap-14 px-5 lg:grid-cols-[1fr_0.72fr] lg:gap-20 lg:px-8">
-            <div className="space-y-12">{children}</div>
-            {aside ? <aside className="lg:sticky lg:top-24 lg:self-start">{aside}</aside> : null}
+        <section className="py-16 sm:py-24 lg:py-28">
+          <div className="mx-auto grid max-w-6xl items-start gap-10 px-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.72fr)] lg:gap-16 lg:px-8">
+            <div className="min-w-0 space-y-10">{children}</div>
+            {aside ? <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">{aside}</aside> : null}
           </div>
         </section>
       </main>
@@ -204,5 +206,5 @@ export function DetailPage({ title, intro, children, aside }: { title: string; i
 }
 
 export function ContentBlock({ title, children }: { title: string; children: ReactNode }) {
-  return <div className="border-t border-border pt-8 first:border-t-0 first:pt-0"><h2 className="text-2xl font-extrabold sm:text-3xl">{title}</h2><div className="mt-4 text-base leading-relaxed text-muted-foreground">{children}</div></div>;
+  return <div className="border-t border-border pt-8 first:border-t-0 first:pt-0"><h2 className="text-2xl font-extrabold leading-tight tracking-normal sm:text-3xl">{title}</h2><div className="mt-5 text-base leading-relaxed text-muted-foreground">{children}</div></div>;
 }

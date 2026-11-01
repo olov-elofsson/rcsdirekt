@@ -3,7 +3,7 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import { Check, Github, KeyRound } from "lucide-react";
 
-import { SiteHeader } from "@/components/SiteLayout";
+import { SiteHeader, SiteFooter } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -94,14 +94,7 @@ function SignupPage() {
         </div>
       </main>
 
-      <footer className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-6 text-xs text-muted-foreground lg:px-8">
-        <span>© {new Date().getFullYear()} RCS Direkt</span>
-        <span className="flex gap-5">
-          <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-foreground">Villkor</a>
-          <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-foreground">Integritet</a>
-          <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-foreground">Kontakta oss</a>
-        </span>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
