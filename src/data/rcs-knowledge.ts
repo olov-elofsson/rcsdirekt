@@ -242,9 +242,9 @@ const playfulIntros: Record<string, string> = {
 };
 
 export const articles: Article[] = [
-  ...baseArticles.map((article) => playfulIntros[article.slug]
-    ? { ...article, sections: article.sections.map((section, index) => index === 0 ? { ...section, paragraphs: [playfulIntros[article.slug], ...section.paragraphs] } : section) }
-    : article),
+  ...baseArticles.map((article) => { const intro = playfulIntros[article.slug]; return intro
+    ? { ...article, sections: article.sections.map((section, index) => index === 0 ? { ...section, paragraphs: [intro, ...section.paragraphs] } : section) }
+    : article; }),
   ...grunderArticles,
   ...foretagArticles,
   ...teknikArticles,
