@@ -11,6 +11,7 @@ import { pricingPlans } from "@/data/pricing-plans";
 import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
 import { CustomerReferences } from "@/components/CustomerReferences";
+import { Wave } from "@/components/BandWave";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
