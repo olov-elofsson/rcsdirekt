@@ -23,6 +23,12 @@ export const Route = createFileRoute("/blogg/$slug")({
 function ArticlePage() {
   const article = Route.useLoaderData();
   const references = findSources(article.sections.flatMap((section) => section.sources));
+  const blocks = article.sections.flatMap((section) => {
+    const items = [...section.paragraphs, ...(section.points ?? [])];
+    const merged: string[] = [];
+    for (let i = 0; i < items.length; i += 2) merged.push(items.slice(i, i + 2).join(" "));
+    return merged;
+  });
   return <KnowledgeLayout><article className="mx-auto max-w-3xl px-5 py-12 sm:py-16 lg:px-8">
     <Link to="/blogg" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-logo-blue"><ArrowLeft className="size-4" /> Alla artiklar</Link>
     <header className="mt-8"><h1 className="text-3xl leading-tight tracking-normal sm:text-4xl">{article.title}</h1><div className="mt-5 flex items-center gap-3"><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span></div><p className="mt-7 text-lg leading-[1.75] text-foreground">{article.description}</p></header>
