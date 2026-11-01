@@ -1,11 +1,11 @@
-import deligate from "@/assets/customer-deligate-ink.svg.asset.json";
-import nercia from "@/assets/customer-nercia.png.asset.json";
-import bilia from "@/assets/customer-bilia.svg.asset.json";
-import maptun from "@/assets/customer-maptun-current.png.asset.json";
+import nercia from "@/assets/customer-nercia-mono.png";
+import bilia from "@/assets/customer-bilia-mono.svg";
+import maptun from "@/assets/customer-maptun-mono.png";
+import deligate from "@/assets/customer-deligate-mono.svg";
 
 export const customerReferences = [
-  { name: "Nercia", logo: nercia.url },
-  { name: "Bilia", logo: bilia.url },
-  { name: "Maptun", logo: maptun.url },
-  { name: "Deligate", logo: deligate.url },
+  { name: "Nercia", logo: nercia },
+  { name: "Bilia", logo: bilia },
+  { name: "Maptun", logo: maptun },
+  { name: "Deligate", logo: deligate },
 ];
