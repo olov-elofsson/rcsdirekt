@@ -104,8 +104,8 @@ function RcsApiPage() {
       title="Ett enkelt API för RCS"
       intro="Skicka rika RCS-meddelanden från era egna system. Ett vanligt HTTPS-anrop räcker: mottagare, avsändare och meddelandet."
       aside={
-        <div className="rounded-[2rem] border border-border bg-primary-soft p-7 shadow-card sm:p-9">
-          <h2 className="text-2xl font-extrabold">Så enkelt är det</h2>
+        <div className="rounded-lg border border-border bg-primary-soft p-7 shadow-card sm:p-9">
+          <h3 className="text-2xl font-extrabold leading-tight">Så enkelt är det</h3>
           <p className="mt-3 leading-relaxed text-muted-foreground">Ett anrop, tre fält och ett svar i JSON. Allt annat lägger du till när du behöver det.</p>
           <div className="mt-7 flex flex-col gap-3">
             <Button asChild>
@@ -123,7 +123,10 @@ function RcsApiPage() {
         <div id="exempel" className="mt-8">
           <div className="flex flex-wrap gap-2">
             {examples.map((ex, i) => (
-              <button
+              <Button
+                type="button"
+                variant={i === active ? "default" : "outline"}
+                aria-pressed={i === active}
                 key={ex.label}
                 onClick={() => setActive(i)}
                 className={cn(
@@ -134,10 +137,10 @@ function RcsApiPage() {
                 )}
               >
                 {ex.label}
-              </button>
+              </Button>
             ))}
           </div>
-          <div className="mt-4 overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
+          <div className="mt-4 overflow-hidden rounded-lg border border-ink-foreground/10 bg-ink shadow-card">
             <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
               <span className="rounded-md bg-ink-foreground/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-ink-foreground">POST</span>
               <span className="font-mono text-xs text-ink-muted sm:text-sm">/rcs/send</span>
@@ -145,7 +148,7 @@ function RcsApiPage() {
             </div>
             <JsonBlock code={examples[active]?.code ?? ""} />
           </div>
-          <div className="mt-4 overflow-hidden rounded-3xl border border-ink-foreground/10 bg-ink shadow-card">
+          <div className="mt-4 overflow-hidden rounded-lg border border-ink-foreground/10 bg-ink shadow-card">
             <div className="flex items-center gap-3 border-b border-ink-foreground/10 px-5 py-3 sm:px-6">
               <span className="rounded-md bg-ink-foreground/10 px-2.5 py-1 text-[11px] font-bold tracking-wide text-ink-foreground">200</span>
               <span className="font-mono text-xs text-ink-muted sm:text-sm">OK</span>
@@ -155,13 +158,13 @@ function RcsApiPage() {
           </div>
         </div>
         <p className="mt-4 text-sm text-muted-foreground">Exemplen visar principen. Adresser och API-nycklar lämnas ut när API-tillgången aktiveras för ert konto.</p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {[
             { title: "Tre fält räcker", text: "Mottagare, avsändare och meddelandet. Resten är valfritt." },
             { title: "Vanlig HTTP och JSON", text: "Fungerar från vilket programmeringsspråk eller ramverk som helst." },
             { title: "Svar direkt i JSON", text: "Besked om meddelandet är accepterat kommer i samma anrop." },
           ].map(({ title, text }) => (
-            <div key={title} className="rounded-2xl bg-muted p-5">
+            <div key={title} className="rounded-lg bg-muted p-5">
               <Check className="size-5 text-primary" />
               <h3 className="mt-4 text-base font-extrabold">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
@@ -169,10 +172,10 @@ function RcsApiPage() {
           ))}
         </div>
       </ContentBlock>
-      <div className="rounded-[2rem] bg-primary p-7 text-primary-foreground sm:p-9">
-        <h2 className="text-2xl font-extrabold sm:text-3xl">Redo att bygga med RCS?</h2>
+      <div className="rounded-lg bg-primary p-7 text-primary-foreground sm:p-9">
+        <h2 className="text-2xl font-extrabold leading-tight tracking-normal sm:text-3xl">Redo att bygga med RCS?</h2>
         <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">Kontakta oss för API-tillgång och hjälp med att planera er första integration.</p>
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Button asChild variant="inverted">
             <a href="/kontakt">Kontakta oss <ArrowRight /></a>
           </Button>

@@ -20,15 +20,15 @@ export const Route = createFileRoute("/kontakt")({
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden bg-primary-soft pt-24 pb-24 sm:pt-28 sm:pb-28">
+        <section className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-28">
           <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 top-12 size-56 opacity-[0.07]" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">Kontakta oss</h1>
+            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-normal sm:text-5xl lg:text-6xl">Kontakta oss</h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Har du frågor om RCS, priser eller hur ni kommer igång? Hör av dig så återkommer vi så snart vi kan.</p>
           </div>
         </section>
-        <section className="py-24 sm:py-28">
-          <div className="mx-auto grid max-w-6xl gap-14 px-5 lg:grid-cols-2 lg:gap-20 lg:px-8">
+        <section className="py-16 sm:py-24 lg:py-28">
+          <div className="mx-auto grid max-w-6xl items-start gap-10 px-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:px-8">
             <div>
               <h2 className="text-2xl font-extrabold sm:text-3xl">Kontakt</h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">

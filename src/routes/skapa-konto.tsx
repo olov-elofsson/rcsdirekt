@@ -3,7 +3,7 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import { Check, Github, KeyRound } from "lucide-react";
 
-import { SiteHeader } from "@/components/SiteLayout";
+import { SiteHeader, SiteFooter } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,22 +57,22 @@ function SignupPage() {
       <SiteHeader />
 
       <main className="flex flex-1 items-center justify-center px-5 py-10">
-        <div className="w-full max-w-md rounded-[2rem] border border-border bg-card p-8 shadow-card sm:p-10">
+        <div className="w-full max-w-md rounded-lg border border-border bg-card p-8 shadow-card sm:p-10">
           {sent ? (
             <div className="text-center">
               <span className="mx-auto grid size-12 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-5" /></span>
-              <h1 className="mt-5 text-2xl font-extrabold tracking-tight">Tack för din registrering!</h1>
+              <h1 className="mt-5 text-2xl font-extrabold tracking-normal">Tack för din registrering!</h1>
               <p className="mt-3 text-muted-foreground">Vi hör av oss inom kort med nästa steg för att aktivera ditt konto.</p>
             </div>
           ) : (
             <>
-              <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Skapa ditt konto</h1>
+              <h1 className="text-2xl font-extrabold tracking-normal sm:text-3xl">Skapa ditt konto</h1>
               <p className="mt-2 text-sm text-muted-foreground">Har du redan ett konto? <a href="https://portal.rcsdirekt.se/login" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>
 
               <form noValidate onSubmit={onSubmit} className="mt-7 space-y-3">
                 <div className="space-y-2">
                   <Label htmlFor="email">E-post</Label>
-                  <Input id="email" name="email" type="email" autoComplete="email" placeholder="namn@foretag.se" className="h-12 rounded-xl bg-background" aria-invalid={!!error} />
+                  <Input id="email" name="email" type="email" autoComplete="email" placeholder="namn@foretag.se" className="h-12 rounded-md bg-background" aria-invalid={!!error} />
                   {error ? <p className="text-xs font-semibold text-destructive">{error}</p> : null}
                 </div>
                 <Button type="submit" size="lg" className="w-full">Fortsätt</Button>
@@ -94,14 +94,7 @@ function SignupPage() {
         </div>
       </main>
 
-      <footer className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-6 text-xs text-muted-foreground lg:px-8">
-        <span>© {new Date().getFullYear()} RCS Direkt</span>
-        <span className="flex gap-5">
-          <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-foreground">Villkor</a>
-          <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-foreground">Integritet</a>
-          <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-foreground">Kontakta oss</a>
-        </span>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

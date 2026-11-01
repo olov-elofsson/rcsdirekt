@@ -35,7 +35,7 @@ function Annotation({ id, active, onActive, align }: { id: DemoFeatureId; active
   return <button type="button" onMouseEnter={() => onActive(id)} onMouseLeave={() => onActive(null)} onFocus={() => onActive(id)} onBlur={() => onActive(null)} className={cn("group hidden w-full items-center gap-3 text-left min-[1000px]:flex", align === "left" && "flex-row-reverse text-right")}>
     <span className={cn("relative h-px w-16 shrink-0 bg-logo-blush transition-all duration-300 xl:w-24", active === id && "w-24 xl:w-32")}><span className={cn("absolute top-1/2 size-2 -translate-y-1/2 rounded-full border-2 border-logo-blush bg-background", align === "left" ? "left-0" : "right-0")} /></span>
     <span className={cn("grid size-8 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground transition-transform", active === id && "scale-110")}>{id}</span>
-    <span className="max-w-[12rem]"><strong className="block text-sm leading-tight">{item.title}</strong><span className="mt-1 block text-xs leading-snug text-muted-foreground">{item.copy}</span></span>
+    <span className="min-w-0 max-w-[12rem] flex-1"><strong className="block text-sm leading-tight">{item.title}</strong><span className="mt-1 block text-xs leading-snug text-muted-foreground">{item.copy}</span></span>
   </button>;
 }
 
@@ -71,7 +71,7 @@ export function InteractiveRcsDemo() {
   return <div className="mx-auto w-full max-w-6xl">
     <div className="relative isolate">
       <div aria-hidden className="phone-halo" />
-      <div className="relative mb-8"><h2 className="text-center text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]">Så fungerar RCS</h2><p className="mx-auto mt-4 max-w-md text-center text-base leading-relaxed text-muted-foreground">Peka eller tryck på siffrorna så förklarar vi vad du ser.</p></div>
+      <div className="relative mb-8"><h2 className="text-center text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">Så fungerar RCS</h2><p className="mx-auto mt-4 max-w-md text-center text-base leading-relaxed text-muted-foreground">Peka eller tryck på siffrorna så förklarar vi vad du ser.</p></div>
       <div className="relative grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[600px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div>
 

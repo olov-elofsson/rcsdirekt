@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Kontrollera alla sidors linjering, proportioner, rubriker, knappar, kort och avstånd på dator och mobil
+
 - [x] Samla begrepp och guider i bloggen, ta bort separata flikar och ordlistelänkar, och behåll gamla adresser genom vidarebefordran
 
 - [x] Visa bloggkategorier som taggar, ta bort fotnoter och relaterade artiklar, och förklara ämnena i sammanhängande text med praktiska exempel
