@@ -1,0 +1,15 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Search, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { KnowledgeLayout, knowledgeHead } from "@/components/KnowledgeLayout";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { findSources, glossary, searchGlossary } from "@/data/rcs-knowledge";
+
+export const Route = createFileRoute("/ordlista")({ head: () => knowledgeHead("RCS-ordlista: RBM, rich cards, agent och andra begrepp", "Svenska förklaringar av RCS-termer. Förstå RBM, agent, rich cards, karuseller, verifierad avsändare, webhooks och SMS-fallback med länkar till källor och guider.", "/ordlista"), component: GlossaryPage });
+
+function GlossaryPage() {
+  const [query, setQuery] = useState("");
+  const results = searchGlossary(query);
+  return <KnowledgeLayout><section className="mx-auto max-w-6xl px-5 pt-16 pb-20 sm:pt-24 lg:px-8"><h1 className="text-4xl tracking-normal sm:text-6xl">RCS-ordlista</h1><p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">{glossary.length} begrepp om meddelanden, företagsavsändare och integrationer. Från den första förkortningen till tekniken bakom ett kundsvar.</p><div className="relative mt-10 max-w-xl"><Search aria-hidden className="pointer-events-none absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Sök i ordlistan" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Sök exempelvis RBM, knapp eller reservkanal" className="pl-9" /></div><p role="status" className="mt-5 text-sm text-muted-foreground">{results.length} begrepp</p><dl className="mt-6">{results.map((entry) => <div key={entry.term} className="grid gap-4 border-t border-border py-8 sm:grid-cols-[210px_minmax(0,1fr)] sm:gap-12"><dt className="text-xl font-bold">{entry.term}</dt><dd><p className="max-w-3xl text-lg leading-relaxed text-muted-foreground">{entry.definition}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/blogg/$slug" params={{ slug: entry.article }} className="inline-flex items-center gap-2 font-semibold hover:text-logo-blue">Fördjupning <ArrowRight className="size-4" /></Link>{findSources([entry.source]).map((source) => <a key={source.id} href={source.url} className="text-muted-foreground underline underline-offset-4 hover:text-logo-blue">{source.title}</a>)}</div></dd></div>)}</dl>{results.length === 0 ? <div className="py-10"><h2 className="text-xl tracking-normal">Inga begrepp hittades</h2><p className="mt-3 text-muted-foreground">Prova en annan term eller en svensk beskrivning.</p><Button variant="outline" className="mt-5" onClick={() => setQuery("")}>Visa hela ordlistan</Button></div> : null}<p className="mt-10 max-w-3xl text-sm leading-relaxed text-muted-foreground">Förklaringarna beskriver RCS och dokumenterade plattformsfunktioner, inte vilka tjänster som är aktiverade på ett specifikt konto. Ordlistan är ett första urval av centrala begrepp, inte en komplett teknisk specifikation.</p></section></KnowledgeLayout>;
+}

@@ -14,3 +14,4 @@
 - Produktsidor: använd korta, skannbara funktionsöversikter och märk ännu ej anslutna tjänster som kommande eller kontoaktiverade för att undvika felaktiga produktlöften.
 - Meddelandetyper: det finns ingen jämförelsesida; RCS Basic, Single och Conversation lever bara på sina egna undersidor (/rcs-basic, /rcs-single, /rcs-conversation). Gamla länkar till /jamfor-planer vidarebefordras till startsidan. Uppmuntra inte nya länkar till en samlad jämförelsesida.
 - RCS-demonstration: håll startsidans telefon och allt redigerbart demoinnehåll separerade i en komponent och datafil så upplevelsen kan utvecklas utan att belasta sidrutten.
+- Knowledge content lives in a browser-safe typed data module, with shared article and glossary views and synchronous lookup loaders; this keeps source citations, related links and searchable content consistent without requiring a backend.
