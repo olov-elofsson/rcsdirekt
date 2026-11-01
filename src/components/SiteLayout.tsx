@@ -39,9 +39,9 @@ export function SiteHeader() {
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
         <div className="flex shrink-0 items-center gap-6">
-          <Link to="/skapa-konto" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
+          <a href="https://portal.rcsdirekt.se/login" className="hidden text-sm font-semibold text-foreground transition-colors hover:text-logo-blush sm:block">
             Logga in
-          </Link>
+          </a>
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
           </Button>
@@ -80,9 +80,9 @@ export function SiteHeader() {
               ))}
             </ul>
             <div className="mt-5 flex flex-col gap-3">
-              <Link to="/skapa-konto" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
+              <a href="https://portal.rcsdirekt.se/login" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
                 Logga in
-              </Link>
+              </a>
               <Button asChild size="lg" className="w-full">
                 <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
               </Button>
@@ -114,7 +114,7 @@ const footerNav = [
     title: "Kom igång",
     links: [
       { label: "Skapa konto", to: "/skapa-konto" },
-      { label: "Logga in", to: "/skapa-konto" },
+      { label: "Logga in", href: "https://portal.rcsdirekt.se/login" },
       { label: "Kontakt", to: "/kontakt" },
     ],
   },
