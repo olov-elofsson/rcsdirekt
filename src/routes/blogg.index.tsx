@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { articles, readingMinutes, searchArticles } from "@/data/rcs-knowledge";
 
 export const Route = createFileRoute("/blogg/")({
-  head: () => knowledgeHead("RCS, enkelt förklarat – RCS-bloggen", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
+  head: () => knowledgeHead("RCS-bloggen", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
   component: BlogPage,
 });
 
@@ -22,7 +22,7 @@ function BlogPage() {
   return <KnowledgeLayout>
     <section className="mx-auto max-w-5xl px-5 py-12 sm:py-20 lg:px-8">
       <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-8 border-b border-border pb-10">
-        <div><h1 className="text-4xl leading-tight tracking-normal sm:text-5xl">RCS, enkelt förklarat</h1><p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">Vad det är. Hur det fungerar. Vad som gäller.</p></div>
+        <div><h1 className="text-4xl leading-tight tracking-normal sm:text-5xl">RCS-bloggen</h1><p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">Vad det är. Hur det fungerar. Vad som gäller.</p></div>
         <img src={cover} alt="Telefon med RCS-meddelandekort och ett kuvert" width={1440} height={960} className="hidden w-44 shrink-0 rounded-lg sm:block" />
       </header>
       {!query && category === "Alla" ? <section className="mt-9 border-b border-border pb-9"><h2 className="text-2xl leading-tight tracking-normal">Aktuellt om RCS i Sverige</h2><div className="mt-5 grid gap-4 lg:grid-cols-3">{featured.map((article) => <Link key={article.slug} to="/blogg/$slug" params={{ slug: article.slug }} className="group flex min-w-0 flex-col rounded-lg bg-primary-soft p-5"><Badge variant="outline" className="w-fit border-transparent bg-background text-primary">Mobil & operatörer</Badge><h3 className="mt-4 text-lg leading-snug group-hover:text-logo-blue">{article.title}</h3><p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{article.description}</p><span className="mt-5 flex items-center justify-between gap-3 text-xs font-semibold text-muted-foreground">Kontrollerat 1 november 2026<ArrowUpRight className="size-4 shrink-0" /></span></Link>)}</div></section> : null}
