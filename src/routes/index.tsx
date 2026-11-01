@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BarChart3, Check, Code2, Globe, TrendingUp, Wallet, X } from "lucide-react";
 
+
 import { LeadForm } from "@/components/LeadForm";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { pricingPlans } from "@/data/pricing-plans";
+import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -26,7 +28,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "/skapa-konto";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><ContactSection /></main><SiteFooter /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]";
@@ -78,6 +80,11 @@ function Advantages() {
 
 function Pricing() {
   return <section id="pris" className="relative bg-primary-soft pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip className="h-12 sm:h-16 lg:h-24" fill="var(--color-background)" /><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-28 h-52 w-52 opacity-[0.08] lg:left-16" /><div aria-hidden className="deco-dots pointer-events-none absolute bottom-28 right-8 h-52 w-52 opacity-[0.08] lg:right-16" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>Pris per meddelande</h2><p className="mt-5 text-base font-bold">Inga månadskostnader</p><p className="mt-2 text-sm leading-relaxed text-muted-foreground">Inga startavgifter och inga bindningstider. Skapa ditt konto och skicka ditt första RCS-meddelande på minuter.</p></div><div className="mt-14 grid gap-5 sm:grid-cols-3">{pricingPlans.map((plan) => <Link key={plan.name} to={plan.slug} className={cn("group relative rounded-[2rem] border bg-card p-8 text-center shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift", plan.badge ? "border-primary/30" : "border-border/80 hover:border-foreground/25")}>{plan.badge ? <span className="absolute -top-3 left-1/2 inline-flex h-7 -translate-x-1/2 items-center rounded-full bg-primary px-4 text-xs font-bold whitespace-nowrap text-primary-foreground">{plan.badge}</span> : null}<p className="text-sm font-bold">{plan.name}</p><p className="mt-6 text-[2.6rem] font-extrabold leading-none tracking-[-0.03em]">{plan.price}</p><p className="mt-2 text-xs text-muted-foreground">per meddelande</p></Link>)}</div></div><Wave fill="var(--color-background)" className="h-10 sm:h-14 lg:h-20" /></section>;
+}
+
+function BlogSection() {
+  const picks = ["vad-ar-rcs", "rcs-e-handel", "rcs-fallback-sms"].map((slug) => articles.find((article) => article.slug === slug)).filter((a): a is (typeof articles)[number] => Boolean(a));
+  return <section id="blogg" className="relative overflow-hidden bg-background pt-24 pb-24 sm:pt-28 sm:pb-28"><div aria-hidden className="deco-dots pointer-events-none absolute right-8 top-24 h-56 w-56 opacity-[0.05] lg:right-16" /><div className="relative mx-auto max-w-5xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>RCS-blogg</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">Guider och förklaringar om RCS, från grunderna till API och webhooks. Allt på svenska, med källor.</p></div><div className="mt-12 grid gap-5 sm:grid-cols-3">{picks.map((article) => <Link key={article.slug} to="/blogg/$slug" params={{ slug: article.slug }} className="group flex flex-col rounded-[2rem] border border-border/80 bg-card p-8 text-left shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-foreground/25 hover:shadow-lift"><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">{article.category}</p><h3 className="mt-4 text-lg font-extrabold tracking-[-0.01em] transition-colors group-hover:text-logo-blue">{article.title}</h3><p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{article.description}</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold transition-colors group-hover:text-logo-blue">Läs artikeln <ArrowRight className="size-4" /></span></Link>)}</div><div className="mt-12 flex justify-center gap-3"><Button asChild size="lg"><Link to="/blogg">Läs alla artiklar <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><Link to="/ordlista">RCS-ordlistan</Link></Button></div></div></section>;
 }
 
 function HeroFirst() { return <section id="top" className="relative overflow-hidden bg-background"><div aria-hidden className="deco-dots pointer-events-none absolute left-10 top-36 h-56 w-56 opacity-[0.05]" /><div className="relative mx-auto max-w-7xl px-5 pb-24 pt-24 text-center sm:pb-28 sm:pt-28 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.75rem] font-extrabold leading-[0.98] tracking-[-0.035em] sm:text-6xl lg:text-[5.5rem]">Det smidiga sättet att<br /><span className="text-logo-blue">skicka RCS</span></h1><p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Använd vårt webbgränssnitt eller integrera via API. Flexibel prissättning för allt från enstaka kampanjer till storskaliga utskick.</p><div className="mt-10 flex justify-center"><DualCtas /></div></div></section>; }
