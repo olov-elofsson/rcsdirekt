@@ -17,13 +17,14 @@ function BlogPage() {
   const [category, setCategory] = useState("Alla");
   const categories = ["Alla", ...new Set(articles.map((article) => article.category))];
   const results = searchArticles(query, category);
+  const featured = articles.find((article) => article.slug === "vad-ar-rcs");
   return <KnowledgeLayout>
     <section className="mx-auto max-w-6xl px-5 pt-16 pb-12 sm:pt-24 lg:px-8">
       <h1 className="max-w-3xl text-4xl leading-tight tracking-normal sm:text-6xl">Kunskap om RCS</h1>
       <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">Från vad ett RCS-meddelande är till hur företag kan använda kort, svar och integrationer.</p>
       <div className="mt-12 grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
         <Link to="/blogg/$slug" params={{ slug: "vad-ar-rcs" }} className="block overflow-hidden rounded-lg"><img src={cover} alt="Illustration av en telefon med meddelandekort, bredvid ett kuvert" width={1440} height={960} className="aspect-[3/2] w-full object-cover" /></Link>
-        <div><p className="text-sm text-muted-foreground">Grunder · {readingMinutes(articles[0])} min läsning</p><h2 className="mt-4 text-3xl leading-tight tracking-normal sm:text-4xl"><Link to="/blogg/$slug" params={{ slug: "vad-ar-rcs" }}>Vad är RCS och vad betyder RCS-meddelande?</Link></h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS är en meddelandestandard, inte en särskild app. Börja med hur tekniken fungerar och vad som skiljer privat chatt från företagsmeddelanden.</p><Button asChild variant="outline" className="mt-7"><Link to="/blogg/$slug" params={{ slug: "vad-ar-rcs" }}>Läs guiden <ArrowRight /></Link></Button></div>
+        <div><p className="text-sm text-muted-foreground">Grunder{featured ? ` · ${readingMinutes(featured)} min läsning` : ""}</p><h2 className="mt-4 text-3xl leading-tight tracking-normal sm:text-4xl"><Link to="/blogg/$slug" params={{ slug: "vad-ar-rcs" }}>Vad är RCS och vad betyder RCS-meddelande?</Link></h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">RCS är en meddelandestandard, inte en särskild app. Börja med hur tekniken fungerar och vad som skiljer privat chatt från företagsmeddelanden.</p><Button asChild variant="outline" className="mt-7"><Link to="/blogg/$slug" params={{ slug: "vad-ar-rcs" }}>Läs guiden <ArrowRight /></Link></Button></div>
       </div>
     </section>
     <section className="mx-auto max-w-6xl px-5 py-12 sm:pb-24 lg:px-8" aria-label="Alla artiklar">
