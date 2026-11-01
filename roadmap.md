@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Flytta kundreferenserna högt upp, förenkla logotypsektionen och lägg till sakliga förtroendesignaler; kontrollera dator och mobil
+
 - [x] Visa Nercia, Bilia, Maptun och Deligate enligt referensen och rätta Maptuns logotyp; kontrollera dator, mobil och produktsida
 
 - [x] Bearbeta språket i alla 157 blogginlägg, ta bort mekaniska tillägg och kontrollera läsning och sökning
