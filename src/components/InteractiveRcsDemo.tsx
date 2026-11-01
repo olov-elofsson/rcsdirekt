@@ -71,7 +71,7 @@ export function InteractiveRcsDemo() {
   return <div className="mx-auto w-full max-w-6xl">
     <div className="relative isolate">
       <div aria-hidden className="phone-halo" />
-      <div className="relative mb-8"><h2 className="text-center text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.026em] sm:text-[2.65rem]">Så fungerar RCS</h2><p className="mx-auto mt-4 max-w-md text-center text-base leading-relaxed text-muted-foreground">Peka eller tryck på siffrorna så förklarar vi vad du ser.</p></div>
+      <div className="relative mb-8"><h2 className="text-center text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">Så fungerar RCS</h2><p className="mx-auto mt-4 max-w-md text-center text-base leading-relaxed text-muted-foreground">Peka eller tryck på siffrorna så förklarar vi vad du ser.</p></div>
       <div className="relative grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[600px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div>
 
