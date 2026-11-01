@@ -267,7 +267,7 @@ const glossaryEntries: GlossaryTerm[] = [
 const guides: Article[] = [...baseArticles, ...grunderArticles, ...foretagArticles, ...teknikArticles].map((article) => {
   const content = shortContent[article.slug];
   if (!content) return article;
-  return { ...article, title: content.title, description: content.description, sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: [], points: content.points, sources: [...new Set(article.sections.flatMap((section) => section.sources))] }] };
+  return { ...article, title: content.title, description: content.description, sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: content.points, sources: [...new Set(article.sections.flatMap((section) => section.sources))] }] };
 });
 
 const dedicatedTerms: Record<string, string> = {
@@ -283,7 +283,7 @@ export const glossary = glossaryEntries.map((entry) => ({ ...entry, article: ter
 const termArticles: Article[] = glossaryEntries.filter((entry) => !dedicatedTerms[entry.term]).map((entry) => ({
   slug: termSlug(entry.term), title: `Vad är ${entry.term}?`, description: entry.definition,
   category: "Begrepp", keywords: [entry.term, entry.aliases], published: "2026-11-01", related: [entry.article],
-  sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: [], points: termDetails[entry.term] ?? [], sources: [entry.source] }],
+  sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: termDetails[entry.term] ?? [], sources: [entry.source] }],
 }));
 
 export const articles: Article[] = [
