@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as JamforPlanerRouteImport } from './routes/jamfor-planer'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as OrdlistaRouteImport } from './routes/ordlista'
 import { Route as RcsApiRouteImport } from './routes/rcs-api'
 import { Route as RcsBasicRouteImport } from './routes/rcs-basic'
 import { Route as RcsConversationRouteImport } from './routes/rcs-conversation'
 import { Route as RcsOnlineRouteImport } from './routes/rcs-online'
 import { Route as RcsSingleRouteImport } from './routes/rcs-single'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
+import { Route as BloggIndexRouteImport } from './routes/blogg.index'
+import { Route as BloggSlugRouteImport } from './routes/blogg.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,6 +35,11 @@ const JamforPlanerRoute = JamforPlanerRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdlistaRoute = OrdlistaRouteImport.update({
+  id: '/ordlista',
+  path: '/ordlista',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RcsApiRoute = RcsApiRouteImport.update({
@@ -64,40 +72,59 @@ const SkapaKontoRoute = SkapaKontoRouteImport.update({
   path: '/skapa-konto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BloggIndexRoute = BloggIndexRouteImport.update({
+  id: '/blogg/',
+  path: '/blogg/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BloggSlugRoute = BloggSlugRouteImport.update({
+  id: '/blogg/$slug',
+  path: '/blogg/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/jamfor-planer': typeof JamforPlanerRoute
   '/kontakt': typeof KontaktRoute
+  '/ordlista': typeof OrdlistaRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
   '/rcs-online': typeof RcsOnlineRoute
   '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
+  '/blogg/$slug': typeof BloggSlugRoute
+  '/blogg/': typeof BloggIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/jamfor-planer': typeof JamforPlanerRoute
   '/kontakt': typeof KontaktRoute
+  '/ordlista': typeof OrdlistaRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
   '/rcs-online': typeof RcsOnlineRoute
   '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
+  '/blogg/$slug': typeof BloggSlugRoute
+  '/blogg': typeof BloggIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/jamfor-planer': typeof JamforPlanerRoute
   '/kontakt': typeof KontaktRoute
+  '/ordlista': typeof OrdlistaRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
   '/rcs-online': typeof RcsOnlineRoute
   '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
+  '/blogg/$slug': typeof BloggSlugRoute
+  '/blogg/': typeof BloggIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,46 +132,58 @@ export interface FileRouteTypes {
     | '/'
     | '/jamfor-planer'
     | '/kontakt'
+    | '/ordlista'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
     | '/rcs-online'
     | '/rcs-single'
     | '/skapa-konto'
+    | '/blogg/$slug'
+    | '/blogg/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/jamfor-planer'
     | '/kontakt'
+    | '/ordlista'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
     | '/rcs-online'
     | '/rcs-single'
     | '/skapa-konto'
+    | '/blogg/$slug'
+    | '/blogg'
   id:
     | '__root__'
     | '/'
     | '/jamfor-planer'
     | '/kontakt'
+    | '/ordlista'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
     | '/rcs-online'
     | '/rcs-single'
     | '/skapa-konto'
+    | '/blogg/$slug'
+    | '/blogg/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   JamforPlanerRoute: typeof JamforPlanerRoute
   KontaktRoute: typeof KontaktRoute
+  OrdlistaRoute: typeof OrdlistaRoute
   RcsApiRoute: typeof RcsApiRoute
   RcsBasicRoute: typeof RcsBasicRoute
   RcsConversationRoute: typeof RcsConversationRoute
   RcsOnlineRoute: typeof RcsOnlineRoute
   RcsSingleRoute: typeof RcsSingleRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
+  BloggSlugRoute: typeof BloggSlugRoute
+  BloggIndexRoute: typeof BloggIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -168,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ordlista': {
+      id: '/ordlista'
+      path: '/ordlista'
+      fullPath: '/ordlista'
+      preLoaderRoute: typeof OrdlistaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rcs-api': {
@@ -212,6 +258,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SkapaKontoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogg/': {
+      id: '/blogg/'
+      path: '/blogg'
+      fullPath: '/blogg/'
+      preLoaderRoute: typeof BloggIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blogg/$slug': {
+      id: '/blogg/$slug'
+      path: '/blogg/$slug'
+      fullPath: '/blogg/$slug'
+      preLoaderRoute: typeof BloggSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -219,12 +279,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   JamforPlanerRoute: JamforPlanerRoute,
   KontaktRoute: KontaktRoute,
+  OrdlistaRoute: OrdlistaRoute,
   RcsApiRoute: RcsApiRoute,
   RcsBasicRoute: RcsBasicRoute,
   RcsConversationRoute: RcsConversationRoute,
   RcsOnlineRoute: RcsOnlineRoute,
   RcsSingleRoute: RcsSingleRoute,
   SkapaKontoRoute: SkapaKontoRoute,
+  BloggSlugRoute: BloggSlugRoute,
+  BloggIndexRoute: BloggIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
