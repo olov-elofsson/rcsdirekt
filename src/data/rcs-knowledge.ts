@@ -1,7 +1,7 @@
 import { grunderArticles } from "./rcs-articles-grunder";
 import { foretagArticles } from "./rcs-articles-foretag";
 import { teknikArticles } from "./rcs-articles-teknik";
-import { shortContent, termDetails, articleExamples } from "./rcs-short-content";
+import { shortContent, termDetails } from "./rcs-short-content";
 import { expandedArticles } from "./rcs-articles-expanded";
 import { currentSources } from "./rcs-current-sources";
 
@@ -270,7 +270,7 @@ const glossaryEntries: GlossaryTerm[] = [
 const guides: Article[] = [...baseArticles, ...grunderArticles, ...foretagArticles, ...teknikArticles].map((article) => {
   const content = shortContent[article.slug];
   if (!content) return article;
-  return { ...article, title: content.title, description: content.description, sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: content.points, sources: [...new Set(article.sections.flatMap((section) => section.sources))] }] };
+  return { ...article, title: content.title, description: content.description, sections: [{ id: "forklaring", title: "", paragraphs: content.points, sources: [...new Set(article.sections.flatMap((section) => section.sources))] }] };
 });
 
 const dedicatedTerms: Record<string, string> = {
@@ -286,18 +286,14 @@ export const glossary = glossaryEntries.map((entry) => ({ ...entry, article: ter
 const termArticles: Article[] = glossaryEntries.filter((entry) => !dedicatedTerms[entry.term]).map((entry) => ({
   slug: termSlug(entry.term), title: `Vad är ${entry.term}?`, description: entry.definition,
   category: "Begrepp", keywords: [entry.term, entry.aliases], published: "2026-11-01", related: [entry.article],
-  sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: termDetails[entry.term] ?? [], sources: [entry.source] }],
+  sections: [{ id: "forklaring", title: "", paragraphs: termDetails[entry.term] ?? [], sources: [entry.source] }],
 }));
 
 export const articles: Article[] = [
   ...guides.map((article) => ({ ...article, sections: article.sections.map((section) => ({ ...section, sources: [...new Set([...section.sources, ...glossary.filter((entry) => entry.article === article.slug).map((entry) => entry.source)])] })) })),
   ...termArticles,
   ...expandedArticles,
-].map((article) => {
-  const example = articleExamples[article.slug];
-  if (!example) return article;
-  return { ...article, sections: article.sections.map((section, index) => index === article.sections.length - 1 ? { ...section, paragraphs: [...section.paragraphs, example] } : section) };
-});
+];
 
 export function searchArticles(query: string, category = "Alla") {
   const needle = query.trim().toLocaleLowerCase("sv");
