@@ -286,7 +286,10 @@ const termArticles: Article[] = glossaryEntries.filter((entry) => !dedicatedTerm
   sections: [{ id: "det-har-galler", title: "Det här gäller", paragraphs: [], points: termDetails[entry.term] ?? [], sources: [entry.source] }],
 }));
 
-export const articles: Article[] = [...guides, ...termArticles];
+export const articles: Article[] = [
+  ...guides.map((article) => ({ ...article, sections: article.sections.map((section) => ({ ...section, sources: [...new Set([...section.sources, ...glossary.filter((entry) => entry.article === article.slug).map((entry) => entry.source)])] })) })),
+  ...termArticles,
+];
 
 export function searchArticles(query: string, category = "Alla") {
   const needle = query.trim().toLocaleLowerCase("sv");
