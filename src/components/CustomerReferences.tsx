@@ -1,24 +1,44 @@
 import { customerReferences } from "@/data/customer-references";
 
 export function CustomerReferences({ compact = false }: { compact?: boolean }) {
+  const logos = customerReferences;
+  const row = (hidden: boolean) => (
+    <div
+      aria-hidden={hidden || undefined}
+      className="flex w-max shrink-0 items-center gap-x-14 pr-14 sm:gap-x-20 sm:pr-20"
+    >
+      {logos.map((customer) => (
+        <div key={customer.name} className="flex h-10 items-center">
+          <img
+            src={customer.logo}
+            alt={customer.name}
+            loading="lazy"
+            className="h-6 w-auto max-w-32 object-contain opacity-70 sm:h-7 sm:max-w-40"
+          />
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <section aria-label="Kundreferenser" className="bg-muted">
-      <div className={`mx-auto grid max-w-6xl items-center gap-7 px-5 lg:grid-cols-[13rem_1fr] lg:gap-12 lg:px-8 ${compact ? "py-7" : "py-8 sm:py-10"}`}>
-        <h2 className="text-center text-base font-semibold leading-snug text-muted-foreground lg:text-left">Några av<br className="hidden lg:block" /> våra kunder</h2>
-        <div className="grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 sm:gap-x-10">
-          {customerReferences.map((customer) => (
-            <div
-              key={customer.name}
-              className="flex h-10 min-w-0 items-center justify-center"
-            >
-              <img
-                src={customer.logo}
-                alt={customer.name}
-                loading="lazy"
-                className="max-h-7 w-auto max-w-28 object-contain opacity-70"
-              />
-            </div>
-          ))}
+      <div className={`mx-auto max-w-6xl px-5 lg:px-8 ${compact ? "py-7" : "py-9 sm:py-11"}`}>
+        <h2 className="text-center text-sm font-medium uppercase tracking-[0.16em] text-muted-foreground">
+          Några av våra kunder
+        </h2>
+        <div
+          className="group mt-7 overflow-hidden sm:mt-8"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 14%, black 86%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 14%, black 86%, transparent)",
+          }}
+        >
+          <div className="logo-marquee-track group-hover:[animation-play-state:paused]">
+            {row(false)}
+            {row(true)}
+          </div>
         </div>
       </div>
     </section>
