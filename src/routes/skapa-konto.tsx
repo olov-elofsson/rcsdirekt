@@ -67,7 +67,7 @@ function SignupPage() {
           ) : (
             <>
               <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Skapa ditt konto</h1>
-              <p className="mt-2 text-sm text-muted-foreground">Har du redan ett konto? <a href="/skapa-konto" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>
+              <p className="mt-2 text-sm text-muted-foreground">Har du redan ett konto? <a href="https://portal.rcsdirekt.se/login" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>
 
               <form noValidate onSubmit={onSubmit} className="mt-7 space-y-3">
                 <div className="space-y-2">
