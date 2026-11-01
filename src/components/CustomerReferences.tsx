@@ -8,17 +8,16 @@ export function CustomerReferences({ compact = false }: { compact?: boolean }) {
           Några av våra kunder
         </h2>
         <div
-          className={`mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 ${compact ? "" : "sm:mt-6"}`}
+          className={`flex flex-wrap items-center justify-center gap-x-10 gap-y-5 sm:gap-x-14 sm:gap-y-6 ${compact ? "mt-5" : "mt-6 sm:mt-7"}`}
         >
           {customerReferences.map((customer) => (
-            <div key={customer.name} className="flex h-24 min-w-0 items-center justify-center rounded-md bg-muted px-6 sm:h-28 sm:px-7">
-              <img
-                src={customer.logo}
-                alt={customer.name}
-                loading="lazy"
-                className="max-h-7 w-full max-w-24 object-contain opacity-60 sm:max-h-8 sm:max-w-28"
-              />
-            </div>
+            <img
+              key={customer.name}
+              src={customer.logo}
+              alt={customer.name}
+              loading="lazy"
+              className="h-6 w-auto max-w-28 object-contain opacity-60 sm:h-7 sm:max-w-32"
+            />
           ))}
         </div>
       </div>
