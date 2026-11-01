@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BarChart3, BookOpen, Check, Code2, Globe, ListTree, TrendingUp, Wallet, X } from "lucide-react";
+import { ArrowRight, BarChart3, Check, Code2, Globe, TrendingUp, Wallet, X } from "lucide-react";
+
 
 import { LeadForm } from "@/components/LeadForm";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
