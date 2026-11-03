@@ -64,7 +64,7 @@ export const grunderArticles: Article[] = [
         "En privat RCS-chatt går över mobildata eller wifi. Kostnaden ligger alltså i ditt dataabonnemang, inte i ett pris per meddelande. Sitter du på wifi märker du inget alls."
       ] },
       { id: "foretag", title: "För dig som företag", sources: ["business"], paragraphs: [
-        "Företagsutskick är en annan sak. Där betalar du tjänsten som skickar. Hos oss betalar du per meddelande: RCS Basic 0,49 SEK, RCS Single 0,69 SEK och RCS Conversation 0,99 SEK. Inga månadsavgifter, inga bindningstider.",
+        "Företagsutskick är en annan sak. Där betalar du tjänsten som skickar. Hos oss betalar du per meddelande: RCS Basic 0,30 SEK, RCS Single 0,425 SEK och RCS Conversation 0,63 SEK. Inga månadsavgifter, inga bindningstider.",
         "Varför tre priser? För att ett kort textbesked och en hel konversation med bilder och svar är olika mycket jobb. Du betalar för det du faktiskt använder."
       ] },
       { id: "rakna", title: "Räkna på det själv", sources: ["practice"], paragraphs: [

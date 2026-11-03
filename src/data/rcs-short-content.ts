@@ -78,7 +78,7 @@ export const shortContent: Record<string, ShortContent> = {
     "title": "Vad kostar RCS?",
     "description": "Privat RCS använder wifi eller mobildata. Kostnaden följer därför din uppkoppling. Företagsutskick har en separat prissättning hos tjänsten som skickar dem.",
     "points": [
-      "Hos RCS Direkt kostar Basic 0,49 SEK, Single 0,69 SEK och Conversation 0,99 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
+      "Hos RCS Direkt kostar Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
       "Räkna antalet meddelanden per typ när du uppskattar ett utskick. Kontrollera separat vad eventuell SMS-reserv kostar och ta med integration och hantering om du vill beräkna hela projektkostnaden."
     ]
   },

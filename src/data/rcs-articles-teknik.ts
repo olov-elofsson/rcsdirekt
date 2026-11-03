@@ -9,13 +9,13 @@ export const teknikArticles: Article[] = [
     keywords: ["rcs basic", "rcs single", "rcs conversation", "rcs meddelandetyper"], related: ["vad-kostar-rcs", "rich-cards-karuseller", "foreslagna-svar"],
     sections: [
       { id: "basic", title: "Basic: det korta beskedet", sources: ["features"], paragraphs: [
-        "RCS Basic passar när du vill säga en sak kort och tydligt, men med verifierad avsändare. Tänk orderbekräftelse eller kod. Pris hos oss: 0,49 SEK."
+        "RCS Basic passar när du vill säga en sak kort och tydligt, men med verifierad avsändare. Tänk orderbekräftelse eller kod. Pris hos oss: 0,30 SEK."
       ] },
       { id: "single", title: "Single: ett rikt meddelande", sources: ["cards"], paragraphs: [
-        "RCS Single är för när du vill visa något: en bild, ett kort, en knapp. Ett komplett meddelande som står på egna ben. Pris: 0,69 SEK. Det är den de flesta väljer."
+        "RCS Single är för när du vill visa något: en bild, ett kort, en knapp. Ett komplett meddelande som står på egna ben. Pris: 0,425 SEK. Det är den de flesta väljer."
       ] },
       { id: "conversation", title: "Conversation: när ni ska prata", sources: ["features", "events"], paragraphs: [
-        "RCS Conversation är för dialog, när mottagaren ska kunna svara och ni ska kunna svara tillbaka. Bokningar, support och frågor. Pris: 0,99 SEK."
+        "RCS Conversation är för dialog, när mottagaren ska kunna svara och ni ska kunna svara tillbaka. Bokningar, support och frågor. Pris: 0,63 SEK."
       ] }
     ]
   },
