@@ -16,13 +16,10 @@ export function CustomerInlineMention() {
           >
             <img
               src={customer.logo.url}
-              alt={customer.name}
+              alt={`Logotyp för ${customer.name}`}
               className="h-4 w-auto object-contain sm:h-5"
               loading="lazy"
             />
-            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/80">
-              {customer.name}
-            </span>
           </span>
         ))}
       </div>
