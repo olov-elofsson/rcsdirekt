@@ -4,6 +4,7 @@ import { ArrowRight, BarChart3, Check, Code2, Globe, TrendingUp, Wallet, X } fro
 
 import { LeadForm } from "@/components/LeadForm";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
+import { CustomerInlineMention } from "@/components/CustomerInlineMention";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
