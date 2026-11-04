@@ -1,24 +1,31 @@
 import { customerReferences } from "@/data/customer-references";
 
 /**
- * Kundnämnande som ren text: företagsnamnen står i versaler med samma
- * toning som brödtexten, i stället för som logotyper i rutor eller rader.
+ * Kundlogotyper som pillrade chip: varje kund i en liten rundad kapsel
+ * med logotyp och namn, samlade i en centrerad rad under hero-knapparna.
  */
 export function CustomerInlineMention() {
   return (
-    <section aria-label="Kundreferenser" className="bg-background pb-4 pt-3 sm:pb-6">
-      <p className="mx-auto flex max-w-2xl flex-wrap items-baseline justify-center gap-x-3 gap-y-1 px-5 text-center text-sm text-muted-foreground sm:text-[0.95rem]">
-        <span>Skickar RCS redan via oss:</span>
-        {customerReferences.map((customer, index) => (
+    <section aria-label="Kundreferenser" className="bg-background pb-6 pt-4">
+      <p className="text-center text-sm text-muted-foreground">Skickar RCS redan via oss:</p>
+      <div className="mx-auto mt-3 flex flex-wrap items-center justify-center gap-2.5 px-5 sm:gap-3">
+        {customerReferences.map((customer) => (
           <span
             key={customer.name}
-            className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/70 sm:text-[0.8rem]"
+            className="inline-flex items-center gap-2.5 rounded-full bg-reference-tile px-4 py-2 sm:px-5"
           >
-            {index > 0 ? <span aria-hidden className="mr-3 text-foreground/25">·</span> : null}
-            {customer.name}
+            <img
+              src={customer.logo.url}
+              alt={customer.name}
+              className="h-4 w-auto object-contain sm:h-5"
+              loading="lazy"
+            />
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/80">
+              {customer.name}
+            </span>
           </span>
         ))}
-      </p>
+      </div>
     </section>
   );
 }
