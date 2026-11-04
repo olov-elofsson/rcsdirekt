@@ -12,14 +12,13 @@ export function CustomerInlineMention() {
         {customerReferences.map((customer, index) => (
           <span key={customer.name} className="inline-flex items-center gap-1.5">
             {index > 0 ? <span aria-hidden className="text-foreground/25">·</span> : null}
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center">
               <img
                 src={customer.logo.url}
-                alt=""
-                className="h-4 w-auto object-contain opacity-80 sm:h-[1.15rem]"
+                alt={customer.name}
+                className="h-3.5 w-auto object-contain opacity-70 sm:h-4"
                 loading="lazy"
               />
-              <span className="font-semibold text-foreground">{customer.name}</span>
             </span>
           </span>
         ))}
