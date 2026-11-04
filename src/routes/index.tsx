@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "/skapa-konto";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><CustomerInlineMention /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
