@@ -1,6 +1,6 @@
-// @ts-nocheck – UI-komponent med lösa typer för flödesdata
-import { ArrowDown, ArrowUp, Download, FileJson, Pause, Play, Plus, RotateCcw, Save, Trash2, Upload } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+// @ts-nocheck – UI-komponent med lösa typer för profildata
+import { ArrowUp, Check, Copy, Download, FileJson, Pause, Play, Plus, RotateCcw, Save, Trash2, Upload } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 
 import { Button } from "@/components/ui/button";
@@ -8,31 +8,191 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { buildProject, canExportMp4, createRenderer, exportMp4, loadInterFontCss, replyOptions, validateFlow } from "@/lib/rcs-video/engine";
-import { emptyFlow, exampleFlow, type Chip, type Flow, type Step } from "@/lib/rcs-video/defaults";
+import { buildProject, canExportMp4, createRenderer, exportMp4, loadInterFontCss, validateFlow } from "@/lib/rcs-video/engine";
+import { exampleBanner, exampleLogo } from "@/lib/rcs-video/defaults";
 
-const STORE_KEY = "rcsv-profiles-v1";
+const STORE_KEY = "rcsv-brand-profiles-v1";
 const SCALE = 0.86;
+
+type Contact = { type: "phone" | "web" | "email"; value: string; label: string };
+type Profile = {
+  name: string;
+  brand: string;
+  displayName: string;
+  description: string;
+  color: string;
+  logo: string;
+  banner: string;
+  campaignImage: string;
+  contacts: Contact[];
+  privacyUrl: string;
+  termsUrl: string;
+  consent: string;
+  optinKeywords: string;
+  contactPerson: string;
+  contactRole: string;
+  contactEmail: string;
+  texts: Partial<Record<TextKey, string>>;
+};
+type TextKey = "optin" | "cardTitle" | "cardBody" | "confirm" | "help" | "optout";
+
+// ---------- gemensamt flöde (samma för alla avsändare) ----------
+const contactOf = (p: Profile, type: Contact["type"]) => p.contacts.find((c) => c.type === type && c.value.trim())?.value.trim() || "";
+
+function defaultTexts(p: Profile): Record<TextKey, string> {
+  const n = p.displayName.trim() || "oss";
+  const phone = contactOf(p, "phone");
+  const email = contactOf(p, "email");
+  const reach = phone && email ? `på ${phone} eller ${email}` : phone ? `på ${phone}` : email ? `på ${email}` : "via vår webbplats";
+  return {
+    optin: `Du får detta meddelande eftersom du har valt att ta emot information och erbjudanden från ${n}. Du kan när som helst avregistrera dig genom att svara STOP eller STOPP.`,
+    cardTitle: `Nyheter från ${n}`,
+    cardBody: "Vill du veta mer eller bli kontaktad av oss? Välj ett alternativ nedan.",
+    confirm: `Tack! Vi har tagit emot din förfrågan. ${n} återkommer till dig under eftermiddagen.`,
+    help: `Behöver du hjälp? Kontakta ${n} ${reach}.`,
+    optout: `Du är nu avregistrerad från RCS-meddelanden från ${n}. Du kommer inte att få fler RCS-meddelanden från denna avsändare om du inte väljer att registrera dig igen.`,
+  };
+}
+
+function profileToFlow(p: Profile) {
+  const T = { ...defaultTexts(p), ...Object.fromEntries(Object.entries(p.texts || {}).filter(([, v]) => v && v.trim())) };
+  const web = contactOf(p, "web");
+  const phone = contactOf(p, "phone");
+  const buttons = [{ label: "Kontakta mig", action: "reply" }];
+  if (web) buttons.push({ label: "Läs mer", action: "url", target: web });
+  if (phone) buttons.push({ label: "Ring oss", action: "dial", target: phone });
+  return {
+    name: p.name,
+    brand: { displayName: p.displayName.trim(), description: p.description, color: p.color, logo: p.logo, banner: p.banner, contacts: p.contacts },
+    startClock: "13:16:42",
+    showProfile: true,
+    profileSeconds: 6,
+    finalHold: 5,
+    optin: T.optin,
+    steps: [
+      { role: "agent", type: "card", image: p.campaignImage || p.banner, title: T.cardTitle, body: T.cardBody, buttons },
+      { role: "user", type: "tap", label: "Kontakta mig" },
+      { role: "agent", type: "text", text: "Vilken tid på dagen passar dig bäst?", chips: [{ label: "Förmiddag" }, { label: "Eftermiddag" }, { label: "Kväll" }] },
+      { role: "user", type: "tap", label: "Eftermiddag" },
+      { role: "agent", type: "text", text: T.confirm },
+    ],
+    help: { keyword: "HJÄLP", reply: T.help },
+    optout: { keyword: "STOPP", reply: T.optout },
+  };
+}
+
+const exampleProfile = (): Profile => ({
+  name: "Exempel – Nordsyn Optik",
+  displayName: "Nordsyn Optik",
+  description: "Synundersökning, glasögon och linser i centrala Örebro.",
+  color: "#1f3a5f",
+  logo: exampleLogo,
+  banner: exampleBanner,
+  campaignImage: "",
+  contacts: [
+    { type: "phone", value: "+46191234567", label: "Nordsyn Optik" },
+    { type: "web", value: "https://www.example.com/", label: "Nordsyn Optik" },
+    { type: "email", value: "kundservice@example.com", label: "Kundservice" },
+  ],
+  brand: "Nordsyn Optik AB",
+  privacyUrl: "https://www.example.com/integritetspolicy/",
+  termsUrl: "https://www.example.com/villkor/",
+  consent: "by ticking an unchecked consent box for SMS/RCS messages when they create a customer account or book an appointment on https://www.example.com/",
+  optinKeywords: "",
+  contactPerson: "",
+  contactRole: "",
+  contactEmail: "",
+  texts: {},
+});
+const emptyProfile = (): Profile => ({ name: "Ny profil", brand: "", privacyUrl: "", termsUrl: "", consent: "", optinKeywords: "", contactPerson: "", contactRole: "", contactEmail: "", displayName: "", description: "", color: "#1f1f1f", logo: "", banner: "", campaignImage: "", contacts: [{ type: "phone", value: "", label: "" }, { type: "web", value: "", label: "" }, { type: "email", value: "", label: "" }], texts: {} });
+
+// ---------- texter till Infobips "Request sender launch" ----------
+function launchTexts(p: Profile, flow: any) {
+  const n = p.displayName.trim();
+  const brand = p.brand.trim() || n;
+  const web = contactOf(p, "web");
+  const card = flow.steps[0];
+  const q = flow.steps[2];
+  const conf = flow.steps[4];
+  const kw = p.optinKeywords.trim();
+  const btn = (b: any) => (b.action === "url" ? `[${b.label}] – opens ${b.target}` : b.action === "dial" ? `[${b.label}] – calls ${b.target}` : `[${b.label}] – suggested reply`);
+  return [
+    { key: "website", label: "Brand website", text: web },
+    { key: "person", label: "Brand's contact person", text: p.contactPerson.trim() },
+    { key: "role", label: "Brand's contact person role", text: p.contactRole.trim() },
+    { key: "email", label: "Brand's contact email", text: p.contactEmail.trim() },
+    {
+      key: "optin",
+      label: "Opt-in details",
+      text:
+        `Recipients opt in ${p.consent.trim() || "[BESKRIV HUR MOTTAGAREN GER SAMTYCKE]"}. ${brand} only sends RCS messages to recipients who have given this consent. ` +
+        `The first message identifies the sender and explains how to opt out: "${flow.optin}" ` +
+        (kw ? `Supported opt-in keywords: ${kw}.` : "There are no opt-in keywords; consent is only collected as described above.") +
+        (p.privacyUrl.trim() ? ` Privacy policy: ${p.privacyUrl.trim()}` : ""),
+    },
+    {
+      key: "optout",
+      label: "Opt-out details",
+      text:
+        `Recipients can opt out at any time by replying ${flow.optout.keyword} or STOP. The opt-out instruction is included in the first message. ` +
+        `After an opt-out keyword the recipient immediately receives a confirmation and no further messages are sent from this sender. ` +
+        `Recipients can reply ${flow.help.keyword} to get ${n}'s contact details.`,
+    },
+    { key: "optoutmsg", label: "Opt-out response message", text: flow.optout.reply },
+    {
+      key: "campaign",
+      label: "Campaign description",
+      text:
+        `${brand} uses the RCS sender "${n}" to send information and offers in Swedish to recipients in Sweden who have opted in, and to let recipients ask to be contacted. ` +
+        `The message is a rich card with an image, a title, a short text and buttons: ${card.buttons.map((b: any) => b.label).join(", ")}. ` +
+        `When the recipient taps "${card.buttons[0].label}", they choose a preferred time of day and receive a confirmation that the request has been received; ${n} then follows up. ` +
+        `This is a contact request, not a confirmed booking. Recipients can reply ${flow.help.keyword} for help and ${flow.optout.keyword} or STOP to opt out.`,
+    },
+    {
+      key: "example",
+      label: "Campaign message example",
+      text: [
+        `1. First message: "${flow.optin}"`,
+        `2. Rich card – title: "${card.title}" – text: "${card.body}" – buttons: ${card.buttons.map(btn).join("; ")}`,
+        `3. After "${card.buttons[0].label}": "${q.text}" – suggested replies: ${q.chips.map((c: any) => `[${c.label}]`).join(" ")}`,
+        `4. After the choice: "${conf.text}"`,
+        `5. Reply to ${flow.help.keyword}: "${flow.help.reply}"`,
+        `6. Reply to ${flow.optout.keyword}/STOP: "${flow.optout.reply}"`,
+      ].join("\n"),
+    },
+    { key: "video", label: "Sender launch video URL", text: "" },
+  ];
+}
+
+function CopyField({ label, text, hint }: { label: string; text: string; hint?: string }) {
+  const [done, setDone] = useState(false);
+  return (
+    <div className="rounded-lg border border-border p-3">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-sm font-semibold">{label}</span>
+        <Button type="button" size="sm" variant="outline" disabled={!text} onClick={async () => { await navigator.clipboard.writeText(text); setDone(true); setTimeout(() => setDone(false), 1500); }}>
+          {done ? <Check className="size-4" /> : <Copy className="size-4" />} {done ? "Kopierad" : "Kopiera"}
+        </Button>
+      </div>
+      {text ? <p className="mt-2 whitespace-pre-wrap text-sm text-muted-foreground">{text}</p> : <p className="mt-2 text-sm text-muted-foreground">{hint || "Fyll i fältet ovan."}</p>}
+    </div>
+  );
+}
 
 // ---------- hjälpfunktioner ----------
 const clone = <T,>(x: T): T => structuredClone(x);
 const slug = (s: string) =>
   (s || "rcs-demo").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "rcs-demo";
 
-function loadProfiles(): Record<string, Flow> {
+function loadProfiles(): Record<string, Profile> {
   try {
     return JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
   } catch {
     return {};
   }
 }
-function saveProfiles(p: Record<string, Flow>) {
-  localStorage.setItem(STORE_KEY, JSON.stringify(p));
-}
 
-/** Läser en bild, beskär till exakt storlek (cover) och returnerar en data-URL. */
 async function fitImage(file: File, w: number, h: number, type: "image/png" | "image/jpeg", quality = 0.9) {
   const url = URL.createObjectURL(file);
   try {
@@ -69,7 +229,7 @@ function downloadBlob(blob: Blob, name: string) {
   }, 1000);
 }
 
-// ---------- små UI-byggstenar ----------
+// ---------- UI-byggstenar ----------
 function Section({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
   return (
     <section className="border-t border-border pt-8 first:border-t-0 first:pt-0">
@@ -90,7 +250,7 @@ function Field({ label, children, hint }: { label: string; children: ReactNode; 
 }
 const selectCls = "h-9 w-full rounded-md border border-input bg-background px-2 text-sm";
 
-function ImagePick({ label, value, onChange, w, h, type, hint }: { label: string; value?: string; onChange: (v: string) => void; w: number; h: number; type: "image/png" | "image/jpeg"; hint?: string }) {
+function ImagePick({ label, value, onChange, w, h, type, hint, onClear }: { label: string; value?: string; onChange: (v: string) => void; w: number; h: number; type: "image/png" | "image/jpeg"; hint?: string; onClear?: () => void }) {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <Field label={label} hint={hint ?? `Beskärs automatiskt till ${w} × ${h} px.`}>
@@ -101,6 +261,9 @@ function ImagePick({ label, value, onChange, w, h, type, hint }: { label: string
         <Button type="button" variant="outline" size="sm" onClick={() => ref.current?.click()}>
           <Upload className="size-4" /> Välj bild
         </Button>
+        {value && onClear ? (
+          <Button type="button" variant="ghost" size="icon" aria-label="Ta bort bild" onClick={onClear}><Trash2 className="size-4" /></Button>
+        ) : null}
         <input
           ref={ref}
           type="file"
@@ -117,46 +280,8 @@ function ImagePick({ label, value, onChange, w, h, type, hint }: { label: string
   );
 }
 
-function ChipEditor({ items, onChange, max, noun }: { items: Chip[]; onChange: (v: Chip[]) => void; max: number; noun: string }) {
-  return (
-    <div className="space-y-2">
-      {items.map((c, i) => (
-        <div key={i} className="grid grid-cols-[1fr_120px_1fr_auto] gap-2">
-          <Input value={c.label} placeholder="Etikett" onChange={(e) => onChange(items.map((x, k) => (k === i ? { ...x, label: e.target.value } : x)))} />
-          <select className={selectCls} value={c.action || "reply"} onChange={(e) => onChange(items.map((x, k) => (k === i ? { ...x, action: e.target.value as Chip["action"] } : x)))}>
-            <option value="reply">Svar</option>
-            <option value="url">Öppna länk</option>
-            <option value="dial">Ring</option>
-          </select>
-          <Input
-            value={c.target || ""}
-            disabled={(c.action || "reply") === "reply"}
-            placeholder={(c.action || "reply") === "url" ? "https://…" : (c.action || "reply") === "dial" ? "+46…" : "Skickar etiketten"}
-            onChange={(e) => onChange(items.map((x, k) => (k === i ? { ...x, target: e.target.value } : x)))}
-          />
-          <Button type="button" variant="ghost" size="icon" aria-label="Ta bort" onClick={() => onChange(items.filter((_, k) => k !== i))}>
-            <Trash2 className="size-4" />
-          </Button>
-        </div>
-      ))}
-      {items.length < max ? (
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange([...items, { label: "", action: "reply" }])}>
-          <Plus className="size-4" /> Lägg till {noun}
-        </Button>
-      ) : null}
-    </div>
-  );
-}
-
-const STEP_LABEL: Record<string, string> = {
-  "agent:card": "Avsändare – kort med bild",
-  "agent:text": "Avsändare – textmeddelande",
-  "user:tap": "Användaren trycker på en svarsknapp",
-  "user:type": "Användaren skriver",
-};
-
 // ---------- förhandsvisning ----------
-function PreviewPlayer({ flow, valid }: { flow: Flow; valid: boolean }) {
+function PreviewPlayer({ flow, valid }: { flow: any; valid: boolean }) {
   const host = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<any>(null);
   const [t, setT] = useState(0);
@@ -173,8 +298,7 @@ function PreviewPlayer({ flow, valid }: { flow: Flow; valid: boolean }) {
         rendererRef.current = R;
         setDur(R.duration);
         await R.ready;
-        const tt = Math.min(tRef.current, R.duration);
-        R.renderAt(tt);
+        R.renderAt(Math.min(tRef.current, R.duration));
       } catch (e) {
         console.error(e);
       }
@@ -210,7 +334,7 @@ function PreviewPlayer({ flow, valid }: { flow: Flow; valid: boolean }) {
       <div className="mx-auto overflow-hidden rounded-[28px] border border-border shadow-sm" style={{ width: 360 * SCALE, height: 640 * SCALE }}>
         <div ref={host} style={{ width: 360, height: 640, transform: `scale(${SCALE})`, transformOrigin: "0 0" }} />
       </div>
-      {!valid ? <p className="mt-3 text-center text-sm text-muted-foreground">Fyll i de obligatoriska fälten för att se förhandsvisningen.</p> : null}
+      {!valid ? <p className="mt-3 text-center text-sm text-muted-foreground">Fyll i namn, logotyp och banner för att se förhandsvisningen.</p> : null}
       <div className="mx-auto mt-4 flex items-center gap-3" style={{ width: 360 * SCALE }}>
         <Button type="button" size="icon" variant="outline" disabled={!valid} onClick={() => { if (tRef.current >= dur) seek(0); setPlaying((p) => !p); }} aria-label={playing ? "Pausa" : "Spela"}>
           {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
@@ -222,12 +346,21 @@ function PreviewPlayer({ flow, valid }: { flow: Flow; valid: boolean }) {
   );
 }
 
+const TEXT_FIELDS: { key: TextKey; label: string; rows: number }[] = [
+  { key: "optin", label: "Opt-in (första meddelandet)", rows: 3 },
+  { key: "cardTitle", label: "Kampanjkortets rubrik", rows: 1 },
+  { key: "cardBody", label: "Kampanjkortets text", rows: 2 },
+  { key: "confirm", label: "Bekräftelse efter vald tid", rows: 2 },
+  { key: "help", label: "Svar på HJÄLP", rows: 2 },
+  { key: "optout", label: "Svar på STOPP", rows: 3 },
+];
+
 // ---------- huvudkomponent ----------
 export function RcsVideoGenerator() {
-  const [flow, setFlow] = useState<Flow>(() => clone(exampleFlow));
-  const [profiles, setProfiles] = useState<Record<string, Flow>>({});
-  const [current, setCurrent] = useState<string>("");
-  const [msg, setMsg] = useState<string>("");
+  const [profile, setProfile] = useState<Profile>(() => exampleProfile());
+  const [profiles, setProfiles] = useState<Record<string, Profile>>({});
+  const [current, setCurrent] = useState("");
+  const [msg, setMsg] = useState("");
   const [consent, setConsent] = useState(false);
   const [canExport, setCanExport] = useState(true);
   const [exporting, setExporting] = useState<null | { done: number; total: number }>(null);
@@ -241,17 +374,18 @@ export function RcsVideoGenerator() {
     loadInterFontCss().catch(() => {});
   }, []);
 
+  const flow = useMemo(() => profileToFlow(profile), [profile]);
+  const defaults = useMemo(() => defaultTexts(profile), [profile.displayName, profile.contacts]);
   const errors = useMemo(() => validateFlow(flow), [flow]);
+  const launch = useMemo(() => launchTexts(profile, flow), [profile, flow]);
   const valid = errors.length === 0;
-  const upd = useCallback((fn: (f: Flow) => void) => setFlow((prev) => { const n = clone(prev); fn(n); return n; }), []);
-  const setStep = (i: number, s: Step) => upd((f) => { f.steps[i] = s; });
+  const upd = (fn: (p: Profile) => void) => setProfile((prev) => { const n = clone(prev); fn(n); return n; });
 
-  // profiler
   const saveProfile = () => {
-    const name = (flow.name || flow.brand.displayName || "Profil").trim();
-    const next = { ...profiles, [name]: clone({ ...flow, name }) };
+    const name = (profile.name || profile.displayName || "Profil").trim();
+    const next = { ...profiles, [name]: clone({ ...profile, name }) };
     try {
-      saveProfiles(next);
+      localStorage.setItem(STORE_KEY, JSON.stringify(next));
       setProfiles(next);
       setCurrent(name);
       setMsg(`Profilen ”${name}” är sparad i den här webbläsaren.`);
@@ -261,22 +395,21 @@ export function RcsVideoGenerator() {
   };
   const openProfile = (name: string) => {
     setCurrent(name);
-    if (!name) return;
-    if (name === "__example") { setFlow(clone(exampleFlow)); return; }
-    if (name === "__new") { setFlow(emptyFlow()); setCurrent(""); return; }
-    if (profiles[name]) setFlow(clone(profiles[name]));
+    setResult(null);
+    if (name === "__example") { setProfile(exampleProfile()); setCurrent(""); return; }
+    if (name === "__new") { setProfile(emptyProfile()); setCurrent(""); return; }
+    if (profiles[name]) setProfile({ ...emptyProfile(), ...clone(profiles[name]) });
   };
   const deleteProfile = () => {
     if (!current || !profiles[current]) return;
     const next = { ...profiles };
     delete next[current];
-    saveProfiles(next);
+    localStorage.setItem(STORE_KEY, JSON.stringify(next));
     setProfiles(next);
     setCurrent("");
     setMsg("Profilen är borttagen.");
   };
 
-  // export
   const runExport = async () => {
     if (!valid) return;
     setResult(null);
@@ -287,7 +420,7 @@ export function RcsVideoGenerator() {
       const P = buildProject(clone(flow));
       setExporting({ done: 0, total: P.video.frames });
       const blob = await exportMp4(P, { Muxer, ArrayBufferTarget, fontCss, signal: ac.signal, bitrate: 6_000_000, onProgress: (done: number, total: number) => setExporting({ done, total }) });
-      const name = `${slug(flow.brand.displayName)}-rcs-demo.mp4`;
+      const name = `${slug(profile.displayName)}-rcs-demo.mp4`;
       setResult({ url: URL.createObjectURL(blob), name, seconds: P.video.frames / 30, frames: P.video.frames, size: blob.size });
     } catch (e: any) {
       if (e?.name !== "AbortError") setMsg(e?.message || "Exporten misslyckades.");
@@ -297,12 +430,10 @@ export function RcsVideoGenerator() {
     }
   };
 
-  // ---------- render ----------
-  let lastAgent: any = null;
   return (
     <div className="grid gap-12 lg:grid-cols-[1fr_340px] lg:gap-16">
       <div className="space-y-12">
-        <Section title="Profil" hint="Varje varumärke sparas som en profil i den här webbläsaren. Exportera som fil för att dela eller säkerhetskopiera.">
+        <Section title="Profil" hint="Spara en profil per avsändare i den här webbläsaren, eller exportera den som fil.">
           <div className="flex flex-wrap items-end gap-3">
             <div className="min-w-56 flex-1">
               <Field label="Öppna">
@@ -318,147 +449,112 @@ export function RcsVideoGenerator() {
             </div>
             <div className="min-w-56 flex-1">
               <Field label="Profilnamn">
-                <Input value={flow.name} onChange={(e) => upd((f) => { f.name = e.target.value; })} />
+                <Input value={profile.name} onChange={(e) => upd((p) => { p.name = e.target.value; })} />
               </Field>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
             <Button type="button" size="sm" onClick={saveProfile}><Save className="size-4" /> Spara profil</Button>
             <Button type="button" size="sm" variant="outline" disabled={!current || !profiles[current]} onClick={deleteProfile}><Trash2 className="size-4" /> Ta bort</Button>
-            <Button type="button" size="sm" variant="outline" onClick={() => downloadBlob(new Blob([JSON.stringify(flow, null, 2)], { type: "application/json" }), `${slug(flow.name)}.rcs-profil.json`)}><FileJson className="size-4" /> Exportera fil</Button>
+            <Button type="button" size="sm" variant="outline" onClick={() => downloadBlob(new Blob([JSON.stringify(profile, null, 2)], { type: "application/json" }), `${slug(profile.name)}.rcs-profil.json`)}><FileJson className="size-4" /> Exportera fil</Button>
             <Button type="button" size="sm" variant="outline" onClick={() => importRef.current?.click()}><Upload className="size-4" /> Importera fil</Button>
             <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={async (e) => {
               const f = e.target.files?.[0];
               e.target.value = "";
               if (!f) return;
-              try { const j = JSON.parse(await f.text()); setFlow({ ...emptyFlow(), ...j }); setCurrent(""); setMsg(`Importerade ”${j.name || f.name}”.`); }
+              try { const j = JSON.parse(await f.text()); setProfile({ ...emptyProfile(), ...j, texts: j.texts || {} }); setCurrent(""); setMsg(`Importerade ”${j.name || f.name}”.`); }
               catch { setMsg("Filen kunde inte läsas som en profil."); }
             }} />
           </div>
           {msg ? <p className="text-sm text-muted-foreground">{msg}</p> : null}
         </Section>
 
-        <Section title="Avsändare" hint="Använd exakt de uppgifter som är registrerade hos er RCS-leverantör.">
+        <Section title="Avsändare" hint="Fyll i exakt det som är registrerat hos er RCS-leverantör. Resten av videon byggs automatiskt.">
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Visningsnamn"><Input value={flow.brand.displayName} onChange={(e) => upd((f) => { f.brand.displayName = e.target.value; })} /></Field>
-            <Field label="Varumärkesfärg" hint="Används för ikonerna i profilen.">
+            <Field label="Display name"><Input value={profile.displayName} onChange={(e) => upd((p) => { p.displayName = e.target.value; })} /></Field>
+            <Field label="Brand (juridiskt namn)"><Input value={profile.brand} placeholder="t.ex. Nercia Utbildning AB" onChange={(e) => upd((p) => { p.brand = e.target.value; })} /></Field>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Color" hint="Används för ikonerna i profilen.">
               <div className="flex gap-2">
-                <input type="color" value={flow.brand.color} onChange={(e) => upd((f) => { f.brand.color = e.target.value; })} className="h-9 w-12 rounded-md border border-input bg-background" />
-                <Input value={flow.brand.color} onChange={(e) => upd((f) => { f.brand.color = e.target.value; })} />
+                <input type="color" value={profile.color} onChange={(e) => upd((p) => { p.color = e.target.value; })} className="h-9 w-12 rounded-md border border-input bg-background" />
+                <Input value={profile.color} onChange={(e) => upd((p) => { p.color = e.target.value; })} />
               </div>
             </Field>
           </div>
-          <Field label="Beskrivning"><Textarea rows={2} value={flow.brand.description} onChange={(e) => upd((f) => { f.brand.description = e.target.value; })} /></Field>
+          <Field label="Description"><Textarea rows={2} value={profile.description} onChange={(e) => upd((p) => { p.description = e.target.value; })} /></Field>
           <div className="grid gap-4 sm:grid-cols-2">
-            <ImagePick label="Logotyp" value={flow.brand.logo} w={224} h={224} type="image/png" onChange={(v) => upd((f) => { f.brand.logo = v; })} />
-            <ImagePick label="Banner" value={flow.brand.banner} w={1440} h={448} type="image/jpeg" onChange={(v) => upd((f) => { f.brand.banner = v; })} />
+            <ImagePick label="Logo image" value={profile.logo} w={224} h={224} type="image/png" onChange={(v) => upd((p) => { p.logo = v; })} />
+            <ImagePick label="Banner image" value={profile.banner} w={1440} h={448} type="image/jpeg" onChange={(v) => upd((p) => { p.banner = v; })} />
           </div>
-          <Field label="Kontaktuppgifter i profilen" hint="Visas i registrerad ordning. Etiketten är den text som står under värdet.">
+          <ImagePick label="Kampanjbild (valfri)" value={profile.campaignImage} w={786} h={450} type="image/jpeg" hint="Bilden i meddelandekortet. Lämnas den tom används bannern." onChange={(v) => upd((p) => { p.campaignImage = v; })} onClear={() => upd((p) => { p.campaignImage = ""; })} />
+          <Field label="Kontaktuppgifter" hint="Visas i profilen i denna ordning. Etiketten står under värdet. Telefon och webb används också för knapparna i kortet och i hjälpsvaret.">
             <div className="space-y-2">
-              {flow.brand.contacts.map((c, i) => (
+              {profile.contacts.map((c, i) => (
                 <div key={i} className="grid grid-cols-[110px_1fr_1fr_auto] gap-2">
-                  <select className={selectCls} value={c.type} onChange={(e) => upd((f) => { f.brand.contacts[i].type = e.target.value as any; })}>
+                  <select className={selectCls} value={c.type} onChange={(e) => upd((p) => { p.contacts[i].type = e.target.value as any; })}>
                     <option value="phone">Telefon</option>
                     <option value="web">Webbplats</option>
                     <option value="email">E-post</option>
                   </select>
-                  <Input value={c.value} placeholder="Värde" onChange={(e) => upd((f) => { f.brand.contacts[i].value = e.target.value; })} />
-                  <Input value={c.label} placeholder="Etikett" onChange={(e) => upd((f) => { f.brand.contacts[i].label = e.target.value; })} />
+                  <Input value={c.value} placeholder="Värde" onChange={(e) => upd((p) => { p.contacts[i].value = e.target.value; })} />
+                  <Input value={c.label} placeholder="Etikett" onChange={(e) => upd((p) => { p.contacts[i].label = e.target.value; })} />
                   <div className="flex">
-                    <Button type="button" variant="ghost" size="icon" aria-label="Flytta upp" disabled={i === 0} onClick={() => upd((f) => { const a = f.brand.contacts; [a[i - 1], a[i]] = [a[i], a[i - 1]]; })}><ArrowUp className="size-4" /></Button>
-                    <Button type="button" variant="ghost" size="icon" aria-label="Ta bort" onClick={() => upd((f) => { f.brand.contacts.splice(i, 1); })}><Trash2 className="size-4" /></Button>
+                    <Button type="button" variant="ghost" size="icon" aria-label="Flytta upp" disabled={i === 0} onClick={() => upd((p) => { const a = p.contacts; [a[i - 1], a[i]] = [a[i], a[i - 1]]; })}><ArrowUp className="size-4" /></Button>
+                    <Button type="button" variant="ghost" size="icon" aria-label="Ta bort" onClick={() => upd((p) => { p.contacts.splice(i, 1); })}><Trash2 className="size-4" /></Button>
                   </div>
                 </div>
               ))}
-              {flow.brand.contacts.length < 3 ? (
-                <Button type="button" variant="outline" size="sm" onClick={() => upd((f) => { f.brand.contacts.push({ type: "phone", value: "", label: "" }); })}><Plus className="size-4" /> Lägg till kontaktväg</Button>
+              {profile.contacts.length < 3 ? (
+                <Button type="button" variant="outline" size="sm" onClick={() => upd((p) => { p.contacts.push({ type: "phone", value: "", label: "" }); })}><Plus className="size-4" /> Lägg till kontaktväg</Button>
               ) : null}
             </div>
           </Field>
-        </Section>
-
-        <Section title="Samtycke" hint="Det första meddelandet i konversationen. Beskriv hur mottagaren faktiskt har gett sitt samtycke.">
-          <Textarea rows={3} value={flow.optin} onChange={(e) => upd((f) => { f.optin = e.target.value; })} />
-        </Section>
-
-        <Section title="Exempelflöde" hint="Bygg dialogen i ordning. Användaren kan bara trycka på knappar av typen Svar. Länk- och ringknappar visas men används inte i videon.">
-          <div className="space-y-4">
-            {flow.steps.map((s, i) => {
-              const key = `${s.role}:${s.type}`;
-              const prevAgent = lastAgent;
-              if (s.role === "agent") lastAgent = s;
-              else lastAgent = null;
-              const opts = replyOptions(prevAgent);
-              return (
-                <div key={i} className={`rounded-xl border p-4 ${s.role === "user" ? "border-foreground/30 bg-muted/40" : "border-border"}`}>
-                  <div className="mb-3 flex items-center justify-between gap-2">
-                    <span className="text-sm font-semibold">{i + 1}. {STEP_LABEL[key]}</span>
-                    <div className="flex">
-                      <Button type="button" variant="ghost" size="icon" aria-label="Flytta upp" disabled={i === 0} onClick={() => upd((f) => { const a = f.steps; [a[i - 1], a[i]] = [a[i], a[i - 1]]; })}><ArrowUp className="size-4" /></Button>
-                      <Button type="button" variant="ghost" size="icon" aria-label="Flytta ned" disabled={i === flow.steps.length - 1} onClick={() => upd((f) => { const a = f.steps; [a[i + 1], a[i]] = [a[i], a[i + 1]]; })}><ArrowDown className="size-4" /></Button>
-                      <Button type="button" variant="ghost" size="icon" aria-label="Ta bort" onClick={() => upd((f) => { f.steps.splice(i, 1); })}><Trash2 className="size-4" /></Button>
-                    </div>
-                  </div>
-                  {s.role === "agent" && s.type === "card" ? (
-                    <div className="space-y-3">
-                      <ImagePick label="Kampanjbild" value={s.image} w={786} h={450} type="image/jpeg" hint="Separat från profilbannern. Beskärs till 786 × 450 px." onChange={(v) => setStep(i, { ...s, image: v })} />
-                      <Field label="Rubrik"><Input value={s.title || ""} onChange={(e) => setStep(i, { ...s, title: e.target.value })} /></Field>
-                      <Field label="Text"><Textarea rows={2} value={s.body || ""} onChange={(e) => setStep(i, { ...s, body: e.target.value })} /></Field>
-                      <Field label="Knappar (högst 4)"><ChipEditor items={s.buttons || []} max={4} noun="knapp" onChange={(v) => setStep(i, { ...s, buttons: v })} /></Field>
-                    </div>
-                  ) : null}
-                  {s.role === "agent" && s.type === "text" ? (
-                    <div className="space-y-3">
-                      <Textarea rows={2} value={s.text} onChange={(e) => setStep(i, { ...s, text: e.target.value })} />
-                      <Field label="Förslagsknappar under meddelandet (högst 4)"><ChipEditor items={s.chips || []} max={4} noun="förslag" onChange={(v) => setStep(i, { ...s, chips: v })} /></Field>
-                      {i > 0 && flow.steps[i - 1].role === "agent" ? (
-                        <label className="flex items-center gap-2 text-sm">
-                          <Checkbox checked={!!s.newGroup} onCheckedChange={(v) => setStep(i, { ...s, newGroup: !!v })} />
-                          Nytt tillfälle (läspaus före, grupperas inte med föregående)
-                        </label>
-                      ) : null}
-                    </div>
-                  ) : null}
-                  {s.role === "user" && s.type === "tap" ? (
-                    <Field label="Knapp" hint={opts.length ? undefined : "Föregående steg måste vara ett avsändarmeddelande med minst en knapp av typen Svar."}>
-                      <select className={selectCls} value={s.label} onChange={(e) => setStep(i, { ...s, label: e.target.value })}>
-                        <option value="">Välj…</option>
-                        {opts.map((o) => <option key={o} value={o}>{o}</option>)}
-                      </select>
-                    </Field>
-                  ) : null}
-                  {s.role === "user" && s.type === "type" ? (
-                    <Field label="Text som skrivs" hint="Bara bokstäver (inklusive å, ä, ö) och mellanslag. Skrivs tecken för tecken.">
-                      <Input value={s.text} onChange={(e) => setStep(i, { ...s, text: e.target.value })} />
-                    </Field>
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button type="button" variant="outline" size="sm" onClick={() => upd((f) => { f.steps.push({ role: "agent", type: "text", text: "", chips: [] }); })}><Plus className="size-4" /> Avsändartext</Button>
-            <Button type="button" variant="outline" size="sm" onClick={() => upd((f) => { f.steps.push({ role: "agent", type: "card", title: "", body: "", buttons: [{ label: "", action: "reply" }] }); })}><Plus className="size-4" /> Kort med bild</Button>
-            <Button type="button" variant="outline" size="sm" onClick={() => upd((f) => { const prev = f.steps[f.steps.length - 1]; f.steps.push({ role: "user", type: "tap", label: prev ? replyOptions(prev)[0] || "" : "" }); })}><Plus className="size-4" /> Användaren trycker</Button>
-            <Button type="button" variant="outline" size="sm" onClick={() => upd((f) => { f.steps.push({ role: "user", type: "type", text: "" }); })}><Plus className="size-4" /> Användaren skriver</Button>
-          </div>
-        </Section>
-
-        <Section title="Hjälp och avregistrering" hint="Visas alltid sist: användaren skriver hjälpordet, får svar, skriver opt-out-ordet och får bekräftelsen. Bekräftelsen är videons sista meddelande.">
-          <div className="grid gap-4 sm:grid-cols-[160px_1fr]">
-            <Field label="Hjälpord"><Input value={flow.help.keyword} onChange={(e) => upd((f) => { f.help.keyword = e.target.value; })} /></Field>
-            <Field label="Hjälpsvar"><Textarea rows={2} value={flow.help.reply} onChange={(e) => upd((f) => { f.help.reply = e.target.value; })} /></Field>
-            <Field label="Opt-out-ord"><Input value={flow.optout.keyword} onChange={(e) => upd((f) => { f.optout.keyword = e.target.value; })} /></Field>
-            <Field label="Opt-out-bekräftelse"><Textarea rows={3} value={flow.optout.reply} onChange={(e) => upd((f) => { f.optout.reply = e.target.value; })} /></Field>
-          </div>
-        </Section>
-
-        <Section title="Inställningar">
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="flex items-center gap-3 text-sm"><Switch checked={flow.showProfile} onCheckedChange={(v) => upd((f) => { f.showProfile = v; })} /> Visa avsändarprofilen i början</label>
-            <Field label="Profilens visningstid (s)"><Input type="number" min={3} max={12} step={0.5} value={flow.profileSeconds} onChange={(e) => upd((f) => { f.profileSeconds = parseFloat(e.target.value) || 6; })} /></Field>
-            <Field label="Starttid på klockan" hint="TT:MM:SS. Klockan går i realtid under videon."><Input value={flow.startClock} onChange={(e) => upd((f) => { f.startClock = e.target.value; })} /></Field>
-            <Field label="Stilla slutläge (s)"><Input type="number" min={3} max={10} step={0.5} value={flow.finalHold} onChange={(e) => upd((f) => { f.finalHold = parseFloat(e.target.value) || 5; })} /></Field>
+            <Field label="Privacy policy URL"><Input value={profile.privacyUrl} onChange={(e) => upd((p) => { p.privacyUrl = e.target.value; })} /></Field>
+            <Field label="Terms of service"><Input value={profile.termsUrl} onChange={(e) => upd((p) => { p.termsUrl = e.target.value; })} /></Field>
+          </div>
+        </Section>
+
+        <Section title="Uppgifter till ansökan" hint="Det här går inte att hämta ur profilen. Beskriv samtycket som det faktiskt går till – Infobip och operatörerna granskar det.">
+          <Field label="Hur och var ger mottagaren sitt samtycke? (engelska)" hint='Fortsätter meningen "Recipients opt in …". Exempel: "by ticking an unchecked consent box for SMS/RCS when they submit an application on https://nercia.se/".'>
+            <Textarea rows={2} value={profile.consent} onChange={(e) => upd((p) => { p.consent = e.target.value; })} />
+          </Field>
+          <Field label="Opt-in-nyckelord (valfritt)" hint="Bara om mottagare faktiskt kan anmäla sig genom att skicka ett ord, t.ex. START.">
+            <Input value={profile.optinKeywords} onChange={(e) => upd((p) => { p.optinKeywords = e.target.value; })} />
+          </Field>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Field label="Kontaktperson"><Input value={profile.contactPerson} onChange={(e) => upd((p) => { p.contactPerson = e.target.value; })} /></Field>
+            <Field label="Roll"><Input value={profile.contactRole} onChange={(e) => upd((p) => { p.contactRole = e.target.value; })} /></Field>
+            <Field label="E-post (direkt, ej kundtjänst)"><Input value={profile.contactEmail} onChange={(e) => upd((p) => { p.contactEmail = e.target.value; })} /></Field>
+          </div>
+        </Section>
+
+        <details className="group rounded-xl border border-border p-5">
+          <summary className="cursor-pointer select-none text-base font-semibold">Justera texter (valfritt)</summary>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Flödet är samma för alla: profilvisning, kampanjkort, ”Kontakta mig”, val av tid, bekräftelse, HJÄLP och STOPP. Tomma fält använder standardtexten,
+            som fylls i med avsändarens namn och kontaktuppgifter. Se till att opt-in-texten stämmer med hur mottagarna faktiskt har gett sitt samtycke.
+          </p>
+          <div className="mt-5 space-y-4">
+            {TEXT_FIELDS.map((f) => (
+              <Field key={f.key} label={f.label}>
+                <Textarea rows={f.rows} value={profile.texts?.[f.key] || ""} placeholder={defaults[f.key]} onChange={(e) => upd((p) => { p.texts = { ...(p.texts || {}), [f.key]: e.target.value }; })} />
+              </Field>
+            ))}
+          </div>
+        </details>
+
+        <Section title="Texter till Request sender launch" hint="Kopiera fält för fält till Infobip. Meddelandeexemplen är exakt de texter som visas i videon.">
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" size="sm" variant="outline" onClick={() => downloadBlob(new Blob([launch.map((f) => `${f.label}\n${f.text || "-"}\n`).join("\n")], { type: "text/plain;charset=utf-8" }), `${slug(profile.displayName)}-infobip-ansokan.txt`)}>
+              <FileJson className="size-4" /> Ladda ned alla som textfil
+            </Button>
+          </div>
+          <div className="space-y-3">
+            {launch.map((f) => (
+              <CopyField key={f.key} label={f.label} text={f.text} hint={f.key === "video" ? "Exportera MP4, ladda upp till Google Drive (Alla med länken – Läsbehörig), testa utloggad och klistra in länken i Infobip." : undefined} />
+            ))}
           </div>
         </Section>
       </div>
