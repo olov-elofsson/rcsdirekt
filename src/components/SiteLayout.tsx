@@ -149,7 +149,7 @@ export function SiteFooter() {
           <nav className="grid gap-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
             {footerNav.map((group) => (
               <div key={group.title}>
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-foreground/55">{group.title}</p>
+                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink-foreground/45">{group.title}</p>
                 <ul className="mt-5 space-y-3">
                   {group.links.map((link) => {
                     const linkClass = "group inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink-foreground";
@@ -173,7 +173,7 @@ export function SiteFooter() {
               </div>
             ))}
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-foreground/55">Kontaktuppgifter</p>
+              <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink-foreground/45">Kontaktuppgifter</p>
               <ul className="mt-5 space-y-3 text-sm text-ink-muted">
                 <li>WIGOSE AB</li>
                 <li>Org.nr 559415-6753</li>
