@@ -5,7 +5,7 @@ import { RcsVideoGenerator } from "@/components/rcs-video/RcsVideoGenerator";
 
 const title = "Video till RCS-ansökan";
 const description =
-  "Infobip vill se en video av hela mottagarupplevelsen – med samtycke, avregistrering och HJÄLP – via en offentlig länk. Fyll i avsändaren, så skapas både videon och texterna till ansökan.";
+  "Ansökan om att lansera en RCS-avsändare kräver en video av hela mottagarupplevelsen – med samtycke, avregistrering och HJÄLP – via en offentlig länk. Fyll i avsändaren, så skapas både videon och texterna till ansökan.";
 
 export const Route = createFileRoute("/video-generator")({
   head: () => ({

@@ -73,7 +73,7 @@ function makeFlow(f: Form) {
   };
 }
 
-// ---------- texter till Infobips "Request sender launch" ----------
+// ---------- texter till ansökan (Request sender launch) ----------
 function launchTexts(f: Form, flow: any) {
   const n = f.displayName.trim();
   const brand = f.brand.trim() || n;
@@ -304,7 +304,7 @@ export function RcsVideoGenerator() {
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-14">
       <div className="min-w-0 space-y-6">
-        <Step n={1} title="Avsändaren" hint="Skriv av uppgifterna från Infobip → Sender details.">
+        <Step n={1} title="Avsändaren" hint="Skriv av avsändarens registrerade uppgifter (Sender details).">
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Display name"><Input value={form.displayName} onChange={set("displayName")} /></Field>
             <Field label="Brand"><Input value={form.brand} placeholder="Nercia Utbildning AB" onChange={set("brand")} /></Field>
@@ -335,7 +335,7 @@ export function RcsVideoGenerator() {
           </Field>
         </Step>
 
-        <Step n={2} title="Kontaktperson och samtycke" hint="Det enda som inte står i Infobip-profilen.">
+        <Step n={2} title="Kontaktperson och samtycke" hint="Det enda som inte står i avsändarprofilen.">
           <div className="grid gap-4 sm:grid-cols-3">
             <Field label="Namn"><Input value={form.contactPerson} onChange={set("contactPerson")} /></Field>
             <Field label="Roll"><Input value={form.contactRole} placeholder="Marknadschef" onChange={set("contactRole")} /></Field>
@@ -354,7 +354,7 @@ export function RcsVideoGenerator() {
           </Field>
         </Step>
 
-        <Step n={3} title="Kopiera till Infobip" hint="Request sender launch. Texterna är genererade och stämmer ordagrant med videon.">
+        <Step n={3} title="Kopiera till ansökan" hint="Request sender launch. Texterna är genererade och stämmer ordagrant med videon.">
           <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-3 py-2">
             <p className="text-sm text-muted-foreground">{missing.length ? `Saknas: ${missing.join(", ")}` : "Allt är ifyllt."}</p>
             <CopyButton text={allText} label="Kopiera alla" />
