@@ -7,7 +7,7 @@ export const Route = createFileRoute("/api/rcs-video")({
       if (!allowedUploadOrigin(request)) return new Response("Forbidden", { status: 403 });
       const length = request.headers.get("content-length");
       if (length && Number(length) > MAX_VIDEO_BYTES) return new Response("Video too large", { status: 413 });
-      if (request.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "video/mp4") return new Response("Invalid video type", { status: 400 });
+      if (request.headers.get("content-type")?.split(";")[0]?.trim().toLowerCase() !== "video/mp4") return new Response("Invalid video type", { status: 400 });
       // Bound the actual body too, even when Content-Length is absent or inaccurate.
       const reader = request.body?.getReader();
       if (!reader) return new Response("Invalid MP4", { status: 400 });
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/api/rcs-video")({
       if (!validMp4(bytes)) return new Response("Invalid MP4", { status: 400 });
       const salt = process.env["RCS_VIDEO_IP_SALT"];
       if (!salt) return new Response("Upload unavailable", { status: 503 });
-      const ip = request.headers.get("cf-connecting-ip")?.trim() || request.headers.get("x-forwarded-for")?.split(",")[0].trim();
+      const ip = request.headers.get("cf-connecting-ip")?.trim() || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
       if (!ip) return new Response("Sender address missing", { status: 403 });
       const ipHash = await hashUploadIp(ip, salt);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
