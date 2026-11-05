@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RcsVideoGenerator } from "@/components/rcs-video/RcsVideoGenerator";
 
-const title = "Sender launch video URL";
+const title = "Video till RCS-ansökan";
 const description =
-  "Link to the video recording of the sender's use case(s). Video recording should demonstrate the full user experience including opt-in and opt-out capabilities, and HELP messages, if required by local regulations. The URL must be publicly accessible.";
+  "Infobip vill se en video av hela mottagarupplevelsen – med samtycke, avregistrering och HJÄLP – via en offentlig länk. Fyll i avsändaren, så skapas både videon och texterna till ansökan.";
 
 export const Route = createFileRoute("/video-generator")({
   head: () => ({
@@ -31,12 +31,10 @@ function VideoGeneratorPage() {
         <section className="relative overflow-hidden bg-primary-soft pt-20 pb-16 sm:pt-24 sm:pb-20">
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">{title}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {description}
-            </p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">{description}</p>
           </div>
         </section>
-        <section className="py-16 sm:py-20">
+        <section className="bg-muted/30 py-12 sm:py-16">
           <div className="mx-auto max-w-6xl px-5 lg:px-8">
             <RcsVideoGenerator />
           </div>
