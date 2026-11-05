@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -145,6 +145,20 @@ export function SiteFooter() {
             <p className="mt-6 text-sm leading-relaxed text-ink-muted">
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
             </p>
+            <dl className="mt-8 space-y-2 border-t border-ink-foreground/10 pt-6 text-sm">
+              <div className="flex gap-3">
+                <dt className="w-14 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">Företag</dt>
+                <dd className="text-ink-muted">WIGOSE AB</dd>
+              </div>
+              <div className="flex gap-3">
+                <dt className="w-14 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">Org.nr</dt>
+                <dd className="text-ink-muted">559415-6753</dd>
+              </div>
+              <div className="flex gap-3">
+                <dt className="w-14 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">Adress</dt>
+                <dd className="text-ink-muted">Klostergatan 15, 703 39 Örebro</dd>
+              </div>
+            </dl>
           </div>
           <nav className="grid gap-10 sm:grid-cols-3 sm:gap-8">
             {footerNav.map((group) => (
