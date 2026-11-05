@@ -119,8 +119,11 @@ const footerNav = [
       { label: "Skapa konto", to: "/skapa-konto" },
       { label: "Logga in", href: "https://portal.rcsdirekt.se/login" },
       { label: "Kontakt", to: "/kontakt" },
-      { label: "Sender launch video URL", to: "/video-generator" },
     ],
+  },
+  {
+    title: "Verktyg",
+    links: [{ label: "Sender launch video URL", to: "/video-generator" }],
   },
 ] as const;
 
@@ -147,13 +150,13 @@ export function SiteFooter() {
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
             </p>
           </div>
-          <nav className="grid gap-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
+          <nav className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-8 lg:grid-cols-5">
             {footerNav.map((group) => (
               <div key={group.title}>
-                <p className="text-sm font-semibold text-ink-foreground/70">{group.title}</p>
-                <ul className="mt-5 space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">{group.title}</p>
+                <ul className="mt-5 space-y-2.5">
                   {group.links.map((link) => {
-                    const linkClass = "group inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink-foreground";
+                    const linkClass = "group inline-flex items-center gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground";
                     return (
                       <li key={link.label}>
                         {"to" in link ? (
@@ -174,14 +177,14 @@ export function SiteFooter() {
               </div>
             ))}
             <div>
-              <p className="text-sm font-semibold text-ink-foreground/70">Kontaktuppgifter</p>
-              <ul className="mt-5 space-y-3 text-sm text-ink-muted">
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">Kontaktuppgifter</p>
+              <ul className="mt-5 space-y-2.5 text-[13px] text-ink-muted">
                 <li>WIGOSE AB</li>
                 <li>Org.nr 559415-6753</li>
                 <li>Klostergatan 15</li>
                 <li>703 39 Örebro</li>
                 <li>
-                  <a href="mailto:info@rcsdirekt.se" className="group inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink-foreground">
+                  <a href="mailto:info@rcsdirekt.se" className="group inline-flex items-center gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground">
                     info@rcsdirekt.se
                     <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
                   </a>
