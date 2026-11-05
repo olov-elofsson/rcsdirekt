@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Skapa privata videolänkar med ursprungskontroll, uppladdningsgränser och verifierade export- och curl-tester
+
 - [x] Fördjupa alla 157 artiklar med ämnesspecifik text och visa sammanställda originalkällor; 10 tester godkända, läsning och navigering kontrollerade på dator och mobil
 - [ ] Komplettera med RCS direkts egen statistik — väntar på verkliga mätningar, perioder och måttdefinitioner från användaren
 
