@@ -141,7 +141,7 @@ export function SiteFooter() {
       <FooterWave fill="var(--color-background)" />
       <div aria-hidden className="deco-dots pointer-events-none absolute -right-4 top-28 h-52 w-52 opacity-[0.06]" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.55fr] lg:gap-20">
+        <div className="grid gap-14">
           <div className="max-w-xs">
             <Link to="/" aria-label="RCS Direkt, startsida" className="inline-flex">
               <BrandLogo inverse className="h-8" />
