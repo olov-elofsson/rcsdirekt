@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -145,34 +145,57 @@ export function SiteFooter() {
             <p className="mt-6 text-sm leading-relaxed text-ink-muted">
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
             </p>
+            <dl className="mt-8 space-y-2 border-t border-ink-foreground/10 pt-6 text-sm">
+              <div className="flex gap-3">
+                <dt className="w-14 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">Företag</dt>
+                <dd className="text-ink-muted">WIGOSE AB</dd>
+              </div>
+              <div className="flex gap-3">
+                <dt className="w-14 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">Org.nr</dt>
+                <dd className="text-ink-muted">559415-6753</dd>
+              </div>
+              <div className="flex gap-3">
+                <dt className="w-14 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">Adress</dt>
+                <dd className="text-ink-muted">Klostergatan 15, 703 39 Örebro</dd>
+              </div>
+            </dl>
           </div>
           <nav className="grid gap-10 sm:grid-cols-3 sm:gap-8">
             {footerNav.map((group) => (
               <div key={group.title}>
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-foreground/55">{group.title}</p>
                 <ul className="mt-5 space-y-3">
-                  {group.links.map((link) => (
-                    <li key={link.label}>
-                      {"to" in link ? (
-                        <Link to={link.to} className="text-sm text-ink-muted transition-colors hover:text-ink-foreground">{link.label}</Link>
-                      ) : (
-                        <a href={link.href} className="text-sm text-ink-muted transition-colors hover:text-ink-foreground">{link.label}</a>
-                      )}
-                    </li>
-                  ))}
+                  {group.links.map((link) => {
+                    const linkClass = "group inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink-foreground";
+                    return (
+                      <li key={link.label}>
+                        {"to" in link ? (
+                          <Link to={link.to} className={linkClass}>
+                            {link.label}
+                            <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
+                          </Link>
+                        ) : (
+                          <a href={link.href} className={linkClass}>
+                            {link.label}
+                            <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
+                          </a>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
           </nav>
         </div>
         <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-ink-muted">© {new Date().getFullYear()} RCS Direkt. Alla rättigheter reserverade.</p>
+          <p className="text-xs text-ink-muted">© {new Date().getFullYear()} WIGOSE AB · RCS Direkt. Alla rättigheter reserverade.</p>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="self-start text-xs font-semibold text-ink-muted transition-colors hover:text-ink-foreground sm:self-auto"
+            className="inline-flex items-center gap-1.5 self-start text-xs font-semibold text-ink-muted transition-colors hover:text-ink-foreground sm:self-auto"
           >
-            Till toppen
+            Till toppen <ArrowUp className="size-3.5 transition-transform duration-200 hover:-translate-y-0.5" />
           </button>
         </div>
       </div>
