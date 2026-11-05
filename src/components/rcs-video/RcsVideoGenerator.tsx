@@ -2,6 +2,12 @@
 import { Check, Copy, Download, Pause, Play, RotateCcw, Upload } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
+import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
+import inter500 from "@fontsource/inter/files/inter-latin-500-normal.woff2?url";
+import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2?url";
+import interExt400 from "@fontsource/inter/files/inter-latin-ext-400-normal.woff2?url";
+import interExt500 from "@fontsource/inter/files/inter-latin-ext-500-normal.woff2?url";
+import interExt600 from "@fontsource/inter/files/inter-latin-ext-600-normal.woff2?url";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,6 +20,10 @@ import { exampleBanner, exampleLogo } from "@/lib/rcs-video/defaults";
 
 const STORE_KEY = "rcsv-form-v2";
 const SCALE = 0.86;
+const INTER_FILES = [
+  { weight: 400, subset: "latin", url: inter400 }, { weight: 500, subset: "latin", url: inter500 }, { weight: 600, subset: "latin", url: inter600 },
+  { weight: 400, subset: "latin-ext", url: interExt400 }, { weight: 500, subset: "latin-ext", url: interExt500 }, { weight: 600, subset: "latin-ext", url: interExt600 },
+];
 
 type Form = {
   displayName: string; brand: string; description: string; color: string; logo: string; banner: string;
@@ -257,7 +267,7 @@ export function RcsVideoGenerator() {
   useEffect(() => {
     try { const s = localStorage.getItem(STORE_KEY); if (s) setForm({ ...EXAMPLE, ...JSON.parse(s) }); } catch {}
     setCanExport(canExportMp4());
-    loadInterFontCss().catch(() => {});
+    loadInterFontCss(INTER_FILES).catch(() => {});
   }, []);
   useEffect(() => { try { localStorage.setItem(STORE_KEY, JSON.stringify(form)); } catch {} }, [form]);
 
@@ -276,7 +286,7 @@ export function RcsVideoGenerator() {
     const ac = new AbortController();
     abortRef.current = ac;
     try {
-      const fontCss = await loadInterFontCss().catch(() => "");
+      const fontCss = await loadInterFontCss(INTER_FILES).catch(() => "");
       const P = buildProject(clone(flow));
       setExporting({ done: 0, total: P.video.frames });
       const blob = await exportMp4(P, { Muxer, ArrayBufferTarget, fontCss, signal: ac.signal, bitrate: 6_000_000, onProgress: (done: number, total: number) => setExporting({ done, total }) });
