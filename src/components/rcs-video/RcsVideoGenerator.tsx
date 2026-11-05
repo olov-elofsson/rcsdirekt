@@ -1,5 +1,5 @@
 // @ts-nocheck – UI-komponent med lösa typer
-import { Check, Copy, Download, Pause, Play, RotateCcw, Upload } from "lucide-react";
+import { Check, Copy, Download, ExternalLink, Pause, Play, RotateCcw, Upload } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
@@ -262,6 +262,8 @@ export function RcsVideoGenerator() {
   const [exporting, setExporting] = useState<null | { done: number; total: number }>(null);
   const [result, setResult] = useState<null | { url: string; name: string; seconds: number; frames: number; size: number }>(null);
   const [error, setError] = useState("");
+  const [link, setLink] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -282,7 +284,7 @@ export function RcsVideoGenerator() {
   ].filter(Boolean);
 
   const runExport = async () => {
-    setResult(null); setError("");
+    setResult(null); setError(""); setLink(null); setUploading(false);
     const ac = new AbortController();
     abortRef.current = ac;
     try {
@@ -291,6 +293,16 @@ export function RcsVideoGenerator() {
       setExporting({ done: 0, total: P.video.frames });
       const blob = await exportMp4(P, { Muxer, ArrayBufferTarget, fontCss, signal: ac.signal, bitrate: 6_000_000, onProgress: (done: number, total: number) => setExporting({ done, total }) });
       setResult({ url: URL.createObjectURL(blob), name: `${slug(form.displayName)}-rcs-demo.mp4`, seconds: P.video.frames / 30, frames: P.video.frames, size: blob.size });
+      setExporting(null);
+      setUploading(true);
+      try {
+        const response = await fetch("/api/rcs-video", { method: "POST", headers: { "Content-Type": "video/mp4" }, body: blob, signal: ac.signal });
+        if (!response.ok) throw new Error("Upload failed");
+        const data = await response.json();
+        setLink(data.url);
+      } catch {
+        setError("Länken kunde inte skapas. Du kan fortfarande ladda ned videon.");
+      } finally { setUploading(false); }
     } catch (e: any) {
       if (e?.name !== "AbortError") setError(e?.message || "Exporten misslyckades.");
     } finally {
@@ -299,7 +311,7 @@ export function RcsVideoGenerator() {
     }
   };
 
-  const allText = launch.map((x) => `${x.label}\n${x.text || "-"}`).join("\n\n");
+  const allText = launch.map((x) => `${x.label}\n${x.text || "-"}`).join("\n\n") + (link ? `\n\nSender launch video URL\n${link}` : "");
 
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-14">
@@ -364,7 +376,7 @@ export function RcsVideoGenerator() {
             <div className="py-4 last:pb-0">
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Use case details</p>
               <p className="text-sm font-semibold">Sender launch video URL</p>
-              <p className="mt-1 text-sm leading-relaxed text-foreground/80">Exportera videon, ladda upp den till Google Drive och dela med ”Alla med länken – Läsbehörig”. Testa länken i ett privat fönster innan du klistrar in den.</p>
+              {link ? <div className="mt-1 flex min-w-0 items-start gap-2"><a href={link} target="_blank" rel="noopener noreferrer" className="min-w-0 flex-1 break-all text-sm underline">{link}</a><CopyButton text={link} /></div> : <p className="mt-1 text-sm text-muted-foreground">{uploading ? "Laddar upp video …" : "Ingen videolänk ännu."}</p>}
             </div>
           </div>
         </Step>
@@ -386,8 +398,8 @@ export function RcsVideoGenerator() {
               </div>
             </div>
           ) : (
-            <Button type="button" size="lg" className="w-full" disabled={!ready || !rights || !canExport} onClick={runExport}>
-              <Download className="size-4" /> Skapa MP4
+            <Button type="button" size="lg" className="w-full" disabled={!ready || !rights || !canExport || uploading} onClick={runExport}>
+              <Download className="size-4" /> {uploading ? "Laddar upp video …" : "Skapa video och länk"}
             </Button>
           )}
           <p className="text-center text-xs text-muted-foreground">{canExport ? "1080 × 1920 · 30 fps · H.264 · utan ljud" : "Kräver Chrome eller Edge på dator."}</p>
@@ -396,6 +408,7 @@ export function RcsVideoGenerator() {
             <div className="rounded-xl border border-border p-3 text-sm">
               <p className="font-semibold">{result.name}</p>
               <p className="text-muted-foreground">{result.seconds.toFixed(1)} s · {(result.size / 1e6).toFixed(1)} MB</p>
+              {link ? <div className="mt-3 space-y-2"><a href={link} target="_blank" rel="noopener noreferrer" className="block break-all underline">{link}</a><div className="flex flex-wrap gap-2"><CopyButton text={link} /><Button asChild size="sm" variant="outline"><a href={link} target="_blank" rel="noopener noreferrer"><ExternalLink className="size-4" /> Öppna</a></Button></div></div> : null}
               <div className="mt-3 flex gap-2">
                 <Button asChild size="sm" className="flex-1"><a href={result.url} download={result.name}><Download className="size-4" /> Ladda ned</a></Button>
                 <Button type="button" size="sm" variant="outline" onClick={() => setResult(null)} aria-label="Rensa"><RotateCcw className="size-4" /></Button>
