@@ -119,6 +119,7 @@ const footerNav = [
       { label: "Skapa konto", to: "/skapa-konto" },
       { label: "Logga in", href: "https://portal.rcsdirekt.se/login" },
       { label: "Kontakt", to: "/kontakt" },
+      { label: "Sender launch video URL", to: "/video-generator" },
     ],
   },
 ] as const;

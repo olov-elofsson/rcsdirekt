@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RcsVideoGenerator } from "@/components/rcs-video/RcsVideoGenerator";
 
-const title = "Skapa en RCS-demovideo";
+const title = "Sender launch video URL";
 const description =
-  "Fyll i avsändare, logotyp, banner och ett exempelflöde. Förhandsvisa och exportera en simulerad Google Messages-video i 1080 × 1920.";
+  "Link to the video recording of the sender's use case(s). Video recording should demonstrate the full user experience including opt-in and opt-out capabilities, and HELP messages, if required by local regulations. The URL must be publicly accessible.";
 
 export const Route = createFileRoute("/video-generator")({
   head: () => ({
@@ -32,8 +32,7 @@ function VideoGeneratorPage() {
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">{title}</h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              Bygg en avsändarprofil och ett exempelflöde, förhandsvisa direkt och ladda ned en MP4 till er RCS-ansökan. Allt sker i
-              webbläsaren – inga bilder eller texter laddas upp.
+              {description}
             </p>
           </div>
         </section>
