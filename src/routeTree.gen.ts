@@ -20,8 +20,10 @@ import { Route as RcsOnlineRouteImport } from './routes/rcs-online'
 import { Route as RcsSingleRouteImport } from './routes/rcs-single'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
+import { Route as ApiRcsVideoRouteImport } from './routes/api/rcs-video'
 import { Route as BloggIndexRouteImport } from './routes/blogg.index'
 import { Route as BloggSlugRouteImport } from './routes/blogg.$slug'
+import { Route as VFileRouteImport } from './routes/v/$file'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -78,6 +80,11 @@ const VideoGeneratorRoute = VideoGeneratorRouteImport.update({
   path: '/video-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiRcsVideoRoute = ApiRcsVideoRouteImport.update({
+  id: '/api/rcs-video',
+  path: '/api/rcs-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BloggIndexRoute = BloggIndexRouteImport.update({
   id: '/blogg/',
   path: '/blogg/',
@@ -86,6 +93,11 @@ const BloggIndexRoute = BloggIndexRouteImport.update({
 const BloggSlugRoute = BloggSlugRouteImport.update({
   id: '/blogg/$slug',
   path: '/blogg/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VFileRoute = VFileRouteImport.update({
+  id: '/v/$file',
+  path: '/v/$file',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -101,7 +113,9 @@ export interface FileRoutesByFullPath {
   '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
+  '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,7 +130,9 @@ export interface FileRoutesByTo {
   '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
+  '/v/$file': typeof VFileRoute
   '/blogg': typeof BloggIndexRoute
 }
 export interface FileRoutesById {
@@ -132,7 +148,9 @@ export interface FileRoutesById {
   '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
+  '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,7 +167,9 @@ export interface FileRouteTypes {
     | '/rcs-single'
     | '/skapa-konto'
     | '/video-generator'
+    | '/api/rcs-video'
     | '/blogg/$slug'
+    | '/v/$file'
     | '/blogg/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -164,7 +184,9 @@ export interface FileRouteTypes {
     | '/rcs-single'
     | '/skapa-konto'
     | '/video-generator'
+    | '/api/rcs-video'
     | '/blogg/$slug'
+    | '/v/$file'
     | '/blogg'
   id:
     | '__root__'
@@ -179,7 +201,9 @@ export interface FileRouteTypes {
     | '/rcs-single'
     | '/skapa-konto'
     | '/video-generator'
+    | '/api/rcs-video'
     | '/blogg/$slug'
+    | '/v/$file'
     | '/blogg/'
   fileRoutesById: FileRoutesById
 }
@@ -195,7 +219,9 @@ export interface RootRouteChildren {
   RcsSingleRoute: typeof RcsSingleRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
+  ApiRcsVideoRoute: typeof ApiRcsVideoRoute
   BloggSlugRoute: typeof BloggSlugRoute
+  VFileRoute: typeof VFileRoute
   BloggIndexRoute: typeof BloggIndexRoute
 }
 
@@ -278,6 +304,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VideoGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/rcs-video': {
+      id: '/api/rcs-video'
+      path: '/api/rcs-video'
+      fullPath: '/api/rcs-video'
+      preLoaderRoute: typeof ApiRcsVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blogg/': {
       id: '/blogg/'
       path: '/blogg'
@@ -290,6 +323,13 @@ declare module '@tanstack/react-router' {
       path: '/blogg/$slug'
       fullPath: '/blogg/$slug'
       preLoaderRoute: typeof BloggSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/v/$file': {
+      id: '/v/$file'
+      path: '/v/$file'
+      fullPath: '/v/$file'
+      preLoaderRoute: typeof VFileRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -307,7 +347,9 @@ const rootRouteChildren: RootRouteChildren = {
   RcsSingleRoute: RcsSingleRoute,
   SkapaKontoRoute: SkapaKontoRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,
+  ApiRcsVideoRoute: ApiRcsVideoRoute,
   BloggSlugRoute: BloggSlugRoute,
+  VFileRoute: VFileRoute,
   BloggIndexRoute: BloggIndexRoute,
 }
 export const routeTree = rootRouteImport
