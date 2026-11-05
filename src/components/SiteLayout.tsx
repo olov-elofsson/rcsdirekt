@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -193,9 +193,9 @@ export function SiteFooter() {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="self-start text-xs font-semibold text-ink-muted transition-colors hover:text-ink-foreground sm:self-auto"
+            className="inline-flex items-center gap-1.5 self-start text-xs font-semibold text-ink-muted transition-colors hover:text-ink-foreground sm:self-auto"
           >
-            Till toppen
+            Till toppen <ArrowUp className="size-3.5 transition-transform duration-200 hover:-translate-y-0.5" />
           </button>
         </div>
       </div>
