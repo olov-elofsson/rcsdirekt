@@ -387,6 +387,8 @@ function clockAt(start, t) {
 // =====================================================================
 // 2) RENDERARE
 // =====================================================================
+// Android (Noto Color Emoji) 😊 som bild, så att inkorgen ser likadan ut på alla datorer
+const EMOJI_SMILE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAQwElEQVR42q2aeZAd1XXGf+fe7n7rjEbSjDZGYxAmEPAKsgBRgGwwpgJ2HMdIqVTseEmZcmwneE8ZgiTHuBzbxMZO2RUvcZXjpSwZbyF4IRjJEJvdgDBgQIOW0cpImu2916+77z35o/vNvBlJIOJ0Vdd0v7nLd9Z77ndbeGGX6CaMWYdTzX/4wMX1/jWrqi8/bahyWU/VnN5oc/rCPru8XrM15/NG1gitlm8fOJLuLIcyHDf8tpHR9h13Pjr5wMYfNg52BtdNWNbiBfSEAZ1ow01XYddtxhUjB3dcO3DpiqH62nLVXFKv2aFq3ULJgEKqSuaLwQVUwQpEtpgu8SQtz/hEtidpubufHom/s2bj/p8BzY4gshb3/yWA6CZMMaC9+1ODbzt5UXhN//zgJXZeCAKxAlacoihijCAis4dWVbyigBpR1QxTMSKoopOOA6Ppk8/sbX1x9XX7vg60VDEI+nzWeE4B1q/HfPzjeFW45UNLLj/7j8qfXLqs9EpKhhbiNUAxYoxBBMlH6xqxI4N2Q9AugTyKqjcZlFUtsefZZ5NHt+9NNpx/3Z6bRcBfj5GN+BcswKarsGs344DythuXf/aUZaX31OYHtBCnkYgJxIgUKKUA2y3AsUbWmVs7zyjqQZ16UtWKV5tOOYZ3t7/y1n/a9eF7DzPRheXEBOh0+Oy6+cvXren99uDy8oWx4rViVUKxCIgRMHOAy9FWOKYAKPguQXxuERR8ot4kXsuo3fFMfO9tvx37i3d9bfyZ4wkhxwP/b+9aeMaV59RvWXZS+dQmpFKxoYSSAxcQU/Se+84x/urRQnSAo7kw6jv/U3wGtFxaQcMDe9ojP75v8rVXf+XQE8cSws5S0HrMS7+Ev3ZdeflbL1z430uXllZMIZmtBzPgDYglTytWEFOAtzMCydxbOn1lxuU6MSL5bx3jdf4pgbFJqtn8uu0b7LVXLKr6W67e1D6k6zEbt86oRGayBMJmzAc2D0bXrDG3Dy0vnz+FZEGPDXKgOVhMofUOcJODmLbA8WJAuy0gqNdp7aOFBbyibsYy6sA3sqwKwe4drYc/9qP2Bf/xiwMtQEXyEc30BJvzVPn2lfKZocHy+Q1PFtS7wHdr3c5YQYp3CmHytsXdsUDXe95OkQCkGI9jjSd5W1MJgoYnWz5Ufvn7Xy2fF8GzeQa3dC8cd65fdumqMyq3+ZLJtCcMpNSl+c4EUgC1BZjOe3cAy3EsMCsL5UGLL4LYd8WCU3D5s3pFE0UaLrPNOLjj/sNveN2Nk/+pihHB5xB+h/71xZRPWRzeGFUsrmSNhDKTYQq3EZntQh1BxEghILO1b+fcQVc709XPdGW1ueMbQULBRWLCekVPH6p9+qpBKoUqxNyxHisb8W9fs2TtsoHwZU1wtmLMNOiO5k0XwGDmeVqI4qbLnWZZo1vgjjBdwJl2KWbPWWQ4W7amCX5oWeWM976l8g4RVDdhzJoNeYmwYlH0fgmNUjZM+73MDDBrsiLb+Dwe0W7AJ1K8dAW/p9A4s12xYwkp2mGBkoiUIh0aiP4eiLgKb0TQWz86cH5/X/CKloIJjRUz23VmTZrXaxgLYc0Q1C02EryfUzI8x+V9Pr6tCWGPISjLTFqxs11o2nICEoqJjdFFA5XTbn0fa0Ry3TG0MHxzpSdAS8YRyExa7EqdnQVMBcJei3Ow/ak2j29rceRwRlA3WPv8QngPQc1gDOwcbvPYIzH792eENUNYNqgyrXWRrtgr1hINxFf7qixdGP4ZuecR9PWEF2IEAjHTCeoYJYIKhFXLT28d57ubxxjZk5JmyoI+y+te28M739FPGAmaKXIMd9IC/IP3Nvjavx/iyafaJIlSrRpWn1vlb9/ZT//CgLTpEdNVL3XFkYYYfERfT+mSMwfSuv3FdUtOHxqIrrVVG2rJINaI2Nk+KDb31ajXsvn7R7jhsweYmPSEoRAGQiv2/ObuJrt3J1y8po4xR4dDrnnhvl83+PBH9zGyJyWKhCAQMgePPBpz/29bXLS6Tq1ucFmBW7vyvRdQFc0EbTZ7T+uNf2SSzL+it2YrqaAS5GX8tMkKqb1CVDUMPxXz5a8folaz1Kq5udNUCUPDwEDAbbdP8v1NY9iqwbvuvQDYQGiOOf7lpmdJM8+83ryKSVLFGuhfGPDEUzFf+uooJpQ5xaFMSyFGcFZ8T28Y2hLnmcG+8EwTCCYwOktt04tR8WMo/PS2SRpNTykS4thjjbCgL6DZzOuBet1w688niMccNpitfakId93VYOeuhHrdkqRKlsHAwoBWS3FO6Ztnueu+BjuG20Qlkwd1B1N3WrZoVC7xx4t5qVm6IDrNhAaK9tMZp7CfiCJGwXmGdySoKq2Wp1QyfGLjUr76tSHOeWWFI0ccYoR9+1MOjWZIIF0Bne8pn3w6odnypJkSx8r73t3P17/5It70hnmMj+cmO3zYMbIvhVK+v0N0uuDpGENFRKzBWznZvuvS3qsXLgxXpIHBhJL7UKeDD8CV8C7ABhZVzyOPxfT2WP7x2sWce1GdaklYvarG73/fZvRQxuWX9fDa182DWYGcu2O9Ijy6rU2WKe+5up83/9V8ygjnnlfj4MGM4WcSVp1TYd2V/YRZhLYDJLPg3ZxiEA3STPbsbUzI459b/sAZp1XPblWsN1GRhbwBVwZXyROzVcR6onmO/WNTRD2OBUtDsmY+ahAJSdtz8EDG4GCIIng3JxMpmJIwfsjRij1LBkNcrEV85NrdNZyyuKdG6EukDQMuABxKE2yC2DR3yUw0nGjK9kd27sqLgpliHE0CNClDVgYXgTMQCGI9rXbK4r5eiGKyqSQPNgWXKmEgDJ4c4ZO8TD4qjQq4tjKvzzLPWLKW5tlKcgXTVoYW9JCMlUiaIWQGTW0ueSBgDYQBRDGIoiIY0VLQrSLNAjQuQ1JG0zKaheCKldF6TEVoK5i0hOnNwPrpbOV9DkKeY0spAi7LrWZM1+8ZuGaZdKKENiM0DtHEoE7yGLSSC+HaeSqNWkWpquQ2QsEb1JUgDdAkRNsRmkRM00yhw6tgAA0V4hIatZBwNgPxvKXQUWW24tsWbUdIEuDjEN8MoB3mmETRMEMCCwoiipoMo57UMRUEyCEAzQTxFk1KufaTqHCnMO9Yyv1PA4cmFk0DJDMQnjCJdvyNfhpAYvP5YgtxhMYRmlkIHMYZtCxIEIJLwBkVl0o71Ylgfo8ZxQNGNd8egDoDzqBpUPhhkVJLSVF+yswm/A+5pLOZF9QL6gS8oGmAT4Lc+l5Q6xFnUG/zwHZA1qYWccDsPuSe9okHfwzPFe1ay/OiRBWc0xOuPJ9X+8WszisdLnVmbvI16ChYRrNWQuZ42uwaTbe5TMGpdACLdWAdEjpMKUVKKSbKwDhKkaG2IKBUAad/uCCqCtZT7TPUe4N8vxylmFKGRCkSZtN4MA6xHlxb0jhm+yEeNobsobEJ14jEiZpEJciQIIEoQ0oJUk4wlRgttynVPU8fHOOL33maHQemiPoNtpTvBdwJ7ge0KC1csU4E8wKkknHzz/dw85Zd2KqDcoJUYkwlQcoplFIkSpCgDTaFdNyMT6ZpFHFf8PrPjA7v+XLt8UBkZUJLiWxRhisahKB5plXrCOcZfnnnPr7wrV3cfk+Vyy/r5corehk8pZSv3rHiMsV7nV59uzUtIlib10WElvaE466fTXDzD8a49/4G8+dbLj67n55alcymoFm+4zcOsW0kTNEg9aV0yjRinvybzYNPBoAbn8p+uQxWos5LKTYqgtgMcRGoBRtijJJax5v+ZCH3Pz7Go0/EfPPbh/nxLeOsPq/GxRfVedlLKvQtsNiyneF8uosxB8mUZ/ixmLvvbrDlV1NsH05wHiplw/vetowFi6E9nmCsAdcRIAXjIErANbyJJ81kzO0jI3taAvDzf1h6zuqzKneHvaHxPVbEBIKz4ANQQQKLBAYNPaW+mNGJlOtu2M9D21rUqoZWyyMiLFpkOe3UMi8aChk8KaJSLVZqB6OHMkb2pDzxZMzu3SmNpqdSFrzmi+w17x7gT6/oIzls0HYZEo9mLo9z8WAysBnZwTFN9ozIr3cGF73+89mdoqoiIjp80+Bdp5xSXd2MjDcVY6VDAxoQYyDwmFDyhbBqaMbKv351lJ/81wQiUKkIzkEce9IsB2XMDJfrCoK8XBJKpbztVMNz6sklPvjeAc55VYVkwmNU0Qw0VdTNJoG1rS7Y/Yx5aqT14FnXX3Wu6mYfsFmMgNtxoP25oaWlC8QDkUELZiCnU3L/VQUjQtJSyiF85IOLufD8Gt/63hjbHm2RpEqpJFQqgrVHH3BkGbQTTzyhLF0c8JdrF7DujfOo9xraEw5LVwluBemcLXgFNaSjo9Boyb4J83nY7LZsIJAOqSsbMdu/MLh1xcnV1c3AOFO1VuwcbqiLhNJCu1GPRVPlgYda/OrXUzy8rcXB0YyJSU/WVVLXqoZ5vZYVp0SsXlXj4tV1Fi4N8E1H1s7LrY7Gc3604Emdoiq4qdSFI8N2+/7svjOvP/sCXf+Ak434AGDzY4hA9sDv939oYc+SO6sLapomXk3ZiHTov6IClE5GId8vJxMOY2HlqyqsPK9KMuXZuy/l0OGMJNUO+Uxvj2XxQMiCfpsXZi1PeyzDSFFfuS5q0efUIp3UnKG6f5+OTaT+4X3BNfBAuvmxnFmX7hNCWYu75/rKDavOXvqxlolSqZmQsIvcnctKmxn2rMic2ECwUVE9dnuRU0iVNFG8L+gm7XKRaV50RvvqFVFDvHt/Wp98Nrxnp/30BZ9yH+0+BDyKXl+5FvPdf67fetqZSy5tEGa2JgHBC6DXC4PNLRVmbbO9FOTu8en13MqGeOTZrD6+P9h+SLZc8Q29/KlPknEV/ih6XQTd8Dv0t0L65R9Ordv15L4Ha5oEvkVKpjlL3G3ibo25PGNolgMwvrhzJn36vePf6v1sBtrNMNK5z+eab488m9bG9we7jsiD37hP3zy8nfaG382QeEed0Gzdivr1mMu/TTP06S0v7osvWdQXnpRqlGEQpIgC7TbdnPdjUOn4Oc++64jJz/F9Y9DEa7xjr+tpjIY7jshD3/xN+cobfpwd9Osxr55zYmnn1iobt6K6HnPZN5iotrIfnNQzedbSHj1dTVWctU7QWXyHaFdZ3dn8zAF79HtXkHaAIyCWdLzhsh27TS2ZNE8dMrd+/yH98+t/mB0oMqU/4WPW9esxG/MOcvdHuP7FQ9WPLVzeH7XKdU/Zqog3IgjdJNjxDjeOecyqHYYfELJG4tODo9QmD5sjTZ/sPGI+ueoT/uOAdmE56rLHE2Dr1rzjli2w/DLZsnJJens5GV/R4xsrKoGYjFA0CJxKwX5NLzhztN19F5uhPLcavBOfTbV8tveglA7uNX6yIbvHdOs9u4O3XHaj+5bmVNtxwZ/wtxLdaeveD/OGxfP5u0o9fM3AkppQ6yEOKhCFntCqdvinmcNHfGfb4FU1zZR2W9xEw5TjKSRucmRCmUj41ci4vWnNp90PXsj3Eif8sYeux7ChkwGEX1yjKweqrOupckmtYl5e7ymZSjVAShGZWNRaEi9o5gjxSJZhszaapMStlGYMzYRHG6ncNjplv/eaG909oHk634A81+cF/ycBZn0SM52HBTg7/Ml7HnipKueetZiVUwmnimFZ2TKvr06/gBlvcjhOGU+VPT1ltg8fNo+0nPmfN9605BEYaXWvQyf6lUrn+l/67njBf3X/nAAAAABJRU5ErkJggg==';
 const KROWS = [['Q','W','E','R','T','Y','U','I','O','P','Å'],['A','S','D','F','G','H','J','K','L','Ö','Ä'],['Z','X','C','V','B','N','M']];
 const contactIcon = type => type === 'phone' ? 'call' : type === 'web' ? 'globe' : 'mail';
 
@@ -406,7 +408,7 @@ export function createRenderer(host, P) {
     <div id="me" style="background:${P.inbox.meColor}">${esc(P.inbox.meInitial)}</div>
     <div class="row unread" id="inbox-row-sender" style="top:92px"><img class="av" src="${S.logo}"><div class="n">${esc(S.displayName)}</div><div class="p">${esc(optin.text)}</div><div class="tm">${clockAt(P.startClock, 0)}</div></div>`;
     P.inbox.others.forEach((o, i) => {
-      h += `<div class="row" style="top:${152 + i * 60}px"><div class="av" style="background:${o.color}">${esc(o.name[0])}</div><div class="n">${esc(o.name)}</div><div class="p">${esc(o.preview)}</div><div class="tm">${esc(o.time)}</div></div>`;
+      h += `<div class="row" style="top:${152 + i * 60}px"><div class="av" style="background:${o.color}">${esc(o.name[0])}</div><div class="n">${esc(o.name)}</div><div class="p">${esc(o.preview).replace(/😊/g, `<img src="${EMOJI_SMILE}" alt="" style="display:inline-block;width:14px;height:14px;vertical-align:-2px">`)}</div><div class="tm">${esc(o.time)}</div></div>`;
     });
     h += `<div id="fab">${icon('chat', 22, '#001d35')}<span class="t">Starta chatt</span></div>`;
     return h;
@@ -631,6 +633,7 @@ export function createRenderer(host, P) {
   }
 
   const ready = (async () => {
+    if (fontCssPromise) { try { await fontCssPromise; } catch (e) {} }
     try { await document.fonts.ready; } catch (e) {}
     const srcs = [S.logo, S.banner, ...P.messages.filter(m => m.image).map(m => m.image)].filter(Boolean);
     await Promise.all(srcs.map(src => new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = src; })));
@@ -653,20 +656,33 @@ function ensureStyle() {
 // 3) TYPSNITT (Inter från Google Fonts, inbäddat för exporten)
 // =====================================================================
 let fontCssPromise = null;
-export function loadInterFontCss() {
+const RANGE = {
+  latin: 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
+  'latin-ext': 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF',
+};
+/**
+ * files: [{ weight: 400, subset: 'latin', url }] – lokala woff2-filer (t.ex. från @fontsource/inter).
+ * Utan files hämtas Inter från Google Fonts.
+ */
+export function loadInterFontCss(files) {
   if (fontCssPromise) return fontCssPromise;
   fontCssPromise = (async () => {
-    const css = await (await fetch('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=block')).text();
-    const blocks = css.split('/*').slice(1).map(b => '/*' + b).filter(b => /latin(-ext)?\s*\*\//.test(b.slice(0, 40)));
     const out = [];
-    for (const blk of blocks) {
-      const m = blk.match(/url\((https:[^)]+)\)/); if (!m) continue;
-      const buf = await (await fetch(m[1])).arrayBuffer();
-      const b64 = arrayBufferToBase64(buf);
-      out.push(blk.replace(m[1], `data:font/woff2;base64,${b64}`));
+    if (files && files.length) {
+      for (const f of files) {
+        const buf = await (await fetch(f.url)).arrayBuffer();
+        out.push(`@font-face{font-family:'Inter';font-style:normal;font-weight:${f.weight};font-display:block;src:url(data:font/woff2;base64,${arrayBufferToBase64(buf)}) format('woff2');unicode-range:${RANGE[f.subset] || RANGE.latin}}`);
+      }
+    } else {
+      const css = await (await fetch('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=block')).text();
+      const blocks = css.split('/*').slice(1).map(b => '/*' + b).filter(b => /latin(-ext)?\s*\*\//.test(b.slice(0, 40)));
+      for (const blk of blocks) {
+        const m = blk.match(/url\((https:[^)]+)\)/); if (!m) continue;
+        const buf = await (await fetch(m[1])).arrayBuffer();
+        out.push(blk.replace(m[1], `data:font/woff2;base64,${arrayBufferToBase64(buf)}`));
+      }
     }
     const all = out.join('\n');
-    // gör typsnittet tillgängligt för förhandsvisningen också
     const st = document.createElement('style'); st.textContent = all; document.head.appendChild(st);
     try { await document.fonts.load('400 15px Inter'); await document.fonts.load('600 15px Inter'); await document.fonts.load('500 15px Inter'); } catch (e) {}
     return all;
