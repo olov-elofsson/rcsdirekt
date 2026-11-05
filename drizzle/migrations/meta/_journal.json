@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793911929087,
+      "tag": "0000_rcs_video_uploads",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793912036508,
+      "tag": "0001_rcs_video_atomic_upload_limits",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793912324267,
+      "tag": "0002_rcs_video_service_only_grants",
+      "breakpoints": true
+    }
+  ]
+}

@@ -9,6 +9,8 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
+- Video exports use a private storage bucket through validated same-host server upload and streaming routes; service-only upload logs and an atomic database limit prevent concurrent quota bypass without requiring accounts.
+
 - Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas och monokrom svartvit design; orange/persika får enbart förekomma i logotypen, inte i gränssnittet, eftersom tjänsten ska kännas enkel, rak och mänsklig.
 - Sidstruktur: återanvänd SiteHeader på alla sidor och SiteLayout för offentliga undersidor så att sidhuvud, sidfot och innehållsbredd hålls konsekventa.
 - Produktsidor: använd korta, skannbara funktionsöversikter och märk ännu ej anslutna tjänster som kommande eller kontoaktiverade för att undvika felaktiga produktlöften.
