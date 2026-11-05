@@ -172,6 +172,21 @@ export function SiteFooter() {
                 </ul>
               </div>
             ))}
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-foreground/55">Kontaktuppgifter</p>
+              <ul className="mt-5 space-y-3 text-sm text-ink-muted">
+                <li>WIGOSE AB</li>
+                <li>Org.nr 559415-6753</li>
+                <li>Klostergatan 15</li>
+                <li>703 39 Örebro</li>
+                <li>
+                  <a href="mailto:info@rcsdirekt.se" className="group inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink-foreground">
+                    info@rcsdirekt.se
+                    <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </nav>
         </div>
         <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
