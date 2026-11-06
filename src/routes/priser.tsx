@@ -47,8 +47,9 @@ function PricingPage() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <section className="bg-primary-soft py-16 sm:py-24">
-          <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        <section className="relative overflow-hidden bg-background py-16 sm:py-24">
+          <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-96" />
+          <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="mx-auto max-w-3xl text-center text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl">RCS-priser för Sverige</h1>
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground sm:text-xl">Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>
           </div>
@@ -77,12 +78,13 @@ function PricingPage() {
           </div>
         </section>
 
-        <section className="bg-primary-soft py-16 sm:py-24">
-          <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        <section className="relative overflow-hidden bg-background py-16 sm:py-24">
+          <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-80" />
+          <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {included.map((item) => (
-                <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-background"><Check className="size-4" /></span>{item}</li>
+                <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>{item}</li>
               ))}
             </ul>
           </div>

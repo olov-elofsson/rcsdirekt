@@ -202,6 +202,14 @@
   z-index: -1;
 }
 
+@utility heading-glow {
+  background:
+    radial-gradient(42rem 14rem at 50% 62%, color-mix(in oklab, var(--color-primary-soft) 92%, transparent), transparent 70%),
+    radial-gradient(28rem 9rem at 50% 66%, color-mix(in oklab, var(--color-logo-blue) 10%, transparent), transparent 68%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+}
+
 @utility hero-halo {
   background: radial-gradient(circle, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 68%);
   height: 30rem;
