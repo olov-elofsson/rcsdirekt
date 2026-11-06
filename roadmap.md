@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Gör sajtens knappar enhetliga och kontrollera samtliga sidor på dator och mobil.
+- [x] Gör sajtens knappar enhetliga och kontrollera samtliga sidor på dator och mobil.
 
 - [x] Uppdatera startsidans ordning och rubriker samt kontrollera växlande bakgrunder på 1440 och 390 px
 
