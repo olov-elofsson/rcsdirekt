@@ -26,3 +26,17 @@ export const pricingPlans = [
 ] as const;
 
 export type PricingPlan = (typeof pricingPlans)[number];
+
+export const pricingCountries = [
+  { code: "SE", name: "Sverige", available: true },
+  { code: "NO", name: "Norge", available: false },
+  { code: "DK", name: "Danmark", available: false },
+  { code: "FI", name: "Finland", available: false },
+] as const;
+
+export const pricingCurrencies = [
+  { code: "SEK", name: "Svensk krona", available: true },
+  { code: "EUR", name: "Euro", available: false },
+  { code: "NOK", name: "Norsk krona", available: false },
+  { code: "DKK", name: "Dansk krona", available: false },
+] as const;

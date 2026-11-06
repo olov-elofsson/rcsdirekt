@@ -3,7 +3,7 @@ import { Check, ChevronDown } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { pricingPlans } from "@/data/pricing-plans";
+import { pricingCountries, pricingCurrencies, pricingPlans } from "@/data/pricing-plans";
 
 const title = "RCS-priser i Sverige – betala per meddelande";
 const description = "Priser för RCS i Sverige: Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Inga månadskostnader eller bindningstider.";
