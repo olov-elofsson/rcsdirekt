@@ -132,11 +132,11 @@ export function SiteFooter() {
       <div aria-hidden className="deco-dots pointer-events-none absolute -right-4 top-28 h-52 w-52 opacity-[0.06]" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div className="grid gap-14">
-          <div className="max-w-xs">
-            <Link to="/" aria-label="RCS Direkt, startsida" className="inline-flex">
-              <BrandLogo inverse className="h-8" />
+          <div>
+            <Link to="/" aria-label="RCS Direkt, startsida" className="block w-full">
+              <BrandLogo inverse className="h-auto w-full" />
             </Link>
-            <p className="mt-6 text-sm leading-relaxed text-ink-muted">
+            <p className="mt-8 max-w-md text-sm leading-relaxed text-ink-muted sm:mt-10">
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
             </p>
           </div>
