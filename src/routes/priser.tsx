@@ -49,8 +49,8 @@ function PricingPage() {
       <main>
         <section className="bg-primary-soft py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-5 lg:px-8">
-            <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl">RCS-priser för Sverige</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>
+            <h1 className="mx-auto max-w-3xl text-center text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl">RCS-priser för Sverige</h1>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground sm:text-xl">Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>
           </div>
         </section>
 
@@ -71,7 +71,7 @@ function PricingPage() {
                   ))}
                 </div>
               ))}
-              <p className="text-xs text-muted-foreground">Alla priser exklusive moms.</p>
+              <p className="text-center text-xs text-muted-foreground">Alla priser exklusive moms.</p>
             </div>
 
           </div>
@@ -79,7 +79,7 @@ function PricingPage() {
 
         <section className="bg-primary-soft py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-5 lg:px-8">
-            <h2 className="text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {included.map((item) => (
                 <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-background"><Check className="size-4" /></span>{item}</li>
@@ -90,7 +90,7 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-3xl px-5 lg:px-8">
-            <h2 className="text-3xl font-extrabold sm:text-4xl">Vanliga frågor om priser</h2>
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Vanliga frågor om priser</h2>
             <div className="mt-8 divide-y divide-border border-y border-border">
               {faq.map((item) => (
                 <details key={item.q} className="group py-5">
@@ -99,7 +99,7 @@ function PricingPage() {
                 </details>
               ))}
             </div>
-            <p className="mt-8 text-muted-foreground">Skickar ni stora volymer? <Link to="/kontakt" className="font-bold text-foreground underline">Kontakta oss</Link> för volympris.</p>
+            <p className="mt-8 text-center text-muted-foreground">Skickar ni stora volymer? <Link to="/kontakt" className="font-bold text-foreground underline">Kontakta oss</Link> för volympris.</p>
           </div>
         </section>
       </main>
