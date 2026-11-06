@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 
-import { pricingPlans } from "../src/data/pricing-plans";
+import { pricingCountries, pricingCurrencies, pricingPlans } from "../src/data/pricing-plans";
 
 test("meddelandetyperna har rätt styckpris", () => {
   const prices = Object.fromEntries(pricingPlans.map((plan) => [plan.name, plan.price]));

@@ -32,20 +32,6 @@ const contents: Record<string, string> = {
 
 const operators = ["Telia", "Tele2", "Telenor", "Tre"];
 
-const countries = [
-  { code: "SE", name: "Sverige", available: true },
-  { code: "NO", name: "Norge", available: false },
-  { code: "DK", name: "Danmark", available: false },
-  { code: "FI", name: "Finland", available: false },
-];
-
-const currencies = [
-  { code: "SEK", name: "Svensk krona", available: true },
-  { code: "EUR", name: "Euro", available: false },
-  { code: "NOK", name: "Norsk krona", available: false },
-  { code: "DKK", name: "Dansk krona", available: false },
-];
-
 const flags: Record<string, { bg: string; cross: string; inner?: string }> = {
   SE: { bg: "#006AA7", cross: "#FECC02" },
   NO: { bg: "#BA0C2F", cross: "#ffffff", inner: "#00205B" },
@@ -116,7 +102,7 @@ function PricingPage() {
                     defaultValue="SE"
                     className="h-11 w-full appearance-none rounded-md border border-input bg-background pl-11 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    {countries.map((country) => (
+                    {pricingCountries.map((country) => (
                       <option key={country.code} value={country.code} disabled={!country.available}>
                         {country.available ? country.name : `${country.name} – kommer snart`}
                       </option>
@@ -131,7 +117,7 @@ function PricingPage() {
                     defaultValue="SEK"
                     className="h-11 w-full appearance-none rounded-md border border-input bg-background px-3 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    {currencies.map((currency) => (
+                    {pricingCurrencies.map((currency) => (
                       <option key={currency.code} value={currency.code} disabled={!currency.available}>
                         {currency.available ? `${currency.code} – ${currency.name}` : `${currency.code} – ${currency.name} (kommer snart)`}
                       </option>
