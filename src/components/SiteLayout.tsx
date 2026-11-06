@@ -8,7 +8,7 @@ const mobileNav = [
   { label: "Startsida", to: "/" },
   { label: "Webbgränssnitt", to: "/rcs-online" },
   { label: "RCS API", to: "/rcs-api" },
-  { label: "Blogg", to: "/blogg" },
+  { label: "Nyheter", to: "/blogg" },
   { label: "Kontakt", to: "/kontakt" },
 ] as const;
 
@@ -102,15 +102,6 @@ const footerNav = [
     links: [
       { label: "Webbgränssnitt", to: "/rcs-online" },
       { label: "RCS API", to: "/rcs-api" },
-      { label: "Blogg", to: "/blogg" },
-    ],
-  },
-  {
-    title: "Meddelandetyper",
-    links: [
-      { label: "RCS Basic", to: "/rcs-basic" },
-      { label: "RCS Single", to: "/rcs-single" },
-      { label: "RCS Conversation", to: "/rcs-conversation" },
     ],
   },
   {
@@ -118,7 +109,6 @@ const footerNav = [
     links: [
       { label: "Skapa konto", to: "/skapa-konto" },
       { label: "Logga in", href: "https://portal.rcsdirekt.se/login" },
-      { label: "Kontakt", to: "/kontakt" },
     ],
   },
   {
@@ -150,7 +140,7 @@ export function SiteFooter() {
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
             </p>
           </div>
-          <nav className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-8 lg:grid-cols-5">
+          <nav className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-8 lg:grid-cols-[1fr_1fr_1fr_1.5fr]">
             {footerNav.map((group) => (
               <div key={group.title}>
                 <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">{group.title}</p>
@@ -162,12 +152,12 @@ export function SiteFooter() {
                         {"to" in link ? (
                           <Link to={link.to} className={linkClass}>
                             {link.label}
-                            <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
+                            <ArrowUpRight aria-hidden className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                           </Link>
                         ) : (
                           <a href={link.href} className={linkClass}>
                             {link.label}
-                            <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
+                            <ArrowUpRight aria-hidden className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                           </a>
                         )}
                       </li>
@@ -176,19 +166,12 @@ export function SiteFooter() {
                 </ul>
               </div>
             ))}
-            <div>
+            <div className="col-span-2 sm:col-span-3 lg:col-span-1">
               <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">Kontaktuppgifter</p>
               <ul className="mt-5 space-y-2.5 text-[13px] text-ink-muted">
                 <li>WIGOSE AB</li>
                 <li>Org.nr 559415-6753</li>
-                <li>Klostergatan 15</li>
-                <li>703 39 Örebro</li>
-                <li>
-                  <a href="mailto:info@rcsdirekt.se" className="group inline-flex items-center gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground">
-                    info@rcsdirekt.se
-                    <ArrowUpRight className="size-3.5 opacity-0 transition-all duration-200 -translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-70" />
-                  </a>
-                </li>
+                <li>Klostergatan 15, 703 39 Örebro</li>
               </ul>
             </div>
           </nav>
