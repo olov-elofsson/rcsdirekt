@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { pricingPlans } from "@/data/pricing-plans";
+import { pricingCountries, pricingCurrencies, pricingPlans } from "@/data/pricing-plans";
 
 const title = "RCS-priser i Sverige – betala per meddelande";
 const description = "Priser för RCS i Sverige: Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Inga månadskostnader eller bindningstider.";
@@ -31,6 +32,43 @@ const contents: Record<string, string> = {
 
 const operators = ["Telia", "Tele2", "Telenor", "Tre"];
 
+type FlagColors = { bg: string; cross: string; inner?: string };
+
+const swedishFlag: FlagColors = { bg: "#006AA7", cross: "#FECC02" };
+
+const flags: Record<string, FlagColors> = {
+  SE: swedishFlag,
+  NO: { bg: "#BA0C2F", cross: "#ffffff", inner: "#00205B" },
+  DK: { bg: "#C8102E", cross: "#ffffff" },
+  FI: { bg: "#ffffff", cross: "#003580" },
+};
+
+function Flag({ code }: { code: string }) {
+  const flag = flags[code] ?? swedishFlag;
+  return (
+    <svg viewBox="0 0 16 12" className="size-full" aria-hidden focusable="false">
+      <rect width="16" height="12" fill={flag.bg} />
+      <rect x="4.4" width="2.4" height="12" fill={flag.cross} />
+      <rect y="4.8" width="16" height="2.4" fill={flag.cross} />
+      {flag.inner ? (
+        <>
+          <rect x="5" width="1.2" height="12" fill={flag.inner} />
+          <rect y="5.4" width="16" height="1.2" fill={flag.inner} />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <label className="block">
+      <span className="text-sm font-bold">{label}</span>
+      <span className="relative mt-2 block">{children}</span>
+    </label>
+  );
+}
+
 const included = ["Verifierad avsändare med logotyp", "Webbgränssnitt och API", "Leveransrapporter och statistik", "Inga start- eller månadsavgifter", "Ingen bindningstid", "Svensk support"];
 
 const faq = [
@@ -57,6 +95,44 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
+            <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field label="Välj land">
+                  <span className="absolute left-3 top-1/2 grid size-5 -translate-y-1/2 place-items-center overflow-hidden rounded-full ring-1 ring-border">
+                    <Flag code="SE" />
+                  </span>
+                  <select
+                    aria-label="Välj land"
+                    defaultValue="SE"
+                    className="h-11 w-full appearance-none rounded-md border border-input bg-background pl-11 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {pricingCountries.map((country) => (
+                      <option key={country.code} value={country.code} disabled={!country.available}>
+                        {country.available ? country.name : `${country.name} – kommer snart`}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                </Field>
+
+                <Field label="Valuta">
+                  <select
+                    aria-label="Välj valuta"
+                    defaultValue="SEK"
+                    className="h-11 w-full appearance-none rounded-md border border-input bg-background px-3 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {pricingCurrencies.map((currency) => (
+                      <option key={currency.code} value={currency.code} disabled={!currency.available}>
+                        {currency.available ? `${currency.code} – ${currency.name}` : `${currency.code} – ${currency.name} (kommer snart)`}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                </Field>
+              </div>
+              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">Priserna anges i SEK per skickat meddelande. Vi säljer i Sverige idag – fler länder och valutor kommer snart.</p>
+            </div>
+
             <div className="space-y-8">
               {pricingPlans.map((item) => (
                 <div key={item.slug} className="overflow-hidden rounded-lg border border-border">
@@ -72,7 +148,7 @@ function PricingPage() {
                   ))}
                 </div>
               ))}
-              <p className="text-center text-xs text-muted-foreground">Alla priser exklusive moms.</p>
+              <p className="text-center text-xs text-muted-foreground">Alla priser anges i SEK och är exklusive moms.</p>
             </div>
 
           </div>

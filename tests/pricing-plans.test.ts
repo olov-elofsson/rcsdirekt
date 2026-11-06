@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 
-import { pricingPlans } from "../src/data/pricing-plans";
+import { pricingCountries, pricingCurrencies, pricingPlans } from "../src/data/pricing-plans";
 
 test("meddelandetyperna har rätt styckpris", () => {
   const prices = Object.fromEntries(pricingPlans.map((plan) => [plan.name, plan.price]));
@@ -14,4 +14,16 @@ test("meddelandetyperna har rätt styckpris", () => {
 test("bara RCS Single märks som Populärast", () => {
   const badged = pricingPlans.filter((plan) => plan.badge);
   expect(badged.map((plan) => [plan.name, plan.badge])).toEqual([["RCS Single", "Populärast"]]);
+});
+
+test("bara Sverige kan väljas som land", () => {
+  expect(pricingCountries.filter((country) => country.available).map((country) => country.code)).toEqual(["SE"]);
+});
+
+test("SEK är enda valbara valuta och används i alla priser", () => {
+  const available = pricingCurrencies.filter((currency) => currency.available).map((currency) => currency.code);
+  expect(available).toEqual(["SEK"]);
+  for (const plan of pricingPlans) {
+    expect(plan.price.endsWith(" SEK")).toBe(true);
+  }
 });
