@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Lägg till fyra företagskort med tydligt märkta RCS-exempel enligt referensen och kontrollera dator/mobil
+
 - [x] Förenkla sidfoten, visa länkpilar och byt synligt namn från Blogg till Nyheter
 
 - [x] Förvalt samtycke och enbart delbar videolänk med återförsök; 9 tester godkända, export och Kopiera alla kontrollerade med simulerat uppladdningssvar
