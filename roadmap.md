@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Lägg in företagslogotyper, ersätt Kavat med Bilia och visa tydligt illustrativa sifferexempel
+
 - [x] Lägg till fyra företagskort med tydligt märkta RCS-exempel enligt referensen och kontrollera dator/mobil
 
 - [x] Förenkla sidfoten, visa länkpilar och byt synligt namn från Blogg till Nyheter

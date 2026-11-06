@@ -18,15 +18,17 @@ export function RcsCaseExamples() {
     <section className="bg-primary-soft py-16 sm:py-24 lg:py-28" aria-labelledby="case-examples-title">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <h2 id="case-examples-title" className="max-w-3xl text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">RCS i praktiken</h2>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">Fyra tänkbara sätt att använda RCS. Illustrativa exempel för företagen nedan, inte verifierade kundcase eller uppmätta resultat.</p>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">Fyra tänkbara sätt att använda RCS. Siffrorna är påhittade illustrationer, inte uppmätta resultat eller verifierade kundcase.</p>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {rcsCaseExamples.map((item) => (
             <article key={item.company} className="flex min-w-0 flex-col rounded-lg border border-border bg-card p-6 sm:p-7">
               <div className="flex min-h-24 flex-col justify-center border-b border-border/60 pb-6">
-                <h3 className="text-2xl font-extrabold leading-tight text-foreground">{item.company}</h3>
+                <h3 className="flex h-12 items-center"><img src={item.logo} alt={item.company} className={`max-h-10 w-auto max-w-[160px] object-contain object-left ${item.company === "Big Bowl" ? "brightness-0" : ""}`} loading="lazy" /></h3>
                 <p className="mt-2 text-xs text-muted-foreground">{item.industry}</p>
               </div>
-              <p className="mt-7 text-[1.75rem] font-extrabold leading-tight text-logo-blue">{item.benefit}</p>
+              <p className="mt-7 text-5xl font-extrabold leading-tight text-logo-blue">{item.metric}</p>
+              <p className="mt-2 text-base font-semibold leading-snug text-foreground">{item.benefit}</p>
+              <p className="mt-2 text-xs text-muted-foreground">Illustrativt sifferexempel</p>
               <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
               <Button variant="link" className="mt-7 h-auto justify-start self-start p-0 text-sm text-foreground" onClick={() => setSelected(item)}>
                 Se exempel <ArrowRight className="size-4" />
@@ -47,7 +49,7 @@ export function RcsCaseExamples() {
         <div className="relative p-6">
           <Button variant="ghost" size="icon" aria-label="Stäng exemplet" className="absolute right-2 top-2" onClick={() => setSelected(null)}><X className="size-4" /></Button>
           <h2 id="case-dialog-title" className="pr-8 text-lg font-semibold leading-snug">{selected?.company}: {selected?.benefit}</h2>
-          <p id="case-dialog-description" className="mt-2 text-sm text-muted-foreground">Illustrativt RCS-exempel, inte ett verifierat kundcase.</p>
+          <p id="case-dialog-description" className="mt-2 text-sm text-muted-foreground">{selected?.metric} är ett påhittat sifferexempel, inte ett uppmätt resultat eller verifierat kundcase.</p>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">{selected?.detail}</p>
         </div>
       </dialog>
