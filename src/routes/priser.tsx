@@ -31,6 +31,8 @@ const contents: Record<string, string> = {
   "RCS Conversation": "Tvåvägsdialog i 24 timmar",
 };
 
+const operators = ["Telia", "Tele2", "Telenor", "Tre"];
+
 const included = ["Verifierad avsändare med logotyp", "Webbgränssnitt och API", "Leveransrapporter och statistik", "Inga start- eller månadsavgifter", "Ingen bindningstid", "Svensk support"];
 
 const faq = [
@@ -55,35 +57,27 @@ function PricingPage() {
         <section className="bg-primary-soft py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl">RCS-priser för Sverige</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Betala per skickat meddelande. Samma pris till alla svenska operatörer, utan månadskostnader eller bindningstider.</p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>
           </div>
         </section>
 
         <section className="py-16 sm:py-24">
-          <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.6fr)] lg:px-8">
+          <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
             <div className="overflow-hidden rounded-lg border border-border">
-              <table className="w-full text-left text-sm sm:text-base">
-                <thead className="bg-muted">
-                  <tr>
-                    <th className="px-5 py-4 font-bold">Meddelandetyp</th>
-                    <th className="hidden px-5 py-4 font-bold sm:table-cell">Innehåll</th>
-                    <th className="px-5 py-4 text-right font-bold">Pris / meddelande</th>
-                  </tr>
-                </thead>
-                <tbody>
+              {operators.map((op, i) => (
+                <div key={op} className={i ? "border-t border-border" : ""}>
+                  <h2 className="bg-muted px-5 py-3 text-base font-extrabold">{op}</h2>
                   {pricingPlans.map((item) => (
-                    <tr key={item.slug} className="border-t border-border">
-                      <td className="px-5 py-5">
+                    <div key={item.slug} className="flex items-center justify-between gap-4 border-t border-border px-5 py-4">
+                      <div>
                         <Link to={item.slug} className="font-bold hover:underline">{item.name}</Link>
-                        {item.badge ? <span className="ml-2 rounded-full bg-primary px-2.5 py-0.5 text-xs font-bold text-primary-foreground">{item.badge}</span> : null}
-                        <span className="mt-1 block text-sm text-muted-foreground sm:hidden">{contents[item.name]}</span>
-                      </td>
-                      <td className="hidden px-5 py-5 text-muted-foreground sm:table-cell">{contents[item.name]}</td>
-                      <td className="px-5 py-5 text-right text-lg font-extrabold whitespace-nowrap">{item.price}</td>
-                    </tr>
+                        <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
+                      </div>
+                      <span className="text-lg font-extrabold whitespace-nowrap">{item.price}</span>
+                    </div>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              ))}
               <p className="border-t border-border bg-muted px-5 py-3 text-xs text-muted-foreground">Alla priser exklusive moms.</p>
             </div>
 
