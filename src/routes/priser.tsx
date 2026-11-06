@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { Button } from "@/components/ui/button";
 import { pricingPlans } from "@/data/pricing-plans";
 
 const title = "RCS-priser i Sverige – betala per meddelande";
