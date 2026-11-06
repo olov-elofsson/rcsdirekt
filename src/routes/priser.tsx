@@ -47,8 +47,9 @@ function PricingPage() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <section className="bg-primary-soft py-16 sm:py-24">
-          <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        <section className="relative overflow-hidden bg-background py-16 sm:py-24">
+          <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-96" />
+          <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="mx-auto max-w-3xl text-center text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl">RCS-priser för Sverige</h1>
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground sm:text-xl">Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>
           </div>
