@@ -61,3 +61,5 @@
 - [x] Ersätt hero-bilden med en interaktiv RCS-demonstration- [x] Ta bort kundlogotyper från alla sidor och gör helhetsuttrycket lugnare och mer elegant (2026-11-05)
 
 - [x] Lägg till landval (Sverige) och valutaval (SEK) överst på prissidan; 4 tester godkända, fälten kontrollerade i webbläsaren
+
+- [x] Lägg till Prislista-länk i sidhuvudet bredvid Logga in; kontrollerad på dator och mobil

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const mobileNav = [
   { label: "Startsida", to: "/" },
-  { label: "Priser", to: "/priser" },
+  { label: "Prislista", to: "/priser" },
   { label: "Nyheter", to: "/blogg" },
 ] as const;
 
@@ -37,6 +37,9 @@ export function SiteHeader() {
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
         <div className="flex shrink-0 items-center gap-5">
+          <Link to="/priser" className="hidden h-10 items-center text-sm font-semibold leading-none text-foreground transition-colors hover:text-logo-blush sm:inline-flex">
+            Prislista
+          </Link>
           <a href="https://portal.rcsdirekt.se/login" className="hidden h-10 items-center text-sm font-semibold leading-none text-foreground transition-colors hover:text-logo-blush sm:inline-flex">
             Logga in
           </a>
