@@ -26,9 +26,9 @@ export const rcsCaseExamples = [
     company: "Bilia",
     logo: biliaLogo.url,
     industry: "Bil & service",
-    metric: "−25 %",
-    benefit: "färre missade servicetider",
-    description: "En servicepåminnelse med knappar för att bekräfta eller boka om kan göra det lättare att hålla tiden.",
+    metric: "+38 %",
+    benefit: "fler anmälningar till premiären",
+    description: "En inbjudan med bild på nyheten och en anmälningsknapp kan göra det enklare att säga ja till premiärkvällen.",
     detail: "Ett tänkbart upplägg: skicka en servicepåminnelse med tid, verkstad och vägbeskrivning. Knappar för att bekräfta tiden eller boka om gör nästa steg enkelt. Kunden kan ställa frågor direkt i samma tråd.",
   },
   {
