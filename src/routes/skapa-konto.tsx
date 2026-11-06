@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Check, Github, KeyRound } from "lucide-react";
 
 import { SiteHeader, SiteFooter } from "@/components/SiteLayout";
+import { PageHeading } from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -53,23 +54,18 @@ function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-primary-soft">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
 
-      <main className="flex flex-1 items-center justify-center px-5 py-10">
-        <div className="w-full max-w-md rounded-lg border border-border bg-card p-8 shadow-card sm:p-10">
+      <main className="flex-1">
+        <PageHeading title={sent ? "Tack för din registrering!" : "Skapa ditt konto"} description={sent ? <p>Vi hör av oss inom kort med nästa steg för att aktivera ditt konto.</p> : <p>Har du redan ett konto? <a href="https://portal.rcsdirekt.se/login" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>}>
           {sent ? (
-            <div className="text-center">
               <span className="mx-auto grid size-12 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-5" /></span>
-              <h1 className="mt-5 text-2xl font-extrabold tracking-normal">Tack för din registrering!</h1>
-              <p className="mt-3 text-muted-foreground">Vi hör av oss inom kort med nästa steg för att aktivera ditt konto.</p>
-            </div>
-          ) : (
+          ) : null}
+        </PageHeading>
+        {!sent ? <section className="px-5 py-16 sm:py-24 lg:px-8"><div className="mx-auto w-full max-w-md">
             <>
-              <h1 className="text-2xl font-extrabold tracking-normal sm:text-3xl">Skapa ditt konto</h1>
-              <p className="mt-2 text-sm text-muted-foreground">Har du redan ett konto? <a href="https://portal.rcsdirekt.se/login" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>
-
-              <form noValidate onSubmit={onSubmit} className="mt-7 space-y-3">
+              <form noValidate onSubmit={onSubmit} className="space-y-3">
                 <div className="space-y-2">
                   <Label htmlFor="email">E-post</Label>
                   <Input id="email" name="email" type="email" autoComplete="email" placeholder="namn@foretag.se" className="h-12 rounded-full bg-background px-5" aria-invalid={!!error} />
@@ -90,8 +86,7 @@ function SignupPage() {
 
               <p className="mt-7 text-center text-xs leading-relaxed text-muted-foreground">Inga månadskostnader, inga startavgifter och inga bindningstider.</p>
             </>
-          )}
-        </div>
+        </div></section> : null}
       </main>
 
       <SiteFooter />

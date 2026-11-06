@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Anpassa alla sidors rubrikområden till prissidans stil och kontrollera dator och mobil
+
 - [x] Lägg till centrerade menylänkar i sidhuvudet och kontrollera dator och mobil
 
 - [x] Gör sajtens knappar enhetliga och kontrollera samtliga sidor på dator och mobil.

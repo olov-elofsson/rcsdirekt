@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { PageHeading } from "@/components/PageHeading";
 import { RcsVideoGenerator } from "@/components/rcs-video/RcsVideoGenerator";
 
 const title = "Video till RCS-ansökan";
@@ -28,13 +29,8 @@ function VideoGeneratorPage() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden bg-primary-soft pt-20 pb-16 sm:pt-24 sm:pb-20">
-          <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">{title}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">{description}</p>
-          </div>
-        </section>
-        <section className="bg-muted/30 py-12 sm:py-16">
+        <PageHeading title={title} description={<p>{description}</p>} />
+        <section className="bg-background py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-5 lg:px-8">
             <RcsVideoGenerator />
           </div>
