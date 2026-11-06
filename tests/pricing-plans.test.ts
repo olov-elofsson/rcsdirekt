@@ -15,3 +15,15 @@ test("bara RCS Single märks som Populärast", () => {
   const badged = pricingPlans.filter((plan) => plan.badge);
   expect(badged.map((plan) => [plan.name, plan.badge])).toEqual([["RCS Single", "Populärast"]]);
 });
+
+test("bara Sverige kan väljas som land", () => {
+  expect(pricingCountries.filter((country) => country.available).map((country) => country.code)).toEqual(["SE"]);
+});
+
+test("SEK är enda valbara valuta och används i alla priser", () => {
+  const available = pricingCurrencies.filter((currency) => currency.available).map((currency) => currency.code);
+  expect(available).toEqual(["SEK"]);
+  for (const plan of pricingPlans) {
+    expect(plan.price.endsWith(" SEK")).toBe(true);
+  }
+});
