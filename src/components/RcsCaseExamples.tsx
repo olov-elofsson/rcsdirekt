@@ -1,11 +1,18 @@
-import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { rcsCaseExamples } from "@/data/rcs-case-examples";
 
 export function RcsCaseExamples() {
   const [selected, setSelected] = useState<(typeof rcsCaseExamples)[number] | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (selected && !dialog.open) dialog.showModal();
+    if (!selected && dialog.open) dialog.close();
+  }, [selected]);
 
   return (
     <section className="bg-primary-soft py-16 sm:py-24 lg:py-28" aria-labelledby="case-examples-title">
@@ -28,15 +35,22 @@ export function RcsCaseExamples() {
           ))}
         </div>
       </div>
-      <Dialog open={Boolean(selected)} onOpenChange={(open) => { if (!open) setSelected(null); }}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{selected?.company}: {selected?.benefit}</DialogTitle>
-            <DialogDescription>Illustrativt RCS-exempel, inte ett verifierat kundcase.</DialogDescription>
-          </DialogHeader>
-          <p className="text-base leading-relaxed text-muted-foreground">{selected?.detail}</p>
-        </DialogContent>
-      </Dialog>
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="case-dialog-title"
+        aria-describedby="case-dialog-description"
+        onCancel={() => setSelected(null)}
+        onClose={() => setSelected(null)}
+        onClick={(event) => { if (event.target === event.currentTarget) setSelected(null); }}
+        className="fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-lg border border-border bg-background p-0 text-foreground shadow-lift backdrop:bg-foreground/60"
+      >
+        <div className="relative p-6">
+          <Button variant="ghost" size="icon" aria-label="Stäng exemplet" className="absolute right-2 top-2" onClick={() => setSelected(null)}><X className="size-4" /></Button>
+          <h2 id="case-dialog-title" className="pr-8 text-lg font-semibold leading-snug">{selected?.company}: {selected?.benefit}</h2>
+          <p id="case-dialog-description" className="mt-2 text-sm text-muted-foreground">Illustrativt RCS-exempel, inte ett verifierat kundcase.</p>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground">{selected?.detail}</p>
+        </div>
+      </dialog>
     </section>
   );
 }

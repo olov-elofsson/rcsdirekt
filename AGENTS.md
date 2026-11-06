@@ -20,5 +20,6 @@
 - Knowledge content uses browser-safe typed data with individually edited summaries and prose composed before search and rendering, without automatically appended examples; shared single-column views and synchronous lookup loaders keep citations, search and reading estimates consistent, and glossary entries reuse exact-match dedicated articles.
 - The blog is the single discovery route for guides and glossary articles; permanently redirect the legacy /ordlista URL to /blogg to preserve existing links.
 - Illustrative company RCS scenarios live in a browser-safe data module and a dedicated homepage section; label them as examples rather than verified customer results.
+- Company example modals use native HTML dialog with React-controlled showModal/close, avoiding a newly optimized dialog dependency that can split the preview's React module graph.
 - Large editorial expansions live in separate browser-safe article and source modules composed into the shared collection; keep an explicit keyword-intent map and count regression test to prevent accidental duplicate or missing articles.
 - Compose individually authored per-slug article depth and typed primary-source findings before reading-time calculation and rendering; distinguish publisher documentation from measured customer results to avoid fabricated first-party evidence.
