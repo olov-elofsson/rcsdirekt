@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Förfina startsidans övergångar, rytm och kort; kontrollera hela sidan före/efter på 1440 och 390 px
+- [x] Förfina startsidans övergångar, rytm och kort; kontrollera hela sidan före/efter på 1440 och 390 px
 
 - [x] Lägg in företagslogotyper, ersätt Kavat med Bilia och visa tydligt illustrativa sifferexempel
 

@@ -282,12 +282,13 @@
   box-shadow: var(--shadow-home-card);
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
-.home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, .home-card):hover {
+.home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, .home-card, #fordelar .shadow-card):hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-home-hover);
   border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
 }
-.home-refined main > section:not(#sa-fungerar) [data-slot="button"] {
+.home-refined main > section:not(#sa-fungerar) .home-cta,
+.home-refined #kontakt button[type="submit"] {
   min-height: 3rem;
   border-radius: calc(var(--radius) - 2px);
   transition-duration: 200ms;
