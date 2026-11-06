@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const mobileNav = [
   { label: "Startsida", to: "/" },
-  { label: "Priser", to: "/priser" },
+  { label: "Prislista", to: "/priser" },
   { label: "Nyheter", to: "/blogg" },
 ] as const;
 
