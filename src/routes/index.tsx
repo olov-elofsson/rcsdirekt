@@ -3,6 +3,7 @@ import { ArrowRight, BarChart3, Check, Code2, Globe, TrendingUp, Wallet, X } fro
 
 
 import { LeadForm } from "@/components/LeadForm";
+import { RcsCaseExamples } from "@/components/RcsCaseExamples";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "/skapa-konto";
 
 function Index() {
-  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Comparison /><Advantages /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Comparison /><Advantages /><RcsCaseExamples /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
