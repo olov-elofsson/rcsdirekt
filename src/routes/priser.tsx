@@ -130,13 +130,13 @@ function PricingPage() {
                   <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 </Field>
               </div>
-              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">Priserna anges i SEK per skickat meddelande. Vi säljer i Sverige idag – fler länder och valutor kommer snart.</p>
+              <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">Priserna anges i SEK per skickat meddelande. Vi säljer i Sverige idag – fler länder och valutor kommer snart.</p>
             </div>
 
             <div className="space-y-8">
               {pricingPlans.map((item) => (
                 <div key={item.slug} className="overflow-hidden rounded-lg border border-border">
-                  <div className="bg-muted px-5 py-4">
+                  <div className="bg-muted px-5 py-4 text-center">
                     <span className="text-base font-extrabold">{item.name}</span>
                     <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
                   </div>
@@ -158,7 +158,7 @@ function PricingPage() {
           <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-80" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
               {included.map((item) => (
                 <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>{item}</li>
               ))}
