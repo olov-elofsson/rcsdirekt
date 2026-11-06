@@ -55,7 +55,7 @@ export function LeadForm({ mode }: { mode: Mode }) {
   const field = (name: string, label: string, props: React.ComponentProps<typeof Input> = {}) => (
     <div className="min-w-0 space-y-2">
       <Label htmlFor={name}>{label}</Label>
-      <Input id={name} name={name} className="h-12 rounded-md bg-background" aria-invalid={!!errors[name]} {...props} />
+      <Input id={name} name={name} className="h-12 rounded-full bg-background px-5" aria-invalid={!!errors[name]} {...props} />
       {errors[name] ? <p className="text-xs font-semibold text-destructive">{errors[name]}</p> : null}
     </div>
   );
@@ -70,7 +70,7 @@ export function LeadForm({ mode }: { mode: Mode }) {
       </div>
       <div className="min-w-0 space-y-2">
         <Label htmlFor="message">{signup ? "Vad vill ni skicka? (valfritt)" : "Meddelande"}</Label>
-        <Textarea id="message" name="message" rows={4} className="rounded-md bg-background" aria-invalid={!!errors['message']} />
+        <Textarea id="message" name="message" rows={4} className="rounded-2xl bg-background px-5 py-4" aria-invalid={!!errors['message']} />
         {errors['message'] ? <p className="text-xs font-semibold text-destructive">{errors['message']}</p> : null}
       </div>
       {signup ? (

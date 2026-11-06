@@ -104,7 +104,7 @@ function PricingPage() {
                   <select
                     aria-label="Välj land"
                     defaultValue="SE"
-                    className="h-11 w-full appearance-none rounded-md border border-input bg-background pl-11 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full appearance-none rounded-full border border-input bg-background pl-12 pr-10 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCountries.map((country) => (
                       <option key={country.code} value={country.code} disabled={!country.available}>
@@ -119,7 +119,7 @@ function PricingPage() {
                   <select
                     aria-label="Välj valuta"
                     defaultValue="SEK"
-                    className="h-11 w-full appearance-none rounded-md border border-input bg-background px-3 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full appearance-none rounded-full border border-input bg-background px-4 pr-10 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCurrencies.map((currency) => (
                       <option key={currency.code} value={currency.code} disabled={!currency.available}>
