@@ -1,6 +1,12 @@
+import nerciaLogo from "@/assets/company-logos/nercia.png.asset.json";
+import maptunLogo from "@/assets/company-logos/maptun.png.asset.json";
+import biliaLogo from "@/assets/company-logos/bilia.svg.asset.json";
+import bigBowlLogo from "@/assets/company-logos/big-bowl.svg.asset.json";
+
 export const rcsCaseExamples = [
   {
     company: "Nercia",
+    logo: nerciaLogo.url,
     industry: "Utbildning",
     metric: "+32 %",
     benefit: "fler bekräftade kursplatser",
@@ -9,6 +15,7 @@ export const rcsCaseExamples = [
   },
   {
     company: "Maptun",
+    logo: maptunLogo.url,
     industry: "Bil & tillbehör",
     metric: "+44 %",
     benefit: "fler klick till produkterna",
@@ -17,6 +24,7 @@ export const rcsCaseExamples = [
   },
   {
     company: "Bilia",
+    logo: biliaLogo.url,
     industry: "Bil & service",
     metric: "−25 %",
     benefit: "färre missade servicetider",
@@ -25,6 +33,7 @@ export const rcsCaseExamples = [
   },
   {
     company: "Big Bowl",
+    logo: bigBowlLogo.url,
     industry: "Bowling & upplevelser",
     metric: "+28 %",
     benefit: "fler bokningar från utskick",
