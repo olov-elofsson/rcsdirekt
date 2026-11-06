@@ -49,8 +49,8 @@ export function SiteHeader() {
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
 
-        <nav aria-label="Huvudmeny" className="hidden items-center xl:flex">
-          {headerLinks.map((link) => <Link key={link.label} to={link.to} hash={"hash" in link ? link.hash : undefined} activeOptions={{ includeHash: true }} className={navLinkBase} activeProps={navLinkActive} inactiveProps={navLinkInactive}>{link.label}</Link>)}
+        <nav aria-label="Huvudmeny" className="hidden items-center min-[1200px]:flex">
+          {headerLinks.map((link) => <Link key={link.label} to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeOptions={{ includeHash: true }} className={navLinkBase} activeProps={navLinkActive} inactiveProps={navLinkInactive}>{link.label}</Link>)}
         </nav>
 
         <div className="flex shrink-0 items-center justify-end gap-2">
@@ -70,14 +70,14 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Stäng menyn" : "Öppna menyn"}
-            className="shrink-0 xl:hidden"
+            className="shrink-0 min-[1200px]:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
         </div>
       </div>
       {open ? (
-        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 xl:hidden">
+        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 min-[1200px]:hidden">
           <button
             type="button"
             aria-label="Stäng menyn"
@@ -92,7 +92,7 @@ export function SiteHeader() {
                   <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
                 </Link>
               </li>
-              {headerLinks.map((link) => <li key={link.label}><Link to={link.to} hash={"hash" in link ? link.hash : undefined} className={mobileLinkClass}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
+              {headerLinks.map((link) => <li key={link.label}><Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={mobileLinkClass}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
             </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">
