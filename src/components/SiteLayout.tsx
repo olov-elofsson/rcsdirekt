@@ -12,6 +12,15 @@ const navLinkInactive = { className: "text-muted-foreground hover:text-foregroun
 const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush";
 
+const headerLinks = [
+  { label: "Produkter", to: "/", hash: "sa-fungerar" },
+  { label: "Lösningar", to: "/", hash: "fordelar" },
+  { label: "Utvecklare", to: "/", hash: "vad-ar-rcs" },
+  { label: "Partnerskap", to: "/", hash: "kontakt" },
+  { label: "Resurser", to: "/blogg" },
+  { label: "Priser", to: "/priser" },
+] as const;
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { pathname, hash } = useLocation({
@@ -35,48 +44,13 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto grid h-20 max-w-6xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-5 lg:px-8">
+      <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
 
-        <nav aria-label="Huvudmeny" className="hidden items-center gap-1 lg:flex">
-          <Link
-            to="/"
-            hash="sa-fungerar"
-            activeOptions={{ includeHash: true }}
-            className={navLinkBase}
-            activeProps={navLinkActive}
-            inactiveProps={navLinkInactive}
-          >
-            Så fungerar det
-          </Link>
-          <Link
-            to="/priser"
-            className={navLinkBase}
-            activeProps={navLinkActive}
-            inactiveProps={navLinkInactive}
-          >
-            Pris
-          </Link>
-          <Link
-            to="/blogg"
-            className={navLinkBase}
-            activeProps={navLinkActive}
-            inactiveProps={navLinkInactive}
-          >
-            Nyheter
-          </Link>
-          <Link
-            to="/"
-            hash="kontakt"
-            activeOptions={{ includeHash: true }}
-            className={navLinkBase}
-            activeProps={navLinkActive}
-            inactiveProps={navLinkInactive}
-          >
-            Kontakt
-          </Link>
+        <nav aria-label="Huvudmeny" className="hidden items-center min-[1200px]:flex">
+          {headerLinks.map((link) => <Link key={link.label} to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeOptions={{ includeHash: true }} className={navLinkBase} activeProps={navLinkActive} inactiveProps={navLinkInactive}>{link.label}</Link>)}
         </nav>
 
         <div className="flex shrink-0 items-center justify-end gap-2">
@@ -96,14 +70,14 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Stäng menyn" : "Öppna menyn"}
-            className="shrink-0 lg:hidden"
+            className="shrink-0 min-[1200px]:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
         </div>
       </div>
       {open ? (
-        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 lg:hidden">
+        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 min-[1200px]:hidden">
           <button
             type="button"
             aria-label="Stäng menyn"
@@ -118,30 +92,7 @@ export function SiteHeader() {
                   <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
                 </Link>
               </li>
-              <li>
-                <Link to="/" hash="sa-fungerar" className={mobileLinkClass}>
-                  Så fungerar det
-                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
-                </Link>
-              </li>
-              <li>
-                <Link to="/priser" className={mobileLinkClass}>
-                  Pris
-                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
-                </Link>
-              </li>
-              <li>
-                <Link to="/blogg" className={mobileLinkClass}>
-                  Nyheter
-                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
-                </Link>
-              </li>
-              <li>
-                <Link to="/" hash="kontakt" className={mobileLinkClass}>
-                  Kontakt
-                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
-                </Link>
-              </li>
+              {headerLinks.map((link) => <li key={link.label}><Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={mobileLinkClass}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
             </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">
