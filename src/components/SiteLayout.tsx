@@ -3,7 +3,6 @@ import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 const navLinkBase =
   "rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors";
