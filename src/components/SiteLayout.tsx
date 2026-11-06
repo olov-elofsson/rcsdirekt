@@ -15,8 +15,6 @@ const mobileLinkClass =
 const headerLinks = [
   { label: "Produkter", to: "/", hash: "sa-fungerar" },
   { label: "Lösningar", to: "/", hash: "fordelar" },
-  { label: "Utvecklare", to: "/", hash: "vad-ar-rcs" },
-  { label: "Partnerskap", to: "/", hash: "kontakt" },
   { label: "Resurser", to: "/blogg" },
   { label: "Priser", to: "/priser" },
 ] as const;
