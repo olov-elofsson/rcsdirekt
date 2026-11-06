@@ -1,5 +1,5 @@
 // @ts-nocheck – UI-komponent med lösa typer
-import { Check, Copy, Download, ExternalLink, Pause, Play, RotateCcw, Upload } from "lucide-react";
+import { Check, Copy, ExternalLink, Link, Pause, Play, RotateCcw, Upload } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
@@ -112,9 +112,6 @@ function launchTexts(f: Form, flow: any) {
 
 // ---------- hjälpfunktioner ----------
 const clone = <T,>(x: T): T => structuredClone(x);
-const slug = (s: string) =>
-  (s || "rcs-demo").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "rcs-demo";
-
 async function fitImage(file: File, w: number, h: number, type: "image/png" | "image/jpeg") {
   const url = URL.createObjectURL(file);
   try {
@@ -260,10 +257,11 @@ export function RcsVideoGenerator() {
   const [rights, setRights] = useState(false);
   const [canExport, setCanExport] = useState(true);
   const [exporting, setExporting] = useState<null | { done: number; total: number }>(null);
-  const [result, setResult] = useState<null | { url: string; name: string; seconds: number; frames: number; size: number }>(null);
   const [error, setError] = useState("");
   const [link, setLink] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [otherConsent, setOtherConsent] = useState(false);
+  const blobRef = useRef<Blob | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -275,16 +273,35 @@ export function RcsVideoGenerator() {
 
   const set = (k: keyof Form) => (e: any) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const flow = useMemo(() => makeFlow(form), [form]);
-  const launch = useMemo(() => launchTexts(form, flow), [form, flow]);
+  const consent = form.consent.trim() || consentSuggestions(form)[0].text;
+  const suggestions = consentSuggestions(form);
+  const showOtherConsent = otherConsent || !suggestions.some((x) => x.text === consent);
+  const launch = useMemo(() => launchTexts({ ...form, consent }, flow), [form, consent, flow]);
   const ready = !!(form.displayName.trim() && form.logo && form.banner);
   const missing = [
     !form.displayName.trim() && "Display name", !form.brand.trim() && "Brand", !form.logo && "Logo", !form.banner && "Banner",
     !form.web.trim() && "Webbplats", !form.contactPerson.trim() && "Kontaktperson", !form.contactRole.trim() && "Roll",
-    !form.contactEmail.trim() && "E-post till kontaktperson", !form.consent.trim() && "Samtycke",
+    !form.contactEmail.trim() && "E-post till kontaktperson",
   ].filter(Boolean);
 
+  const uploadVideo = async (blob: Blob, signal?: AbortSignal) => {
+    setError(""); setUploading(true);
+    try {
+      const response = await fetch("/api/rcs-video", { method: "POST", headers: { "Content-Type": "video/mp4" }, body: blob, signal });
+      if (!response.ok) {
+        setError(response.status === 429 ? "Gränsen för antal videor är nådd. Försök igen senare." : "Länken kunde inte skapas.");
+        return;
+      }
+      const data = await response.json();
+      if (typeof data.url !== "string" || !data.url) throw new Error("Missing URL");
+      setLink(data.url);
+    } catch (e: any) {
+      if (e?.name !== "AbortError") setError("Länken kunde inte skapas.");
+    } finally { setUploading(false); }
+  };
+
   const runExport = async () => {
-    setResult(null); setError(""); setLink(null); setUploading(false);
+    blobRef.current = null; setError(""); setLink(null); setUploading(false);
     const ac = new AbortController();
     abortRef.current = ac;
     try {
@@ -292,17 +309,9 @@ export function RcsVideoGenerator() {
       const P = buildProject(clone(flow));
       setExporting({ done: 0, total: P.video.frames });
       const blob = await exportMp4(P, { Muxer, ArrayBufferTarget, fontCss, signal: ac.signal, bitrate: 6_000_000, onProgress: (done: number, total: number) => setExporting({ done, total }) });
-      setResult({ url: URL.createObjectURL(blob), name: `${slug(form.displayName)}-rcs-demo.mp4`, seconds: P.video.frames / 30, frames: P.video.frames, size: blob.size });
+      blobRef.current = blob;
       setExporting(null);
-      setUploading(true);
-      try {
-        const response = await fetch("/api/rcs-video", { method: "POST", headers: { "Content-Type": "video/mp4" }, body: blob, signal: ac.signal });
-        if (!response.ok) throw new Error("Upload failed");
-        const data = await response.json();
-        setLink(data.url);
-      } catch {
-        setError("Länken kunde inte skapas. Du kan fortfarande ladda ned videon.");
-      } finally { setUploading(false); }
+      await uploadVideo(blob, ac.signal);
     } catch (e: any) {
       if (e?.name !== "AbortError") setError(e?.message || "Exporten misslyckades.");
     } finally {
@@ -347,22 +356,23 @@ export function RcsVideoGenerator() {
           </Field>
         </Step>
 
-        <Step n={2} title="Kontaktperson och samtycke" hint="Det enda som inte står i avsändarprofilen.">
+        <Step n={2} title="Kontaktperson" hint="Det enda som inte står i avsändarprofilen.">
           <div className="grid gap-4 sm:grid-cols-3">
             <Field label="Namn"><Input value={form.contactPerson} onChange={set("contactPerson")} /></Field>
             <Field label="Roll"><Input value={form.contactRole} placeholder="Marknadschef" onChange={set("contactRole")} /></Field>
             <Field label="E-post (direkt)"><Input value={form.contactEmail} onChange={set("contactEmail")} /></Field>
           </div>
-          <Field label="Hur ger mottagarna sitt samtycke?">
+          <Field label="Samtycke · förvalt">
             <div className="flex flex-wrap gap-2">
-              {consentSuggestions(form).map((x) => (
-                <button key={x.label} type="button" onClick={() => setForm((f) => ({ ...f, consent: x.text }))}
-                  className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${form.consent === x.text ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground/40"}`}>
+              {suggestions.map((x) => (
+                <Button key={x.label} type="button" size="sm" variant={!showOtherConsent && consent === x.text ? "default" : "outline"} aria-pressed={!showOtherConsent && consent === x.text}
+                  onClick={() => { setForm((f) => ({ ...f, consent: x.text })); setOtherConsent(false); }} className="h-auto whitespace-normal rounded-full px-3 py-1.5 text-xs">
                   {x.label}
-                </button>
+                </Button>
               ))}
+              <Button type="button" size="sm" variant={showOtherConsent ? "default" : "outline"} aria-pressed={showOtherConsent} onClick={() => setOtherConsent(true)} className="h-auto rounded-full px-3 py-1.5 text-xs">Annat</Button>
             </div>
-            <Textarea rows={2} value={form.consent} placeholder="Välj ett förslag ovan eller beskriv med egna ord (på engelska)." onChange={set("consent")} className="mt-2" />
+            {showOtherConsent ? <Textarea rows={2} value={form.consent} placeholder="Beskriv med egna ord på engelska, t.ex. by ticking …" onChange={set("consent")} className="mt-2" /> : null}
           </Field>
         </Step>
 
@@ -399,20 +409,17 @@ export function RcsVideoGenerator() {
             </div>
           ) : (
             <Button type="button" size="lg" className="w-full" disabled={!ready || !rights || !canExport || uploading} onClick={runExport}>
-              <Download className="size-4" /> {uploading ? "Laddar upp video …" : "Skapa video och länk"}
+              <Link className="size-4" /> {uploading ? "Laddar upp …" : "Skapa videolänk"}
             </Button>
           )}
           <p className="text-center text-xs text-muted-foreground">{canExport ? "1080 × 1920 · 30 fps · H.264 · utan ljud" : "Kräver Chrome eller Edge på dator."}</p>
           {error ? <p className="text-sm text-destructive">{error}</p> : null}
-          {result ? (
+          {error && blobRef.current && !link ? <Button type="button" variant="outline" disabled={uploading || !!exporting} onClick={() => { const blob = blobRef.current; if (blob) void uploadVideo(blob); }}>Försök igen</Button> : null}
+          {link ? (
             <div className="rounded-xl border border-border p-3 text-sm">
-              <p className="font-semibold">{result.name}</p>
-              <p className="text-muted-foreground">{result.seconds.toFixed(1)} s · {(result.size / 1e6).toFixed(1)} MB</p>
-              {link ? <div className="mt-3 space-y-2"><a href={link} target="_blank" rel="noopener noreferrer" className="block break-all underline">{link}</a><div className="flex flex-wrap gap-2"><CopyButton text={link} /><Button asChild size="sm" variant="outline"><a href={link} target="_blank" rel="noopener noreferrer"><ExternalLink className="size-4" /> Öppna</a></Button></div></div> : null}
-              <div className="mt-3 flex gap-2">
-                <Button asChild size="sm" className="flex-1"><a href={result.url} download={result.name}><Download className="size-4" /> Ladda ned</a></Button>
-                <Button type="button" size="sm" variant="outline" onClick={() => setResult(null)} aria-label="Rensa"><RotateCcw className="size-4" /></Button>
-              </div>
+              <p className="font-semibold">Videolänk klar</p>
+              <a href={link} target="_blank" rel="noopener noreferrer" className="mt-3 block break-all underline">{link}</a>
+              <div className="mt-3 flex flex-wrap gap-2"><CopyButton text={link} /><Button asChild size="sm" variant="outline"><a href={link} target="_blank" rel="noopener noreferrer"><ExternalLink className="size-4" /> Öppna</a></Button><Button type="button" size="sm" variant="outline" onClick={() => { setLink(null); setError(""); blobRef.current = null; }} aria-label="Rensa"><RotateCcw className="size-4" /></Button></div>
             </div>
           ) : null}
         </div>
