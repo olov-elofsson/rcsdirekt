@@ -3,19 +3,24 @@ import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const mobileNav = [
-  { label: "Startsida", to: "/" },
-  { label: "Prislista", to: "/priser" },
-  { label: "Nyheter", to: "/blogg" },
-] as const;
+const navLinkClass = (active: boolean) =>
+  cn(
+    "rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors hover:text-foreground",
+    active ? "text-foreground" : "text-muted-foreground",
+  );
 
+const mobileLinkClass =
+  "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const pathname = useLocation({ select: (location) => location.pathname });
+  const { pathname, hash } = useLocation({
+    select: (location) => ({ pathname: location.pathname, hash: location.hash }),
+  });
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setOpen(false), [pathname, hash]);
 
   useEffect(() => {
     if (!open) return;
