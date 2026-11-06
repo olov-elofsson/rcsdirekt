@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
-import { useState } from "react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -42,13 +41,8 @@ const faq = [
   { q: "Hur räknas ett längre textmeddelande?", a: "Text över 160 tecken räknas som RCS Single." },
 ];
 
-const toNumber = (price: string) => Number(price.replace(" SEK", "").replace(",", "."));
-const sek = (value: number) => value.toLocaleString("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kr";
 
 function PricingPage() {
-  const [count, setCount] = useState(1000);
-  const [planIndex, setPlanIndex] = useState(1);
-  const plan = pricingPlans[planIndex] ?? pricingPlans[1];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -63,9 +57,9 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
-            <div className="overflow-hidden rounded-lg border border-border">
-              {pricingPlans.map((item, i) => (
-                <div key={item.slug} className={i ? "border-t border-border" : ""}>
+            <div className="space-y-8">
+              {pricingPlans.map((item) => (
+                <div key={item.slug} className="overflow-hidden rounded-lg border border-border">
                   <div className="bg-muted px-5 py-4">
                     <Link to={item.slug} className="text-base font-extrabold hover:underline">{item.name}</Link>
                     <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
@@ -78,24 +72,9 @@ function PricingPage() {
                   ))}
                 </div>
               ))}
-              <p className="border-t border-border bg-muted px-5 py-3 text-xs text-muted-foreground">Alla priser exklusive moms.</p>
+              <p className="text-xs text-muted-foreground">Alla priser exklusive moms.</p>
             </div>
 
-            <div className="rounded-lg border border-border bg-card p-7 shadow-card">
-              <h2 className="text-xl font-extrabold">Räkna på ert utskick</h2>
-              <label className="mt-6 block text-sm font-bold" htmlFor="type">Meddelandetyp</label>
-              <select id="type" value={planIndex} onChange={(e) => setPlanIndex(Number(e.target.value))} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3">
-                {pricingPlans.map((item, i) => <option key={item.slug} value={i}>{item.name} – {item.price}</option>)}
-              </select>
-              <label className="mt-5 block text-sm font-bold" htmlFor="count">Antal meddelanden</label>
-              <input id="count" type="number" min={0} value={count} onChange={(e) => setCount(Math.max(0, Number(e.target.value) || 0))} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3" />
-              <div className="mt-6 border-t border-border pt-5">
-                <p className="text-sm text-muted-foreground">Uppskattad kostnad</p>
-                <p className="mt-1 text-4xl font-extrabold">{sek(count * toNumber(plan.price))}</p>
-                <p className="mt-1 text-xs text-muted-foreground">exkl. moms</p>
-              </div>
-              <Button asChild className="mt-6 w-full"><Link to="/skapa-konto">Skapa konto <ArrowRight /></Link></Button>
-            </div>
           </div>
         </section>
 
