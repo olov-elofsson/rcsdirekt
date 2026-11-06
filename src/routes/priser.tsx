@@ -46,7 +46,7 @@ const sek = (value: number) => value.toLocaleString("sv-SE", { minimumFractionDi
 function PricingPage() {
   const [count, setCount] = useState(1000);
   const [planIndex, setPlanIndex] = useState(1);
-  const plan = pricingPlans[planIndex];
+  const plan = pricingPlans[planIndex] ?? pricingPlans[1];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
