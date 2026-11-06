@@ -32,15 +32,19 @@ const contents: Record<string, string> = {
 
 const operators = ["Telia", "Tele2", "Telenor", "Tre"];
 
-const flags: Record<string, { bg: string; cross: string; inner?: string }> = {
-  SE: { bg: "#006AA7", cross: "#FECC02" },
+type FlagColors = { bg: string; cross: string; inner?: string };
+
+const swedishFlag: FlagColors = { bg: "#006AA7", cross: "#FECC02" };
+
+const flags: Record<string, FlagColors> = {
+  SE: swedishFlag,
   NO: { bg: "#BA0C2F", cross: "#ffffff", inner: "#00205B" },
   DK: { bg: "#C8102E", cross: "#ffffff" },
   FI: { bg: "#ffffff", cross: "#003580" },
 };
 
 function Flag({ code }: { code: string }) {
-  const flag = flags[code] ?? flags.SE;
+  const flag = flags[code] ?? swedishFlag;
   return (
     <svg viewBox="0 0 16 12" className="size-full" aria-hidden focusable="false">
       <rect width="16" height="12" fill={flag.bg} />
