@@ -78,8 +78,9 @@ function PricingPage() {
           </div>
         </section>
 
-        <section className="bg-primary-soft py-16 sm:py-24">
-          <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        <section className="relative overflow-hidden bg-background py-16 sm:py-24">
+          <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-80" />
+          <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {included.map((item) => (
