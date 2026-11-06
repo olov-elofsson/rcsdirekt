@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 - Video exports use a private storage bucket through validated same-host server upload and streaming routes; service-only upload logs and an atomic database limit prevent concurrent quota bypass without requiring accounts.
+- Keep the exported video blob in a component ref and share one upload function between export and retry so retries never rerender the video.
 
 - Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas och ett vitt och blått brandkit (#EFEEFC / #F5F5FC / #15115F); orange/persika ska inte förekomma, eftersom tjänsten ska kännas enkel, rak och mänsklig.
 - Sidstruktur: återanvänd SiteHeader på alla sidor och SiteLayout för offentliga undersidor så att sidhuvud, sidfot och innehållsbredd hålls konsekventa.
