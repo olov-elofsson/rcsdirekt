@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as JamforPlanerRouteImport } from './routes/jamfor-planer'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as OrdlistaRouteImport } from './routes/ordlista'
+import { Route as PriserRouteImport } from './routes/priser'
 import { Route as RcsApiRouteImport } from './routes/rcs-api'
 import { Route as RcsBasicRouteImport } from './routes/rcs-basic'
 import { Route as RcsConversationRouteImport } from './routes/rcs-conversation'
@@ -43,6 +44,11 @@ const KontaktRoute = KontaktRouteImport.update({
 const OrdlistaRoute = OrdlistaRouteImport.update({
   id: '/ordlista',
   path: '/ordlista',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PriserRoute = PriserRouteImport.update({
+  id: '/priser',
+  path: '/priser',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RcsApiRoute = RcsApiRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/jamfor-planer': typeof JamforPlanerRoute
   '/kontakt': typeof KontaktRoute
   '/ordlista': typeof OrdlistaRoute
+  '/priser': typeof PriserRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/jamfor-planer': typeof JamforPlanerRoute
   '/kontakt': typeof KontaktRoute
   '/ordlista': typeof OrdlistaRoute
+  '/priser': typeof PriserRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/jamfor-planer': typeof JamforPlanerRoute
   '/kontakt': typeof KontaktRoute
   '/ordlista': typeof OrdlistaRoute
+  '/priser': typeof PriserRoute
   '/rcs-api': typeof RcsApiRoute
   '/rcs-basic': typeof RcsBasicRoute
   '/rcs-conversation': typeof RcsConversationRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/jamfor-planer'
     | '/kontakt'
     | '/ordlista'
+    | '/priser'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/jamfor-planer'
     | '/kontakt'
     | '/ordlista'
+    | '/priser'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/jamfor-planer'
     | '/kontakt'
     | '/ordlista'
+    | '/priser'
     | '/rcs-api'
     | '/rcs-basic'
     | '/rcs-conversation'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   JamforPlanerRoute: typeof JamforPlanerRoute
   KontaktRoute: typeof KontaktRoute
   OrdlistaRoute: typeof OrdlistaRoute
+  PriserRoute: typeof PriserRoute
   RcsApiRoute: typeof RcsApiRoute
   RcsBasicRoute: typeof RcsBasicRoute
   RcsConversationRoute: typeof RcsConversationRoute
@@ -253,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/ordlista'
       fullPath: '/ordlista'
       preLoaderRoute: typeof OrdlistaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/priser': {
+      id: '/priser'
+      path: '/priser'
+      fullPath: '/priser'
+      preLoaderRoute: typeof PriserRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rcs-api': {
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   JamforPlanerRoute: JamforPlanerRoute,
   KontaktRoute: KontaktRoute,
   OrdlistaRoute: OrdlistaRoute,
+  PriserRoute: PriserRoute,
   RcsApiRoute: RcsApiRoute,
   RcsBasicRoute: RcsBasicRoute,
   RcsConversationRoute: RcsConversationRoute,
