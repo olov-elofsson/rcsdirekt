@@ -1,10 +1,12 @@
+import { Wave } from "@/components/BandWave";
 import { rcsCaseExamples } from "@/data/rcs-case-examples";
 
 export function RcsCaseExamples() {
   return (
-    <section className="bg-primary-soft py-16 sm:py-24 lg:py-24" aria-labelledby="case-examples-title">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <h2 id="case-examples-title" className="max-w-3xl text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">De skickar RCS med oss</h2>
+    <section className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-24" aria-labelledby="case-examples-title">
+      <Wave flip fill="var(--color-background)" />
+      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+        <h2 id="case-examples-title" className="max-w-3xl text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">Företag som skickar RCS med oss</h2>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">Nercia, Maptun, Bilia och Big Bowl når sina kunder med RCS via RCS Direkt – med bilder, knappar och svar direkt i meddelandeappen.</p>
         <div className="mt-12 grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {rcsCaseExamples.map((item) => (
