@@ -285,6 +285,7 @@
 .home-refined main > section:not(#sa-fungerar) h2,
 .home-refined main > section:not(#sa-fungerar) h3 { text-wrap: balance; letter-spacing: 0; }
 .home-refined main > section:not(#sa-fungerar) h2 + p { max-width: 60ch; }
+.home-refined main > section:not(#sa-fungerar) .text-center h2 + p { margin-inline: auto; }
 .home-refined main > section:not(#sa-fungerar) :is(.shadow-card, .home-card) {
   border-color: color-mix(in oklab, var(--foreground) 9%, transparent);
   border-radius: var(--radius);
