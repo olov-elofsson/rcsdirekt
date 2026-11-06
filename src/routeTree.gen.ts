@@ -10,15 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as JamforPlanerRouteImport } from './routes/jamfor-planer'
-import { Route as KontaktRouteImport } from './routes/kontakt'
-import { Route as OrdlistaRouteImport } from './routes/ordlista'
 import { Route as PriserRouteImport } from './routes/priser'
-import { Route as RcsApiRouteImport } from './routes/rcs-api'
-import { Route as RcsBasicRouteImport } from './routes/rcs-basic'
-import { Route as RcsConversationRouteImport } from './routes/rcs-conversation'
-import { Route as RcsOnlineRouteImport } from './routes/rcs-online'
-import { Route as RcsSingleRouteImport } from './routes/rcs-single'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
 import { Route as ApiRcsVideoRouteImport } from './routes/api/rcs-video'
@@ -31,49 +23,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JamforPlanerRoute = JamforPlanerRouteImport.update({
-  id: '/jamfor-planer',
-  path: '/jamfor-planer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KontaktRoute = KontaktRouteImport.update({
-  id: '/kontakt',
-  path: '/kontakt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrdlistaRoute = OrdlistaRouteImport.update({
-  id: '/ordlista',
-  path: '/ordlista',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PriserRoute = PriserRouteImport.update({
   id: '/priser',
   path: '/priser',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RcsApiRoute = RcsApiRouteImport.update({
-  id: '/rcs-api',
-  path: '/rcs-api',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RcsBasicRoute = RcsBasicRouteImport.update({
-  id: '/rcs-basic',
-  path: '/rcs-basic',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RcsConversationRoute = RcsConversationRouteImport.update({
-  id: '/rcs-conversation',
-  path: '/rcs-conversation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RcsOnlineRoute = RcsOnlineRouteImport.update({
-  id: '/rcs-online',
-  path: '/rcs-online',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RcsSingleRoute = RcsSingleRouteImport.update({
-  id: '/rcs-single',
-  path: '/rcs-single',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkapaKontoRoute = SkapaKontoRouteImport.update({
@@ -109,15 +61,7 @@ const VFileRoute = VFileRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/jamfor-planer': typeof JamforPlanerRoute
-  '/kontakt': typeof KontaktRoute
-  '/ordlista': typeof OrdlistaRoute
   '/priser': typeof PriserRoute
-  '/rcs-api': typeof RcsApiRoute
-  '/rcs-basic': typeof RcsBasicRoute
-  '/rcs-conversation': typeof RcsConversationRoute
-  '/rcs-online': typeof RcsOnlineRoute
-  '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
@@ -127,15 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/jamfor-planer': typeof JamforPlanerRoute
-  '/kontakt': typeof KontaktRoute
-  '/ordlista': typeof OrdlistaRoute
   '/priser': typeof PriserRoute
-  '/rcs-api': typeof RcsApiRoute
-  '/rcs-basic': typeof RcsBasicRoute
-  '/rcs-conversation': typeof RcsConversationRoute
-  '/rcs-online': typeof RcsOnlineRoute
-  '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
@@ -146,15 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/jamfor-planer': typeof JamforPlanerRoute
-  '/kontakt': typeof KontaktRoute
-  '/ordlista': typeof OrdlistaRoute
   '/priser': typeof PriserRoute
-  '/rcs-api': typeof RcsApiRoute
-  '/rcs-basic': typeof RcsBasicRoute
-  '/rcs-conversation': typeof RcsConversationRoute
-  '/rcs-online': typeof RcsOnlineRoute
-  '/rcs-single': typeof RcsSingleRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
@@ -166,15 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/jamfor-planer'
-    | '/kontakt'
-    | '/ordlista'
     | '/priser'
-    | '/rcs-api'
-    | '/rcs-basic'
-    | '/rcs-conversation'
-    | '/rcs-online'
-    | '/rcs-single'
     | '/skapa-konto'
     | '/video-generator'
     | '/api/rcs-video'
@@ -184,15 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/jamfor-planer'
-    | '/kontakt'
-    | '/ordlista'
     | '/priser'
-    | '/rcs-api'
-    | '/rcs-basic'
-    | '/rcs-conversation'
-    | '/rcs-online'
-    | '/rcs-single'
     | '/skapa-konto'
     | '/video-generator'
     | '/api/rcs-video'
@@ -202,15 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/jamfor-planer'
-    | '/kontakt'
-    | '/ordlista'
     | '/priser'
-    | '/rcs-api'
-    | '/rcs-basic'
-    | '/rcs-conversation'
-    | '/rcs-online'
-    | '/rcs-single'
     | '/skapa-konto'
     | '/video-generator'
     | '/api/rcs-video'
@@ -221,15 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  JamforPlanerRoute: typeof JamforPlanerRoute
-  KontaktRoute: typeof KontaktRoute
-  OrdlistaRoute: typeof OrdlistaRoute
   PriserRoute: typeof PriserRoute
-  RcsApiRoute: typeof RcsApiRoute
-  RcsBasicRoute: typeof RcsBasicRoute
-  RcsConversationRoute: typeof RcsConversationRoute
-  RcsOnlineRoute: typeof RcsOnlineRoute
-  RcsSingleRoute: typeof RcsSingleRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
   ApiRcsVideoRoute: typeof ApiRcsVideoRoute
@@ -247,67 +143,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/jamfor-planer': {
-      id: '/jamfor-planer'
-      path: '/jamfor-planer'
-      fullPath: '/jamfor-planer'
-      preLoaderRoute: typeof JamforPlanerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/kontakt': {
-      id: '/kontakt'
-      path: '/kontakt'
-      fullPath: '/kontakt'
-      preLoaderRoute: typeof KontaktRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ordlista': {
-      id: '/ordlista'
-      path: '/ordlista'
-      fullPath: '/ordlista'
-      preLoaderRoute: typeof OrdlistaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/priser': {
       id: '/priser'
       path: '/priser'
       fullPath: '/priser'
       preLoaderRoute: typeof PriserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rcs-api': {
-      id: '/rcs-api'
-      path: '/rcs-api'
-      fullPath: '/rcs-api'
-      preLoaderRoute: typeof RcsApiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rcs-basic': {
-      id: '/rcs-basic'
-      path: '/rcs-basic'
-      fullPath: '/rcs-basic'
-      preLoaderRoute: typeof RcsBasicRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rcs-conversation': {
-      id: '/rcs-conversation'
-      path: '/rcs-conversation'
-      fullPath: '/rcs-conversation'
-      preLoaderRoute: typeof RcsConversationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rcs-online': {
-      id: '/rcs-online'
-      path: '/rcs-online'
-      fullPath: '/rcs-online'
-      preLoaderRoute: typeof RcsOnlineRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rcs-single': {
-      id: '/rcs-single'
-      path: '/rcs-single'
-      fullPath: '/rcs-single'
-      preLoaderRoute: typeof RcsSingleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skapa-konto': {
@@ -357,15 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  JamforPlanerRoute: JamforPlanerRoute,
-  KontaktRoute: KontaktRoute,
-  OrdlistaRoute: OrdlistaRoute,
   PriserRoute: PriserRoute,
-  RcsApiRoute: RcsApiRoute,
-  RcsBasicRoute: RcsBasicRoute,
-  RcsConversationRoute: RcsConversationRoute,
-  RcsOnlineRoute: RcsOnlineRoute,
-  RcsSingleRoute: RcsSingleRoute,
   SkapaKontoRoute: SkapaKontoRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,
   ApiRcsVideoRoute: ApiRcsVideoRoute,

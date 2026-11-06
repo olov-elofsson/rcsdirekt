@@ -1,7 +1,7 @@
 export const pricingPlans = [
   {
     name: "RCS Basic",
-    slug: "/rcs-basic" as const,
+    slug: "basic",
     price: "0,30 SEK",
     badge: null,
     short: "Verifierade textmeddelanden för korta och tydliga besked.",
@@ -9,7 +9,7 @@ export const pricingPlans = [
   },
   {
     name: "RCS Single",
-    slug: "/rcs-single" as const,
+    slug: "single",
     price: "0,425 SEK",
     badge: "Populärast",
     short: "Rika utskick med bilder, video, karuseller och knappar.",
@@ -17,7 +17,7 @@ export const pricingPlans = [
   },
   {
     name: "RCS Conversation",
-    slug: "/rcs-conversation" as const,
+    slug: "conversation",
     price: "0,63 SEK",
     badge: null,
     short: "Tvåvägsdialog med bilder, knappar och snabbsvar.",
