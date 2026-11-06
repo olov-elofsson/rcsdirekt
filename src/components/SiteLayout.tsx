@@ -4,18 +4,21 @@ import { useEffect, useState, type ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 
-const mobileNav = [
-  { label: "Startsida", to: "/" },
-  { label: "Prislista", to: "/priser" },
-  { label: "Nyheter", to: "/blogg" },
-] as const;
+const navLinkBase =
+  "rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors";
+const navLinkActive = { className: "text-foreground" };
+const navLinkInactive = { className: "text-muted-foreground hover:text-foreground" };
 
+const mobileLinkClass =
+  "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const pathname = useLocation({ select: (location) => location.pathname });
+  const { pathname, hash } = useLocation({
+    select: (location) => ({ pathname: location.pathname, hash: location.hash }),
+  });
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setOpen(false), [pathname, hash]);
 
   useEffect(() => {
     if (!open) return;
@@ -32,16 +35,51 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto grid h-20 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 lg:px-8">
+      <div className="mx-auto grid h-20 max-w-6xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <div className="flex shrink-0 items-center gap-2">
-          <Button asChild variant="ghost" className="hidden sm:inline-flex">
-          <Link to="/priser">
-            Prislista
+
+        <nav aria-label="Huvudmeny" className="hidden items-center gap-1 lg:flex">
+          <Link
+            to="/"
+            hash="sa-fungerar"
+            activeOptions={{ includeHash: true }}
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
+          >
+            Så fungerar det
           </Link>
-          </Button>
+          <Link
+            to="/priser"
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
+          >
+            Pris
+          </Link>
+          <Link
+            to="/blogg"
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
+          >
+            Nyheter
+          </Link>
+          <Link
+            to="/"
+            hash="kontakt"
+            activeOptions={{ includeHash: true }}
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
+          >
+            Kontakt
+          </Link>
+        </nav>
+
+        <div className="flex shrink-0 items-center justify-end gap-2">
           <Button asChild variant="ghost" className="hidden sm:inline-flex">
           <a href="https://portal.rcsdirekt.se/login">
             Logga in
@@ -58,14 +96,14 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Stäng menyn" : "Öppna menyn"}
-            className="shrink-0 md:hidden"
+            className="shrink-0 lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
         </div>
       </div>
       {open ? (
-        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 md:hidden">
+        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 lg:hidden">
           <button
             type="button"
             aria-label="Stäng menyn"
@@ -74,17 +112,36 @@ export function SiteHeader() {
           />
           <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-lg border border-border/70 bg-background p-5 shadow-lift">
             <ul className="divide-y divide-border">
-              {mobileNav.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    className="flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush"
-                  >
-                    {item.label}
-                    <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/" className={mobileLinkClass}>
+                  Startsida
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/" hash="sa-fungerar" className={mobileLinkClass}>
+                  Så fungerar det
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/priser" className={mobileLinkClass}>
+                  Pris
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/blogg" className={mobileLinkClass}>
+                  Nyheter
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/" hash="kontakt" className={mobileLinkClass}>
+                  Kontakt
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
             </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">
