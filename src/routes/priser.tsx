@@ -105,6 +105,44 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
+            <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field label="Välj land">
+                  <span className="absolute left-3 top-1/2 grid size-5 -translate-y-1/2 place-items-center overflow-hidden rounded-full ring-1 ring-border">
+                    <Flag code="SE" />
+                  </span>
+                  <select
+                    aria-label="Välj land"
+                    defaultValue="SE"
+                    className="h-11 w-full appearance-none rounded-md border border-input bg-background pl-11 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {countries.map((country) => (
+                      <option key={country.code} value={country.code} disabled={!country.available}>
+                        {country.available ? country.name : `${country.name} – kommer snart`}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                </Field>
+
+                <Field label="Valuta">
+                  <select
+                    aria-label="Välj valuta"
+                    defaultValue="SEK"
+                    className="h-11 w-full appearance-none rounded-md border border-input bg-background px-3 pr-9 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {currencies.map((currency) => (
+                      <option key={currency.code} value={currency.code} disabled={!currency.available}>
+                        {currency.available ? `${currency.code} – ${currency.name}` : `${currency.code} – ${currency.name} (kommer snart)`}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                </Field>
+              </div>
+              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">Priserna anges i SEK per skickat meddelande. Vi säljer i Sverige idag – fler länder och valutor kommer snart.</p>
+            </div>
+
             <div className="space-y-8">
               {pricingPlans.map((item) => (
                 <div key={item.slug} className="overflow-hidden rounded-lg border border-border">
@@ -120,7 +158,7 @@ function PricingPage() {
                   ))}
                 </div>
               ))}
-              <p className="text-center text-xs text-muted-foreground">Alla priser exklusive moms.</p>
+              <p className="text-center text-xs text-muted-foreground">Alla priser anges i SEK och är exklusive moms.</p>
             </div>
 
           </div>
