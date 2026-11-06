@@ -21,5 +21,6 @@
 - The blog is the single discovery route for guides and glossary articles; permanently redirect the legacy /ordlista URL to /blogg to preserve existing links.
 - Illustrative company RCS scenarios live in a browser-safe data module and a dedicated homepage section; label them as examples rather than verified customer results.
 - Company example modals use native HTML dialog with React-controlled showModal/close, avoiding a newly optimized dialog dependency that can split the preview's React module graph.
+- Homepage visual refinements are scoped under `.home-refined`; each background transition is owned by the incoming section, so shared components, other routes and phone behavior remain unchanged.
 - Large editorial expansions live in separate browser-safe article and source modules composed into the shared collection; keep an explicit keyword-intent map and count regression test to prevent accidental duplicate or missing articles.
 - Compose individually authored per-slug article depth and typed primary-source findings before reading-time calculation and rendering; distinguish publisher documentation from measured customer results to avoid fabricated first-party evidence.
