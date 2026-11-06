@@ -64,16 +64,16 @@ function PricingPage() {
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
             <div className="overflow-hidden rounded-lg border border-border">
-              {operators.map((op, i) => (
-                <div key={op} className={i ? "border-t border-border" : ""}>
-                  <h2 className="bg-muted px-5 py-3 text-base font-extrabold">{op}</h2>
-                  {pricingPlans.map((item) => (
-                    <div key={item.slug} className="flex items-center justify-between gap-4 border-t border-border px-5 py-4">
-                      <div>
-                        <Link to={item.slug} className="font-bold hover:underline">{item.name}</Link>
-                        <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
-                      </div>
-                      <span className="text-lg font-extrabold whitespace-nowrap">{item.price}</span>
+              {pricingPlans.map((item, i) => (
+                <div key={item.slug} className={i ? "border-t border-border" : ""}>
+                  <div className="bg-muted px-5 py-4">
+                    <Link to={item.slug} className="text-base font-extrabold hover:underline">{item.name}</Link>
+                    <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
+                  </div>
+                  {operators.map((op) => (
+                    <div key={op} className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
+                      <span className="font-semibold">{op}</span>
+                      <span className="font-extrabold whitespace-nowrap">{item.price}</span>
                     </div>
                   ))}
                 </div>
