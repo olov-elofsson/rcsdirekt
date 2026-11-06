@@ -61,7 +61,7 @@ function PricingPage() {
               {pricingPlans.map((item) => (
                 <div key={item.slug} className="overflow-hidden rounded-lg border border-border">
                   <div className="bg-muted px-5 py-4">
-                    <Link to={item.slug} className="text-base font-extrabold hover:underline">{item.name}</Link>
+                    <span className="text-base font-extrabold">{item.name}</span>
                     <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
                   </div>
                   {operators.map((op) => (
@@ -101,7 +101,7 @@ function PricingPage() {
                 </details>
               ))}
             </div>
-            <p className="mt-8 text-center text-muted-foreground">Skickar ni stora volymer? <Link to="/kontakt" className="font-bold text-foreground underline">Kontakta oss</Link> för volympris.</p>
+            <p className="mt-8 text-center text-muted-foreground">Skickar ni stora volymer? <a href="/#kontakt" className="font-bold text-foreground underline">Kontakta oss</a> för volympris.</p>
           </div>
         </section>
       </main>
