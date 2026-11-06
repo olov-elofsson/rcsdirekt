@@ -72,7 +72,7 @@ function SignupPage() {
               <form noValidate onSubmit={onSubmit} className="mt-7 space-y-3">
                 <div className="space-y-2">
                   <Label htmlFor="email">E-post</Label>
-                  <Input id="email" name="email" type="email" autoComplete="email" placeholder="namn@foretag.se" className="h-12 rounded-md bg-background" aria-invalid={!!error} />
+                  <Input id="email" name="email" type="email" autoComplete="email" placeholder="namn@foretag.se" className="h-12 rounded-full bg-background px-5" aria-invalid={!!error} />
                   {error ? <p className="text-xs font-semibold text-destructive">{error}</p> : null}
                 </div>
                 <Button type="submit" size="lg" className="w-full">Fortsätt</Button>
