@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, ChevronDown } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { pricingPlans } from "@/data/pricing-plans";
@@ -69,7 +70,7 @@ function Flag({ code }: { code: string }) {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="block">
       <span className="text-sm font-bold">{label}</span>
