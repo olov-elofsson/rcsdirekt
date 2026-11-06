@@ -1,6 +1,7 @@
 # Roadmap
 
-- [ ] Förvalt samtycke och enbart delbar videolänk med återförsök; verifiera export och Kopiera alla
+- [x] Förvalt samtycke och enbart delbar videolänk med återförsök; 9 tester godkända, export och Kopiera alla kontrollerade med simulerat uppladdningssvar
+- [ ] Verifiera verklig videolänk i förhandsvisningen — befintlig server nekar uppladdning med 403; serverrutterna får inte ändras i detta uppdrag
 
 - [x] Skapa privata videolänkar med ursprungskontroll, uppladdningsgränser och verifierade export- och curl-tester
 
