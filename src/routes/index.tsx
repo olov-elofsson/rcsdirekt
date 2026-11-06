@@ -3,7 +3,6 @@ import { ArrowRight, BarChart3, Check, Code2, Globe, TrendingUp, Wallet, X } fro
 
 
 import { LeadForm } from "@/components/LeadForm";
-import { RcsCaseExamples } from "@/components/RcsCaseExamples";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -31,7 +30,7 @@ export const Route = createFileRoute("/")({
 const assistedHref = "/skapa-konto";
 
 function Index() {
-  return <div className="home-refined min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><RcsCaseExamples /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className="home-refined min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
@@ -90,5 +89,5 @@ function BlogSection() {
 }
 
 function HeroFirst() { return <section id="top" className="relative overflow-hidden bg-background"><div aria-hidden className="deco-dots pointer-events-none absolute left-10 top-36 h-56 w-56 opacity-[0.05]" /><div className="relative mx-auto max-w-7xl px-5 pb-16 pt-20 text-center sm:pb-20 sm:pt-24 lg:px-8"><h1 className="mx-auto max-w-5xl text-[2.75rem] font-extrabold leading-[0.98] tracking-normal sm:text-6xl lg:text-[5.5rem]">Det smidiga sättet att<br /><span className="text-logo-blue">skicka RCS</span></h1><p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Skicka meddelanden med bilder, knappar och verifierad avsändare – direkt från webben eller via API. Betala bara för det ni skickar.</p><div className="mt-10 flex justify-center"><DualCtas /></div></div></section>; }
-function DemoSection() { return <section id="sa-fungerar" className="relative overflow-hidden bg-background pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip fill="var(--color-primary-soft)" /><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-36 h-56 w-56 opacity-[0.08] lg:left-16" /><div aria-hidden className="deco-dots pointer-events-none absolute bottom-28 right-8 h-56 w-56 opacity-[0.08] lg:right-16" /><div className="relative mx-auto px-5 pb-2 lg:px-8"><InteractiveRcsDemo /></div></section>; }
+function DemoSection() { return <section id="sa-fungerar" className="relative overflow-hidden bg-background pt-28 pb-24 sm:pt-36 sm:pb-28"><div aria-hidden className="deco-dots pointer-events-none absolute left-8 top-36 h-56 w-56 opacity-[0.08] lg:left-16" /><div aria-hidden className="deco-dots pointer-events-none absolute bottom-28 right-8 h-56 w-56 opacity-[0.08] lg:right-16" /><div className="relative mx-auto px-5 pb-2 lg:px-8"><InteractiveRcsDemo /></div></section>; }
 function ContactSection() { return <section id="kontakt" className="relative overflow-hidden bg-background py-16 sm:py-24 lg:py-28"><Wave flip fill="var(--color-primary-soft)" /><div aria-hidden className="deco-dots pointer-events-none absolute right-10 top-16 h-52 w-52 opacity-[0.06]" /><div className="relative mx-auto max-w-3xl px-5 text-center lg:px-8"><h2 className={sectionTitle}>Kom igång med RCS</h2><p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration.</p><div className="mt-12 text-left"><LeadForm mode="contact" /></div></div></section>; }
