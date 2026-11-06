@@ -350,7 +350,7 @@ export function RcsVideoGenerator() {
           </div>
           <Field label="Color">
             <div className="flex max-w-48 items-center gap-2">
-              <input type="color" value={form.color} onChange={set("color")} className="size-9 shrink-0 cursor-pointer rounded-md border border-input bg-background p-0.5" />
+              <input type="color" value={form.color} onChange={set("color")} className="size-9 shrink-0 cursor-pointer rounded-full border border-input bg-background p-0.5" />
               <Input value={form.color} onChange={set("color")} className="h-9" />
             </div>
           </Field>
