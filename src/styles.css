@@ -264,3 +264,38 @@
 @keyframes soft-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes phone-change { from { opacity: 0.5; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 @keyframes progress { from { width: 0; } to { width: 100%; } }
+
+/* Homepage-only refinement; the interactive phone and other routes stay untouched. */
+.home-refined {
+  --shadow-home-card: 0 2px 4px color-mix(in oklab, var(--foreground) 3%, transparent), 0 12px 28px -20px color-mix(in oklab, var(--foreground) 12%, transparent);
+  --shadow-home-hover: 0 4px 8px color-mix(in oklab, var(--foreground) 4%, transparent), 0 20px 36px -20px color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+.home-refined main > section:not(#top) { padding-block: 4rem; }
+.home-refined main > section > svg { height: 2rem; display: block; }
+.home-refined main > section > .deco-dots { display: none; }
+.home-refined main > section:not(#sa-fungerar) h2,
+.home-refined main > section:not(#sa-fungerar) h3 { text-wrap: balance; letter-spacing: 0; }
+.home-refined main > section:not(#sa-fungerar) h2 + p { max-width: 60ch; }
+.home-refined main > section:not(#sa-fungerar) :is(.shadow-card, .home-card) {
+  border-color: color-mix(in oklab, var(--foreground) 9%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-home-card);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, .home-card):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-home-hover);
+  border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
+}
+.home-refined main > section:not(#sa-fungerar) [data-slot="button"] {
+  min-height: 3rem;
+  border-radius: calc(var(--radius) - 2px);
+  transition-duration: 200ms;
+}
+@media (min-width: 640px) {
+  .home-refined main > section:not(#top) { padding-block: 6rem; }
+  .home-refined main > section > svg { height: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-refined .home-card:hover { transform: none; }
+}
