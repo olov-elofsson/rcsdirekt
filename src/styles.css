@@ -297,12 +297,7 @@
   box-shadow: var(--shadow-home-hover);
   border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
 }
-.home-refined main > section:not(#sa-fungerar) .home-cta,
-.home-refined #kontakt button[type="submit"] {
-  min-height: 3rem;
-  border-radius: calc(var(--radius) - 2px);
-  transition-duration: 200ms;
-}
+.home-refined .home-cta { min-width: 10.5rem; }
 @media (min-width: 640px) {
   .home-refined main > section:not(#top) { padding-block: 6rem; }
   .home-refined main > section > svg { height: 3rem; }

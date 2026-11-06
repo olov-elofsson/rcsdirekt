@@ -36,13 +36,17 @@ export function SiteHeader() {
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <div className="flex shrink-0 items-center gap-5">
-          <Link to="/priser" className="hidden h-10 items-center text-sm font-semibold leading-none text-foreground transition-colors hover:text-logo-blush sm:inline-flex">
+        <div className="flex shrink-0 items-center gap-2">
+          <Button asChild variant="ghost" className="hidden sm:inline-flex">
+          <Link to="/priser">
             Prislista
           </Link>
-          <a href="https://portal.rcsdirekt.se/login" className="hidden h-10 items-center text-sm font-semibold leading-none text-foreground transition-colors hover:text-logo-blush sm:inline-flex">
+          </Button>
+          <Button asChild variant="ghost" className="hidden sm:inline-flex">
+          <a href="https://portal.rcsdirekt.se/login">
             Logga in
           </a>
+          </Button>
           <Button asChild className="hidden sm:inline-flex">
             <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
           </Button>
@@ -54,7 +58,7 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Stäng menyn" : "Öppna menyn"}
-            className="grid size-11 shrink-0 place-items-center rounded-full border border-border/70 text-foreground transition-colors hover:bg-primary-soft md:hidden"
+            className="shrink-0 md:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
@@ -83,9 +87,11 @@ export function SiteHeader() {
               ))}
             </ul>
             <div className="mt-5 flex flex-col gap-3">
-              <a href="https://portal.rcsdirekt.se/login" className="text-center text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blush">
+              <Button asChild variant="outline" size="lg" className="w-full">
+              <a href="https://portal.rcsdirekt.se/login">
                 Logga in
               </a>
+              </Button>
               <Button asChild size="lg" className="w-full">
                 <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
               </Button>
@@ -175,13 +181,13 @@ export function SiteFooter() {
         </div>
         <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-ink-muted">© {new Date().getFullYear()} WIGOSE AB · RCS Direkt. Alla rättigheter reserverade.</p>
-          <button
+          <Button variant="link" size="sm"
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-1.5 self-start text-xs font-semibold text-ink-muted transition-colors hover:text-ink-foreground sm:self-auto"
+            className="self-start px-0 text-ink-muted hover:text-ink-foreground sm:self-auto"
           >
             Till toppen <ArrowUp className="size-3.5 transition-transform duration-200 hover:-translate-y-0.5" />
-          </button>
+          </Button>
         </div>
         <Link to="/" aria-label="RCS Direkt, startsida" className="mt-12 block w-full sm:mt-16">
           <BrandLogo inverse className="h-auto w-full" />
