@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Lägg till fyra företagskort med tydligt märkta RCS-exempel enligt referensen och kontrollera dator/mobil
+- [x] Lägg till fyra företagskort med tydligt märkta RCS-exempel enligt referensen och kontrollera dator/mobil
 
 - [x] Förenkla sidfoten, visa länkpilar och byt synligt namn från Blogg till Nyheter
 
