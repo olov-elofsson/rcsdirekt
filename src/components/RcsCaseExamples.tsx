@@ -23,7 +23,7 @@ export function RcsCaseExamples() {
           {rcsCaseExamples.map((item) => (
             <article key={item.company} className="flex min-w-0 flex-col rounded-lg border border-border bg-card p-6 sm:p-7">
               <div className="flex min-h-24 flex-col justify-center border-b border-border/60 pb-6">
-                <h3 className="flex h-12 items-center"><img src={item.logo} alt={item.company} className="max-h-10 w-auto max-w-[160px] object-contain object-left" loading="lazy" /></h3>
+                <h3 className="flex h-12 items-center"><img src={item.logo} alt={item.company} className={`max-h-10 w-auto max-w-[160px] object-contain object-left ${item.company === "Big Bowl" ? "brightness-0" : ""}`} loading="lazy" /></h3>
                 <p className="mt-2 text-xs text-muted-foreground">{item.industry}</p>
               </div>
               <p className="mt-7 text-5xl font-extrabold leading-tight text-logo-blue">{item.metric}</p>
