@@ -133,10 +133,7 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div className="grid gap-14">
           <div>
-            <Link to="/" aria-label="RCS Direkt, startsida" className="block w-full">
-              <BrandLogo inverse className="h-auto w-full" />
-            </Link>
-            <p className="mt-8 max-w-md text-sm leading-relaxed text-ink-muted sm:mt-10">
+            <p className="max-w-md text-sm leading-relaxed text-ink-muted">
               RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
             </p>
           </div>
@@ -186,6 +183,9 @@ export function SiteFooter() {
             Till toppen <ArrowUp className="size-3.5 transition-transform duration-200 hover:-translate-y-0.5" />
           </button>
         </div>
+        <Link to="/" aria-label="RCS Direkt, startsida" className="mt-12 block w-full sm:mt-16">
+          <BrandLogo inverse className="h-auto w-full" />
+        </Link>
       </div>
     </footer>
   );
