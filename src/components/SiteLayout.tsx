@@ -5,11 +5,10 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const navLinkClass = (active: boolean) =>
-  cn(
-    "rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors hover:text-foreground",
-    active ? "text-foreground" : "text-muted-foreground",
-  );
+const navLinkBase =
+  "rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors";
+const navLinkActive = { className: "text-foreground" };
+const navLinkInactive = { className: "text-muted-foreground hover:text-foreground" };
 
 const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush";
@@ -46,30 +45,36 @@ export function SiteHeader() {
           <Link
             to="/"
             hash="sa-fungerar"
-            aria-current={pathname === "/" && hash === "sa-fungerar" ? "true" : undefined}
-            className={navLinkClass(pathname === "/" && hash === "sa-fungerar")}
+            activeOptions={{ includeHash: true }}
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
           >
             Så fungerar det
           </Link>
           <Link
             to="/priser"
-            aria-current={pathname === "/priser" ? "true" : undefined}
-            className={navLinkClass(pathname === "/priser")}
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
           >
             Pris
           </Link>
           <Link
             to="/blogg"
-            aria-current={pathname.startsWith("/blogg") ? "true" : undefined}
-            className={navLinkClass(pathname.startsWith("/blogg"))}
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
           >
             Nyheter
           </Link>
           <Link
             to="/"
             hash="kontakt"
-            aria-current={pathname === "/" && hash === "kontakt" ? "true" : undefined}
-            className={navLinkClass(pathname === "/" && hash === "kontakt")}
+            activeOptions={{ includeHash: true }}
+            className={navLinkBase}
+            activeProps={navLinkActive}
+            inactiveProps={navLinkInactive}
           >
             Kontakt
           </Link>
