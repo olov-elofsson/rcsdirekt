@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { pricingPlans } from "@/data/pricing-plans";
@@ -30,6 +30,53 @@ const contents: Record<string, string> = {
 };
 
 const operators = ["Telia", "Tele2", "Telenor", "Tre"];
+
+const countries = [
+  { code: "SE", name: "Sverige", available: true },
+  { code: "NO", name: "Norge", available: false },
+  { code: "DK", name: "Danmark", available: false },
+  { code: "FI", name: "Finland", available: false },
+];
+
+const currencies = [
+  { code: "SEK", name: "Svensk krona", available: true },
+  { code: "EUR", name: "Euro", available: false },
+  { code: "NOK", name: "Norsk krona", available: false },
+  { code: "DKK", name: "Dansk krona", available: false },
+];
+
+const flags: Record<string, { bg: string; cross: string; inner?: string }> = {
+  SE: { bg: "#006AA7", cross: "#FECC02" },
+  NO: { bg: "#BA0C2F", cross: "#ffffff", inner: "#00205B" },
+  DK: { bg: "#C8102E", cross: "#ffffff" },
+  FI: { bg: "#ffffff", cross: "#003580" },
+};
+
+function Flag({ code }: { code: string }) {
+  const flag = flags[code] ?? flags.SE;
+  return (
+    <svg viewBox="0 0 16 12" className="size-full" aria-hidden focusable="false">
+      <rect width="16" height="12" fill={flag.bg} />
+      <rect x="4.4" width="2.4" height="12" fill={flag.cross} />
+      <rect y="4.8" width="16" height="2.4" fill={flag.cross} />
+      {flag.inner ? (
+        <>
+          <rect x="5" width="1.2" height="12" fill={flag.inner} />
+          <rect y="5.4" width="16" height="1.2" fill={flag.inner} />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="text-sm font-bold">{label}</span>
+      <span className="relative mt-2 block">{children}</span>
+    </label>
+  );
+}
 
 const included = ["Verifierad avsändare med logotyp", "Webbgränssnitt och API", "Leveransrapporter och statistik", "Inga start- eller månadsavgifter", "Ingen bindningstid", "Svensk support"];
 
