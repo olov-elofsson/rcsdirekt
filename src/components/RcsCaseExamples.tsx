@@ -2,21 +2,21 @@ import { rcsCaseExamples } from "@/data/rcs-case-examples";
 
 export function RcsCaseExamples() {
   return (
-    <section className="bg-primary-soft py-16 sm:py-24 lg:py-28" aria-labelledby="case-examples-title">
+    <section className="bg-primary-soft py-16 sm:py-24 lg:py-24" aria-labelledby="case-examples-title">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <h2 id="case-examples-title" className="max-w-3xl text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">De skickar RCS med oss</h2>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">Nercia, Maptun, Bilia och Big Bowl når sina kunder med RCS via RCS Direkt – med bilder, knappar och svar direkt i meddelandeappen.</p>
         <div className="mt-12 grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {rcsCaseExamples.map((item) => (
-            <article key={item.company} className="flex min-w-0 flex-col rounded-lg border border-border bg-card p-6 sm:p-7">
-              <div className="flex h-20 items-start border-b border-border/60 pb-6">
+            <article key={item.company} className="home-card flex min-w-0 flex-col rounded-lg border border-border/60 bg-card p-8">
+              <div className="flex h-20 items-start border-b border-border/40 pb-6">
                 <h3 className="flex h-12 w-full items-center">
-                  <span role="img" aria-label={item.company} className="block h-8 w-40 max-w-full bg-foreground" style={{ maskImage: `url("${item.logo}")`, WebkitMaskImage: `url("${item.logo}")`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "left center" }} />
+                  <span role="img" aria-label={item.company} className="block h-6 w-[120px] max-w-full bg-foreground" style={{ maskImage: `url("${item.logo}")`, WebkitMaskImage: `url("${item.logo}")`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "left center" }} />
                 </h3>
               </div>
-              <p className="mt-7 text-5xl font-extrabold leading-tight text-logo-blue">{item.metric}</p>
+              <p className="mt-7 text-5xl font-bold leading-tight text-logo-blue">{item.metric}</p>
               <p className="mt-2 text-base font-semibold leading-snug text-foreground">{item.benefit}</p>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+              <p className="mt-4 flex-1 text-[15px] leading-relaxed text-muted-foreground">{item.description}</p>
             </article>
           ))}
         </div>
