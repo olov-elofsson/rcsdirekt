@@ -37,16 +37,45 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto grid h-20 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 lg:px-8">
+      <div className="mx-auto grid h-20 max-w-6xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-5 lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
-        <div className="flex shrink-0 items-center gap-2">
-          <Button asChild variant="ghost" className="hidden sm:inline-flex">
-          <Link to="/priser">
-            Prislista
+
+        <nav aria-label="Huvudmeny" className="hidden items-center gap-1 lg:flex">
+          <Link
+            to="/"
+            hash="sa-fungerar"
+            aria-current={pathname === "/" && hash === "sa-fungerar" ? "true" : undefined}
+            className={navLinkClass(pathname === "/" && hash === "sa-fungerar")}
+          >
+            Så fungerar det
           </Link>
-          </Button>
+          <Link
+            to="/priser"
+            aria-current={pathname === "/priser" ? "true" : undefined}
+            className={navLinkClass(pathname === "/priser")}
+          >
+            Pris
+          </Link>
+          <Link
+            to="/blogg"
+            aria-current={pathname.startsWith("/blogg") ? "true" : undefined}
+            className={navLinkClass(pathname.startsWith("/blogg"))}
+          >
+            Nyheter
+          </Link>
+          <Link
+            to="/"
+            hash="kontakt"
+            aria-current={pathname === "/" && hash === "kontakt" ? "true" : undefined}
+            className={navLinkClass(pathname === "/" && hash === "kontakt")}
+          >
+            Kontakt
+          </Link>
+        </nav>
+
+        <div className="flex shrink-0 items-center justify-end gap-2">
           <Button asChild variant="ghost" className="hidden sm:inline-flex">
           <a href="https://portal.rcsdirekt.se/login">
             Logga in
@@ -63,7 +92,7 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Stäng menyn" : "Öppna menyn"}
-            className="shrink-0 md:hidden"
+            className="shrink-0 lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
