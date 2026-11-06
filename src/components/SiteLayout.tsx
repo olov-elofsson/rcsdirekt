@@ -99,7 +99,7 @@ export function SiteHeader() {
         </div>
       </div>
       {open ? (
-        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 md:hidden">
+        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 lg:hidden">
           <button
             type="button"
             aria-label="Stäng menyn"
@@ -108,17 +108,36 @@ export function SiteHeader() {
           />
           <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-lg border border-border/70 bg-background p-5 shadow-lift">
             <ul className="divide-y divide-border">
-              {mobileNav.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    className="flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush"
-                  >
-                    {item.label}
-                    <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/" className={mobileLinkClass}>
+                  Startsida
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/" hash="sa-fungerar" className={mobileLinkClass}>
+                  Så fungerar det
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/priser" className={mobileLinkClass}>
+                  Pris
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/blogg" className={mobileLinkClass}>
+                  Nyheter
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/" hash="kontakt" className={mobileLinkClass}>
+                  Kontakt
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
+                </Link>
+              </li>
             </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">
