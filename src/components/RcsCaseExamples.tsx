@@ -8,7 +8,7 @@ export function RcsCaseExamples() {
   const [selected, setSelected] = useState<(typeof rcsCaseExamples)[number] | null>(null);
 
   return (
-    <section className="bg-secondary py-16 sm:py-24 lg:py-28" aria-labelledby="case-examples-title">
+    <section className="bg-primary-soft py-16 sm:py-24 lg:py-28" aria-labelledby="case-examples-title">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <h2 id="case-examples-title" className="max-w-3xl text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">RCS i praktiken</h2>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">Fyra tänkbara sätt att använda RCS. Illustrativa exempel för företagen nedan, inte verifierade kundcase eller uppmätta resultat.</p>
