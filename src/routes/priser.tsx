@@ -151,7 +151,7 @@ function PricingPage() {
 
         <section className="relative overflow-hidden bg-background py-16 sm:py-24">
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h2 className="text-center text-2xl font-extrabold sm:text-3xl">Det här ingår</h2>
+            <h2 className="text-center text-2xl font-extrabold sm:text-3xl">Ingår alltid</h2>
             <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
               {included.map((item) => (
                 <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>{item}</li>
@@ -162,7 +162,7 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-3xl px-5 lg:px-8">
-            <h2 className="text-center text-2xl font-extrabold sm:text-3xl">Frågor om pris</h2>
+            <h2 className="text-center text-2xl font-extrabold sm:text-3xl">Vanliga frågor</h2>
             <div className="mt-8 divide-y divide-border border-y border-border">
               {faq.map((item) => (
                 <details key={item.q} className="group py-5">
