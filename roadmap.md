@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Ta bort gradienter, korta rubriker och visa frånpriser med volym och business case; kontrollera dator och mobil
+- [x] Ta bort gradienter, korta rubriker och visa frånpriser med volym och business case; 6 tester godkända och samtliga sidtyper kontrollerade på dator och mobil
 
 - [x] Anpassa alla sidors rubrikområden till prissidans stil och kontrollera dator och mobil
 
