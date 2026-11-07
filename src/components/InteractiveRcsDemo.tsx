@@ -70,7 +70,8 @@ export function InteractiveRcsDemo() {
 
   return <div className="mx-auto w-full max-w-6xl">
     <div className="relative isolate">
-      <div className="relative mb-12"><h2 className="text-center text-2xl font-extrabold leading-tight tracking-normal sm:text-3xl">Så ser RCS ut i mobilen</h2><p className="mx-auto mt-5 max-w-[60ch] text-center text-base leading-relaxed text-muted-foreground">Verifierad avsändare, bilder, knappar och snabbsvar i kundens vanliga meddelandeapp.</p></div>
+      <div aria-hidden className="phone-halo" />
+      <div className="relative mb-12"><h2 className="text-center text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]">Så ser RCS ut i mobilen</h2><p className="mx-auto mt-5 max-w-[60ch] text-center text-base leading-relaxed text-muted-foreground">Tryck på siffrorna och se vad mottagaren möter: verifierad avsändare, bilder, knappar och snabbsvar.</p></div>
       <div className="relative grid items-center gap-x-4 min-[1000px]:grid-cols-[minmax(210px,1fr)_380px_minmax(210px,1fr)]">
       <div className="hidden min-[1000px]:flex min-[1000px]:h-[600px] min-[1000px]:flex-col min-[1000px]:justify-around"><Annotation id={1} align="left" active={active} onActive={setActive} /><Annotation id={3} align="left" active={active} onActive={setActive} /><Annotation id={5} align="left" active={active} onActive={setActive} /></div>
 

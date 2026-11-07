@@ -1,12 +1,3 @@
-export const pricingTerms = {
-  basis: "starting-at",
-  factors: ["volume", "business-case"],
-} as const;
-
-export function formatPrice(price: string) {
-  return pricingTerms.basis === "starting-at" ? `Från ${price}` : price;
-}
-
 export const pricingPlans = [
   {
     name: "RCS Basic",

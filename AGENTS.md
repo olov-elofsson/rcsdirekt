@@ -13,7 +13,6 @@
 - Keep the exported video blob in a component ref and share one upload function between export and retry so retries never rerender the video.
 - Keep site button geometry and interaction states in the shared Button variants, not page-specific overrides, so all pages stay consistent; miniature phone-demo controls retain their contextual sizes.
 - Use the shared PageHeading for content-page introductions so heading scale, alignment, background treatment and spacing stay consistent with pricing.
-- Keep pricing basis and pricing factors in the shared browser-safe pricing data, and format displayed prices through its formatter so homepage and operator tables cannot disagree.
 
 - Visuell arkitektur: använd en luftig, 46elks-inspirerad produktberättelse med vit bas och ett vitt och blått brandkit (#EFEEFC / #F5F5FC / #15115F); orange/persika ska inte förekomma, eftersom tjänsten ska kännas enkel, rak och mänsklig.
 - Sidstruktur: återanvänd SiteHeader på alla sidor och SiteLayout för offentliga undersidor så att sidhuvud, sidfot och innehållsbredd hålls konsekventa.

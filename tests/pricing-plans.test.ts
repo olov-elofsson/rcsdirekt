@@ -1,14 +1,6 @@
 import { expect, test } from "bun:test";
 
-import { pricingCountries, pricingCurrencies, pricingPlans, pricingTerms } from "../src/data/pricing-plans";
-
-test("priserna är frånpriser, inte fasta priser", () => {
-  expect(pricingTerms.basis).toBe("starting-at");
-});
-
-test("prissättningen beror på volym och business case", () => {
-  expect(pricingTerms.factors).toEqual(["volume", "business-case"]);
-});
+import { pricingCountries, pricingCurrencies, pricingPlans } from "../src/data/pricing-plans";
 
 test("meddelandetyperna har rätt styckpris", () => {
   const prices = Object.fromEntries(pricingPlans.map((plan) => [plan.name, plan.price]));

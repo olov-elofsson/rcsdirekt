@@ -4,10 +4,10 @@ import type { ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
-import { formatPrice, pricingCountries, pricingCurrencies, pricingPlans } from "@/data/pricing-plans";
+import { pricingCountries, pricingCurrencies, pricingPlans } from "@/data/pricing-plans";
 
-const title = "RCS-priser i Sverige | RCS Direkt";
-const description = "Frånpriser för RCS i Sverige: Basic från 0,30 SEK, Single från 0,425 SEK och Conversation från 0,63 SEK per meddelande. Priset beror på volym och business case.";
+const title = "RCS-priser i Sverige – betala per meddelande";
+const description = "Priser för RCS i Sverige: Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Inga månadskostnader eller bindningstider.";
 
 export const Route = createFileRoute("/priser")({
   head: () => ({
@@ -73,7 +73,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 const included = ["Verifierad avsändare med logotyp", "Webbgränssnitt och API", "Leveransrapporter och statistik", "Inga start- eller månadsavgifter", "Ingen bindningstid", "Svensk support"];
 
 const faq = [
-  { q: "Hur sätts priset?", a: "Prislistan visar frånpriser per meddelandetyp. Ert pris beror på meddelandevolym och business case. Kontakta oss så tar vi fram ett upplägg för ert företag." },
+  { q: "Vad betalar jag för?", a: "Ni betalar bara för de meddelanden ni skickar. Priset beror på meddelandetyp, inte på antal mottagare per utskick." },
   { q: "Finns det några fasta avgifter?", a: "Nej. Det finns inga månadskostnader, startavgifter eller bindningstider." },
   { q: "Är priserna inklusive moms?", a: "Alla priser anges exklusive moms." },
   { q: "Hur räknas ett längre textmeddelande?", a: "Text över 160 tecken räknas som RCS Single." },
@@ -86,7 +86,7 @@ function PricingPage() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <PageHeading title="Priser" description={<p>Frånpriser per meddelande. Ert pris beror på volym och business case.</p>} />
+        <PageHeading title="RCS-priser för Sverige" description={<p>Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>} />
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
@@ -125,7 +125,7 @@ function PricingPage() {
                   <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 </Field>
               </div>
-              <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">Frånpriser i SEK per meddelande i Sverige. Fler länder och valutor kommer snart.</p>
+              <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">Priserna anges i SEK per skickat meddelande. Vi säljer i Sverige idag – fler länder och valutor kommer snart.</p>
             </div>
 
             <div className="space-y-8">
@@ -138,20 +138,21 @@ function PricingPage() {
                   {operators.map((op) => (
                     <div key={op} className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
                       <span className="font-semibold">{op}</span>
-                       <span className="font-extrabold whitespace-nowrap">{formatPrice(item.price)}</span>
+                      <span className="font-extrabold whitespace-nowrap">{item.price}</span>
                     </div>
                   ))}
                 </div>
               ))}
-              <p className="text-center text-xs text-muted-foreground">Alla priser är frånpriser i SEK, exklusive moms. Slutligt pris beror på volym och business case.</p>
+              <p className="text-center text-xs text-muted-foreground">Alla priser anges i SEK och är exklusive moms.</p>
             </div>
 
           </div>
         </section>
 
         <section className="relative overflow-hidden bg-background py-16 sm:py-24">
+          <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-80" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h2 className="text-center text-2xl font-extrabold sm:text-3xl">Ingår alltid</h2>
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
             <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
               {included.map((item) => (
                 <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>{item}</li>
@@ -162,7 +163,7 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-3xl px-5 lg:px-8">
-            <h2 className="text-center text-2xl font-extrabold sm:text-3xl">Vanliga frågor</h2>
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Vanliga frågor om priser</h2>
             <div className="mt-8 divide-y divide-border border-y border-border">
               {faq.map((item) => (
                 <details key={item.q} className="group py-5">
@@ -171,7 +172,7 @@ function PricingPage() {
                 </details>
               ))}
             </div>
-            <p className="mt-8 text-center text-muted-foreground"><a href="/#kontakt" className="font-bold text-foreground underline">Prata med oss</a> om er volym och ert business case.</p>
+            <p className="mt-8 text-center text-muted-foreground">Skickar ni stora volymer? <a href="/#kontakt" className="font-bold text-foreground underline">Kontakta oss</a> för volympris.</p>
           </div>
         </section>
       </main>
