@@ -12,5 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /demo/
 
 Sitemap: https://rcsdirekt.se/sitemap.xml
