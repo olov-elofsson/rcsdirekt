@@ -16,6 +16,7 @@ import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
 import { Route as ApiRcsVideoRouteImport } from './routes/api/rcs-video'
 import { Route as BloggIndexRouteImport } from './routes/blogg.index'
 import { Route as BloggSlugRouteImport } from './routes/blogg.$slug'
+import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as VFileRouteImport } from './routes/v/$file'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const BloggSlugRoute = BloggSlugRouteImport.update({
   path: '/blogg/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoSlugRoute = DemoSlugRouteImport.update({
+  id: '/demo/$slug',
+  path: '/demo/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VFileRoute = VFileRouteImport.update({
   id: '/v/$file',
   path: '/v/$file',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/video-generator': typeof VideoGeneratorRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
+  '/demo/$slug': typeof DemoSlugRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/video-generator': typeof VideoGeneratorRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
+  '/demo/$slug': typeof DemoSlugRoute
   '/v/$file': typeof VFileRoute
   '/blogg': typeof BloggIndexRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/video-generator': typeof VideoGeneratorRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
+  '/demo/$slug': typeof DemoSlugRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/video-generator'
     | '/api/rcs-video'
     | '/blogg/$slug'
+    | '/demo/$slug'
     | '/v/$file'
     | '/blogg/'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/video-generator'
     | '/api/rcs-video'
     | '/blogg/$slug'
+    | '/demo/$slug'
     | '/v/$file'
     | '/blogg'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/video-generator'
     | '/api/rcs-video'
     | '/blogg/$slug'
+    | '/demo/$slug'
     | '/v/$file'
     | '/blogg/'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   VideoGeneratorRoute: typeof VideoGeneratorRoute
   ApiRcsVideoRoute: typeof ApiRcsVideoRoute
   BloggSlugRoute: typeof BloggSlugRoute
+  DemoSlugRoute: typeof DemoSlugRoute
   VFileRoute: typeof VFileRoute
   BloggIndexRoute: typeof BloggIndexRoute
 }
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BloggSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/$slug': {
+      id: '/demo/$slug'
+      path: '/demo/$slug'
+      fullPath: '/demo/$slug'
+      preLoaderRoute: typeof DemoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/v/$file': {
       id: '/v/$file'
       path: '/v/$file'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   VideoGeneratorRoute: VideoGeneratorRoute,
   ApiRcsVideoRoute: ApiRcsVideoRoute,
   BloggSlugRoute: BloggSlugRoute,
+  DemoSlugRoute: DemoSlugRoute,
   VFileRoute: VFileRoute,
   BloggIndexRoute: BloggIndexRoute,
 }
