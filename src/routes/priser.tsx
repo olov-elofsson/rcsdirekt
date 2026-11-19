@@ -150,7 +150,6 @@ function PricingPage() {
         </section>
 
         <section className="relative overflow-hidden bg-background py-16 sm:py-24">
-          <div aria-hidden className="heading-glow pointer-events-none absolute inset-x-0 top-0 h-80" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
             <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">

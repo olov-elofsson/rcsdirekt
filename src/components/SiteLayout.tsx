@@ -141,7 +141,6 @@ export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-ink pt-28 pb-12 text-ink-foreground sm:pt-36 sm:pb-14">
       <FooterWave fill="var(--color-background)" />
-      <div aria-hidden className="deco-dots pointer-events-none absolute -right-4 top-28 h-52 w-52 opacity-[0.06]" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div className="grid gap-14">
           <div>
@@ -209,7 +208,6 @@ export function DetailPage({ title, intro, children, aside }: { title: string; i
       <SiteHeader />
       <main>
         <section className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-28">
-          <div aria-hidden className="deco-dots pointer-events-none absolute -right-8 top-12 size-56 opacity-[0.07]" />
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
             <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-normal sm:text-5xl lg:text-6xl">{title}</h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{intro}</p>
