@@ -22,6 +22,7 @@
 - Knowledge content uses browser-safe typed data with individually edited summaries and prose composed before search and rendering, without automatically appended examples; shared single-column views and synchronous lookup loaders keep citations, search and reading estimates consistent, and glossary entries reuse exact-match dedicated articles.
 - The blog is the single discovery route for guides and glossary articles; permanently redirect the legacy /ordlista URL to /blogg to preserve existing links.
 - Illustrative company RCS scenarios live in a browser-safe data module and a dedicated homepage section; label them as examples rather than verified customer results.
+- Public presentation cards live in a separate homepage component and use typed demo-route links; keep them separate from hidden illustrative customer-result cards to avoid reviving unverified claims.
 - Modals use a plain React-controlled element with role="dialog" and aria-modal, avoiding a newly optimized dialog dependency that can split the preview's React module graph.
 - Homepage visual refinements are scoped under `.home-refined`; each background transition is owned by the incoming section, so shared components, other routes and phone behavior remain unchanged.
 - Large editorial expansions live in separate browser-safe article and source modules composed into the shared collection; keep an explicit keyword-intent map and count regression test to prevent accidental duplicate or missing articles.
