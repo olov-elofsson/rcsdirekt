@@ -12,7 +12,7 @@ export function CustomerPresentations() {
           <img src={dreamcareLogo.url} alt="DreamCare" width={512} height={512} className="mb-3 size-16 object-contain" loading="lazy" />
           <h3 className="text-lg font-extrabold leading-snug sm:text-xl">DreamCare Omsorg AB</h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Trygg kontakt med kunder, anhöriga och kollegor. Utforska åtta RCS-exempel för DreamCare, från kundträffar och påminnelser till frågor om hemtjänst.</p>
-          <Button asChild size="sm" className="mt-5">
+          <Button asChild size="sm" className="mt-5 rounded-lg px-5">
             <Link to="/demo/$slug" params={{ slug: "dreamcare" }}>Se kundcaset <ArrowRight /></Link>
           </Button>
         </article>
