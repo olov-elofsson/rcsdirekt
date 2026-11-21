@@ -9,7 +9,7 @@ RUN sed -i 's#https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cac
 COPY . .
 # Latest content from Payload CMS. This runs in the build stage, which Cloud Build never
 # caches, so every build (including the ones the CMS starts after an edit) fetches fresh content.
-ARG CMS_URL=https://cms.rcsdirekt.se
+ARG CMS_URL=https://rcsdirekt-cms-631487523529.europe-west1.run.app
 RUN CMS_URL=$CMS_URL bun scripts/fetch-content.ts
 ENV NITRO_PRESET=node-server
 RUN bun run build

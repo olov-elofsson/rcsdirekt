@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import type { SiteContent } from "../src/content/types";
 
 const target = new URL("../src/content/content.json", import.meta.url);
-const cmsUrl = (process.env.CMS_URL || "https://cms.rcsdirekt.se").replace(/\/$/, "");
+const cmsUrl = (process.env.CMS_URL || "https://rcsdirekt-cms-631487523529.europe-west1.run.app").replace(/\/$/, "");
 
 function problems(content: SiteContent): string[] {
   const found: string[] = [];
