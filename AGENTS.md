@@ -1,13 +1,17 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+## Drift och innehåll
+
+- Sidan körs på Google Cloud Run (tjänsten `rcsdirekt`, europe-west1) och byggs från `main` vid varje push. Lovable används inte längre.
+- Allt redigerbart innehåll kommer från Payload CMS i `cms/` (tjänsten `rcsdirekt-cms`, cms.rcsdirekt.se). Bygget hämtar det till `src/content/content.json`; ändra innehåll i CMS:et, inte i den filen.
+- Ändringar under `cms/` bygger bara CMS:et, övriga ändringar bara sidan.
+
+## Granskning av gränssnitt
+
+Allt UI-arbete i det här repot, nytt eller ändrat, ska gå igenom skillsen i `.claude/skills/` innan det är klart:
+
+- `make-interfaces-feel-better`: radier, optisk linjering, skuggor, typografi, ikoner, övergångar, prestanda.
+- `emil-design-eng`: animationer, easing, längd, tryck- och hovertillstånd.
+
+Uttryck förslag i projektets Tailwind-uppsättning och befintliga komponenter (Button-varianter, PageHeading, SiteLayout). Brandkitet nedan går före skillsens generella råd.
 
 - Video exports use a private storage bucket through validated same-host server upload and streaming routes; service-only upload logs and an atomic database limit prevent concurrent quota bypass without requiring accounts.
 - Keep the exported video blob in a component ref and share one upload function between export and retry so retries never rerender the video.
