@@ -112,7 +112,10 @@ export const RCSV_CSS = `
   .rcsv.snippet .bubble,.rcsv.snippet .card{box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 32px -12px rgba(0,0,0,.35)}
   .rcsv.snippet .bubble{background:#fff}
   .rcsv.snippet .card{background:#fff;width:100%}
-  .rcsv.snippet .card.narrow{width:210px}
+  .rcsv.snippet .card.narrow{width:220px}
+  /* a photo sent as its own message */
+  .rcsv .photo{display:block;width:240px;border-radius:20px}
+  .rcsv.snippet .photo{box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 32px -12px rgba(0,0,0,.35)}
   .rcsv.snippet .card .cbtns .cbtn{background:var(--surf)}
   .rcsv.snippet .chips{padding:0;margin:8px 0 0}
   .rcsv.snippet .chip{background:rgba(255,255,255,.94)}

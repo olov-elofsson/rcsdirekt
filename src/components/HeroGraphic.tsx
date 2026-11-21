@@ -1,77 +1,79 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 
 /**
- * Outlined message shapes: stacked cards, chat bubbles and round buttons, drawn in the brand kit
- * (navy lines, lavender, blue and white; never orange). They frame the centred hero text at the
- * page's outer edges, on wide screens only. Decorative; the slow drift stops with reduced motion
- * (.hero-float in styles.css).
+ * The site's illustration language, built from the logo symbol (brand/SVG/symbol.svg): a round
+ * speech drop with one square corner, flat, in the brand kit's navy, blue, lavender or white.
+ * Drops come in many sizes, turns and fills, alone or paired like the logo (a large drop with a
+ * smaller one tucked behind it, separated by a thin gap), sometimes with typing dots, an arrow, a
+ * check or a heart. Never orange, never outlines with shadows. Decorative only; the slow drift
+ * (.hero-float in styles.css) stops with reduced motion.
  */
-const ink = "#15115f";
+const navy = "#15115f";
 const blue = "#2f7bff";
-const line = { stroke: ink, strokeWidth: 2.5, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
+const lavender = "#efeefc";
 
-function Shape({ style, delay, width, viewBox, children }: { style: CSSProperties; delay: number; width: number; viewBox: string; children: ReactNode }) {
+type Corner = "bl" | "br" | "tl" | "tr";
+type Glyph = "dots" | "arrow" | "check" | "heart";
+
+/** The logo's drop in a 100 × 100 box: a circle whose square corner points to `corner`. */
+function dropPath(corner: Corner) {
+  // Built for the bottom-left corner as in the logo, then turned for the others.
+  return { path: "M0 100V50A50 50 0 0 1 50 0A50 50 0 0 1 100 50A50 50 0 0 1 50 100Z", turn: { bl: 0, tl: 90, tr: 180, br: 270 }[corner] };
+}
+
+function GlyphMark({ glyph, color }: { glyph: Glyph; color: string }) {
+  if (glyph === "dots") return <g fill={color}>{[30, 50, 70].map((cx) => <circle key={cx} cx={cx} cy={50} r={6.5} />)}</g>;
+  if (glyph === "arrow") return <path d="M32 50h36M54 36l14 14-14 14" fill="none" stroke={color} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" />;
+  if (glyph === "check") return <path d="M32 51l12 12 24-26" fill="none" stroke={color} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" />;
+  return <path d="M50 70C36 61 29 54 29 45c0-6 5-11 11-11 4 0 7 2 10 6 3-4 6-6 10-6 6 0 11 5 11 11 0 9-7 16-21 25z" fill={color} />;
+}
+
+type ShapeProps = { size: number; className?: string; style?: CSSProperties; float?: number };
+
+function floatStyle(style: CSSProperties | undefined, float: number | undefined): CSSProperties | undefined {
+  return float === undefined ? style : { ...style, animationDelay: `${float}s` };
+}
+
+/** One drop. `fill` is a colour; `glyph` sits upright inside, in `glyphColor`. */
+export function Drop({ size, corner = "bl", fill = navy, glyph, glyphColor = "#fff", text, className, style, float }: ShapeProps & { corner?: Corner; fill?: string; glyph?: Glyph; glyphColor?: string; text?: string }) {
+  const { path, turn } = dropPath(corner);
   return (
-    <svg aria-hidden="true" viewBox={viewBox} width={width} className="hero-float absolute" style={{ ...style, animationDelay: `${delay}s` }}>
-      {children}
+    <svg aria-hidden="true" viewBox="0 0 100 100" width={size} height={size} className={[float !== undefined ? "hero-float" : "", className ?? ""].join(" ").trim() || undefined} style={floatStyle(style, float)}>
+      <path d={path} fill={fill} transform={`rotate(${turn} 50 50)`} />
+      {glyph ? <GlyphMark glyph={glyph} color={glyphColor} /> : null}
+      {text ? <text x="50" y="52" textAnchor="middle" dominantBaseline="middle" fill={glyphColor} fontFamily="Archivo, sans-serif" fontWeight={800} fontSize={38}>{text}</text> : null}
     </svg>
   );
 }
 
-function RoundButton({ fill, children }: { fill: string; children: ReactNode }) {
+/**
+ * Two drops as in the logo: a large one and a smaller one behind its top right, with a gap in
+ * the colour behind them (`gap`). Colours can be swapped for variety.
+ */
+export function DropPair({ size, front = navy, back = blue, gap = "#fff", className, style, float }: ShapeProps & { front?: string; back?: string; gap?: string }) {
+  // Proportions of brand/SVG/symbol.svg: 86 × 80, large drop r 33, small drop r 22, gap 4.
   return (
-    <>
-      <circle cx="36" cy="36" r="33" fill={fill} {...line} />
-      <g transform="translate(36 36)">{children}</g>
-    </>
+    <svg aria-hidden="true" viewBox="0 0 86 80" width={size} height={(size * 80) / 86} className={[float !== undefined ? "hero-float" : "", className ?? ""].join(" ").trim() || undefined} style={floatStyle(style, float)}>
+      <path d="M86 44H64A22 22 0 0 1 42 22A22 22 0 0 1 64 0A22 22 0 0 1 86 22Z" fill={back} />
+      <path d="M0 80V47A33 33 0 0 1 33 14A33 33 0 0 1 66 47A33 33 0 0 1 33 80Z" fill={front} stroke={gap} strokeWidth={8} paintOrder="stroke" />
+    </svg>
   );
 }
 
+export const dropColors = { navy, blue, lavender };
+
+/** The hero's frame: drops at the page's outer edges, on wide screens only. */
 export function HeroGraphic() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-7xl -translate-x-1/2 lg:block">
-      {/* stacked rich cards, top left */}
-      <Shape style={{ left: "1%", top: "12%" }} delay={-2} width={132} viewBox="0 0 150 150">
-        <rect x="40" y="40" width="104" height="104" rx="18" fill={blue} {...line} />
-        <rect x="22" y="22" width="104" height="104" rx="18" fill="#fff" {...line} />
-        <rect x="4" y="4" width="104" height="104" rx="18" fill="#fff" {...line} />
-        <rect x="18" y="18" width="76" height="34" rx="7" fill={blue} {...line} />
-        <path d="M21 48l14-12 10 9 8-6 16 13" fill="none" {...line} stroke="#fff" />
-        <path d="M20 68h46M20 81h30" fill="none" {...line} strokeWidth={4} />
-      </Shape>
-
-      {/* blue chat bubble with typing dots, top right */}
-      <Shape style={{ right: "2%", top: "14%" }} delay={-5} width={128} viewBox="0 0 150 92">
-        <path d="M28 4h96a22 22 0 0 1 22 22v32a22 22 0 0 1-22 22H40l-20 10 6-12A22 22 0 0 1 6 58V26A22 22 0 0 1 28 4z" fill={blue} {...line} />
-        {[52, 76, 100].map((cx) => (
-          <circle key={cx} cx={cx} cy={42} r={7} fill="#fff" {...line} strokeWidth={2} />
-        ))}
-      </Shape>
-
-      {/* round buttons */}
-      <Shape style={{ left: "12%", top: "56%" }} delay={-6} width={62} viewBox="0 0 72 72">
-        <RoundButton fill="#fff">
-          <path d="M0 11c-9-6-14-11-14-17 0-4 3-7 7-7 3 0 5 2 7 4 2-2 4-4 7-4 4 0 7 3 7 7 0 6-5 11-14 17z" fill={ink} />
-        </RoundButton>
-      </Shape>
-      <Shape style={{ right: "13%", top: "48%" }} delay={-3} width={62} viewBox="0 0 72 72">
-        <RoundButton fill={blue}>
-          <path d="M-12 0h24M3-9l9 9-9 9" fill="none" {...line} strokeWidth={3.5} />
-        </RoundButton>
-      </Shape>
-      <Shape style={{ right: "4%", bottom: "12%" }} delay={-4} width={58} viewBox="0 0 72 72">
-        <RoundButton fill="#fff">
-          <path d="M0 12v-24M-9-3l9-9 9 9" fill="none" {...line} strokeWidth={3.5} />
-        </RoundButton>
-      </Shape>
-
-      {/* outlined bubble, bottom left */}
-      <Shape style={{ left: "2%", bottom: "8%" }} delay={-1} width={134} viewBox="0 0 150 92">
-        <path d="M28 4h96a22 22 0 0 1 22 22v32a22 22 0 0 1-22 22H40l-20 10 6-12A22 22 0 0 1 6 58V26A22 22 0 0 1 28 4z" fill="#fff" {...line} />
-        {[52, 76, 100].map((cx) => (
-          <circle key={cx} cx={cx} cy={42} r={7} fill={blue} {...line} strokeWidth={2} />
-        ))}
-      </Shape>
+      <DropPair size={128} className="absolute" style={{ left: "3%", top: "12%" }} float={-2} />
+      <Drop size={104} corner="bl" fill={blue} glyph="dots" className="absolute" style={{ right: "3%", top: "13%" }} float={-5} />
+      <Drop size={52} corner="tr" fill={lavender} glyph="heart" glyphColor={navy} className="absolute" style={{ left: "14%", top: "52%" }} float={-6} />
+      <Drop size={66} corner="br" fill={navy} glyph="arrow" className="absolute" style={{ right: "14%", top: "47%" }} float={-3} />
+      <Drop size={112} corner="br" fill={lavender} glyph="dots" glyphColor={blue} className="absolute" style={{ left: "1%", bottom: "9%" }} float={-1} />
+      <DropPair size={70} front={blue} back={navy} className="absolute" style={{ right: "5%", bottom: "11%" }} float={-4} />
+      <Drop size={26} corner="tl" fill={blue} className="absolute" style={{ left: "13%", top: "36%" }} float={-7} />
+      <Drop size={22} corner="br" fill={navy} className="absolute" style={{ right: "9%", bottom: "36%" }} float={-2.5} />
     </div>
   );
 }

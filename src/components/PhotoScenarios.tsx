@@ -3,12 +3,28 @@ import { RotateCcw } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
-import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
+import { scenarios, type Card, type Choice, type Picture, type Scenario, type Step } from "@/data/rcs-scenarios";
 import { cn } from "@/lib/utils";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** A part of a photo, zoomed in on its point, inside a box that clips it. */
+function Crop({ picture, height, className }: { picture: Picture; height: number; className?: string }) {
+  const zoom = picture.zoom ?? 1;
+  return (
+    <div className={className} style={{ height, overflow: "hidden" }}>
+      <img src={picture.src} alt="" loading="lazy" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: picture.position, transform: zoom === 1 ? undefined : `scale(${zoom})`, transformOrigin: picture.position }} />
+    </div>
+  );
+}
+
+/** A pause that grows with what the business writes, so the rhythm is not mechanical. */
+const typingTime = (step: Step) => {
+  const words = [step.text, step.card?.title, step.card?.body].filter(Boolean).join(" ").length;
+  return Math.min(1700, 650 + words * 14 + (step.image || step.carousel ? 300 : 0));
+};
 
 type Entry =
   { from: "business"; step: Step } | { from: "me"; text: string } | { from: "note"; text: string };
@@ -51,7 +67,7 @@ function useConversation(start: Step) {
     timer.current = window.setTimeout(() => {
       setTyping(false);
       setEntries((list) => [...list, { from: "business", step: next }]);
-    }, 1000);
+    }, typingTime(next));
   };
   const reset = () => {
     window.clearTimeout(timer.current);
@@ -77,12 +93,7 @@ function CardView({
 }) {
   return (
     <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
-      {card.image ? <img src={card.image} alt="" /> : null}
-      {card.imageIcon ? (
-        <div className="cimg">
-          <PhoneIcon name={card.imageIcon} size={44} color="#0b57d0" />
-        </div>
-      ) : null}
+      {card.image ? <Crop picture={card.image} height={narrow ? 128 : 150} /> : null}
       <div className="ct">{card.title}</div>
       <div className="cb">{card.body}</div>
       <div className={cn("cbtns", active && "invite")}>
@@ -181,12 +192,21 @@ function ConversationView({
                 className={index === 0 ? undefined : "animate-message-in"}
                 style={{ marginTop: gap }}
               >
+                {step.image ? (
+                  <div className="inrow" style={{ marginBottom: step.text || step.card ? 6 : 0 }}>
+                    <Crop picture={step.image} height={160} className="photo" />
+                  </div>
+                ) : null}
                 {step.text ? (
                   <div className="inrow">
                     <div className="bubble">{step.text}</div>
                   </div>
                 ) : null}
-                {step.card ? <CardView card={step.card} active={active} onChoose={choose} /> : null}
+                {step.card ? (
+                  <div style={{ marginTop: step.text ? 6 : 0 }}>
+                    <CardView card={step.card} active={active} onChoose={choose} />
+                  </div>
+                ) : null}
                 {step.carousel ? (
                   <div
                     className="scrollbar-none"
