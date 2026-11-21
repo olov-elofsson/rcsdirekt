@@ -57,7 +57,8 @@ function Annotation({ id, active, onActive, align }: { id: DemoFeatureId; active
       onBlur={() => onActive(null)}
       className={cn("group hidden w-full items-center gap-3 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 min-[1000px]:flex", align === "left" && "flex-row-reverse text-right")}
     >
-      <span className={cn("relative h-px w-16 shrink-0 origin-center bg-logo-blue transition-[width] duration-200 ease-out xl:w-24", active === id && "w-24 xl:w-32")}>
+      <span className="relative h-2 w-24 shrink-0 xl:w-32">
+        <span className={cn("absolute inset-x-0 top-1/2 h-px bg-logo-blue transition-transform duration-200 ease-out motion-reduce:transition-none", align === "left" ? "origin-left" : "origin-right", active === id ? "scale-x-100" : "scale-x-[0.67]")} />
         <span className={cn("absolute top-1/2 size-2 -translate-y-1/2 rounded-full border-2 border-logo-blue bg-background", align === "left" ? "left-0" : "right-0")} />
       </span>
       <span className={cn("grid size-8 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground tabular-nums transition-transform duration-200 ease-out", active === id && "scale-110")}>{id}</span>
@@ -91,14 +92,14 @@ function RichCard({ title, copy, icon, actions, onAction }: { title: string; cop
   return (
     <div className="card" style={{ flex: "none" }}>
       {icon ? (
-        <div style={{ width: 262, height: 150, display: "grid", placeItems: "center", background: "#d3e3fd" }}>
+        <div className="cimg">
           <PhoneIcon name={phoneIconName(icon)} size={48} color="#0b57d0" />
         </div>
       ) : null}
       <div className="ct">{title}</div>
-      {copy ? <div className="cb">{copy}</div> : <div style={{ height: 9 }} />}
+      {copy ? <div className="cb">{copy}</div> : <div className="cgap" />}
       {actions?.map((action) => (
-        <button key={action} type="button" className="cbtn" style={{ width: "100%", background: "none", border: 0, borderTop: "1px solid #d4d9e1", cursor: "pointer", font: "inherit", fontWeight: 500 }} onClick={() => onAction?.(action)}>
+        <button key={action} type="button" className="cbtn" onClick={() => onAction?.(action)}>
           {action}
         </button>
       ))}
@@ -192,7 +193,7 @@ export function InteractiveRcsDemo() {
             <FeatureTarget id={6} active={active} onActive={setActive} onOpen={setActive} style={{ marginBottom: 4 }} markerClassName="right-2 -top-4">
               <div className="chips scrollbar-none" style={{ overflowX: "auto", paddingRight: 13, marginBottom: 0 }}>
                 {replyOptions.map((reply) => (
-                  <button key={reply} type="button" className={cn("chip", selectedReply === reply && "pressed")} style={{ cursor: "pointer", font: "inherit", fontWeight: 500 }} onClick={() => chooseReply(reply)}>
+                  <button key={reply} type="button" aria-pressed={selectedReply === reply} className={cn("chip", selectedReply === reply && "pressed")} onClick={() => chooseReply(reply)}>
                     <PhoneIcon name="chat" size={16} color="#0b57d0" />
                     {reply}
                   </button>
@@ -210,12 +211,12 @@ export function InteractiveRcsDemo() {
           </RcsPhone>
 
           <div className="mt-4 hidden justify-center gap-2 min-[1000px]:flex">
-            <Button type="button" variant="outline" size="icon" className="size-9" onClick={() => scrollCards(-1)} aria-label="Föregående kort"><ChevronLeft /></Button>
-            <Button type="button" variant="outline" size="icon" className="size-9" onClick={() => scrollCards(1)} aria-label="Nästa kort"><ChevronRight /></Button>
+            <Button type="button" variant="outline" size="icon" onClick={() => scrollCards(-1)} aria-label="Föregående kort"><ChevronLeft /></Button>
+            <Button type="button" variant="outline" size="icon" onClick={() => scrollCards(1)} aria-label="Nästa kort"><ChevronRight /></Button>
           </div>
 
           {activeItem ? (
-            <div role="status" className="fixed inset-x-4 bottom-4 z-[60] mx-auto flex max-w-sm items-start gap-3 rounded-2xl border border-border bg-background p-3.5 text-left shadow-lift animate-fade-in min-[1000px]:hidden">
+            <div role="status" className="fixed inset-x-4 bottom-4 z-[60] mx-auto flex max-w-sm items-start gap-3 rounded-[26px] bg-background p-3.5 text-left shadow-lift animate-fade-in min-[1000px]:hidden">
               <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground tabular-nums">{activeItem.id}</span>
               <span className="min-w-0 flex-1">
                 <strong className="block text-sm">{activeItem.title}</strong>
