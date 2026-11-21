@@ -13,9 +13,15 @@ export type Scenario = {
   copy: string;
   photo: { src: string; alt: string; position?: string };
   message:
-    | { kind: "bubble"; text: string; chips: string[] }
-    | { kind: "card"; title: string; body: string; actions: { label: string; icon?: string }[] };
+    | { kind: "bubble"; text: string; chips: Choice[] }
+    | { kind: "card"; title: string; body: string; actions: Choice[] };
 };
+
+/**
+ * A button in the message. A reply (`reply`) is sent as the recipient's answer and the business
+ * answers; an action with an icon opens something (`opens`) and sends nothing, as in RCS.
+ */
+export type Choice = { label: string; icon?: string; reply?: string; opens?: string };
 
 export const scenarios: Scenario[] = [
   {
@@ -23,7 +29,14 @@ export const scenarios: Scenario[] = [
     title: "Påminnelser som går att svara på",
     copy: "Kunden bekräftar besöket eller bokar om med ett tryck, och svaret kommer fram till er i stället för till en telefonkö.",
     photo: { src: careUrl, alt: "En ung kvinna och en äldre kvinna skrattar tillsammans i en soffa hemma", position: "50% 35%" },
-    message: { kind: "bubble", text: "Hej Inga! Vi kommer på besök i morgon kl. 10.00. Passar tiden?", chips: ["Ja, det passar", "Boka om"] },
+    message: {
+      kind: "bubble",
+      text: "Hej Inga! Vi kommer på besök i morgon kl. 10.00. Passar tiden?",
+      chips: [
+        { label: "Ja, det passar", reply: "Tack! Vi ses i morgon kl. 10.00." },
+        { label: "Boka om", reply: "Inga problem. Vilken dag passar bättre?" },
+      ],
+    },
   },
   {
     customer: "Maptun",
@@ -35,8 +48,8 @@ export const scenarios: Scenario[] = [
       title: "Utvalda tillbehör till din bil",
       body: "Se bilder och pris direkt i meddelandet.",
       actions: [
-        { label: "Se tillbehören", icon: "open" },
-        { label: "Boka montering", icon: "event" },
+        { label: "Se tillbehören", icon: "open", opens: "maptun.se" },
+        { label: "Boka montering", reply: "Vi har lediga tider tisdag och torsdag. Vilken dag passar dig?" },
       ],
     },
   },
@@ -50,8 +63,8 @@ export const scenarios: Scenario[] = [
       title: "Välkommen till kursen!",
       body: "Vi börjar måndag kl. 9.00. Välkomstfika från 8.30.",
       actions: [
-        { label: "Jag kommer" },
-        { label: "Visa vägen", icon: "open" },
+        { label: "Jag kommer", reply: "Toppen! Vi ses på måndag." },
+        { label: "Visa vägen", icon: "open", opens: "kartan" },
       ],
     },
   },
@@ -65,8 +78,8 @@ export const scenarios: Scenario[] = [
       title: "Välkommen på premiärkväll",
       body: "Se nyheterna torsdag kl. 18.00 hos oss.",
       actions: [
-        { label: "Anmäl mig", icon: "event" },
-        { label: "Läs mer", icon: "open" },
+        { label: "Anmäl mig", reply: "Du är anmäld! Vi påminner dig dagen innan." },
+        { label: "Läs mer", icon: "open", opens: "bilia.se" },
       ],
     },
   },

@@ -113,6 +113,10 @@ export const RCSV_CSS = `
   .rcsv.snippet .card .cbtns .cbtn{background:var(--surf)}
   .rcsv.snippet .chips{padding:0;margin:8px 0 0}
   .rcsv.snippet .chip{background:rgba(255,255,255,.94)}
+  .rcsv.snippet .outrow{padding:0}
+  .rcsv.snippet .outrow .bubble{background:var(--out)}
+  .rcsv.snippet .typing{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 32px -12px rgba(0,0,0,.35)}
+  .rcsv.snippet .snippet-note{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:10px;background:rgba(31,31,31,.6);color:#fff;font-size:12.5px}
   /* website phone: tappable sender name, logo and profile controls, styled as the screen itself */
   .rcsv .rcsv-tap{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit;-webkit-tap-highlight-color:transparent;transition:background-color 120ms ease-out}
   .rcsv .rcsv-tap:active{background-color:rgba(31,31,31,.08)}
