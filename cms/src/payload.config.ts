@@ -40,10 +40,17 @@ const publishingGlobal = (global: GlobalConfig): GlobalConfig => ({
   hooks: { ...global.hooks, afterChange: [...(global.hooks?.afterChange ?? []), rebuildAfterGlobalChange] },
 })
 
-const serverURL = process.env.SERVER_URL || 'http://localhost:3000'
+// The CMS answers on cms.rcsdirekt.se and on its Cloud Run address. serverURL stays unset so the
+// admin calls the API on whichever address it was opened from; both are trusted for cookie logins.
+const trustedOrigins = [
+  process.env.SERVER_URL,
+  'https://cms.rcsdirekt.se',
+  'https://rcsdirekt-cms-631487523529.europe-west1.run.app',
+  'http://localhost:3000',
+].filter((origin): origin is string => Boolean(origin))
 
 export default buildConfig({
-  serverURL,
+  csrf: trustedOrigins,
   secret: process.env.PAYLOAD_SECRET || '',
   admin: {
     user: Users.slug,

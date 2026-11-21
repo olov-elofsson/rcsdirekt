@@ -3,7 +3,7 @@
   "startsida": {
     "seo": {
       "title": "Det smidiga sättet att skicka RCS",
-      "description": "Skicka RCS för företag direkt från webben eller via API. Bilder, knappar och verifierad avsändare. Från 0,30 SEK per meddelande, inga månadskostnader."
+      "description": "Skicka RCS för företag direkt från webben eller via API. Bilder, knappar och verifierad avsändare. Från 0,45 SEK per meddelande, inga månadskostnader."
     },
     "hero": {
       "title": "Det smidiga sättet att",
@@ -121,7 +121,7 @@
   "priser": {
     "seo": {
       "title": "RCS-priser i Sverige – betala per meddelande",
-      "description": "Priser för RCS i Sverige: Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Inga månadskostnader eller bindningstider."
+      "description": "Priser för RCS i Sverige: Basic 0,45 SEK, Single 0,64 SEK och Conversation 0,95 SEK per meddelande. Inga månadskostnader eller bindningstider."
     },
     "heading": "RCS-priser för Sverige",
     "intro": "Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.",
@@ -129,7 +129,7 @@
       {
         "name": "RCS Basic",
         "slug": "basic",
-        "price": "0,30 SEK",
+        "price": "0,45 SEK",
         "badge": "",
         "short": "Verifierade textmeddelanden för korta och tydliga besked.",
         "copy": "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt sms. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare. Mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
@@ -138,7 +138,7 @@
       {
         "name": "RCS Single",
         "slug": "single",
-        "price": "0,425 SEK",
+        "price": "0,64 SEK",
         "badge": "Populärast",
         "short": "Rika utskick med bilder, video, karuseller och knappar.",
         "copy": "Använd hela bredden av vad RCS kan erbjuda i ett enskilt utskick. Ett meddelande kan innehålla bilder, video, GIF-animationer, rika kort med rubrik och beskrivning, karuseller där mottagaren bläddrar mellan flera produkter, samt klickbara knappar och förslag som leder vidare till er webbplats, ett telefonsamtal, en karta eller en kalenderhändelse. Även rena textmeddelanden längre än 160 tecken räknas hit. Single passar för kampanjer, nyhetsutskick, produktlanseringar och erbjudanden där ni vill fånga uppmärksamheten visuellt och göra det enkelt för kunden att agera direkt i meddelandet.",
@@ -147,7 +147,7 @@
       {
         "name": "RCS Conversation",
         "slug": "conversation",
-        "price": "0,63 SEK",
+        "price": "0,95 SEK",
         "badge": "",
         "short": "Tvåvägsdialog med bilder, knappar och snabbsvar.",
         "copy": "Byggt för dialog snarare än envägskommunikation. När mottagaren svarar öppnas en konversation där ni kan skicka meddelanden fram och tillbaka inom ett begränsat tidsfönster, vanligtvis 24 timmar. Under konversationen kan ni använda alla rika funktioner, som bilder, knappar och snabbsvar, vilket gör det enkelt att guida kunden steg för steg. Passar för kundservice, ombokningar, felanmälningar, orderuppföljning och automatiserade flöden med chattbottar, där kunden får hjälp direkt i sin meddelandeapp i stället för att behöva ringa eller logga in någonstans.",
@@ -238,7 +238,7 @@
   },
   "kundcase": [
     {
-      "name": "DreamCare Omsorg AB",
+      "name": "DreamCare",
       "logo": {
         "url": "/media/dreamcare-logo.png",
         "alt": "DreamCare",
@@ -341,7 +341,7 @@
       {
         "option": "Vad kostar det?",
         "title": "Betala per meddelande",
-        "copy": "Priset börjar på 0,30 SEK per meddelande, utan månadskostnad eller bindningstid.",
+        "copy": "Priset börjar på 0,45 SEK per meddelande, utan månadskostnad eller bindningstid.",
         "actions": [
           "Se meddelandetyper"
         ]
@@ -1207,7 +1207,7 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Hos RCS Direkt kostar Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
+              "Hos RCS Direkt kostar Basic 0,45 SEK, Single 0,64 SEK och Conversation 0,95 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
               "Räkna antalet meddelanden per typ när du uppskattar ett utskick. Kontrollera separat vad eventuell SMS-reserv kostar och ta med integration och hantering om du vill beräkna hela projektkostnaden."
             ],
             "points": [],
