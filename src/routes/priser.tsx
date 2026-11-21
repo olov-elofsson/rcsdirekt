@@ -4,10 +4,13 @@ import type { ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
-import { pricingCountries, pricingCurrencies, pricingPlans } from "@/data/pricing-plans";
+import { content } from "@/content";
 
-const title = "RCS-priser i Sverige – betala per meddelande";
-const description = "Priser för RCS i Sverige: Basic 0,30 SEK, Single 0,425 SEK och Conversation 0,63 SEK per meddelande. Inga månadskostnader eller bindningstider.";
+const page = content.priser;
+const { plans: pricingPlans, countries: pricingCountries, currencies: pricingCurrencies } = page;
+
+const title = page.seo.title;
+const description = page.seo.description;
 
 export const Route = createFileRoute("/priser")({
   head: () => ({
@@ -25,13 +28,7 @@ export const Route = createFileRoute("/priser")({
   component: PricingPage,
 });
 
-const contents: Record<string, string> = {
-  "RCS Basic": "Text upp till 160 tecken",
-  "RCS Single": "Bild, video, karusell och knappar",
-  "RCS Conversation": "Tvåvägsdialog i 24 timmar",
-};
-
-const operators = ["Telia", "Tele2", "Telenor", "Tre"];
+const operators = page.operators;
 
 type FlagColors = { bg: string; cross: string; inner?: string };
 
@@ -70,14 +67,9 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-const included = ["Verifierad avsändare med logotyp", "Webbgränssnitt och API", "Leveransrapporter och statistik", "Inga start- eller månadsavgifter", "Ingen bindningstid", "Svensk support"];
+const included = page.included;
 
-const faq = [
-  { q: "Vad betalar jag för?", a: "Ni betalar bara för de meddelanden ni skickar. Priset beror på meddelandetyp, inte på antal mottagare per utskick." },
-  { q: "Finns det några fasta avgifter?", a: "Nej. Det finns inga månadskostnader, startavgifter eller bindningstider." },
-  { q: "Är priserna inklusive moms?", a: "Alla priser anges exklusive moms." },
-  { q: "Hur räknas ett längre textmeddelande?", a: "Text över 160 tecken räknas som RCS Single." },
-];
+const faq = page.faq;
 
 
 function PricingPage() {
@@ -86,7 +78,7 @@ function PricingPage() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-        <PageHeading title="RCS-priser för Sverige" description={<p>Betala per skickat meddelande. Priser per operatör i Sverige, utan månadskostnader eller bindningstider.</p>} />
+        <PageHeading title={page.heading} description={<p>{page.intro}</p>} />
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
@@ -125,7 +117,7 @@ function PricingPage() {
                   <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 </Field>
               </div>
-              <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">Priserna anges i SEK per skickat meddelande. Vi säljer i Sverige idag – fler länder och valutor kommer snart.</p>
+              <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">{page.selectorNote}</p>
             </div>
 
             <div className="space-y-8">
@@ -133,7 +125,7 @@ function PricingPage() {
                 <div key={item.slug} className="overflow-hidden rounded-lg border border-border">
                   <div className="bg-muted px-5 py-4 text-center">
                     <span className="text-base font-extrabold">{item.name}</span>
-                    <span className="block text-sm text-muted-foreground">{contents[item.name]}</span>
+                    <span className="block text-sm text-muted-foreground">{item.contents}</span>
                   </div>
                   {operators.map((op) => (
                     <div key={op} className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
@@ -143,7 +135,7 @@ function PricingPage() {
                   ))}
                 </div>
               ))}
-              <p className="text-center text-xs text-muted-foreground">Alla priser anges i SEK och är exklusive moms.</p>
+              <p className="text-center text-xs text-muted-foreground">{page.vatNote}</p>
             </div>
 
           </div>
@@ -151,7 +143,7 @@ function PricingPage() {
 
         <section className="relative overflow-hidden bg-background py-16 sm:py-24">
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Ingår alltid</h2>
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">{page.includedHeading}</h2>
             <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
               {included.map((item) => (
                 <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>{item}</li>
@@ -162,16 +154,16 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto max-w-3xl px-5 lg:px-8">
-            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Vanliga frågor om priser</h2>
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">{page.faqHeading}</h2>
             <div className="mt-8 divide-y divide-border border-y border-border">
               {faq.map((item) => (
-                <details key={item.q} className="group py-5">
-                  <summary className="cursor-pointer list-none font-bold">{item.q}</summary>
-                  <p className="mt-3 leading-relaxed text-muted-foreground">{item.a}</p>
+                <details key={item.question} className="group py-5">
+                  <summary className="cursor-pointer list-none font-bold">{item.question}</summary>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">{item.answer}</p>
                 </details>
               ))}
             </div>
-            <p className="mt-8 text-center text-muted-foreground">Skickar ni stora volymer? <a href="/#kontakt" className="font-bold text-foreground underline">Kontakta oss</a> för volympris.</p>
+            <p className="mt-8 text-center text-muted-foreground">{page.volumeText} <a href="/#kontakt" className="font-bold text-foreground underline">Kontakta oss</a> för volympris.</p>
           </div>
         </section>
       </main>

@@ -10,8 +10,10 @@ export const rcsCaseExamples = [
     industry: "Utbildning",
     metric: "+32 %",
     benefit: "fler bekräftade kursplatser",
-    description: "Kursinformation och en tydlig bekräftelseknapp kan göra det enklare att tacka ja inför kursstart.",
-    detail: "Ett tänkbart upplägg: skicka en välkomsthälsning med kursbild, tid och plats. Knappar för att bekräfta deltagande och se vägbeskrivningen gör nästa steg tydligt. Deltagaren kan svara direkt med frågor inför kursstart.",
+    description:
+      "Kursinformation och en tydlig bekräftelseknapp kan göra det enklare att tacka ja inför kursstart.",
+    detail:
+      "Ett tänkbart upplägg: skicka en välkomsthälsning med kursbild, tid och plats. Knappar för att bekräfta deltagande och se vägbeskrivningen gör nästa steg tydligt. Deltagaren kan svara direkt med frågor inför kursstart.",
   },
   {
     company: "Maptun",
@@ -19,8 +21,10 @@ export const rcsCaseExamples = [
     industry: "Bil & tillbehör",
     metric: "+44 %",
     benefit: "fler klick till produkterna",
-    description: "Produktbilder och knappar direkt till rätt tillbehör kan förkorta vägen från intresse till köp.",
-    detail: "Ett tänkbart upplägg: presentera utvalda tillbehör i en karusell med produktbilder och en knapp till varje produkt. Efter köpet kan en orderuppdatering samla leveransinformation och kontaktväg i samma tråd.",
+    description:
+      "Produktbilder och knappar direkt till rätt tillbehör kan förkorta vägen från intresse till köp.",
+    detail:
+      "Ett tänkbart upplägg: presentera utvalda tillbehör i en karusell med produktbilder och en knapp till varje produkt. Efter köpet kan en orderuppdatering samla leveransinformation och kontaktväg i samma tråd.",
   },
   {
     company: "Bilia",
@@ -28,8 +32,10 @@ export const rcsCaseExamples = [
     industry: "Bil & service",
     metric: "+38 %",
     benefit: "fler anmälningar till premiären",
-    description: "En inbjudan med bild på nyheten och en anmälningsknapp kan göra det enklare att säga ja till premiärkvällen.",
-    detail: "Ett tänkbart upplägg: skicka en servicepåminnelse med tid, verkstad och vägbeskrivning. Knappar för att bekräfta tiden eller boka om gör nästa steg enkelt. Kunden kan ställa frågor direkt i samma tråd.",
+    description:
+      "En inbjudan med bild på nyheten och en anmälningsknapp kan göra det enklare att säga ja till premiärkvällen.",
+    detail:
+      "Ett tänkbart upplägg: skicka en servicepåminnelse med tid, verkstad och vägbeskrivning. Knappar för att bekräfta tiden eller boka om gör nästa steg enkelt. Kunden kan ställa frågor direkt i samma tråd.",
   },
   {
     company: "Big Bowl",
@@ -37,7 +43,9 @@ export const rcsCaseExamples = [
     industry: "Bowling & upplevelser",
     metric: "+28 %",
     benefit: "fler bokningar från utskick",
-    description: "Ett erbjudande med bild, lediga tider och bokningsknapp kan göra det enklare att samla gänget.",
-    detail: "Ett tänkbart upplägg: skicka ett erbjudande med bild, tider och en bokningsknapp. Inför besöket kan en påminnelse visa bokningsuppgifter och vägbeskrivning. Mottagaren får en enkel kontaktväg för frågor.",
+    description:
+      "Ett erbjudande med bild, lediga tider och bokningsknapp kan göra det enklare att samla gänget.",
+    detail:
+      "Ett tänkbart upplägg: skicka ett erbjudande med bild, tider och en bokningsknapp. Inför besöket kan en påminnelse visa bokningsuppgifter och vägbeskrivning. Mottagaren får en enkel kontaktväg för frågor.",
   },
 ] as const;

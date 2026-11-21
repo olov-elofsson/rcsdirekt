@@ -4,12 +4,8 @@ import {
   BadgeCheck,
   ChevronLeft,
   ChevronRight,
-  Image as ImageIcon,
-  Layers3,
   Menu,
-  MessageSquare,
   Mic,
-  MousePointerClick,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -17,9 +13,9 @@ import {
 import symbolUrl from "@/assets/rcsdirekt-symbol.svg";
 import { Button } from "@/components/ui/button";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
+import { contentIcon } from "@/content/icons";
 import { cn } from "@/lib/utils";
 
-const cardIcons = { image: ImageIcon, layers: Layers3, pointer: MousePointerClick, message: MessageSquare };
 
 function FeatureMarker({ id, active, onOpen }: { id: DemoFeatureId; active: DemoFeatureId | null; onOpen: (id: DemoFeatureId) => void }) {
   return <button type="button" aria-label={`Förklaring ${id}`} aria-expanded={active === id} onClick={(event) => { event.stopPropagation(); onOpen(id); }} className={cn("absolute -right-2 -top-2 z-20 grid size-6 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground shadow-soft outline-none transition-transform min-[1000px]:hidden", active === id && "scale-110 ring-2 ring-logo-blush ring-offset-1 ring-offset-phone-chat")}>{id}</button>;
@@ -92,7 +88,7 @@ export function InteractiveRcsDemo() {
             <FeatureTarget id={3} active={active} onActive={setActive} onOpen={openFeature} className="mt-3 min-w-0 rounded-none">
               <div className="mb-2 hidden justify-end gap-1 min-[1000px]:flex"><Button type="button" variant="outline" size="icon" className="size-7" onClick={() => scrollCards(-1)} aria-label="Föregående kort"><ChevronLeft /></Button><Button type="button" variant="outline" size="icon" className="size-7" onClick={() => scrollCards(1)} aria-label="Nästa kort"><ChevronRight /></Button></div>
               <div ref={carouselRef} className="scrollbar-none flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2">
-                {richCards.map((card, index) => { const Icon = cardIcons[card.icon]; return <article key={card.title} className="w-[210px] shrink-0 snap-center overflow-hidden rounded-2xl bg-card text-left shadow-soft ring-1 ring-border/60"><div className={cn("grid h-24 place-items-center", index % 2 === 0 ? "bg-primary-soft" : "bg-muted")}><Icon className="size-8 text-logo-blush" /></div><div className="p-3"><h3 className="text-xs font-bold tracking-normal">{card.title}</h3><p className="mt-1 text-[9px] leading-relaxed text-muted-foreground">{card.copy}</p><span className="mt-2 flex items-center text-[9px] font-bold text-logo-blush">Läs mer <ChevronRight className="size-3" /></span></div></article>; })}
+                {richCards.map((card, index) => { const Icon = contentIcon(card.icon); return <article key={card.title} className="w-[210px] shrink-0 snap-center overflow-hidden rounded-2xl bg-card text-left shadow-soft ring-1 ring-border/60"><div className={cn("grid h-24 place-items-center", index % 2 === 0 ? "bg-primary-soft" : "bg-muted")}><Icon className="size-8 text-logo-blush" /></div><div className="p-3"><h3 className="text-xs font-bold tracking-normal">{card.title}</h3><p className="mt-1 text-[9px] leading-relaxed text-muted-foreground">{card.copy}</p><span className="mt-2 flex items-center text-[9px] font-bold text-logo-blush">Läs mer <ChevronRight className="size-3" /></span></div></article>; })}
               </div>
             </FeatureTarget>
 
