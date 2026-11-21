@@ -4,6 +4,7 @@ import * as migration_20261121_164507_case_image from './20261121_164507_case_im
 import * as migration_20261121_165053_inquiries from './20261121_165053_inquiries';
 import * as migration_20261121_171500_prices_50 from './20261121_171500_prices_50';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
+import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20261121_190000_case_names.up,
     down: migration_20261121_190000_case_names.down,
     name: '20261121_190000_case_names',
+  },
+  {
+    up: migration_20261121_191000_case_photos.up,
+    down: migration_20261121_191000_case_photos.down,
+    name: '20261121_191000_case_photos',
   },
 ];
