@@ -160,13 +160,22 @@ function ConversationView({
             }}
           >
             {sender}
+            <span style={{ opacity: 0.75, fontWeight: 400 }}> · I dag</span>
           </div>
           {entries.map((entry, index) => {
             const gap = index === 0 ? 0 : 8;
             if (entry.from === "me") {
               return (
-                <div key={index} className="outrow animate-message-in" style={{ marginTop: gap }}>
-                  <div className="bubble">{entry.text}</div>
+                <div key={index} className="animate-message-in" style={{ marginTop: gap }}>
+                  <div className="outrow">
+                    <div className="bubble">{entry.text}</div>
+                  </div>
+                  {/* Read, as Google Messages shows it once the business has answered. */}
+                  {entries.slice(index + 1).some((later) => later.from === "business") ? (
+                    <div style={{ textAlign: "right", marginTop: 3 }}>
+                      <span className="snippet-note" style={{ marginTop: 0, padding: "1px 8px", fontSize: 11.5 }}>Läst</span>
+                    </div>
+                  ) : null}
                 </div>
               );
             }
@@ -297,10 +306,10 @@ export function PhotoScenarios() {
             id="exempel-title"
             className="-ml-[0.05em] text-[2.1rem] font-extrabold leading-tight sm:text-[2.65rem]"
           >
-            Meddelanden som går att svara på
+            Så kan det se ut hos era kunder
           </h2>
           <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">
-            Så kan en konversation se ut för några av våra kunder. Tryck på knapparna i meddelandena
+            Exempel för några av våra kunder. Tryck på knapparna i meddelandena
             och svara som en kund. Fotona kommer från kundcasen, och meddelandena är tänkbara
             upplägg.
           </p>

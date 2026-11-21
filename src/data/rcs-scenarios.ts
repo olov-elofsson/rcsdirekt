@@ -60,7 +60,7 @@ const workshopBooked = (day: string): Step => ({
   chips: [
     {
       label: "Påminn mig dagen innan",
-      next: { text: "Det gör vi. Ha en fin dag!" },
+      next: { text: "Det gör vi. Vi skickar en påminnelse med adress och vägbeskrivning dagen innan.", chips: [map] },
     },
   ],
 });
@@ -84,7 +84,16 @@ const courseInfo: Step = {
     { title: "Hitta hit", body: "Ingång från parkeringen", actions: [map] },
   ],
   chips: [
-    { label: "Jag har en fråga", next: { text: "Skriv den här, så svarar en lärare före kursstart.", chips: [{ label: "Tack, vi ses!", next: { text: "Vi ses på måndag kl. 9.00!" } }] } },
+    {
+      label: "Jag har en fråga",
+      next: {
+        text: "Välj en vanlig fråga eller skriv din egen, så svarar en lärare före kursstart.",
+        chips: [
+          { label: "Finns det parkering?", next: { text: "Ja, det finns gratis parkering vid entrén.", chips: [map] } },
+          { label: "Kan jag äta lunch där?", next: { text: "Ja, det finns en restaurang i huset. Lunchen ingår första dagen." } },
+        ],
+      },
+    },
     { label: "Allt klart", next: { text: "Vi ses på måndag kl. 9.00!" } },
   ],
 };

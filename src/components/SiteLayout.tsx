@@ -17,9 +17,9 @@ const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blue";
 
 const headerLinks = [
-  { label: "Produkter", to: "/", hash: "exempel" },
-  { label: "Lösningar", to: "/", hash: "fordelar" },
-  { label: "Resurser", to: "/blogg" },
+  { label: "Exempel", to: "/", hash: "exempel" },
+  { label: "Fördelar", to: "/", hash: "fordelar" },
+  { label: "Guider", to: "/blogg" },
   { label: "Priser", to: "/priser" },
 ] as const;
 
@@ -196,7 +196,7 @@ const footerNav = [
     links: [
       { label: "Exempel på RCS", to: "/", hash: "exempel" },
       { label: "Priser", to: "/priser" },
-      { label: "Resurser", to: "/blogg" },
+      { label: "Guider", to: "/blogg" },
     ],
   },
   {

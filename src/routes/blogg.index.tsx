@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { articles, readingMinutes, searchArticles } from "@/data/rcs-knowledge";
 
 export const Route = createFileRoute("/blogg/")({
-  head: () => knowledgeHead("Resurser", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
+  head: () => knowledgeHead("Guider om RCS", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
   component: BlogPage,
 });
 
@@ -27,7 +27,7 @@ function BlogPage() {
   const results = searchArticles(query, category);
   const featured = ["rcs-sverige-operatorer", "rcs-tele2", "rcs-comviq"].map((slug) => articles.find((article) => article.slug === slug)).filter((article): article is (typeof articles)[number] => Boolean(article));
   return <KnowledgeLayout>
-    <PageHeading title="Resurser" description={<p>Korta artiklar om RCS och vad som gäller för företag i Sverige. Varje artikel anger sina källor.</p>} />
+    <PageHeading title="Guider om RCS" description={<p>Korta artiklar om RCS och vad som gäller för företag i Sverige. Varje artikel anger sina källor.</p>} />
     <section className="mx-auto max-w-5xl px-5 pb-16 sm:pb-24 lg:px-8">
       <img src={cover} alt="Telefon med RCS-meddelandekort och ett kuvert" width={352} height={235} className="mx-auto w-44 rounded-lg outline outline-1 -outline-offset-1 outline-black/10" />
       {!query && category === "Alla" ? <section className="mt-9 border-b border-border pb-9"><h2 className="text-2xl leading-tight tracking-normal">Aktuellt om RCS i Sverige</h2><div className="mt-5 grid gap-4 lg:grid-cols-3">{featured.map((article) => <Link key={article.slug} to="/blogg/$slug" params={{ slug: article.slug }} className="group flex min-w-0 flex-col rounded-lg bg-primary-soft p-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Badge variant="outline" className="w-fit border-transparent bg-background text-primary">{article.category}</Badge><h3 className="mt-4 text-lg leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3><p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{article.description}</p><span className="mt-5 flex items-center justify-between gap-3 text-xs font-semibold text-muted-foreground">Uppdaterad {formatDate(article.published)}<ArrowUpRight aria-hidden className="size-4 shrink-0" /></span></Link>)}</div></section> : null}

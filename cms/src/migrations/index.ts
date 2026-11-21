@@ -6,6 +6,7 @@ import * as migration_20261121_171500_prices_50 from './20261121_171500_prices_5
 import * as migration_20261121_170000_operator_prices from './20261121_170000_operator_prices';
 import * as migration_20261121_197000_list_prices from './20261121_197000_list_prices';
 import * as migration_20261121_198000_five_advantages from './20261121_198000_five_advantages';
+import * as migration_20261121_199000_headings_and_advantages from './20261121_199000_headings_and_advantages';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -85,5 +86,10 @@ export const migrations = [
     up: migration_20261121_198000_five_advantages.up,
     down: migration_20261121_198000_five_advantages.down,
     name: '20261121_198000_five_advantages',
+  },
+  {
+    up: migration_20261121_199000_headings_and_advantages.up,
+    down: migration_20261121_199000_headings_and_advantages.down,
+    name: '20261121_199000_headings_and_advantages',
   },
 ];
