@@ -58,15 +58,26 @@ function Index() {
   return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><PhotoScenarios /><Advantages /><CompareSection /><WaysSection /><PricingSection /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
-const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
+// -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
+// so a left-aligned heading would look indented next to the text under it.
+const sectionTitle = "-ml-[0.05em] text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
 
 function DualCtas() { return <div className="flex flex-col gap-3 sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to="/" hash="kontakt">Prata med oss</Link></Button></div>; }
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
 /** Advantages as a numbered editorial list beside a sticky heading, instead of icon cards. */
+/** The number in the logo's drop: a circle with one square corner, alternating navy and blue. */
+function NumberDrop({ n }: { n: number }) {
+  return (
+    <span aria-hidden className={cn("grid size-10 place-items-center rounded-[50%_50%_50%_0] font-display text-base font-extrabold tabular-nums text-primary-foreground", n % 2 ? "bg-primary" : "bg-logo-blue")}>
+      {n}
+    </span>
+  );
+}
+
 function Advantages() {
-  return <section id="fordelar" className="relative overflow-hidden bg-background py-16 sm:py-24"><Wave flip fill="var(--color-primary-soft)" /><div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:px-8"><div data-reveal className="lg:sticky lg:top-28 lg:self-start"><h2 className={sectionTitle}>{home.fordelar.heading}</h2><p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{home.fordelar.intro}</p><div className="mt-8 hidden lg:block"><DualCtas /></div></div><ol className="divide-y divide-border border-y border-border">{home.fordelar.items.map(({ title, copy }, index) => <li key={title} data-reveal style={revealOrder(index)} className="grid grid-cols-[2.5rem_1fr] gap-x-4 py-7 sm:py-8"><span aria-hidden className="pt-1 font-display text-sm font-bold tabular-nums text-muted-foreground">{String(index + 1).padStart(2, "0")}</span><div><h3 className="text-xl font-extrabold leading-snug tracking-normal">{title}</h3><p className="mt-2 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground">{copy}</p></div></li>)}</ol><div className="lg:hidden"><DualCtas /></div></div></section>;
+  return <section id="fordelar" className="relative overflow-hidden bg-background py-16 sm:py-24"><Wave flip fill="var(--color-primary-soft)" /><div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:px-8"><div data-reveal className="lg:sticky lg:top-28 lg:self-start"><h2 className={sectionTitle}>{home.fordelar.heading}</h2><p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{home.fordelar.intro}</p><div className="mt-8 hidden lg:block"><DualCtas /></div></div><ol className="divide-y divide-border border-y border-border">{home.fordelar.items.map(({ title, copy }, index) => <li key={title} data-reveal style={revealOrder(index)} className="grid grid-cols-[2.5rem_1fr] items-start gap-x-5 py-7 sm:py-8"><NumberDrop n={index + 1} /><div><h3 className="text-xl font-extrabold leading-snug tracking-normal">{title}</h3><p className="mt-2 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground">{copy}</p></div></li>)}</ol><div className="lg:hidden"><DualCtas /></div></div></section>;
 }
 
 const lowestPrice = pricingPlans[0]?.price;

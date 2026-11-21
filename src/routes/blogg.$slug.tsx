@@ -30,7 +30,7 @@ function ArticlePage() {
     <div className="mt-8 space-y-12">
       {article.sections.map((section) => (
         <section key={section.id} id={section.id} aria-labelledby={section.title ? `${section.id}-title` : undefined} className="scroll-mt-28">
-          {section.title ? <h2 id={`${section.id}-title`} className="mb-5 text-2xl font-extrabold leading-tight tracking-normal sm:text-3xl">{section.title}</h2> : null}
+          {section.title ? <h2 id={`${section.id}-title`} className="-ml-[0.05em] mb-5 text-2xl font-extrabold leading-tight tracking-normal sm:text-3xl">{section.title}</h2> : null}
           <div className="space-y-5 text-lg leading-[1.75] text-pretty text-foreground/85">
             {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             {section.points.length ? (

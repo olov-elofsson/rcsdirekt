@@ -11,7 +11,9 @@ import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
 
 const home = content.startsida;
-const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
+// -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
+// so a left-aligned heading would look indented next to the text under it.
+const sectionTitle = "-ml-[0.05em] text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
 /** A sender line above a message on a light background, as the chat list shows it. */
