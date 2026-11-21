@@ -24,7 +24,7 @@ function NotFoundComponent() {
       <main className="flex-1">
         <PageHeading title="Sidan finns inte" description={<p>Sidan du letar efter finns inte eller har flyttats.</p>}>
           <Button asChild size="lg">
-            <Link to="/">Till startsidan <ArrowRight /></Link>
+            <Link to="/">Till startsidan <ArrowRight data-icon="end" /></Link>
           </Button>
           <Button asChild size="lg" variant="outline">
             <Link to="/blogg">Läs om RCS</Link>
