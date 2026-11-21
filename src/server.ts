@@ -44,9 +44,37 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+// Images uploaded in Lovable were served by Lovable's hosting under this path.
+// On Cloud Run the same files live in the storage bucket under assets/.
+const HOSTED_ASSET_PREFIX = "/__l5e/assets-v1/";
+const HOSTED_ASSET_TYPES: Record<string, string> = {
+  svg: "image/svg+xml",
+  png: "image/png",
+  jpg: "image/jpeg",
+  webp: "image/webp",
+};
+
+async function hostedAsset(request: Request): Promise<Response | undefined> {
+  const { pathname } = new URL(request.url);
+  if (!pathname.startsWith(HOSTED_ASSET_PREFIX)) return undefined;
+  const key = pathname.slice(HOSTED_ASSET_PREFIX.length);
+  if (!/^[0-9a-f-]{36}\/[\w.-]+$/.test(key)) return new Response("Not found", { status: 404 });
+  const { gcpVideoBucket, fetchVideo } = await import("./lib/rcs-video/gcp.server");
+  const bucket = gcpVideoBucket();
+  if (!bucket) return undefined;
+  const stored = await fetchVideo(bucket, `assets/${key}`, null).catch(() => undefined);
+  if (!stored || stored.status !== 200) return new Response("Not found", { status: 404 });
+  const type = HOSTED_ASSET_TYPES[key.split(".").pop() ?? ""] ?? "application/octet-stream";
+  return new Response(stored.body, {
+    headers: { "content-type": type, "cache-control": "public, max-age=86400" },
+  });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const asset = await hostedAsset(request);
+      if (asset) return asset;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
