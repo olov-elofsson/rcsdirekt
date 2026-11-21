@@ -8,9 +8,9 @@ export const Route = createFileRoute("/skapa-konto")({
   head: () => ({
     meta: [
       { title: "Skapa konto och skicka RCS" },
-      { name: "description", content: "Skapa ett konto och börja skicka RCS för ert företag. Inga startavgifter, inga månadskostnader. Betala per meddelande." },
+      { name: "description", content: "Skapa ett konto och skicka RCS för ert företag. Ni betalar per meddelande och har inga fasta avgifter." },
       { property: "og:title", content: "Skapa konto och skicka RCS" },
-      { property: "og:description", content: "Skapa ett konto och börja skicka RCS för ert företag. Inga startavgifter, inga månadskostnader. Betala per meddelande." },
+      { property: "og:description", content: "Skapa ett konto och skicka RCS för ert företag. Ni betalar per meddelande och har inga fasta avgifter." },
       { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/skapa-konto" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -31,7 +31,7 @@ function SignupPage() {
         <section className="px-5 pb-16 sm:pb-24 lg:px-8">
           <div className="mx-auto w-full max-w-2xl">
             <LeadForm mode="signup" />
-            <p className="mt-7 text-center text-xs leading-relaxed text-muted-foreground">Inga månadskostnader, inga startavgifter och inga bindningstider.</p>
+            <p className="mt-7 text-center text-xs leading-relaxed text-muted-foreground">Ni betalar per skickat meddelande, utan fasta avgifter eller bindningstid.</p>
           </div>
         </section>
       </main>

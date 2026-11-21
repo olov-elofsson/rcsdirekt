@@ -18,6 +18,14 @@ Allt UI-arbete i det här repot, nytt eller ändrat, ska gå igenom skillsen i `
 
 Uttryck förslag i projektets Tailwind-uppsättning och befintliga komponenter (Button-varianter, PageHeading, SiteLayout). Brandkitet nedan går före skillsens generella råd.
 
+## Text och marknadsföring
+
+Skillsen i `.claude/skills/` beskrivs i `.claude/skills/README.md`, med källa och licens för var och en.
+
+- All text på sajten och i CMS:et ska gå igenom `humanizer`. Använd `copywriting` för ny text och `copy-editing` för ändringar. Det betyder bland annat: inga tankstreck i löptext, inga uppräkningar av typen "inga X, inga Y, inga Z", inga säljord och inga påståenden utan källa.
+- För marknadsarbete finns biblioteket från marketingskills, till exempel `seo-audit`, `schema`, `cro`, `pricing`, `emails`, `sms` och `events`. Svensk lag går före skillsens amerikanska råd, till exempel marknadsföringslagen, GDPR och reglerna för reklam via sms och RCS.
+- `grill-me` passar innan större ändringar: den frågar ut beställaren tills kraven är tydliga. `caveman` ger korta svar i chatten men gäller aldrig text som sparas i repot eller CMS:et.
+
 - Video exports use a private storage bucket through validated same-host server upload and streaming routes; service-only upload logs and an atomic database limit prevent concurrent quota bypass without requiring accounts.
 - Keep the exported video blob in a component ref and share one upload function between export and retry so retries never rerender the video.
 - Keep site button geometry and interaction states in the shared Button variants, not page-specific overrides, so all pages stay consistent; miniature phone-demo controls retain their contextual sizes.

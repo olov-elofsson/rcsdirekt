@@ -168,7 +168,7 @@ export function InteractiveRcsDemo() {
             </FeatureTarget>
 
             <IncomingRow logo={senderLogo}>
-              <Bubble>RCS hamnar direkt i kundens vanliga meddelandeapp, med bilder, flera produkter att svepa mellan och knappar för att köpa, boka eller svara. Ingen app att ladda ner.</Bubble>
+              <Bubble>RCS hamnar direkt i kundens vanliga meddelandeapp, med bilder, flera produkter att svepa mellan och knappar för att köpa, boka eller svara. Kunden behöver ingen ny app.</Bubble>
             </IncomingRow>
             <Timestamp>13:16</Timestamp>
 

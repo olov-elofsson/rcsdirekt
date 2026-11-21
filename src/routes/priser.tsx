@@ -95,7 +95,7 @@ function PricingPage() {
                   >
                     {pricingCountries.map((country) => (
                       <option key={country.code} value={country.code} disabled={!country.available}>
-                        {country.available ? country.name : `${country.name} – kommer snart`}
+                        {country.available ? country.name : `${country.name} (kommer snart)`}
                       </option>
                     ))}
                   </select>
@@ -110,7 +110,7 @@ function PricingPage() {
                   >
                     {pricingCurrencies.map((currency) => (
                       <option key={currency.code} value={currency.code} disabled={!currency.available}>
-                        {currency.available ? `${currency.code} – ${currency.name}` : `${currency.code} – ${currency.name} (kommer snart)`}
+                        {currency.available ? `${currency.name} (${currency.code})` : `${currency.name} (${currency.code}), kommer snart`}
                       </option>
                     ))}
                   </select>
