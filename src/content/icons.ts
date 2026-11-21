@@ -1,6 +1,5 @@
 // Icons that editors can pick in the CMS. Keep the names in sync with
-// cms/src/fields/icon.ts so every option in the CMS has an icon here, and in
-// PHONE_ICONS (InteractiveRcsDemo.tsx), which uses the phone's Material icons.
+// cms/src/fields/icon.ts so every option in the CMS has an icon here.
 import {
   BarChart3,
   Check,

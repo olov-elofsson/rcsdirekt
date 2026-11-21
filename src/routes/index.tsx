@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import { ArrowRight, Check, X } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
-import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -62,7 +61,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main><HeroFirst /><UpcomingWebinar /><PhotoScenarios /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><CustomerPresentations /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main><HeroFirst /><UpcomingWebinar /><PhotoScenarios /><Advantages /><Comparison /><WhatIsRcs /><CustomerPresentations /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
@@ -116,5 +115,4 @@ const operators = content.priser.operators.filter((name) => !name.startsWith("Ö
 function HeroFirst() {
   return <section id="top" className="bg-background"><div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-8"><div className="text-center lg:text-left"><h1 className="text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-[3.5rem]">{home.hero.title}<br />{home.hero.highlight}</h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl lg:mx-0">{home.hero.description}</p><div className="mt-8 flex justify-center lg:justify-start"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mt-6 text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div><div className="mx-auto w-full max-w-[300px] sm:max-w-[310px]"><HeroPhone /></div></div></section>;
 }
-function DemoSection() { return <section id="sa-fungerar" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24"><Wave flip fill="var(--color-background)" /><div className="relative mx-auto px-5 pb-2 lg:px-8"><InteractiveRcsDemo /></div></section>; }
 function ContactSection() { return <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24"><Wave flip fill="var(--color-primary-soft)" /><div className="relative mx-auto max-w-3xl px-5 text-center lg:px-8"><h2 className={sectionTitle}>{home.kontakt.heading}</h2><p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">{home.kontakt.intro}</p><div data-reveal className="mt-12 text-left"><LeadForm mode="contact" /></div></div></section>; }

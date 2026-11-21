@@ -48,7 +48,7 @@ Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig 
 
 ## Meddelanden över foton (`RcsSnippet`)
 
-På startsidan kan några meddelanden ligga direkt på ett foto, utan telefon, som utdrag ur skärmen (`PhotoScenarios`, exemplen i `src/data/rcs-scenarios.ts`). De byggs med `RcsSnippet` och samma `.rcsv`-klasser och mått. Bara här är bubblor och kort vita och har en mjuk skugga, så att de syns mot fotot (`.rcsv.snippet` i `RCSV_CSS`). Avsändarens namn står i vitt ovanför. Varje foto märks "Exempel: …", och foton där en verklig kunds logotyp syns används inte till exempel.
+På startsidan kan några meddelanden ligga direkt på ett foto, utan telefon, som utdrag ur skärmen (`PhotoScenarios`, exemplen i `src/data/rcs-scenarios.ts`). De byggs med `RcsSnippet` och samma `.rcsv`-klasser och mått. Bara här är bubblor och kort vita och har en mjuk skugga, så att de syns mot fotot (`.rcsv.snippet` i `RCSV_CSS`). Avsändarens namn står i vit text på en mörk etikett ovanför, så att det syns även på ljusa foton. Exemplen gäller våra kundcase: varje foto märks "Exempel för <kund>", och meddelandet ska stämma med upplägget i kundcasets beskrivning i CMS:et, så att det inte ser ut som ett uppmätt resultat.
 
 ## Ramen
 

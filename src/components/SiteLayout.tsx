@@ -15,7 +15,7 @@ const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blue";
 
 const headerLinks = [
-  { label: "Produkter", to: "/", hash: "sa-fungerar" },
+  { label: "Produkter", to: "/", hash: "exempel" },
   { label: "Lösningar", to: "/", hash: "fordelar" },
   { label: "Resurser", to: "/blogg" },
   { label: "Priser", to: "/priser" },
@@ -172,7 +172,7 @@ const footerNav = [
   {
     title: "RCS Direkt",
     links: [
-      { label: "Så fungerar RCS", to: "/", hash: "sa-fungerar" },
+      { label: "Exempel på RCS", to: "/", hash: "exempel" },
       { label: "Priser", to: "/priser" },
       { label: "Resurser", to: "/blogg" },
     ],
