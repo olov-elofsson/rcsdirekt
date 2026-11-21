@@ -19,6 +19,9 @@ export const RCSV_CSS = `
   .rcsv{position:relative;width:360px;height:640px;overflow:hidden;background:var(--bg);text-align:left;line-height:normal}
   .rcsv .layer{position:absolute;left:0;top:0;width:360px;height:640px;background:var(--bg)}
   .rcsv svg.i{display:block}
+  .rcsv svg.vb{display:inline-block;flex:none;vertical-align:-2px;margin-left:4px}
+  .rcsv #hdr-name svg.vb{margin-left:5px;vertical-align:0}
+  .rcsv #prof .name svg.vb{vertical-align:-3px;margin-left:5px}
 
   /* status bar */
   .rcsv #status{position:absolute;left:0;top:0;width:360px;height:30px;z-index:50;font-size:14.5px;font-weight:500;letter-spacing:.1px}
@@ -158,6 +161,9 @@ const IC={
 };
 
 export const icon = (n, size = 24, color = '#1f1f1f') => `<svg class="i" width="${size}" height="${size}" viewBox="0 0 24 24"><path fill="${color}" d="${IC[n]}"/></svg>`;
+// Verified-business badge, as Google Messages shows it next to a verified RCS sender.
+export const verifiedBadge = (size = 16) => `<svg class="vb" width="${size}" height="${size}" viewBox="0 0 24 24" role="img" aria-label="Verifierad avsändare"><path fill="#0b57d0" d="m8.6 22.5-1.9-3.2-3.6-.8.35-3.7L1 12l2.45-2.8-.35-3.7 3.6-.8 1.9-3.2L12 2.95l3.4-1.45 1.9 3.2 3.6.8-.35 3.7L23 12l-2.45 2.8.35 3.7-3.6.8-1.9 3.2-3.4-1.45-3.4 1.45Z"/><path fill="#fff" d="m10.95 15.55 5.65-5.65-1.4-1.45-4.25 4.25-2.15-2.1-1.4 1.4 3.55 3.55Z"/></svg>`;
+
 export function statusIcons(){
   return `<svg class="i" width="17" height="17" viewBox="0 0 24 24"><path fill="#1f1f1f" d="M17 4h4v17h-4zM11 9h4v12h-4zM5 14h4v7H5z"/></svg>
   <svg class="i" width="19" height="19" viewBox="0 0 24 24"><path fill="#1f1f1f" d="M12 21 0.8 9.3Q3.1 7.15 6.05 6.075 9 5 12 5t5.95 1.075Q20.9 7.15 23.2 9.3L12 21Zm0-3.15 1.9-1.95q-.4-.35-.875-.525T12 15.2q-.55 0-1.025.175t-.875.525L12 17.85ZM8.15 13.9q.8-.65 1.788-1.025T12 12.5q1.075 0 2.063.375t1.787 1.025l1.85-1.9q-1.15-.95-2.6-1.475T12 10q-1.65 0-3.1.525T6.3 12l1.85 1.9ZM4.15 9.8l1.75 1.8Q7.2 10.4 8.85 9.7T12 9q1.65 0 3.15.7t2.8 1.9l1.75-1.8Q18 8.25 16.050 7.375T12 6.5q-2.1 0-4.05.875T4.15 9.8Z"/></svg>
@@ -414,7 +420,7 @@ export function createRenderer(host, P) {
     const optin = P.messages.find(m => m.id === 'optin');
     let h = `<div id="search">${icon('search', 22, '#444746')}<span class="t">Sök i konversationer</span></div>
     <div id="me" style="background:${P.inbox.meColor}">${esc(P.inbox.meInitial)}</div>
-    <div class="row unread" id="inbox-row-sender" style="top:92px"><img class="av" src="${S.logo}"><div class="n">${esc(S.displayName)}</div><div class="p">${esc(optin.text)}</div><div class="tm">${clockAt(P.startClock, 0)}</div></div>`;
+    <div class="row unread" id="inbox-row-sender" style="top:92px"><img class="av" src="${S.logo}"><div class="n">${esc(S.displayName)}${verifiedBadge(15)}</div><div class="p">${esc(optin.text)}</div><div class="tm">${clockAt(P.startClock, 0)}</div></div>`;
     P.inbox.others.forEach((o, i) => {
       h += `<div class="row" style="top:${152 + i * 60}px"><div class="av" style="background:${o.color}">${esc(o.name[0])}</div><div class="n">${esc(o.name)}</div><div class="p">${esc(o.preview).replace(/😊/g, `<img src="${EMOJI_SMILE}" alt="" style="display:inline-block;width:14px;height:14px;vertical-align:-2px">`)}</div><div class="tm">${esc(o.time)}</div></div>`;
     });
@@ -427,7 +433,7 @@ export function createRenderer(host, P) {
     <div class="more">${icon('more', 24)}</div>
     <img class="banner" src="${S.banner}">
     <img class="logo" src="${S.logo}">
-    <div class="name">${esc(S.displayName)}</div>
+    <div class="name">${esc(S.displayName)}${verifiedBadge(18)}</div>
     <div class="desc">${esc(S.description)}</div>`;
     const n = S.contacts.length;
     S.contacts.forEach((c, i) => { h += `<div class="act" style="left:${180 - 22 + (i - (n - 1) / 2) * 80}px">${icon(contactIcon(c.type), 22, S.brandColor)}</div>`; });
@@ -533,7 +539,7 @@ export function createRenderer(host, P) {
     const compTop = 640 - inset - 60;
     const msgsH = compTop - 90 + 8;
     let h = `<div id="hdr"><div class="back">${icon('back', 24)}</div>
-      <div id="hdr-name"><img src="${S.logo}"><span>${esc(S.displayName)}</span></div>
+      <div id="hdr-name"><img src="${S.logo}"><span>${esc(S.displayName)}</span>${verifiedBadge(16)}</div>
       <div class="call">${icon('call', 24)}</div><div class="more">${icon('more', 24)}</div></div>`;
     h += `<div id="msgs" style="height:${msgsH}px"><div class="inner">${buildMessages(t)}</div></div>`;
     const hasText = ty.text.length > 0;

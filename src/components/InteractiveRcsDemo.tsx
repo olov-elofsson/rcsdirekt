@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import symbolUrl from "../../brand/SVG/symbol.svg";
 import { LeadForm } from "@/components/LeadForm";
-import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing } from "@/components/RcsPhone";
+import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
 import { contentIcon } from "@/content/icons";
@@ -174,7 +174,7 @@ export function InteractiveRcsDemo() {
           <RcsPhone sender="RCS Direkt" logo={symbolUrl} messagesRef={messagesRef}>
             <FeatureTarget id={1} active={active} onActive={setActive} onOpen={setActive} style={{ margin: "6px 70px 4px", padding: "8px 0", textAlign: "center" }} markerClassName="-right-3 top-0">
               <img src={symbolUrl} alt="" style={{ width: 56, height: 56, borderRadius: 14, margin: "0 auto", display: "block", background: "#fff", border: "1px solid #e1e1e1", padding: 8 }} />
-              <div style={{ marginTop: 8, fontSize: 16, fontWeight: 600 }}>RCS Direkt</div>
+              <div style={{ marginTop: 8, fontSize: 16, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", gap: 1 }}>RCS Direkt<VerifiedMark /></div>
               <div style={{ marginTop: 2, fontSize: 12.5, color: "#444746" }}>Verifierat företag</div>
             </FeatureTarget>
             <DateLabel>I dag</DateLabel>

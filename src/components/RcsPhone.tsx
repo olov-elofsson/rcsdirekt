@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 
-import { icon, RCSV_CSS, statusIcons } from "@/lib/rcs-video/engine";
+import { icon, RCSV_CSS, statusIcons, verifiedBadge } from "@/lib/rcs-video/engine";
 import { INTER_FILES } from "@/lib/rcs-phone/inter";
 
 /**
@@ -22,13 +22,8 @@ export function PhoneIcon({ name, size = 24, color = "#1f1f1f" }: { name: string
   return <span aria-hidden="true" style={{ display: "block", lineHeight: 0 }} dangerouslySetInnerHTML={{ __html: icon(name, size, color) }} />;
 }
 
-function VerifiedMark() {
-  return (
-    <svg aria-label="Verifierad avsändare" role="img" width="16" height="16" viewBox="0 0 24 24" style={{ display: "block", marginLeft: 4 }}>
-      <path fill="#0b57d0" d="m8.6 22.5-1.9-3.2-3.6-.8.35-3.7L1 12l2.45-2.8-.35-3.7 3.6-.8 1.9-3.2L12 2.95l3.4-1.45 1.9 3.2 3.6.8-.35 3.7L23 12l-2.45 2.8.35 3.7-3.6.8-1.9 3.2-3.4-1.45-3.4 1.45Z" />
-      <path fill="#fff" d="m10.95 15.55 5.65-5.65-1.4-1.45-4.25 4.25-2.15-2.1-1.4 1.4 3.55 3.55Z" />
-    </svg>
-  );
+export function VerifiedMark() {
+  return <span style={{ display: "flex" }} dangerouslySetInnerHTML={{ __html: verifiedBadge(16) }} />;
 }
 
 const SCREEN_W = 360;
