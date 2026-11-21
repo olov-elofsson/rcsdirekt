@@ -14,6 +14,7 @@ import { Inquiries } from './collections/Inquiries'
 import { Media } from './collections/Media'
 import { Sources } from './collections/Sources'
 import { Users } from './collections/Users'
+import { Webinars } from './collections/Webinars'
 import { Demo } from './globals/Demo'
 import { Priser } from './globals/Priser'
 import { Startsida } from './globals/Startsida'
@@ -65,6 +66,7 @@ export default buildConfig({
     publishing(Articles),
     publishing(Glossary),
     publishing(Sources),
+    publishing(Webinars),
     Inquiries,
   ],
   globals: [publishingGlobal(Startsida), publishingGlobal(Priser), publishingGlobal(Demo)],

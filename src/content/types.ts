@@ -57,6 +57,16 @@ export type CustomerCase = {
   slug: string;
 };
 
+export type Webinar = {
+  title: string;
+  description: string;
+  /** Start as an ISO date in UTC. */
+  startsAt: string;
+  durationMinutes: number;
+  /** External sign-up page; empty means sign-ups go through the form on the site. */
+  registrationUrl: string;
+};
+
 export type SiteContent = {
   version: 1;
   startsida: {
@@ -92,6 +102,8 @@ export type SiteContent = {
     volumeText: string;
   };
   kundcase: CustomerCase[];
+  /** Upcoming webinars, earliest first. Missing in content from before webinars existed. */
+  webinarer?: Webinar[];
   demo: {
     /** Six features whose positions are fixed in the phone illustration (id 1–6). */
     features: { id: number; title: string; copy: string }[];

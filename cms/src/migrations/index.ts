@@ -3,6 +3,7 @@ import * as migration_20261121_161952_gcs_storage_fields from './20261121_161952
 import * as migration_20261121_164507_case_image from './20261121_164507_case_image';
 import * as migration_20261121_165053_inquiries from './20261121_165053_inquiries';
 import * as migration_20261121_171500_prices_50 from './20261121_171500_prices_50';
+import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 
@@ -25,7 +26,7 @@ export const migrations = [
   {
     up: migration_20261121_165053_inquiries.up,
     down: migration_20261121_165053_inquiries.down,
-    name: '20261121_165053_inquiries'
+    name: '20261121_165053_inquiries',
   },
   {
     up: migration_20261121_171500_prices_50.up,
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20261121_191000_case_photos.up,
     down: migration_20261121_191000_case_photos.down,
-    name: '20261121_191000_case_photos',
+    name: '20261121_191000_case_photos'
+  },
+  {
+    up: migration_20261121_192000_webinars.up,
+    down: migration_20261121_192000_webinars.down,
+    name: '20261121_192000_webinars',
   },
 ];

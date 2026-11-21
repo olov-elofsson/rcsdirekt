@@ -1,6 +1,6 @@
 import type { Payload } from 'payload'
 
-import type { Article, CustomerCase, GlossaryTerm, SiteContent, Source } from './site-content-types'
+import type { Article, CustomerCase, GlossaryTerm, SiteContent, Source, Webinar } from './site-content-types'
 
 type Doc = Record<string, any>
 
@@ -15,11 +15,14 @@ async function all(payload: Payload, collection: 'artiklar' | 'kallor' | 'begrep
 
 /** Builds the content the site renders, in the shape of src/content/types.ts. */
 export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
-  const [articleDocs, sourceDocs, glossaryDocs, caseDocs, startsida, priser, demo] = await Promise.all([
+  const [articleDocs, sourceDocs, glossaryDocs, caseDocs, webinarDocs, startsida, priser, demo] = await Promise.all([
     all(payload, 'artiklar'),
     all(payload, 'kallor'),
     all(payload, 'begrepp'),
     all(payload, 'kundcase'),
+    payload
+      .find({ collection: 'webinarer', depth: 0, limit: 0, pagination: false, sort: 'startsAt', where: { visible: { equals: true } } })
+      .then((result) => result.docs as Doc[]),
     payload.findGlobal({ slug: 'startsida', depth: 1 }) as Promise<Doc>,
     payload.findGlobal({ slug: 'priser', depth: 0 }) as Promise<Doc>,
     payload.findGlobal({ slug: 'demo', depth: 0 }) as Promise<Doc>,
@@ -84,6 +87,18 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     slug: text(doc.slug),
   }))
 
+  // Only webinars that have not ended; the site also hides one that ends after the build.
+  const now = Date.now()
+  const webinarer: Webinar[] = webinarDocs
+    .map((doc) => ({
+      title: text(doc.title),
+      description: text(doc.description),
+      startsAt: text(doc.startsAt),
+      durationMinutes: Number(doc.durationMinutes) || 45,
+      registrationUrl: text(doc.registrationUrl),
+    }))
+    .filter((webinar) => webinar.title && Date.parse(webinar.startsAt) + webinar.durationMinutes * 60_000 > now)
+
   const items = (rows: unknown) => list(rows).map((row) => ({ icon: text(row.icon), title: text(row.title), copy: text(row.copy) }))
   const availability = (rows: unknown) => list(rows).map((row) => ({ code: text(row.code), name: text(row.name), available: Boolean(row.available) }))
 
@@ -133,6 +148,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       volumeText: text(priser.volumeText),
     },
     kundcase,
+    webinarer,
     demo: {
       features: list(demo.features).map((row, index) => ({ id: index + 1, title: text(row.title), copy: text(row.copy) })),
       richCards: items(demo.richCards),

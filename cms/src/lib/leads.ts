@@ -1,4 +1,4 @@
-// POST /api/leads: the website forwards contact and sign-up forms here.
+// POST /api/leads: the website forwards contact, sign-up and webinar forms here.
 // Only the website knows LEAD_API_KEY, so the endpoint cannot be used directly.
 import { timingSafeEqual } from 'crypto'
 import type { PayloadHandler } from 'payload'
@@ -17,7 +17,7 @@ export const createLead: PayloadHandler = async (req) => {
   if (!keyMatches(req.headers.get('x-lead-key'))) return Response.json({ error: 'forbidden' }, { status: 403 })
   const body = (await req.json?.().catch(() => null)) as Record<string, unknown> | null
   if (!body) return Response.json({ error: 'invalid' }, { status: 400 })
-  const type = body.type === 'signup' ? 'signup' : 'contact'
+  const type = body.type === 'signup' || body.type === 'webinar' ? body.type : 'contact'
   const data = {
     type,
     status: 'new',

@@ -222,3 +222,6 @@
 @media (prefers-reduced-motion: reduce) {
   .home-refined main > section :is(a.shadow-card, a.home-card):hover { transform: none; }
 }
+/* The webinar card sits right under the hero, which already has its own space.
+   Last in the file so it also wins over the larger padding from 640 px. */
+.home-refined main > section#webinar { padding-top: 0; }

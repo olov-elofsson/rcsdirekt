@@ -9,14 +9,15 @@ const base = {
   message: z.string().trim().max(1000),
 };
 
-export type LeadType = "contact" | "signup";
+export type LeadType = "contact" | "signup" | "webinar";
 
 export function leadSchema(type: LeadType) {
   const signup = type === "signup";
   return z.object({
     ...base,
     company: signup ? base.company.min(1, "Fyll i företagsnamn") : base.company,
-    message: signup ? base.message : base.message.min(1, "Skriv ett meddelande"),
+    // A webinar sign-up carries the webinar's name and time as its message, from a hidden field.
+    message: type === "contact" ? base.message.min(1, "Skriv ett meddelande") : base.message,
     terms: signup ? z.literal("on", { errorMap: () => ({ message: "Godkänn villkoren" }) }) : z.any(),
   });
 }
