@@ -45,7 +45,7 @@ export const Priser: GlobalConfig = {
                   type: 'row',
                   fields: [
                     { name: 'name', label: 'Namn', type: 'text', required: true },
-                    { name: 'price', label: 'Pris', type: 'text', required: true, admin: { description: 'Till exempel "0,30 SEK"' } },
+                    { name: 'price', label: 'Från-pris', type: 'text', required: true, admin: { description: 'Lägsta listpriset, visas som "från" på startsidan. Till exempel "0,316 SEK"' } },
                     { name: 'badge', label: 'Etikett', type: 'text', admin: { description: 'Till exempel "Populärast". Lämna tomt för ingen.' } },
                   ],
                 },
@@ -53,6 +53,22 @@ export const Priser: GlobalConfig = {
                 { name: 'short', label: 'Kort beskrivning', type: 'text', required: true },
                 { name: 'copy', label: 'Lång beskrivning', type: 'textarea', required: true },
                 { name: 'slug', label: 'Kortnamn', type: 'text', required: true, admin: { description: 'Till exempel "basic". Ändra inte i onödan.' } },
+                {
+                  name: 'operatorPrices',
+                  label: 'Listpris per operatör',
+                  type: 'array',
+                  labels: { singular: 'Operatör', plural: 'Operatörer' },
+                  admin: { description: 'Visas på prissidan, en rad per operatör. Lämna tomt för att visa från-priset för alla operatörer.' },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'operator', label: 'Operatör', type: 'text', required: true },
+                        { name: 'price', label: 'Listpris', type: 'text', required: true, admin: { description: 'Till exempel "0,346 SEK"' } },
+                      ],
+                    },
+                  ],
+                },
               ],
             },
             {

@@ -811,7 +811,7 @@ export interface Priser {
     | {
         name: string;
         /**
-         * Till exempel "0,30 SEK"
+         * Lägsta listpriset, visas som "från" på startsidan. Till exempel "0,316 SEK"
          */
         price: string;
         /**
@@ -825,6 +825,19 @@ export interface Priser {
          * Till exempel "basic". Ändra inte i onödan.
          */
         slug: string;
+        /**
+         * Visas på prissidan, en rad per operatör. Lämna tomt för att visa från-priset för alla operatörer.
+         */
+        operatorPrices?:
+          | {
+              operator: string;
+              /**
+               * Till exempel "0,346 SEK"
+               */
+              price: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1035,6 +1048,13 @@ export interface PriserSelect<T extends boolean = true> {
         short?: T;
         copy?: T;
         slug?: T;
+        operatorPrices?:
+          | T
+          | {
+              operator?: T;
+              price?: T;
+              id?: T;
+            };
         id?: T;
       };
   operators?:

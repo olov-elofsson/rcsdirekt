@@ -99,7 +99,7 @@ function Advantages() {
 }
 
 function Pricing() {
-  return <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24"><Wave flip fill="var(--color-primary-soft)" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>{home.pris.heading}</h2><p className="mx-auto mt-5 text-base font-bold">{home.pris.subheading}</p><p className="mx-auto mt-2 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">{home.pris.intro}</p></div><div className="mt-12 grid gap-5 sm:grid-cols-3">{pricingPlans.map((plan, index) => <Link key={plan.name} to="/priser" data-reveal style={revealOrder(index)} className="group relative rounded-lg bg-card p-8 text-center shadow-card">{plan.badge ? <span className="absolute -top-3 left-1/2 inline-flex h-7 -translate-x-1/2 items-center rounded-full bg-primary px-4 text-xs font-bold whitespace-nowrap text-primary-foreground">{plan.badge}</span> : null}<p className="text-sm font-bold">{plan.name}</p><p className="mt-6 text-[2.6rem] font-extrabold leading-none tracking-normal tabular-nums">{plan.price}</p><p className="mt-2 text-xs text-muted-foreground">listpris per meddelande</p></Link>)}</div><p data-reveal className="mx-auto mt-8 max-w-xl text-center text-sm leading-relaxed text-pretty text-muted-foreground">Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar. <Link to="/" hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Fråga om volympris</Link></p></div></section>;
+  return <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24"><Wave flip fill="var(--color-primary-soft)" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>{home.pris.heading}</h2><p className="mx-auto mt-5 text-base font-bold">{home.pris.subheading}</p><p className="mx-auto mt-2 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">{home.pris.intro}</p></div><div className="mt-12 grid gap-5 sm:grid-cols-3">{pricingPlans.map((plan, index) => <Link key={plan.name} to="/priser" data-reveal style={revealOrder(index)} className="group relative rounded-lg bg-card p-8 text-center shadow-card">{plan.badge ? <span className="absolute -top-3 left-1/2 inline-flex h-7 -translate-x-1/2 items-center rounded-full bg-primary px-4 text-xs font-bold whitespace-nowrap text-primary-foreground">{plan.badge}</span> : null}<p className="text-sm font-bold">{plan.name}</p><p className="mt-6 text-sm text-muted-foreground">från</p><p className="mt-1 text-[2.6rem] font-extrabold leading-none tracking-normal tabular-nums">{plan.price}</p><p className="mt-2 text-xs text-muted-foreground">listpris per meddelande</p></Link>)}</div><p data-reveal className="mx-auto mt-8 max-w-xl text-center text-sm leading-relaxed text-pretty text-muted-foreground">Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar. <Link to="/" hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Fråga om volympris</Link></p></div></section>;
 }
 
 function BlogSection() {
@@ -108,7 +108,8 @@ function BlogSection() {
 }
 
 const lowestPrice = pricingPlans[0]?.price;
-const operators = content.priser.operators;
+// Named operators only; "Övriga operatörer" (MVNOs) is a price row, not a network to name.
+const operators = content.priser.operators.filter((name) => !name.startsWith("Övriga"));
 
 /** Headline beside a phone where a real RCS message arrives (HeroPhone). */
 function HeroFirst() {

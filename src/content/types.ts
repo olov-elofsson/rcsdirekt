@@ -44,6 +44,8 @@ export type PricingPlan = {
   short: string;
   copy: string;
   contents: string;
+  /** List price per operator, for the pricing page. Missing in content from before it existed. */
+  operatorPrices?: { operator: string; price: string }[];
 };
 export type Availability = { code: string; name: string; available: boolean };
 

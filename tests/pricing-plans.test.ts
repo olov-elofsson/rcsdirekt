@@ -2,13 +2,18 @@ import { expect, test } from "bun:test";
 
 import { pricingCountries, pricingCurrencies, pricingPlans } from "../src/data/pricing-plans";
 
-test("meddelandetyperna har rätt styckpris", () => {
-  const prices = Object.fromEntries(pricingPlans.map((plan) => [plan.name, plan.price]));
-  expect(prices).toEqual({
-    "RCS Basic": "0,45 SEK",
-    "RCS Single": "0,64 SEK",
-    "RCS Conversation": "0,95 SEK",
-  });
+const amount = (price: string) => Number(price.replace(" SEK", "").replace(",", "."));
+
+test("meddelandetyperna finns i rätt ordning", () => {
+  expect(pricingPlans.map((plan) => plan.name)).toEqual(["RCS Basic", "RCS Single", "RCS Conversation"]);
+});
+
+test("från-priset är det lägsta listpriset per operatör", () => {
+  for (const plan of pricingPlans) {
+    if (!plan.operatorPrices?.length) continue;
+    const lowest = Math.min(...plan.operatorPrices.map((row) => amount(row.price)));
+    expect(amount(plan.price)).toBe(lowest);
+  }
 });
 
 test("bara RCS Single märks som Populärast", () => {
@@ -25,5 +30,6 @@ test("SEK är enda valbara valuta och används i alla priser", () => {
   expect(available).toEqual(["SEK"]);
   for (const plan of pricingPlans) {
     expect(plan.price.endsWith(" SEK")).toBe(true);
+    for (const row of plan.operatorPrices ?? []) expect(row.price.endsWith(" SEK")).toBe(true);
   }
 });

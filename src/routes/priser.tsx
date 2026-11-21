@@ -127,10 +127,10 @@ function PricingPage() {
                     <span className="text-base font-extrabold">{item.name}</span>
                     <span className="block text-sm text-muted-foreground">{item.contents}</span>
                   </div>
-                  {operators.map((op) => (
-                    <div key={op} className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
-                      <span className="font-semibold">{op}</span>
-                      <span className="font-extrabold whitespace-nowrap tabular-nums">{item.price}</span>
+                  {(item.operatorPrices?.length ? item.operatorPrices : operators.map((operator) => ({ operator, price: item.price }))).map((row) => (
+                    <div key={row.operator} className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
+                      <span className="font-semibold">{row.operator}</span>
+                      <span className="font-extrabold whitespace-nowrap tabular-nums">{row.price}</span>
                     </div>
                   ))}
                 </div>

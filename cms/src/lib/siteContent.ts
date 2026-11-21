@@ -135,6 +135,9 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
         short: text(plan.short),
         copy: text(plan.copy),
         contents: text(plan.contents),
+        operatorPrices: list(plan.operatorPrices)
+          .map((row) => ({ operator: text(row.operator), price: text(row.price) }))
+          .filter((row) => row.operator && row.price),
       })),
       operators: list(priser.operators).map((row) => text(row.name)),
       countries: availability(priser.countries),
