@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import senderLogo from "../../brand/SVG/rcs-avsandare.svg";
 import { FormDialog } from "@/components/FormDialog";
 import { LeadForm } from "@/components/LeadForm";
-import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, ThreadIntro, Timestamp, Typing } from "@/components/RcsPhone";
+import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
 import { cn } from "@/lib/utils";
@@ -88,9 +88,12 @@ const PHONE_ICONS: Record<string, string> = {
 const phoneIconName = (name: string) => PHONE_ICONS[name] ?? "sparkles";
 
 /** Rich card in the screen's own pixels, as in Google Messages. */
-function RichCard({ title, copy, icon, actions, onAction }: { title: string; copy?: string; icon?: string; actions?: string[] | undefined; onAction?: (action: string) => void }) {
+/** Actions that open something get Google Messages' icon in a circle; replies are plain rows. */
+const ACTION_ICONS: Record<string, string> = { "Ring oss": "call", "Besök rcsdirekt.se": "globe", "Boka en demo": "event", "Läs mer": "open" };
+
+function RichCard({ title, copy, icon, actions, onAction, narrow = false }: { title: string; copy?: string; icon?: string; actions?: string[] | undefined; onAction?: (action: string) => void; narrow?: boolean }) {
   return (
-    <div className="card" style={{ flex: "none" }}>
+    <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
       {icon ? (
         <div className="cimg">
           <PhoneIcon name={phoneIconName(icon)} size={48} color="#0b57d0" />
@@ -98,11 +101,16 @@ function RichCard({ title, copy, icon, actions, onAction }: { title: string; cop
       ) : null}
       <div className="ct">{title}</div>
       {copy ? <div className="cb">{copy}</div> : <div className="cgap" />}
-      {actions?.map((action) => (
-        <button key={action} type="button" className="cbtn" onClick={() => onAction?.(action)}>
-          {action}
-        </button>
-      ))}
+      {actions?.length ? (
+        <div className="cbtns">
+          {actions.map((action) => (
+            <button key={action} type="button" className="cbtn" onClick={() => onAction?.(action)}>
+              {ACTION_ICONS[action] ? <span className="ci"><PhoneIcon name={ACTION_ICONS[action]} size={18} /></span> : null}
+              {action}
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -139,7 +147,7 @@ export function InteractiveRcsDemo() {
     else if (action === "Besök rcsdirekt.se") window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const closeDialog = useCallback(() => setDialogOpen(false), []);
-  const scrollCards = (direction: number) => carouselRef.current?.scrollBy({ left: direction * 267, behavior: "smooth" });
+  const scrollCards = (direction: number) => carouselRef.current?.scrollBy({ left: direction * 248, behavior: "smooth" });
   const answer = selectedReply ? replyContent[selectedReply] : null;
   const activeItem = active ? demoFeatures.find((feature) => feature.id === active) : undefined;
 
@@ -157,44 +165,50 @@ export function InteractiveRcsDemo() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[332px] min-[1000px]:w-[322px]">
-          <RcsPhone sender="RCS Direkt" logo={senderLogo} messagesRef={messagesRef}>
-            <FeatureTarget id={1} active={active} onActive={setActive} onOpen={setActive} style={{ borderRadius: 0 }} markerClassName="right-8 top-1">
-              <ThreadIntro logo={senderLogo} sender="RCS Direkt" description="Skicka RCS direkt från webben eller via API." />
-            </FeatureTarget>
+          <RcsPhone
+            sender="RCS Direkt"
+            logo={senderLogo}
+            description="Skicka RCS direkt från webben eller via API."
+            messagesRef={messagesRef}
+            introWrap={(intro) => (
+              <FeatureTarget id={1} active={active} onActive={setActive} onOpen={setActive} style={{ borderRadius: 24 }} markerClassName="right-10 top-0">
+                {intro}
+              </FeatureTarget>
+            )}
+          >
             <DateLabel>I dag</DateLabel>
 
             <FeatureTarget id={2} active={active} onActive={setActive} onOpen={setActive} style={{ marginLeft: "auto", width: "fit-content", maxWidth: 280, marginRight: 0 }} markerClassName="-left-4 -top-2">
               <OutgoingBubble status="Läst · 13:16">Hej! Vad är skillnaden mot ett vanligt sms?</OutgoingBubble>
             </FeatureTarget>
 
-            <IncomingRow logo={senderLogo}>
+            <IncomingRow>
               <Bubble>RCS hamnar direkt i kundens vanliga meddelandeapp, med bilder, flera produkter att svepa mellan och knappar för att köpa, boka eller svara. Kunden behöver ingen ny app.</Bubble>
             </IncomingRow>
             <Timestamp>13:16</Timestamp>
 
             <FeatureTarget id={3} active={active} onActive={setActive} onOpen={setActive} style={{ borderRadius: 0, marginBottom: 11 }} markerClassName="right-3 -top-3">
-              <div ref={carouselRef} className="scrollbar-none" style={{ display: "flex", gap: 5, overflowX: "auto", scrollSnapType: "x mandatory", padding: "0 13px 0 47px", scrollPaddingLeft: 47 }}>
+              <div ref={carouselRef} className="scrollbar-none" style={{ display: "flex", gap: 8, overflowX: "auto", scrollSnapType: "x mandatory", padding: "0 12px", scrollPaddingLeft: 12 }}>
                 {richCards.map((card) => (
                   <div key={card.title} style={{ scrollSnapAlign: "start" }}>
-                    <RichCard title={card.title} copy={card.copy} icon={card.icon} actions={["Läs mer"]} onAction={onAction} />
+                    <RichCard narrow title={card.title} copy={card.copy} icon={card.icon} actions={["Läs mer"]} onAction={onAction} />
                   </div>
                 ))}
               </div>
             </FeatureTarget>
 
-            <FeatureTarget id={4} active={active} onActive={setActive} onOpen={setActive} style={{ marginLeft: 47, width: "fit-content", marginBottom: 11 }} markerClassName="-right-3 -top-3">
+            <FeatureTarget id={4} active={active} onActive={setActive} onOpen={setActive} style={{ marginLeft: 12, width: "fit-content", marginBottom: 12 }} markerClassName="-right-1 -top-3">
               <RichCard title="Vill du se hur det kan fungera för ert företag?" actions={["Boka en demo", "Ring oss", "Besök rcsdirekt.se"]} onAction={onAction} />
             </FeatureTarget>
 
-            <FeatureTarget id={5} active={active} onActive={setActive} onOpen={setActive} style={{ marginLeft: 47, width: "fit-content", marginBottom: 11 }} markerClassName="-right-8 -top-2">
+            <FeatureTarget id={5} active={active} onActive={setActive} onOpen={setActive} style={{ marginLeft: 12, width: "fit-content", marginBottom: 12 }} markerClassName="-right-8 -top-2">
               <Typing />
             </FeatureTarget>
 
             <FeatureTarget id={6} active={active} onActive={setActive} onOpen={setActive} style={{ marginBottom: 4 }} markerClassName="right-2 -top-4">
-              <div className="chips scrollbar-none" style={{ overflowX: "auto", paddingRight: 13, marginBottom: 0 }}>
+              <div className="chips scrollbar-none" style={{ overflowX: "auto", marginBottom: 0 }}>
                 {replyOptions.map((reply) => (
                   <button key={reply} type="button" aria-pressed={selectedReply === reply} className={cn("chip", selectedReply === reply && "pressed")} onClick={() => chooseReply(reply)}>
-                    <PhoneIcon name="chat" size={16} color="#0b57d0" />
                     {reply}
                   </button>
                 ))}
@@ -202,9 +216,9 @@ export function InteractiveRcsDemo() {
             </FeatureTarget>
 
             {selectedReply ? <div style={{ marginTop: 10 }}><OutgoingBubble status="Läst · 13:17">{selectedReply}</OutgoingBubble></div> : null}
-            {typing ? <div style={{ paddingLeft: 47 }}><Typing /></div> : null}
+            {typing ? <div style={{ paddingLeft: 12 }}><Typing /></div> : null}
             {answer && !typing ? (
-              <div style={{ paddingLeft: 47 }} className="animate-fade-in">
+              <div style={{ paddingLeft: 12 }} className="animate-fade-in">
                 <RichCard title={answer.title} copy={answer.copy} actions={answer.actions} onAction={onAction} />
               </div>
             ) : null}

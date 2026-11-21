@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import { INTER_FILES } from "@/lib/rcs-phone/inter";
-import { buildProject, canExportMp4, createRenderer, exportMp4, loadInterFontCss } from "@/lib/rcs-video/engine";
+import { PHONE_FONT_FILES } from "@/lib/rcs-phone/fonts";
+import { buildProject, canExportMp4, createRenderer, exportMp4, loadPhoneFontCss } from "@/lib/rcs-video/engine";
 import { exampleBanner, exampleLogo } from "@/lib/rcs-video/defaults";
 
 const STORE_KEY = "rcsv-form-v2";
@@ -269,7 +269,7 @@ export function RcsVideoGenerator() {
   useEffect(() => {
     try { const s = localStorage.getItem(STORE_KEY); if (s) setForm({ ...EXAMPLE, ...JSON.parse(s) }); } catch {}
     setCanExport(canExportMp4());
-    loadInterFontCss(INTER_FILES).catch(() => {});
+    loadPhoneFontCss(PHONE_FONT_FILES).catch(() => {});
   }, []);
   useEffect(() => { try { localStorage.setItem(STORE_KEY, JSON.stringify(form)); } catch {} }, [form]);
 
@@ -307,7 +307,7 @@ export function RcsVideoGenerator() {
     const ac = new AbortController();
     abortRef.current = ac;
     try {
-      const fontCss = await loadInterFontCss(INTER_FILES).catch(() => "");
+      const fontCss = await loadPhoneFontCss(PHONE_FONT_FILES).catch(() => "");
       const P = buildProject(clone(flow));
       setExporting({ done: 0, total: P.video.frames });
       const blob = await exportMp4(P, { Muxer, ArrayBufferTarget, fontCss, signal: ac.signal, bitrate: 6_000_000, onProgress: (done: number, total: number) => setExporting({ done, total }) });

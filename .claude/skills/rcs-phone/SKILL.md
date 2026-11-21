@@ -7,7 +7,7 @@ description: Regler för alla telefoner som visar RCS-meddelanden på rcsdirekt.
 
 Alla telefoner på rcsdirekt.se ska se ut som telefonen i **videogeneratorn** (`/video-generator`). Den är referensen: en Android-telefon med Google Messages, i exakta mått och färger. Kunder ska känna igen sin egen meddelandeapp, inte en ritad illustration.
 
-Referensbilder av hur det ska se ut finns i `referens/`: `konversation.webp` (startsidans demo), `konversation-kort.webp`, `inkorg.webp` och `profil.webp`. Underlaget från Google och pressen står under [Källor](#källor).
+Referensbilder av hur det ska se ut finns i `referens/`: `konversation.webp` (början av en tråd, startsidans demo), `konversation-kort.webp` (kort och förslag), `video-konversation.webp`, `inkorg.webp` och `profil.webp`. Underlaget från Google och pressen står under [Källor](#källor).
 
 Referensens kod finns i `src/lib/rcs-video/engine.ts`:
 - `RCSV_CSS` innehåller alla mått och färger.
@@ -16,34 +16,34 @@ Referensens kod finns i `src/lib/rcs-video/engine.ts`:
 
 ## Grundregel
 
-**Återanvänd referensen i stället för att rita en ny telefon.** Använd `src/components/RcsPhone.tsx`: `RcsPhone` ger ram, statusrad, avsändarhuvud och skrivfält, och `IncomingRow`, `Bubble`, `OutgoingBubble`, `Timestamp`, `Typing`, `DateLabel` och `PhoneIcon` bygger meddelandena. Startsidans demo (`InteractiveRcsDemo`) är exemplet. Komponenterna använder samma `.rcsv`-klasser och mått som `createRenderer`. Skala den med `transform: scale()`. Bygg ingen egen Tailwind-telefon med andra mått, och kopiera inte värden för hand. Saknas en vy, lägg till den i `RCSV_CSS` så att alla telefoner får den.
+**Återanvänd referensen i stället för att rita en ny telefon.** Använd `src/components/RcsPhone.tsx`: `RcsPhone` ger ram, statusrad, avsändarhuvud, början av tråden (med `description`) och skrivfält, och `IncomingRow`, `Bubble`, `OutgoingBubble`, `Timestamp`, `Typing`, `DateLabel` och `PhoneIcon` bygger meddelandena. Startsidans demo (`InteractiveRcsDemo`) är exemplet. Komponenterna använder samma `.rcsv`-klasser och mått som `createRenderer`. Skala den med `transform: scale()`. Bygg ingen egen Tailwind-telefon med andra mått, och kopiera inte värden för hand. Saknas en vy, lägg till den i `RCSV_CSS` så att alla telefoner får den.
 
 ## Skärmen (360 × 640 px, skalas som helhet)
 
-Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig enskilda textstorlekar för att telefonen ska få plats.
+Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig enskilda textstorlekar för att telefonen ska få plats. Förlagan är Googles egna mockups av Google Messages i ljust läge (se [Källor](#källor)), räknade om från 412 till 360 px bredd.
 
 | Del | Specifikation |
 | --- | --- |
-| Typsnitt | Inter, `-webkit-font-smoothing: antialiased`. Inte sidans Archivo eller Hind |
-| Bakgrund | `#ffffff` i hela skärmen. Chatten har vit bakgrund, inte tonad |
+| Typsnitt | Google Sans 400 och 500 (`@fontsource/google-sans`, OFL), `-webkit-font-smoothing: antialiased`. Inte sidans Archivo eller Hind, och inte Inter |
+| Ytor | Statusrad, huvud, profilsida och kort ligger på den tonade ytan `#f0f4f9`. Chatten är ett **vitt ark** (`.sheet`, `#msgs`) med radie 24 px i de övre hörnen, som börjar under huvudet. Skrivfältet står på det vita arket |
 | Text / dämpad text | `#1f1f1f` / `#444746` |
 | Statusrad | 30 px hög. Klockan till vänster (19 px in, 14.5px/500), ikoner för signal, wifi och batteri till höger. Ingen notch och ingen ö |
 | Navigeringsstreck | 73 × 3 px, `#1f1f1f`, centrerat 11 px från underkanten |
-| Avsändarens logotyp | Alltid en **rundad kvadrat som logotypen fyller helt, med solid bakgrund** (vit om inget annat är godkänt), `object-fit: cover` och en hårfin kant `1px rgba(0,0,0,.08)` inåt. Aldrig rund, aldrig en genomskinlig symbol som flyter fritt. Radien är cirka 25 % av sidan: 32 px → 8 px, 27 px → 7 px, 40 px → 9 px, 64 px → 16 px, 72 px → 14 px |
-| Huvud i konversation | 50 px högt, börjar 42 px från toppen. Tillbaka-pil 12 px in. Logotypen 32 × 32 px, sedan namnet i 16.6px och den blå verifieringsbocken. Till höger bara menyikonen (⋮): ingen ring- och ingen sköldikon |
-| Överst i tråden (`.intro`, `ThreadIntro`) | Logotypen 64 × 64 px, namnet 16px/600 med bocken, beskrivningen 13px/18px i `#444746`, centrerat, och en avdelare `1px #e1e1e1` under |
-| Verifieringsbock | Googles sigill (`verifiedBadge()` i `engine.ts`) i `#0b57d0`, direkt efter namnet i inkorgen, huvudet, tråden och profilen |
-| Inkommande bubbla | Bakgrund `#e8edf5`, radie 19 px, padding 8 × 14 px, 15px/20.57px, max 248 px bred. Avatar 27 × 27 px med radie 7 px längst ned till vänster, och bubblorna börjar 47 px in |
-| Bubblor i följd | Hörnet mot nästa bubbla har radie 5 px, och avståndet mellan bubblorna är 3 px |
-| Utgående bubbla | Bakgrund `#0a56cf`, vit text, högerställd 13 px från kanten |
-| Tidsstämpel | 11.5px, `#444746`, under bubblan |
-| Rich card | 262 px brett, radie 17 px, bakgrund `#e8edf5`, ingen skugga. Bilden är 262 × 150 px med `object-fit: cover`. Titeln är 15.6px/600 och brödtexten 14.1px/19.2px |
-| Knapp i kort | 42 px hög, `border-top: 1px solid #d4d9e1`, text `#0b57d0` 15px/500, centrerad |
-| Förslag (chips) | 33 px höga, radie 17 px, `1px solid #c4c7c5`, vit bakgrund, text `#0b57d0` 14.5px/500, 5 px mellanrum, börjar 47 px in. Nedtryckt chip: `#d3e3fd` |
-| Skrivfält | 60 px högt. Ett pillerfält 292 × 44 px, radie 22 px, i `#e8edf5`, 8 px in. **Inne i** pillret: plus-ikonen 10 px in, platshållaren "RCS-meddelande" 14.6px i `#444746` 46 px in, och emoji- och bildikonen till höger. Röst- och skicka-knappen är en egen cirkel på 44 px till höger om pillret |
-| Inkorg | Företag har logotypen som rundad kvadrat (40 px, radie 9 px) och bock efter namnet. Privatpersoner har runda avatarer med initial. Skillnaden är avsiktlig: så skiljer Google Messages företag från personer |
+| Huvud (kompakt) | Börjar 34 px från toppen, 52 px högt. Tillbaka-pil 12 px in, logotypen 30 × 30 px med radie 9 px, namnet 17px/400, verifieringsbocken efter namnet och menyikonen (⋮) längst till höger. Ingen ring- och ingen sköldikon |
+| Början av tråden (`.intro`) | När en konversation börjar visas avsändaren stort på den tonade ytan ovanför arket: logotypen 64 × 64 px med radie 19 px, namnet 19px/400 med bocken, och beskrivningen 13.5px/19px i `#444746`, centrerat. Det kompakta huvudet visar bara pil och meny tills man scrollat förbi, och tonar sedan in logotyp och namn (`RcsPhone` med `description`) |
+| Avsändarens logotyp | Alltid en rundad kvadrat som logotypen fyller helt, med solid bakgrund (vit om inget annat är godkänt), `object-fit: cover`, **utan ram eller kant**. Aldrig rund och aldrig en genomskinlig symbol |
+| Företagets meddelanden | **Ingen avatar** bredvid bubblor och kort. De börjar 12 px in |
+| Inkommande bubbla | Bakgrund `#f0f4f9`, radie 20 px, padding 10 × 16 px, 15.5px/21px, max 272 px bred. Bubblor i följd har radie 6 px mot varandra och 3 px mellanrum |
+| Utgående bubbla | Bakgrund `#0b57d0`, vit text, radie 20 px, högerställd 12 px från kanten |
+| Tidsstämpel och datum | 11.5px respektive 12.5px, `#444746` |
+| Rich card | Bakgrund `#f0f4f9`, radie 22 px, ingen skugga. Ensamt kort 336 px brett; i karusell 240 px (`.card.narrow`) med 8 px mellanrum. Bilden fyller bredden, 160 px hög (132 px i karusell). Titeln 16px/500, brödtexten 14.5px/20.5px i `#444746` |
+| Knappar i kort (`.cbtns`) | Vita rader inne i kortet, minst 48 px höga, 2 px mellanrum, text 15.5px i `#1f1f1f` (inte blå), vänsterställd. Gruppen har radie 18 px ytterst och 5 px mellan raderna. Åtgärder som öppnar något (länk, samtal, kalender) har ikonen i en cirkel på 32 px i `#f0f4f9` |
+| Förslag (chips) | **Högerställda**, 36 px höga, radie 18 px, `1px solid #c4c7c5`, vit bakgrund, text `#444746` 14.5px, 8 px mellanrum. Valfri ikon i `#0b57d0` för åtgärder |
+| Skrivfält | 60 px högt på vitt. Pillret är 288 × 48 px, radie 24 px, i `#f0f4f9`, 8 px in. Inne i pillret: plus-ikonen 12 px in, platshållaren "RCS-meddelande" 15.5px i `#444746` 48 px in, och emoji- och bildikonen till höger |
+| Röstknapp | En cirkel på 48 px i `#c4eed0` med ljudvågsikonen (`voice`) i `#0f5223`. När man har skrivit något blir den en blå skicka-knapp |
+| Inkorg | Företag har logotypen som rundad kvadrat (40 px, radie 9 px) och bock efter namnet. Privatpersoner har runda avatarer med initial |
+| Företagsprofil | Tonad sida. Banner 360 × 112 px, logotypen 76 × 76 px med radie 22 px och utan kant, namnet 20px/400 med bocken. Runda vita knappar för samtal, webb och e-post, och kontaktuppgifterna i vita rader grupperade som knapparna i kort |
 | Tangentbord | 260 px högt, `#e7ecf4`. Tangenterna är 44 px höga med radie 6 px |
-| Företagsprofil | Banner 360 × 112 px och logotyp 72 × 72 px med radie 14 px och 3 px vit kant. Namnet är 19px/600 |
 | Ikoner | Material-ikonerna i `engine.ts` (`icon()`). Inte lucide |
 
 ## Ramen
@@ -66,14 +66,16 @@ Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig 
 | --- | --- |
 | Byggd på `RCSV_CSS`/`createRenderer` | Egen markup med Tailwind-klasser för bubblor och kort |
 | Proportioner | Skärmen är inte 360 × 640 skalad, eller höjden följer innehållet |
-| Typsnitt | Archivo, Hind eller systemtypsnitt i skärmen |
+| Typsnitt | Archivo, Hind, Inter eller systemtypsnitt i skärmen i stället för Google Sans |
 | Färger | Brandkitets marinblå eller lavendel på bubblor, kort, chips eller ram |
-| Bubblor | Annan radie än 19 px, skugga, vit bakgrund på inkommande |
-| Kort | Skugga eller ring, annan bredd än 262 px, knappar i annan färg än `#0b57d0` |
+| Ytor | Helvit skärm utan tonat huvud, eller ett chattark utan rundade övre hörn |
+| Bubblor | Annan radie än 20 px, skugga, vit bakgrund på inkommande, avatar bredvid företagets meddelanden |
+| Kort | Skugga eller ring, blå knapptext, knappar som linjer i stället för vita rader |
+| Förslag | Vänsterställda chips eller blå text i chips |
 | Statusrad | Notch eller pill, klockan saknas eller ikonerna saknas |
-| Avsändare | Rund avatar, initial i stället för logotyp, eller en logotyp utan solid bakgrund |
+| Avsändare | Rund avatar, initial i stället för logotyp, logotyp utan solid bakgrund eller med ram |
 | Huvud | Ring- eller sköldikon i huvudet, eller saknad verifieringsbock |
-| Skrivfält | Plus-ikonen utanför pillret |
+| Skrivfält | Plus-ikonen utanför pillret, eller en blå mikrofon i stället för den gröna röstknappen |
 | Textstorlek | Text under 11 px i telefonens egna pixlar, eller text som skalats separat |
 
 Rapportera avvikelser som en tabell med kolumnerna Plats, Nu, Ska vara och Varför, i samma format som `make-interfaces-feel-better`.
@@ -81,6 +83,9 @@ Rapportera avvikelser som en tabell med kolumnerna Plats, Nu, Ska vara och Varf�
 ## Källor
 
 Kontrollerat i november 2026. Google ändrade under 2026 hur företagsavsändare visas i Google Messages, så kontrollera källorna igen om något ser annorlunda ut i en ny version av appen.
+
+- Google: mockups av konversationen i ljust läge i [Rich cards](https://developers.google.com/business-communications/rcs-business-messaging/guides/learn/rich-cards) (bilderna `rich-card-components.png`, `suggested-replies.png`, `carousel-with-suggestions.png`) och [Send messages](https://developers.google.com/business-communications/rcs-business-messaging/guides/build/messages/send) (`visible_url_rich_card.png`). De visar det tonade huvudet med avsändaren stort i början av tråden, det vita arket, korten med vita knapprader, högerställda chips, skrivfältet och den gröna röstknappen. Det här är huvudkällan för måtten ovan.
+- Google: mockups av profilsidan i [logotypriktlinjerna](https://developers.google.com/business-communications/rcs-business-messaging/guides/learn/logo-guidelines) (`do-mock-callouts-rbm.svg`, `do-hero-mock-rbm.svg`), med den tonade bakgrunden `#F0F4F9`, logotypen utan kant och namnet i normal vikt med bocken.
 
 - Google: [Edit agent information, med riktlinjer för logotyp och banner](https://developers.google.com/business-communications/rcs-business-messaging/guides/learn/logo-guidelines). Logotypen är 224 × 224 px och högst 50 kB. Bannern visas på profilsidan.
 - Bandwidth: [Updates to RCS for Business agent logos in Google Messages](https://www.bandwidth.com/support/en/articles/14977785-updates-to-rcs-for-business-agent-logos-in-google-messages) (18 augusti 2026). Logotyperna går från cirkel till kvadrat som visas med rundade hörn, med solid bakgrund ("avoid transparent backgrounds") och luft runt logotypen. Verifierade avsändare får en bock efter namnet. Alla logotyper ska vara uppdaterade senast 1 juni 2027.

@@ -4,24 +4,25 @@
  *   buildProject(flow)            -> projekt med tidslinje (sekunder)
  *   createRenderer(el, project)   -> { renderAt(t), duration, frames, ready }
  *   exportMp4(project, opts)      -> Promise<Blob>  (1080x1920, 30 fps, H.264, inget ljud)
- *   loadInterFontCss()            -> Promise<string> (@font-face med inbäddade typsnitt)
+ *   loadPhoneFontCss()            -> Promise<string> (@font-face med inbäddade typsnitt, Google Sans)
  * Kalibrerad mot den godkända Bilia-videon (v3, 68,167 s).
  */
 
 export const RCSV_CSS = `
    .rcsv{
-    --bg:#ffffff; --text:#1f1f1f; --muted:#444746; --line:#e1e1e1;
-    --in:#e8edf5; --out:#0a56cf; --blue:#0b57d0; --chipline:#c4c7c5;
-    --pill:#e8edf5; --mic:#d1e1fc; --kb:#e7ecf4; --key:#ffffff; --keyspecial:#cbd3e3;
+    /* Google Messages, light theme, as in Google's RCS for Business mockups (2026) */
+    --bg:#ffffff; --surf:#f0f4f9; --text:#1f1f1f; --muted:#444746; --line:#e1e3e1;
+    --in:#f0f4f9; --out:#0b57d0; --blue:#0b57d0; --chipline:#c4c7c5;
+    --pill:#f0f4f9; --voice:#c4eed0; --voiceicon:#0f5223; --kb:#e7ecf4; --key:#ffffff; --keyspecial:#cbd3e3;
   }
   .rcsv,.rcsv *{box-sizing:border-box;margin:0;padding:0}
-    .rcsv{font-family:"Inter",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;font-feature-settings:"cv11" 0}
+  .rcsv{font-family:"Google Sans",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
   .rcsv{position:relative;width:360px;height:640px;overflow:hidden;background:var(--bg);text-align:left;line-height:normal}
   .rcsv .layer{position:absolute;left:0;top:0;width:360px;height:640px;background:var(--bg)}
   .rcsv svg.i{display:block}
   .rcsv svg.vb{display:inline-block;flex:none;vertical-align:-2px;margin-left:4px}
-  .rcsv #hdr-name svg.vb{margin-left:5px;vertical-align:0}
-  .rcsv #prof .name svg.vb{vertical-align:-3px;margin-left:5px}
+  .rcsv #hdr-name svg.vb{margin-left:6px;vertical-align:0}
+  .rcsv #prof .name svg.vb{vertical-align:-3px;margin-left:6px}
 
   /* status bar */
   .rcsv #status{position:absolute;left:0;top:0;width:360px;height:30px;z-index:50;font-size:14.5px;font-weight:500;letter-spacing:.1px}
@@ -41,65 +42,79 @@ export const RCSV_CSS = `
   .rcsv .row .n{position:absolute;left:69px;top:12px;font-size:15.4px}
   .rcsv .row .p{position:absolute;left:69px;top:32px;width:275px;font-size:13.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .rcsv .row .tm{position:absolute;right:16px;top:13px;font-size:12.5px;color:var(--muted)}
-  .rcsv .row.unread .n, .rcsv .row.unread .p, .rcsv .row.unread .tm{font-weight:600;color:var(--text)}
+  .rcsv .row.unread .n, .rcsv .row.unread .p, .rcsv .row.unread .tm{font-weight:500;color:var(--text)}
   .rcsv #fab{position:absolute;left:194px;top:551px;width:150px;height:49px;border-radius:16px;background:#c1e5fe;box-shadow:0 1px 3px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.08);display:flex;align-items:center}
   .rcsv #fab svg{position:absolute;left:17px}
   .rcsv #fab .t{position:absolute;left:50px;font-size:15px;font-weight:500;color:#001d35}
 
-  /* conversation */
-  .rcsv #hdr{position:absolute;left:0;top:42px;width:360px;height:50px;background:#fff;z-index:5}
-  .rcsv #hdr .back{position:absolute;left:12px;top:13px}
-  .rcsv #hdr-name{position:absolute;left:44px;top:5px;height:40px;padding:0 8px 0 4px;border-radius:20px;display:flex;align-items:center}
-  /* Sender logos are rounded squares filled by the logo on a solid background (Google Messages since 2026). */
-  .rcsv #hdr-name img{width:32px;height:32px;border-radius:8px;margin-right:9px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
-  .rcsv #hdr-name span{font-size:16.6px}
-  .rcsv #hdr .more{position:absolute;left:322px;top:13px}
-  .rcsv #msgs{position:absolute;left:0;top:90px;width:360px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+  /* conversation: header and status bar on the tinted surface, the chat on a white sheet */
+  .rcsv #conv{background:var(--surf)}
+  .rcsv #conv::after{content:'';position:absolute;left:0;bottom:0;width:360px;height:24px;background:var(--bg)}
+  .rcsv #hdr{position:absolute;left:0;top:34px;width:360px;height:52px;z-index:5}
+  .rcsv #hdr .back{position:absolute;left:12px;top:14px}
+  .rcsv #hdr-name{position:absolute;left:44px;top:6px;height:40px;padding:0 8px 0 4px;border-radius:20px;display:flex;align-items:center}
+  /* Sender logos are rounded squares filled by the logo on a solid background, without a frame. */
+  .rcsv #hdr-name img{width:30px;height:30px;border-radius:9px;margin-right:12px;object-fit:cover;background:#fff}
+  .rcsv #hdr-name span{font-size:17px}
+  .rcsv #hdr .more{position:absolute;left:322px;top:14px}
+  .rcsv #msgs{position:absolute;left:0;top:92px;width:360px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--bg);border-radius:24px 24px 0 0}
   .rcsv #msgs .inner{display:flex;flex-direction:column;padding-bottom:0}
   .rcsv .it{overflow:hidden;flex:none}
-  /* Top of the thread: the sender's logo, name and description, above a divider. */
-  .rcsv .intro{text-align:center;padding:12px 40px 14px;border-bottom:1px solid var(--line);margin-bottom:2px}
-  .rcsv .intro img{display:block;width:64px;height:64px;margin:0 auto;border-radius:16px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
-  .rcsv .intro .n{margin-top:9px;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center}
-  .rcsv .intro .d{margin-top:3px;font-size:13px;line-height:18px;color:var(--muted)}
-  .rcsv .date{text-align:center;font-size:12.5px;color:var(--muted);padding:14px 0 10px}
-  .rcsv .inrow{position:relative;padding-left:47px;padding-right:13px;line-height:0}
-  .rcsv .inrow .avatar{position:absolute;left:12px;bottom:0;width:27px;height:27px;border-radius:7px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
-  .rcsv .bubble{display:inline-block;vertical-align:top;max-width:248px;padding:8px 14px;border-radius:19px;font-size:15px;line-height:20.57px;background:var(--in);word-wrap:break-word}
-  .rcsv .grp-mid .bubble{border-bottom-left-radius:5px}
-  .rcsv .grp-next .bubble{border-top-left-radius:5px}
+  /* Start of a new thread (website): the sender, large, on the tinted surface above the sheet. */
+  .rcsv .intro{text-align:center;padding:2px 28px 20px;background:var(--surf)}
+  .rcsv .intro img{display:block;width:64px;height:64px;margin:0 auto;border-radius:19px;object-fit:cover;background:#fff}
+  .rcsv .intro .n{margin-top:12px;font-size:19px;display:flex;align-items:center;justify-content:center}
+  .rcsv .intro .n svg.vb{margin-left:6px}
+  .rcsv .intro .d{margin-top:4px;font-size:13.5px;line-height:19px;color:var(--muted)}
+  .rcsv .sheet{background:var(--bg);border-radius:24px 24px 0 0;padding-top:2px}
+  .rcsv .date{text-align:center;font-size:12.5px;color:var(--muted);padding:16px 0 12px}
+  /* The business's messages have no avatar; they start 12 px in. */
+  .rcsv .inrow{position:relative;padding-left:12px;padding-right:12px;line-height:0}
+  .rcsv .bubble{display:inline-block;vertical-align:top;max-width:272px;padding:10px 16px;border-radius:20px;font-size:15.5px;line-height:21px;background:var(--in);word-wrap:break-word}
+  .rcsv .grp-mid .bubble{border-bottom-left-radius:6px}
+  .rcsv .grp-next .bubble{border-top-left-radius:6px}
   .rcsv .gap2{height:3px}
-  .rcsv .ts{font-size:11.5px;color:var(--muted);height:18px;line-height:18px;margin-top:3.5px;margin-bottom:7px}
-  .rcsv .inrow + .ts, .rcsv .tsin{padding-left:47px}
-  .rcsv .outrow{text-align:right;padding-right:13px;line-height:0}
+  .rcsv .ts{font-size:11.5px;color:var(--muted);height:18px;line-height:18px;margin-top:4px;margin-bottom:8px}
+  .rcsv .inrow + .ts, .rcsv .tsin{padding-left:14px}
+  .rcsv .outrow{text-align:right;padding-right:12px;line-height:0}
   .rcsv .outrow .bubble{background:var(--out);color:#fff;text-align:left}
-  .rcsv .tsout{text-align:right;padding-right:13px}
-  .rcsv .card{display:inline-block;vertical-align:top;width:262px;border-radius:17px;overflow:hidden;background:var(--in)}
-  .rcsv .card img{display:block;width:262px;height:150px;object-fit:cover}
-  .rcsv .card .ct{padding:11px 14px 0;font-size:15.6px;font-weight:600;line-height:20px}
-  .rcsv .card .cb{padding:4px 14px 9px;font-size:14.1px;line-height:19.2px}
-  .rcsv .cbtn{position:relative;height:42px;border-top:1px solid #d4d9e1;display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:15px;font-weight:500;gap:8px}
-  .rcsv .chips{display:flex;gap:5px;padding-left:47px;margin-bottom:11px;margin-top:0}
-  .rcsv .chip{height:33px;border:1px solid var(--chipline);border-radius:17px;padding:0 12.5px;display:flex;align-items:center;gap:6px;color:var(--blue);font-size:14.5px;font-weight:500;background:#fff;white-space:nowrap}
-  .rcsv .chip.pressed{background:#d3e3fd}
+  .rcsv .tsout{text-align:right;padding-right:14px}
+  /* Rich card: tinted, almost full width; actions are white rows grouped inside the card. */
+  .rcsv .card{display:inline-block;vertical-align:top;width:336px;border-radius:22px;overflow:hidden;background:var(--in)}
+  .rcsv .card.narrow{width:240px}
+  .rcsv .card img,.rcsv .card .cimg{display:block;width:100%;height:160px;object-fit:cover}
+  .rcsv .card.narrow img,.rcsv .card.narrow .cimg{height:132px}
+  .rcsv .card .ct{padding:14px 16px 0;font-size:16px;font-weight:500;line-height:22px}
+  .rcsv .card .cb{padding:4px 16px 14px;font-size:14.5px;line-height:20.5px;color:var(--muted)}
+  .rcsv .card .cgap{height:14px}
+  .rcsv .cbtns{display:flex;flex-direction:column;gap:2px;padding:0 10px 10px}
+  .rcsv .cbtn{position:relative;min-height:48px;padding:0 16px;display:flex;align-items:center;gap:12px;background:#fff;border-radius:5px;color:var(--text);font-size:15.5px;text-align:left}
+  .rcsv .cbtn:first-child{border-top-left-radius:18px;border-top-right-radius:18px}
+  .rcsv .cbtn:last-child{border-bottom-left-radius:18px;border-bottom-right-radius:18px}
+  .rcsv .cbtn .ci{flex:none;width:32px;height:32px;margin-left:-6px;border-radius:50%;background:var(--surf);display:flex;align-items:center;justify-content:center}
+  /* Suggestion chips sit to the right, outlined, in grey text. */
+  .rcsv .chips{display:flex;gap:8px;padding:0 12px;margin-bottom:12px;margin-top:0}
+  .rcsv .chips > :first-child{margin-left:auto}
+  .rcsv .chip{flex:none;height:36px;border:1px solid var(--chipline);border-radius:18px;padding:0 15px;display:flex;align-items:center;gap:7px;color:var(--muted);font-size:14.5px;background:#fff;white-space:nowrap}
+  .rcsv .chip.pressed{background:var(--surf)}
   /* interactive phone on the website: real buttons styled as the screen's own elements */
-  .rcsv button.cbtn,.rcsv button.chip{font:inherit;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .rcsv button.cbtn{width:100%;background:none;border:0;border-top:1px solid #d4d9e1;transition:background-color 120ms ease-out}
-  .rcsv button.cbtn:active,.rcsv button.chip:active{background:#d3e3fd}
+  .rcsv button.cbtn,.rcsv button.chip{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;border-style:solid}
+  .rcsv button.cbtn{width:100%;border:0;transition:background-color 120ms ease-out}
+  .rcsv button.chip{transition:background-color 120ms ease-out}
+  .rcsv button.cbtn:active,.rcsv button.chip:active{background:#e3e8ef}
   .rcsv button.cbtn:focus-visible,.rcsv button.chip:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
-  .rcsv .card .cimg{width:262px;height:150px;display:grid;place-items:center;background:#d3e3fd}
-  .rcsv .card .cgap{height:9px}
+  .rcsv .card .cimg{display:grid;place-items:center;background:#d3e3fd}
 
-  .rcsv #composer{position:absolute;left:0;width:360px;height:60px}
-  /* Plus, emoji and image sit inside the pill; the voice/send button is a separate circle. */
-  .rcsv #composer-input{position:absolute;left:8px;top:8px;width:292px;height:44px;border-radius:22px;background:var(--pill)}
-  .rcsv #composer-input .plus{position:absolute;left:10px;top:10px}
-  .rcsv #composer-input .ph{position:absolute;left:46px;top:12.5px;font-size:14.6px;color:var(--muted);white-space:nowrap}
-  .rcsv #composer-input .tx{position:absolute;left:46px;top:12.5px;max-width:168px;overflow:hidden;font-size:14.6px;color:var(--text);white-space:nowrap}
-  .rcsv #composer-input .emoji{position:absolute;left:220px;top:11px}
-  .rcsv #composer-input .gal{position:absolute;left:256px;top:11px}
+  /* Composer on the white sheet: plus, emoji and image inside the pill; a round voice/send button. */
+  .rcsv #composer{position:absolute;left:0;width:360px;height:60px;background:var(--bg)}
+  .rcsv #composer-input{position:absolute;left:8px;top:6px;width:288px;height:48px;border-radius:24px;background:var(--pill)}
+  .rcsv #composer-input .plus{position:absolute;left:12px;top:12px}
+  .rcsv #composer-input .ph{position:absolute;left:48px;top:14.5px;font-size:15.5px;color:var(--muted);white-space:nowrap}
+  .rcsv #composer-input .tx{position:absolute;left:48px;top:14.5px;max-width:160px;overflow:hidden;font-size:15.5px;color:var(--text);white-space:nowrap}
+  .rcsv #composer-input .emoji{position:absolute;left:212px;top:13px}
+  .rcsv #composer-input .gal{position:absolute;left:250px;top:13px}
   .rcsv .caret{display:inline-block;width:1.6px;height:19px;background:var(--blue);vertical-align:-3px;margin:0 .5px}
-  .rcsv #send-btn{position:absolute;left:308px;top:8px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .rcsv #send-btn{position:absolute;left:302px;top:6px;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 
   /* keyboard */
   .rcsv #kb{position:absolute;left:0;width:360px;height:260px;background:var(--kb)}
@@ -112,23 +127,26 @@ export const RCSV_CSS = `
   .rcsv .key.caps{background:#d1e1fc}
   .rcsv .key.enter{background:var(--out)}
 
-  /* profile */
+  /* profile: tinted page, banner, logo tile, contact rows grouped in white */
+  .rcsv #prof{background:var(--surf)}
   .rcsv #prof .back{position:absolute;left:14px;top:47px}
   .rcsv #prof .more{position:absolute;left:322px;top:47px}
   .rcsv #prof .banner{position:absolute;left:0;top:84px;width:360px;height:112px;object-fit:cover}
-  .rcsv #prof .logo{position:absolute;left:144px;top:159px;width:72px;height:72px;border-radius:14px;border:3px solid #fff;object-fit:cover;background:#fff}
-  .rcsv #prof .name{position:absolute;left:0;top:240px;width:360px;text-align:center;font-size:19px;font-weight:600}
-  .rcsv #prof .desc{position:absolute;left:60px;top:265px;width:240px;text-align:center;font-size:13.1px;line-height:18.4px;color:var(--muted)}
-  .rcsv #prof .act{position:absolute;top:322px;width:44px;height:44px;border-radius:50%;background:#e3e7e9;display:flex;align-items:center;justify-content:center}
-  .rcsv #prof .divtop{position:absolute;left:0;top:379px;width:360px;height:1px;background:var(--line)}
-  .rcsv #prof .crow{position:absolute;left:0;width:360px;height:61px}
-  .rcsv #prof .crow svg{position:absolute;left:17px;top:20px}
-  .rcsv #prof .crow .v{position:absolute;left:58px;top:12px;width:285px;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .rcsv #prof .crow .l{position:absolute;left:58px;top:33px;font-size:12.6px;color:var(--muted)}
-  .rcsv #prof .crow .dl{position:absolute;left:17px;bottom:0;width:326px;height:1px;background:var(--line)}
+  .rcsv #prof .logo{position:absolute;left:142px;top:156px;width:76px;height:76px;border-radius:22px;object-fit:cover;background:#fff}
+  .rcsv #prof .name{position:absolute;left:0;top:244px;width:360px;text-align:center;font-size:20px}
+  .rcsv #prof .desc{position:absolute;left:40px;top:274px;width:280px;text-align:center;font-size:13.5px;line-height:19px;color:var(--muted)}
+  .rcsv #prof .act{position:absolute;top:322px;width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
+  .rcsv #prof .divtop{display:none}
+  .rcsv #prof .crow{position:absolute;left:12px;width:336px;height:59px;background:#fff;border-radius:5px}
+  .rcsv #prof .crow.first{border-top-left-radius:20px;border-top-right-radius:20px}
+  .rcsv #prof .crow.last{border-bottom-left-radius:20px;border-bottom-right-radius:20px}
+  .rcsv #prof .crow svg{position:absolute;left:16px;top:18px}
+  .rcsv #prof .crow .v{position:absolute;left:54px;top:11px;width:268px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rcsv #prof .crow .l{position:absolute;left:54px;top:32px;font-size:12.6px;color:var(--muted)}
+  .rcsv #prof .crow .dl{display:none}
 
   /* typing indicator and verified mark (used by the website's interactive phone) */
-  .rcsv .typing{display:inline-flex;gap:4px;align-items:center;height:36px;padding:0 14px;border-radius:19px;background:var(--in)}
+  .rcsv .typing{display:inline-flex;gap:4px;align-items:center;height:40px;padding:0 16px;border-radius:20px;background:var(--in)}
   .rcsv .typing span{width:7px;height:7px;border-radius:50%;background:#747775;animation:rcsv-dot 1.2s ease-in-out infinite}
   .rcsv .typing span:nth-child(2){animation-delay:.15s}
   .rcsv .typing span:nth-child(3){animation-delay:.3s}
@@ -171,6 +189,8 @@ const IC={
  bksp:'M9.375 19q-.475 0-.9-.212t-.7-.588L2 12l5.775-6.2q.275-.375.7-.587T9.375 5H20q.825 0 1.413.588T22 7v10q0 .825-.587 1.413T20 19H9.375ZM11.4 16l2.6-2.6 2.6 2.6 1.4-1.4-2.6-2.6L18 9.4 16.6 8 14 10.6 11.4 8 10 9.4l2.6 2.6-2.6 2.6 1.4 1.4Z',
  enter:'M8.5 18 3 12.5 8.5 7l1.4 1.4-3.1 3.1H18V7h2v6.5H6.8l3.1 3.1L8.5 18Z',
  chevL:'M14 18l-6-6 6-6 1.4 1.4-4.6 4.6 4.6 4.6L14 18Z',
+ // Voice message button in the composer (Material 'graphic_eq').
+ voice:'M7 18h2V6H7v12zm4 4h2V2h-2v20zm-8-8h2v-4H3v4zm12 4h2V6h-2v12zm4-8v4h2v-4h-2z',
  // Card media icons, so the website's phone never needs another icon set.
  check:'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z',
  trendingUp:'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z',
@@ -456,14 +476,14 @@ export function createRenderer(host, P) {
     <div class="more">${icon('more', 24)}</div>
     <img class="banner" src="${S.banner}">
     <img class="logo" src="${S.logo}">
-    <div class="name">${esc(S.displayName)}${verifiedBadge(18)}</div>
+    <div class="name">${esc(S.displayName)}${verifiedBadge(19)}</div>
     <div class="desc">${esc(S.description)}</div>`;
     const n = S.contacts.length;
     S.contacts.forEach((c, i) => { h += `<div class="act" style="left:${180 - 22 + (i - (n - 1) / 2) * 80}px">${icon(contactIcon(c.type), 22, S.brandColor)}</div>`; });
-    const top0 = n ? 380 : 330;
+    const top0 = n ? 386 : 336;
     if (n) h += `<div class="divtop"></div>`;
     S.contacts.forEach((c, i) => {
-      h += `<div class="crow" style="top:${top0 + i * 61}px">${icon(contactIcon(c.type), 22, '#1f1f1f')}<div class="v">${esc(c.value)}</div><div class="l">${esc(c.label)}</div>${i < n - 1 ? '<div class="dl"></div>' : ''}</div>`;
+      h += `<div class="crow${i === 0 ? ' first' : ''}${i === n - 1 ? ' last' : ''}" style="top:${top0 + i * 61}px">${icon(contactIcon(c.type), 22, '#1f1f1f')}<div class="v">${esc(c.value)}</div><div class="l">${esc(c.label)}</div></div>`;
     });
     return h;
   }
@@ -520,10 +540,10 @@ export function createRenderer(host, P) {
     let b = '';
     m.buttons.forEach((bt, i) => {
       const tid = `card-${m.id}-btn-${i}`;
-      b += `<div class="cbtn${isPressed(tid, t) ? ' hl' : ''}" id="${tid}">${bt.icon ? icon(bt.icon, 19, '#0b57d0') : ''}${esc(bt.label)}</div>`;
+      b += `<div class="cbtn${isPressed(tid, t) ? ' hl' : ''}" id="${tid}">${bt.icon ? `<span class="ci">${icon(bt.icon, 18, '#1f1f1f')}</span>` : ''}${esc(bt.label)}</div>`;
     });
     const img = m.image ? `<img src="${m.image}">` : '';
-    return `<div class="card">${img}${m.title ? `<div class="ct">${esc(m.title)}</div>` : ''}${m.body ? `<div class="cb">${esc(m.body)}</div>` : '<div style="height:9px"></div>'}${b}</div>`;
+    return `<div class="card">${img}${m.title ? `<div class="ct">${esc(m.title)}</div>` : ''}${m.body ? `<div class="cb">${esc(m.body)}</div>` : '<div class="cgap"></div>'}${b ? `<div class="cbtns">${b}</div>` : ''}</div>`;
   }
 
   function buildMessages(t) {
@@ -540,7 +560,7 @@ export function createRenderer(host, P) {
         const contPrev = prev && m.group && prev.group === m.group;
         const body = m.type === 'card' ? cardHTML(m, t) : `<div class="bubble">${esc(m.text)}</div>`;
         const cls = (contNext ? ' grp-mid' : '') + (contPrev ? ' grp-next' : '');
-        h += `<div class="it" ${st}><div class="inrow${cls}">${contNext ? '' : `<img class="avatar" src="${S.logo}">`}${body}</div>${contNext ? '<div class="gap2"></div>' : `<div class="ts tsin">${ts}</div>`}</div>`;
+        h += `<div class="it" ${st}><div class="inrow${cls}">${body}</div>${contNext ? '<div class="gap2"></div>' : `<div class="ts tsin">${ts}</div>`}</div>`;
       } else if (m.type === 'out') {
         h += `<div class="it" ${st}><div class="outrow"><div class="bubble">${esc(m.text)}</div></div><div class="ts tsout">${ts}</div></div>`;
       } else if (m.type === 'chips') {
@@ -571,8 +591,8 @@ export function createRenderer(host, P) {
     else inner += `<div class="ph" style="${ty.focused ? 'left:45px' : ''}">${ty.focused ? '<span class="caret" style="margin-left:-1px"></span>' : ''}RCS-meddelande</div>`;
     inner += `<div class="gal">${icon('image', 22, '#444746')}</div>`;
     const btn = hasText || sendTapAt(t)
-      ? `<div id="send-btn" style="background:#0a56cf">${icon('send', 20, '#ffffff')}</div>`
-      : `<div id="send-btn" style="background:#d1e1fc">${icon('mic', 22, '#0b57d0')}</div>`;
+      ? `<div id="send-btn" style="background:#0b57d0">${icon('send', 20, '#ffffff')}</div>`
+      : `<div id="send-btn" style="background:var(--voice)">${icon('voice', 24, '#0f5223')}</div>`;
     h += `<div id="composer" style="top:${compTop}px"><div id="composer-input">${inner}</div>${btn}</div>`;
     if (ty.kbP > 0) h += `<div id="kb" style="top:${380 + 260 * (1 - ty.kbP)}px">${buildKeyboard(ty)}</div>`;
     return h;
@@ -690,7 +710,7 @@ function ensureStyle() {
 }
 
 // =====================================================================
-// 3) TYPSNITT (Inter från Google Fonts, inbäddat för exporten)
+// 3) TYPSNITT (Google Sans, inbäddat för exporten)
 // =====================================================================
 let fontCssPromise = null;
 const RANGE = {
@@ -698,20 +718,20 @@ const RANGE = {
   'latin-ext': 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF',
 };
 /**
- * files: [{ weight: 400, subset: 'latin', url }] – lokala woff2-filer (t.ex. från @fontsource/inter).
- * Utan files hämtas Inter från Google Fonts.
+ * files: [{ weight: 400, subset: 'latin', url }] – lokala woff2-filer (från @fontsource/google-sans).
+ * Utan files hämtas Google Sans från Google Fonts.
  */
-export function loadInterFontCss(files) {
+export function loadPhoneFontCss(files) {
   if (fontCssPromise) return fontCssPromise;
   fontCssPromise = (async () => {
     const out = [];
     if (files && files.length) {
       for (const f of files) {
         const buf = await (await fetch(f.url)).arrayBuffer();
-        out.push(`@font-face{font-family:'Inter';font-style:normal;font-weight:${f.weight};font-display:block;src:url(data:font/woff2;base64,${arrayBufferToBase64(buf)}) format('woff2');unicode-range:${RANGE[f.subset] || RANGE.latin}}`);
+        out.push(`@font-face{font-family:'Google Sans';font-style:normal;font-weight:${f.weight};font-display:block;src:url(data:font/woff2;base64,${arrayBufferToBase64(buf)}) format('woff2');unicode-range:${RANGE[f.subset] || RANGE.latin}}`);
       }
     } else {
-      const css = await (await fetch('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=block')).text();
+      const css = await (await fetch('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=block')).text();
       const blocks = css.split('/*').slice(1).map(b => '/*' + b).filter(b => /latin(-ext)?\s*\*\//.test(b.slice(0, 40)));
       for (const blk of blocks) {
         const m = blk.match(/url\((https:[^)]+)\)/); if (!m) continue;
@@ -721,7 +741,7 @@ export function loadInterFontCss(files) {
     }
     const all = out.join('\n');
     const st = document.createElement('style'); st.textContent = all; document.head.appendChild(st);
-    try { await document.fonts.load('400 15px Inter'); await document.fonts.load('600 15px Inter'); await document.fonts.load('500 15px Inter'); } catch (e) {}
+    try { await document.fonts.load('400 15px "Google Sans"'); await document.fonts.load('500 15px "Google Sans"'); } catch (e) {}
     return all;
   })();
   return fontCssPromise;
