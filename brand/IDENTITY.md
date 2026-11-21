@@ -51,7 +51,8 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 - **Variation:** platta rutor och cirklar med en Material-ikon i mitten (`Tile`), ett litet meddelandekort (`MiniCard`), och illustrationer i meddelandena (`Art`: en stor ikon på en yta i brandfärg med två mjuka former).
 - **Stil:** platt, fyllt, rundat. Inga konturer med skugga och inga gradienter i formerna.
 - **Ikoner:** Material-ikoner från `engine.ts` i telefoner och illustrationer, lucide i sajtens gränssnitt.
-- **Mängd:** få former per vy. I hjälteytan högst sex, ute vid kanterna och bara på stora skärmar. Inne i sektionerna hellre ingen dekoration än en som inte förklarar något.
+- **Mängd:** få och lugna former. I hjälteytan fyra, ute vid kanterna och bara på stora skärmar, och de flesta i lavendel så att rubriken är det tydligaste. Inne i sektionerna ingen dekoration: listor numreras med siffror, inte ikoner.
+- **Mängd text:** en rubrik och ett kort stycke per del. Längre listor (till exempel jämförelsen) visar det viktigaste och resten bakom "Visa alla".
 
 ## 07 Designprinciper
 

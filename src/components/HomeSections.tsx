@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, MapPin, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, MapPin, X } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
 import { LeadForm } from "@/components/LeadForm";
@@ -45,61 +45,62 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
 
 export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
+  const [first, rest] = [rows.slice(0, 4), rows.slice(4)];
+  const row = (item: (typeof rows)[number]) => (
+    <div key={item.label} className="grid grid-cols-[1fr_5rem_6.5rem] items-center gap-x-3 py-3">
+      <dt className="text-sm font-semibold leading-snug">{item.label}</dt>
+      <dd><Fact value={item.sms} rcs={false} /></dd>
+      <dd><Fact value={item.rcs} rcs /></dd>
+    </div>
+  );
   return (
     <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
       <Wave flip fill="var(--color-background)" />
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-5xl px-5 lg:px-8">
         <div data-reveal className="max-w-2xl">
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.jamforelse.intro}</p>
         </div>
-        <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-          <div className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <figure data-reveal style={order(0)} className="grid gap-4 rounded-2xl bg-card p-5 sm:p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-7">
-              <div>
-              <figcaption className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Som SMS</figcaption>
-              <RcsSnippet width={260} scale={0.92}>
-                <SenderLine name="72456" verified={false} />
-                <div className="inrow"><div className="bubble" style={{ background: "#f0f4f9", boxShadow: "none" }}>Butiken: Din order 4821 har skickats och levereras i morgon. Spåra: https://bit.ly/3xK9q</div></div>
-              </RcsSnippet>
-              </div>
-              <p className="text-sm leading-relaxed text-pretty text-muted-foreground lg:mt-6">Ett nummer som avsändare, ren text och en förkortad länk kunden får lita på.</p>
-            </figure>
-            <figure data-reveal style={order(1)} className="grid gap-4 rounded-2xl bg-card p-5 sm:p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-7">
-              <div>
-              <figcaption className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">Som RCS</figcaption>
-              <RcsSnippet width={260} scale={0.92}>
-                <SenderLine name="Butiken" verified />
-                <div className="card" style={{ background: "#f0f4f9", boxShadow: "none" }}>
-                  <div className="ct">Din order är på väg</div>
-                  <div className="cb">Levereras i morgon kl. 9–12.</div>
-                  <div className="cbtns">
-                    <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Spåra paketet</div>
-                    <div className="cbtn"><span className="ci"><PhoneIcon name="event" size={18} /></span>Ändra tid</div>
-                  </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          <figure data-reveal style={order(0)} className="rounded-2xl bg-card p-6">
+            <figcaption className="mb-4 text-sm font-semibold text-muted-foreground">Som sms</figcaption>
+            <RcsSnippet width={280} scale={0.92}>
+              <SenderLine name="72456" verified={false} />
+              <div className="inrow"><div className="bubble" style={{ background: "#f0f4f9", boxShadow: "none" }}>Butiken: Din order 4821 har skickats och levereras i morgon. Spåra: https://bit.ly/3xK9q</div></div>
+            </RcsSnippet>
+          </figure>
+          <figure data-reveal style={order(1)} className="rounded-2xl bg-card p-6">
+            <figcaption className="mb-4 text-sm font-semibold">Som RCS</figcaption>
+            <RcsSnippet width={280} scale={0.92}>
+              <SenderLine name="Butiken" verified />
+              <div className="card" style={{ background: "#f0f4f9", boxShadow: "none" }}>
+                <div className="ct">Din order är på väg</div>
+                <div className="cb">Levereras i morgon kl. 9–12.</div>
+                <div className="cbtns">
+                  <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Spåra paketet</div>
+                  <div className="cbtn"><span className="ci"><PhoneIcon name="event" size={18} /></span>Ändra tid</div>
                 </div>
-              </RcsSnippet>
               </div>
-              <p className="text-sm leading-relaxed text-pretty text-muted-foreground lg:mt-6">Företagets namn med blå bock, och knappar som tar kunden rätt.</p>
-            </figure>
+            </RcsSnippet>
+          </figure>
+        </div>
+        <div data-reveal style={order(2)} className="mt-4 rounded-2xl bg-card px-6 py-2">
+          <div aria-hidden className="grid grid-cols-[1fr_5rem_6.5rem] gap-x-3 pt-4 pb-1 text-xs font-semibold text-muted-foreground">
+            <span />
+            <span>SMS</span>
+            <span className="text-foreground">RCS</span>
           </div>
-          <div data-reveal style={order(2)} className="rounded-2xl bg-card px-5 py-2 sm:px-7">
-            <div className="grid grid-cols-[1fr_5rem_6.5rem] gap-x-3 pt-4 pb-2 text-xs font-bold uppercase tracking-wide">
-              <span className="sr-only">Egenskap</span>
-              <span aria-hidden />
-              <span className="text-muted-foreground">SMS</span>
-              <span className="text-foreground">RCS</span>
-            </div>
-            <dl className="divide-y divide-border">
-              {rows.map((row) => (
-                <div key={row.label} className="grid grid-cols-[1fr_5rem_6.5rem] items-center gap-x-3 py-3">
-                  <dt className="text-sm font-semibold leading-snug">{row.label}</dt>
-                  <dd><Fact value={row.sms} rcs={false} /></dd>
-                  <dd><Fact value={row.rcs} rcs /></dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+          <dl className="divide-y divide-border">{first.map(row)}</dl>
+          {rest.length ? (
+            <details className="group border-t border-border">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 py-3 text-sm font-semibold [&::-webkit-details-marker]:hidden">
+                <span className="group-open:hidden">Visa alla skillnader</span>
+                <span className="hidden group-open:inline">Visa färre</span>
+                <ChevronDown aria-hidden className="size-4 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <dl className="divide-y divide-border border-t border-border">{rest.map(row)}</dl>
+            </details>
+          ) : null}
         </div>
       </div>
     </section>
@@ -109,45 +110,32 @@ export function CompareSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
+/** The web tool, reduced to what matters: who receives it and what they see. */
 function WebSketch() {
   return (
-    <div aria-hidden className="overflow-hidden rounded-xl border border-border bg-background text-left shadow-card">
-      <div className="flex items-center gap-1.5 border-b border-border bg-muted px-4 py-2.5">
-        <span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" />
-        <span className="ml-3 text-xs text-muted-foreground">Nytt utskick</span>
+    <div aria-hidden className="rounded-xl bg-background p-5 text-left">
+      <div className="flex items-center justify-between text-sm">
+        <span className="font-semibold">Nytt utskick</span>
+        <span className="text-muted-foreground tabular-nums">1 240 mottagare</span>
       </div>
-      <div className="grid gap-4 p-5 sm:grid-cols-[1fr_0.9fr]">
-        <div className="space-y-3 text-sm">
-          <div><p className="text-xs font-semibold text-muted-foreground">Mottagare</p><p className="mt-1 rounded-lg border border-border px-3 py-2 font-semibold tabular-nums">1 240 kunder</p></div>
-          <div><p className="text-xs font-semibold text-muted-foreground">Rubrik</p><p className="mt-1 rounded-lg border border-border px-3 py-2">Höstrea i butiken</p></div>
-          <div><p className="text-xs font-semibold text-muted-foreground">Knappar</p><div className="mt-1 flex flex-wrap gap-1.5"><span className="rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold">Se erbjudandet</span><span className="rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold">Hitta butik</span></div></div>
-          <div className="pt-1"><span className="inline-flex h-9 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span></div>
-        </div>
-        <div className="rounded-lg bg-muted p-3">
-          <p className="mb-2 text-xs font-semibold text-muted-foreground">Förhandsvisning</p>
-          <RcsSnippet width={220} scale={0.85}>
-            <div className="card" style={{ background: "#fff", boxShadow: "none" }}>
-              <div className="cimg" style={{ height: 70 }}><PhoneIcon name="image" size={28} color="#0b57d0" /></div>
-              <div className="ct">Höstrea i butiken</div>
-              <div className="cbtns"><div className="cbtn" style={{ background: "#f0f4f9" }}>Se erbjudandet</div></div>
-            </div>
-          </RcsSnippet>
-        </div>
+      <div className="mt-4 flex justify-center rounded-lg bg-muted py-5">
+        <RcsSnippet width={220} scale={0.9}>
+          <div className="card" style={{ background: "#fff", boxShadow: "none" }}>
+            <div className="ct">Höstrea i butiken</div>
+            <div className="cb">Upp till halva priset i helgen.</div>
+            <div className="cbtns"><div className="cbtn" style={{ background: "#f0f4f9" }}>Se erbjudandet</div></div>
+          </div>
+        </RcsSnippet>
       </div>
+      <div className="mt-4 flex justify-end"><span className="inline-flex h-9 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span></div>
     </div>
   );
 }
 
 const API_EXAMPLE = `{
   "to": "+46701234567",
-  "card": {
-    "title": "Din tid är bokad",
-    "text": "Tisdag kl. 14.00 hos oss.",
-    "buttons": [
-      { "reply": "Bekräfta" },
-      { "reply": "Boka om" }
-    ]
-  }
+  "text": "Din tid är bokad tisdag kl. 14.00.",
+  "buttons": ["Bekräfta", "Boka om"]
 }`;
 
 function ApiSketch() {
@@ -175,7 +163,7 @@ export function WaysSection() {
         </div>
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {[web, api].filter(Boolean).map((item, index) => (
-            <div key={item!.title} data-reveal style={order(index)} className="relative flex flex-col gap-6 overflow-hidden rounded-2xl bg-primary-soft p-6 sm:p-8">
+            <div key={item!.title} data-reveal style={order(index)} className="flex flex-col gap-6 rounded-2xl bg-primary-soft p-6 sm:p-8">
               <div>
                 <h3 className="text-2xl font-extrabold">{item!.title}</h3>
                 <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{item!.copy}</p>
@@ -319,7 +307,7 @@ export function ContactSection() {
             <p className="font-display text-lg font-extrabold">RCS Direkt</p>
             <p className="mt-1 text-sm text-muted-foreground">En tjänst från WIGOSE AB</p>
             <p className="mt-4 flex items-start gap-2 text-sm"><MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-logo-blue" />Klostergatan 15, 703 39 Örebro</p>
-            <a href="https://portal.rcsdirekt.se/login" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Har ni redan ett konto? Logga in <ArrowRight aria-hidden className="size-4" /></a>
+            <a href="https://portal.rcsdirekt.se/login" className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Har ni redan ett konto? Logga in <ArrowRight aria-hidden className="size-4" /></a>
           </div>
         </div>
         <div data-reveal style={order(1)}>

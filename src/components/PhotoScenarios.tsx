@@ -279,67 +279,22 @@ function ConversationView({
 /** One case: the photo with its conversation, and a short explanation beside it. */
 function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
   const conversation = useConversation(scenario.start);
-  // One grid per case, so `order` only swaps the photo and the text within its own row.
+  // Text beside the photo, without a card of its own, so each case reads as one calm row.
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
-      <figure
-        data-reveal
-        style={order(0)}
-        className={cn(
-          "relative h-[500px] overflow-hidden rounded-2xl bg-muted lg:col-span-2",
-          flip && "lg:order-2",
-        )}
-      >
-        <img
-          src={scenario.photo.src}
-          alt={scenario.photo.alt}
-          loading="lazy"
-          className="absolute inset-0 size-full object-cover"
-          style={{ objectPosition: scenario.photo.position }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"
-        />
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">
-          Exempel för {scenario.customer}
-        </span>
-        <figcaption
-          data-reveal
-          style={order(2)}
-          className="absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end sm:right-auto"
-        >
+    <div className={cn("grid items-center gap-6 lg:gap-14", flip ? "lg:grid-cols-[1.6fr_0.75fr]" : "lg:grid-cols-[0.75fr_1.6fr]")}>
+      <div data-reveal style={order(0)} className={cn("max-w-md", flip && "lg:order-2")}>
+        <p className="text-sm font-semibold text-muted-foreground">{scenario.customer}</p>
+        <h3 className="mt-2 text-2xl font-extrabold leading-tight sm:text-[1.75rem]">{scenario.title}</h3>
+        <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
+      </div>
+      <figure data-reveal style={order(1)} className={cn("relative h-[500px] overflow-hidden rounded-2xl bg-muted", flip && "lg:order-1")}>
+        <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
+        <figcaption className="absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end sm:right-auto">
           <ConversationView sender={scenario.customer} conversation={conversation} />
         </figcaption>
       </figure>
-      <div
-        data-reveal
-        style={order(1)}
-        className={cn("flex flex-col gap-7 rounded-2xl bg-card p-7 sm:p-8", flip && "lg:order-1")}
-      >
-        <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            {scenario.customer}
-          </p>
-          <h3 className="mt-3 text-2xl font-extrabold leading-tight">{scenario.title}</h3>
-          <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">
-            {scenario.copy}
-          </p>
-        </div>
-        <div className="mt-auto">
-          <p className="text-xs font-semibold text-muted-foreground">RCS i exemplet</p>
-          <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="RCS-funktioner i exemplet">
-            {scenario.features.map((feature) => (
-              <li
-                key={feature}
-                className="rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold"
-              >
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
   );
 }
@@ -367,7 +322,7 @@ export function PhotoScenarios() {
             upplägg.
           </p>
         </div>
-        <div className="mt-12 grid gap-4">
+        <div className="mt-14 grid gap-16 sm:gap-20">
           {scenarios.map((scenario, index) => (
             <CaseRow key={scenario.customer} scenario={scenario} flip={index % 2 === 1} />
           ))}

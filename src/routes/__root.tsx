@@ -21,7 +21,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
-      <main className="flex-1">
+      <main id="innehall" tabIndex={-1} className="outline-none flex-1">
         <PageHeading title="Sidan finns inte" description={<p>Sidan du letar efter finns inte eller har flyttats.</p>}>
           <Button asChild size="lg">
             <Link to="/">Till startsidan <ArrowRight data-icon="end" /></Link>

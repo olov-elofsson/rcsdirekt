@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 
 export function KnowledgeLayout({ children }: { children: ReactNode }) {
-  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main>{children}</main><SiteFooter /></div>;
+  return <div className="min-h-screen bg-background text-foreground"><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none">{children}</main><SiteFooter /></div>;
 }
 
 export function knowledgeHead(title: string, description: string, path: string, article = false) {

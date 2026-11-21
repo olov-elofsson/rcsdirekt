@@ -28,7 +28,7 @@ function VideoGeneratorPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <main>
+      <main id="innehall" tabIndex={-1} className="outline-none">
         <PageHeading title={title} description={<p>{description}</p>} />
         <section className="bg-background py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-5 lg:px-8">

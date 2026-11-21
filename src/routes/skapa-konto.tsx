@@ -23,7 +23,7 @@ function SignupPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
-      <main className="flex-1">
+      <main id="innehall" tabIndex={-1} className="outline-none flex-1">
         <PageHeading
           title="Skapa ditt konto"
           description={<p>Berätta vilka ni är, så aktiverar vi kontot och hör av oss med nästa steg. Har du redan ett konto? <a href="https://portal.rcsdirekt.se/login" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>}

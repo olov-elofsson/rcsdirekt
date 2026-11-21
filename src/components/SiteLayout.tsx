@@ -115,6 +115,7 @@ export function SiteHeader() {
 
   return (
     <>
+    <a href="#innehall" className="sr-only z-[80] rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-3">Hoppa till innehållet</a>
     <WebinarBar />
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
@@ -236,7 +237,7 @@ export function SiteFooter() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">{group.title}</p>
                 <ul className="mt-3">
                   {group.links.map((link) => {
-                    const linkClass = "group inline-flex min-h-10 items-center gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground";
+                    const linkClass = "group inline-flex min-h-11 items-center sm:min-h-10 gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground";
                     return (
                       <li key={link.label}>
                         {"to" in link ? (

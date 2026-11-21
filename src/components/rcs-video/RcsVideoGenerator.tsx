@@ -6,7 +6,6 @@ import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { PHONE_FONT_FILES } from "@/lib/rcs-phone/fonts";
@@ -141,10 +140,11 @@ function Step({ n, title, hint, children }: { n: number; title: string; hint?: s
 }
 function Field({ label, children, className = "" }: { label: string; children: ReactNode; className?: string }) {
   return (
-    <div className={`space-y-1.5 ${className}`}>
-      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</Label>
+    // A real <label>, so the field inside is named by it (click and screen readers).
+    <label className={`block space-y-1.5 ${className}`}>
+      <span className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</span>
       {children}
-    </div>
+    </label>
   );
 }
 function ImagePick({ label, value, onChange, w, h, type, aspect, solid }: { label: string; value: string; onChange: (v: string) => void; w: number; h: number; type: "image/png" | "image/jpeg"; aspect: string; solid?: boolean }) {
@@ -246,7 +246,7 @@ function PreviewPlayer({ flow, ready }: { flow: any; ready: boolean }) {
         <Button type="button" size="icon" variant="outline" disabled={!ready} onClick={() => { if (tRef.current >= dur) seek(0); setPlaying((p) => !p); }} aria-label={playing ? "Pausa" : "Spela"}>
           <SwapIcon on={playing} onIcon={<Pause className="size-4" />} offIcon={<Play className="size-4 translate-x-px" />} />
         </Button>
-        <input type="range" min={0} max={dur || 1} step={1 / 30} value={t} disabled={!ready} onChange={(e) => { setPlaying(false); seek(parseFloat(e.target.value)); }} className="w-full accent-foreground" />
+        <input type="range" aria-label="Tidslinje i videon" min={0} max={dur || 1} step={1 / 30} value={t} disabled={!ready} onChange={(e) => { setPlaying(false); seek(parseFloat(e.target.value)); }} className="w-full accent-foreground" />
         <span className="w-24 shrink-0 text-right text-xs tabular-nums text-muted-foreground" aria-hidden>{t.toFixed(1)} / {dur.toFixed(1)} s</span>
       </div>
     </div>
@@ -398,7 +398,7 @@ export function RcsVideoGenerator() {
         <PreviewPlayer flow={flow} ready={ready} />
         <div className="mx-auto mt-6 max-w-[310px] space-y-3">
           <label className="flex items-start gap-2 text-sm text-muted-foreground">
-            <Checkbox className="mt-0.5" checked={rights} onCheckedChange={(v) => setRights(!!v)} />
+            <Checkbox className="relative mt-0.5 after:absolute after:-inset-3 after:content-['']" checked={rights} onCheckedChange={(v) => setRights(!!v)} />
             <span>Jag har rätt att använda varumärket och materialet. Videon är en simulerad demonstration.</span>
           </label>
           {exporting ? (

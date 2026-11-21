@@ -88,8 +88,8 @@ export function MiniCard({ size, className, style, float }: ShapeProps) {
   return (
     <svg aria-hidden="true" viewBox="0 0 100 120" width={size} height={size * 1.2} className={[float !== undefined ? "hero-float" : "", className ?? ""].join(" ").trim() || undefined} style={floatStyle(style, float)}>
       <rect width="100" height="120" rx="18" fill={lavender} />
-      <rect x="10" y="10" width="80" height="48" rx="10" fill={blue} />
-      <path d="M16 52l18-16 13 11 10-7 23 12" fill="none" stroke="#fff" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
+      <rect x="10" y="10" width="80" height="48" rx="10" fill="#d9d7f7" />
+      <path d="M16 52l18-16 13 11 10-7 23 12" fill="none" stroke={blue} strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
       <circle cx="70" cy="24" r="6" fill="#fff" />
       <rect x="12" y="68" width="56" height="7" rx="3.5" fill={navy} />
       <rect x="12" y="81" width="38" height="7" rx="3.5" fill={navy} opacity=".35" />
@@ -98,16 +98,17 @@ export function MiniCard({ size, className, style, float }: ShapeProps) {
   );
 }
 
-/** The hero's frame: a mix of drops, tiles and a small card at the outer edges, wide screens only. */
+/**
+ * The hero's frame: four quiet shapes at the outer edges, wide screens only. Most are lavender;
+ * only the logo pair carries the brand blue, so the headline stays the loudest thing.
+ */
 export function HeroGraphic() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-7xl -translate-x-1/2 lg:block">
-      <DropPair size={112} className="absolute" style={{ left: "3%", top: "13%" }} float={-2} />
-      <Tile size={58} shape="square" turn={-8} fill={lavender} glyph="event" glyphColor={navy} className="absolute" style={{ left: "14%", top: "54%" }} float={-6} />
-      <MiniCard size={96} className="absolute" style={{ left: "2%", bottom: "6%" }} float={-1} />
-      <Drop size={96} corner="bl" fill={blue} glyph="dots" className="absolute" style={{ right: "3%", top: "12%" }} float={-5} />
-      <Tile size={56} fill={navy} glyph="check" className="absolute" style={{ right: "14%", top: "50%" }} float={-3} />
-      <Tile size={64} shape="square" turn={10} fill={blue} glyph="star" className="absolute" style={{ right: "4%", bottom: "11%" }} float={-4} />
+      <DropPair size={96} className="absolute" style={{ left: "4%", top: "16%" }} float={-2} />
+      <MiniCard size={84} className="absolute opacity-80" style={{ left: "6%", bottom: "12%" }} float={-1} />
+      <Drop size={88} corner="bl" fill={lavender} glyph="dots" glyphColor={blue} className="absolute" style={{ right: "4%", top: "18%" }} float={-5} />
+      <Tile size={52} shape="square" turn={8} fill={lavender} glyph="event" glyphColor={navy} className="absolute" style={{ right: "8%", bottom: "16%" }} float={-4} />
     </div>
   );
 }

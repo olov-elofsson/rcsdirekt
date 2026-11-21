@@ -77,7 +77,7 @@ function PricingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <main>
+      <main id="innehall" tabIndex={-1} className="outline-none">
         <PageHeading title={page.heading} description={<p>{page.intro}</p>} />
 
         <section className="py-16 sm:py-24">
@@ -91,7 +91,7 @@ function PricingPage() {
                   <select
                     aria-label="Välj land"
                     defaultValue="SE"
-                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background pl-10 pr-10 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background pl-10 pr-10 text-base font-semibold sm:text-sm text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCountries.map((country) => (
                       <option key={country.code} value={country.code} disabled={!country.available}>
@@ -106,7 +106,7 @@ function PricingPage() {
                   <select
                     aria-label="Välj valuta"
                     defaultValue="SEK"
-                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background px-4 pr-10 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background px-4 pr-10 text-base font-semibold sm:text-sm text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCurrencies.map((currency) => (
                       <option key={currency.code} value={currency.code} disabled={!currency.available}>
@@ -158,7 +158,7 @@ function PricingPage() {
             <div className="mt-8 divide-y divide-border border-y border-border">
               {faq.map((item) => (
                 <details key={item.question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-md font-bold outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-md font-bold outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
                     <span className="text-pretty">{item.question}</span>
                     <ChevronDown aria-hidden className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180" />
                   </summary>
