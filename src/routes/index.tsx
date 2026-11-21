@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, X } from "lucide-react";
 
-
 import { LeadForm } from "@/components/LeadForm";
 import { InteractiveRcsDemo } from "@/components/InteractiveRcsDemo";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
@@ -33,17 +32,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const assistedHref = "/skapa-konto";
-
 function Index() {
   return <div className="home-refined min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><CustomerPresentations /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
 
-
-
-function DualCtas({ dark = false }: { dark?: boolean }) { return <div className="flex flex-col gap-3 sm:flex-row"><Button className="home-cta" asChild size="lg"><a href={assistedHref}>Skapa konto <ArrowRight /></a></Button><Button className="home-cta" asChild size="lg" variant={dark ? "inverted" : "outline"}><a href="/#kontakt">Prata med oss</a></Button></div>; }
+function DualCtas() { return <div className="flex flex-col gap-3 sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to="/" hash="kontakt">Prata med oss</Link></Button></div>; }
 
 const waysToSend = home.vagar.items.map((item) => ({ ...item, icon: contentIcon(item.icon) }));
 
@@ -62,16 +57,16 @@ function compareValue(value: string): boolean | string {
 const comparisonRows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
 
 function CompareCell({ value, highlight }: { value: boolean | string; highlight: boolean }) {
-  const tone = highlight ? "text-logo-blush" : "text-muted-foreground";
+  const tone = highlight ? "text-logo-blue" : "text-muted-foreground";
   return <span className={cn("flex justify-center text-center text-[0.7rem] font-semibold leading-snug sm:text-xs", tone)}>{typeof value === "boolean" ? (value ? <Check className="size-5" /> : <X className="size-5 text-muted-foreground/50" />) : value}</span>;
 }
 
 function Comparison() {
-  return <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-28"><Wave flip fill="var(--color-background)" /><div className="relative mx-auto max-w-3xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>{home.jamforelse.heading}</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">{home.jamforelse.intro}</p></div><div className="mt-12 rounded-lg border border-border/80 bg-card px-4 py-2 shadow-card sm:px-7"><div className="grid grid-cols-[1fr_5.5rem_5.5rem] items-center gap-x-2 pt-3 sm:grid-cols-[1fr_9rem_9rem]"><span aria-hidden /><span className="text-center text-xs font-bold uppercase tracking-wide text-muted-foreground">SMS</span><span className="text-center text-xs font-bold uppercase tracking-wide text-logo-blush">RCS</span></div><div className="divide-y divide-border">{comparisonRows.map((row) => <div key={row.label} className="grid grid-cols-[1fr_5.5rem_5.5rem] items-center gap-x-2 py-3 sm:grid-cols-[1fr_9rem_9rem]"><span className="text-sm font-semibold leading-snug">{row.label}</span><CompareCell value={row.sms} highlight={false} /><CompareCell value={row.rcs} highlight={typeof row.rcs === "string"} /></div>)}</div></div></div></section>;
+  return <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-28"><Wave flip fill="var(--color-background)" /><div className="relative mx-auto max-w-3xl px-5 lg:px-8"><div className="mx-auto max-w-2xl text-center"><h2 className={sectionTitle}>{home.jamforelse.heading}</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">{home.jamforelse.intro}</p></div><div className="mt-12 rounded-lg border border-border/80 bg-card px-4 py-2 shadow-card sm:px-7"><div className="grid grid-cols-[1fr_5.5rem_5.5rem] items-center gap-x-2 pt-3 sm:grid-cols-[1fr_9rem_9rem]"><span aria-hidden /><span className="text-center text-xs font-bold uppercase tracking-wide text-muted-foreground">SMS</span><span className="text-center text-xs font-bold uppercase tracking-wide text-logo-blue">RCS</span></div><div className="divide-y divide-border">{comparisonRows.map((row) => <div key={row.label} className="grid grid-cols-[1fr_5.5rem_5.5rem] items-center gap-x-2 py-3 sm:grid-cols-[1fr_9rem_9rem]"><span className="text-sm font-semibold leading-snug">{row.label}</span><CompareCell value={row.sms} highlight={false} /><CompareCell value={row.rcs} highlight={typeof row.rcs === "string"} /></div>)}</div></div></div></section>;
 }
 
 function Advantages() {
-  return <section id="fordelar" className="relative overflow-hidden bg-background pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip className="h-12 sm:h-16 lg:h-24" fill="var(--color-primary-soft)" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="max-w-2xl"><h2 className={sectionTitle}>{home.fordelar.heading}</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">{home.fordelar.intro}</p></div><div className="mt-12 grid gap-5 sm:grid-cols-2">{rcsAdvantages.map(({ icon: Icon, title, copy }) => <div key={title} className="rounded-lg border border-border/80 bg-card p-8 shadow-card transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-foreground/25 hover:shadow-lift"><span className="grid size-11 place-items-center rounded-full bg-primary-soft text-primary ring-1 ring-border/60"><Icon className="size-5" /></span><h3 className="mt-6 text-lg font-extrabold tracking-normal">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy}</p></div>)}</div><div className="mt-12 flex justify-center"><DualCtas /></div></div></section>;
+  return <section id="fordelar" className="relative overflow-hidden bg-background pt-28 pb-24 sm:pt-36 sm:pb-28"><Wave flip className="h-12 sm:h-16 lg:h-24" fill="var(--color-primary-soft)" /><div className="relative mx-auto max-w-6xl px-5 lg:px-8"><div className="max-w-2xl"><h2 className={sectionTitle}>{home.fordelar.heading}</h2><p className="mt-5 text-base leading-relaxed text-muted-foreground">{home.fordelar.intro}</p></div><div className="mt-12 grid gap-5 sm:grid-cols-2">{rcsAdvantages.map(({ icon: Icon, title, copy }) => <div key={title} className="rounded-lg border border-border/80 bg-card p-8 shadow-card"><span className="grid size-11 place-items-center rounded-full bg-primary-soft text-primary ring-1 ring-border/60"><Icon className="size-5" /></span><h3 className="mt-6 text-lg font-extrabold tracking-normal">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy}</p></div>)}</div><div className="mt-12 flex justify-center"><DualCtas /></div></div></section>;
 }
 
 function Pricing() {

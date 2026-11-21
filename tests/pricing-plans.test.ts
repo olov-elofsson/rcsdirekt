@@ -5,9 +5,9 @@ import { pricingCountries, pricingCurrencies, pricingPlans } from "../src/data/p
 test("meddelandetyperna har rätt styckpris", () => {
   const prices = Object.fromEntries(pricingPlans.map((plan) => [plan.name, plan.price]));
   expect(prices).toEqual({
-    "RCS Basic": "0,30 SEK",
-    "RCS Single": "0,425 SEK",
-    "RCS Conversation": "0,63 SEK",
+    "RCS Basic": "0,45 SEK",
+    "RCS Single": "0,64 SEK",
+    "RCS Conversation": "0,95 SEK",
   });
 });
 

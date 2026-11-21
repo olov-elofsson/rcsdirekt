@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +10,7 @@ const navLinkActive = { className: "text-foreground" };
 const navLinkInactive = { className: "text-muted-foreground hover:text-foreground" };
 
 const mobileLinkClass =
-  "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blush";
+  "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blue";
 
 const headerLinks = [
   { label: "Produkter", to: "/", hash: "sa-fungerar" },
@@ -202,31 +202,4 @@ export function SiteFooter() {
       </div>
     </footer>
   );
-}
-
-export function DetailPage({ title, intro, children, aside }: { title: string; intro: string; children: ReactNode; aside?: ReactNode }) {
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
-      <main>
-        <section className="relative overflow-hidden bg-primary-soft py-16 sm:py-24 lg:py-28">
-          <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-normal sm:text-5xl lg:text-6xl">{title}</h1>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{intro}</p>
-          </div>
-        </section>
-        <section className="py-16 sm:py-24 lg:py-28">
-          <div className="mx-auto grid max-w-6xl items-start gap-10 px-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.72fr)] lg:gap-16 lg:px-8">
-            <div className="min-w-0 space-y-10">{children}</div>
-            {aside ? <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">{aside}</aside> : null}
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
-  );
-}
-
-export function ContentBlock({ title, children }: { title: string; children: ReactNode }) {
-  return <div className="border-t border-border pt-8 first:border-t-0 first:pt-0"><h2 className="text-2xl font-extrabold leading-tight tracking-normal sm:text-3xl">{title}</h2><div className="mt-5 text-base leading-relaxed text-muted-foreground">{children}</div></div>;
 }

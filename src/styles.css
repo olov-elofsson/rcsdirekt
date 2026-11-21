@@ -112,7 +112,7 @@
   a,
   button,
   textarea {
-    transition-duration: 280ms;
+    transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -133,7 +133,6 @@
 
 @theme {
   --color-logo-blue: #2f7bff;
-  --color-logo-blush: #5a53cf;
 }
 
 @utility scrollbar-none {
@@ -209,7 +208,7 @@
 }
 /* Lift only where there is a real pointer; on touch, :hover sticks after a tap. */
 @media (hover: hover) and (pointer: fine) {
-  .home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, .home-card, #fordelar .shadow-card):hover {
+  .home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, a.home-card):hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-home-hover);
     border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
@@ -221,5 +220,5 @@
   .home-refined main > section > svg { height: 3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-refined .home-card:hover { transform: none; }
+  .home-refined main > section :is(a.shadow-card, a.home-card):hover { transform: none; }
 }

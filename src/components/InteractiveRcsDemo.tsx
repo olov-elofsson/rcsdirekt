@@ -6,7 +6,6 @@ import { LeadForm } from "@/components/LeadForm";
 import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
-import { contentIcon } from "@/content/icons";
 import { cn } from "@/lib/utils";
 
 const desktop = () => window.matchMedia("(min-width: 1000px) and (hover: hover)").matches;
@@ -20,8 +19,8 @@ function FeatureMarker({ id, active, onOpen, className }: { id: DemoFeatureId; a
       aria-expanded={active === id}
       onClick={(event) => { event.stopPropagation(); onOpen(id); }}
       className={cn(
-        "absolute z-20 grid size-[28px] place-items-center rounded-full bg-primary text-[14px] font-bold text-primary-foreground shadow-soft outline-none transition-transform duration-150 ease-out after:absolute after:-inset-3 after:content-[''] focus-visible:ring-2 focus-visible:ring-logo-blush focus-visible:ring-offset-2 active:scale-[0.96] min-[1000px]:hidden",
-        active === id && "ring-2 ring-logo-blush ring-offset-2",
+        "absolute z-20 grid size-[28px] place-items-center rounded-full bg-primary text-[14px] font-bold text-primary-foreground shadow-soft outline-none transition-transform duration-150 ease-out after:absolute after:-inset-3 after:content-[''] focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2 active:scale-[0.96] min-[1000px]:hidden",
+        active === id && "ring-2 ring-logo-blue ring-offset-2",
         className ?? "-right-2 -top-2",
       )}
     >
@@ -36,7 +35,7 @@ function FeatureTarget({ id, active, onActive, onOpen, children, markerClassName
     <div
       onMouseEnter={() => { if (desktop()) onActive(id); }}
       onMouseLeave={() => { if (desktop()) onActive(null); }}
-      style={{ position: "relative", borderRadius: 20, outline: active === id ? "2px solid var(--color-logo-blush)" : "2px solid transparent", outlineOffset: 4, transition: "outline-color 150ms ease-out", ...style }}
+      style={{ position: "relative", borderRadius: 20, outline: active === id ? "2px solid var(--color-logo-blue)" : "2px solid transparent", outlineOffset: 4, transition: "outline-color 150ms ease-out", ...style }}
     >
       <FeatureMarker id={id} active={active} onOpen={onOpen} className={markerClassName} />
       {children}
@@ -57,8 +56,8 @@ function Annotation({ id, active, onActive, align }: { id: DemoFeatureId; active
       onBlur={() => onActive(null)}
       className={cn("group hidden w-full items-center gap-3 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 min-[1000px]:flex", align === "left" && "flex-row-reverse text-right")}
     >
-      <span className={cn("relative h-px w-16 shrink-0 origin-center bg-logo-blush transition-[width] duration-200 ease-out xl:w-24", active === id && "w-24 xl:w-32")}>
-        <span className={cn("absolute top-1/2 size-2 -translate-y-1/2 rounded-full border-2 border-logo-blush bg-background", align === "left" ? "left-0" : "right-0")} />
+      <span className={cn("relative h-px w-16 shrink-0 origin-center bg-logo-blue transition-[width] duration-200 ease-out xl:w-24", active === id && "w-24 xl:w-32")}>
+        <span className={cn("absolute top-1/2 size-2 -translate-y-1/2 rounded-full border-2 border-logo-blue bg-background", align === "left" ? "left-0" : "right-0")} />
       </span>
       <span className={cn("grid size-8 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground tabular-nums transition-transform duration-200 ease-out", active === id && "scale-110")}>{id}</span>
       <span className="min-w-0 max-w-[12rem] flex-1">
@@ -69,14 +68,30 @@ function Annotation({ id, active, onActive, align }: { id: DemoFeatureId; active
   );
 }
 
+/** CMS icon names mapped to the phone's Material icons (see engine.ts), never lucide inside the screen. */
+const PHONE_ICONS: Record<string, string> = {
+  "trending-up": "trendingUp",
+  "bar-chart": "barChart",
+  wallet: "wallet",
+  globe: "globe",
+  code: "code",
+  image: "image",
+  layers: "layers",
+  pointer: "touch",
+  message: "chat",
+  shield: "shield",
+  check: "check",
+  sparkles: "sparkles",
+};
+const phoneIconName = (name: string) => PHONE_ICONS[name] ?? "sparkles";
+
 /** Rich card in the screen's own pixels, as in Google Messages. */
 function RichCard({ title, copy, icon, actions, onAction }: { title: string; copy?: string; icon?: string; actions?: string[] | undefined; onAction?: (action: string) => void }) {
-  const Icon = icon ? contentIcon(icon) : null;
   return (
     <div className="card" style={{ flex: "none" }}>
-      {Icon ? (
+      {icon ? (
         <div style={{ width: 262, height: 150, display: "grid", placeItems: "center", background: "#d3e3fd" }}>
-          <Icon aria-hidden style={{ width: 48, height: 48, color: "#0b57d0", strokeWidth: 1.75 }} />
+          <PhoneIcon name={phoneIconName(icon)} size={48} color="#0b57d0" />
         </div>
       ) : null}
       <div className="ct">{title}</div>
