@@ -3,9 +3,10 @@ import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const navLinkBase =
-  "rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors";
+  "rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors";
 const navLinkActive = { className: "text-foreground" };
 const navLinkInactive = { className: "text-muted-foreground hover:text-foreground" };
 
@@ -58,7 +59,7 @@ export function SiteHeader() {
           </a>
           </Button>
           <Button asChild className="hidden sm:inline-flex">
-            <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
+            <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
           </Button>
           <Button
             variant="outline"
@@ -70,7 +71,11 @@ export function SiteHeader() {
             aria-label={open ? "Stäng menyn" : "Öppna menyn"}
             className="shrink-0 min-[1200px]:hidden"
           >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            {/* Both icons stay mounted and cross-fade, so the swap animates both ways. */}
+            <span className="relative grid size-5 place-items-center">
+              <X className={cn("absolute size-5 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-opacity", open ? "scale-100 opacity-100 blur-0" : "scale-[0.25] opacity-0 blur-[4px]")} />
+              <Menu className={cn("size-5 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-opacity", open ? "scale-[0.25] opacity-0 blur-[4px]" : "scale-100 opacity-100 blur-0")} />
+            </span>
           </Button>
         </div>
       </div>
@@ -80,9 +85,9 @@ export function SiteHeader() {
             type="button"
             aria-label="Stäng menyn"
             onClick={() => setOpen(false)}
-            className="absolute inset-0 h-full w-full bg-foreground/10 backdrop-blur-[2px]"
+            className="absolute inset-0 h-full w-full bg-foreground/10 backdrop-blur-[2px] animate-opacity-in"
           />
-          <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-lg border border-border/70 bg-background p-5 shadow-lift">
+          <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-6rem)] origin-top-right overflow-y-auto rounded-lg bg-background p-7 shadow-lift animate-scale-in">
             <ul className="divide-y divide-border">
               <li>
                 <Link to="/" className={mobileLinkClass}>
@@ -99,7 +104,7 @@ export function SiteHeader() {
               </a>
               </Button>
               <Button asChild size="lg" className="w-full">
-                <Link to="/skapa-konto">Skapa konto <ArrowRight /></Link>
+                <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
               </Button>
             </div>
           </nav>
@@ -154,20 +159,20 @@ export function SiteFooter() {
             {footerNav.map((group) => (
               <div key={group.title}>
                 <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">{group.title}</p>
-                <ul className="mt-5 space-y-2.5">
+                <ul className="mt-3">
                   {group.links.map((link) => {
-                    const linkClass = "group inline-flex items-center gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground";
+                    const linkClass = "group inline-flex min-h-10 items-center gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground";
                     return (
                       <li key={link.label}>
                         {"to" in link ? (
                           <Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={linkClass}>
                             {link.label}
-                            <ArrowUpRight aria-hidden className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none" />
                           </Link>
                         ) : (
                           <a href={link.href} className={linkClass}>
                             {link.label}
-                            <ArrowUpRight aria-hidden className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none" />
                           </a>
                         )}
                       </li>
@@ -190,7 +195,7 @@ export function SiteFooter() {
           <p className="text-xs text-ink-muted">© {new Date().getFullYear()} WIGOSE AB · RCS Direkt. Alla rättigheter reserverade.</p>
           <Button variant="link" size="sm"
             type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
             className="self-start px-0 text-ink-muted hover:text-ink-foreground sm:self-auto"
           >
             Till toppen <ArrowUp className="size-3.5" />

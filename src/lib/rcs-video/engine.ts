@@ -77,6 +77,18 @@ export const RCSV_CSS = `
   .rcsv .chips{display:flex;gap:5px;padding-left:47px;margin-bottom:11px;margin-top:0}
   .rcsv .chip{height:33px;border:1px solid var(--chipline);border-radius:17px;padding:0 12.5px;display:flex;align-items:center;gap:6px;color:var(--blue);font-size:14.5px;font-weight:500;background:#fff;white-space:nowrap}
   .rcsv .chip.pressed{background:#d3e3fd}
+  /* interactive phone on the website: real buttons styled as the screen's own elements */
+  .rcsv button.cbtn,.rcsv button.chip{font:inherit;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .rcsv button.cbtn{width:100%;background:none;border:0;border-top:1px solid #d4d9e1;transition:background-color 120ms ease-out}
+  .rcsv button.cbtn:active,.rcsv button.chip:active{background:#d3e3fd}
+  .rcsv button.cbtn:focus-visible,.rcsv button.chip:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+  .rcsv .card .cimg{width:262px;height:150px;display:grid;place-items:center;background:#d3e3fd}
+  .rcsv .card .cgap{height:9px}
+  /* conversation intro: the verified sender at the top of a new thread */
+  .rcsv .intro{text-align:center;padding:8px 0}
+  .rcsv .intro img{display:block;width:56px;height:56px;margin:0 auto;border-radius:14px;background:#fff;border:1px solid var(--line);padding:8px}
+  .rcsv .intro .n{margin-top:8px;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:1px}
+  .rcsv .intro .s{margin-top:2px;font-size:12.5px;color:var(--muted)}
 
   .rcsv #composer{position:absolute;left:0;width:360px;height:60px}
   .rcsv #composer .plus{position:absolute;left:14px;top:18px}

@@ -126,7 +126,7 @@ async function fitImage(file: File, w: number, h: number, type: "image/png" | "i
 // ---------- UI-byggstenar ----------
 function Step({ n, title, hint, children }: { n: number; title: string; hint?: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-border bg-background p-5 sm:p-7">
+    <section className="rounded-[32px] bg-background p-5 shadow-card sm:p-7">
       <div className="flex items-start gap-3">
         <span className="grid size-7 shrink-0 place-items-center rounded-full bg-foreground text-sm font-bold text-background">{n}</span>
         <div>
@@ -150,10 +150,10 @@ function ImagePick({ label, value, onChange, w, h, type, aspect }: { label: stri
   const ref = useRef<HTMLInputElement>(null);
   return (
     <Field label={`${label} · ${w}×${h}`}>
-      <button type="button" onClick={() => ref.current?.click()} className={`group relative grid w-full place-items-center overflow-hidden rounded-xl border border-dashed border-border bg-muted/40 transition-colors hover:border-foreground/40 ${aspect}`}>
-        {value ? <img src={value} alt="" className="absolute inset-0 h-full w-full object-cover" /> : null}
-        <span className={`relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${value ? "bg-background/90 opacity-0 shadow-sm transition-opacity group-hover:opacity-100" : "text-muted-foreground"}`}>
-          <Upload className="size-3.5" /> {value ? "Byt bild" : "Välj bild"}
+      <button type="button" onClick={() => ref.current?.click()} className={`group relative grid w-full place-items-center overflow-hidden rounded-xl border border-dashed border-border bg-muted/40 transition-colors hover:border-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${aspect}`}>
+        {value ? <img src={value} alt="" className="absolute inset-0 h-full w-full object-cover outline outline-1 -outline-offset-1 outline-black/10" /> : null}
+        <span className={`relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${value ? "bg-background/90 opacity-0 shadow-sm transition-opacity duration-150 ease-out group-hover:opacity-100 group-focus-visible:opacity-100" : "text-muted-foreground"}`}>
+          <Upload aria-hidden className="size-3.5" /> {value ? "Byt bild" : "Välj bild"}
         </span>
       </button>
       <input ref={ref} type="file" accept="image/*" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) onChange(await fitImage(f, w, h, type)); e.target.value = ""; }} />
@@ -163,9 +163,19 @@ function ImagePick({ label, value, onChange, w, h, type, aspect }: { label: stri
 function CopyButton({ text, label = "Kopiera" }: { text: string; label?: string }) {
   const [done, setDone] = useState(false);
   return (
-    <Button type="button" size="sm" variant="ghost" disabled={!text} className="h-8 shrink-0 px-2.5" onClick={async () => { await navigator.clipboard.writeText(text); setDone(true); setTimeout(() => setDone(false), 1500); }}>
-      {done ? <Check className="size-4" /> : <Copy className="size-4" />} {done ? "Kopierad" : label}
+    <Button type="button" size="sm" variant="ghost" disabled={!text} className="shrink-0" onClick={async () => { await navigator.clipboard.writeText(text); setDone(true); setTimeout(() => setDone(false), 1500); }}>
+      <SwapIcon on={done} onIcon={<Check />} offIcon={<Copy />} /> <span aria-live="polite">{done ? "Kopierad" : label}</span>
     </Button>
+  );
+}
+/** Two icons stay mounted and cross-fade (scale 0.25 → 1, blur 4 px → 0), so the swap animates both ways without a motion library. */
+function SwapIcon({ on, onIcon, offIcon }: { on: boolean; onIcon: ReactNode; offIcon: ReactNode }) {
+  const layer = "grid place-items-center transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-opacity";
+  return (
+    <span aria-hidden className="relative grid size-4 place-items-center">
+      <span className={`absolute inset-0 ${layer} ${on ? "scale-100 opacity-100 blur-0" : "scale-[0.25] opacity-0 blur-[4px]"}`}>{onIcon}</span>
+      <span className={`${layer} ${on ? "scale-[0.25] opacity-0 blur-[4px]" : "scale-100 opacity-100 blur-0"}`}>{offIcon}</span>
+    </span>
   );
 }
 function CopyRow({ group, label, text }: { group: string; label: string; text: string }) {
@@ -233,10 +243,10 @@ function PreviewPlayer({ flow, ready }: { flow: any; ready: boolean }) {
       {!ready ? <p className="mt-3 text-center text-sm text-muted-foreground">Lägg till namn, logotyp och banner så visas videon här.</p> : null}
       <div className="mx-auto mt-4 flex items-center gap-3" style={{ width: 360 * SCALE }}>
         <Button type="button" size="icon" variant="outline" disabled={!ready} onClick={() => { if (tRef.current >= dur) seek(0); setPlaying((p) => !p); }} aria-label={playing ? "Pausa" : "Spela"}>
-          {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
+          <SwapIcon on={playing} onIcon={<Pause className="size-4" />} offIcon={<Play className="size-4 translate-x-px" />} />
         </Button>
         <input type="range" min={0} max={dur || 1} step={1 / 30} value={t} disabled={!ready} onChange={(e) => { setPlaying(false); seek(parseFloat(e.target.value)); }} className="w-full accent-foreground" />
-        <span className="w-24 shrink-0 text-right text-xs tabular-nums text-muted-foreground">{t.toFixed(1)} / {dur.toFixed(1)} s</span>
+        <span className="w-24 shrink-0 text-right text-xs tabular-nums text-muted-foreground" aria-hidden>{t.toFixed(1)} / {dur.toFixed(1)} s</span>
       </div>
     </div>
   );
@@ -326,23 +336,23 @@ export function RcsVideoGenerator() {
             <ImagePick label="Logo" value={form.logo} w={224} h={224} type="image/png" aspect="aspect-square" onChange={(v) => setForm((f) => ({ ...f, logo: v }))} />
             <ImagePick label="Banner" value={form.banner} w={1440} h={448} type="image/jpeg" aspect="aspect-[1440/448] sm:aspect-auto sm:h-[140px]" onChange={(v) => setForm((f) => ({ ...f, banner: v }))} />
           </div>
-          <div className="overflow-hidden rounded-xl border border-border">
+          <div className="overflow-hidden rounded-[30px] border border-border">
             {([
               ["Telefon", "phone", "phoneLabel", "+46…"],
               ["Webbplats", "web", "webLabel", "https://…"],
               ["E-post", "email", "emailLabel", "namn@företag.se"],
             ] as const).map(([name, k, kl, ph]) => (
-              <div key={k} className="grid grid-cols-[84px_1fr_96px] items-center gap-2 border-b border-border px-3 py-2 last:border-b-0 sm:grid-cols-[100px_1fr_120px]">
+              <div key={k} className="grid grid-cols-[84px_1fr_96px] items-center gap-2 border-b border-border py-2 pl-4 pr-2 last:border-b-0 sm:grid-cols-[100px_1fr_120px]">
                 <span className="text-sm font-semibold">{name}</span>
-                <Input value={form[k]} placeholder={ph} onChange={set(k)} className="h-9" />
-                <Input value={form[kl]} placeholder="Etikett" onChange={set(kl)} className="h-9" />
+                <Input value={form[k]} placeholder={ph} onChange={set(k)} aria-label={name} />
+                <Input value={form[kl]} placeholder="Etikett" onChange={set(kl)} aria-label={`Etikett för ${name.toLowerCase()}`} />
               </div>
             ))}
           </div>
           <Field label="Color">
             <div className="flex max-w-48 items-center gap-2">
-              <input type="color" value={form.color} onChange={set("color")} className="size-9 shrink-0 cursor-pointer rounded-full border border-input bg-background p-0.5" />
-              <Input value={form.color} onChange={set("color")} className="h-9" />
+              <input type="color" value={form.color} onChange={set("color")} aria-label="Välj färg" className="size-11 shrink-0 cursor-pointer rounded-full border border-input bg-background p-0.5" />
+              <Input value={form.color} onChange={set("color")} aria-label="Färg som hexkod" />
             </div>
           </Field>
         </Step>
@@ -357,18 +367,18 @@ export function RcsVideoGenerator() {
             <div className="flex flex-wrap gap-2">
               {suggestions.map((x) => (
                 <Button key={x.label} type="button" size="sm" variant={!showOtherConsent && consent === x.text ? "default" : "outline"} aria-pressed={!showOtherConsent && consent === x.text}
-                  onClick={() => { setForm((f) => ({ ...f, consent: x.text })); setOtherConsent(false); }} className="h-auto whitespace-normal rounded-full px-3 py-1.5 text-xs">
+                  onClick={() => { setForm((f) => ({ ...f, consent: x.text })); setOtherConsent(false); }}>
                   {x.label}
                 </Button>
               ))}
-              <Button type="button" size="sm" variant={showOtherConsent ? "default" : "outline"} aria-pressed={showOtherConsent} onClick={() => setOtherConsent(true)} className="h-auto rounded-full px-3 py-1.5 text-xs">Annat</Button>
+              <Button type="button" size="sm" variant={showOtherConsent ? "default" : "outline"} aria-pressed={showOtherConsent} onClick={() => setOtherConsent(true)}>Annat</Button>
             </div>
             {showOtherConsent ? <Textarea rows={2} value={form.consent} placeholder="Beskriv med egna ord på engelska, t.ex. by ticking …" onChange={set("consent")} className="mt-2" /> : null}
           </Field>
         </Step>
 
         <Step n={3} title="Kopiera till ansökan" hint="Request sender launch. Texterna är genererade och stämmer ordagrant med videon.">
-          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-3 py-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-[26px] bg-muted/50 py-2 pl-4 pr-2">
             <p className="text-sm text-muted-foreground">{missing.length ? `Saknas: ${missing.join(", ")}` : "Allt är ifyllt."}</p>
             <CopyButton text={allText} label="Kopiera alla" />
           </div>
@@ -394,23 +404,23 @@ export function RcsVideoGenerator() {
             <div className="space-y-2">
               <Progress value={(100 * exporting.done) / Math.max(1, exporting.total)} />
               <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Skapar video … {Math.round((100 * exporting.done) / Math.max(1, exporting.total))} %</span>
-                <button type="button" className="underline" onClick={() => abortRef.current?.abort()}>Avbryt</button>
+                <span className="tabular-nums">Skapar video … {Math.round((100 * exporting.done) / Math.max(1, exporting.total))} %</span>
+                <Button type="button" variant="link" size="sm" className="px-0 text-muted-foreground" onClick={() => abortRef.current?.abort()}>Avbryt</Button>
               </div>
             </div>
           ) : (
             <Button type="button" size="lg" className="w-full" disabled={!ready || !rights || !canExport || uploading} onClick={runExport}>
-              <Link className="size-4" /> {uploading ? "Laddar upp …" : "Skapa videolänk"}
+              <Link data-icon="start" className="size-4" /> {uploading ? "Laddar upp …" : "Skapa videolänk"}
             </Button>
           )}
           <p className="text-center text-xs text-muted-foreground">{canExport ? "1080 × 1920 · 30 fps · H.264 · utan ljud" : "Kräver Chrome eller Edge på dator."}</p>
-          {error ? <p className="text-sm text-destructive">{error}</p> : null}
+          {error ? <p role="alert" className="text-sm text-destructive">{error}</p> : null}
           {error && blobRef.current && !link ? <Button type="button" variant="outline" disabled={uploading || !!exporting} onClick={() => { const blob = blobRef.current; if (blob) void uploadVideo(blob); }}>Försök igen</Button> : null}
           {link ? (
-            <div className="rounded-xl border border-border p-3 text-sm">
+            <div className="rounded-[34px] p-4 text-sm shadow-card">
               <p className="font-semibold">Videolänk klar</p>
               <a href={link} target="_blank" rel="noopener noreferrer" className="mt-3 block break-all underline">{link}</a>
-              <div className="mt-3 flex flex-wrap gap-2"><CopyButton text={link} /><Button asChild size="sm" variant="outline"><a href={link} target="_blank" rel="noopener noreferrer"><ExternalLink className="size-4" /> Öppna</a></Button><Button type="button" size="sm" variant="outline" onClick={() => { setLink(null); setError(""); blobRef.current = null; }} aria-label="Rensa"><RotateCcw className="size-4" /></Button></div>
+              <div className="mt-3 flex flex-wrap gap-2"><CopyButton text={link} /><Button asChild size="sm" variant="outline"><a href={link} target="_blank" rel="noopener noreferrer"><ExternalLink data-icon="start" className="size-4" /> Öppna</a></Button><Button type="button" size="sm" variant="outline" onClick={() => { setLink(null); setError(""); blobRef.current = null; }} aria-label="Rensa"><RotateCcw className="size-4" /></Button></div>
             </div>
           ) : null}
         </div>
