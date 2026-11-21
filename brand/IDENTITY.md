@@ -42,14 +42,14 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 - **Stämning:** vardag, nära och varm. Människor som får eller svarar på ett besked: hemma, i verkstaden, på kursen, i butiken.
 - **Motiv:** riktiga kunder och miljöer från kundcasen före stockfoton. Fotot får aldrig se ut som ett uppmätt kundresultat, och exempel märks "Exempel för …".
 - **Behandling:** naturliga färger, ingen tonplatta i brandfärg. En mjuk mörk toning nertill när ett meddelande ligger ovanpå.
-- **Meddelanden på foton:** riktiga RCS-meddelanden byggda med telefonens kod (`RcsSnippet`), aldrig ritade. Bilder i meddelandena är egna illustrationer, inte samma foto som de ligger på.
+- **Meddelanden på foton:** riktiga RCS-meddelanden byggda med telefonens kod (`RcsSnippet`), aldrig ritade, och utan egna bilder i korten.
 - **Undvik:** leende människor framför en dator, handskakningar, glödande nätverk och andra klichéer.
 
 ## 06 Ikoner och illustrationer
 
 - **Ingen dekoration.** Sajten använder inga dekorativa symboler eller svävande former. Logotypen är den enda grafiska formen, och sidorna bärs av text, foton och riktiga meddelanden.
 - **Ikoner** används bara där de gör ett jobb: lucide i gränssnittet (pilar, stäng, meny, kalender i notisraden) och Material-ikoner från `engine.ts` i telefoner och meddelanden.
-- **Bilder i meddelanden:** illustrationerna i exemplen (`Art`: en ikon på en yta i brandfärg) visar vad meddelandet handlar om och är aldrig samma foto som konversationen ligger på.
+- **Bilder i meddelanden:** exemplen på kundcasens foton har inga egna bilder i korten; fotot bär bilden.
 - **Listor** numreras med siffror, inte ikoner.
 - **Mängd text:** en rubrik och ett kort stycke per del. Längre listor (till exempel jämförelsen) visar det viktigaste och resten bakom "Visa alla".
 

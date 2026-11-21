@@ -1,14 +1,12 @@
 // Illustrative RCS conversations for our customer cases, laid over the cases' photos on the start
 // page. They are possible set-ups, not measured customer results, and the section labels each one
-// "Exempel för …". Keep them in line with the case descriptions in the CMS. Pictures inside the
-// messages are drawn illustrations (`Art`), never the photo the conversation sits on.
+// "Exempel för …". Keep them in line with the case descriptions in the CMS. The messages have no
+// pictures of their own; the case photo they sit on carries the image.
 import careUrl from "@/assets/foto-omsorg.webp";
 import workshopUrl from "@/assets/foto-verkstad.webp";
 import courseUrl from "@/assets/foto-utbildning.webp";
 import carDealerUrl from "@/assets/foto-bilhandel.webp";
 
-/** A drawn picture: a Material icon from engine.ts on a brand-coloured ground. */
-export type Art = { icon: string; tone: "navy" | "blue" | "lavender" | "sky" };
 /** The photo a case's conversation is laid over. */
 export type Picture = { src: string; position?: string };
 
@@ -19,18 +17,16 @@ export type Picture = { src: string; position?: string };
  */
 export type Choice = { label: string; icon?: string; opens?: string; next?: Step };
 
-export type Card = { title: string; body: string; image?: Art; actions: Choice[] };
+export type Card = { title: string; body: string; actions: Choice[] };
 
 /** One message from the business: a photo, text, a rich card or a carousel, with suggestions under it. */
-export type Step = { image?: Art; text?: string; card?: Card; carousel?: Card[]; chips?: Choice[] };
+export type Step = { text?: string; card?: Card; carousel?: Card[]; chips?: Choice[] };
 
 export type Scenario = {
   /** The customer case: shown as "Exempel för …" and as the sender. */
   customer: string;
   title: string;
   copy: string;
-  /** The RCS features the conversation shows, listed in the text card. */
-  features: string[];
   photo: Picture & { alt: string };
   start: Step;
 };
@@ -50,7 +46,7 @@ const visitBooked = (when: string): Step => ({
   text: `Klart! Anna kommer ${when}.`,
   chips: [
     calendar,
-    { label: "Vem är Anna?", next: { image: { icon: "person", tone: "lavender" }, text: "Anna har varit hos oss i fyra år och kommer till dig varje vecka.", chips: [{ label: "Tack!", next: rating }] } },
+    { label: "Vem är Anna?", next: { text: "Anna har varit hos oss i fyra år och kommer till dig varje vecka.", chips: [{ label: "Tack!", next: rating }] } },
   ],
 });
 
@@ -59,7 +55,6 @@ const workshopBooked = (day: string): Step => ({
   card: {
     title: `Bokat ${day} kl. 8.00`,
     body: "Lämna bilen från 7.30. Vi hör av oss när den är klar.",
-    image: { icon: "car", tone: "navy" },
     actions: [map, calendar],
   },
   chips: [
@@ -84,9 +79,9 @@ const bookWorkshop: Choice = {
 const courseInfo: Step = {
   text: "Toppen! Här är det du behöver inför första dagen.",
   carousel: [
-    { title: "Schema", body: "Vecka 1 och 2", image: { icon: "event", tone: "blue" }, actions: [{ label: "Öppna schemat", icon: "open", opens: "schemat" }] },
-    { title: "Ta med", body: "Legitimation och dator", image: { icon: "laptop", tone: "sky" }, actions: [{ label: "Läs mer", icon: "open", opens: "nercia.se" }] },
-    { title: "Hitta hit", body: "Ingång från parkeringen", image: { icon: "place", tone: "navy" }, actions: [map] },
+    { title: "Schema", body: "Vecka 1 och 2", actions: [{ label: "Öppna schemat", icon: "open", opens: "schemat" }] },
+    { title: "Ta med", body: "Legitimation och dator", actions: [{ label: "Läs mer", icon: "open", opens: "nercia.se" }] },
+    { title: "Hitta hit", body: "Ingång från parkeringen", actions: [map] },
   ],
   chips: [
     { label: "Jag har en fråga", next: { text: "Skriv den här, så svarar en lärare före kursstart.", chips: [{ label: "Tack, vi ses!", next: { text: "Vi ses på måndag kl. 9.00!" } }] } },
@@ -103,7 +98,6 @@ const signedUp: Step = {
   card: {
     title: "Du är anmäld!",
     body: "Vill du provköra nyheten samma kväll?",
-    image: { icon: "speed", tone: "blue" },
     actions: [
       {
         label: "Boka provkörning",
@@ -119,13 +113,11 @@ export const scenarios: Scenario[] = [
     customer: "DreamCare",
     title: "Påminnelser som går att svara på",
     copy: "Kunden bekräftar besöket eller väljer en ny tid, ser vem som kommer och säger efteråt vad den tyckte. Allt i samma tråd.",
-    features: ["Kort med bild", "Ny tid i två steg", "Bildmeddelande", "Betyg efter besöket"],
     photo: { src: careUrl, alt: "En ung kvinna och en äldre kvinna skrattar tillsammans i en soffa hemma", position: "50% 35%" },
     start: {
       card: {
         title: "Besök i morgon kl. 10.00",
         body: "Anna från hemtjänsten kommer till dig. Passar tiden?",
-        image: { icon: "house", tone: "lavender" },
         actions: [
           { label: "Ja, det passar", next: visitBooked("i morgon kl. 10.00") },
           {
@@ -147,15 +139,14 @@ export const scenarios: Scenario[] = [
   {
     customer: "Maptun",
     title: "Tjänster att svepa mellan",
-    copy: "En karusell med bilder och en knapp per tjänst. Tiden bokas i samma konversation, med vägbeskrivning och påminnelse.",
-    features: ["Karusell med bilder", "Bokning i chatten", "Vägbeskrivning", "Påminnelse"],
+    copy: "En karusell med en knapp per tjänst. Tiden bokas i samma konversation, med vägbeskrivning och påminnelse.",
     photo: { src: workshopUrl, alt: "En svart Saab i Maptuns verkstad, kopplad till en effektbänk", position: "50% 60%" },
     start: {
       text: "Hej! Dags för något nytt till bilen? Här är tre av våra tjänster.",
       carousel: [
-        { title: "Motoroptimering", body: "Mjukvara anpassad för din bil.", image: { icon: "speed", tone: "navy" }, actions: [bookWorkshop, { label: "Läs mer", icon: "open", opens: "maptun.se" }] },
-        { title: "Effektmätning", body: "Se kraften på vår bänk.", image: { icon: "barChart", tone: "blue" }, actions: [bookWorkshop, { label: "Läs mer", icon: "open", opens: "maptun.se" }] },
-        { title: "Felsökning", body: "Vi läser av bilens fel.", image: { icon: "build", tone: "sky" }, actions: [bookWorkshop, { label: "Läs mer", icon: "open", opens: "maptun.se" }] },
+        { title: "Motoroptimering", body: "Mjukvara anpassad för din bil.", actions: [bookWorkshop, { label: "Läs mer", icon: "open", opens: "maptun.se" }] },
+        { title: "Effektmätning", body: "Se kraften på vår bänk.", actions: [bookWorkshop, { label: "Läs mer", icon: "open", opens: "maptun.se" }] },
+        { title: "Felsökning", body: "Vi läser av bilens fel.", actions: [bookWorkshop, { label: "Läs mer", icon: "open", opens: "maptun.se" }] },
       ],
     },
   },
@@ -163,13 +154,11 @@ export const scenarios: Scenario[] = [
     customer: "Nercia",
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
-    features: ["Kort med bild", "Karusell", "Vägbeskrivning", "Frågor i chatten"],
     photo: { src: courseUrl, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%" },
     start: {
       card: {
         title: "Välkommen till kursen!",
         body: "Vi börjar måndag kl. 9.00. Välkomstfika från 8.30.",
-        image: { icon: "school", tone: "blue" },
         actions: [{ label: "Jag kommer", next: courseInfo }, map],
       },
     },
@@ -177,14 +166,12 @@ export const scenarios: Scenario[] = [
   {
     customer: "Bilia",
     title: "Inbjudan med anmälan i meddelandet",
-    copy: "En inbjudan med bild och anmälan i meddelandet. Gästen kan boka en provkörning samma kväll.",
-    features: ["Kort med bild", "Anmälan i två steg", "Provkörning i chatten", "Lägg i kalendern"],
+    copy: "En inbjudan med anmälan i meddelandet. Gästen kan boka en provkörning samma kväll.",
     photo: { src: carDealerUrl, alt: "Bilias skylt på en glasfasad mot en blå himmel", position: "50% 30%" },
     start: {
       card: {
         title: "Välkommen på premiärkväll",
         body: "Se nyheterna torsdag kl. 18.00 hos oss.",
-        image: { icon: "car", tone: "navy" },
         actions: [
           {
             label: "Anmäl mig",

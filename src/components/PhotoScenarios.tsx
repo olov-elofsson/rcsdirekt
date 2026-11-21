@@ -3,38 +3,17 @@ import { RotateCcw } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
-import { scenarios, type Card, type Choice, type Art, type Scenario, type Step } from "@/data/rcs-scenarios";
+import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
 import { cn } from "@/lib/utils";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const tones: Record<Art["tone"], { ground: string; shape: string; icon: string }> = {
-  navy: { ground: "#15115f", shape: "#2a2391", icon: "#ffffff" },
-  blue: { ground: "#2f7bff", shape: "#5b97ff", icon: "#ffffff" },
-  lavender: { ground: "#efeefc", shape: "#ffffff", icon: "#15115f" },
-  sky: { ground: "#d3e3fd", shape: "#eef4ff", icon: "#0b57d0" },
-};
-
-/** A drawn picture for a message: a large icon on a brand-coloured ground with two soft shapes. */
-function ArtView({ art, height, className }: { art: Art; height: number; className?: string }) {
-  const tone = tones[art.tone];
-  return (
-    <div className={className} style={{ position: "relative", height, overflow: "hidden", background: tone.ground, display: "grid", placeItems: "center" }}>
-      <div style={{ position: "absolute", width: height * 1.1, height: height * 1.1, borderRadius: "50%", background: tone.shape, right: -height * 0.35, top: -height * 0.45 }} />
-      <div style={{ position: "absolute", width: height * 0.5, height: height * 0.5, borderRadius: 14, background: tone.shape, left: -height * 0.12, bottom: -height * 0.18, transform: "rotate(18deg)" }} />
-      <div style={{ position: "relative" }}>
-        <PhoneIcon name={art.icon} size={Math.round(height * 0.42)} color={tone.icon} />
-      </div>
-    </div>
-  );
-}
-
 /** A pause that grows with what the business writes, so the rhythm is not mechanical. */
 const typingTime = (step: Step) => {
   const words = [step.text, step.card?.title, step.card?.body].filter(Boolean).join(" ").length;
-  return Math.min(1700, 650 + words * 14 + (step.image || step.carousel ? 300 : 0));
+  return Math.min(1700, 650 + words * 14 + (step.carousel ? 300 : 0));
 };
 
 type Entry =
@@ -104,7 +83,6 @@ function CardView({
 }) {
   return (
     <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
-      {card.image ? <ArtView art={card.image} height={narrow ? 112 : 132} /> : null}
       <div className="ct">{card.title}</div>
       <div className="cb">{card.body}</div>
       <div className={cn("cbtns", active && "invite")}>
@@ -140,6 +118,15 @@ function ConversationView({
   sender: string;
   conversation: Conversation;
 }) {
+  // A little smaller on phones, so the photo still shows around the message.
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 639px)");
+    const update = () => setCompact(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
   const { entries, typing, current, answered, choose } = conversation;
   const scroller = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -158,7 +145,7 @@ function ConversationView({
       style={{ maskImage: "linear-gradient(to bottom, transparent 0, #000 28px)" }}
     >
       <div className="pt-7">
-        <RcsSnippet width={300} scale={0.9}>
+        <RcsSnippet width={300} scale={compact ? 0.8 : 0.9}>
           {/* A dark label keeps the sender readable on light photos too. */}
           <div
             style={{
@@ -203,11 +190,6 @@ function ConversationView({
                 className={index === 0 ? undefined : "animate-message-in"}
                 style={{ marginTop: gap }}
               >
-                {step.image ? (
-                  <div className="inrow" style={{ marginBottom: step.text || step.card ? 6 : 0 }}>
-                    <ArtView art={step.image} height={140} className="photo" />
-                  </div>
-                ) : null}
                 {step.text ? (
                   <div className="inrow">
                     <div className="bubble">{step.text}</div>
@@ -287,7 +269,7 @@ function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
         <h3 className="mt-2 text-2xl font-extrabold leading-tight sm:text-[1.75rem]">{scenario.title}</h3>
         <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
       </div>
-      <figure data-reveal style={order(1)} className={cn("relative h-[500px] overflow-hidden rounded-2xl bg-muted", flip && "lg:order-1")}>
+      <figure data-reveal style={order(1)} className={cn("relative h-[440px] overflow-hidden rounded-2xl bg-muted sm:h-[500px]", flip && "lg:order-1")}>
         <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
