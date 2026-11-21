@@ -130,6 +130,8 @@
     font-family: var(--font-display);
     font-weight: 800;
     letter-spacing: 0;
+    /* Archivo's space is narrow at weight 800, so words in large headings run together. */
+    word-spacing: 0.06em;
     text-wrap: balance;
   }
 

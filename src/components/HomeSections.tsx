@@ -8,12 +8,12 @@ import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { Badge } from "@/components/ui/badge";
 import { content } from "@/content";
 import { articles } from "@/data/rcs-knowledge";
+import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 const home = content.startsida;
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
 // so a left-aligned heading would look indented next to the text under it.
-const sectionTitle = "-ml-[0.05em] text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
 /** A sender line above a message on a light background, as the chat list shows it. */
@@ -50,12 +50,12 @@ export function CompareSection() {
   return (
     <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
       <Wave flip fill="var(--color-background)" />
-      <div className="relative mx-auto max-w-3xl px-5 lg:px-8">
-        <div data-reveal className="max-w-2xl">
+      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+        <div data-reveal>
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
-          <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.jamforelse.intro}</p>
+          <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
-        <div data-reveal style={order(1)} className="mt-10 rounded-2xl bg-card px-6 py-2 sm:px-8">
+        <div data-reveal style={order(1)} className={cn(sectionBody, "max-w-3xl rounded-2xl bg-card px-6 py-2 sm:px-8")}>
           <div aria-hidden className="grid grid-cols-[1fr_5rem_6.5rem] gap-x-3 pt-4 pb-1 text-xs font-semibold text-muted-foreground sm:grid-cols-[1fr_8rem_9rem]">
             <span />
             <span>SMS</span>
@@ -126,11 +126,11 @@ export function WaysSection() {
     <section id="vad-ar-rcs" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <Wave flip fill="var(--color-primary-soft)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-        <div data-reveal className="max-w-2xl">
+        <div data-reveal>
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
-          <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.vagar.intro}</p>
+          <p className={sectionIntro}>{home.vagar.intro}</p>
         </div>
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className={cn(sectionBody, "grid gap-6 lg:grid-cols-2")}>
           {[web, api].filter(Boolean).map((item, index) => (
             <div key={item!.title} data-reveal style={order(index)} className="flex flex-col gap-6 rounded-2xl bg-primary-soft p-6 sm:p-8">
               <div>
@@ -156,13 +156,13 @@ export function PricingSection() {
     <section id="pris" className="relative overflow-hidden bg-background pb-16 sm:pb-24">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-xl">
+          <div>
             <h2 className={sectionTitle}>{home.pris.heading}</h2>
-            <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.pris.intro}</p>
+            <p className={sectionIntro}>{home.pris.intro}</p>
           </div>
           <Link to="/priser" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Priser per operatör <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <div className={cn(sectionBody, "grid gap-5 md:grid-cols-3")}>
           {plans.map((plan, index) => (
             <Link key={plan.slug} to="/priser" data-reveal style={order(index)} className="group flex flex-col rounded-2xl bg-card p-7 shadow-card">
               <div className="flex items-center justify-between gap-3">
@@ -170,8 +170,8 @@ export function PricingSection() {
                 {plan.badge ? <span className="rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-semibold">{plan.badge}</span> : null}
               </div>
               <p className="mt-1 text-sm text-muted-foreground">{plan.contents}</p>
-              <p className="mt-8 text-3xl font-extrabold tracking-normal tabular-nums">{plan.price}</p>
-              <p className="mt-1 text-xs text-muted-foreground">från, listpris per meddelande</p>
+              <p className="mt-8 flex items-baseline gap-1.5"><span className="text-sm font-semibold text-muted-foreground">från</span><span className="text-3xl font-extrabold tabular-nums">{plan.price}</span></p>
+              <p className="mt-1 text-sm text-muted-foreground">listpris per meddelande</p>
             </Link>
           ))}
         </div>
@@ -195,14 +195,14 @@ export function BlogSection() {
       <Wave flip fill="var(--color-background)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-xl">
+          <div>
             <h2 className={sectionTitle}>{home.blogg.heading}</h2>
-            <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.blogg.intro}</p>
+            <p className={sectionIntro}>{home.blogg.intro}</p>
           </div>
           <Link to="/blogg" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Alla artiklar <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         {first ? (
-          <div className="mt-12 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className={cn(sectionBody, "grid gap-5 lg:grid-cols-[1.2fr_0.8fr]")}>
             <Link to="/blogg/$slug" params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
               <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
               <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
@@ -235,7 +235,7 @@ export function ContactSection() {
       <div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
         <div data-reveal className="lg:pt-4">
           <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{home.kontakt.intro}</p>
+          <p className={sectionIntro}>{home.kontakt.intro}</p>
           <div className="relative mt-8 overflow-hidden rounded-2xl bg-primary-soft p-6">
             <p className="font-display text-lg font-extrabold">RCS Direkt</p>
             <p className="mt-1 text-sm text-muted-foreground">En tjänst från WIGOSE AB</p>

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { content } from "@/content";
+import { sectionTitleCentered } from "@/lib/typography";
 
 const page = content.priser;
 const { plans: pricingPlans, countries: pricingCountries, currencies: pricingCurrencies } = page;
@@ -80,7 +81,7 @@ function PricingPage() {
       <main id="innehall" tabIndex={-1} className="outline-none">
         <PageHeading title={page.heading} description={<p>{page.intro}</p>} />
 
-        <section className="py-16 sm:py-24">
+        <section className="pb-16 sm:pb-20">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
             <div className="rounded-lg bg-card p-7 shadow-card">
               <div className="grid gap-5 sm:grid-cols-2">
@@ -141,10 +142,10 @@ function PricingPage() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-background py-16 sm:py-24">
+        <section className="relative overflow-hidden bg-background py-12 sm:py-16">
           <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">{page.includedHeading}</h2>
-            <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
+            <h2 className={sectionTitleCentered}>{page.includedHeading}</h2>
+            <ul className="mx-auto mt-10 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
               {included.map((item) => (
                 <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check aria-hidden className="size-4" /></span>{item}</li>
               ))}
@@ -152,10 +153,10 @@ function PricingPage() {
           </div>
         </section>
 
-        <section className="py-16 sm:py-24">
+        <section className="pt-12 pb-16 sm:pt-16 sm:pb-24">
           <div className="mx-auto max-w-3xl px-5 lg:px-8">
-            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">{page.faqHeading}</h2>
-            <div className="mt-8 divide-y divide-border border-y border-border">
+            <h2 className={sectionTitleCentered}>{page.faqHeading}</h2>
+            <div className="mt-10 divide-y divide-border border-y border-border">
               {faq.map((item) => (
                 <details key={item.question} className="group py-5">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-md font-bold outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">

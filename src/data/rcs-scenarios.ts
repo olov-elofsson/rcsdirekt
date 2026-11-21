@@ -175,7 +175,7 @@ export const scenarios: Scenario[] = [
   {
     customer: "Bilia",
     title: "Inbjudan med anmälan i meddelandet",
-    copy: "En inbjudan med anmälan i meddelandet. Gästen kan boka en provkörning samma kväll.",
+    copy: "Gästen anmäler sig med ett tryck, bokar en provkörning samma kväll och lägger tiden i kalendern.",
     photo: { src: carDealerUrl, alt: "Bilias skylt på en glasfasad mot en blå himmel", position: "50% 30%" },
     start: {
       card: {

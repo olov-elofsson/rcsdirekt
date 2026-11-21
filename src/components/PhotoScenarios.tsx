@@ -4,6 +4,7 @@ import { RotateCcw } from "lucide-react";
 import { Wave } from "@/components/BandWave";
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
 import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
+import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
@@ -301,20 +302,17 @@ export function PhotoScenarios() {
     >
       <Wave flip fill="var(--color-background)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-        <div data-reveal className="max-w-2xl">
-          <h2
-            id="exempel-title"
-            className="-ml-[0.05em] text-[2.1rem] font-extrabold leading-tight sm:text-[2.65rem]"
-          >
+        <div data-reveal>
+          <h2 id="exempel-title" className={sectionTitle}>
             Så kan det se ut hos era kunder
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">
+          <p className={sectionIntro}>
             Exempel för några av våra kunder. Tryck på knapparna i meddelandena
             och svara som en kund. Fotona kommer från kundcasen, och meddelandena är tänkbara
             upplägg.
           </p>
         </div>
-        <div className="mt-12 grid gap-6">
+        <div className={cn(sectionBody, "grid gap-6")}>
           {scenarios.map((scenario, index) => (
             <CaseRow key={scenario.customer} scenario={scenario} flip={index % 2 === 1} />
           ))}
