@@ -25,7 +25,7 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 | Grund | Vit | `#FFFFFF` | Sidans bas |
 
 - **Känsla:** sval, ren och pålitlig. Paletten är analog: nyanser av blått på vitt.
-- **Regler:** marinblått bär texten, och blått får aldrig bli brödtext. Låt varannan sektion vara lavendel och varannan vit, med vågen som övergång. Orange och persika förekommer inte, inte heller i illustrationer.
+- **Regler:** marinblått bär texten. Blått (#2F7BFF) ger bara 3,9:1 mot vitt och används därför till ikoner, former och stora rubriker, aldrig till text under 24 px. Låt varannan sektion vara lavendel och varannan vit, med vågen som övergång. Orange och persika förekommer inte, inte heller i illustrationer.
 - **Inne i en telefon** gäller Google Messages färger (se skillen `rcs-phone`), inte brandkitets.
 
 ## 04 Typografi

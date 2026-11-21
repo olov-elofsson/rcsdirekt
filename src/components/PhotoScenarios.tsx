@@ -318,7 +318,7 @@ function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
         className={cn("flex flex-col gap-7 rounded-2xl bg-card p-7 sm:p-8", flip && "lg:order-1")}
       >
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-logo-blue">
+          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
             {scenario.customer}
           </p>
           <h3 className="mt-3 text-2xl font-extrabold leading-tight">{scenario.title}</h3>

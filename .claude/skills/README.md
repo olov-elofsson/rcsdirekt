@@ -19,10 +19,13 @@ Kopierade oförändrade från upphovspersonernas repon den 21 november 2026. Var
 | `caveman`, `ultracave`, `megacave` | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman), `skills/` | `a192894` | Apache 2.0 |
 | 53 marknadsföringsskills, från `ab-testing` till `video` | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills), `skills/` | `5b2b400` | MIT |
 | `brand-identity`, `brand-context` | [arnabbagxd/brand-building-skills](https://github.com/arnabbagxd/brand-building-skills), `skills/` | `4a0a8b5` | MIT |
+| `ui-ux-pro-max` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), `.claude/skills/` | `f76d165` | MIT |
 
 `grill-me` anropar `grilling`, och `caveman` hänvisar till `ultracave` och `megacave`, så de ligger med.
 
 Från marknadsföringsbiblioteket ingår inte mapparna `evals/` (testfall) och `scripts/` (körbar kod). `reverse-engineer-marketing` och `conversion-tracking` nämner skript som därför saknas. Hämta dem från källrepot om de behövs, och läs koden innan den körs: `teardown.mjs` hämtar data från nätet och kräver en egen API-nyckel.
+
+`ui-ux-pro-max` har ett sökskript i Python (`scripts/search.py`) som bara läser skillens egen data; testmappen är inte med. Det har inte körts här, eftersom körning av tredjepartsskript kräver ditt godkännande. Regler och checklista finns som text i `references/`.
 
 Skill Creator från Anthropic finns redan inbyggd i Claude och ligger inte här.
 

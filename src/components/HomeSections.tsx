@@ -40,7 +40,7 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
     ) : (
       <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-4.5" /><span className="sr-only">Nej</span></span>
     );
-  return <span className={cn("text-[13px] font-semibold leading-snug", rcs ? "text-logo-blue" : "text-muted-foreground")}>{value}</span>;
+  return <span className={cn("text-[13px] font-semibold leading-snug", rcs ? "text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
 
 export function CompareSection() {
@@ -67,7 +67,7 @@ export function CompareSection() {
             </figure>
             <figure data-reveal style={order(1)} className="grid gap-4 rounded-2xl bg-card p-5 sm:p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-7">
               <div>
-              <figcaption className="mb-4 text-xs font-bold uppercase tracking-wider text-logo-blue">Som RCS</figcaption>
+              <figcaption className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">Som RCS</figcaption>
               <RcsSnippet width={260} scale={0.92}>
                 <SenderLine name="Butiken" verified />
                 <div className="card" style={{ background: "#f0f4f9", boxShadow: "none" }}>
@@ -88,7 +88,7 @@ export function CompareSection() {
               <span className="sr-only">Egenskap</span>
               <span aria-hidden />
               <span className="text-muted-foreground">SMS</span>
-              <span className="text-logo-blue">RCS</span>
+              <span className="text-foreground">RCS</span>
             </div>
             <dl className="divide-y divide-border">
               {rows.map((row) => (
@@ -232,7 +232,7 @@ export function PricingSection() {
             <h2 className={sectionTitle}>{home.pris.heading}</h2>
             <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.pris.intro}</p>
           </div>
-          <Link to="/priser" className="inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Priser per operatör <ArrowRight aria-hidden className="size-4" /></Link>
+          <Link to="/priser" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Priser per operatör <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {plans.map((plan, index) => (
@@ -278,7 +278,7 @@ export function BlogSection() {
             <h2 className={sectionTitle}>{home.blogg.heading}</h2>
             <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.blogg.intro}</p>
           </div>
-          <Link to="/blogg" className="inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Alla artiklar <ArrowRight aria-hidden className="size-4" /></Link>
+          <Link to="/blogg" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Alla artiklar <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         {first ? (
           <div className="mt-12 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">

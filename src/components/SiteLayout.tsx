@@ -118,7 +118,7 @@ export function SiteHeader() {
     <WebinarBar />
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
-        <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
+        <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0 py-2.5">
           <BrandLogo className="h-6 sm:h-9" />
         </Link>
 
