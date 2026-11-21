@@ -14,6 +14,7 @@ Allt UI-arbete i det här repot, nytt eller ändrat, ska gå igenom skillsen i `
 
 - `make-interfaces-feel-better`: radier, optisk linjering, skuggor, typografi, ikoner, övergångar, prestanda.
 - `emil-design-eng`: animationer, easing, längd, tryck- och hovertillstånd.
+- `rcs-phone`: **alla telefoner** som visar RCS-meddelanden ska se ut som telefonen i videogeneratorn (`/video-generator`) och byggas på dess `RCSV_CSS`. Inga egna telefonmockups.
 
 Uttryck förslag i projektets Tailwind-uppsättning och befintliga komponenter (Button-varianter, PageHeading, SiteLayout). Brandkitet nedan går före skillsens generella råd.
 
