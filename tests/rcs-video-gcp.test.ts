@@ -95,3 +95,13 @@ test("upload refuses to overwrite and streaming forwards the range", async () =>
   expect(new Headers(read?.init?.headers).get("range")).toBe("bytes=0-9");
   expect(new Headers(read?.init?.headers).get("authorization")).toBe("Bearer token");
 });
+
+test("share links use https behind Cloud Run's TLS termination", () => {
+  const forwarded = new Request("http://rcsdirekt.se/api/rcs-video", {
+    headers: { "x-forwarded-proto": "https" },
+  });
+  expect(publicOrigin(forwarded)).toBe("https://rcsdirekt.se");
+  expect(publicOrigin(new Request("http://localhost:8080/api/rcs-video"))).toBe(
+    "http://localhost:8080",
+  );
+});

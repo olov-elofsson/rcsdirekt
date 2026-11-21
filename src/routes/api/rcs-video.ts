@@ -29,7 +29,7 @@ export const Route = createFileRoute("/api/rcs-video")({
       if (!validMp4(bytes)) return new Response("Invalid MP4", { status: 400 });
       const salt = process.env["RCS_VIDEO_IP_SALT"];
       if (!salt) return new Response("Upload unavailable", { status: 503 });
-      const { gcpVideoBucket, cloudRunClientIp, reserveUploadSlot, uploadVideo } = await import("@/lib/rcs-video/gcp.server");
+      const { gcpVideoBucket, cloudRunClientIp, publicOrigin, reserveUploadSlot, uploadVideo } = await import("@/lib/rcs-video/gcp.server");
       const bucket = gcpVideoBucket();
       const ip = bucket ? cloudRunClientIp(request) : request.headers.get("cf-connecting-ip")?.trim() || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
       if (!ip) return new Response("Sender address missing", { status: 403 });
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/api/rcs-video")({
         if (slot !== "reserved") return new Response("Upload unavailable", { status: 503 });
         const file = `${crypto.randomUUID()}.mp4`;
         if (!(await uploadVideo(bucket, file, bytes).catch(() => false))) return new Response("Upload failed", { status: 502 });
-        return Response.json({ url: `${new URL(request.url).origin}/v/${file}` });
+        return Response.json({ url: `${publicOrigin(request)}/v/${file}` });
       }
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       const now = Date.now();

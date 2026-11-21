@@ -20,6 +20,14 @@ export function cloudRunClientIp(request: Request): string | undefined {
   return request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() || undefined;
 }
 
+// Cloud Run terminates TLS before the container, so request.url is http there.
+export function publicOrigin(request: Request): string {
+  const url = new URL(request.url);
+  if (request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() === "https")
+    url.protocol = "https:";
+  return url.origin;
+}
+
 let cachedToken: { value: string; expires: number } | undefined;
 let cachedProject: string | undefined;
 
