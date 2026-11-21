@@ -102,6 +102,8 @@ export const RCSV_CSS = `
   .rcsv button.cbtn{width:100%;border:0;transition:background-color 120ms ease-out}
   .rcsv button.chip{transition:background-color 120ms ease-out}
   .rcsv button.cbtn:active,.rcsv button.chip:active{background:#e3e8ef}
+  .rcsv button.cbtn:disabled{cursor:default;color:inherit}
+  .rcsv button.cbtn:disabled:active{background:inherit}
   .rcsv button.cbtn:focus-visible,.rcsv button.chip:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
   .rcsv .card .cimg{display:grid;place-items:center;background:#d3e3fd}
   /* website: messages without the phone, laid over a photo; the bubbles and cards keep their own colours */
@@ -110,6 +112,7 @@ export const RCSV_CSS = `
   .rcsv.snippet .bubble,.rcsv.snippet .card{box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 32px -12px rgba(0,0,0,.35)}
   .rcsv.snippet .bubble{background:#fff}
   .rcsv.snippet .card{background:#fff;width:100%}
+  .rcsv.snippet .card.narrow{width:210px}
   .rcsv.snippet .card .cbtns .cbtn{background:var(--surf)}
   .rcsv.snippet .chips{padding:0;margin:8px 0 0}
   .rcsv.snippet .chip{background:rgba(255,255,255,.94)}

@@ -1,189 +1,345 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
-import { Button } from "@/components/ui/button";
-import { content } from "@/content";
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
-import { scenarios, type Choice, type Scenario } from "@/data/rcs-scenarios";
+import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
 import { cn } from "@/lib/utils";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
+const reducedMotion = () =>
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const reducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+type Entry =
+  { from: "business"; step: Step } | { from: "me"; text: string } | { from: "note"; text: string };
 
-type ConversationState = ReturnType<typeof useConversation>;
+/** Buttons the recipient can use in a message: card and carousel actions, then suggestions. */
+const choicesIn = (step: Step): Choice[] => [
+  ...(step.card?.actions ?? []),
+  ...(step.carousel ?? []).flatMap((card) => card.actions),
+  ...(step.chips ?? []),
+];
 
-/** One case's conversation: the photo's message and the text card's buttons share it. */
-function useConversation() {
-  const [chosen, setChosen] = useState<Choice | null>(null);
+/** One case's conversation on its photo. */
+function useConversation(start: Step) {
+  const [entries, setEntries] = useState<Entry[]>([{ from: "business", step: start }]);
   const [typing, setTyping] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  const lastBusiness = [...entries]
+    .reverse()
+    .find((entry): entry is Extract<Entry, { from: "business" }> => entry.from === "business");
+  const current = lastBusiness?.step ?? start;
+  // Suggestions disappear once the recipient has answered, as in Google Messages.
+  const answered = entries[entries.length - 1]?.from === "me" || typing;
+
   const choose = (choice: Choice) => {
-    if (chosen) return;
-    setChosen(choice);
-    if (!choice.reply || reducedMotion()) return;
+    if (typing || !choicesIn(current).includes(choice)) return;
+    if (choice.opens) {
+      setEntries((list) => [...list, { from: "note", text: `Öppnar ${choice.opens}` }]);
+      return;
+    }
+    const next = choice.next;
+    if (!next) return;
+    setEntries((list) => [...list, { from: "me", text: choice.label }]);
+    if (reducedMotion()) {
+      setEntries((list) => [...list, { from: "business", step: next }]);
+      return;
+    }
     setTyping(true);
-    timer.current = window.setTimeout(() => setTyping(false), 1100);
+    timer.current = window.setTimeout(() => {
+      setTyping(false);
+      setEntries((list) => [...list, { from: "business", step: next }]);
+    }, 1000);
   };
   const reset = () => {
     window.clearTimeout(timer.current);
-    setChosen(null);
     setTyping(false);
+    setEntries([{ from: "business", step: start }]);
   };
-  return { chosen, typing, choose, reset };
+  const started = entries.length > 1;
+  return { entries, typing, current, answered, choose, reset, started };
 }
 
-/**
- * The message on a photo, tappable as in Google Messages: a reply is sent as the recipient's
- * answer and the business types an answer back; an action only opens something.
- */
-function Conversation({ scenario, state }: { scenario: Scenario; state: ConversationState }) {
-  const { customer: sender, message } = scenario;
-  const { chosen, typing, choose, reset } = state;
-  const answered = chosen?.reply ? chosen : null;
+type Conversation = ReturnType<typeof useConversation>;
 
+function CardView({
+  card,
+  narrow,
+  active,
+  onChoose,
+}: {
+  card: Card;
+  narrow?: boolean;
+  active: boolean;
+  onChoose: (choice: Choice) => void;
+}) {
   return (
-    <>
-      <RcsSnippet width={300} scale={0.9}>
-        {/* A dark label keeps the sender readable on light photos too. */}
-        <div style={{ display: "inline-block", fontSize: 12.5, fontWeight: 500, color: "#fff", marginBottom: 6, padding: "2px 9px", borderRadius: 10, background: "rgba(31,31,31,.6)" }}>{sender}</div>
-        {message.kind === "bubble" ? (
-          <div className="inrow">
-            <div className="bubble">{message.text}</div>
-          </div>
-        ) : (
-          <div className="card">
-            <div className="ct">{message.title}</div>
-            <div className="cb">{message.body}</div>
-            <div className={cn("cbtns", !chosen && "invite")}>
-              {message.actions.map((action) => (
-                <button key={action.label} type="button" className="cbtn" onClick={() => choose(action)} aria-pressed={chosen === action}>
-                  {action.icon ? (
-                    <span className="ci" style={{ background: "#fff" }}>
-                      <PhoneIcon name={action.icon} size={18} />
-                    </span>
-                  ) : null}
-                  {action.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-        {message.kind === "bubble" && !chosen ? (
-          <div className="chips invite">
-            {message.chips.map((chip) => (
-              <button key={chip.label} type="button" className="chip" onClick={() => choose(chip)}>
-                {chip.label}
-              </button>
-            ))}
-          </div>
-        ) : null}
-        {chosen?.opens ? (
-          <div role="status" className="snippet-note animate-message-in">
-            Öppnar {chosen.opens}
-          </div>
-        ) : null}
-        {answered ? (
-          <div className="outrow animate-message-in" style={{ marginTop: 8 }}>
-            <div className="bubble">{answered.label}</div>
-          </div>
-        ) : null}
-        {answered && typing ? (
-          <div className="animate-message-in" style={{ marginTop: 8 }}>
-            <Typing />
-          </div>
-        ) : null}
-        {answered && !typing ? (
-          <div role="status" className="inrow animate-message-in" style={{ marginTop: 8 }}>
-            <div className="bubble">{answered.reply}</div>
-          </div>
-        ) : null}
-      </RcsSnippet>
-      {chosen ? (
-        <button type="button" onClick={reset} className="mt-3 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          Börja om
-        </button>
+    <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
+      {card.image ? <img src={card.image} alt="" /> : null}
+      {card.imageIcon ? (
+        <div className="cimg">
+          <PhoneIcon name={card.imageIcon} size={44} color="#0b57d0" />
+        </div>
       ) : null}
-    </>
+      <div className="ct">{card.title}</div>
+      <div className="cb">{card.body}</div>
+      <div className={cn("cbtns", active && "invite")}>
+        {card.actions.map((action) => (
+          <button
+            key={action.label}
+            type="button"
+            className="cbtn"
+            disabled={!active}
+            onClick={() => onChoose(action)}
+          >
+            {action.icon ? (
+              <span className="ci" style={{ background: "#fff" }}>
+                <PhoneIcon name={action.icon} size={18} />
+              </span>
+            ) : null}
+            {action.label}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
-/** Choices that can be tried: every reply and action in the message. */
-const choicesOf = (message: Scenario["message"]) => (message.kind === "bubble" ? message.chips : message.actions);
+/**
+ * The conversation on a photo, tappable as in Google Messages: a reply is sent as the recipient's
+ * answer and the business types an answer back; an action only opens something.
+ */
+function ConversationView({
+  sender,
+  conversation,
+}: {
+  sender: string;
+  conversation: Conversation;
+}) {
+  const { entries, typing, current, answered, choose } = conversation;
+  const scroller = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = scroller.current;
+    if (element)
+      element.scrollTo({
+        top: element.scrollHeight,
+        behavior: reducedMotion() ? "auto" : "smooth",
+      });
+  }, [entries.length, typing]);
 
-/** The customer case in the CMS whose name starts with the scenario's customer, for its link. */
-const caseSlug = (customer: string) =>
-  content.kundcase.find((item) => item.name.toLowerCase().startsWith(customer.toLowerCase()))?.slug ?? "";
+  return (
+    <div
+      ref={scroller}
+      className="scrollbar-none max-h-full overflow-y-auto overscroll-contain"
+      style={{ maskImage: "linear-gradient(to bottom, transparent 0, #000 28px)" }}
+    >
+      <div className="pt-7">
+        <RcsSnippet width={300} scale={0.9}>
+          {/* A dark label keeps the sender readable on light photos too. */}
+          <div
+            style={{
+              display: "inline-block",
+              fontSize: 12.5,
+              fontWeight: 500,
+              color: "#fff",
+              marginBottom: 6,
+              padding: "2px 9px",
+              borderRadius: 10,
+              background: "rgba(31,31,31,.6)",
+            }}
+          >
+            {sender}
+          </div>
+          {entries.map((entry, index) => {
+            const gap = index === 0 ? 0 : 8;
+            if (entry.from === "me") {
+              return (
+                <div key={index} className="outrow animate-message-in" style={{ marginTop: gap }}>
+                  <div className="bubble">{entry.text}</div>
+                </div>
+              );
+            }
+            if (entry.from === "note") {
+              return (
+                <div
+                  key={index}
+                  role="status"
+                  className="snippet-note animate-message-in"
+                  style={{ display: "table" }}
+                >
+                  {entry.text}
+                </div>
+              );
+            }
+            const { step } = entry;
+            const active = step === current && !answered;
+            return (
+              <div
+                key={index}
+                className={index === 0 ? undefined : "animate-message-in"}
+                style={{ marginTop: gap }}
+              >
+                {step.text ? (
+                  <div className="inrow">
+                    <div className="bubble">{step.text}</div>
+                  </div>
+                ) : null}
+                {step.card ? <CardView card={step.card} active={active} onChoose={choose} /> : null}
+                {step.carousel ? (
+                  <div
+                    className="scrollbar-none"
+                    style={{
+                      display: "flex",
+                      gap: 8,
+                      overflowX: "auto",
+                      marginTop: step.text ? 8 : 0,
+                      scrollSnapType: "x mandatory",
+                    }}
+                  >
+                    {step.carousel.map((card) => (
+                      <div key={card.title} style={{ scrollSnapAlign: "start" }}>
+                        <CardView card={card} narrow active={active} onChoose={choose} />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {step.chips && active ? (
+                  <div className={cn("chips", index === 0 && "invite")}>
+                    {step.chips.map((chip) => (
+                      <button
+                        key={chip.label}
+                        type="button"
+                        className="chip"
+                        onClick={() => choose(chip)}
+                      >
+                        {chip.icon ? (
+                          <PhoneIcon name={chip.icon} size={16} color="#0b57d0" />
+                        ) : null}
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
+          {typing ? (
+            <div className="animate-message-in" style={{ marginTop: 8 }}>
+              <Typing />
+            </div>
+          ) : null}
+        </RcsSnippet>
+        {conversation.started ? (
+          <button
+            type="button"
+            onClick={conversation.reset}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <RotateCcw aria-hidden className="size-3.5" /> Börja om
+          </button>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
-/** One case: the photo with its message, and a text card whose buttons drive the same message. */
+/** One case: the photo with its conversation, and a short explanation beside it. */
 function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
-  const state = useConversation();
-  const slug = caseSlug(scenario.customer);
+  const conversation = useConversation(scenario.start);
   // One grid per case, so `order` only swaps the photo and the text within its own row.
   return (
     <div className="grid gap-4 lg:grid-cols-3">
-      <figure data-reveal style={order(0)} className={cn("relative min-h-[440px] overflow-hidden rounded-2xl bg-muted lg:col-span-2 lg:min-h-[420px]", flip && "lg:order-2")}>
-        <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
-        <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
-        <figcaption data-reveal style={order(2)} className="absolute bottom-5 left-5 right-5 sm:right-auto">
-          <Conversation scenario={scenario} state={state} />
+      <figure
+        data-reveal
+        style={order(0)}
+        className={cn(
+          "relative h-[500px] overflow-hidden rounded-2xl bg-muted lg:col-span-2",
+          flip && "lg:order-2",
+        )}
+      >
+        <img
+          src={scenario.photo.src}
+          alt={scenario.photo.alt}
+          loading="lazy"
+          className="absolute inset-0 size-full object-cover"
+          style={{ objectPosition: scenario.photo.position }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"
+        />
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">
+          Exempel för {scenario.customer}
+        </span>
+        <figcaption
+          data-reveal
+          style={order(2)}
+          className="absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end sm:right-auto"
+        >
+          <ConversationView sender={scenario.customer} conversation={conversation} />
         </figcaption>
       </figure>
-      <div data-reveal style={order(1)} className={cn("flex flex-col gap-8 rounded-2xl bg-card p-7 sm:p-8", flip && "lg:order-1")}>
+      <div
+        data-reveal
+        style={order(1)}
+        className={cn("flex flex-col gap-7 rounded-2xl bg-card p-7 sm:p-8", flip && "lg:order-1")}
+      >
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-logo-blue">{scenario.customer}</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-logo-blue">
+            {scenario.customer}
+          </p>
           <h3 className="mt-3 text-2xl font-extrabold leading-tight">{scenario.title}</h3>
-          <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
+          <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">
+            {scenario.copy}
+          </p>
         </div>
         <div className="mt-auto">
-          <p className="text-sm font-semibold">Prova själv</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {choicesOf(scenario.message).map((choice) => (
-              <Button key={choice.label} type="button" variant="outline" size="sm" disabled={Boolean(state.chosen)} onClick={() => state.choose(choice)}>
-                {choice.label}
-              </Button>
+          <p className="text-xs font-semibold text-muted-foreground">RCS i exemplet</p>
+          <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="RCS-funktioner i exemplet">
+            {scenario.features.map((feature) => (
+              <li
+                key={feature}
+                className="rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold"
+              >
+                {feature}
+              </li>
             ))}
-            {state.chosen ? (
-              <Button type="button" variant="ghost" size="sm" onClick={state.reset}>
-                <RotateCcw aria-hidden /> Börja om
-              </Button>
-            ) : null}
-          </div>
-          {slug ? (
-            <Link to="/demo/$slug" params={{ slug }} className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">
-              Se hela kundcaset <ArrowRight aria-hidden className="size-4" />
-            </Link>
-          ) : null}
+          </ul>
         </div>
       </div>
     </div>
   );
 }
 
-/** Photos from the customer cases with a tappable RCS message on top, beside a short explanation. */
+/** Photos from the customer cases with a tappable RCS conversation on top, beside a short explanation. */
 export function PhotoScenarios() {
   return (
-    <section id="exempel" aria-labelledby="exempel-title" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
+    <section
+      id="exempel"
+      aria-labelledby="exempel-title"
+      className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24"
+    >
       <Wave flip fill="var(--color-background)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal className="max-w-2xl">
-          <h2 id="exempel-title" className="text-[2.1rem] font-extrabold leading-tight sm:text-[2.65rem]">
+          <h2
+            id="exempel-title"
+            className="text-[2.1rem] font-extrabold leading-tight sm:text-[2.65rem]"
+          >
             Meddelanden som går att svara på
           </h2>
           <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">
-            Så kan ett meddelande se ut för några av våra kunder. Tryck på knapparna i bilderna och se vad som händer. Fotona kommer från kundcasen, och meddelandena är tänkbara upplägg.
+            Så kan en konversation se ut för några av våra kunder. Tryck på knapparna i meddelandena
+            och svara som en kund. Fotona kommer från kundcasen, och meddelandena är tänkbara
+            upplägg.
           </p>
         </div>
         <div className="mt-12 grid gap-4">
-          {scenarios.map((scenario, index) => {
-            const flip = index % 2 === 1;
-            return <CaseRow key={scenario.customer} scenario={scenario} flip={flip} />;
-          })}
+          {scenarios.map((scenario, index) => (
+            <CaseRow key={scenario.customer} scenario={scenario} flip={index % 2 === 1} />
+          ))}
         </div>
       </div>
     </section>
