@@ -6,7 +6,7 @@
 
 ## Brandkit
 
-- Logotyper, ikoner, färger och typsnitt finns i `brand/` och beskrivs i `brand/BRAND.md`. Använd alltid filerna där i stället för egna kopior, och följ färgerna därifrån.
+- Logotyper, ikoner, färger och typsnitt finns i `brand/` och beskrivs i `brand/BRAND.md`. Den visuella identiteten (bilder, illustrationer, ikoner och designprinciper) står i `brand/IDENTITY.md`. Använd alltid filerna där i stället för egna kopior, och följ färgerna därifrån.
 
 ## Granskning av gränssnitt
 
