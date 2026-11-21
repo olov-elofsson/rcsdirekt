@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { loggedIn } from '../lib/access'
 
-// Messages from the contact form and account requests from "Skapa konto" on the website.
+// Messages from the contact form, account requests from "Skapa konto" and webinar sign-ups on the website.
 // The website sends them through the /api/leads endpoint; nobody creates them by hand.
 export const Inquiries: CollectionConfig = {
   slug: 'forfragningar',
@@ -11,7 +11,7 @@ export const Inquiries: CollectionConfig = {
     group: 'Kunder',
     useAsTitle: 'name',
     defaultColumns: ['name', 'company', 'type', 'status', 'createdAt'],
-    description: 'Meddelanden från kontaktformuläret och kontoförfrågningar från rcsdirekt.se. Markera dem som hanterade när ni har svarat.',
+    description: 'Meddelanden från kontaktformuläret, kontoförfrågningar och webinaranmälningar från rcsdirekt.se. Markera dem som hanterade när ni har svarat.',
   },
   defaultSort: '-createdAt',
   access: { read: loggedIn, create: () => false, update: loggedIn, delete: loggedIn },
@@ -27,6 +27,7 @@ export const Inquiries: CollectionConfig = {
           options: [
             { label: 'Kontakt', value: 'contact' },
             { label: 'Skapa konto', value: 'signup' },
+            { label: 'Webinar', value: 'webinar' },
           ],
           admin: { readOnly: true },
         },

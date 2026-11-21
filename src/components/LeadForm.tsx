@@ -9,10 +9,12 @@ import { leadSchema, type LeadType } from "@/lib/leads/schema";
 
 type Status = "idle" | "sending" | "sent" | "failed";
 
-export function LeadForm({ mode, defaultMessage, compact = false }: { mode: LeadType; defaultMessage?: string; compact?: boolean }) {
+/** `webinar` is the sign-up's subject (the webinar's name and time), sent as the message. */
+export function LeadForm({ mode, defaultMessage, webinar, compact = false }: { mode: LeadType; defaultMessage?: string; webinar?: string; compact?: boolean }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>("idle");
   const signup = mode === "signup";
+  const webinarSignup = mode === "webinar";
   // Unique ids, so several forms can be on the same page (the contact section and the demo dialog).
   const uid = useId();
   const fid = (name: string) => `${uid}-${name}`;
@@ -49,8 +51,8 @@ export function LeadForm({ mode, defaultMessage, compact = false }: { mode: Lead
     return (
       <div role="status" className={compact ? "py-4 text-center" : "rounded-lg bg-card p-8 text-center shadow-card sm:p-10"}>
         <span className="mx-auto grid size-12 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check aria-hidden className="size-5" /></span>
-        <h2 className="mt-5 text-2xl font-extrabold tracking-normal">{signup ? "Tack för din registrering!" : "Tack för ditt meddelande!"}</h2>
-        <p className="mt-3 text-pretty text-muted-foreground">{signup ? "Vi hör av oss inom kort med nästa steg för att aktivera ditt konto." : "Vi återkommer så snart vi kan."}</p>
+        <h2 className="mt-5 text-2xl font-extrabold tracking-normal">{webinarSignup ? "Du är anmäld!" : signup ? "Tack för din registrering!" : "Tack för ditt meddelande!"}</h2>
+        <p className="mt-3 text-pretty text-muted-foreground">{webinarSignup ? "Vi skickar länken till webinaret till din e-post innan det börjar." : signup ? "Vi hör av oss inom kort med nästa steg för att aktivera ditt konto." : "Vi återkommer så snart vi kan."}</p>
       </div>
     );
   }
@@ -82,7 +84,7 @@ export function LeadForm({ mode, defaultMessage, compact = false }: { mode: Lead
         {field("email", "E-post", { type: "email", autoComplete: "email" })}
         {field("phone", "Telefon (valfritt)", { type: "tel", autoComplete: "tel" })}
       </div>
-      <div className="min-w-0 space-y-2">
+      {webinarSignup ? <input type="hidden" name="message" value={`Anmälan till webinar: ${webinar ?? ""}`} /> : <div className="min-w-0 space-y-2">
         <Label htmlFor={fid("message")}>{signup ? "Vad vill ni skicka? (valfritt)" : "Meddelande"}</Label>
         <Textarea
           id={fid("message")}
@@ -94,7 +96,7 @@ export function LeadForm({ mode, defaultMessage, compact = false }: { mode: Lead
           aria-describedby={errors["message"] ? errorId("message") : undefined}
         />
         {fieldError("message")}
-      </div>
+      </div>}
       {/* Hidden from people; bots that fill in every field give themselves away. */}
       <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
         <label htmlFor={fid("website")}>Webbplats</label>
@@ -122,7 +124,7 @@ export function LeadForm({ mode, defaultMessage, compact = false }: { mode: Lead
         </p>
       ) : null}
       <Button type="submit" size="lg" className="w-full" disabled={status === "sending"} aria-busy={status === "sending"}>
-        {status === "sending" ? "Skickar…" : signup ? "Skapa konto" : "Skicka meddelande"}
+        {status === "sending" ? "Skickar…" : webinarSignup ? "Anmäl mig" : signup ? "Skapa konto" : "Skicka meddelande"}
       </Button>
     </form>
   );

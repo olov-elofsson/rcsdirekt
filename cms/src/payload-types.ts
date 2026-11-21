@@ -73,6 +73,7 @@ export interface Config {
     artiklar: Artiklar;
     begrepp: Begrepp;
     kallor: Kallor;
+    webinarer: Webinarer;
     forfragningar: Forfragningar;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,6 +88,7 @@ export interface Config {
     artiklar: ArtiklarSelect<false> | ArtiklarSelect<true>;
     begrepp: BegreppSelect<false> | BegreppSelect<true>;
     kallor: KallorSelect<false> | KallorSelect<true>;
+    webinarer: WebinarerSelect<false> | WebinarerSelect<true>;
     forfragningar: ForfragningarSelect<false> | ForfragningarSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -172,8 +174,6 @@ export interface Media {
    * Beskriv bilden för den som inte kan se den, till exempel företagsnamnet för en logotyp.
    */
   alt: string;
-  prefix?: string | null;
-  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -205,13 +205,16 @@ export interface Media {
 export interface Kundcase {
   id: number;
   _order?: string | null;
+  /**
+   * Hela bolagsnamnet, till exempel "Bilia AB".
+   */
   name: string;
   /**
-   * Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas logotypen.
+   * Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas en ljus yta i brandkitets färger.
    */
   image?: (number | null) | Media;
   /**
-   * Visas på kortet bara när det saknas en bild.
+   * Visas inte på startsidan. Sparas för andra sammanhang.
    */
   logo?: (number | null) | Media;
   width?: number | null;
@@ -332,14 +335,40 @@ export interface Begrepp {
   createdAt: string;
 }
 /**
- * Meddelanden från kontaktformuläret och kontoförfrågningar från rcsdirekt.se. Markera dem som hanterade när ni har svarat.
+ * Startsidan visar nästa webinar som inte har slutat. Anmälningar hamnar under Förfrågningar.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "webinarer".
+ */
+export interface Webinarer {
+  id: number;
+  title: string;
+  /**
+   * Två eller tre meningar om vad deltagarna får med sig.
+   */
+  description: string;
+  /**
+   * Svensk tid.
+   */
+  startsAt: string;
+  durationMinutes: number;
+  /**
+   * Valfri, till exempel en Teams- eller Zoom-anmälan. Lämna tom för att ta emot anmälningar i formuläret på sajten.
+   */
+  registrationUrl?: string | null;
+  visible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Meddelanden från kontaktformuläret, kontoförfrågningar och webinaranmälningar från rcsdirekt.se. Markera dem som hanterade när ni har svarat.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forfragningar".
  */
 export interface Forfragningar {
   id: number;
-  type: 'contact' | 'signup';
+  type: 'contact' | 'signup' | 'webinar';
   status: 'new' | 'done';
   name: string;
   company?: string | null;
@@ -400,6 +429,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'kallor';
         value: number | Kallor;
+      } | null)
+    | ({
+        relationTo: 'webinarer';
+        value: number | Webinarer;
       } | null)
     | ({
         relationTo: 'forfragningar';
@@ -477,8 +510,6 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  prefix?: T;
-  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -587,6 +618,20 @@ export interface KallorSelect<T extends boolean = true> {
   url?: T;
   finding?: T;
   implication?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "webinarer_select".
+ */
+export interface WebinarerSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  startsAt?: T;
+  durationMinutes?: T;
+  registrationUrl?: T;
+  visible?: T;
   updatedAt?: T;
   createdAt?: T;
 }

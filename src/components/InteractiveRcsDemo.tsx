@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import symbolUrl from "../../brand/SVG/symbol.svg";
+import { FormDialog } from "@/components/FormDialog";
 import { LeadForm } from "@/components/LeadForm";
 import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
@@ -107,41 +108,10 @@ function RichCard({ title, copy, icon, actions, onAction }: { title: string; cop
 }
 
 function DemoDialog({ onClose }: { onClose: () => void }) {
-  const dialogRef = useRef<HTMLElement>(null);
-  useEffect(() => {
-    const opener = document.activeElement as HTMLElement | null;
-    const dialog = dialogRef.current;
-    dialog?.querySelector<HTMLElement>("form input:not([tabindex='-1'])")?.focus();
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-      if (event.key !== "Tab" || !dialog) return;
-      // Keep keyboard focus inside the dialog while it is open.
-      const focusable = [...dialog.querySelectorAll<HTMLElement>("button, input, textarea, a[href]")].filter((el) => !el.hasAttribute("disabled") && el.tabIndex !== -1);
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (!first || !last) return;
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-    };
-    document.addEventListener("keydown", onKey);
-    const overflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = overflow;
-      opener?.focus();
-    };
-  }, [onClose]);
-
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-foreground/70 p-5 animate-opacity-in" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <section ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="demo-dialog-title" aria-describedby="demo-dialog-description" className="relative w-full max-w-lg rounded-lg bg-background p-7 text-left shadow-lift animate-scale-in">
-        <Button type="button" variant="ghost" size="icon" className="absolute right-4 top-4" onClick={onClose} aria-label="Stäng"><X /></Button>
-        <h2 id="demo-dialog-title" className="pr-12 text-xl font-bold">Boka en demo</h2>
-        <p id="demo-dialog-description" className="mt-2 text-sm text-muted-foreground">Fyll i dina uppgifter så återkommer vi med förslag på tider.</p>
-        <div className="mt-6"><LeadForm mode="contact" defaultMessage="Jag vill boka en demo av RCS Direkt." compact /></div>
-      </section>
-    </div>
+    <FormDialog title="Boka en demo" description={<p>Fyll i dina uppgifter så återkommer vi med förslag på tider.</p>} onClose={onClose}>
+      <LeadForm mode="contact" defaultMessage="Jag vill boka en demo av RCS Direkt." compact />
+    </FormDialog>
   );
 }
 

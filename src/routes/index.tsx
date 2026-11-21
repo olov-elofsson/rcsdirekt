@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { Wave } from "@/components/BandWave";
 import { PageHeading } from "@/components/PageHeading";
 import { CustomerPresentations } from "@/components/CustomerPresentations";
+import { UpcomingWebinar } from "@/components/UpcomingWebinar";
 import { content } from "@/content";
 import { contentIcon } from "@/content/icons";
 
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  return <div className="home-refined min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><CustomerPresentations /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className="home-refined min-h-screen bg-background text-foreground"><SiteHeader /><main><HeroFirst /><UpcomingWebinar /><CustomerPresentations /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";

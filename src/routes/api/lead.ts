@@ -12,7 +12,7 @@ function allowedOrigin(origin: string, request: Request): boolean {
   }
 }
 
-// Contact and sign-up forms post here; valid submissions are saved as inquiries in the CMS.
+// Contact, sign-up and webinar forms post here; valid submissions are saved as inquiries in the CMS.
 export const Route = createFileRoute("/api/lead")({
   server: { handlers: {
     POST: async ({ request }) => {
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/api/lead")({
       if (!body) return Response.json({ error: "invalid" }, { status: 400 });
       // Hidden field that people never fill in; bots often do. Pretend success.
       if (typeof body["website"] === "string" && body["website"] !== "") return Response.json({ ok: true });
-      const type: LeadType = body["type"] === "signup" ? "signup" : "contact";
+      const type: LeadType = body["type"] === "signup" || body["type"] === "webinar" ? body["type"] : "contact";
       const parsed = leadSchema(type).safeParse(body);
       if (!parsed.success) return Response.json({ error: "invalid" }, { status: 400 });
       const key = process.env["LEAD_API_KEY"];
