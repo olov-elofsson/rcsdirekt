@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, MapPin, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, MapPin, X } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
 import { LeadForm } from "@/components/LeadForm";
@@ -45,62 +45,29 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
 
 export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
-  const [first, rest] = [rows.slice(0, 4), rows.slice(4)];
-  const row = (item: (typeof rows)[number]) => (
-    <div key={item.label} className="grid grid-cols-[1fr_5rem_6.5rem] items-center gap-x-3 py-3">
-      <dt className="text-sm font-semibold leading-snug">{item.label}</dt>
-      <dd><Fact value={item.sms} rcs={false} /></dd>
-      <dd><Fact value={item.rcs} rcs /></dd>
-    </div>
-  );
   return (
     <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
       <Wave flip fill="var(--color-background)" />
-      <div className="relative mx-auto max-w-5xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-3xl px-5 lg:px-8">
         <div data-reveal className="max-w-2xl">
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className="mt-5 text-base leading-relaxed text-pretty text-muted-foreground">{home.jamforelse.intro}</p>
         </div>
-        <div className="mt-12 grid gap-4 sm:grid-cols-2">
-          <figure data-reveal style={order(0)} className="rounded-2xl bg-card p-6">
-            <figcaption className="mb-4 text-sm font-semibold text-muted-foreground">Som sms</figcaption>
-            <RcsSnippet width={280} scale={0.92}>
-              <SenderLine name="72456" verified={false} />
-              <div className="inrow"><div className="bubble" style={{ background: "#f0f4f9", boxShadow: "none" }}>Butiken: Din order 4821 har skickats och levereras i morgon. Spåra: https://bit.ly/3xK9q</div></div>
-            </RcsSnippet>
-          </figure>
-          <figure data-reveal style={order(1)} className="rounded-2xl bg-card p-6">
-            <figcaption className="mb-4 text-sm font-semibold">Som RCS</figcaption>
-            <RcsSnippet width={280} scale={0.92}>
-              <SenderLine name="Butiken" verified />
-              <div className="card" style={{ background: "#f0f4f9", boxShadow: "none" }}>
-                <div className="ct">Din order är på väg</div>
-                <div className="cb">Levereras i morgon kl. 9–12.</div>
-                <div className="cbtns">
-                  <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Spåra paketet</div>
-                  <div className="cbtn"><span className="ci"><PhoneIcon name="event" size={18} /></span>Ändra tid</div>
-                </div>
-              </div>
-            </RcsSnippet>
-          </figure>
-        </div>
-        <div data-reveal style={order(2)} className="mt-4 rounded-2xl bg-card px-6 py-2">
-          <div aria-hidden className="grid grid-cols-[1fr_5rem_6.5rem] gap-x-3 pt-4 pb-1 text-xs font-semibold text-muted-foreground">
+        <div data-reveal style={order(1)} className="mt-10 rounded-2xl bg-card px-6 py-2 sm:px-8">
+          <div aria-hidden className="grid grid-cols-[1fr_5rem_6.5rem] gap-x-3 pt-4 pb-1 text-xs font-semibold text-muted-foreground sm:grid-cols-[1fr_8rem_9rem]">
             <span />
             <span>SMS</span>
             <span className="text-foreground">RCS</span>
           </div>
-          <dl className="divide-y divide-border">{first.map(row)}</dl>
-          {rest.length ? (
-            <details className="group border-t border-border">
-              <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 py-3 text-sm font-semibold [&::-webkit-details-marker]:hidden">
-                <span className="group-open:hidden">Visa alla skillnader</span>
-                <span className="hidden group-open:inline">Visa färre</span>
-                <ChevronDown aria-hidden className="size-4 transition-transform duration-200 group-open:rotate-180" />
-              </summary>
-              <dl className="divide-y divide-border border-t border-border">{rest.map(row)}</dl>
-            </details>
-          ) : null}
+          <dl className="divide-y divide-border">
+            {rows.map((item) => (
+              <div key={item.label} className="grid grid-cols-[1fr_5rem_6.5rem] items-center gap-x-3 py-3.5 sm:grid-cols-[1fr_8rem_9rem]">
+                <dt className="text-sm font-semibold leading-snug">{item.label}</dt>
+                <dd><Fact value={item.sms} rcs={false} /></dd>
+                <dd><Fact value={item.rcs} rcs /></dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
@@ -178,36 +145,7 @@ export function WaysSection() {
 }
 
 /* ------------------------------------------------------------------------------------------ */
-/* Priser: each message type shows what it contains, as a small message.                       */
-
-function PlanPreview({ slug }: { slug: string }) {
-  if (slug === "basic")
-    return (
-      <RcsSnippet width={250} scale={0.82}>
-        <SenderLine name="Salongen" verified />
-        <div className="inrow"><div className="bubble" style={{ background: "#fff", boxShadow: "none" }}>Påminnelse: din tid är tisdag kl. 14.00. Välkommen!</div></div>
-      </RcsSnippet>
-    );
-  if (slug === "single")
-    return (
-      <RcsSnippet width={250} scale={0.82}>
-        <SenderLine name="Butiken" verified />
-        <div className="card" style={{ background: "#fff", boxShadow: "none" }}>
-          <div className="cimg" style={{ height: 64 }}><PhoneIcon name="image" size={26} color="#0b57d0" /></div>
-          <div className="ct">Höstrea i butiken</div>
-          <div className="cbtns"><div className="cbtn" style={{ background: "#f0f4f9" }}>Se erbjudandet</div></div>
-        </div>
-      </RcsSnippet>
-    );
-  return (
-    <RcsSnippet width={250} scale={0.82}>
-      <SenderLine name="Kundservice" verified />
-      <div className="inrow"><div className="bubble" style={{ background: "#fff", boxShadow: "none" }}>Hur kan vi hjälpa till?</div></div>
-      <div className="outrow" style={{ marginTop: 6 }}><div className="bubble" style={{ boxShadow: "none" }}>Jag vill byta storlek</div></div>
-      <div className="inrow" style={{ marginTop: 6 }}><div className="bubble" style={{ background: "#fff", boxShadow: "none" }}>Klart, vilken storlek vill du ha?</div></div>
-    </RcsSnippet>
-  );
-}
+/* Priser: name, what it contains and the from price. */
 
 export function PricingSection() {
   const plans = content.priser.plans;
@@ -224,21 +162,14 @@ export function PricingSection() {
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {plans.map((plan, index) => (
-            <Link key={plan.slug} to="/priser" data-reveal style={order(index)} className="group relative flex flex-col overflow-hidden rounded-2xl bg-card shadow-card">
-              <div className="relative flex min-h-[200px] items-end justify-center overflow-hidden bg-primary-soft px-5 pt-6 pb-5">
-                <div className="relative">
-                <PlanPreview slug={plan.slug} />
-                </div>
+            <Link key={plan.slug} to="/priser" data-reveal style={order(index)} className="group flex flex-col rounded-2xl bg-card p-7 shadow-card">
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-bold">{plan.name}</p>
+                {plan.badge ? <span className="rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-semibold">{plan.badge}</span> : null}
               </div>
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-bold">{plan.name}</p>
-                  {plan.badge ? <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs font-bold text-primary-foreground">{plan.badge}</span> : null}
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{plan.contents}</p>
-                <p className="mt-5 text-sm text-muted-foreground">från <span className="text-3xl font-extrabold tracking-normal tabular-nums text-foreground">{plan.price}</span></p>
-                <p className="text-xs text-muted-foreground">listpris per meddelande</p>
-              </div>
+              <p className="mt-1 text-sm text-muted-foreground">{plan.contents}</p>
+              <p className="mt-8 text-3xl font-extrabold tracking-normal tabular-nums">{plan.price}</p>
+              <p className="mt-1 text-xs text-muted-foreground">från, listpris per meddelande</p>
             </Link>
           ))}
         </div>
