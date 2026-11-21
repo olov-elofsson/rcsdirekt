@@ -27,7 +27,7 @@ export function CustomerPresentations() {
                   alt={item.image.alt}
                   width={item.image.width}
                   height={item.image.height}
-                  className="aspect-[16/10] w-full bg-muted object-cover"
+                  className="aspect-[16/10] w-full bg-muted object-cover outline outline-1 -outline-offset-1 outline-black/10"
                   loading="lazy"
                 />
               ) : null}

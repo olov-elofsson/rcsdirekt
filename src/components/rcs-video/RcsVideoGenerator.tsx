@@ -2,12 +2,6 @@
 import { Check, Copy, ExternalLink, Link, Pause, Play, RotateCcw, Upload } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
-import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
-import inter500 from "@fontsource/inter/files/inter-latin-500-normal.woff2?url";
-import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2?url";
-import interExt400 from "@fontsource/inter/files/inter-latin-ext-400-normal.woff2?url";
-import interExt500 from "@fontsource/inter/files/inter-latin-ext-500-normal.woff2?url";
-import interExt600 from "@fontsource/inter/files/inter-latin-ext-600-normal.woff2?url";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,15 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
+import { INTER_FILES } from "@/lib/rcs-phone/inter";
 import { buildProject, canExportMp4, createRenderer, exportMp4, loadInterFontCss } from "@/lib/rcs-video/engine";
 import { exampleBanner, exampleLogo } from "@/lib/rcs-video/defaults";
 
 const STORE_KEY = "rcsv-form-v2";
 const SCALE = 0.86;
-const INTER_FILES = [
-  { weight: 400, subset: "latin", url: inter400 }, { weight: 500, subset: "latin", url: inter500 }, { weight: 600, subset: "latin", url: inter600 },
-  { weight: 400, subset: "latin-ext", url: interExt400 }, { weight: 500, subset: "latin-ext", url: interExt500 }, { weight: 600, subset: "latin-ext", url: interExt600 },
-];
 
 type Form = {
   displayName: string; brand: string; description: string; color: string; logo: string; banner: string;

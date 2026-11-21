@@ -111,9 +111,11 @@ export function SiteHeader() {
 
 const footerNav = [
   {
-    title: "Skicka",
+    title: "RCS Direkt",
     links: [
-              { label: "Priser", to: "/priser" },
+      { label: "Så fungerar RCS", to: "/", hash: "sa-fungerar" },
+      { label: "Priser", to: "/priser" },
+      { label: "Resurser", to: "/blogg" },
     ],
   },
   {
@@ -125,7 +127,7 @@ const footerNav = [
   },
   {
     title: "Verktyg",
-    links: [{ label: "Sender launch video URL", to: "/video-generator" }],
+    links: [{ label: "Videogenerator för avsändare", to: "/video-generator" }],
   },
 ] as const;
 
@@ -158,7 +160,7 @@ export function SiteFooter() {
                     return (
                       <li key={link.label}>
                         {"to" in link ? (
-                          <Link to={link.to} className={linkClass}>
+                          <Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={linkClass}>
                             {link.label}
                             <ArrowUpRight aria-hidden className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                           </Link>
@@ -191,7 +193,7 @@ export function SiteFooter() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="self-start px-0 text-ink-muted hover:text-ink-foreground sm:self-auto"
           >
-            Till toppen <ArrowUp className="size-3.5 transition-transform duration-200 hover:-translate-y-0.5" />
+            Till toppen <ArrowUp className="size-3.5" />
           </Button>
         </div>
         <Link to="/" aria-label="RCS Direkt, startsida" className="mt-12 block w-full sm:mt-16">

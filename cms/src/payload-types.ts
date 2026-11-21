@@ -73,6 +73,7 @@ export interface Config {
     artiklar: Artiklar;
     begrepp: Begrepp;
     kallor: Kallor;
+    forfragningar: Forfragningar;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     artiklar: ArtiklarSelect<false> | ArtiklarSelect<true>;
     begrepp: BegreppSelect<false> | BegreppSelect<true>;
     kallor: KallorSelect<false> | KallorSelect<true>;
+    forfragningar: ForfragningarSelect<false> | ForfragningarSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -330,6 +332,28 @@ export interface Begrepp {
   createdAt: string;
 }
 /**
+ * Meddelanden från kontaktformuläret och kontoförfrågningar från rcsdirekt.se. Markera dem som hanterade när ni har svarat.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forfragningar".
+ */
+export interface Forfragningar {
+  id: number;
+  type: 'contact' | 'signup';
+  status: 'new' | 'done';
+  name: string;
+  company?: string | null;
+  email: string;
+  phone?: string | null;
+  message?: string | null;
+  /**
+   * Syns bara här i CMS:et.
+   */
+  note?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -376,6 +400,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'kallor';
         value: number | Kallor;
+      } | null)
+    | ({
+        relationTo: 'forfragningar';
+        value: number | Forfragningar;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -559,6 +587,22 @@ export interface KallorSelect<T extends boolean = true> {
   url?: T;
   finding?: T;
   implication?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forfragningar_select".
+ */
+export interface ForfragningarSelect<T extends boolean = true> {
+  type?: T;
+  status?: T;
+  name?: T;
+  company?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  note?: T;
   updatedAt?: T;
   createdAt?: T;
 }

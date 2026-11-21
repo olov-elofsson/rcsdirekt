@@ -183,6 +183,12 @@
 @keyframes phone-change { from { opacity: 0.5; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 @keyframes progress { from { width: 0; } to { width: 100%; } }
 
+/* Entrances for messages, toasts and dialogs: short and from near full size (never from scale 0). */
+@utility animate-fade-in { animation: fade-in 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+@utility animate-scale-in { animation: scale-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scale-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
 /* Homepage-only refinement; the interactive phone and other routes stay untouched. */
 .home-refined {
   --shadow-home-card: 0 2px 4px color-mix(in oklab, var(--foreground) 3%, transparent), 0 12px 28px -20px color-mix(in oklab, var(--foreground) 12%, transparent);
@@ -201,10 +207,13 @@
   box-shadow: var(--shadow-home-card);
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
-.home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, .home-card, #fordelar .shadow-card):hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-home-hover);
-  border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
+/* Lift only where there is a real pointer; on touch, :hover sticks after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, .home-card, #fordelar .shadow-card):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-home-hover);
+    border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
+  }
 }
 .home-refined .home-cta { min-width: 10.5rem; }
 @media (min-width: 640px) {

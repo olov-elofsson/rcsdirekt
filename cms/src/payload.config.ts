@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 import { Articles } from './collections/Articles'
 import { CustomerCases } from './collections/CustomerCases'
 import { Glossary } from './collections/Glossary'
+import { Inquiries } from './collections/Inquiries'
 import { Media } from './collections/Media'
 import { Sources } from './collections/Sources'
 import { Users } from './collections/Users'
@@ -17,6 +18,7 @@ import { Demo } from './globals/Demo'
 import { Priser } from './globals/Priser'
 import { Startsida } from './globals/Startsida'
 import { rebuildAfterChange, rebuildAfterDelete, rebuildAfterGlobalChange } from './lib/rebuild'
+import { createLead } from './lib/leads'
 import { buildSiteContent } from './lib/siteContent'
 import { migrations } from './migrations'
 import { seedIfEmpty } from './seed/seed'
@@ -56,6 +58,7 @@ export default buildConfig({
     publishing(Articles),
     publishing(Glossary),
     publishing(Sources),
+    Inquiries,
   ],
   globals: [publishingGlobal(Startsida), publishingGlobal(Priser), publishingGlobal(Demo)],
   endpoints: [
@@ -65,6 +68,7 @@ export default buildConfig({
       method: 'get',
       handler: async (req) => Response.json(await buildSiteContent(req.payload), { headers: { 'cache-control': 'no-store' } }),
     },
+    { path: '/leads', method: 'post', handler: createLead },
   ],
   graphQL: { disable: true },
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

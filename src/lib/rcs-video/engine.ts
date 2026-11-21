@@ -111,6 +111,14 @@ export const RCSV_CSS = `
   .rcsv #prof .crow .l{position:absolute;left:58px;top:33px;font-size:12.6px;color:var(--muted)}
   .rcsv #prof .crow .dl{position:absolute;left:17px;bottom:0;width:326px;height:1px;background:var(--line)}
 
+  /* typing indicator and verified mark (used by the website's interactive phone) */
+  .rcsv .typing{display:inline-flex;gap:4px;align-items:center;height:36px;padding:0 14px;border-radius:19px;background:var(--in)}
+  .rcsv .typing span{width:7px;height:7px;border-radius:50%;background:#747775;animation:rcsv-dot 1.2s ease-in-out infinite}
+  .rcsv .typing span:nth-child(2){animation-delay:.15s}
+  .rcsv .typing span:nth-child(3){animation-delay:.3s}
+  @keyframes rcsv-dot{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  @media (prefers-reduced-motion: reduce){.rcsv .typing span{animation:none;opacity:.6}}
+
   /* touch feedback */
   .rcsv .ring{position:absolute;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;background:rgba(210,212,216,.45);border:1px solid rgba(150,150,150,.55);z-index:80}
   .rcsv .hl{background:rgba(31,31,31,.08)!important}
@@ -149,8 +157,8 @@ const IC={
  chevL:'M14 18l-6-6 6-6 1.4 1.4-4.6 4.6 4.6 4.6L14 18Z',
 };
 
-const icon = (n, size = 24, color = '#1f1f1f') => `<svg class="i" width="${size}" height="${size}" viewBox="0 0 24 24"><path fill="${color}" d="${IC[n]}"/></svg>`;
-function statusIcons(){
+export const icon = (n, size = 24, color = '#1f1f1f') => `<svg class="i" width="${size}" height="${size}" viewBox="0 0 24 24"><path fill="${color}" d="${IC[n]}"/></svg>`;
+export function statusIcons(){
   return `<svg class="i" width="17" height="17" viewBox="0 0 24 24"><path fill="#1f1f1f" d="M17 4h4v17h-4zM11 9h4v12h-4zM5 14h4v7H5z"/></svg>
   <svg class="i" width="19" height="19" viewBox="0 0 24 24"><path fill="#1f1f1f" d="M12 21 0.8 9.3Q3.1 7.15 6.05 6.075 9 5 12 5t5.95 1.075Q20.9 7.15 23.2 9.3L12 21Zm0-3.15 1.9-1.95q-.4-.35-.875-.525T12 15.2q-.55 0-1.025.175t-.875.525L12 17.85ZM8.15 13.9q.8-.65 1.788-1.025T12 12.5q1.075 0 2.063.375t1.787 1.025l1.85-1.9q-1.15-.95-2.6-1.475T12 10q-1.65 0-3.1.525T6.3 12l1.85 1.9ZM4.15 9.8l1.75 1.8Q7.2 10.4 8.85 9.7T12 9q1.65 0 3.15.7t2.8 1.9l1.75-1.8Q18 8.25 16.050 7.375T12 6.5q-2.1 0-4.05.875T4.15 9.8Z"/></svg>
   <svg class="i" width="18" height="18" viewBox="0 0 24 24"><path fill="#1f1f1f" d="M3 17V7q0-.825.588-1.412T5 5h13q.825 0 1.413.588T20 7v2h1q.425 0 .713.288T22 10v4q0 .425-.288.713T21 15h-1v2q0 .825-.587 1.413T18 19H5q-.825 0-1.412-.587T3 17Zm2 0h13V7H5v10Z"/><path fill="#1f1f1f" d="M6 8h9v8H6z"/></svg><span>78%</span>`;

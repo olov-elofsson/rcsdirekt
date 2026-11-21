@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PriserRouteImport } from './routes/priser'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
+import { Route as ApiLeadRouteImport } from './routes/api/lead'
 import { Route as ApiRcsVideoRouteImport } from './routes/api/rcs-video'
 import { Route as BloggIndexRouteImport } from './routes/blogg.index'
 import { Route as BloggSlugRouteImport } from './routes/blogg.$slug'
@@ -37,6 +38,11 @@ const SkapaKontoRoute = SkapaKontoRouteImport.update({
 const VideoGeneratorRoute = VideoGeneratorRouteImport.update({
   id: '/video-generator',
   path: '/video-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLeadRoute = ApiLeadRouteImport.update({
+  id: '/api/lead',
+  path: '/api/lead',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiRcsVideoRoute = ApiRcsVideoRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/api/lead': typeof ApiLeadRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/api/lead': typeof ApiLeadRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/api/lead': typeof ApiLeadRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
+    | '/api/lead'
     | '/api/rcs-video'
     | '/blogg/$slug'
     | '/demo/$slug'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
+    | '/api/lead'
     | '/api/rcs-video'
     | '/blogg/$slug'
     | '/demo/$slug'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
+    | '/api/lead'
     | '/api/rcs-video'
     | '/blogg/$slug'
     | '/demo/$slug'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   PriserRoute: typeof PriserRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
+  ApiLeadRoute: typeof ApiLeadRoute
   ApiRcsVideoRoute: typeof ApiRcsVideoRoute
   BloggSlugRoute: typeof BloggSlugRoute
   DemoSlugRoute: typeof DemoSlugRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/video-generator'
       fullPath: '/video-generator'
       preLoaderRoute: typeof VideoGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/lead': {
+      id: '/api/lead'
+      path: '/api/lead'
+      fullPath: '/api/lead'
+      preLoaderRoute: typeof ApiLeadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/rcs-video': {
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   PriserRoute: PriserRoute,
   SkapaKontoRoute: SkapaKontoRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,
+  ApiLeadRoute: ApiLeadRoute,
   ApiRcsVideoRoute: ApiRcsVideoRoute,
   BloggSlugRoute: BloggSlugRoute,
   DemoSlugRoute: DemoSlugRoute,

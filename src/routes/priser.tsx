@@ -130,7 +130,7 @@ function PricingPage() {
                   {operators.map((op) => (
                     <div key={op} className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
                       <span className="font-semibold">{op}</span>
-                      <span className="font-extrabold whitespace-nowrap">{item.price}</span>
+                      <span className="font-extrabold whitespace-nowrap tabular-nums">{item.price}</span>
                     </div>
                   ))}
                 </div>
@@ -158,8 +158,11 @@ function PricingPage() {
             <div className="mt-8 divide-y divide-border border-y border-border">
               {faq.map((item) => (
                 <details key={item.question} className="group py-5">
-                  <summary className="cursor-pointer list-none font-bold">{item.question}</summary>
-                  <p className="mt-3 leading-relaxed text-muted-foreground">{item.answer}</p>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-md font-bold outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
+                    <span className="text-pretty">{item.question}</span>
+                    <ChevronDown aria-hidden className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180" />
+                  </summary>
+                  <p className="mt-3 leading-relaxed text-pretty text-muted-foreground">{item.answer}</p>
                 </details>
               ))}
             </div>
