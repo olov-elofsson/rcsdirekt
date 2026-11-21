@@ -46,6 +46,10 @@ Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig 
 | Tangentbord | 260 px högt, `#e7ecf4`. Tangenterna är 44 px höga med radie 6 px |
 | Ikoner | Material-ikonerna i `engine.ts` (`icon()`). Inte lucide |
 
+## Meddelanden över foton (`RcsSnippet`)
+
+På startsidan kan några meddelanden ligga direkt på ett foto, utan telefon, som utdrag ur skärmen (`PhotoScenarios`, exemplen i `src/data/rcs-scenarios.ts`). De byggs med `RcsSnippet` och samma `.rcsv`-klasser och mått. Bara här är bubblor och kort vita och har en mjuk skugga, så att de syns mot fotot (`.rcsv.snippet` i `RCSV_CSS`). Avsändarens namn står i vitt ovanför. Varje foto märks "Exempel: …", och foton där en verklig kunds logotyp syns används inte till exempel.
+
 ## Ramen
 
 - `rounded-[32px]`, `border-[6px] border-foreground/90` och `shadow-xl` runt skärmen, utan ytterligare inre ram.

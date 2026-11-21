@@ -14,6 +14,7 @@ import { Wave } from "@/components/BandWave";
 import { CustomerPresentations } from "@/components/CustomerPresentations";
 import { UpcomingWebinar } from "@/components/UpcomingWebinar";
 import { HeroPhone } from "@/components/HeroPhone";
+import { PhotoScenarios } from "@/components/PhotoScenarios";
 import { useReveal } from "@/hooks/use-reveal";
 import { content } from "@/content";
 import { contentIcon } from "@/content/icons";
@@ -61,7 +62,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main><HeroFirst /><UpcomingWebinar /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><CustomerPresentations /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main><HeroFirst /><UpcomingWebinar /><PhotoScenarios /><DemoSection /><Advantages /><Comparison /><WhatIsRcs /><CustomerPresentations /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";

@@ -48,6 +48,27 @@ function useFitScale(max: number): [RefObject<HTMLDivElement | null>, number] {
   return [ref, scale];
 }
 
+/** The phone's font and RCSV_CSS, once per page (React hoists and dedupes the style). */
+export function RcsStyles() {
+  return <style href="rcs-phone" precedence="default">{FONT_CSS + RCSV_CSS}</style>;
+}
+
+/**
+ * A few messages from the phone, without the phone: for photos with a message on top.
+ * Same classes and sizes as the screen, scaled as a whole.
+ */
+export function RcsSnippet({ width = 300, scale = 1, children }: { width?: number; scale?: number; children: ReactNode }) {
+  return (
+    <div style={{ width: width * scale }}>
+      <RcsStyles />
+      {/* zoom scales the layout box too, so the snippet takes the space it shows */}
+      <div className="rcsv snippet" style={{ width, zoom: scale }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function RcsPhone({
   sender,
   logo,
@@ -94,7 +115,7 @@ export function RcsPhone({
     );
   return (
     <div ref={fitRef} className="mx-auto w-full" style={{ maxWidth: SCREEN_W * maxScale + FRAME * 2 }}>
-      <style href="rcs-phone" precedence="default">{FONT_CSS + RCSV_CSS}</style>
+      <RcsStyles />
       <div
         className="mx-auto overflow-hidden rounded-[32px] border-[6px] border-foreground/90 shadow-xl"
         style={{ width: SCREEN_W * scale + FRAME * 2, height: SCREEN_H * scale + FRAME * 2 }}
