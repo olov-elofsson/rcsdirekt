@@ -116,6 +116,12 @@ export const RCSV_CSS = `
   .rcsv.snippet .outrow{padding:0}
   .rcsv.snippet .outrow .bubble{background:var(--out)}
   .rcsv.snippet .typing{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 32px -12px rgba(0,0,0,.35)}
+  /* tappable on the website: a pointer and a hover state where there is a real pointer */
+  @media (hover:hover) and (pointer:fine){.rcsv button.cbtn:hover,.rcsv button.chip:hover{background:#e3e8ef}.rcsv.snippet button.chip:hover{background:#fff}}
+  .rcsv.snippet button.chip{box-shadow:0 2px 10px -2px rgba(0,0,0,.35)}
+  [data-shown] .rcsv.snippet .cbtns.invite .cbtn:first-child,[data-shown] .rcsv.snippet .chips.invite .chip:first-child{animation:rcsv-invite 1.6s cubic-bezier(.22,1,.36,1) .6s 2}
+  @keyframes rcsv-invite{0%{box-shadow:0 0 0 0 rgba(11,87,208,.55)}70%{box-shadow:0 0 0 8px rgba(11,87,208,0)}100%{box-shadow:0 0 0 0 rgba(11,87,208,0)}}
+  @media (prefers-reduced-motion: reduce){.rcsv.snippet .invite .cbtn,.rcsv.snippet .invite .chip{animation:none}}
   .rcsv.snippet .snippet-note{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:10px;background:rgba(31,31,31,.6);color:#fff;font-size:12.5px}
   /* website phone: tappable sender name, logo and profile controls, styled as the screen itself */
   .rcsv .rcsv-tap{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit;-webkit-tap-highlight-color:transparent;transition:background-color 120ms ease-out}
