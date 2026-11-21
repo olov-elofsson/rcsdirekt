@@ -1,5 +1,7 @@
 // Fills an empty database with the content the site had before the CMS existed
-// (a copy of src/content/content.json). Runs once, when there are no articles yet.
+// (a copy of src/content/content.json). Each part is imported only while its
+// collection or global is still empty, so an interrupted import finishes on the
+// next start without duplicating what is already there.
 import type { Payload } from 'payload'
 
 import type { SiteContent } from '../lib/site-content-types'
@@ -24,72 +26,93 @@ async function fetchLogo(url: string): Promise<{ data: Buffer; mimetype: string;
 
 export async function seedIfEmpty(payload: Payload): Promise<void> {
   if (process.env.SEED_ON_EMPTY === 'false') return
-  const { totalDocs } = await payload.count({ collection: 'artiklar' })
-  if (totalDocs > 0) return
-
   const content = initial as SiteContent
-  payload.logger.info('Empty database: importing the existing site content.')
+  const isEmpty = async (collection: 'kallor' | 'artiklar' | 'begrepp' | 'kundcase') =>
+    (await payload.count({ collection })).totalDocs === 0
 
   const sourceIds = new Map<string, number | string>()
-  for (const source of content.kunskap.sources) {
-    const doc = await payload.create({ collection: 'kallor', data: { sourceId: source.id, title: source.title, url: source.url, finding: source.finding, implication: source.implication }, context })
-    sourceIds.set(source.id, doc.id)
+  if (await isEmpty('kallor')) {
+    payload.logger.info('Seed: importing sources.')
+    for (const source of content.kunskap.sources) {
+      const doc = await payload.create({ collection: 'kallor', data: { sourceId: source.id, title: source.title, url: source.url, finding: source.finding, implication: source.implication }, context })
+      sourceIds.set(source.id, doc.id)
+    }
+  } else {
+    const { docs } = await payload.find({ collection: 'kallor', limit: 0, pagination: false, depth: 0 })
+    for (const doc of docs) sourceIds.set(doc.sourceId as string, doc.id)
   }
 
   const articleIds = new Map<string, number | string>()
-  for (const article of content.kunskap.articles) {
-    const doc = await payload.create({
-      collection: 'artiklar',
-      context,
-      data: {
-        title: article.title,
-        slug: article.slug,
-        category: article.category as never,
-        published: article.published,
-        description: article.description,
-        keywords: article.keywords.map((keyword) => ({ keyword })),
-        sections: article.sections.map((section) => ({
-          sectionId: section.id,
-          title: section.title,
-          paragraphs: section.paragraphs.map((text) => ({ text })),
-          points: section.points.map((text) => ({ text })),
-          sources: section.sources.map((id) => sourceIds.get(id)).filter((id) => id !== undefined) as never,
-        })),
-      },
-    })
-    articleIds.set(article.slug, doc.id)
-  }
-  for (const article of content.kunskap.articles) {
-    if (!article.related.length) continue
-    await payload.update({
-      collection: 'artiklar',
-      id: articleIds.get(article.slug)!,
-      context,
-      data: { related: article.related.map((slug) => articleIds.get(slug)).filter((id) => id !== undefined) as never },
-    })
-  }
-
-  for (const entry of content.kunskap.glossary) {
-    await payload.create({
-      collection: 'begrepp',
-      context,
-      data: { term: entry.term, aliases: entry.aliases, definition: entry.definition, source: sourceIds.get(entry.source) as never, article: articleIds.get(entry.article) as never },
-    })
-  }
-
-  for (const item of content.kundcase) {
-    const file = await fetchLogo(item.logo.url)
-    if (!file) {
-      payload.logger.warn(`Seed: could not fetch the logo for ${item.name}; add it in the CMS.`)
-      continue
+  if (await isEmpty('artiklar')) {
+    payload.logger.info('Seed: importing articles.')
+    for (const article of content.kunskap.articles) {
+      const doc = await payload.create({
+        collection: 'artiklar',
+        context,
+        data: {
+          title: article.title,
+          slug: article.slug,
+          category: article.category as never,
+          published: article.published,
+          description: article.description,
+          keywords: article.keywords.map((keyword) => ({ keyword })),
+          sections: article.sections.map((section) => ({
+            sectionId: section.id,
+            title: section.title,
+            paragraphs: section.paragraphs.map((text) => ({ text })),
+            points: section.points.map((text) => ({ text })),
+            sources: section.sources.map((id) => sourceIds.get(id)).filter((id) => id !== undefined) as never,
+          })),
+        },
+      })
+      articleIds.set(article.slug, doc.id)
     }
-    const logo = await payload.create({ collection: 'media', context, data: { alt: item.logo.alt }, file })
-    await payload.create({
-      collection: 'kundcase',
-      context,
-      data: { name: item.name, logo: logo.id, width: item.logo.width, height: item.logo.height, description: item.description, slug: item.slug },
-    })
+    for (const article of content.kunskap.articles) {
+      if (!article.related.length) continue
+      await payload.update({
+        collection: 'artiklar',
+        id: articleIds.get(article.slug)!,
+        context,
+        data: { related: article.related.map((slug) => articleIds.get(slug)).filter((id) => id !== undefined) as never },
+      })
+    }
+  } else {
+    const { docs } = await payload.find({ collection: 'artiklar', limit: 0, pagination: false, depth: 0, select: { slug: true } })
+    for (const doc of docs) articleIds.set(doc.slug as string, doc.id)
   }
+
+  if (await isEmpty('begrepp')) {
+    payload.logger.info('Seed: importing glossary.')
+    for (const entry of content.kunskap.glossary) {
+      await payload.create({
+        collection: 'begrepp',
+        context,
+        data: { term: entry.term, aliases: entry.aliases, definition: entry.definition, source: sourceIds.get(entry.source) as never, article: articleIds.get(entry.article) as never },
+      })
+    }
+  }
+
+  if (await isEmpty('kundcase')) {
+    payload.logger.info('Seed: importing customer cases.')
+    for (const item of content.kundcase) {
+      const file = await fetchLogo(item.logo.url)
+      if (!file) {
+        payload.logger.warn(`Seed: could not fetch the logo for ${item.name}; add it in the CMS.`)
+        continue
+      }
+      const logo = await payload.create({ collection: 'media', context, data: { alt: item.logo.alt }, file })
+      await payload.create({
+        collection: 'kundcase',
+        context,
+        data: { name: item.name, logo: logo.id, width: item.logo.width, height: item.logo.height, description: item.description, slug: item.slug },
+      })
+    }
+  }
+
+  // Globals count as imported once the start page has a hero title.
+  const startsida = (await payload.findGlobal({ slug: 'startsida', depth: 0 })) as { hero?: { title?: string } }
+  if (startsida.hero?.title) return
+  payload.logger.info('Seed: importing page content.')
 
   const home = content.startsida
   await payload.updateGlobal({
@@ -122,5 +145,5 @@ export async function seedIfEmpty(payload: Payload): Promise<void> {
     } as never,
   })
 
-  payload.logger.info(`Imported ${content.kunskap.articles.length} articles, ${content.kunskap.sources.length} sources and ${content.kunskap.glossary.length} glossary terms.`)
+  payload.logger.info('Seed: done.')
 }
