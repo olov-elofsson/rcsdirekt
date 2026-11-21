@@ -50,7 +50,7 @@ export type Availability = { code: string; name: string; available: boolean };
 export type CustomerCase = {
   name: string;
   logo: { url: string; alt: string; width: number; height: number };
-  /** Photo shown at the top of the card instead of the logo; null until one is uploaded. */
+  /** Photo shown at the top of the card; null until one is uploaded (the card then shows a brand surface). The logo is not shown on the site. */
   image: { url: string; alt: string; width: number; height: number } | null;
   description: string;
   /** Presentation page under /demo/<slug>; empty when the case is not published yet. */

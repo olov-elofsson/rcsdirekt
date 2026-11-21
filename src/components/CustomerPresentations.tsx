@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+
+import symbolUrl from "../../brand/SVG/symbol.svg";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { content } from "@/content";
@@ -30,20 +32,13 @@ export function CustomerPresentations() {
                   className="aspect-[16/10] w-full bg-muted object-cover outline outline-1 -outline-offset-1 outline-black/10"
                   loading="lazy"
                 />
-              ) : null}
+              ) : (
+                // Until the case has a photo: a quiet brand surface in the same format, never the logo.
+                <div aria-hidden className="grid aspect-[16/10] w-full place-items-center bg-primary-soft">
+                  <img src={symbolUrl} alt="" className="size-14 opacity-20" />
+                </div>
+              )}
               <div className="flex flex-1 flex-col p-8">
-                {item.image || !item.logo.url ? null : (
-                  <div className="mb-6 flex h-14 items-center">
-                    <img
-                      src={item.logo.url}
-                      alt={item.logo.alt}
-                      width={item.logo.width}
-                      height={item.logo.height}
-                      className="max-h-14 w-auto max-w-[170px] object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
                 <h3 className="text-lg font-extrabold leading-snug sm:text-xl">{item.name}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                   {item.description}

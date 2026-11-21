@@ -9,20 +9,20 @@ export const CustomerCases: CollectionConfig = {
   orderable: true,
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   fields: [
-    { name: 'name', label: 'Företag', type: 'text', required: true },
+    { name: 'name', label: 'Företag', type: 'text', required: true, admin: { description: 'Hela bolagsnamnet, till exempel "Bilia AB".' } },
     {
       name: 'image',
       label: 'Bild',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas logotypen.' },
+      admin: { description: 'Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas en ljus yta i brandkitets färger.' },
     },
     {
       name: 'logo',
       label: 'Logotyp',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Visas på kortet bara när det saknas en bild.' },
+      admin: { description: 'Visas inte på startsidan. Sparas för andra sammanhang.' },
     },
     {
       type: 'row',
