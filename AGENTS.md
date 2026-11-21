@@ -1,8 +1,12 @@
 ## Drift och innehåll
 
-- Sidan körs på Google Cloud Run (tjänsten `rcsdirekt`, europe-west1) och byggs från `main` vid varje push. Lovable används inte längre.
+- Sidan körs på Google Cloud Run (tjänsten `rcsdirekt`, europe-west1) och byggs från `main` vid varje push.
 - Allt redigerbart innehåll kommer från Payload CMS i `cms/` (tjänsten `rcsdirekt-cms`, cms.rcsdirekt.se). Bygget hämtar det till `src/content/content.json`; ändra innehåll i CMS:et, inte i den filen.
 - Ändringar under `cms/` bygger bara CMS:et, övriga ändringar bara sidan.
+
+## Brandkit
+
+- Logotyper, ikoner, färger och typsnitt finns i `brand/` och beskrivs i `brand/BRAND.md`. Använd alltid filerna där i stället för egna kopior, och följ färgerna därifrån.
 
 ## Granskning av gränssnitt
 

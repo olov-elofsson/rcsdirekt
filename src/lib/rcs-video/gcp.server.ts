@@ -1,6 +1,6 @@
 // Google Cloud backend for the video generator: Cloud Storage holds the MP4 files and
-// Firestore holds the per-sender upload log. Used when RCS_VIDEO_BUCKET is set (Cloud Run);
-// without it the routes fall back to the Lovable Cloud backend so the Lovable preview keeps working.
+// Firestore holds the per-sender upload log. RCS_VIDEO_BUCKET names the bucket; without it
+// uploads and playback answer 503.
 // Plain REST with the runtime service account, so no SDK is bundled.
 import { DAY_UPLOAD_LIMIT, HOUR_UPLOAD_LIMIT } from "./upload-rules";
 

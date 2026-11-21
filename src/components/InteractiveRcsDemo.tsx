@@ -10,7 +10,7 @@ import {
   X,
 } from "lucide-react";
 
-import symbolUrl from "@/assets/rcsdirekt-symbol.svg";
+import symbolUrl from "../../brand/SVG/symbol.svg";
 import { Button } from "@/components/ui/button";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
 import { contentIcon } from "@/content/icons";

@@ -1,7 +1,7 @@
-import logoWhiteUrl from "@/assets/rcsdirekt-logo-vit.svg";
-import logoUrl from "@/assets/rcsdirekt-logo.svg";
-import symbolWhiteUrl from "@/assets/rcsdirekt-symbol-vit.svg";
-import symbolUrl from "@/assets/rcsdirekt-symbol.svg";
+import logoWhiteUrl from "../../brand/SVG/rcsdirekt-vit.svg";
+import logoUrl from "../../brand/SVG/rcsdirekt.svg";
+import symbolWhiteUrl from "../../brand/SVG/symbol-vit.svg";
+import symbolUrl from "../../brand/SVG/symbol.svg";
 import { cn } from "@/lib/utils";
 
 export function BrandLogo({ inverse = false, className }: { inverse?: boolean; className?: string }) {

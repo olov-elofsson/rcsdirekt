@@ -240,7 +240,7 @@
     {
       "name": "DreamCare Omsorg AB",
       "logo": {
-        "url": "/__l5e/assets-v1/ac400bcd-cb3a-4104-b6b5-dd3747ce46f4/dreamcare-logo.png",
+        "url": "/media/dreamcare-logo.png",
         "alt": "DreamCare",
         "width": 512,
         "height": 512
@@ -251,7 +251,7 @@
     {
       "name": "Maptun",
       "logo": {
-        "url": "/__l5e/assets-v1/d934231c-7d8f-4ffa-a459-127d827195f2/maptun-logo.png",
+        "url": "/media/maptun-logo.png",
         "alt": "Maptun",
         "width": 200,
         "height": 34
@@ -262,7 +262,7 @@
     {
       "name": "Nercia",
       "logo": {
-        "url": "/__l5e/assets-v1/a6ba3336-4230-4dfc-a4a2-0e0582343e8b/nercia-logo.png",
+        "url": "/media/nercia-logo.png",
         "alt": "Nercia",
         "width": 928,
         "height": 187
@@ -273,7 +273,7 @@
     {
       "name": "Bilia",
       "logo": {
-        "url": "/__l5e/assets-v1/12a2ea30-85fb-478a-9566-1296bfe8726e/bilia-logo.svg",
+        "url": "/media/bilia-logo.svg",
         "alt": "Bilia",
         "width": 99,
         "height": 35

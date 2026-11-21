@@ -1,26 +1,34 @@
-# rcsdirekt
+# RCS Direkt
 
-nytt projekt för rcs direkt.se
+Webbplatsen [rcsdirekt.se](https://rcsdirekt.se) och dess innehållssystem.
 
-This project was built with [Lovable](https://lovable.dev).
+| Del | Mapp | Körs som | Adress |
+| --- | --- | --- | --- |
+| Webbplatsen (TanStack Start, React, Tailwind) | `/` | Cloud Run-tjänsten `rcsdirekt` | rcsdirekt.se, www.rcsdirekt.se |
+| Innehållssystemet (Payload CMS, Postgres) | `cms/` | Cloud Run-tjänsten `rcsdirekt-cms` | cms.rcsdirekt.se/admin |
+| Brandkit: logotyper, ikoner, färger | `brand/` | – | se `brand/BRAND.md` |
 
-**Live app**: https://rcsdirekt.lovable.app
+Allt ligger i Google Cloud-projektet `rcsdirekt` (europe-west1).
 
-## Build with Lovable
+## Så hänger det ihop
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1b8ab0b3-f61f-4b54-be20-2ea750347b0e).
+- En push till `main` bygger och driftsätter automatiskt. Ändringar under `cms/` bygger bara CMS:et, och övriga ändringar bara webbplatsen.
+- Texter, priser, artiklar, källor, begrepp och kundcase redigeras i CMS:et. När något sparas byggs webbplatsen om och hämtar innehållet till `src/content/content.json`. Den filen ska inte ändras för hand.
+- Bilder från CMS:et och videor från videogeneratorn lagras i bucketen `rcsdirekt-videos` och visas via `/media/…` och `/v/…`. Gränsen för uppladdningar ligger i Firestore.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Utveckla lokalt
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Kräver [Bun](https://bun.sh).
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev      # http://localhost:8080
+bun test         # tester
+bun run build    # produktionsbygge till .output/
 ```
+
+CMS:et har en egen README i `cms/`.
+
+## Regler för kod och design
+
+Se `AGENTS.md`. Allt UI-arbete går igenom skillsen i `.claude/skills/`, och brandkitet i `brand/` gäller före allt annat.

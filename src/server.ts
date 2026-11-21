@@ -44,10 +44,7 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-// Images uploaded in Lovable were served by Lovable's hosting under this path.
-// On Cloud Run the same files live in the storage bucket under assets/.
-const HOSTED_ASSET_PREFIX = "/__l5e/assets-v1/";
-const HOSTED_ASSET_TYPES: Record<string, string> = {
+const MEDIA_TYPES: Record<string, string> = {
   svg: "image/svg+xml",
   png: "image/png",
   jpg: "image/jpeg",
@@ -60,10 +57,6 @@ const HOSTED_ASSET_TYPES: Record<string, string> = {
 const CMS_MEDIA_PREFIX = "/media/";
 
 function bucketKey(pathname: string): string | null | undefined {
-  if (pathname.startsWith(HOSTED_ASSET_PREFIX)) {
-    const key = pathname.slice(HOSTED_ASSET_PREFIX.length);
-    return /^[0-9a-f-]{36}\/[\w.-]+$/.test(key) ? `assets/${key}` : null;
-  }
   if (pathname.startsWith(CMS_MEDIA_PREFIX)) {
     let name: string;
     try {
@@ -87,7 +80,7 @@ async function hostedAsset(request: Request): Promise<Response | undefined> {
   if (!bucket) return undefined;
   const stored = await fetchVideo(bucket, key, null).catch(() => undefined);
   if (!stored || stored.status !== 200) return new Response("Not found", { status: 404 });
-  const type = HOSTED_ASSET_TYPES[key.split(".").pop()?.toLowerCase() ?? ""];
+  const type = MEDIA_TYPES[key.split(".").pop()?.toLowerCase() ?? ""];
   if (!type) return new Response("Not found", { status: 404 });
   return new Response(stored.body, {
     headers: {

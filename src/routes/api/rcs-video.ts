@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { allowedUploadOrigin, hashUploadIp, MAX_VIDEO_BYTES, uploadLimitReached, validMp4 } from "@/lib/rcs-video/upload-rules";
+import { allowedUploadOrigin, hashUploadIp, MAX_VIDEO_BYTES, validMp4 } from "@/lib/rcs-video/upload-rules";
 
 export const Route = createFileRoute("/api/rcs-video")({
   server: { handlers: {
@@ -31,35 +31,16 @@ export const Route = createFileRoute("/api/rcs-video")({
       if (!salt) return new Response("Upload unavailable", { status: 503 });
       const { gcpVideoBucket, cloudRunClientIp, publicOrigin, reserveUploadSlot, uploadVideo } = await import("@/lib/rcs-video/gcp.server");
       const bucket = gcpVideoBucket();
-      const ip = bucket ? cloudRunClientIp(request) : request.headers.get("cf-connecting-ip")?.trim() || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+      if (!bucket) return new Response("Upload unavailable", { status: 503 });
+      const ip = cloudRunClientIp(request);
       if (!ip) return new Response("Sender address missing", { status: 403 });
       const ipHash = await hashUploadIp(ip, salt);
-      if (bucket) {
-        const slot = await reserveUploadSlot(ipHash).catch(() => "unavailable" as const);
-        if (slot === "limit") return new Response("Upload limit reached", { status: 429 });
-        if (slot !== "reserved") return new Response("Upload unavailable", { status: 503 });
-        const file = `${crypto.randomUUID()}.mp4`;
-        if (!(await uploadVideo(bucket, file, bytes).catch(() => false))) return new Response("Upload failed", { status: 502 });
-        return Response.json({ url: `${publicOrigin(request)}/v/${file}` });
-      }
-      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const now = Date.now();
-      const [hour, day] = await Promise.all([
-        supabaseAdmin.from("rcs_video_uploads").select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).gte("created_at", new Date(now - 3600000).toISOString()),
-        supabaseAdmin.from("rcs_video_uploads").select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).gte("created_at", new Date(now - 86400000).toISOString()),
-      ]);
-      if (hour.error || day.error) return new Response("Upload unavailable", { status: 503 });
-      if (uploadLimitReached(hour.count ?? 0, day.count ?? 0)) return new Response("Upload limit reached", { status: 429 });
-      const id = crypto.randomUUID();
-      const file = `${id}.mp4`;
-      const { error } = await supabaseAdmin.storage.from("rcs-videos").upload(file, bytes.buffer, { contentType: "video/mp4", upsert: false });
-      if (error) return new Response("Upload failed", { status: 502 });
-      const logged = await supabaseAdmin.from("rcs_video_uploads").insert({ id, ip_hash: ipHash });
-      if (logged.error) {
-        await supabaseAdmin.storage.from("rcs-videos").remove([file]);
-        return new Response("Upload limit or logging failure", { status: logged.error.code === "P0001" ? 429 : 503 });
-      }
-      return Response.json({ url: `${new URL(request.url).origin}/v/${file}` });
+      const slot = await reserveUploadSlot(ipHash).catch(() => "unavailable" as const);
+      if (slot === "limit") return new Response("Upload limit reached", { status: 429 });
+      if (slot !== "reserved") return new Response("Upload unavailable", { status: 503 });
+      const file = `${crypto.randomUUID()}.mp4`;
+      if (!(await uploadVideo(bucket, file, bytes).catch(() => false))) return new Response("Upload failed", { status: 502 });
+      return Response.json({ url: `${publicOrigin(request)}/v/${file}` });
     },
   } },
 });
