@@ -21,7 +21,7 @@ export function CustomerPresentations() {
           {customerCases.map((item) => (
             <article
               key={item.name}
-              className="home-card flex min-w-0 flex-col overflow-hidden rounded-lg border border-border/80 bg-card shadow-card"
+              className="home-card flex min-w-0 flex-col overflow-hidden rounded-lg bg-card shadow-card"
             >
               {item.image ? (
                 <img
@@ -47,7 +47,7 @@ export function CustomerPresentations() {
                   {item.slug ? (
                     <Button asChild size="sm" className="home-cta">
                       <Link to="/demo/$slug" params={{ slug: item.slug }}>
-                        Se kundcaset <ArrowRight />
+                        Se kundcaset <ArrowRight data-icon="end" />
                       </Link>
                     </Button>
                   ) : (

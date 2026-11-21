@@ -49,8 +49,10 @@
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
   --shadow-soft: 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 12px 32px -22px oklch(0.25 0.09 285 / 18%);
-  --shadow-card: 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 26px 64px -40px oklch(0.25 0.09 285 / 27%);
-  --shadow-lift: 0 2px 8px oklch(0.25 0.09 285 / 7%), 0 50px 100px -52px oklch(0.25 0.09 285 / 38%);
+  /* Card and overlay depth: the first layer is a 1px ring, so these surfaces need no border. */
+  --shadow-card: 0 0 0 1px oklch(0.25 0.09 285 / 8%), 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 26px 64px -40px oklch(0.25 0.09 285 / 27%);
+  --shadow-card-hover: 0 0 0 1px oklch(0.25 0.09 285 / 12%), 0 2px 6px oklch(0.25 0.09 285 / 6%), 0 34px 72px -40px oklch(0.25 0.09 285 / 32%);
+  --shadow-lift: 0 0 0 1px oklch(0.25 0.09 285 / 8%), 0 2px 8px oklch(0.25 0.09 285 / 7%), 0 50px 100px -52px oklch(0.25 0.09 285 / 38%);
 }
 
 :root {
@@ -95,6 +97,8 @@
   }
 
   html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
     -webkit-text-size-adjust: 100%;
@@ -105,7 +109,6 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "cv11", "ss01";
-    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
@@ -129,6 +132,14 @@
     letter-spacing: 0;
     text-wrap: balance;
   }
+
+  /* No orphans in running text. */
+  p,
+  li,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
 }
 
 @theme {
@@ -140,29 +151,6 @@
   &::-webkit-scrollbar { display: none; }
 }
 
-@utility hero-phone-stage {
-  isolation: isolate;
-  position: relative;
-  &::after {
-    animation: hero-trail 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
-    background-color: var(--color-primary-light);
-    content: "";
-    filter: blur(18px);
-    inset-block: 12%;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    width: 18px;
-    z-index: -1;
-  }
-}
-@utility hero-phone-content { animation: hero-swipe 0.72s cubic-bezier(0.22, 1, 0.36, 1) both; }
-@utility hero-scenario { position: relative; animation: hero-swipe 0.72s cubic-bezier(0.22, 1, 0.36, 1) both; }
-@utility hero-phone { contain: layout paint; }
-@utility industry-enter { animation: soft-rise 0.4s ease-out both; }
-@utility phone-change { animation: phone-change 0.35s ease-out both; }
-@utility hero-progress { animation: progress 4.8s linear both; }
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -170,28 +158,26 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-@keyframes hero-swipe {
-  0% { opacity: 0; filter: blur(7px); transform: translateX(34px); }
-  45% { opacity: 0.82; filter: blur(1.5px); }
-  100% { opacity: 1; filter: blur(0); transform: translateX(0); }
-}
-@keyframes hero-trail { 0% { left: 76%; opacity: 0; } 35% { opacity: 0.22; } 100% { left: 8%; opacity: 0; } }
-@keyframes soft-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes phone-change { from { opacity: 0.5; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-@keyframes progress { from { width: 0; } to { width: 100%; } }
 
 /* Entrances for messages, toasts and dialogs: short and from near full size (never from scale 0). */
 @utility animate-fade-in { animation: fade-in 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+/* Backdrops only fade: an overlay that moves reads as the page shifting. */
+@utility animate-opacity-in { animation: opacity-in 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 @utility animate-scale-in { animation: scale-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes opacity-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scale-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 
 /* Homepage-only refinement; the interactive phone and other routes stay untouched. */
 .home-refined {
-  --shadow-home-card: 0 2px 4px color-mix(in oklab, var(--foreground) 3%, transparent), 0 12px 28px -20px color-mix(in oklab, var(--foreground) 12%, transparent);
-  --shadow-home-hover: 0 4px 8px color-mix(in oklab, var(--foreground) 4%, transparent), 0 20px 36px -20px color-mix(in oklab, var(--foreground) 18%, transparent);
+  --shadow-home-card: 0 0 0 1px color-mix(in oklab, var(--foreground) 9%, transparent), 0 2px 4px color-mix(in oklab, var(--foreground) 3%, transparent), 0 12px 28px -20px color-mix(in oklab, var(--foreground) 12%, transparent);
+  --shadow-home-hover: 0 0 0 1px color-mix(in oklab, var(--foreground) 14%, transparent), 0 4px 8px color-mix(in oklab, var(--foreground) 4%, transparent), 0 20px 36px -20px color-mix(in oklab, var(--foreground) 18%, transparent);
 }
 .home-refined main > section:not(#top) { padding-block: 4rem; }
 .home-refined main > section > svg { height: 2rem; display: block; }
@@ -201,17 +187,15 @@
 .home-refined main > section:not(#sa-fungerar) h2 + p { max-width: 60ch; }
 .home-refined main > section:not(#sa-fungerar) .text-center h2 + p { margin-inline: auto; }
 .home-refined main > section:not(#sa-fungerar) :is(.shadow-card, .home-card) {
-  border-color: color-mix(in oklab, var(--foreground) 9%, transparent);
   border-radius: var(--radius);
   box-shadow: var(--shadow-home-card);
-  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 /* Lift only where there is a real pointer; on touch, :hover sticks after a tap. */
 @media (hover: hover) and (pointer: fine) {
   .home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, a.home-card):hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-home-hover);
-    border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
   }
 }
 .home-refined .home-cta { min-width: 10.5rem; }
@@ -220,7 +204,8 @@
   .home-refined main > section > svg { height: 3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-refined main > section :is(a.shadow-card, a.home-card):hover { transform: none; }
+  /* Same specificity as the hover rule (it has :not(#sa-fungerar)), or this never wins. */
+  .home-refined main > section:not(#sa-fungerar) :is(a.shadow-card, a.home-card):hover { transform: none; }
 }
 /* The webinar card sits right under the hero, which already has its own space.
    Last in the file so it also wins over the larger padding from 640 px. */

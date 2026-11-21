@@ -49,8 +49,8 @@ export function LeadForm({ mode, defaultMessage, webinar, compact = false }: { m
 
   if (status === "sent") {
     return (
-      <div role="status" className={compact ? "py-4 text-center" : "rounded-lg border border-border bg-card p-8 text-center shadow-card sm:p-10"}>
-        <span className="mx-auto grid size-12 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-5" /></span>
+      <div role="status" className={compact ? "py-4 text-center" : "rounded-lg bg-card p-8 text-center shadow-card sm:p-10"}>
+        <span className="mx-auto grid size-12 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check aria-hidden className="size-5" /></span>
         <h2 className="mt-5 text-2xl font-extrabold tracking-normal">{webinarSignup ? "Du är anmäld!" : signup ? "Tack för din registrering!" : "Tack för ditt meddelande!"}</h2>
         <p className="mt-3 text-pretty text-muted-foreground">{webinarSignup ? "Vi skickar länken till webinaret till din e-post innan det börjar." : signup ? "Vi hör av oss inom kort med nästa steg för att aktivera ditt konto." : "Vi återkommer så snart vi kan."}</p>
       </div>
@@ -77,7 +77,7 @@ export function LeadForm({ mode, defaultMessage, webinar, compact = false }: { m
   );
 
   return (
-    <form noValidate onSubmit={onSubmit} className={compact ? "relative space-y-5" : "relative space-y-5 rounded-lg border border-border bg-card p-7 shadow-card sm:p-9"}>
+    <form noValidate onSubmit={onSubmit} className={compact ? "relative space-y-5" : "relative space-y-5 rounded-lg bg-card p-7 shadow-card sm:p-9"}>
       <div className="grid gap-5 sm:grid-cols-2">
         {field("name", "Namn", { autoComplete: "name" })}
         {field("company", signup ? "Företag" : "Företag (valfritt)", { autoComplete: "organization" })}

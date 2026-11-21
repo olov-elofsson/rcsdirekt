@@ -42,7 +42,7 @@ export function UpcomingWebinar() {
   return (
     <section id="webinar" aria-labelledby="webinar-title" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
-        <div className="home-card flex flex-col gap-6 rounded-lg border border-border/80 bg-card p-6 shadow-card sm:flex-row sm:items-center sm:gap-8 sm:p-8">
+        <div className="home-card flex flex-col gap-6 rounded-lg bg-card p-7 shadow-card sm:flex-row sm:items-center sm:gap-8 sm:p-8">
           <time dateTime={webinar.startsAt} aria-hidden className="grid size-20 shrink-0 place-content-center rounded-lg bg-primary-soft text-center">
             <span className="font-display text-3xl font-extrabold leading-none tabular-nums">{dayNumber.format(start)}</span>
             <span className="mt-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">{monthShort.format(start).replace(".", "")}</span>
@@ -58,11 +58,11 @@ export function UpcomingWebinar() {
           </div>
           {webinar.registrationUrl ? (
             <Button asChild size="lg" className="shrink-0 self-start sm:self-center">
-              <a href={webinar.registrationUrl} target="_blank" rel="noreferrer">Anmäl dig <ArrowUpRight /></a>
+              <a href={webinar.registrationUrl} target="_blank" rel="noreferrer">Anmäl dig <ArrowUpRight data-icon="end" /></a>
             </Button>
           ) : (
             <Button type="button" size="lg" className="shrink-0 self-start sm:self-center" onClick={() => setOpen(true)}>
-              Anmäl dig <ArrowRight />
+              Anmäl dig <ArrowRight data-icon="end" />
             </Button>
           )}
         </div>

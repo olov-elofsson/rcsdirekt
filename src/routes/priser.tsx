@@ -82,7 +82,7 @@ function PricingPage() {
 
         <section className="py-16 sm:py-24">
           <div className="mx-auto grid max-w-3xl gap-10 px-5 lg:px-8">
-            <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+            <div className="rounded-lg bg-card p-7 shadow-card">
               <div className="grid gap-5 sm:grid-cols-2">
                 <Field label="Välj land">
                   <span className="absolute left-3 top-1/2 grid size-5 -translate-y-1/2 place-items-center overflow-hidden rounded-full ring-1 ring-border">
@@ -91,7 +91,7 @@ function PricingPage() {
                   <select
                     aria-label="Välj land"
                     defaultValue="SE"
-                    className="h-11 w-full appearance-none rounded-full border border-input bg-background pl-12 pr-10 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background pl-12 pr-10 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCountries.map((country) => (
                       <option key={country.code} value={country.code} disabled={!country.available}>
@@ -106,7 +106,7 @@ function PricingPage() {
                   <select
                     aria-label="Välj valuta"
                     defaultValue="SEK"
-                    className="h-11 w-full appearance-none rounded-full border border-input bg-background px-4 pr-10 text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background px-4 pr-10 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCurrencies.map((currency) => (
                       <option key={currency.code} value={currency.code} disabled={!currency.available}>
@@ -146,7 +146,7 @@ function PricingPage() {
             <h2 className="text-center text-3xl font-extrabold sm:text-4xl">{page.includedHeading}</h2>
             <ul className="mx-auto mt-8 grid max-w-3xl gap-x-8 gap-y-4 sm:grid-cols-2">
               {included.map((item) => (
-                <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check className="size-4" /></span>{item}</li>
+                <li key={item} className="flex items-center gap-3 font-semibold"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft ring-1 ring-border/60"><Check aria-hidden className="size-4" /></span>{item}</li>
               ))}
             </ul>
           </div>
@@ -166,7 +166,7 @@ function PricingPage() {
                 </details>
               ))}
             </div>
-            <p className="mt-8 text-center text-muted-foreground">{page.volumeText} <a href="/#kontakt" className="font-bold text-foreground underline">Kontakta oss</a> för volympris.</p>
+            <p className="mt-8 text-center text-muted-foreground">{page.volumeText} <Link to="/" hash="kontakt" className="font-bold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Kontakta oss</Link> för volympris.</p>
           </div>
         </section>
       </main>
