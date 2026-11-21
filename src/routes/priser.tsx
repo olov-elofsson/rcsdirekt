@@ -44,7 +44,7 @@ const flags: Record<string, FlagColors> = {
 function Flag({ code }: { code: string }) {
   const flag = flags[code] ?? swedishFlag;
   return (
-    <svg viewBox="0 0 16 12" className="size-full" aria-hidden focusable="false">
+    <svg viewBox="0 0 16 12" preserveAspectRatio="xMidYMid slice" className="size-full" aria-hidden focusable="false">
       <rect width="16" height="12" fill={flag.bg} />
       <rect x="4.4" width="2.4" height="12" fill={flag.cross} />
       <rect y="4.8" width="16" height="2.4" fill={flag.cross} />
@@ -85,13 +85,13 @@ function PricingPage() {
             <div className="rounded-lg bg-card p-7 shadow-card">
               <div className="grid gap-5 sm:grid-cols-2">
                 <Field label="Välj land">
-                  <span className="absolute left-3 top-1/2 grid size-5 -translate-y-1/2 place-items-center overflow-hidden rounded-full ring-1 ring-border">
+                  <span className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 overflow-hidden rounded-full outline outline-1 -outline-offset-1 outline-black/10">
                     <Flag code="SE" />
                   </span>
                   <select
                     aria-label="Välj land"
                     defaultValue="SE"
-                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background pl-12 pr-10 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="h-11 w-full cursor-pointer appearance-none rounded-full border border-input bg-background pl-10 pr-10 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {pricingCountries.map((country) => (
                       <option key={country.code} value={country.code} disabled={!country.available}>
