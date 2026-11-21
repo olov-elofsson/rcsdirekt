@@ -1,39 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { ArrowRight, ArrowUpRight, CalendarDays, Clock } from "lucide-react";
 
 import { FormDialog } from "@/components/FormDialog";
 import { LeadForm } from "@/components/LeadForm";
 import { Button } from "@/components/ui/button";
-import { content } from "@/content";
-import type { Webinar } from "@/content/types";
+import { dayNumber, monthShort, useNextWebinar, when } from "@/lib/webinar";
 
-const zone = "Europe/Stockholm";
-const dayFormat = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, weekday: "long", day: "numeric", month: "long", year: "numeric" });
-const timeFormat = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, hour: "2-digit", minute: "2-digit" });
-const dayNumber = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, day: "numeric" });
-const monthShort = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, month: "short" });
-
-const endsAt = (webinar: Webinar) => Date.parse(webinar.startsAt) + webinar.durationMinutes * 60_000;
-
-function when(webinar: Webinar) {
-  const start = new Date(webinar.startsAt);
-  const end = new Date(endsAt(webinar));
-  const day = dayFormat.format(start);
-  return { day: day.charAt(0).toUpperCase() + day.slice(1), time: `${timeFormat.format(start)}–${timeFormat.format(end)}` };
-}
-
-/**
- * The next webinar from the CMS. The build already leaves out webinars that have ended;
- * after hydration the page also skips one that has ended since the build.
- */
+/** The next webinar, as a card on the start page. */
 export function UpcomingWebinar() {
-  const webinars = content.webinarer ?? [];
-  const [now, setNow] = useState<number | null>(null);
+  const webinar = useNextWebinar();
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
-  useEffect(() => setNow(Date.now()), []);
-
-  const webinar = webinars.find((item) => now === null || endsAt(item) > now);
   if (!webinar) return null;
   const { day, time } = when(webinar);
   const start = new Date(webinar.startsAt);

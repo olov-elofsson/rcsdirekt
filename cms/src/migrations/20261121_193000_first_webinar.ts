@@ -11,7 +11,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
       title: 'Lär dig allt om RCS',
       description:
         'Vi går igenom vad RCS är, hur meddelandena ser ut hos mottagaren och hur ni skickar ert första utskick. Ta gärna med dina frågor.',
-      startsAt: '2027-01-13T13:00:00.000Z', // tisdag 13 januari 2027 kl. 14.00 svensk tid
+      startsAt: '2027-01-13T13:00:00.000Z', // onsdag 13 januari 2027 kl. 14.00 svensk tid
       durationMinutes: 45,
       visible: true,
     },

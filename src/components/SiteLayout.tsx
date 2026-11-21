@@ -1,8 +1,9 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
+import { shortWhen, useNextWebinar } from "@/lib/webinar";
 import { cn } from "@/lib/utils";
 
 const navLinkBase =
@@ -20,8 +21,56 @@ const headerLinks = [
   { label: "Priser", to: "/priser" },
 ] as const;
 
+/** Notice about the next webinar, above the header on every page. Scrolls away; the header stays. */
+function WebinarBar() {
+  const webinar = useNextWebinar();
+  const key = webinar ? `webinar-notice-closed:${webinar.startsAt}` : "";
+  const [closed, setClosed] = useState(false);
+  useEffect(() => {
+    try {
+      setClosed(Boolean(key) && window.localStorage.getItem(key) === "1");
+    } catch {
+      // Storage can be blocked; the notice then simply stays.
+    }
+  }, [key]);
+  if (!webinar || closed) return null;
+  const close = () => {
+    setClosed(true);
+    try {
+      window.localStorage.setItem(key, "1");
+    } catch {
+      // Ignore: closing still works for this page view.
+    }
+  };
+  return (
+    <div className="relative bg-primary text-primary-foreground">
+      <div className="mx-auto flex h-10 max-w-7xl items-center justify-center gap-2 px-12 text-[13px] sm:text-sm">
+        <Link to="/" hash="webinar" className="group flex min-w-0 items-center gap-2 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/70">
+          <CalendarDays aria-hidden className="size-4 shrink-0 opacity-80" />
+          <span className="truncate">
+            <span className="font-semibold">Webinar {shortWhen(webinar)}:</span> {webinar.title}
+          </span>
+          <span className="hidden shrink-0 items-center gap-1 font-semibold underline-offset-4 group-hover:underline sm:inline-flex">
+            Anmäl dig <ArrowRight aria-hidden className="size-3.5" />
+          </span>
+        </Link>
+      </div>
+      <button
+        type="button"
+        onClick={close}
+        aria-label="Stäng notisen om webinaret"
+        className="absolute right-2 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/70 after:absolute after:-inset-1.5 after:content-['']"
+      >
+        <X aria-hidden className="size-4" />
+      </button>
+    </div>
+  );
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(80);
+  const headerRef = useRef<HTMLElement>(null);
   const { pathname, hash } = useLocation({
     select: (location) => ({ pathname: location.pathname, hash: location.hash }),
   });
@@ -30,6 +79,8 @@ export function SiteHeader() {
 
   useEffect(() => {
     if (!open) return;
+    // The menu opens right under the header, which sits lower while the webinar notice is in view.
+    setMenuTop(headerRef.current?.getBoundingClientRect().bottom ?? 80);
     document.body.style.overflow = "hidden";
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
@@ -42,7 +93,9 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+    <>
+    <WebinarBar />
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0">
           <BrandLogo className="h-6 sm:h-9" />
@@ -80,14 +133,14 @@ export function SiteHeader() {
         </div>
       </div>
       {open ? (
-        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 top-20 z-40 min-[1200px]:hidden">
+        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 z-40 min-[1200px]:hidden" style={{ top: menuTop }}>
           <button
             type="button"
             aria-label="Stäng menyn"
             onClick={() => setOpen(false)}
             className="absolute inset-0 h-full w-full bg-foreground/10 backdrop-blur-[2px] animate-opacity-in"
           />
-          <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-6rem)] origin-top-right overflow-y-auto rounded-lg bg-background p-7 shadow-lift animate-scale-in">
+          <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-8.5rem)] origin-top-right overflow-y-auto rounded-lg bg-background p-7 shadow-lift animate-scale-in">
             <ul className="divide-y divide-border">
               <li>
                 <Link to="/" className={mobileLinkClass}>
@@ -111,6 +164,7 @@ export function SiteHeader() {
         </div>
       ) : null}
     </header>
+    </>
   );
 }
 
