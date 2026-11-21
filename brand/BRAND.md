@@ -10,7 +10,8 @@ Den här mappen är den enda källan för RCS Direkts logotyper och ikoner. Sida
 | `SVG/rcsdirekt-vit.svg` | Liggande logotyp på mörk bakgrund (#15115F eller foto) |
 | `SVG/rcsdirekt-staende.svg`, `-staende-vit.svg` | Stående, för kvadratiska ytor som profilbilder och skyltar |
 | `SVG/rcsdirekt-1farg.svg`, `-1farg-vit.svg` | En färg, för tryck, stämplar och prägling |
-| `SVG/symbol.svg`, `symbol-vit.svg` | Bara symbolen: avatarer, appikoner och avsändaren i telefondemos |
+| `SVG/symbol.svg`, `symbol-vit.svg` | Bara symbolen, med genomskinlig bakgrund: avatarer och appikoner |
+| `SVG/rcs-avsandare.svg`, `PNG/rcs-avsandare.png` | Avsändarlogotyp för RCS: symbolen på vit bakgrund, 224 × 224 px (PNG 4,5 kB). Används i alla telefondemos och laddas upp som logotyp för RCS-agenten hos Google. Google Messages rundar hörnen själv |
 
 Använd SVG på webben och i dokument. `PNG/` har transparenta versioner för verktyg som inte klarar SVG, och `JPG/` har versioner med bakgrund, till exempel för e-postsignaturer.
 

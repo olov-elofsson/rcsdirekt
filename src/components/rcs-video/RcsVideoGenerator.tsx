@@ -103,7 +103,7 @@ function launchTexts(f: Form, flow: any) {
 
 // ---------- hjälpfunktioner ----------
 const clone = <T,>(x: T): T => structuredClone(x);
-async function fitImage(file: File, w: number, h: number, type: "image/png" | "image/jpeg") {
+async function fitImage(file: File, w: number, h: number, type: "image/png" | "image/jpeg", solid = type === "image/jpeg") {
   const url = URL.createObjectURL(file);
   try {
     const img = new Image();
@@ -113,7 +113,8 @@ async function fitImage(file: File, w: number, h: number, type: "image/png" | "i
     c.width = w;
     c.height = h;
     const ctx = c.getContext("2d")!;
-    if (type === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
+    // Logos get a solid white background: Google Messages advises against transparent logos.
+    if (solid) { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
     const s = Math.max(w / img.naturalWidth, h / img.naturalHeight);
     ctx.imageSmoothingQuality = "high";
     ctx.drawImage(img, (w - img.naturalWidth * s) / 2, (h - img.naturalHeight * s) / 2, img.naturalWidth * s, img.naturalHeight * s);
@@ -146,7 +147,7 @@ function Field({ label, children, className = "" }: { label: string; children: R
     </div>
   );
 }
-function ImagePick({ label, value, onChange, w, h, type, aspect }: { label: string; value: string; onChange: (v: string) => void; w: number; h: number; type: "image/png" | "image/jpeg"; aspect: string }) {
+function ImagePick({ label, value, onChange, w, h, type, aspect, solid }: { label: string; value: string; onChange: (v: string) => void; w: number; h: number; type: "image/png" | "image/jpeg"; aspect: string; solid?: boolean }) {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <Field label={`${label} · ${w}×${h}`}>
@@ -156,7 +157,7 @@ function ImagePick({ label, value, onChange, w, h, type, aspect }: { label: stri
           <Upload className="size-3.5" /> {value ? "Byt bild" : "Välj bild"}
         </span>
       </button>
-      <input ref={ref} type="file" accept="image/*" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) onChange(await fitImage(f, w, h, type)); e.target.value = ""; }} />
+      <input ref={ref} type="file" accept="image/*" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) onChange(await fitImage(f, w, h, type, solid ?? type === "image/jpeg")); e.target.value = ""; }} />
     </Field>
   );
 }
@@ -323,7 +324,7 @@ export function RcsVideoGenerator() {
             <Field label="Description" className="sm:col-span-2"><Input value={form.description} onChange={set("description")} /></Field>
           </div>
           <div className="grid gap-4 sm:grid-cols-[140px_1fr]">
-            <ImagePick label="Logo" value={form.logo} w={224} h={224} type="image/png" aspect="aspect-square" onChange={(v) => setForm((f) => ({ ...f, logo: v }))} />
+            <ImagePick label="Logo" value={form.logo} w={224} h={224} type="image/png" aspect="aspect-square" solid onChange={(v) => setForm((f) => ({ ...f, logo: v }))} />
             <ImagePick label="Banner" value={form.banner} w={1440} h={448} type="image/jpeg" aspect="aspect-[1440/448] sm:aspect-auto sm:h-[140px]" onChange={(v) => setForm((f) => ({ ...f, banner: v }))} />
           </div>
           <div className="overflow-hidden rounded-xl border border-border">

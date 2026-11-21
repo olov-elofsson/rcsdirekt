@@ -37,7 +37,7 @@ export const RCSV_CSS = `
   .rcsv #me{position:absolute;left:320px;top:45px;width:27px;height:27px;border-radius:50%;color:#fff;font-size:13.5px;display:flex;align-items:center;justify-content:center}
   .rcsv .row{position:absolute;left:0;width:360px;height:60px}
   .rcsv .row .av{position:absolute;left:16px;top:10px;width:40px;height:40px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
-  .rcsv .row img.av{border-radius:9px}
+  .rcsv .row img.av{border-radius:9px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
   .rcsv .row .n{position:absolute;left:69px;top:12px;font-size:15.4px}
   .rcsv .row .p{position:absolute;left:69px;top:32px;width:275px;font-size:13.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .rcsv .row .tm{position:absolute;right:16px;top:13px;font-size:12.5px;color:var(--muted)}
@@ -50,16 +50,21 @@ export const RCSV_CSS = `
   .rcsv #hdr{position:absolute;left:0;top:42px;width:360px;height:50px;background:#fff;z-index:5}
   .rcsv #hdr .back{position:absolute;left:12px;top:13px}
   .rcsv #hdr-name{position:absolute;left:44px;top:5px;height:40px;padding:0 8px 0 4px;border-radius:20px;display:flex;align-items:center}
-  .rcsv #hdr-name img{width:32px;height:32px;border-radius:8px;margin-right:9px}
+  /* Sender logos are rounded squares filled by the logo on a solid background (Google Messages since 2026). */
+  .rcsv #hdr-name img{width:32px;height:32px;border-radius:8px;margin-right:9px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
   .rcsv #hdr-name span{font-size:16.6px}
-  .rcsv #hdr .call{position:absolute;left:276px;top:13px}
   .rcsv #hdr .more{position:absolute;left:322px;top:13px}
   .rcsv #msgs{position:absolute;left:0;top:90px;width:360px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
   .rcsv #msgs .inner{display:flex;flex-direction:column;padding-bottom:0}
   .rcsv .it{overflow:hidden;flex:none}
+  /* Top of the thread: the sender's logo, name and description, above a divider. */
+  .rcsv .intro{text-align:center;padding:12px 40px 14px;border-bottom:1px solid var(--line);margin-bottom:2px}
+  .rcsv .intro img{display:block;width:64px;height:64px;margin:0 auto;border-radius:16px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
+  .rcsv .intro .n{margin-top:9px;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center}
+  .rcsv .intro .d{margin-top:3px;font-size:13px;line-height:18px;color:var(--muted)}
   .rcsv .date{text-align:center;font-size:12.5px;color:var(--muted);padding:14px 0 10px}
   .rcsv .inrow{position:relative;padding-left:47px;padding-right:13px;line-height:0}
-  .rcsv .inrow .avatar{position:absolute;left:12px;bottom:0;width:27px;height:27px;border-radius:7px}
+  .rcsv .inrow .avatar{position:absolute;left:12px;bottom:0;width:27px;height:27px;border-radius:7px;object-fit:cover;background:#fff;outline:1px solid rgba(0,0,0,.08);outline-offset:-1px}
   .rcsv .bubble{display:inline-block;vertical-align:top;max-width:248px;padding:8px 14px;border-radius:19px;font-size:15px;line-height:20.57px;background:var(--in);word-wrap:break-word}
   .rcsv .grp-mid .bubble{border-bottom-left-radius:5px}
   .rcsv .grp-next .bubble{border-top-left-radius:5px}
@@ -79,14 +84,15 @@ export const RCSV_CSS = `
   .rcsv .chip.pressed{background:#d3e3fd}
 
   .rcsv #composer{position:absolute;left:0;width:360px;height:60px}
-  .rcsv #composer .plus{position:absolute;left:14px;top:18px}
-  .rcsv #composer-input{position:absolute;left:50px;top:10px;width:253px;height:40px;border-radius:20px;background:var(--pill)}
-  .rcsv #composer-input .emoji{position:absolute;left:12px;top:9px}
-  .rcsv #composer-input .ph{position:absolute;left:44px;top:10.5px;font-size:14.6px;color:var(--muted);white-space:nowrap}
-  .rcsv #composer-input .tx{position:absolute;left:12px;top:10.5px;font-size:14.6px;color:var(--text);white-space:nowrap}
-  .rcsv #composer-input .gal{position:absolute;left:220px;top:9px}
+  /* Plus, emoji and image sit inside the pill; the voice/send button is a separate circle. */
+  .rcsv #composer-input{position:absolute;left:8px;top:8px;width:292px;height:44px;border-radius:22px;background:var(--pill)}
+  .rcsv #composer-input .plus{position:absolute;left:10px;top:10px}
+  .rcsv #composer-input .ph{position:absolute;left:46px;top:12.5px;font-size:14.6px;color:var(--muted);white-space:nowrap}
+  .rcsv #composer-input .tx{position:absolute;left:46px;top:12.5px;max-width:168px;overflow:hidden;font-size:14.6px;color:var(--text);white-space:nowrap}
+  .rcsv #composer-input .emoji{position:absolute;left:220px;top:11px}
+  .rcsv #composer-input .gal{position:absolute;left:256px;top:11px}
   .rcsv .caret{display:inline-block;width:1.6px;height:19px;background:var(--blue);vertical-align:-3px;margin:0 .5px}
-  .rcsv #send-btn{position:absolute;left:310px;top:10px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .rcsv #send-btn{position:absolute;left:308px;top:8px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 
   /* keyboard */
   .rcsv #kb{position:absolute;left:0;width:360px;height:260px;background:var(--kb)}
@@ -550,17 +556,17 @@ export function createRenderer(host, P) {
     const msgsH = compTop - 90 + 8;
     let h = `<div id="hdr"><div class="back">${icon('back', 24)}</div>
       <div id="hdr-name"><img src="${S.logo}"><span>${esc(S.displayName)}</span>${verifiedBadge(16)}</div>
-      <div class="call">${icon('call', 24)}</div><div class="more">${icon('more', 24)}</div></div>`;
+      <div class="more">${icon('more', 24)}</div></div>`;
     h += `<div id="msgs" style="height:${msgsH}px"><div class="inner">${buildMessages(t)}</div></div>`;
     const hasText = ty.text.length > 0;
-    let inner = `<div class="emoji">${hasText ? '' : icon('emoji', 22, '#444746')}</div>`;
-    if (hasText) inner = `<div class="tx">${esc(ty.text).replace(/ /g, '&nbsp;')}<span class="caret"></span></div>`;
-    else inner += `<div class="ph" style="${ty.focused ? 'left:43px' : ''}">${ty.focused ? '<span class="caret" style="margin-left:-1px"></span>' : ''}RCS-meddelande</div>`;
+    let inner = `<div class="plus">${icon('plus', 24, '#444746')}</div><div class="emoji">${hasText ? '' : icon('emoji', 22, '#444746')}</div>`;
+    if (hasText) inner = `<div class="plus">${icon('plus', 24, '#444746')}</div><div class="tx">${esc(ty.text).replace(/ /g, '&nbsp;')}<span class="caret"></span></div>`;
+    else inner += `<div class="ph" style="${ty.focused ? 'left:45px' : ''}">${ty.focused ? '<span class="caret" style="margin-left:-1px"></span>' : ''}RCS-meddelande</div>`;
     inner += `<div class="gal">${icon('image', 22, '#444746')}</div>`;
     const btn = hasText || sendTapAt(t)
       ? `<div id="send-btn" style="background:#0a56cf">${icon('send', 20, '#ffffff')}</div>`
       : `<div id="send-btn" style="background:#d1e1fc">${icon('mic', 22, '#0b57d0')}</div>`;
-    h += `<div id="composer" style="top:${compTop}px"><div class="plus">${icon('plus', 24, '#1f1f1f')}</div><div id="composer-input">${inner}</div>${btn}</div>`;
+    h += `<div id="composer" style="top:${compTop}px"><div id="composer-input">${inner}</div>${btn}</div>`;
     if (ty.kbP > 0) h += `<div id="kb" style="top:${380 + 260 * (1 - ty.kbP)}px">${buildKeyboard(ty)}</div>`;
     return h;
   }

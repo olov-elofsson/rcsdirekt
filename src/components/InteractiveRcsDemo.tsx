@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-import symbolUrl from "../../brand/SVG/symbol.svg";
+import senderLogo from "../../brand/SVG/rcs-avsandare.svg";
 import { FormDialog } from "@/components/FormDialog";
 import { LeadForm } from "@/components/LeadForm";
-import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing, VerifiedMark } from "@/components/RcsPhone";
+import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, ThreadIntro, Timestamp, Typing } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { demoFeatures, replyContent, replyOptions, richCards, type DemoFeatureId, type ReplyOption } from "@/data/rcs-demo";
 import { cn } from "@/lib/utils";
@@ -156,11 +156,9 @@ export function InteractiveRcsDemo() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[332px] min-[1000px]:w-[322px]">
-          <RcsPhone sender="RCS Direkt" logo={symbolUrl} messagesRef={messagesRef}>
-            <FeatureTarget id={1} active={active} onActive={setActive} onOpen={setActive} style={{ margin: "6px 70px 4px", padding: "8px 0", textAlign: "center" }} markerClassName="-right-3 top-0">
-              <img src={symbolUrl} alt="" style={{ width: 56, height: 56, borderRadius: 14, margin: "0 auto", display: "block", background: "#fff", border: "1px solid #e1e1e1", padding: 8 }} />
-              <div style={{ marginTop: 8, fontSize: 16, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", gap: 1 }}>RCS Direkt<VerifiedMark /></div>
-              <div style={{ marginTop: 2, fontSize: 12.5, color: "#444746" }}>Verifierat företag</div>
+          <RcsPhone sender="RCS Direkt" logo={senderLogo} messagesRef={messagesRef}>
+            <FeatureTarget id={1} active={active} onActive={setActive} onOpen={setActive} style={{ borderRadius: 0 }} markerClassName="right-8 top-1">
+              <ThreadIntro logo={senderLogo} sender="RCS Direkt" description="Skicka RCS direkt från webben eller via API." />
             </FeatureTarget>
             <DateLabel>I dag</DateLabel>
 
@@ -168,7 +166,7 @@ export function InteractiveRcsDemo() {
               <OutgoingBubble status="Läst · 13:16">Hej! Vad är skillnaden mot ett vanligt sms?</OutgoingBubble>
             </FeatureTarget>
 
-            <IncomingRow logo={symbolUrl}>
+            <IncomingRow logo={senderLogo}>
               <Bubble>RCS hamnar direkt i kundens vanliga meddelandeapp, med bilder, flera produkter att svepa mellan och knappar för att köpa, boka eller svara. Ingen app att ladda ner.</Bubble>
             </IncomingRow>
             <Timestamp>13:16</Timestamp>

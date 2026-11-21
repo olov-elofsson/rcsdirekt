@@ -86,7 +86,6 @@ export function RcsPhone({
                   <span>{sender}</span>
                   <VerifiedMark />
                 </div>
-                <div className="call"><PhoneIcon name="call" /></div>
                 <div className="more"><PhoneIcon name="more" /></div>
               </div>
               <div
@@ -98,10 +97,10 @@ export function RcsPhone({
                 {children}
               </div>
               <div id="composer" style={{ top: COMPOSER_TOP }}>
-                <div className="plus"><PhoneIcon name="plus" /></div>
                 <div id="composer-input">
-                  <div className="emoji"><PhoneIcon name="emoji" size={22} color="#444746" /></div>
+                  <div className="plus"><PhoneIcon name="plus" color="#444746" /></div>
                   <div className="ph">RCS-meddelande</div>
+                  <div className="emoji"><PhoneIcon name="emoji" size={22} color="#444746" /></div>
                   <div className="gal"><PhoneIcon name="image" size={22} color="#444746" /></div>
                 </div>
                 <div id="send-btn" style={{ background: "#d1e1fc" }}><PhoneIcon name="mic" size={22} color="#0b57d0" /></div>
@@ -116,6 +115,17 @@ export function RcsPhone({
 }
 
 /* Message building blocks, in the screen's own pixels. */
+
+/** Top of the thread: the sender's logo, name with the verified badge, and description. */
+export function ThreadIntro({ logo, sender, description }: { logo: string; sender: string; description: string }) {
+  return (
+    <div className="intro">
+      <img src={logo} alt="" />
+      <div className="n">{sender}<VerifiedMark /></div>
+      <div className="d">{description}</div>
+    </div>
+  );
+}
 
 export function DateLabel({ children }: { children: ReactNode }) {
   return <div className="date">{children}</div>;

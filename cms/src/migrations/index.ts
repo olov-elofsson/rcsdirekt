@@ -5,6 +5,7 @@ import * as migration_20261121_165053_inquiries from './20261121_165053_inquirie
 import * as migration_20261121_171500_prices_50 from './20261121_171500_prices_50';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
 import * as migration_20261121_193000_first_webinar from './20261121_193000_first_webinar';
+import * as migration_20261121_194000_logo_shape_article from './20261121_194000_logo_shape_article';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20261121_193000_first_webinar.up,
     down: migration_20261121_193000_first_webinar.down,
     name: '20261121_193000_first_webinar',
+  },
+  {
+    up: migration_20261121_194000_logo_shape_article.up,
+    down: migration_20261121_194000_logo_shape_article.down,
+    name: '20261121_194000_logo_shape_article',
   },
 ];

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 224" width="224" height="224">
+  <!-- Avsändarlogotyp för RCS: kvadratisk, solid vit bakgrund, symbolen med luft runt. Google Messages rundar hörnen själv. -->
+  <rect width="224" height="224" fill="#ffffff"/>
+  <svg x="46.00" y="50.60" width="132" height="122.79" viewBox="0 0 86 80"><mask id="m" maskUnits="userSpaceOnUse"><rect x="-5" y="-5" width="96" height="90" fill="#fff"></rect><path d="M-4 84V47A37 37 0 0 1 33 10A37 37 0 0 1 70 47A37 37 0 0 1 33 84Z" fill="#000"></path></mask><path mask="url(#m)" fill="#2f7bff" d="M86 44H64A22 22 0 0 1 42 22A22 22 0 0 1 64 0A22 22 0 0 1 86 22Z"></path><path fill="#15115f" d="M0 80V47A33 33 0 0 1 33 14A33 33 0 0 1 66 47A33 33 0 0 1 33 80Z"></path></svg>
+</svg>
