@@ -195,7 +195,6 @@
 }
 .home-refined main > section:not(#top) { padding-block: 4rem; }
 .home-refined main > section > svg { height: 2rem; display: block; }
-.home-refined > footer > svg path { fill: var(--primary-soft); }
 .home-refined main > section:not(#sa-fungerar) h2,
 .home-refined main > section:not(#sa-fungerar) h3 { text-wrap: balance; letter-spacing: 0; }
 .home-refined main > section:not(#sa-fungerar) h2 + p { max-width: 60ch; }

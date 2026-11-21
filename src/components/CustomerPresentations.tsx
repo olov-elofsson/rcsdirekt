@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import symbolUrl from "../../brand/SVG/symbol.svg";
 import { ArrowRight } from "lucide-react";
+import { Wave } from "@/components/BandWave";
 import { Button } from "@/components/ui/button";
 import { content } from "@/content";
 
@@ -9,15 +10,16 @@ const customerCases = content.kundcase;
 
 export function CustomerPresentations() {
   return (
-    <section aria-labelledby="customer-presentations-title" className="bg-background">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="kundcase" aria-labelledby="customer-presentations-title" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
+      <Wave flip fill="var(--color-background)" />
+      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <h2
           id="customer-presentations-title"
           className="text-center text-[2.1rem] font-extrabold leading-tight sm:text-[2.65rem]"
         >
           {content.startsida.kundcaseHeading}
         </h2>
-        <div className="mt-8 grid auto-rows-fr gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid auto-rows-fr gap-5 sm:grid-cols-2">
           {customerCases.map((item) => (
             <article
               key={item.name}
