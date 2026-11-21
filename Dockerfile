@@ -7,6 +7,10 @@ COPY package.json bun.lock bunfig.toml ./
 RUN sed -i 's#https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/#https://registry.npmjs.org/#g' bun.lock \
  && bun install --frozen-lockfile
 COPY . .
+# Latest content from Payload CMS. This runs in the build stage, which Cloud Build never
+# caches, so every build (including the ones the CMS starts after an edit) fetches fresh content.
+ARG CMS_URL=https://cms.rcsdirekt.se
+RUN CMS_URL=$CMS_URL bun scripts/fetch-content.ts
 ENV NITRO_PRESET=node-server
 RUN bun run build
 

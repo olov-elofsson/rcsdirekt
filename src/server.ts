@@ -51,22 +51,52 @@ const HOSTED_ASSET_TYPES: Record<string, string> = {
   svg: "image/svg+xml",
   png: "image/png",
   jpg: "image/jpeg",
+  jpeg: "image/jpeg",
   webp: "image/webp",
+  gif: "image/gif",
 };
+
+// Images uploaded in Payload CMS are stored in the same bucket under cms-media/.
+const CMS_MEDIA_PREFIX = "/media/";
+
+function bucketKey(pathname: string): string | null | undefined {
+  if (pathname.startsWith(HOSTED_ASSET_PREFIX)) {
+    const key = pathname.slice(HOSTED_ASSET_PREFIX.length);
+    return /^[0-9a-f-]{36}\/[\w.-]+$/.test(key) ? `assets/${key}` : null;
+  }
+  if (pathname.startsWith(CMS_MEDIA_PREFIX)) {
+    let name: string;
+    try {
+      name = decodeURIComponent(pathname.slice(CMS_MEDIA_PREFIX.length));
+    } catch {
+      return null;
+    }
+    return name && !name.includes("/") && !name.startsWith(".") ? `cms-media/${name}` : null;
+  }
+  return undefined;
+}
 
 async function hostedAsset(request: Request): Promise<Response | undefined> {
   const { pathname } = new URL(request.url);
-  if (!pathname.startsWith(HOSTED_ASSET_PREFIX)) return undefined;
-  const key = pathname.slice(HOSTED_ASSET_PREFIX.length);
-  if (!/^[0-9a-f-]{36}\/[\w.-]+$/.test(key)) return new Response("Not found", { status: 404 });
+  const objectKey = bucketKey(pathname);
+  if (objectKey === undefined) return undefined;
+  if (objectKey === null) return new Response("Not found", { status: 404 });
+  const key = objectKey;
   const { gcpVideoBucket, fetchVideo } = await import("./lib/rcs-video/gcp.server");
   const bucket = gcpVideoBucket();
   if (!bucket) return undefined;
-  const stored = await fetchVideo(bucket, `assets/${key}`, null).catch(() => undefined);
+  const stored = await fetchVideo(bucket, key, null).catch(() => undefined);
   if (!stored || stored.status !== 200) return new Response("Not found", { status: 404 });
-  const type = HOSTED_ASSET_TYPES[key.split(".").pop() ?? ""] ?? "application/octet-stream";
+  const type = HOSTED_ASSET_TYPES[key.split(".").pop()?.toLowerCase() ?? ""];
+  if (!type) return new Response("Not found", { status: 404 });
   return new Response(stored.body, {
-    headers: { "content-type": type, "cache-control": "public, max-age=86400" },
+    headers: {
+      "content-type": type,
+      "cache-control": "public, max-age=86400",
+      "x-content-type-options": "nosniff",
+      // Uploaded SVGs are shown as images only; scripts inside them never run.
+      "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+    },
   });
 }
 
