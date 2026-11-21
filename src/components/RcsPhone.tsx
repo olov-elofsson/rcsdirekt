@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 
 import { icon, RCSV_CSS, statusIcons, verifiedBadge } from "@/lib/rcs-video/engine";
 import { PHONE_FONT_FILES } from "@/lib/rcs-phone/fonts";
@@ -56,6 +56,7 @@ export function RcsPhone({
   maxScale = 0.86,
   messagesRef,
   introWrap = (intro) => intro,
+  profile,
   children,
 }: {
   sender: string;
@@ -68,6 +69,8 @@ export function RcsPhone({
   messagesRef?: RefObject<HTMLDivElement | null>;
   /** Wraps the thread intro, for example in an explanation marker. */
   introWrap?: (intro: ReactNode) => ReactNode;
+  /** The business profile that opens from the sender's name or logo, as in Google Messages. */
+  profile?: SenderProfile;
   children: ReactNode;
 }) {
   const [fitRef, scale] = useFitScale(maxScale);
@@ -78,6 +81,17 @@ export function RcsPhone({
   const onScroll = () => {
     if (description) setCompact((listRef.current?.scrollTop ?? 0) > 96);
   };
+  const [profileOpen, setProfileOpen] = useState(false);
+  const openProfile = profile ? () => setProfileOpen(true) : undefined;
+  // The sender's name and logo open the profile; without a profile they are plain text.
+  const senderButton = (content: ReactNode, style?: CSSProperties) =>
+    openProfile ? (
+      <button type="button" className="rcsv-tap" onClick={openProfile} aria-label={`Visa företagsprofilen för ${sender}`} style={style}>
+        {content}
+      </button>
+    ) : (
+      content
+    );
   return (
     <div ref={fitRef} className="mx-auto w-full" style={{ maxWidth: SCREEN_W * maxScale + FRAME * 2 }}>
       <style href="rcs-phone" precedence="default">{FONT_CSS + RCSV_CSS}</style>
@@ -94,10 +108,15 @@ export function RcsPhone({
             <div className="layer" id="conv">
               <div id="hdr">
                 <div className="back"><PhoneIcon name="back" /></div>
-                <div id="hdr-name" style={{ opacity: compact ? 1 : 0, transition: "opacity 160ms ease-out" }} aria-hidden={!compact}>
-                  <img src={logo} alt="" />
-                  <span>{sender}</span>
-                  <VerifiedMark size={18} />
+                <div id="hdr-name" style={{ opacity: compact ? 1 : 0, transition: "opacity 160ms ease-out", pointerEvents: compact ? "auto" : "none" }} aria-hidden={!compact}>
+                  {senderButton(
+                    <>
+                      <img src={logo} alt="" />
+                      <span>{sender}</span>
+                      <VerifiedMark size={18} />
+                    </>,
+                    { display: "flex", alignItems: "center", height: 40, padding: "0 8px 0 4px", margin: "0 -8px 0 -4px", borderRadius: 20 },
+                  )}
                 </div>
                 <div className="more"><PhoneIcon name="more" /></div>
               </div>
@@ -111,8 +130,13 @@ export function RcsPhone({
                 {description
                   ? introWrap(
                       <div className="intro">
-                        <img src={logo} alt="" />
-                        <div className="n">{sender}<VerifiedMark size={18} /></div>
+                        {senderButton(
+                          <>
+                            <img src={logo} alt="" />
+                            <div className="n">{sender}<VerifiedMark size={18} /></div>
+                          </>,
+                          { display: "block", width: "100%", borderRadius: 20, padding: "4px 0" },
+                        )}
                         <div className="d">{description}</div>
                       </div>,
                     )
@@ -129,10 +153,54 @@ export function RcsPhone({
                 <div id="send-btn" style={{ background: "var(--voice)" }}><PhoneIcon name="voice" size={24} color="#0f5223" /></div>
               </div>
             </div>
+            {profile ? <ProfileLayer open={profileOpen} onClose={() => setProfileOpen(false)} sender={sender} logo={logo} description={description} profile={profile} /> : null}
             <div id="navpill" />
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export type SenderProfile = {
+  /** Banner image, 1440 × 448 px, shown at the top of the profile. */
+  banner: string;
+  /** Contact rows; each also gets a round button under the description. */
+  contacts: { icon: string; value: string; label: string; href: string }[];
+};
+
+/** The business profile, in the same positions as the video's (`#prof` in RCSV_CSS). */
+function ProfileLayer({ open, onClose, sender, logo, description, profile }: { open: boolean; onClose: () => void; sender: string; logo: string; description?: string | undefined; profile: SenderProfile }) {
+  const n = profile.contacts.length;
+  const external = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {});
+  return (
+    <div
+      className="layer"
+      id="prof"
+      aria-hidden={!open}
+      inert={!open}
+      style={{ zIndex: 20, transform: open ? "translateX(0)" : "translateX(100%)", transition: "transform 280ms cubic-bezier(0.23, 1, 0.32, 1)", visibility: open ? "visible" : "hidden", transitionProperty: "transform, visibility" }}
+    >
+      <button type="button" className="rcsv-tap back" onClick={onClose} aria-label="Tillbaka till konversationen" style={{ position: "absolute", left: 10, top: 43, width: 32, height: 32, borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <PhoneIcon name="back" />
+      </button>
+      <div className="more"><PhoneIcon name="more" /></div>
+      <img className="banner" src={profile.banner} alt="" />
+      <img className="logo" src={logo} alt="" />
+      <div className="name" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>{sender}<VerifiedMark size={19} /></div>
+      {description ? <div className="desc">{description}</div> : null}
+      {profile.contacts.map((contact, index) => (
+        <a key={contact.href} className="act rcsv-tap" href={contact.href} {...external(contact.href)} aria-label={contact.label} style={{ left: 180 - 24 + (index - (n - 1) / 2) * 80 }}>
+          <PhoneIcon name={contact.icon} size={22} color="#0b57d0" />
+        </a>
+      ))}
+      {profile.contacts.map((contact, index) => (
+        <a key={`row-${contact.href}`} className={`crow rcsv-tap${index === 0 ? " first" : ""}${index === n - 1 ? " last" : ""}`} href={contact.href} {...external(contact.href)} style={{ top: 386 + index * 61, color: "inherit", textDecoration: "none" }}>
+          <span dangerouslySetInnerHTML={{ __html: icon(contact.icon, 22, "#1f1f1f") }} />
+          <div className="v">{contact.value}</div>
+          <div className="l">{contact.label}</div>
+        </a>
+      ))}
     </div>
   );
 }

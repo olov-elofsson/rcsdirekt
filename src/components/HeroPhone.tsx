@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
-import senderLogo from "../../brand/SVG/rcs-avsandare.svg";
 import cardImage from "@/assets/rcs-kort-webinar.svg";
 import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, Timestamp, Typing } from "@/components/RcsPhone";
 import { useNextWebinar, when } from "@/lib/webinar";
+import { rcsDirektSender } from "@/data/rcs-sender";
 
 type Action = { label: string; icon?: string; to: string; hash?: string };
 
@@ -62,7 +62,7 @@ export function HeroPhone() {
 
   return (
     <div role="group" aria-label="Exempel på ett RCS-meddelande i Google Messages">
-      <RcsPhone sender="RCS Direkt" logo={senderLogo} description="Skicka RCS direkt från webben eller via API." maxScale={0.82} messagesRef={listRef}>
+      <RcsPhone {...rcsDirektSender} maxScale={0.82} messagesRef={listRef}>
         <DateLabel>I dag</DateLabel>
         {step === 1 ? (
           <div style={{ paddingLeft: 12 }}>

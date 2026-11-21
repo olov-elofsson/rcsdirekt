@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-import senderLogo from "../../brand/SVG/rcs-avsandare.svg";
+import { rcsDirektSender } from "@/data/rcs-sender";
 import { FormDialog } from "@/components/FormDialog";
 import { LeadForm } from "@/components/LeadForm";
 import { Bubble, DateLabel, IncomingRow, OutgoingBubble, PhoneIcon, RcsPhone, Timestamp, Typing } from "@/components/RcsPhone";
@@ -166,9 +166,7 @@ export function InteractiveRcsDemo() {
 
         <div className="relative mx-auto w-full max-w-[332px] min-[1000px]:w-[322px]">
           <RcsPhone
-            sender="RCS Direkt"
-            logo={senderLogo}
-            description="Skicka RCS direkt från webben eller via API."
+            {...rcsDirektSender}
             messagesRef={messagesRef}
             introWrap={(intro) => (
               <FeatureTarget id={1} active={active} onActive={setActive} onOpen={setActive} style={{ borderRadius: 24 }} markerClassName="right-10 top-0">

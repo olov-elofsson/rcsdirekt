@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 448" width="1440" height="448">
+  <!-- Banner för RCS-avsändarens profil i Google Messages (1440 × 448 px). Logotypen ligger över mitten, så den är tom. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15115f"/>
+      <stop offset="1" stop-color="#2a2391"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="448" fill="url(#g)"/>
+  <circle cx="1290" cy="40" r="300" fill="#2f7bff" opacity=".22"/>
+  <circle cx="120" cy="470" r="320" fill="#efeefc" opacity=".07"/>
+  <!-- message bubbles drifting at the sides -->
+  <rect x="120" y="120" width="300" height="72" rx="36" fill="#2f7bff"/>
+  <rect x="160" y="148" width="200" height="16" rx="8" fill="#ffffff"/>
+  <rect x="210" y="220" width="220" height="64" rx="32" fill="#efeefc" opacity=".9"/>
+  <rect x="244" y="244" width="140" height="16" rx="8" fill="#15115f" opacity=".55"/>
+  <rect x="1010" y="160" width="290" height="72" rx="36" fill="#ffffff"/>
+  <rect x="1046" y="188" width="190" height="16" rx="8" fill="#15115f" opacity=".6"/>
+  <rect x="1060" y="258" width="200" height="56" rx="28" fill="#2f7bff" opacity=".85"/>
+  <rect x="1092" y="278" width="120" height="14" rx="7" fill="#ffffff"/>
+</svg>

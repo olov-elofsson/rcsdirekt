@@ -104,6 +104,12 @@ export const RCSV_CSS = `
   .rcsv button.cbtn:active,.rcsv button.chip:active{background:#e3e8ef}
   .rcsv button.cbtn:focus-visible,.rcsv button.chip:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
   .rcsv .card .cimg{display:grid;place-items:center;background:#d3e3fd}
+  /* website phone: tappable sender name, logo and profile controls, styled as the screen itself */
+  .rcsv .rcsv-tap{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit;-webkit-tap-highlight-color:transparent;transition:background-color 120ms ease-out}
+  .rcsv .rcsv-tap:active{background-color:rgba(31,31,31,.08)}
+  .rcsv .rcsv-tap:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .rcsv #prof a.act:active{background:#e3e8ef}
+  .rcsv #prof a.crow:active{background:#f6f8fb}
 
   /* Composer on the white sheet: plus, emoji and image inside the pill; a round voice/send button. */
   .rcsv #composer{position:absolute;left:0;width:360px;height:60px;background:var(--bg)}
