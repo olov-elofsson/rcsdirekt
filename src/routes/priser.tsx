@@ -135,7 +135,7 @@ function PricingPage() {
                   ))}
                 </div>
               ))}
-              <p className="text-center text-xs text-muted-foreground">{page.vatNote}</p>
+              <p className="text-center text-xs leading-relaxed text-muted-foreground">Priserna ovan är listpriser. Ert pris beror på volym. {page.vatNote}</p>
             </div>
 
           </div>
