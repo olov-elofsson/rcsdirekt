@@ -7,8 +7,6 @@ const zone = "Europe/Stockholm";
 const dayFormat = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, weekday: "long", day: "numeric", month: "long", year: "numeric" });
 const shortDayFormat = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, weekday: "short", day: "numeric", month: "short" });
 const timeFormat = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, hour: "2-digit", minute: "2-digit" });
-export const dayNumber = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, day: "numeric" });
-export const monthShort = new Intl.DateTimeFormat("sv-SE", { timeZone: zone, month: "short" });
 
 export const endsAt = (webinar: Webinar) => Date.parse(webinar.startsAt) + webinar.durationMinutes * 60_000;
 

@@ -1,9 +1,11 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
-import { shortWhen, useNextWebinar } from "@/lib/webinar";
+import { FormDialog } from "@/components/FormDialog";
+import { LeadForm } from "@/components/LeadForm";
+import { shortWhen, useNextWebinar, when } from "@/lib/webinar";
 import { cn } from "@/lib/utils";
 
 const navLinkBase =
@@ -21,11 +23,16 @@ const headerLinks = [
   { label: "Priser", to: "/priser" },
 ] as const;
 
-/** Notice about the next webinar, above the header on every page. Scrolls away; the header stays. */
+/**
+ * Notice about the next webinar, above the header on every page. Scrolls away; the header stays.
+ * "Anmäl dig" opens the sign-up form, or the webinar's own sign-up page when it has one.
+ */
 function WebinarBar() {
   const webinar = useNextWebinar();
   const key = webinar ? `webinar-notice-closed:${webinar.startsAt}` : "";
   const [closed, setClosed] = useState(false);
+  const [signingUp, setSigningUp] = useState(false);
+  const closeDialog = useCallback(() => setSigningUp(false), []);
   useEffect(() => {
     try {
       setClosed(Boolean(key) && window.localStorage.getItem(key) === "1");
@@ -42,18 +49,27 @@ function WebinarBar() {
       // Ignore: closing still works for this page view.
     }
   };
+  const { day, time } = when(webinar);
+  const label = (
+    <>
+      <CalendarDays aria-hidden className="size-4 shrink-0 opacity-80" />
+      <span className="truncate">
+        <span className="font-semibold">Webinar {shortWhen(webinar)}:</span> {webinar.title}
+      </span>
+      <span className="hidden shrink-0 items-center gap-1 font-semibold underline-offset-4 group-hover:underline sm:inline-flex">
+        Anmäl dig <ArrowRight aria-hidden className="size-3.5" />
+      </span>
+    </>
+  );
+  const linkClass = "group flex min-w-0 cursor-pointer items-center gap-2 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/70";
   return (
     <div className="relative bg-primary text-primary-foreground">
       <div className="mx-auto flex h-10 max-w-7xl items-center justify-center gap-2 px-12 text-[13px] sm:text-sm">
-        <Link to="/" hash="webinar" className="group flex min-w-0 items-center gap-2 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/70">
-          <CalendarDays aria-hidden className="size-4 shrink-0 opacity-80" />
-          <span className="truncate">
-            <span className="font-semibold">Webinar {shortWhen(webinar)}:</span> {webinar.title}
-          </span>
-          <span className="hidden shrink-0 items-center gap-1 font-semibold underline-offset-4 group-hover:underline sm:inline-flex">
-            Anmäl dig <ArrowRight aria-hidden className="size-3.5" />
-          </span>
-        </Link>
+        {webinar.registrationUrl ? (
+          <a href={webinar.registrationUrl} target="_blank" rel="noreferrer" className={linkClass}>{label}</a>
+        ) : (
+          <button type="button" onClick={() => setSigningUp(true)} className={linkClass}>{label}</button>
+        )}
       </div>
       <button
         type="button"
@@ -63,6 +79,11 @@ function WebinarBar() {
       >
         <X aria-hidden className="size-4" />
       </button>
+      {signingUp ? (
+        <FormDialog title={webinar.title} description={<p>{day}, {time}. {webinar.description} Vi skickar länken till din e-post.</p>} onClose={closeDialog}>
+          <LeadForm mode="webinar" webinar={`${webinar.title}, ${day} ${time}`} compact />
+        </FormDialog>
+      ) : null}
     </div>
   );
 }

@@ -10,8 +10,6 @@ import { pricingPlans } from "@/data/pricing-plans";
 import { articles } from "@/data/rcs-knowledge";
 import { cn } from "@/lib/utils";
 import { Wave } from "@/components/BandWave";
-import { UpcomingWebinar } from "@/components/UpcomingWebinar";
-import { HeroPhone } from "@/components/HeroPhone";
 import { HeroGraphic } from "@/components/HeroGraphic";
 import { PhotoScenarios } from "@/components/PhotoScenarios";
 import { useReveal } from "@/hooks/use-reveal";
@@ -61,7 +59,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main><HeroFirst /><UpcomingWebinar /><PhotoScenarios /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main><HeroFirst /><PhotoScenarios /><Advantages /><Comparison /><WhatIsRcs /><Pricing /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 const sectionTitle = "text-[2.1rem] font-extrabold leading-tight tracking-normal sm:text-[2.65rem]";
@@ -112,8 +110,8 @@ const lowestPrice = pricingPlans[0]?.price;
 // Named operators only; "Övriga operatörer" (MVNOs) is a price row, not a network to name.
 const operators = content.priser.operators.filter((name) => !name.startsWith("Övriga"));
 
-/** Headline beside a phone where a real RCS message arrives (HeroPhone). */
+/** A clean, centred hero: headline, one line on what it is, two actions and the list price. */
 function HeroFirst() {
-  return <section id="top" className="bg-background"><div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-8"><div className="text-center lg:text-left"><h1 className="text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-[3.5rem]">{home.hero.title}<br />{home.hero.highlight}</h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl lg:mx-0">{home.hero.description}</p><div className="mt-8 flex justify-center lg:justify-start"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mt-6 text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div><div className="relative isolate overflow-hidden rounded-[28px] px-10 py-10 sm:px-16 sm:py-12"><HeroGraphic /><div className="relative mx-auto w-full max-w-[290px] sm:max-w-[300px]"><HeroPhone /></div></div></div></section>;
+  return <section id="top" className="relative overflow-hidden bg-background"><HeroGraphic /><div className="relative mx-auto max-w-5xl px-5 py-20 text-center sm:py-28 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.6rem] font-extrabold leading-[1.05] sm:text-6xl lg:text-[4.25rem]">{home.hero.title}<br />{home.hero.highlight}</h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div></section>;
 }
 function ContactSection() { return <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24"><Wave flip fill="var(--color-primary-soft)" /><div className="relative mx-auto max-w-3xl px-5 text-center lg:px-8"><h2 className={sectionTitle}>{home.kontakt.heading}</h2><p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">{home.kontakt.intro}</p><div data-reveal className="mt-12 text-left"><LeadForm mode="contact" /></div></div></section>; }
