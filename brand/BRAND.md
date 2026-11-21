@@ -23,7 +23,7 @@ Använd SVG på webben och i dokument. `PNG/` har transparenta versioner för ve
 
 | Fil | Var den används |
 | --- | --- |
-| `favicon.svg`, `favicon-16.png`, `favicon-32.png` | Webbläsarfliken (`public/`) |
+| `favicon.svg`, `favicon-16.png`, `favicon-32.png` | Webbläsarfliken (`public/`): bara symbolen, på genomskinlig bakgrund |
 | `icon-180.png` | Apple touch icon (`public/apple-touch-icon.png`) |
 | `icon-192.png`, `icon-512.png` | Webbmanifest (`public/site.webmanifest`) |
 | `app-ikon.svg` | Originalet till appikonen |

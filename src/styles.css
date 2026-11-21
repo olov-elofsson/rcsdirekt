@@ -209,3 +209,18 @@
 /* The webinar card sits right under the hero, which already has its own space.
    Last in the file so it also wins over the larger padding from 640 px. */
 .home-refined main > section#webinar { padding-top: 0; }
+
+/* A message arriving in a phone: from slightly below and nearly full size, never from nothing. */
+@utility animate-message-in { animation: message-in 320ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+@keyframes message-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+/* Start page: sections below the fold fade up once as they come into view (see useReveal). */
+.home-refined.reveal-ready [data-reveal]:not([data-shown]) { opacity: 0; transform: translateY(18px); }
+.home-refined [data-reveal] {
+  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-order, 0) * 70ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-refined.reveal-ready [data-reveal]:not([data-shown]) { opacity: 1; transform: none; }
+  .home-refined [data-reveal] { transition: none; }
+}
