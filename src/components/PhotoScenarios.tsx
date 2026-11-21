@@ -3,19 +3,30 @@ import { RotateCcw } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
-import { scenarios, type Card, type Choice, type Picture, type Scenario, type Step } from "@/data/rcs-scenarios";
+import { scenarios, type Card, type Choice, type Art, type Scenario, type Step } from "@/data/rcs-scenarios";
 import { cn } from "@/lib/utils";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** A part of a photo, zoomed in on its point, inside a box that clips it. */
-function Crop({ picture, height, className }: { picture: Picture; height: number; className?: string }) {
-  const zoom = picture.zoom ?? 1;
+const tones: Record<Art["tone"], { ground: string; shape: string; icon: string }> = {
+  navy: { ground: "#15115f", shape: "#2a2391", icon: "#ffffff" },
+  blue: { ground: "#2f7bff", shape: "#5b97ff", icon: "#ffffff" },
+  lavender: { ground: "#efeefc", shape: "#ffffff", icon: "#15115f" },
+  sky: { ground: "#d3e3fd", shape: "#eef4ff", icon: "#0b57d0" },
+};
+
+/** A drawn picture for a message: a large icon on a brand-coloured ground with two soft shapes. */
+function ArtView({ art, height, className }: { art: Art; height: number; className?: string }) {
+  const tone = tones[art.tone];
   return (
-    <div className={className} style={{ height, overflow: "hidden" }}>
-      <img src={picture.src} alt="" loading="lazy" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: picture.position, transform: zoom === 1 ? undefined : `scale(${zoom})`, transformOrigin: picture.position }} />
+    <div className={className} style={{ position: "relative", height, overflow: "hidden", background: tone.ground, display: "grid", placeItems: "center" }}>
+      <div style={{ position: "absolute", width: height * 1.1, height: height * 1.1, borderRadius: "50%", background: tone.shape, right: -height * 0.35, top: -height * 0.45 }} />
+      <div style={{ position: "absolute", width: height * 0.5, height: height * 0.5, borderRadius: 14, background: tone.shape, left: -height * 0.12, bottom: -height * 0.18, transform: "rotate(18deg)" }} />
+      <div style={{ position: "relative" }}>
+        <PhoneIcon name={art.icon} size={Math.round(height * 0.42)} color={tone.icon} />
+      </div>
     </div>
   );
 }
@@ -93,7 +104,7 @@ function CardView({
 }) {
   return (
     <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
-      {card.image ? <Crop picture={card.image} height={narrow ? 128 : 150} /> : null}
+      {card.image ? <ArtView art={card.image} height={narrow ? 112 : 132} /> : null}
       <div className="ct">{card.title}</div>
       <div className="cb">{card.body}</div>
       <div className={cn("cbtns", active && "invite")}>
@@ -194,7 +205,7 @@ function ConversationView({
               >
                 {step.image ? (
                   <div className="inrow" style={{ marginBottom: step.text || step.card ? 6 : 0 }}>
-                    <Crop picture={step.image} height={160} className="photo" />
+                    <ArtView art={step.image} height={140} className="photo" />
                   </div>
                 ) : null}
                 {step.text ? (

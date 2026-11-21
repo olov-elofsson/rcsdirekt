@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Check, MapPin, X } from "lucide-react";
 
 import { Wave } from "@/components/BandWave";
-import { Drop, DropPair, dropColors } from "@/components/HeroGraphic";
 import { LeadForm } from "@/components/LeadForm";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { Badge } from "@/components/ui/badge";
@@ -177,12 +176,7 @@ export function WaysSection() {
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {[web, api].filter(Boolean).map((item, index) => (
             <div key={item!.title} data-reveal style={order(index)} className="relative flex flex-col gap-6 overflow-hidden rounded-2xl bg-primary-soft p-6 sm:p-8">
-              {index === 0 ? (
-                <DropPair size={64} gap={dropColors.lavender} className="absolute right-6 top-6" />
-              ) : (
-                <Drop size={56} corner="br" fill={dropColors.navy} glyph="dots" className="absolute right-6 top-6" />
-              )}
-              <div className="pr-20">
+              <div>
                 <h3 className="text-2xl font-extrabold">{item!.title}</h3>
                 <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{item!.copy}</p>
               </div>
@@ -289,7 +283,6 @@ export function BlogSection() {
         {first ? (
           <div className="mt-12 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
             <Link to="/blogg/$slug" params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
-              <Drop size={150} corner="bl" fill={dropColors.blue} glyph="dots" className="absolute -right-6 -top-6 transition-transform duration-500 ease-out group-hover:-translate-y-1" />
               <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
               <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
               <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
@@ -323,7 +316,6 @@ export function ContactSection() {
           <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
           <p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{home.kontakt.intro}</p>
           <div className="relative mt-8 overflow-hidden rounded-2xl bg-primary-soft p-6">
-            <DropPair size={46} gap={dropColors.lavender} className="absolute right-6 top-6" />
             <p className="font-display text-lg font-extrabold">RCS Direkt</p>
             <p className="mt-1 text-sm text-muted-foreground">En tjänst från WIGOSE AB</p>
             <p className="mt-4 flex items-start gap-2 text-sm"><MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-logo-blue" />Klostergatan 15, 703 39 Örebro</p>

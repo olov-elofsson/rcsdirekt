@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import { icon } from "@/lib/rcs-video/engine";
+
 /**
  * The site's illustration language, built from the logo symbol (brand/SVG/symbol.svg): a round
  * speech drop with one square corner, flat, in the brand kit's navy, blue, lavender or white.
@@ -62,18 +64,50 @@ export function DropPair({ size, front = navy, back = blue, gap = "#fff", classN
 
 export const dropColors = { navy, blue, lavender };
 
-/** The hero's frame: drops at the page's outer edges, on wide screens only. */
+/**
+ * A flat tile: a circle or a rounded square in a brand colour, with a Material icon from the
+ * phone's icon set (engine.ts) in the middle. Used beside the drops for variety.
+ */
+export function Tile({ size, shape = "circle", fill = blue, glyph, glyphColor = "#fff", turn = 0, className, style, float }: ShapeProps & { shape?: "circle" | "square"; fill?: string; glyph: string; glyphColor?: string; turn?: number }) {
+  const inner = icon(glyph, Math.round(size * 0.46), glyphColor);
+  return (
+    <div
+      aria-hidden="true"
+      className={[float !== undefined ? "hero-float" : "", className ?? ""].join(" ").trim() || undefined}
+      style={{ ...floatStyle(style, float), width: size, height: size }}
+    >
+      <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", background: fill, borderRadius: shape === "circle" ? "50%" : size * 0.28, transform: turn ? `rotate(${turn}deg)` : undefined }}>
+        <span style={{ display: "block", lineHeight: 0, transform: turn ? `rotate(${-turn}deg)` : undefined }} dangerouslySetInnerHTML={{ __html: inner }} />
+      </div>
+    </div>
+  );
+}
+
+/** A small message card: an image area, two lines and a button, flat. */
+export function MiniCard({ size, className, style, float }: ShapeProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 100 120" width={size} height={size * 1.2} className={[float !== undefined ? "hero-float" : "", className ?? ""].join(" ").trim() || undefined} style={floatStyle(style, float)}>
+      <rect width="100" height="120" rx="18" fill={lavender} />
+      <rect x="10" y="10" width="80" height="48" rx="10" fill={blue} />
+      <path d="M16 52l18-16 13 11 10-7 23 12" fill="none" stroke="#fff" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx="70" cy="24" r="6" fill="#fff" />
+      <rect x="12" y="68" width="56" height="7" rx="3.5" fill={navy} />
+      <rect x="12" y="81" width="38" height="7" rx="3.5" fill={navy} opacity=".35" />
+      <rect x="10" y="96" width="80" height="14" rx="7" fill="#fff" />
+    </svg>
+  );
+}
+
+/** The hero's frame: a mix of drops, tiles and a small card at the outer edges, wide screens only. */
 export function HeroGraphic() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-7xl -translate-x-1/2 lg:block">
-      <DropPair size={128} className="absolute" style={{ left: "3%", top: "12%" }} float={-2} />
-      <Drop size={104} corner="bl" fill={blue} glyph="dots" className="absolute" style={{ right: "3%", top: "13%" }} float={-5} />
-      <Drop size={52} corner="tr" fill={lavender} glyph="heart" glyphColor={navy} className="absolute" style={{ left: "14%", top: "52%" }} float={-6} />
-      <Drop size={66} corner="br" fill={navy} glyph="arrow" className="absolute" style={{ right: "14%", top: "47%" }} float={-3} />
-      <Drop size={112} corner="br" fill={lavender} glyph="dots" glyphColor={blue} className="absolute" style={{ left: "1%", bottom: "9%" }} float={-1} />
-      <DropPair size={70} front={blue} back={navy} className="absolute" style={{ right: "5%", bottom: "11%" }} float={-4} />
-      <Drop size={26} corner="tl" fill={blue} className="absolute" style={{ left: "13%", top: "36%" }} float={-7} />
-      <Drop size={22} corner="br" fill={navy} className="absolute" style={{ right: "9%", bottom: "36%" }} float={-2.5} />
+      <DropPair size={112} className="absolute" style={{ left: "3%", top: "13%" }} float={-2} />
+      <Tile size={58} shape="square" turn={-8} fill={lavender} glyph="event" glyphColor={navy} className="absolute" style={{ left: "14%", top: "54%" }} float={-6} />
+      <MiniCard size={96} className="absolute" style={{ left: "2%", bottom: "6%" }} float={-1} />
+      <Drop size={96} corner="bl" fill={blue} glyph="dots" className="absolute" style={{ right: "3%", top: "12%" }} float={-5} />
+      <Tile size={56} fill={navy} glyph="check" className="absolute" style={{ right: "14%", top: "50%" }} float={-3} />
+      <Tile size={64} shape="square" turn={10} fill={blue} glyph="star" className="absolute" style={{ right: "4%", bottom: "11%" }} float={-4} />
     </div>
   );
 }
