@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { pricingPlans } from "@/data/pricing-plans";
 import { cn } from "@/lib/utils";
 import { Wave } from "@/components/BandWave";
-import { HeroGraphic } from "@/components/HeroGraphic";
 import { PhotoScenarios } from "@/components/PhotoScenarios";
 import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomeSections";
 import { useReveal } from "@/hooks/use-reveal";
@@ -74,7 +73,7 @@ const lowestPrice = pricingPlans[0]?.price;
 // Named operators only; "Övriga operatörer" (MVNOs) is a price row, not a network to name.
 const operators = content.priser.operators.filter((name) => !name.startsWith("Övriga"));
 
-/** A clean, centred hero: headline, one line on what it is, two actions and the list price. */
+/** A plain, centred hero: headline, one line on what it is, two actions and the list price. No decoration. */
 function HeroFirst() {
-  return <section id="top" className="relative overflow-hidden bg-background"><HeroGraphic /><div className="relative mx-auto max-w-5xl px-5 py-20 text-center sm:py-28 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.6rem] font-extrabold leading-[1.05] sm:text-6xl lg:text-[4.25rem]">{home.hero.title}<br />{home.hero.highlight}</h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div></section>;
+  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 py-20 text-center sm:py-28 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">{home.hero.title}<br />{home.hero.highlight}</h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div></section>;
 }

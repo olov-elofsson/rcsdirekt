@@ -4,7 +4,7 @@ En brief för den som designar något åt RCS Direkt: en sida, en annons, en pre
 
 ## 01 Strategi
 
-RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik. Identiteten ska därför kännas som ett vanligt, välskrivet meddelande: lugn, rak och lätt att svara på. Den bärande formen är logotypens droppe, en pratbubbla med ett rakt hörn, och allt annat är enkla, platta former i samma få färger. Riktiga meddelanden och riktiga människor visar vad tjänsten gör. Dekoration som inte förklarar något tas bort.
+RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik. Identiteten ska därför kännas som ett vanligt, välskrivet meddelande: lugn, rak och lätt att svara på. Den enda grafiska formen är logotypen. Resten är text, foton och riktiga meddelanden i samma få färger, och dekoration som inte förklarar något finns inte.
 
 ## 02 Logotyp
 
@@ -47,17 +47,15 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 
 ## 06 Ikoner och illustrationer
 
-- **Grundform:** logotypens droppe (`Drop`, `DropPair` i `src/components/HeroGraphic.tsx`) i olika storlekar, vridningar och brandfärger, ensam eller i par som i logotypen.
-- **Variation:** platta rutor och cirklar med en Material-ikon i mitten (`Tile`), ett litet meddelandekort (`MiniCard`), och illustrationer i meddelandena (`Art`: en stor ikon på en yta i brandfärg med två mjuka former).
-- **Stil:** platt, fyllt, rundat. Inga konturer med skugga och inga gradienter i formerna.
-- **Ikoner:** Material-ikoner från `engine.ts` i telefoner och illustrationer, lucide i sajtens gränssnitt.
-- **Mängd:** få och lugna former. I hjälteytan fyra, ute vid kanterna och bara på stora skärmar, och de flesta i lavendel så att rubriken är det tydligaste. Inne i sektionerna ingen dekoration: listor numreras med siffror, inte ikoner.
+- **Ingen dekoration.** Sajten använder inga dekorativa symboler eller svävande former. Logotypen är den enda grafiska formen, och sidorna bärs av text, foton och riktiga meddelanden.
+- **Ikoner** används bara där de gör ett jobb: lucide i gränssnittet (pilar, stäng, meny, kalender i notisraden) och Material-ikoner från `engine.ts` i telefoner och meddelanden.
+- **Bilder i meddelanden:** illustrationerna i exemplen (`Art`: en ikon på en yta i brandfärg) visar vad meddelandet handlar om och är aldrig samma foto som konversationen ligger på.
+- **Listor** numreras med siffror, inte ikoner.
 - **Mängd text:** en rubrik och ett kort stycke per del. Längre listor (till exempel jämförelsen) visar det viktigaste och resten bakom "Visa alla".
 
 ## 07 Designprinciper
 
 - **Visa meddelandet.** Det bästa beviset är ett riktigt RCS-meddelande som går att trycka i. Beskriv mindre och visa mer.
-- **En form, många uttryck.** Droppen bär igenkänningen. Variera storlek, vridning, färg och innehåll, inte formspråket.
 - **Luft före dekoration.** Vit yta, en tydlig rubrik och en sak i taget. Tar bort man en dekoration och inget försvinner ur budskapet, ska den bort.
 - **Ärligt innehåll.** Exempel märks som exempel, priser är listpriser, och påståenden har källa.
 
