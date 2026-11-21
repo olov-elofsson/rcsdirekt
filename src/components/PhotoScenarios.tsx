@@ -261,15 +261,11 @@ function ConversationView({
 /** One case: the photo with its conversation, and a short explanation beside it. */
 function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
   const conversation = useConversation(scenario.start);
-  // Text beside the photo, without a card of its own, so each case reads as one calm row.
+  // A white text card beside the photo, its text centred in height. One grid per case, so
+  // `order` only swaps the photo and the card within its own row.
   return (
-    <div className={cn("grid items-center gap-6 lg:gap-14", flip ? "lg:grid-cols-[1.6fr_0.75fr]" : "lg:grid-cols-[0.75fr_1.6fr]")}>
-      <div data-reveal style={order(0)} className={cn("max-w-md", flip && "lg:order-2")}>
-        <p className="text-sm font-semibold text-muted-foreground">{scenario.customer}</p>
-        <h3 className="mt-2 text-2xl font-extrabold leading-tight sm:text-[1.75rem]">{scenario.title}</h3>
-        <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
-      </div>
-      <figure data-reveal style={order(1)} className={cn("relative h-[440px] overflow-hidden rounded-2xl bg-muted sm:h-[500px]", flip && "lg:order-1")}>
+    <div className="grid gap-4 lg:grid-cols-3">
+      <figure data-reveal style={order(0)} className={cn("relative h-[440px] overflow-hidden rounded-2xl bg-muted sm:h-[500px] lg:col-span-2", flip && "lg:order-2")}>
         <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
@@ -277,6 +273,11 @@ function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
           <ConversationView sender={scenario.customer} conversation={conversation} />
         </figcaption>
       </figure>
+      <div data-reveal style={order(1)} className={cn("flex flex-col justify-center rounded-2xl bg-card p-7 sm:p-9", flip && "lg:order-1")}>
+        <p className="text-sm font-semibold text-muted-foreground">{scenario.customer}</p>
+        <h3 className="mt-2 text-2xl font-extrabold leading-tight">{scenario.title}</h3>
+        <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
+      </div>
     </div>
   );
 }
@@ -304,7 +305,7 @@ export function PhotoScenarios() {
             upplägg.
           </p>
         </div>
-        <div className="mt-14 grid gap-16 sm:gap-20">
+        <div className="mt-12 grid gap-4">
           {scenarios.map((scenario, index) => (
             <CaseRow key={scenario.customer} scenario={scenario} flip={index % 2 === 1} />
           ))}
