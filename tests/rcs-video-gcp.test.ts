@@ -2,6 +2,7 @@ import { afterEach, beforeEach, expect, test } from "bun:test";
 import {
   cloudRunClientIp,
   fetchVideo,
+  publicOrigin,
   reserveUploadSlot,
   uploadVideo,
 } from "../src/lib/rcs-video/gcp.server";
