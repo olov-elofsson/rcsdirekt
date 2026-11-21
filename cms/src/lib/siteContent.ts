@@ -58,6 +58,19 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     article: relation(doc.article, 'slug'),
   }))
 
+  // The card uses the generated 'card' size (960x600 WebP) when it exists, otherwise the original.
+  const caseImage = (image: Doc | undefined, name: string): CustomerCase['image'] => {
+    if (!image?.filename) return null
+    const card = image.sizes?.card
+    const file = card?.filename ? card : image
+    return {
+      url: `/media/${encodeURIComponent(file.filename)}`,
+      alt: text(image.alt) || name,
+      width: Number(file.width) || 960,
+      height: Number(file.height) || 600,
+    }
+  }
+
   const kundcase: CustomerCase[] = caseDocs.map((doc) => ({
     name: text(doc.name),
     logo: {
@@ -66,6 +79,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       width: Number(doc.width) || 1,
       height: Number(doc.height) || 1,
     },
+    image: caseImage(doc.image, text(doc.name)),
     description: text(doc.description),
     slug: text(doc.slug),
   }))

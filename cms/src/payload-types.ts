@@ -183,6 +183,16 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * Korten under "Kundcase" på startsidan. Dra för att ändra ordning.
@@ -194,9 +204,16 @@ export interface Kundcase {
   id: number;
   _order?: string | null;
   name: string;
-  logo: number | Media;
-  width: number;
-  height: number;
+  /**
+   * Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas logotypen.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Visas på kortet bara när det saknas en bild.
+   */
+  logo?: (number | null) | Media;
+  width?: number | null;
+  height?: number | null;
   description: string;
   /**
    * Namnet på presentationen som visas under rcsdirekt.se/demo/<namn>. Lämna tomt för att visa "Kundcase kommer snart".
@@ -445,6 +462,20 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -453,6 +484,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface KundcaseSelect<T extends boolean = true> {
   _order?: T;
   name?: T;
+  image?: T;
   logo?: T;
   width?: T;
   height?: T;

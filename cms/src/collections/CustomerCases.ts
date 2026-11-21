@@ -10,12 +10,25 @@ export const CustomerCases: CollectionConfig = {
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   fields: [
     { name: 'name', label: 'Företag', type: 'text', required: true },
-    { name: 'logo', label: 'Logotyp', type: 'upload', relationTo: 'media', required: true },
+    {
+      name: 'image',
+      label: 'Bild',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas logotypen.' },
+    },
+    {
+      name: 'logo',
+      label: 'Logotyp',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Visas på kortet bara när det saknas en bild.' },
+    },
     {
       type: 'row',
       fields: [
-        { name: 'width', label: 'Logotypens bredd (px)', type: 'number', required: true, min: 1 },
-        { name: 'height', label: 'Logotypens höjd (px)', type: 'number', required: true, min: 1 },
+        { name: 'width', label: 'Logotypens bredd (px)', type: 'number', min: 1 },
+        { name: 'height', label: 'Logotypens höjd (px)', type: 'number', min: 1 },
       ],
     },
     { name: 'description', label: 'Beskrivning', type: 'textarea', required: true },

@@ -9,6 +9,8 @@ export const Media: CollectionConfig = {
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   upload: {
     mimeTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml', 'image/gif'],
+    // A light version for the customer case cards; the original is kept as uploaded.
+    imageSizes: [{ name: 'card', width: 960, height: 600, position: 'centre', formatOptions: { format: 'webp', options: { quality: 80 } } }],
   },
   fields: [
     {

@@ -26,7 +26,7 @@ async function fetchLogo(url: string): Promise<{ data: Buffer; mimetype: string;
 
 export async function seedIfEmpty(payload: Payload): Promise<void> {
   if (process.env.SEED_ON_EMPTY === 'false') return
-  const content = initial as SiteContent
+  const content = initial as unknown as SiteContent
   const isEmpty = async (collection: 'kallor' | 'artiklar' | 'begrepp' | 'kundcase') =>
     (await payload.count({ collection })).totalDocs === 0
 

@@ -246,7 +246,8 @@
         "height": 512
       },
       "description": "Trygg kontakt med kunder, anhöriga och kollegor. Utforska åtta RCS-exempel för DreamCare, från kundträffar och påminnelser till frågor om hemtjänst.",
-      "slug": "dreamcare"
+      "slug": "dreamcare",
+      "image": null
     },
     {
       "name": "Maptun",
@@ -257,7 +258,8 @@
         "height": 34
       },
       "description": "Produktbilder och knappar direkt till rätt tillbehör kan förkorta vägen från intresse till köp. Ett tänkbart upplägg: en karusell med utvalda tillbehör och en knapp till varje produkt.",
-      "slug": ""
+      "slug": "",
+      "image": null
     },
     {
       "name": "Nercia",
@@ -268,7 +270,8 @@
         "height": 187
       },
       "description": "Kursinformation och en tydlig bekräftelseknapp kan göra det enklare att tacka ja inför kursstart. Ett tänkbart upplägg: en välkomsthälsning med kursbild, tid och plats.",
-      "slug": ""
+      "slug": "",
+      "image": null
     },
     {
       "name": "Bilia",
@@ -279,7 +282,8 @@
         "height": 35
       },
       "description": "En inbjudan med bild på nyheten och en anmälningsknapp kan göra det enklare att säga ja till premiärkvällen. Ett tänkbart upplägg: en servicepåminnelse med tid, verkstad och vägbeskrivning.",
-      "slug": ""
+      "slug": "",
+      "image": null
     }
   ],
   "demo": {
