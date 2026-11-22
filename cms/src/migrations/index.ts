@@ -35,6 +35,7 @@ import * as migration_20261121_194000_logo_shape_article from './20261121_194000
 import * as migration_20261121_195000_humanizer_copy from './20261121_195000_humanizer_copy';
 import * as migration_20261122_280000_merge_topics from './20261122_280000_merge_topics';
 import * as migration_20261122_290000_merge_topics_options from './20261122_290000_merge_topics_options';
+import * as migration_20261122_300000_hero_direct from './20261122_300000_hero_direct';
 
 export const migrations = [
   {
@@ -223,5 +224,10 @@ export const migrations = [
     up: migration_20261122_290000_merge_topics_options.up,
     down: migration_20261122_290000_merge_topics_options.down,
     name: '20261122_290000_merge_topics_options',
+  },
+  {
+    up: migration_20261122_300000_hero_direct.up,
+    down: migration_20261122_300000_hero_direct.down,
+    name: '20261122_300000_hero_direct',
   },
 ];
