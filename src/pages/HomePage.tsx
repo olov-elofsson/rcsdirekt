@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, Check, RadioTower, Smartphone } from "lucide-react";
+import { ArrowRight, Check, RadioTower } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -42,36 +42,24 @@ function NumberDrop({ n }: { n: number }) {
 }
 
 /** The hero split in two: headline, one line on what it is and two actions beside one notice shown as SMS and as RCS. */
-/**
- * Operators whose customers can get RCS on iPhone, as their own support pages say (Tele2 and
- * Comviq, November 2026; sources tele2-rcs and comviq-rcs in the CMS). Tre and Hallon are testing
- * it in iOS 27.3; add them here once they have opened it for all customers.
- */
-const IPHONE_OPERATORS = ["Tele2", "Comviq"];
-
 function HeroFirst() {
   const home = useStartsida();
   const { t, lp } = useT();
-  const labelLink = "-my-2 inline-flex min-h-10 items-center gap-2 underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline";
-  const operators = usePriser().operators.filter((name) => !/^(Övriga|Other)/.test(name));
+  const labelLink = "group -my-2 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-muted-foreground underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline";
   return (
     <section id="top" className="bg-background">
       {/* Text and message share the header's edges: the text starts at the logo, the message ends at the last button. */}
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.55fr_1fr] lg:gap-12 lg:px-8 lg:pt-16">
         <div>
-          {operators.length ? (
-            <p className="mb-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-semibold text-muted-foreground">
-              {/* Each line leads to the article that backs it. */}
-              <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-sverige-operatorer" }} className={labelLink}>
-                <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-                {t("Når kunder hos {operators}").replace("{operators}", `${operators.slice(0, -1).join(", ")} ${t("och")} ${operators.at(-1)}`)}
-              </Link>
-              <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} hash="operatorer" className={labelLink}>
-                <Smartphone aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-                {t("På iPhone hos {operators}").replace("{operators}", `${IPHONE_OPERATORS.slice(0, -1).join(", ")} ${t("och")} ${IPHONE_OPERATORS.at(-1)}`)}
-              </Link>
-            </p>
-          ) : null}
+          {/* One line on where RCS stands, leading to the article with each operator's status. */}
+          <p className="mb-5">
+            <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} hash="operatorer" className={labelLink}>
+              <span className="rounded-full bg-ink px-2 py-0.5 text-[11px] font-bold tracking-wide text-ink-foreground tabular-nums">2026</span>
+              <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
+              {t("RCS kommer till både iPhone och Android")}
+              <ArrowRight aria-hidden className="size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+            </Link>
+          </p>
           <h1 className="max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
             {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
           </h1>

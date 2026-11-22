@@ -324,7 +324,6 @@ export const en: Record<string, string> = {
   "Bygg utskicket i webbläsaren utan utvecklare, eller låt era system skicka via API. Avsändaren och priset är desamma.":
     "Build the campaign in the browser without a developer, or let your systems send through the API. The sender and price are the same.",
 
-  "Når kunder hos {operators}": "Reaches customers on {operators}",
   och: "and",
-  "På iPhone hos {operators}": "On iPhone with {operators}",
+  "RCS kommer till både iPhone och Android": "RCS comes to both iPhone and Android",
 };
