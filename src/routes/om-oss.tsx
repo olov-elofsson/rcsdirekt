@@ -30,7 +30,7 @@ export const Route = createFileRoute("/om-oss")({
 
 /** How we work, each point backed by something on the site: the sender check, the networks, where data lives, the prices. */
 const PRINCIPLES = [
-  { Icon: Globe, title: "Global plattform", copy: "Vi bygger på en global plattform med direktkopplingar till operatörerna. I dag säljer vi i Sverige, och samma plattform når andra länder när ni vill växa." },
+  { Icon: Globe, title: "Global plattform", copy: "Vår plattform har direktkopplingar till operatörerna och räckvidd över hela världen. I dag säljer vi i Sverige, och samma plattform når fler länder när ni vill växa." },
   { Icon: BadgeCheck, title: "Kontrollerade avsändare", copy: "Vi registrerar varje avsändare och den kontrolleras innan den får skicka. Så vet kunden att det verkligen är ni." },
   { Icon: RadioTower, title: "Alla stora nät", copy: operators.length ? `Era kunder nås oavsett om de har ${operators.slice(0, -1).join(", ")} eller ${operators.at(-1)}, och även om de har en operatör som använder något av de näten.` : "Meddelandena når kunder hos de stora operatörerna i Sverige." },
   { Icon: ShieldCheck, title: "Uppgifter inom EU", copy: "Det ni fyller i och era konton sparas hos Google Cloud i Belgien. I integritetspolicyn står vad vi sparar och hur länge." },
