@@ -342,8 +342,8 @@ export function PhotoScenarios() {
       aria-labelledby="exempel-title"
       className="relative scroll-mt-24 overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24"
     >
-      {/* The heading lines up with the other sections; the cards below use a wider row. */}
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      {/* A wider row than the other sections, so the photos get room; heading and cards share its edge. */}
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
             Exempel
@@ -354,8 +354,6 @@ export function PhotoScenarios() {
             upplägg.
           </p>
         </div>
-      </div>
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         {/* Narrow and wide cards (2/5 and 3/5) swap sides between the rows. The second and third
             cards are wide: Maptun's carousel and Nercia's name in the photo need the width. */}
         <div className={cn(sectionBody, "grid gap-6 md:grid-cols-2 lg:grid-cols-5")}>
