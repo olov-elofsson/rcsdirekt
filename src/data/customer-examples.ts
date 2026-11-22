@@ -12,8 +12,8 @@ import carDealerUrl from "@/assets/foto-bilhandel.webp";
 import carDealerUrlSmall from "@/assets/foto-bilhandel-800.webp";
 
 /** The photo a case's conversation is laid over. */
-/** `messageAt: "right"` puts the conversation on the right, for photos whose subject is on the left. */
-export type Picture = { src: string; /** An 800 px wide copy for phones and narrow cards. */ small?: string; position?: string; messageAt?: "right" };
+/** `messageAt` moves the conversation off the people in the photo: "right" for a subject on the left, "center" for people on both sides. */
+export type Picture = { src: string; /** An 800 px wide copy for phones and narrow cards. */ small?: string; position?: string; messageAt?: "right" | "center" };
 
 /**
  * A button in a message. A reply sends its label as the recipient's answer, and the business
@@ -129,8 +129,8 @@ export const scenarios: Scenario[] = [
     customer: "DreamCare",
     company: "DreamCare Omsorg AB",
     title: "Påminnelser som går att svara på",
-    copy: "Kunden bekräftar besöket eller väljer en ny tid, ser vem som kommer och säger efteråt vad den tyckte. Allt i samma tråd.",
-    photo: { src: careUrl, small: careUrlSmall, alt: "En ung kvinna och en äldre kvinna skrattar tillsammans i en soffa hemma", position: "50% 35%" },
+    copy: "Kunden bekräftar besöket eller väljer en ny tid, lägger det i kalendern och säger efteråt vad den tyckte. Allt i samma tråd.",
+    photo: { src: careUrl, small: careUrlSmall, alt: "Två äldre kvinnor skrattar tillsammans vid ett bord i en ljus lokal", position: "50% 30%", messageAt: "center" },
     start: {
       card: {
         title: "Besök i morgon kl. 10.00",
