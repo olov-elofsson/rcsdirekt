@@ -216,7 +216,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center justify-end gap-2">
-          <LanguageSwitch pathname={pathname} />
           <Button asChild variant="ghost" className="hidden sm:inline-flex">
           <a href="https://portal.rcsdirekt.se/login">
             {t("Logga in")}
@@ -363,6 +362,19 @@ function MobileSignupBar() {
   );
 }
 
+/** The other language, as a quiet link in the footer's bottom row. */
+function FooterLanguageLink() {
+  const { locale } = useT();
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const target = locale === "en" ? swedishPath(pathname) : hasEnglish(pathname) ? englishPath(pathname) : "/en";
+  return (
+    <a href={target} hrefLang={locale === "en" ? "sv" : "en"} lang={locale === "en" ? "sv" : "en"} className="ml-3 inline-flex min-h-10 items-center gap-1.5 underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">
+      <Globe aria-hidden className="size-3.5" />
+      {locale === "en" ? "Svenska" : "English"}
+    </a>
+  );
+}
+
 export function SiteFooter() {
   const { t, lp } = useT();
   return (
@@ -415,6 +427,7 @@ export function SiteFooter() {
             © {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se. {t("Alla rättigheter reserverade.")}
             {/* For the team: the CMS where the site's texts are edited. */}
             <a href="https://cms.rcsdirekt.se/admin" className="ml-3 inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
+            <FooterLanguageLink />
           </p>
           <Button variant="link" size="sm"
             type="button"
