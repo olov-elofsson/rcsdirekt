@@ -8,12 +8,14 @@ const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const senderLine = { display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 500, color: "#444746", marginBottom: 6 } as const;
+/** The message a little smaller than in the app, so the box sits level with the hero text. */
+const SCALE = 0.86;
 const note = { marginTop: 0, padding: "1px 8px", fontSize: 11.5 } as const;
 
 /** The same notice as an SMS: a name of at most eleven characters, plain text and a bare link. */
 function AsSms() {
   return (
-    <RcsSnippet width={300}>
+    <RcsSnippet width={300} scale={SCALE}>
       <div style={senderLine}>rcsdirekt</div>
       <div className="inrow">
         <div className="bubble">Hej Anna! Ditt konto är klart. Logga in här för att skicka ditt första utskick: rcsdirekt.se/l/8k2Q.</div>
@@ -28,7 +30,6 @@ type Reply = { label: string; icon?: string; opens?: string; answer?: string };
 const SUGGESTIONS: Reply[] = [
   { label: "Tack!", answer: "Varsågod! Hör av dig om du undrar något." },
   { label: "Boka genomgång", icon: "event", opens: "kalendern" },
-  { label: "Visa priser", icon: "open", opens: "prissidan" },
 ];
 
 /** The same notice as RCS: logo, verified name, a greeting, a card with buttons and suggestions. */
@@ -55,7 +56,7 @@ function AsRcs({ active }: { active: boolean }) {
   };
 
   return (
-    <RcsSnippet width={300}>
+    <RcsSnippet width={300} scale={SCALE}>
       <div style={senderLine}>
         <img src={rcsDirektSender.logo} alt="" width={20} height={20} style={{ borderRadius: 6, background: "#fff" }} />
         {rcsDirektSender.sender}
@@ -137,8 +138,8 @@ export function HeroMessage({ className }: { className?: string }) {
   };
 
   return (
-    <div ref={box} className={cn("w-full max-w-[22rem] rounded-3xl bg-muted px-5 pt-5 pb-7", className)}>
-      <div role="radiogroup" aria-label="Visa meddelandet som" className="mx-auto mb-6 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
+    <div ref={box} className={cn("w-full max-w-[20rem] rounded-3xl bg-muted px-4 pt-4 pb-5", className)}>
+      <div role="radiogroup" aria-label="Visa meddelandet som" className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
         {[false, true].map((value) => (
           <button
             key={String(value)}
@@ -156,7 +157,7 @@ export function HeroMessage({ className }: { className?: string }) {
         ))}
       </div>
       {/* Both versions share one grid cell, so the box keeps its height while they cross-fade. */}
-      <div className="grid min-h-[34rem] text-left" aria-live="polite">
+      <div className="grid min-h-[27.5rem] text-left" aria-live="polite">
         {[false, true].map((value) => (
           <div
             key={String(value)}
