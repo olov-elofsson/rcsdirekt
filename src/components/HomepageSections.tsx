@@ -13,6 +13,7 @@ import { priser } from "@/content/priser";
 import { startsida } from "@/content/startsida";
 import { contentIcon } from "@/content/icons";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
+import { formatPrice, formatTotal, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
 const home = startsida;
@@ -365,12 +366,12 @@ const sek = (value: number, digits = 0) =>
 
 /** The list price for a number of messages: the plan's from price times the count, nothing else. */
 /** The total, counted up or down to the new value; screen readers get only the final figure. */
-function GlidingTotal({ value }: { value: number }) {
+function GlidingTotal({ value, currency }: { value: number; currency: "SEK" | "EUR" }) {
   const shown = useGlide(value);
   return (
     <p className="mt-1 text-4xl font-extrabold tabular-nums">
-      <span aria-hidden>{sek(Math.round(shown))} SEK</span>
-      <span className="sr-only" aria-live="polite">{sek(value)} SEK</span>
+      <span aria-hidden>{formatTotal(shown, currency)}</span>
+      <span className="sr-only" aria-live="polite">{formatTotal(value, currency)}</span>
     </p>
   );
 }
@@ -405,6 +406,7 @@ function useGlide(target: number, duration = 450): number {
 export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   const [planIndex, setPlanIndex] = useState(() => Math.max(0, plans.findIndex((plan) => plan.badge)));
   const [count, setCount] = useState(5000);
+  const currency = useCurrency();
   const plan = plans[planIndex];
   if (!plan) return null;
   const unit = Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", "."));
@@ -459,8 +461,8 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
       </div>
       <div className="lg:min-w-64 lg:text-right">
         <p className="text-sm text-muted-foreground">Listpris från</p>
-        <GlidingTotal value={total} />
-        <p className="mt-1 text-sm text-muted-foreground">exkl. moms, {sek(count)} × {plan.price}</p>
+        <GlidingTotal value={total} currency={currency} />
+        <p className="mt-1 text-sm text-muted-foreground">exkl. moms, {sek(count)} × {formatPrice(plan.price, currency)}</p>
       </div>
     </div>
   );

@@ -9,7 +9,9 @@ import type { NetworkPrice } from "@/content";
 import { PriceCalculator } from "@/components/HomepageSections";
 import { Button } from "@/components/ui/button";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
+import { CurrencyContext, formatPrice, SEK_PER_EUR, useCurrency, type Currency } from "@/lib/money";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { organizationSchema } from "@/lib/company";
 
 const page = priser;
@@ -86,7 +88,8 @@ const faq = page.faq;
 
 /** Every network with its price per type, folded away under the operator tables. */
 function NetworkPrices({ heading, note, networks }: { heading: string; note: string; networks: NetworkPrice[] }) {
-  const cell = (price: string) => (price ? <span className="tabular-nums">{price.replace(" SEK", "")}</span> : <span className="text-muted-foreground/60">–</span>);
+  const currency = useCurrency();
+  const cell = (price: string) => (price ? <span className="tabular-nums">{formatPrice(price, currency, { unit: false })}</span> : <span className="text-muted-foreground/60">–</span>);
   return (
     <details className="group min-w-0 overflow-hidden rounded-2xl bg-card shadow-card">
       <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3.5 font-extrabold [&::-webkit-details-marker]:hidden">
@@ -94,7 +97,7 @@ function NetworkPrices({ heading, note, networks }: { heading: string; note: str
         <ChevronDown aria-hidden className="ml-auto size-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
       </summary>
       <div className="border-t border-border">
-        {note ? <p className="px-5 pt-4 text-sm leading-relaxed text-pretty text-muted-foreground">{note} Priser i SEK.</p> : null}
+        {note ? <p className="px-5 pt-4 text-sm leading-relaxed text-pretty text-muted-foreground">{note} Priser i {currency}.</p> : null}
         <div className="mt-3 max-h-[28rem] overflow-auto">
           <table className="w-full min-w-[36rem] text-left text-sm">
             <thead className="sticky top-0 bg-muted text-xs font-semibold text-muted-foreground">
@@ -151,11 +154,12 @@ function PlanCards() {
 
 /** Every type side by side per operator; the lowest price in each column is marked. */
 function OperatorTable() {
+  const currency = useCurrency();
   return (
     <div className="overflow-hidden rounded-2xl bg-card shadow-card">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[34rem] text-left">
-          <caption className="sr-only">Listpris per meddelande och operatör, i SEK exklusive moms</caption>
+          <caption className="sr-only">Listpris per meddelande och operatör, i {currency} exklusive moms</caption>
           <thead>
             <tr className="border-b border-border">
               <th scope="col" className="px-5 py-4 text-sm font-semibold text-muted-foreground sm:px-6">Operatör</th>
@@ -178,7 +182,7 @@ function OperatorTable() {
                       {price ? (
                         <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap", best ? "font-extrabold" : "text-foreground/80")}>
                           {best ? <span className="rounded-full bg-primary-soft px-1.5 py-0.5 text-[10px] font-bold tracking-wide uppercase">Lägst</span> : null}
-                          {price.replace(" SEK", "")}
+                          {formatPrice(price, currency, { unit: false })}
                         </span>
                       ) : (
                         <span className="text-muted-foreground/60">–</span>
@@ -196,7 +200,7 @@ function OperatorTable() {
 }
 
 /** The market the prices apply to; other countries and currencies are listed as coming. */
-function MarketBar() {
+function MarketBar({ currency, onCurrency }: { currency: Currency; onCurrency: (currency: Currency) => void }) {
   const select = "h-10 cursor-pointer appearance-none rounded-full border border-input bg-background text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
@@ -210,9 +214,9 @@ function MarketBar() {
         <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
       </span>
       <span className="relative">
-        <select aria-label="Välj valuta" defaultValue="SEK" className={cn(select, "pl-4 pr-9")}>
-          {pricingCurrencies.map((currency) => (
-            <option key={currency.code} value={currency.code} disabled={!currency.available}>{currency.available ? currency.code : `${currency.code} (kommer snart)`}</option>
+        <select aria-label="Välj valuta" value={currency} onChange={(event) => onCurrency(event.target.value as Currency)} className={cn(select, "pl-4 pr-9")}>
+          {pricingCurrencies.map((option) => (
+            <option key={option.code} value={option.code} disabled={!selectable(option)}>{selectable(option) ? option.code : `${option.code} (kommer snart)`}</option>
           ))}
         </select>
         <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -221,19 +225,28 @@ function MarketBar() {
   );
 }
 
+/** SEK and EUR can always be shown, EUR as the supplier's list price; others follow the CMS. */
+const selectable = (option: { code: string; available: boolean }) => option.available || option.code === "EUR";
+
 function PricingPage() {
+  const [currency, setCurrency] = useState<Currency>("SEK");
+  const inCurrency = (text: string) => text.split("SEK").join(currency);
   return (
+    <CurrencyContext.Provider value={currency}>
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="outline-none">
         <PageHeading title={page.heading} description={<p>{page.intro}</p>}>
-          <MarketBar />
+          <MarketBar currency={currency} onCurrency={setCurrency} />
         </PageHeading>
 
         <section className="pb-16 sm:pb-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <PlanCards />
-            <p className="mt-6 text-center text-sm leading-relaxed text-pretty text-muted-foreground">{page.selectorNote}</p>
+            <p className="mt-6 text-center text-sm leading-relaxed text-pretty text-muted-foreground">
+              {inCurrency(page.selectorNote)}
+              {currency === "EUR" ? ` Europriserna är leverantörens listpriser. Kronpriserna är omräknade med ${SEK_PER_EUR.toLocaleString("sv-SE")} kr per euro.` : ""}
+            </p>
           </div>
         </section>
 
@@ -241,7 +254,7 @@ function PricingPage() {
           <div className="mx-auto grid max-w-7xl gap-6 px-5 lg:px-8">
             <div>
               <h2 className={sectionTitle}>Pris per operatör</h2>
-              <p className={sectionIntro}>Priset beror på vilken operatör mottagaren har. Alla priser är listpriser per meddelande i SEK. {page.vatNote}</p>
+              <p className={sectionIntro}>Priset beror på vilken operatör mottagaren har. {inCurrency(page.vatNote)}</p>
             </div>
             <OperatorTable />
             {page.networks?.length ? <NetworkPrices heading={page.networksHeading || "Alla nät och priser"} note={page.networksNote ?? ""} networks={page.networks} /> : null}
@@ -293,5 +306,6 @@ function PricingPage() {
       </main>
       <SiteFooter />
     </div>
+    </CurrencyContext.Provider>
   );
 }

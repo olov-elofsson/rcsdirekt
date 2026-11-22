@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 
 import { Button } from "@/components/ui/button";
 import type { PricingPlan } from "@/content";
+import { formatPrice, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,6 +26,7 @@ function usesOf(text: string): string[] {
 /** One message type: name, from price, what is included, what it suits and a way to start. */
 export function PlanCard({ plan, size = "lg", className, style }: { plan: PricingPlan; size?: "md" | "lg"; className?: string; style?: CSSProperties }) {
   const featured = Boolean(plan.badge);
+  const currency = useCurrency();
   const includes = INCLUDES[plan.slug];
   const uses = usesOf(plan.short ?? "");
   const muted = featured ? "text-ink-muted" : "text-muted-foreground";
@@ -37,7 +39,7 @@ export function PlanCard({ plan, size = "lg", className, style }: { plan: Pricin
       <p className={cn("mt-1.5 text-sm", muted)}>{plan.contents}</p>
       <p className="mt-6 flex items-baseline gap-1.5">
         <span className={cn("text-sm font-semibold", muted)}>från</span>
-        <span className={cn("font-extrabold tabular-nums", size === "lg" ? "text-4xl" : "text-3xl")}>{plan.price}</span>
+        <span className={cn("font-extrabold tabular-nums", size === "lg" ? "text-4xl" : "text-3xl")}>{formatPrice(plan.price, currency)}</span>
       </p>
       <p className={cn("mt-1 text-sm", muted)}>listpris per meddelande</p>
 
