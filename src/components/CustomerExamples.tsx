@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, CheckCheck, IdCard, MoreHorizontal, MousePointerClick, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, Ticket, type LucideIcon } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPhone";
-import { Button } from "@/components/ui/button";
 import { scenarios as scenariosSv, type Card, type Choice, type Scenario, type Step } from "@/data/customer-examples";
 import { scenarios as scenariosEn } from "@/data/en/customer-examples";
 import { translate, useT, type Locale } from "@/lib/i18n";
@@ -499,12 +497,6 @@ export function CustomerExamples() {
           </p>
         </div>
         <CaseShowcase />
-        <div data-reveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Button asChild size="lg" variant="outline" className="home-cta self-start border-transparent">
-            <Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link>
-          </Button>
-          <p className="text-sm text-ink-muted">{t("Bygg ett eget upplägg för era kunder.")}</p>
-        </div>
       </div>
     </section>
   );
