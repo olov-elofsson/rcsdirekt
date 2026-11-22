@@ -315,7 +315,7 @@ const sek = (value: number, digits = 0) =>
   value.toLocaleString("sv-SE", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 
 /** The list price for a number of messages: the plan's from price times the count, nothing else. */
-function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
+export function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
   const [planIndex, setPlanIndex] = useState(() => Math.max(0, plans.findIndex((plan) => plan.badge)));
   const [count, setCount] = useState(5000);
   const plan = plans[planIndex];
