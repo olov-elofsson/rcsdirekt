@@ -42,7 +42,7 @@ Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig 
 | Skrivfält | 60 px högt på vitt. Pillret är 288 × 48 px, radie 24 px, i `#f0f4f9`, 8 px in. Inne i pillret: plus-ikonen 12 px in, platshållaren "RCS-meddelande" 15.5px i `#444746` 48 px in, och emoji- och bildikonen till höger |
 | Röstknapp | En cirkel på 48 px i `#c4eed0` med ljudvågsikonen (`voice`) i `#0f5223`. När man har skrivit något blir den en blå skicka-knapp |
 | Inkorg | Företag har logotypen som rundad kvadrat (40 px, radie 9 px) och bock efter namnet. Privatpersoner har runda avatarer med initial |
-| Företagsprofil | Öppnas när man trycker på avsändarens namn eller logotyp, i huvudet eller i början av tråden, och glider in från höger. Tillbaka-pilen stänger den (`RcsPhone` med `profile`; RCS Direkts uppgifter finns i `src/data/rcs-sender.ts`). Tonad sida. Banner 360 × 112 px, logotypen 76 × 76 px med radie 22 px och utan kant, namnet 20px/400 med bocken. Runda vita knappar för samtal, webb och e-post, och kontaktuppgifterna i vita rader grupperade som knapparna i kort |
+| Företagsprofil | Öppnas när man trycker på avsändarens namn eller logotyp, i huvudet eller i början av tråden, och glider in från höger. Tillbaka-pilen stänger den (`RcsPhone` med `profile`; rcsdirekt.se:s uppgifter finns i `src/data/rcs-sender.ts`). Tonad sida. Banner 360 × 112 px, logotypen 76 × 76 px med radie 22 px och utan kant, namnet 20px/400 med bocken. Runda vita knappar för samtal, webb och e-post, och kontaktuppgifterna i vita rader grupperade som knapparna i kort |
 | Tangentbord | 260 px högt, `#e7ecf4`. Tangenterna är 44 px höga med radie 6 px |
 | Ikoner | Material-ikonerna i `engine.ts` (`icon()`). Inte lucide |
 
@@ -58,7 +58,7 @@ På startsidan kan några meddelanden ligga direkt på ett foto, utan telefon, s
 
 ## Innehåll
 
-- Avsändaren är alltid ett verifierat företag med en logotyp i rundad kvadrat. När RCS Direkt själv är avsändare används `brand/SVG/rcs-avsandare.svg`: symbolen på vit bakgrund, 224 × 224 px. Använd aldrig den genomskinliga `symbol.svg` i en telefon.
+- Avsändaren är alltid ett verifierat företag med en logotyp i rundad kvadrat. När rcsdirekt.se själv är avsändare används `brand/SVG/rcs-avsandare.svg`: symbolen på vit bakgrund, 224 × 224 px. Använd aldrig den genomskinliga `symbol.svg` i en telefon.
 - Logotyper som laddas upp i videogeneratorn får vit bakgrund automatiskt.
 - Använd svenska texter och realistiska tider, till exempel 13:16.
 - Inne i skärmen gäller Google Messages färger, inte brandkitets. Brandkitets färger (#15115F, #EFEEFC, #F5F5FC) används runt telefonen: bakgrund, förklaringar och markörer.

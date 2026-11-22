@@ -1,4 +1,4 @@
-# RCS Direkt
+# rcsdirekt.se
 
 Webbplatsen [rcsdirekt.se](https://rcsdirekt.se) och dess innehållssystem.
 

@@ -1,4 +1,4 @@
-# RCS Direkt for Google Cloud Run: builds the site as a Node server.
+# rcsdirekt.se for Google Cloud Run: builds the site as a Node server.
 FROM oven/bun:1 AS build
 WORKDIR /app
 COPY package.json bun.lock bunfig.toml ./

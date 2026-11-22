@@ -1,10 +1,10 @@
-# RCS Direkt: visuell identitet
+# rcsdirekt.se: visuell identitet
 
-En brief för den som designar något åt RCS Direkt: en sida, en annons, en presentation eller ett utskick. Den bygger på `brand/BRAND.md` (filer, färger och typsnitt), `brand/brand-context.md`, och beskriver hur sajten ser ut i november 2026. Står något här i strid med BRAND.md gäller BRAND.md.
+En brief för den som designar något åt rcsdirekt.se: en sida, en annons, en presentation eller ett utskick. Den bygger på `brand/BRAND.md` (filer, färger och typsnitt), `brand/brand-context.md`, och beskriver hur sajten ser ut i november 2026. Står något här i strid med BRAND.md gäller BRAND.md.
 
 ## 01 Strategi
 
-RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik. Identiteten ska därför kännas som ett vanligt, välskrivet meddelande: lugn, rak och lätt att svara på. Den enda grafiska formen är logotypen. Resten är text, foton och riktiga meddelanden i samma få färger, och dekoration som inte förklarar något finns inte.
+rcsdirekt.se säljer något tekniskt till företag som inte vill tänka på teknik. Identiteten ska därför kännas som ett vanligt, välskrivet meddelande: lugn, rak och lätt att svara på. Den enda grafiska formen är logotypen. Resten är text, foton och riktiga meddelanden i samma få färger, och dekoration som inte förklarar något finns inte.
 
 ## 02 Logotyp
 

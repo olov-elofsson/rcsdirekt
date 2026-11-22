@@ -39,7 +39,7 @@ Kontrollera svenska sökvolymer och organiska resultat för varje nytt kluster f
 
 - Svara på huvudfrågan direkt. Använd konkreta, naturliga svenska formuleringar; undvik fyllnad och allmänna AI-fraser.
 - Flera sökordsvarianter med samma avsikt får samma artikel. Skapa inte en sida per stavningsvariant eller förkortning.
-- Ange källor nära fakta och i en samlad källförteckning. Google/GSMA styrker standard och dokumenterad plattform, inte RCS Direkts aktiverade funktioner.
+- Ange källor nära fakta och i en samlad källförteckning. Google/GSMA styrker standard och dokumenterad plattform, inte rcsdirekt.se:s aktiverade funktioner.
 - Inga påhittade kundresultat, experter, citat eller universella leverans- och säkerhetslöften.
 - Verifierad avsändare är inte samma sak som kryptering. Accepterat API-anrop är inte samma sak som leverans. Lässtatus är inte samtycke eller köp.
 - Uppdatera datum endast vid faktisk kontroll eller innehållsändring. Följ upp operatörsstöd och plattformsändringar regelbundet.

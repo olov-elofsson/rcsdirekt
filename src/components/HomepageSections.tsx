@@ -248,7 +248,7 @@ function WebSketch() {
 
 /** A simplified request: a card with an image, two reply buttons and SMS as the fallback. */
 const API_REQUEST = `{
-  "sender": "RCSDirekt",
+  "sender": "rcsdirekt",
   "to": "+46701234567",
   "card": {
     "title": "Din tid är bokad",

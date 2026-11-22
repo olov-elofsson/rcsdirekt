@@ -1,9 +1,9 @@
 # Brand Context
 
-Läses av brand-skillsen i `.claude/skills/` (till exempel `brand-identity`). Uppgifterna kommer från sajten, CMS:et och AGENTS.md. Rader märkta **Att fylla i** saknar underlag och ska fyllas i av RCS Direkt, inte gissas.
+Läses av brand-skillsen i `.claude/skills/` (till exempel `brand-identity`). Uppgifterna kommer från sajten, CMS:et och AGENTS.md. Rader märkta **Att fylla i** saknar underlag och ska fyllas i av rcsdirekt.se, inte gissas.
 
 ## Brand
-- **Name**: RCS Direkt (en tjänst från WIGOSE AB, Örebro)
+- **Name**: rcsdirekt.se (en tjänst från WIGOSE AB, Örebro)
 - **Category**: Företagsmeddelanden, RCS (Rich Communication Services) för svenska företag
 - **Description**: Skicka RCS-meddelanden med bilder, knappar och verifierad avsändare, från webben eller via API, och betala per meddelande.
 - **Stage**: Tidig: sajt, kundportal och de första kundcasen (DreamCare, Maptun, Nercia, Bilia). Försäljning i Sverige.

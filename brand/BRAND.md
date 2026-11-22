@@ -1,6 +1,6 @@
-# RCS Direkt brandkit
+# rcsdirekt.se brandkit
 
-Den här mappen är den enda källan för RCS Direkts logotyper och ikoner. Sidan importerar logotyperna härifrån (`src/components/BrandLogo.tsx`), och ikonerna i `public/` är kopior av filerna i `webb/`. Byter du en fil här, uppdatera kopian i `public/` också.
+Den här mappen är den enda källan för rcsdirekt.se:s logotyper och ikoner. Sidan importerar logotyperna härifrån (`src/components/BrandLogo.tsx`), och ikonerna i `public/` är kopior av filerna i `webb/`. Byter du en fil här, uppdatera kopian i `public/` också.
 
 ## Logotyper
 
