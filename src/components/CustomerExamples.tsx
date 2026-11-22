@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, CheckCheck, IdCard, MoreHorizontal, MousePointerClick, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, CheckCheck, IdCard, MoreHorizontal, MousePointerClick, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, Ticket, type LucideIcon } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
@@ -298,6 +298,7 @@ function featuresOf(start: Step): Feature[] {
     if (seen.has(step)) return;
     seen.add(step);
     if (step.card) add("Kort med knappar", SquareMousePointer);
+    if (step.card?.title.startsWith("Kupong")) add("Kuponger", Ticket);
     if (step.carousel) add("Karusell", GalleryHorizontal);
     if (step.chips?.some((chip) => chip.next)) add("Snabbsvar", MousePointerClick);
     for (const choice of choicesIn(step)) {

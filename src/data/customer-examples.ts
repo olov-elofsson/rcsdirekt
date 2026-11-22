@@ -71,14 +71,22 @@ const laneBooked = (time: string): Step => ({
   ],
 });
 
-/* Kebabfabriken: today's lunch, with a table booked or takeaway ordered in the thread. */
-const tableBooked = (people: string): Step => ({
-  text: `Klart! Bord för ${people} kl. 12.00 är bokat. Vi ses!`,
-  chips: [calendar, map],
+/* Kebabfabriken: the customer club, with a sign-up bonus, coupons, weekly offers and points. */
+const coupon = (what: string, code: string): Step => ({
+  card: {
+    title: `Kupong: ${what}`,
+    body: `Visa koden ${code} i kassan. Gäller i 30 dagar.`,
+    actions: [calendar, map],
+  },
+  chips: [{ label: "Mina poäng", next: { text: "Du har 120 poäng. Vid 200 poäng bjuder vi på en valfri rätt.", chips: [map] } }],
 });
-const takeaway: Step = {
-  text: "Tack för beställningen! Den är klar att hämta om 20 minuter. Vi skickar ett meddelande när den står redo.",
-  chips: [map],
+const weeklyOffers: Step = {
+  text: "Veckans erbjudanden för medlemmar:",
+  carousel: [
+    { title: "Två kebabtallrikar", body: "Betala för en, den andra halva priset.", actions: [{ label: "Hämta kupong", next: coupon("två kebabtallrikar", "KF-2210") }] },
+    { title: "Familjepaket", body: "20 % rabatt hela veckan.", actions: [{ label: "Hämta kupong", next: coupon("familjepaket", "KF-3407") }] },
+    { title: "Lunch med dryck", body: "Dryck ingår till dagens lunch.", actions: [{ label: "Hämta kupong", next: coupon("lunch med dryck", "KF-5518") }] },
+  ],
 };
 
 /* Maptun: a carousel of services with pictures, booking, directions and a reminder. */
@@ -254,24 +262,17 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Kebabfabriken",
-    company: "Kebabfabriken",
-    title: "Dagens lunch med bokning",
-    copy: "Gästen ser dagens lunch, bokar bord eller beställer hämtmat och får vägen dit, direkt i meddelandet.",
+    company: "Kebabfabriken AB",
+    title: "Kundklubb med kuponger och bonus",
+    copy: "Nya medlemmar får en välkomstbonus, och alla får veckans erbjudanden, kuponger och poäng direkt i meddelandet.",
     photo: { src: restaurantUrl, small: restaurantUrlSmall, alt: "Gäster äter i en restaurang med växter och böcker på hyllorna", position: "50% 50%" },
     start: {
       card: {
-        title: "Dagens lunch",
-        body: "Kycklingkebab med ris och sallad. Serveras 11–14.",
+        title: "Välkommen till kundklubben!",
+        body: "Tack för att du gick med. Din välkomstbonus är en gratis dryck vid nästa besök.",
         actions: [
-          {
-            label: "Boka bord",
-            next: {
-              text: "Hur många är ni?",
-              chips: ["2", "4", "6 eller fler"].map((people) => ({ label: people, next: tableBooked(people) })),
-            },
-          },
-          { label: "Beställ hämtmat", next: takeaway },
-          { label: "Se menyn", icon: "open", opens: "menyn" },
+          { label: "Hämta bonusen", next: coupon("gratis dryck", "KF-1001") },
+          { label: "Veckans erbjudanden", next: weeklyOffers },
         ],
       },
     },
