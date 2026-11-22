@@ -59,6 +59,9 @@ export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
+  // On a phone the list is long, so it starts with the first five properties.
+  const [allRows, setAllRows] = useState(false);
+  const phoneRows = allRows ? rows : rows.slice(0, 5);
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -73,7 +76,7 @@ export function CompareSection() {
             <span className="px-3 text-xs font-semibold text-muted-foreground">SMS</span>
             <span className="px-3 font-display text-sm font-extrabold text-foreground">RCS</span>
           </li>
-          {rows.map((item) => {
+          {phoneRows.map((item) => {
             return (
               <li key={item.label} className="border-t border-border px-4 py-4 first-of-type:border-t-0 [&:nth-child(2)]:border-t-0">
                 <p className="text-sm font-semibold">{item.label}</p>
@@ -91,6 +94,11 @@ export function CompareSection() {
             );
           })}
         </ul>
+        {rows.length > phoneRows.length ? (
+          <Button type="button" variant="outline" className="mt-4 w-full sm:hidden" onClick={() => setAllRows(true)}>
+            {t("Visa alla {count} jämförelser").replace("{count}", String(rows.length))}
+          </Button>
+        ) : null}
         <div data-reveal style={order(1)} className={cn(sectionBody, "hidden overflow-hidden rounded-2xl bg-card sm:block")}>
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
@@ -159,6 +167,8 @@ function WebSketch() {
   const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
   // -1: not sent; 0..2: how far the test message has come.
   const [step, setStep] = useState(-1);
+  // On a phone the form starts folded, so the section shows the card first and the fields on request.
+  const [editing, setEditing] = useState(false);
   const timers = useRef<number[]>([]);
   useEffect(() => () => timers.current.forEach((timer) => window.clearTimeout(timer)), []);
   const reset = () => {
@@ -222,8 +232,13 @@ function WebSketch() {
             )}
           </ol>
         </div>
+        {!editing ? (
+          <Button type="button" variant="outline" className="mt-3 w-full sm:hidden" onClick={() => setEditing(true)}>
+            {t("Prova att ändra kortet")}
+          </Button>
+        ) : null}
         <form
-          className="grid flex-1 gap-4 px-3 pt-5 pb-3 sm:grid-cols-2 sm:px-4"
+          className={cn("flex-1 gap-4 px-3 pt-5 pb-3 sm:grid sm:grid-cols-2 sm:px-4", editing ? "grid" : "hidden")}
           onSubmit={(event) => {
             event.preventDefault();
             send();
@@ -339,9 +354,16 @@ const API_EVENTS: [time: string, status: string, detail: string][] = [
 /** The API in three steps: the request, the answer and the events that come back. */
 export function ApiSketch() {
   const { t, locale } = useT();
+  // On a phone the example starts cut short, with a way to see all of it.
+  const [whole, setWhole] = useState(false);
   const step = "flex items-center gap-2 text-[11px] font-semibold tracking-[0.06em] text-ink-muted uppercase";
   return (
-    <figure className="flex h-full flex-col overflow-hidden rounded-xl bg-ink text-left shadow-card">
+    <figure className={cn("relative flex h-full flex-col overflow-hidden rounded-xl bg-ink text-left shadow-card", !whole && "max-sm:max-h-[24rem]")}>
+      {!whole ? (
+        <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center bg-gradient-to-t from-ink via-ink/90 to-transparent pt-16 pb-4 sm:hidden">
+          <Button type="button" variant="outline" size="sm" onClick={() => setWhole(true)}>{t("Visa hela exemplet")}</Button>
+        </div>
+      ) : null}
       <figcaption className="flex items-center justify-between border-b border-ink-foreground/10 px-4 py-2.5 text-xs text-ink-muted">
         <span className="flex items-center gap-2 font-semibold text-ink-foreground">
           <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono text-[11px]">POST</span>
@@ -528,8 +550,9 @@ export function PricingSection() {
           </div>
           <Link to={lp("/priser")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Priser per operatör")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
-        <div className={cn(sectionBody, "grid gap-5 md:grid-cols-3")}>
-          {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} style={order(index)} />)}
+        {/* On a phone the plans sit in a row to swipe through, so the section is one card tall. */}
+        <div className={cn(sectionBody, "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden")}>
+          {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} style={order(index)} className="w-[84%] shrink-0 snap-center md:w-auto" />)}
         </div>
         <p data-reveal className="mt-5 text-sm leading-relaxed text-pretty text-muted-foreground">
           {t("Osäkra på vilken ni behöver?")}{" "}

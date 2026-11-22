@@ -252,24 +252,25 @@ export function SiteHeader() {
           />
           <nav aria-label={t("Huvudmeny")} className="relative mx-4 max-h-[calc(100dvh-8.5rem)] origin-top-right overflow-y-auto rounded-lg bg-background p-7 shadow-lift animate-scale-in">
             <ul className="divide-y divide-border">
+              {headerLinks.map((link) => <li key={link.label}><Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} activeProps={{ "aria-current": active === link.label ? "page" : undefined }} inactiveProps={{ "aria-current": active === link.label ? "page" : undefined }} className={cn(mobileLinkClass, active === link.label && "text-logo-blue")}>{t(link.label)}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
               <li>
-                <Link to={lp("/")} className={mobileLinkClass}>
-                  {t("Startsida")}
+                <Link to={lp("/kontakt")} className={mobileLinkClass}>
+                  {t("Kontakt")}
                   <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
                 </Link>
               </li>
-              {headerLinks.map((link) => <li key={link.label}><Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} activeProps={{ "aria-current": active === link.label ? "page" : undefined }} inactiveProps={{ "aria-current": active === link.label ? "page" : undefined }} className={cn(mobileLinkClass, active === link.label && "text-logo-blue")}>{t(link.label)}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
             </ul>
-            <div className="mt-5 flex flex-col gap-3">
-              <LanguageSwitch pathname={pathname} block />
+            {/* Both actions on one row, so they are on screen without scrolling the menu. */}
+            <div className="mt-5 grid grid-cols-2 gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">
-              <a href="https://portal.rcsdirekt.se/login">
-                {t("Logga in")}
-              </a>
+                <a href="https://portal.rcsdirekt.se/login">{t("Logga in")}</a>
               </Button>
               <Button asChild size="lg" className="w-full">
-                <Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link>
+                <Link to={lp("/skapa-konto")}>{t("Skapa konto")}</Link>
               </Button>
+            </div>
+            <div className="mt-3">
+              <LanguageSwitch pathname={pathname} block />
             </div>
           </nav>
         </div>

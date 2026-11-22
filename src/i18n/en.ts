@@ -330,4 +330,7 @@ export const en: Record<string, string> = {
   "Senaste artiklar": "Latest articles",
   "Se skillnaden själv": "See the difference yourself",
   Webbplatskarta: "Sitemap",
+  "Visa alla {count} jämförelser": "Show all {count} comparisons",
+  "Prova att ändra kortet": "Try changing the card",
+  "Visa hela exemplet": "Show the whole example",
 };

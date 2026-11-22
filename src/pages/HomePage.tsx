@@ -28,7 +28,7 @@ export function HomePage() {
 
 function DualCtas() {
   const { t, lp } = useT();
-  return <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/")} hash="kontakt">{t("Prata med oss")}</Link></Button></div>;
+  return <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/")} hash="kontakt">{t("Prata med oss")}</Link></Button></div>;
 }
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
