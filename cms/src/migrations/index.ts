@@ -43,6 +43,7 @@ import * as migration_20261122_340000_hero_short from './20261122_340000_hero_sh
 import * as migration_20261122_350000_blog_archive from './20261122_350000_blog_archive';
 import * as migration_20261122_360000_blog_ten from './20261122_360000_blog_ten';
 import * as migration_20261122_370000_article_author_image from './20261122_370000_article_author_image';
+import * as migration_20261122_380000_hero_customer_sees from './20261122_380000_hero_customer_sees';
 
 export const migrations = [
   {
@@ -271,5 +272,10 @@ export const migrations = [
     up: migration_20261122_370000_article_author_image.up,
     down: migration_20261122_370000_article_author_image.down,
     name: '20261122_370000_article_author_image',
+  },
+  {
+    up: migration_20261122_380000_hero_customer_sees.up,
+    down: migration_20261122_380000_hero_customer_sees.down,
+    name: '20261122_380000_hero_customer_sees',
   },
 ];

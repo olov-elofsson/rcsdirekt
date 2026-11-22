@@ -124,7 +124,8 @@ export function HeroMessage({ className }: { className?: string }) {
 
   return (
     <div ref={box} className={cn("w-full rounded-3xl bg-muted px-4 pt-4 pb-5 lg:max-w-[20rem]", className)}>
-      <div role="radiogroup" aria-label={t("Visa meddelandet som")} className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
+      <p id="se-skillnaden" className="mb-2.5 text-center text-sm font-semibold text-muted-foreground">{t("Se skillnaden själv")}</p>
+      <div role="radiogroup" aria-labelledby="se-skillnaden" className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
         {[false, true].map((value) => (
           <button
             key={String(value)}

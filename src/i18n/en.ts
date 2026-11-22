@@ -329,4 +329,5 @@ export const en: Record<string, string> = {
   "Publicerad": "Published",
   "Av": "By",
   "Senaste artiklar": "Latest articles",
+  "Se skillnaden själv": "See the difference yourself",
 };
