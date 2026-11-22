@@ -2,6 +2,23 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Self-hosted brand fonts (OFL 1.1, from @fontsource), latin and latin-ext only, font-display: swap.
+   Only the weights in brand/BRAND.md: Archivo 600–800, Hind 400–700. */
+@import "@fontsource/archivo/latin-600.css";
+@import "@fontsource/archivo/latin-ext-600.css";
+@import "@fontsource/archivo/latin-700.css";
+@import "@fontsource/archivo/latin-ext-700.css";
+@import "@fontsource/archivo/latin-800.css";
+@import "@fontsource/archivo/latin-ext-800.css";
+@import "@fontsource/hind/latin-400.css";
+@import "@fontsource/hind/latin-ext-400.css";
+@import "@fontsource/hind/latin-500.css";
+@import "@fontsource/hind/latin-ext-500.css";
+@import "@fontsource/hind/latin-600.css";
+@import "@fontsource/hind/latin-ext-600.css";
+@import "@fontsource/hind/latin-700.css";
+@import "@fontsource/hind/latin-ext-700.css";
+
 @custom-variant dark (&:is(.dark *));
 
 /* RCS Direkt — luftigt brandkit i vitt och blått (#EFEEFC / #F5F5FC / #15115F). */

@@ -16,6 +16,9 @@ import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import appCss from "../styles.css?url";
+// Same files the @font-face rules in styles.css point to, so the preload is reused.
+import archivo800 from "@fontsource/archivo/files/archivo-latin-800-normal.woff2?url";
+import hind400 from "@fontsource/hind/files/hind-latin-400-normal.woff2?url";
 
 function NotFoundComponent() {
   return (
@@ -79,16 +82,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Hind:wght@400;500;600;700&display=swap",
-      },
+      // Headings (h1–h3 are weight 800) and body text above the fold.
+      { rel: "preload", href: archivo800, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "preload", href: hind400, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: appCss,

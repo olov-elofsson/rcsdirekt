@@ -4,7 +4,7 @@
  *   buildProject(flow)            -> projekt med tidslinje (sekunder)
  *   createRenderer(el, project)   -> { renderAt(t), duration, frames, ready }
  *   exportMp4(project, opts)      -> Promise<Blob>  (1080x1920, 30 fps, H.264, inget ljud)
- *   loadPhoneFontCss()            -> Promise<string> (@font-face med inbäddade typsnitt, Google Sans)
+ *   loadPhoneFontCss(files)       -> Promise<string> (@font-face med inbäddade typsnitt, Google Sans, lokala filer)
  * Kalibrerad mot den godkända Bilia-videon (v3, 68,167 s).
  */
 
@@ -761,26 +761,17 @@ const RANGE = {
   'latin-ext': 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF',
 };
 /**
- * files: [{ weight: 400, subset: 'latin', url }] – lokala woff2-filer (från @fontsource/google-sans).
- * Utan files hämtas Google Sans från Google Fonts.
+ * files: [{ weight: 400, subset: 'latin', url }] – lokala woff2-filer (PHONE_FONT_FILES i
+ * src/lib/rcs-phone/fonts.ts, från @fontsource/google-sans, OFL 1.1). Typsnittet hämtas aldrig
+ * från Google Fonts, så besökarens IP-adress skickas inte till Google.
  */
 export function loadPhoneFontCss(files) {
   if (fontCssPromise) return fontCssPromise;
   fontCssPromise = (async () => {
     const out = [];
-    if (files && files.length) {
-      for (const f of files) {
-        const buf = await (await fetch(f.url)).arrayBuffer();
-        out.push(`@font-face{font-family:'Google Sans';font-style:normal;font-weight:${f.weight};font-display:block;src:url(data:font/woff2;base64,${arrayBufferToBase64(buf)}) format('woff2');unicode-range:${RANGE[f.subset] || RANGE.latin}}`);
-      }
-    } else {
-      const css = await (await fetch('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=block')).text();
-      const blocks = css.split('/*').slice(1).map(b => '/*' + b).filter(b => /latin(-ext)?\s*\*\//.test(b.slice(0, 40)));
-      for (const blk of blocks) {
-        const m = blk.match(/url\((https:[^)]+)\)/); if (!m) continue;
-        const buf = await (await fetch(m[1])).arrayBuffer();
-        out.push(blk.replace(m[1], `data:font/woff2;base64,${arrayBufferToBase64(buf)}`));
-      }
+    for (const f of files || []) {
+      const buf = await (await fetch(f.url)).arrayBuffer();
+      out.push(`@font-face{font-family:'Google Sans';font-style:normal;font-weight:${f.weight};font-display:block;src:url(data:font/woff2;base64,${arrayBufferToBase64(buf)}) format('woff2');unicode-range:${RANGE[f.subset] || RANGE.latin}}`);
     }
     const all = out.join('\n');
     const st = document.createElement('style'); st.textContent = all; document.head.appendChild(st);

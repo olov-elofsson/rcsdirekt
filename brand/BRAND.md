@@ -46,4 +46,4 @@ Sidans tokens i `src/styles.css` (`--primary`, `--primary-soft`, `--muted` och s
 - Rubriker: **Archivo** 600–800.
 - Brödtext: **Hind** 400–700.
 
-Båda laddas från Google Fonts i `src/routes/__root.tsx`.
+Båda ligger på vår egen server via `@fontsource/archivo` och `@fontsource/hind` (OFL 1.1). De laddas i `src/styles.css`, bara latin och latin-ext och bara vikterna ovan, med `font-display: swap`. `src/routes/__root.tsx` förladdar Archivo 800 och Hind 400. Telefonernas Google Sans kommer från `@fontsource/google-sans` (OFL 1.1), se `src/lib/rcs-phone/fonts.ts`. Inget typsnitt hämtas från Google Fonts.
