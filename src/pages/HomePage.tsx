@@ -13,6 +13,8 @@ import { usePriser, useStartsida } from "@/content/localized";
 import { HeroMessage } from "@/components/HeroMessage";
 import { STEPS } from "@/data/onboarding";
 import { useT } from "@/lib/i18n";
+import { articleList as articleListSv } from "@/content/article-list";
+import { articleList as articleListEn } from "@/content/en/article-list";
 
 // The start page, in Swedish at / and in English at /en; the routes only add their own head.
 
@@ -42,10 +44,14 @@ function NumberDrop({ n }: { n: number }) {
 }
 
 /** The hero split in two: headline, one line on what it is and two actions beside one notice shown as SMS and as RCS. */
+/** The news article the line above the heading leads to; until it is in the content, the iPhone article's operator section. */
+const NEWS_SLUG = "svenska-operatorer-oppnar-rcs-pa-iphone";
+
 function HeroFirst() {
   const home = useStartsida();
-  const { t, lp } = useT();
-  const labelLink = "group -my-2 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-muted-foreground underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline";
+  const { t, lp, locale } = useT();
+  const news = (locale === "en" ? articleListEn : articleListSv).some((article) => article.slug === NEWS_SLUG);
+  const labelLink = "group -my-2 inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold sm:text-sm text-muted-foreground underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline";
   return (
     <section id="top" className="bg-background">
       {/* Text and message share the header's edges: the text starts at the logo, the message ends at the last button. */}
@@ -53,10 +59,11 @@ function HeroFirst() {
         <div>
           {/* One line on where RCS stands, leading to the article with each operator's status. */}
           <p className="mb-5">
-            <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} hash="operatorer" className={labelLink}>
+            <Link to={lp("/blogg/$slug")} params={{ slug: news ? NEWS_SLUG : "rcs-pa-iphone" }} {...(news ? {} : { hash: "operatorer" })} className={labelLink}>
               <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-              {t("Under 2026 kommer RCS till både iPhone och Android")}
-              <ArrowRight aria-hidden className="size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+              {t("Svenska operatörer öppnar RCS på iPhone under 2026")}
+              {/* Only where the line fits on one row; on phones a wrapped line would push the arrow to the edge. */}
+              <ArrowRight aria-hidden className="hidden size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 sm:block" />
             </Link>
           </p>
           <h1 className="max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">

@@ -38,6 +38,7 @@ import * as migration_20261122_290000_merge_topics_options from './20261122_2900
 import * as migration_20261122_300000_hero_direct from './20261122_300000_hero_direct';
 import * as migration_20261122_310000_iphone_operators from './20261122_310000_iphone_operators';
 import * as migration_20261122_320000_hero_figures from './20261122_320000_hero_figures';
+import * as migration_20261122_330000_iphone_news from './20261122_330000_iphone_news';
 
 export const migrations = [
   {
@@ -241,5 +242,10 @@ export const migrations = [
     up: migration_20261122_320000_hero_figures.up,
     down: migration_20261122_320000_hero_figures.down,
     name: '20261122_320000_hero_figures',
+  },
+  {
+    up: migration_20261122_330000_iphone_news.up,
+    down: migration_20261122_330000_iphone_news.down,
+    name: '20261122_330000_iphone_news',
   },
 ];

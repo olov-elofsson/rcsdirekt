@@ -309,5 +309,5 @@ export const en: Record<string, string> = {
 
   // Hero label
   och: "and",
-  "Under 2026 kommer RCS till både iPhone och Android": "During 2026, RCS comes to both iPhone and Android",
+  "Svenska operatörer öppnar RCS på iPhone under 2026": "Swedish operators open RCS on iPhone during 2026",
 };

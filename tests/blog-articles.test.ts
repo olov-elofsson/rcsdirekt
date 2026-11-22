@@ -61,8 +61,9 @@ test("ämnesfilter kombineras med sökning", () => {
   expect(searchArticles("webhook", "Grunder")).toEqual([]);
 });
 
-test("alla 157 artiklar finns kvar efter flytten till CMS", () => {
-  expect(articles).toHaveLength(157);
+test("inga av de 157 artiklarna från flytten till CMS har försvunnit", () => {
+  // New articles are added in the CMS, so the count may grow but never fall below the moved set.
+  expect(articles.length).toBeGreaterThanOrEqual(157);
 });
 
 test("alla fördjupningar och relaterade guider har befintliga artiklar", () => {
