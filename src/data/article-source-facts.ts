@@ -1,10 +1,11 @@
-import { content, type Source } from "@/content";
+import { kunskap } from "@/content/kunskap";
+import type { Source } from "@/content";
 
 export type SourceFact = { sourceId: string; finding: string; implication: string };
 
 // Findings describe the original publisher's service, not RCS Direkt's results.
 export const sourceFacts: Record<string, SourceFact> = Object.fromEntries(
-  content.kunskap.sources
+  kunskap.sources
     .filter((source) => source.finding && source.implication)
     .map((source) => [
       source.id,

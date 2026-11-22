@@ -4,12 +4,12 @@ import { Check } from "lucide-react";
 import { InquiryForm } from "@/components/InquiryForm";
 import { SiteHeader, SiteFooter } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
-import { content } from "@/content";
+import { priser } from "@/content/priser";
 import { STEPS } from "@/data/onboarding";
 import { company } from "@/lib/company";
 
 // The plan chosen on the pricing cards, accepted only if it is one of the plans on the site.
-const planNames = new Set(content.priser.plans.map((plan) => plan.name));
+const planNames = new Set(priser.plans.map((plan) => plan.name));
 
 export const Route = createFileRoute("/skapa-konto")({
   validateSearch: (search: Record<string, unknown>): { plan?: string } =>
@@ -60,11 +60,11 @@ function SignupPage() {
                   ))}
                 </ol>
               </div>
-              {content.priser.included.length ? (
+              {priser.included.length ? (
                 <div className="rounded-2xl bg-primary-soft p-6 sm:p-7">
-                  <h2 className="text-lg font-extrabold">{content.priser.includedHeading}</h2>
+                  <h2 className="text-lg font-extrabold">{priser.includedHeading}</h2>
                   <ul className="mt-4 space-y-2.5">
-                    {content.priser.included.map((item) => (
+                    {priser.included.map((item) => (
                       <li key={item} className="flex items-center gap-2.5 text-sm font-semibold">
                         <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
                         {item}

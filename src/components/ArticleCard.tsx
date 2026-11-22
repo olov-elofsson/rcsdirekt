@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, BookOpen, Briefcase, Building2, Clock, Code2, Cpu, Library, MessageSquare, Palette, Smartphone, type LucideIcon } from "lucide-react";
 
-import { readingMinutes, type articles } from "@/data/blog-articles";
+import type { ArticleSummary } from "@/content";
 import { cn } from "@/lib/utils";
 
-export type ArticleItem = (typeof articles)[number];
+export type ArticleItem = ArticleSummary;
 
 /** One icon per topic, so the topic is recognisable before its name is read. */
 const TOPIC_ICONS: Record<string, LucideIcon> = {
@@ -42,7 +42,7 @@ export function ArticleCard({ article, className }: { article: ArticleItem; clas
       <h3 className="mt-4 text-lg font-extrabold leading-snug text-balance transition-colors group-hover:text-logo-blue">{article.title}</h3>
       <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-pretty text-muted-foreground">{article.description}</p>
       <span className="mt-auto flex items-center justify-between gap-3 pt-5 text-xs font-semibold text-muted-foreground">
-        <span className="inline-flex items-center gap-1.5"><Clock aria-hidden className="size-3.5" />{readingMinutes(article)} min läsning</span>
+        <span className="inline-flex items-center gap-1.5"><Clock aria-hidden className="size-3.5" />{article.minutes} min läsning</span>
         <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </span>
     </Link>

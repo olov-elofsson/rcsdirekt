@@ -4,12 +4,13 @@ import { BlogLayout, blogHead } from "@/components/BlogLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { content } from "@/content";
+import { articleList } from "@/content/article-list";
+import { priser } from "@/content/priser";
 import { CopyLink, ReadingProgress, useActiveSection } from "@/components/ArticleReadingTools";
 import { ArticleCard } from "@/components/ArticleCard";
 import { articles, findSources, readingMinutes } from "@/data/blog-articles";
 
-const lowestPrice = content.priser.plans[0]?.price;
+const lowestPrice = priser.plans[0]?.price;
 
 /** The aside on wide screens: the article's sections, then the way to try RCS. */
 function ArticleAside({ sections, category, slug }: { sections: { id: string; title: string }[]; category: string; slug: string }) {
@@ -70,7 +71,7 @@ export const Route = createFileRoute("/blogg/$slug")({
 function ArticlePage() {
   const article = Route.useLoaderData();
   const references = findSources(article.sections.flatMap((section) => section.sources));
-  const related = article.related.map((slug) => articles.find((item) => item.slug === slug)).filter((item): item is (typeof articles)[number] => Boolean(item)).slice(0, 4);
+  const related = article.related.map((slug) => articleList.find((item) => item.slug === slug)).filter((item): item is (typeof articleList)[number] => Boolean(item)).slice(0, 4);
   return <BlogLayout><ReadingProgress /><article>
     <PageHeading title={article.title} description={<p>{article.description}</p>}><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span><span className="text-sm text-muted-foreground">Av <Link to="/om-oss" className="font-semibold text-foreground underline-offset-4 hover:underline">RCS Direkt</Link> · Publicerad <time dateTime={article.published}>{new Date(article.published).toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" })}</time></span></PageHeading>
     <div className="mx-auto grid max-w-6xl gap-16 px-5 pb-16 sm:pb-24 lg:grid-cols-[minmax(0,1fr)_17rem] lg:px-8">

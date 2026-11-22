@@ -1,7 +1,7 @@
-import { content } from "@/content";
+import { priser } from "@/content/priser";
 
-export const pricingPlans = content.priser.plans;
+export const pricingPlans = priser.plans;
 export type { PricingPlan } from "@/content";
 
-export const pricingCountries = content.priser.countries;
-export const pricingCurrencies = content.priser.currencies;
+export const pricingCountries = priser.countries;
+export const pricingCurrencies = priser.currencies;

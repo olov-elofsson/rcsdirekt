@@ -6,7 +6,8 @@ import { ApiSketch } from "@/components/HomepageSections";
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
-import { articles, sources } from "@/data/blog-articles";
+import { articleList as articles } from "@/content/article-list";
+import { sources } from "@/content/sources";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 

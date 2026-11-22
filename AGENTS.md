@@ -2,6 +2,7 @@
 
 - Sidan körs på Google Cloud Run (tjänsten `rcsdirekt`, europe-west1) och byggs från `main` vid varje push.
 - Allt redigerbart innehåll kommer från Payload CMS i `cms/` (tjänsten `rcsdirekt-cms`, cms.rcsdirekt.se). Bygget hämtar det till `src/content/content.json`; ändra innehåll i CMS:et, inte i den filen.
+- `scripts/split-content.ts` delar upp `content.json` i `src/content/parts/` efter hämtningen, så att varje sida bara laddar det den visar. Importera en del från sin egen modul (`@/content/priser`, `@/content/article-list` …), aldrig hela innehållet; artiklarna (`@/content/kunskap`) hör bara hemma på artikelsidan.
 - Ändringar under `cms/` bygger bara CMS:et, övriga ändringar bara sidan.
 
 ## Brandkit

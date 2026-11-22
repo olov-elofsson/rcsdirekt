@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage } from "@/components/LegalPage";
-import { content } from "@/content";
+import { juridiskt } from "@/content/juridiskt";
 
-const page = content.juridiskt?.integritetspolicy;
+const page = juridiskt?.integritetspolicy;
 const title = `${page?.title || "Integritetspolicy"} | RCS Direkt`;
 const description = page?.description || "Så behandlar WIGOSE AB personuppgifter när du använder rcsdirekt.se och RCS Direkt.";
 

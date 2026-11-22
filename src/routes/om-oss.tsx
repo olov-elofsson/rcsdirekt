@@ -4,13 +4,13 @@ import { ArrowRight, BadgeCheck, Coins, RadioTower, ShieldCheck } from "lucide-r
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
-import { content } from "@/content";
+import { priser } from "@/content/priser";
 import { company, organizationSchema } from "@/lib/company";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 
 const title = "Om RCS Direkt | WIGOSE AB i Örebro";
 const description = "RCS Direkt är en tjänst från WIGOSE AB i Örebro. Svenska företag skickar RCS från webben eller via API och betalar per meddelande.";
-const operators = content.priser.operators.filter((name) => !name.startsWith("Övriga"));
+const operators = priser.operators.filter((name) => !name.startsWith("Övriga"));
 
 export const Route = createFileRoute("/om-oss")({
   head: () => ({

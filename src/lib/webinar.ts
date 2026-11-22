@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { content } from "@/content";
+import { webinarer } from "@/content/webinarer";
 import type { Webinar } from "@/content/types";
 
 const zone = "Europe/Stockholm";
@@ -31,5 +31,5 @@ export function shortWhen(webinar: Webinar) {
 export function useNextWebinar(): Webinar | undefined {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => setNow(Date.now()), []);
-  return (content.webinarer ?? []).find((item) => now === null || endsAt(item) > now);
+  return (webinarer ?? []).find((item) => now === null || endsAt(item) > now);
 }

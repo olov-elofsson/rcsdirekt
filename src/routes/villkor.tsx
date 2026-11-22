@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage } from "@/components/LegalPage";
-import { content } from "@/content";
+import { juridiskt } from "@/content/juridiskt";
 
-const page = content.juridiskt?.villkor;
+const page = juridiskt?.villkor;
 const title = `${page?.title || "Villkor"} | RCS Direkt`;
 const description = `${page?.description || "Villkoren för företag som skickar RCS genom RCS Direkt."} Om tjänsten, priser, tillåten användning, personuppgifter och uppsägning.`;
 

@@ -3,14 +3,15 @@ import { ArrowRight, Check, ChevronDown } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
-import { content, type NetworkPrice } from "@/content";
+import { priser } from "@/content/priser";
+import type { NetworkPrice } from "@/content";
 import { PriceCalculator } from "@/components/HomepageSections";
 import { Button } from "@/components/ui/button";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 import { organizationSchema } from "@/lib/company";
 
-const page = content.priser;
+const page = priser;
 const { plans: pricingPlans, countries: pricingCountries, currencies: pricingCurrencies } = page;
 
 const title = page.seo.title;

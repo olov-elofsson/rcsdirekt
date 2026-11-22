@@ -6,7 +6,13 @@ import { ArticleCard, formatDate, topicIcon } from "@/components/ArticleCard";
 import { BlogLayout, blogHead } from "@/components/BlogLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
-import { articles, readingMinutes, searchArticles } from "@/data/blog-articles";
+import { articleList as articles } from "@/content/article-list";
+
+/** Search title, summary and keywords of the light article list, optionally within one topic. */
+function searchArticles(query: string, category = "Alla") {
+  const needle = query.trim().toLocaleLowerCase("sv");
+  return articles.filter((article) => (category === "Alla" || article.category === category) && [article.title, article.description, ...article.keywords].join(" ").toLocaleLowerCase("sv").includes(needle));
+}
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +81,7 @@ function BlogPage() {
               <p className="relative mt-3 max-w-lg leading-relaxed text-pretty text-ink-muted">{lead.description}</p>
               <span className="relative mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold">
                 <span className="inline-flex items-center gap-2">Läs artikeln <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
-                <span className="inline-flex items-center gap-1.5 font-normal text-ink-muted"><Clock aria-hidden className="size-3.5" />{readingMinutes(lead)} min · {formatDate(lead.published)}</span>
+                <span className="inline-flex items-center gap-1.5 font-normal text-ink-muted"><Clock aria-hidden className="size-3.5" />{lead.minutes} min · {formatDate(lead.published)}</span>
               </span>
             </Link>
             <div className="grid gap-5">

@@ -7,13 +7,14 @@ import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, VerifiedMark }
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { content } from "@/content";
-import { articles, readingMinutes } from "@/data/blog-articles";
+import { articleList } from "@/content/article-list";
+import { priser } from "@/content/priser";
+import { startsida } from "@/content/startsida";
 import { contentIcon } from "@/content/icons";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
-const home = content.startsida;
+const home = startsida;
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
 // so a left-aligned heading would look indented next to the text under it.
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
@@ -281,7 +282,7 @@ const sek = (value: number, digits = 0) =>
   value.toLocaleString("sv-SE", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 
 /** The list price for a number of messages: the plan's from price times the count, nothing else. */
-export function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
+export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   const [planIndex, setPlanIndex] = useState(() => Math.max(0, plans.findIndex((plan) => plan.badge)));
   const [count, setCount] = useState(5000);
   const plan = plans[planIndex];
@@ -345,7 +346,7 @@ export function PriceCalculator({ plans }: { plans: typeof content.priser.plans 
 }
 
 export function PricingSection() {
-  const plans = content.priser.plans;
+  const plans = priser.plans;
   return (
     <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -394,7 +395,7 @@ export function PricingSection() {
 /* Guider: one article large, two beside it.                                                   */
 
 export function BlogSection() {
-  const picks = home.blogg.picks.map((slug) => articles.find((article) => article.slug === slug)).filter((a): a is (typeof articles)[number] => Boolean(a));
+  const picks = home.blogg.picks.map((slug) => articleList.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
   const [first, ...rest] = picks;
   return (
     <section id="blogg" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
@@ -412,7 +413,7 @@ export function BlogSection() {
               <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
               <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
               <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
-              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{readingMinutes(first)} min läsning</span>
+              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{first.minutes} min läsning</span>
               <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold">Läs artikeln <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
             </Link>
             <div className="grid gap-5">
@@ -421,7 +422,7 @@ export function BlogSection() {
                   <Badge variant="secondary" className="self-start">{article.category}</Badge>
                   <h3 className="mt-3 text-lg font-extrabold leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{readingMinutes(article)} min läsning</span>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{article.minutes} min läsning</span>
                 </Link>
               ))}
             </div>

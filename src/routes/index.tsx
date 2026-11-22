@@ -10,15 +10,17 @@ import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomepageSections";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
-import { content } from "@/content";
+import { priser } from "@/content/priser";
+import { startsida } from "@/content/startsida";
+import { webinarer } from "@/content/webinarer";
 import { organizationSchema } from "@/lib/company";
 import { STEPS } from "@/data/onboarding";
 
-const home = content.startsida;
+const home = startsida;
 
 /** Event markup for the next webinar, so search engines can show it as an online event. */
 function webinarSchema() {
-  const webinar = (content.webinarer ?? [])[0];
+  const webinar = (webinarer ?? [])[0];
   if (!webinar) return [];
   const end = new Date(Date.parse(webinar.startsAt) + webinar.durationMinutes * 60_000).toISOString();
   const event = {
@@ -79,7 +81,7 @@ function NumberDrop({ n }: { n: number }) {
 
 const lowestPrice = pricingPlans[0]?.price;
 // Named operators only; "Övriga operatörer" (MVNOs) is a price row, not a network to name.
-const operators = content.priser.operators.filter((name) => !name.startsWith("Övriga"));
+const operators = priser.operators.filter((name) => !name.startsWith("Övriga"));
 
 /** A plain, centred hero: headline, one line on what it is, two actions and the list price. No decoration. */
 function HeroFirst() {
@@ -114,11 +116,11 @@ function Steps() {
           ))}
         </ol>
         {/* What every account includes, from the pricing page in the CMS, in the cards' columns; then the action. */}
-        {content.priser.included.length ? (
+        {priser.included.length ? (
           <div data-reveal className="mt-10">
-            <p className="text-xs font-bold tracking-[0.08em] text-ink-muted uppercase">{content.priser.includedHeading}</p>
+            <p className="text-xs font-bold tracking-[0.08em] text-ink-muted uppercase">{priser.includedHeading}</p>
             <ul className="mt-4 grid gap-x-5 gap-y-3 sm:grid-cols-2 md:grid-cols-3">
-              {content.priser.included.map((item) => (
+              {priser.included.map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm font-semibold">
                   <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
                   {item}

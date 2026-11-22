@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 import type { SiteContent } from "../src/content/types";
+import { splitContent } from "./split-content";
 
 const target = new URL("../src/content/content.json", import.meta.url);
 const cmsUrl = (process.env.CMS_URL || "https://rcsdirekt-cms-631487523529.europe-west1.run.app").replace(/\/$/, "");
@@ -34,10 +35,12 @@ try {
   response = await fetch(`${cmsUrl}/api/site-content`, { signal: AbortSignal.timeout(60_000) });
 } catch (error) {
   console.warn(`[content] CMS at ${cmsUrl} not reachable (${String(error)}); building with the committed content.`);
+  await splitContent();
   process.exit(0);
 }
 if (!response.ok) {
   console.warn(`[content] CMS at ${cmsUrl} answered ${response.status}; building with the committed content.`);
+  await splitContent();
   process.exit(0);
 }
 
@@ -51,3 +54,4 @@ const before = readFileSync(target, "utf8");
 const after = JSON.stringify(content, null, 2) + "\n";
 writeFileSync(target, after);
 console.log(`[content] Loaded ${content.kunskap.articles.length} articles from ${cmsUrl}${before === after ? " (unchanged)" : ""}.`);
+await splitContent();
