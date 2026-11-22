@@ -12,6 +12,8 @@ import carDealerUrl from "@/assets/foto-bilhandel.webp";
 import carDealerUrlSmall from "@/assets/foto-bilhandel-800.webp";
 import bowlingUrl from "@/assets/foto-bowling.webp";
 import bowlingUrlSmall from "@/assets/foto-bowling-800.webp";
+import restaurantUrl from "@/assets/foto-restaurang.webp";
+import restaurantUrlSmall from "@/assets/foto-restaurang-800.webp";
 
 /** The photo a case's conversation is laid over. */
 /** `messageAt` moves the conversation off the people in the photo: "right" for a subject on the left, "center" for people on both sides. */
@@ -68,6 +70,16 @@ const laneBooked = (time: string): Step => ({
     { label: "Nej tack", next: laneDone("Toppen, välkomna!") },
   ],
 });
+
+/* Kebabfabriken: today's lunch, with a table booked or takeaway ordered in the thread. */
+const tableBooked = (people: string): Step => ({
+  text: `Klart! Bord för ${people} kl. 12.00 är bokat. Vi ses!`,
+  chips: [calendar, map],
+});
+const takeaway: Step = {
+  text: "Tack för beställningen! Den är klar att hämta om 20 minuter. Vi skickar ett meddelande när den står redo.",
+  chips: [map],
+};
 
 /* Maptun: a carousel of services with pictures, booking, directions and a reminder. */
 const workshopBooked = (day: string): Step => ({
@@ -236,6 +248,30 @@ export const scenarios: Scenario[] = [
             },
           },
           { label: "Se menyn", icon: "open", opens: "bigbowl.se" },
+        ],
+      },
+    },
+  },
+  {
+    customer: "Kebabfabriken",
+    company: "Kebabfabriken",
+    title: "Dagens lunch med bokning",
+    copy: "Gästen ser dagens lunch, bokar bord eller beställer hämtmat och får vägen dit, direkt i meddelandet.",
+    photo: { src: restaurantUrl, small: restaurantUrlSmall, alt: "Gäster äter i en restaurang med växter och böcker på hyllorna", position: "50% 50%" },
+    start: {
+      card: {
+        title: "Dagens lunch",
+        body: "Kycklingkebab med ris och sallad. Serveras 11–14.",
+        actions: [
+          {
+            label: "Boka bord",
+            next: {
+              text: "Hur många är ni?",
+              chips: ["2", "4", "6 eller fler"].map((people) => ({ label: people, next: tableBooked(people) })),
+            },
+          },
+          { label: "Beställ hämtmat", next: takeaway },
+          { label: "Se menyn", icon: "open", opens: "menyn" },
         ],
       },
     },
