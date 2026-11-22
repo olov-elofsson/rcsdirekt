@@ -5,7 +5,7 @@ import { juridiskt } from "@/content/juridiskt";
 
 const page = juridiskt?.integritetspolicy;
 const title = `${page?.title || "Integritetspolicy"} | rcsdirekt.se`;
-const description = page?.description || "Så behandlar WIGOSE AB personuppgifter när du använder rcsdirekt.se.";
+const description = `${page?.description || "Så behandlar WIGOSE AB personuppgifter när du använder rcsdirekt.se."} Vilka uppgifter vi samlar in, varför, hur länge de sparas och dina rättigheter.`;
 
 export const Route = createFileRoute("/integritetspolicy")({
   head: () => ({

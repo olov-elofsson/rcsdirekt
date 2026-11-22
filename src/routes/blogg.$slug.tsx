@@ -70,7 +70,7 @@ function ArticlePage() {
               <ul className="mt-3 space-y-3">
                 {references.map((source) => (
                   <li key={source.id}>
-                    <a href={source.url} target="_blank" rel="noreferrer" className="group/link inline-flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground transition-colors hover:text-foreground">
+                    <a href={source.url} target="_blank" rel="noreferrer" className="group/link inline-flex min-h-10 items-start gap-2.5 py-2 text-sm leading-relaxed text-muted-foreground transition-colors hover:text-foreground">
                       <ExternalLink aria-hidden strokeWidth={1.5} className="mt-1 size-3.5 shrink-0 opacity-60" />
                       <span>{source.title} <span className="text-xs opacity-70">{new URL(source.url).hostname}</span></span>
                     </a>

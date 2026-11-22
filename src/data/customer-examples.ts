@@ -32,8 +32,6 @@ export type Scenario = {
   customer: string;
   /** The company's registered name, as in the customer case in the CMS; the card's name. */
   company: string;
-  /** Shown large across the full width, photo beside the text. One example at a time. */
-  featured?: boolean;
   title: string;
   copy: string;
   photo: Picture & { alt: string };
@@ -173,7 +171,6 @@ export const scenarios: Scenario[] = [
   {
     customer: "Nercia",
     company: "Nercia Utbildning AB",
-    featured: true,
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
     photo: { src: courseUrl, small: courseUrlSmall, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },

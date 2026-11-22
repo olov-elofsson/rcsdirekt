@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
@@ -77,11 +77,14 @@ function CardView({
   narrow,
   active,
   onChoose,
+  hint,
 }: {
   card: Card;
   narrow?: boolean;
   active: boolean;
   onChoose: (choice: Choice) => void;
+  /** The button the demo is about to press, marked with a pulsing ring. */
+  hint?: Choice | undefined;
 }) {
   return (
     <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
@@ -92,7 +95,7 @@ function CardView({
           <button
             key={action.label}
             type="button"
-            className="cbtn"
+            className={cn("cbtn", action === hint && "tap-hint")}
             disabled={!active}
             onClick={() => onChoose(action)}
           >
@@ -116,9 +119,11 @@ function CardView({
 function ConversationView({
   sender,
   conversation,
+  hint,
 }: {
   sender: string;
   conversation: Conversation;
+  hint?: Choice | undefined;
 }) {
   // A little smaller on phones, so the photo still shows around the message.
   const [compact, setCompact] = useState(false);
@@ -208,7 +213,7 @@ function ConversationView({
                 ) : null}
                 {step.card ? (
                   <div style={{ marginTop: step.text ? 6 : 0 }}>
-                    <CardView card={step.card} active={active} onChoose={choose} />
+                    <CardView card={step.card} active={active} onChoose={choose} hint={hint} />
                   </div>
                 ) : null}
                 {step.carousel ? (
@@ -229,7 +234,7 @@ function ConversationView({
                   >
                     {step.carousel.map((card) => (
                       <div key={card.title} style={{ scrollSnapAlign: "start" }}>
-                        <CardView card={card} narrow active={active} onChoose={choose} />
+                        <CardView card={card} narrow active={active} onChoose={choose} hint={hint} />
                       </div>
                     ))}
                     {/* Lets the last card scroll clear of the fade. */}
@@ -242,7 +247,7 @@ function ConversationView({
                       <button
                         key={chip.label}
                         type="button"
-                        className="chip"
+                        className={cn("chip", chip === hint && "tap-hint")}
                         onClick={() => choose(chip)}
                       >
                         {chip.icon ? (
@@ -304,24 +309,79 @@ function featuresOf(start: Step): Feature[] {
   return [...found.values()].slice(0, 3);
 }
 
-/** One case: the photo with its conversation on top, and a short explanation under it. */
-function CaseCard({ scenario, index, featured = false, className }: { scenario: Scenario; index: number; featured?: boolean; className?: string }) {
+/** One case large: the photo with its conversation beside the text, and what the customer can try. */
+function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 | -1) => void }) {
   const conversation = useConversation(scenario.start);
   const features = featuresOf(scenario.start);
+  const [hint, setHint] = useState<Choice | undefined>(undefined);
+  const touched = useRef(false);
+  const box = useRef<HTMLElement>(null);
+  const swipeFrom = useRef<{ x: number; y: number } | null>(null);
+  const { current, answered, typing, started } = conversation;
+  const choices = answered || typing ? [] : choicesIn(current);
+
+  // The person's own taps stop the demo.
+  const choose = (choice: Choice) => {
+    touched.current = true;
+    setHint(undefined);
+    conversation.choose(choice);
+  };
+
+  // When the case comes into view: ring the first reply, then press it, once.
+  useEffect(() => {
+    const element = box.current;
+    if (!element || reducedMotion()) return;
+    const timers: number[] = [];
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return;
+      observer.disconnect();
+      const first = choicesIn(scenario.start).find((choice) => choice.next) ?? choicesIn(scenario.start)[0];
+      if (!first) return;
+      timers.push(window.setTimeout(() => !touched.current && setHint(first), 1200));
+      timers.push(window.setTimeout(() => {
+        if (touched.current) return;
+        setHint(undefined);
+        conversation.choose(first);
+      }, 2900));
+    }, { threshold: 0.5 });
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+    // The demo belongs to this case only; the row is remounted when the case changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <article data-reveal style={order(index)} className={cn("flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card text-card-foreground md:w-auto", featured && "lg:grid lg:grid-cols-[1.5fr_1fr]", className)}>
-      <figure className={cn("relative h-[460px] overflow-hidden bg-muted sm:h-[500px]", featured && "lg:h-[540px]")}>
-        <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 50vw, 100vw" alt={scenario.photo.alt} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
+    <article ref={box} id="kundexempel-panel" role="tabpanel"
+      aria-label={`Exempel för ${scenario.customer}`}
+      // A sideways swipe on a phone moves to the next or previous case.
+      onTouchStart={(event) => {
+        const touch = event.touches[0];
+        swipeFrom.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+      }}
+      onTouchEnd={(event) => {
+        const from = swipeFrom.current;
+        const touch = event.changedTouches[0];
+        swipeFrom.current = null;
+        if (!from || !touch) return;
+        const dx = touch.clientX - from.x;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(touch.clientY - from.y) * 1.5) onSwipe(dx < 0 ? 1 : -1);
+      }}
+      className="grid overflow-hidden rounded-2xl bg-card text-card-foreground lg:grid-cols-[1.35fr_1fr]">
+      <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[520px] lg:h-[560px]">
+        <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 60vw, 100vw" alt={scenario.photo.alt} decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
-        <figcaption className={cn("absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : "sm:right-auto")}>
-          <ConversationView sender={scenario.customer} conversation={conversation} />
+        <figcaption className={cn("absolute inset-x-5 bottom-5 top-14 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : "sm:right-auto")}>
+          <ConversationView sender={scenario.customer} conversation={{ ...conversation, choose }} hint={hint} />
         </figcaption>
       </figure>
-      <div className={cn("p-6 sm:p-7", featured && "lg:flex lg:flex-col lg:justify-center lg:p-10")}>
-        <p className="text-sm font-bold text-foreground">{scenario.company}</p>
-        <h3 className={cn("mt-2 text-xl font-extrabold leading-snug", featured && "lg:text-3xl lg:leading-tight")}>{scenario.title}</h3>
-        <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
+      <div className="flex flex-col p-5 sm:p-8 lg:justify-center lg:p-10">
+        <p className="text-sm font-bold">{scenario.company}</p>
+        <h3 className="mt-2 text-2xl font-extrabold leading-tight text-balance sm:text-3xl">{scenario.title}</h3>
+        <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (
           <ul aria-label="Det här använder exemplet" className="mt-5 flex flex-wrap gap-2">
             {features.map(({ label, Icon }) => (
@@ -332,19 +392,98 @@ function CaseCard({ scenario, index, featured = false, className }: { scenario: 
             ))}
           </ul>
         ) : null}
+        {/* The same choices as the buttons in the message, so the example can be tried from here too.
+            On a phone the message sits right above with the same buttons, so this is left out there. */}
+        <div className="mt-7 hidden border-t border-border pt-5 lg:block">
+          <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase">{choices.length ? "Prova som kund" : started ? "Klart" : "Prova som kund"}</p>
+          <div aria-live="polite" className="mt-3 flex flex-wrap gap-2">
+            {choices.length ? (
+              choices.map((choice) => (
+                <button key={choice.label} type="button" onClick={() => choose(choice)} className="inline-flex min-h-10 items-center rounded-full bg-muted px-4 text-sm font-semibold transition-colors duration-150 hover:bg-primary-soft active:scale-[0.97]">
+                  {choice.label}
+                  {choice.opens ? <span className="ml-1.5 font-normal text-muted-foreground">öppnar {choice.opens}</span> : null}
+                </button>
+              ))
+            ) : typing ? (
+              <span className="inline-flex min-h-10 items-center text-sm text-muted-foreground">{scenario.customer} skriver …</span>
+            ) : (
+              <button type="button" onClick={() => { touched.current = true; conversation.reset(); }} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-muted px-4 text-sm font-semibold transition-colors duration-150 hover:bg-primary-soft active:scale-[0.97]">
+                <RotateCcw aria-hidden className="size-3.5" /> Börja om
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </article>
   );
 }
 
-/** Photos from the customer cases with a tappable RCS conversation on top, two cards per row on navy. */
-/** The featured example first, then the others in their order. */
-const ordered = [...scenarios.filter((scenario) => scenario.featured), ...scenarios.filter((scenario) => !scenario.featured)];
+/** The examples one at a time: a tab per customer, the chosen one large under them. */
+function CaseShowcase() {
+  const [index, setIndex] = useState(0);
+  const tabs = useRef<HTMLDivElement>(null);
+  const scenario = scenarios[index];
+  const show = (next: number) => {
+    const count = scenarios.length;
+    setIndex(((next % count) + count) % count);
+  };
+  // Keep the chosen tab visible in the row without moving the page.
+  useEffect(() => {
+    const row = tabs.current;
+    const tab = row?.children[index] as HTMLElement | undefined;
+    if (!row || !tab) return;
+    row.scrollTo({ left: tab.offsetLeft - row.offsetLeft - 20, behavior: reducedMotion() ? "auto" : "smooth" });
+  }, [index]);
+  if (!scenario) return null;
+  // From the buttons under the case the new case starts above the fold, so bring its tabs up.
+  const step = (by: 1 | -1) => {
+    show(index + by);
+    tabs.current?.scrollIntoView({ block: "start", behavior: reducedMotion() ? "auto" : "smooth" });
+  };
+  const nextName = scenarios[(index + 1) % scenarios.length]?.customer;
+  return (
+    <div className={sectionBody}>
+      <div ref={tabs} role="tablist" aria-label="Välj kundexempel" className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
+        {scenarios.map((item, itemIndex) => (
+          <button
+            key={item.customer}
+            type="button"
+            role="tab"
+            aria-selected={itemIndex === index}
+            aria-controls="kundexempel-panel"
+            onClick={() => setIndex(itemIndex)}
+            className={cn(
+              "inline-flex h-11 shrink-0 items-center rounded-full px-5 text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              itemIndex === index ? "bg-ink-foreground text-ink" : "bg-ink-foreground/10 text-ink-foreground hover:bg-ink-foreground/20",
+            )}
+          >
+            {item.customer}
+          </button>
+        ))}
+      </div>
+      {/* The key remounts the row, so each case starts from its first message and plays its demo. */}
+      <CaseRow key={scenario.customer} scenario={scenario} onSwipe={(step) => show(index + step)} />
+      {/* On a phone the tabs have scrolled away by the end of a case, so the next one is offered here. */}
+      <div className="mt-4 flex items-center justify-between gap-3 lg:hidden">
+        <span className="text-sm text-ink-muted tabular-nums">{index + 1} av {scenarios.length}</span>
+        <div className="flex gap-2">
+          <button type="button" onClick={() => step(-1)} aria-label="Föregående exempel" className="inline-flex size-11 items-center justify-center rounded-full bg-ink-foreground/10 text-ink-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
+            <ArrowLeft aria-hidden className="size-4" />
+          </button>
+          <button type="button" onClick={() => step(1)} className="inline-flex h-11 items-center gap-2 rounded-full bg-ink-foreground px-5 text-sm font-semibold text-ink transition-[scale] duration-150 ease-out active:scale-[0.96]">
+            {nextName} <ArrowRight aria-hidden className="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function CustomerExamples() {
   return (
     <section
       id="exempel"
+      data-no-mobile-cta
       aria-labelledby="exempel-title"
       className="relative scroll-mt-24 overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24"
     >
@@ -358,14 +497,7 @@ export function CustomerExamples() {
             Så kan RCS se ut hos fyra av våra kunder. Tryck på knapparna och svara som en kund. Fotona kommer från kundcasen och meddelandena är exempel.
           </p>
         </div>
-        {/* One example large across the full width, the others side by side under it. On phones all
-            are a row to swipe, so they do not stack into one long column. */}
-        {/* On phones the cards are a row to swipe, so the four do not stack into one long column. */}
-        <div className={cn(sectionBody, "scrollbar-none -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3")}>
-          {ordered.map((scenario, index) => (
-            <CaseCard key={scenario.customer} scenario={scenario} index={index} featured={Boolean(scenario.featured)} className={scenario.featured ? "md:col-span-2 lg:col-span-3" : ""} />
-          ))}
-        </div>
+        <CaseShowcase />
         <div data-reveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
           <Button asChild size="lg" variant="outline" className="home-cta self-start border-transparent">
             <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>

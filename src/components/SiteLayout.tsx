@@ -249,7 +249,12 @@ function MobileSignupBar() {
     const update = () => {
       const footer = document.querySelector("footer");
       const footerInView = footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
-      setVisible(window.scrollY > window.innerHeight * 0.8 && !footerInView);
+      // Step aside where the bar would cover something to tap: forms and the customer examples.
+      const covers = [...document.querySelectorAll("form, [data-no-mobile-cta]")].some((element) => {
+        const box = element.getBoundingClientRect();
+        return box.top < window.innerHeight && box.bottom > window.innerHeight - 96;
+      });
+      setVisible(window.scrollY > window.innerHeight * 0.8 && !footerInView && !covers);
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -263,12 +268,12 @@ function MobileSignupBar() {
   return (
     <div
       className={cn(
-        "fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 transition-[translate,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-opacity sm:hidden",
+        "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/90 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-[translate,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-opacity sm:hidden",
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0",
       )}
       aria-hidden={!visible}
     >
-      <Button asChild size="lg" className="w-full shadow-lift" tabIndex={visible ? 0 : -1}>
+      <Button asChild size="lg" className="w-full" tabIndex={visible ? 0 : -1}>
         <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
       </Button>
     </div>

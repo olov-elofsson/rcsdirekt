@@ -227,3 +227,13 @@
   .home-refined [data-reveal] { transition: none; }
 }
 
+
+/* Customer examples: a ring that pulses on the button the demo is about to press. */
+.rcsv .tap-hint { position: relative; z-index: 1; animation: tap-hint 1.1s cubic-bezier(0.23, 1, 0.32, 1) infinite; }
+@keyframes tap-hint {
+  0% { box-shadow: 0 0 0 0 rgb(47 123 255 / 0.55); }
+  100% { box-shadow: 0 0 0 10px rgb(47 123 255 / 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rcsv .tap-hint { animation: none; box-shadow: 0 0 0 2px rgb(47 123 255); }
+}
