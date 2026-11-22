@@ -307,7 +307,7 @@ export function PhotoScenarios() {
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
-            Så kan det se ut hos era kunder
+            Exempel
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
             Exempel för några av våra kunder. Tryck på knapparna i meddelandena

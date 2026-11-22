@@ -56,7 +56,6 @@ export const RCSV_CSS = `
   /* Sender logos are rounded squares filled by the logo on a solid background, without a frame. */
   .rcsv #hdr-name img{width:30px;height:30px;border-radius:9px;margin-right:12px;object-fit:cover;background:#fff}
   .rcsv #hdr-name span{font-size:17px}
-  .rcsv #hdr-name .pav{width:30px;height:30px;border-radius:50%;margin-right:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:500;background:#664fa2}
   .rcsv #hdr .more{position:absolute;left:322px;top:14px}
   .rcsv #msgs{position:absolute;left:0;top:92px;width:360px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--bg);border-radius:24px 24px 0 0}
   .rcsv #msgs .inner{display:flex;flex-direction:column;padding-bottom:0}

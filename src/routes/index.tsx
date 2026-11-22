@@ -97,16 +97,18 @@ function Steps() {
     <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal>
-          <h2 className={sectionTitle}>Så kommer ni igång</h2>
+          <h2 className={sectionTitle}>Kom igång</h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>Från konto till första meddelande. Vi hjälper till med avsändaren och upplägget på vägen.</p>
         </div>
         <ol className="relative mt-10 grid gap-8 sm:mt-12 md:grid-cols-3 md:gap-5">
-          {/* The line between the three drops, drawn from left to right when the steps come into view. */}
-          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-5 top-5 hidden h-0.5 w-[calc((100%-2.5rem)*2/3+2.5rem)] -translate-y-1/2 rounded-full bg-ink-foreground/25 md:block" />
+          {/* The line through the drops, drawn from left to right when the steps come into view.
+              It starts at the first drop's centre (card padding + half a drop) and fades out after the last. */}
+          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-[calc(1.75rem+1.25rem)] right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-ink-foreground/30 from-75% to-transparent md:block" />
           {STEPS.map((step, index) => (
             <li key={step.title} data-reveal style={revealOrder(index + 1)} className="flex flex-col">
-              <NumberDrop n={index + 1} />
-              <div className="mt-5 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
+              {/* Indented by the card's padding, so each number stands over its heading. */}
+              <div className="pl-7"><NumberDrop n={index + 1} /></div>
+              <div className="mt-4 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
                 <h3 className="text-xl font-extrabold leading-snug">{step.title}</h3>
                 <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{step.copy}</p>
               </div>
