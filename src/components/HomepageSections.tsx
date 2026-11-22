@@ -173,9 +173,9 @@ function WebSketch() {
   };
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
-      <div className="grid flex-1 sm:grid-cols-2">
-        {/* The message alone, without a phone around it: the sender line and the card. */}
-        <div className="flex flex-col items-center justify-center gap-3 bg-muted px-4 py-8">
+      <div className="flex flex-1 flex-col">
+        {/* The message alone, without a phone around it: the sender line and the card, above the editor. */}
+        <div className="flex flex-col items-center justify-center gap-3 bg-muted px-4 pt-8 pb-5">
           <div aria-live="polite" className="flex w-full justify-center">
             <RcsSnippet width={300} scale={0.8}>
               <SenderLine name={rcsDirektSender.sender} verified />
@@ -199,20 +199,20 @@ function WebSketch() {
           </p>
         </div>
         <form
-          className="flex flex-col gap-4 p-5 sm:p-6"
+          className="grid flex-1 gap-4 p-5 sm:grid-cols-2 sm:p-6"
           onSubmit={(event) => {
             event.preventDefault();
             setSent((count) => count + 1);
           }}
         >
-          <p className="font-display text-base font-extrabold">Nytt utskick</p>
+          <p className="font-display text-base font-extrabold sm:col-span-2">Nytt utskick</p>
           <label className="block text-xs font-semibold text-muted-foreground">
             Rubrik
             <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
           </label>
-          <label className="block text-xs font-semibold text-muted-foreground">
+          <label className="block text-xs font-semibold text-muted-foreground sm:row-span-2">
             Text
-            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={3} className={cn(fieldClass, "resize-none")} />
+            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={4} className={cn(fieldClass, "resize-none")} />
           </label>
           <div>
             <label className="block text-xs font-semibold text-muted-foreground">
@@ -237,7 +237,7 @@ function WebSketch() {
               ))}
             </div>
           </div>
-          <div className="mt-auto flex justify-end pt-2">
+          <div className="flex items-end justify-end sm:col-span-2">
             <Button type="submit" size="sm">Skicka test</Button>
           </div>
         </form>

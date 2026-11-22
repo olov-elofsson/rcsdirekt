@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, CheckCheck, IdCard, MoreHorizontal, MousePointerClick, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
 
-import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
+import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
 import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/customer-examples";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
@@ -156,7 +156,9 @@ function ConversationView({
           {/* A dark label keeps the sender readable on light photos too. */}
           <div
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 4,
               fontSize: 12.5,
               fontWeight: 500,
               color: "#fff",
@@ -167,7 +169,8 @@ function ConversationView({
             }}
           >
             {sender}
-            <span style={{ opacity: 0.75, fontWeight: 400 }}> · I dag</span>
+            <VerifiedMark size={13} />
+            <span style={{ opacity: 0.75, fontWeight: 400 }}>· I dag</span>
           </div>
           {entries.map((entry, index) => {
             const gap = index === 0 ? 0 : 8;
@@ -287,15 +290,22 @@ type Feature = { label: string; Icon: LucideIcon };
 function featuresOf(start: Step): Feature[] {
   const found = new Map<string, Feature>();
   const add = (label: string, Icon: LucideIcon) => found.set(label, { label, Icon });
+  // Every RCS business sender is verified, and the example shows the sender's name above it.
+  add("Verifierad avsändare", BadgeCheck);
+  add("Företagsnamn som avsändare", IdCard);
   const seen = new Set<Step>();
   const walk = (step: Step) => {
     if (seen.has(step)) return;
     seen.add(step);
     if (step.card) add("Kort med knappar", SquareMousePointer);
     if (step.carousel) add("Karusell", GalleryHorizontal);
+    if (step.chips?.some((chip) => chip.next)) add("Snabbsvar", MousePointerClick);
     for (const choice of choicesIn(step)) {
       if (choice.next) {
         add("Svar i tråden", MessagesSquare);
+        // The answer shows as read and the business types before it replies, as in the app.
+        add("Läskvitto", CheckCheck);
+        add("Visar att ni skriver", MoreHorizontal);
         walk(choice.next);
       }
       if (choice.opens === "kalendern") add("Kalender", CalendarPlus);
@@ -305,8 +315,7 @@ function featuresOf(start: Step): Feature[] {
     }
   };
   walk(start);
-  // Three tags at most, in the order the example uses them, so a card stays calm.
-  return [...found.values()].slice(0, 3);
+  return [...found.values()];
 }
 
 /** One case large: the photo with its conversation beside the text, and what the customer can try. */
