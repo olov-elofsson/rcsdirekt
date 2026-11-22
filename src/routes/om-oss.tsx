@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, Coins, RadioTower, ShieldCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, Coins, Globe, RadioTower, ShieldCheck } from "lucide-react";
 
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
@@ -30,6 +30,7 @@ export const Route = createFileRoute("/om-oss")({
 
 /** How we work, each point backed by something on the site: the sender check, the networks, where data lives, the prices. */
 const PRINCIPLES = [
+  { Icon: Globe, title: "Global plattform", copy: "Vi bygger på en global plattform med direktkopplingar till operatörerna. I dag säljer vi i Sverige, och samma plattform når andra länder när ni vill växa." },
   { Icon: BadgeCheck, title: "Kontrollerade avsändare", copy: "Vi registrerar varje avsändare och den kontrolleras innan den får skicka. Så vet kunden att det verkligen är ni." },
   { Icon: RadioTower, title: "Alla stora nät", copy: operators.length ? `Era kunder nås oavsett om de har ${operators.slice(0, -1).join(", ")} eller ${operators.at(-1)}, och även om de har en operatör som använder något av de näten.` : "Meddelandena når kunder hos de stora operatörerna i Sverige." },
   { Icon: ShieldCheck, title: "Uppgifter inom EU", copy: "Det ni fyller i och era konton sparas hos Google Cloud i Belgien. I integritetspolicyn står vad vi sparar och hur länge." },
@@ -48,7 +49,7 @@ function AboutPage() {
 
         <section className="pb-16 sm:pb-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {PRINCIPLES.map(({ Icon, title: heading, copy }) => (
                 <div key={heading} className="rounded-2xl bg-card p-6 shadow-card">
                   <span aria-hidden className="grid size-11 place-items-center rounded-xl bg-primary-soft text-logo-blue"><Icon strokeWidth={2} className="size-5" /></span>

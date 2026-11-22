@@ -23,7 +23,6 @@ const headerLinks = [
   { label: "Jämför", to: "/", hash: "rcs-mot-sms" },
   { label: "Priser", to: "/priser" },
   { label: "Insikter", to: "/blogg" },
-  { label: "Kontakta oss", to: "/kontakt" },
 ] as const;
 
 /** Start page sections that light up a menu item while they are under the header. */
@@ -54,7 +53,6 @@ function useActiveLink(pathname: string): string | null {
   }, [pathname]);
   if (pathname.startsWith("/priser")) return "Priser";
   if (pathname.startsWith("/blogg")) return "Insikter";
-  if (pathname.startsWith("/kontakt")) return "Kontakta oss";
   return pathname === "/" ? section : null;
 }
 
@@ -176,6 +174,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center justify-end gap-2">
+          <Button asChild variant="ghost" className={cn("hidden min-[1200px]:inline-flex", pathname.startsWith("/kontakt") && "bg-primary-soft")}>
+            <Link to="/kontakt" aria-current={pathname.startsWith("/kontakt") ? "page" : undefined}>Kontakta oss</Link>
+          </Button>
           <Button asChild variant="ghost" className="hidden sm:inline-flex">
           <a href="https://portal.rcsdirekt.se/login">
             Logga in
@@ -219,6 +220,7 @@ export function SiteHeader() {
                 </Link>
               </li>
               {headerLinks.map((link) => <li key={link.label}><Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeProps={{ "aria-current": active === link.label ? "page" : undefined }} inactiveProps={{ "aria-current": active === link.label ? "page" : undefined }} className={cn(mobileLinkClass, active === link.label && "text-logo-blue")}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
+              <li><Link to="/kontakt" className={cn(mobileLinkClass, pathname.startsWith("/kontakt") && "text-logo-blue")}>Kontakta oss<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>
             </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">

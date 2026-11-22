@@ -27,6 +27,7 @@ import * as migration_20261122_230000_basic_verified from './20261122_230000_bas
 import * as migration_20261122_240000_sms_capitals from './20261122_240000_sms_capitals';
 import * as migration_20261122_250000_hero_title from './20261122_250000_hero_title';
 import * as migration_20261122_260000_compare_heading from './20261122_260000_compare_heading';
+import * as migration_20261122_270000_hero_platform from './20261122_270000_hero_platform';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -211,5 +212,10 @@ export const migrations = [
     up: migration_20261122_260000_compare_heading.up,
     down: migration_20261122_260000_compare_heading.down,
     name: '20261122_260000_compare_heading',
+  },
+  {
+    up: migration_20261122_270000_hero_platform.up,
+    down: migration_20261122_270000_hero_platform.down,
+    name: '20261122_270000_hero_platform',
   },
 ];
