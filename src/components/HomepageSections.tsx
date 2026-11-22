@@ -1,8 +1,9 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
 
 import { InquiryForm } from "@/components/InquiryForm";
+import { PlanCard } from "@/components/PlanCard";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
@@ -363,6 +364,44 @@ const sek = (value: number, digits = 0) =>
   value.toLocaleString("sv-SE", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 
 /** The list price for a number of messages: the plan's from price times the count, nothing else. */
+/** The total, counted up or down to the new value; screen readers get only the final figure. */
+function GlidingTotal({ value }: { value: number }) {
+  const shown = useGlide(value);
+  return (
+    <p className="mt-1 text-4xl font-extrabold tabular-nums">
+      <span aria-hidden>{sek(Math.round(shown))} SEK</span>
+      <span className="sr-only" aria-live="polite">{sek(value)} SEK</span>
+    </p>
+  );
+}
+
+/** A number that glides to its new value, so a changed total reads as a change. Instant with reduced motion. */
+function useGlide(target: number, duration = 450): number {
+  const [shown, setShown] = useState(target);
+  const from = useRef(target);
+  useEffect(() => {
+    if (typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(target);
+      from.current = target;
+      return;
+    }
+    const start = performance.now();
+    const begin = from.current;
+    let frame = 0;
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      // Ease out: quick at first, settling softly on the new total.
+      const value = begin + (target - begin) * (1 - Math.pow(1 - t, 3));
+      from.current = value;
+      setShown(value);
+      if (t < 1) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [target, duration]);
+  return shown;
+}
+
 export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   const [planIndex, setPlanIndex] = useState(() => Math.max(0, plans.findIndex((plan) => plan.badge)));
   const [count, setCount] = useState(5000);
@@ -371,6 +410,7 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   const unit = Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", "."));
   if (!Number.isFinite(unit)) return null;
   const countId = "kalkyl-antal";
+  const total = unit * count;
   return (
     <div data-reveal className="grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
       <div>
@@ -417,9 +457,9 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
           className="mt-3 h-11 w-full cursor-pointer accent-primary"
         />
       </div>
-      <div className="lg:min-w-64 lg:text-right" aria-live="polite">
+      <div className="lg:min-w-64 lg:text-right">
         <p className="text-sm text-muted-foreground">Listpris från</p>
-        <p className="mt-1 text-4xl font-extrabold tabular-nums">{sek(unit * count)} SEK</p>
+        <GlidingTotal value={total} />
         <p className="mt-1 text-sm text-muted-foreground">exkl. moms, {sek(count)} × {plan.price}</p>
       </div>
     </div>
@@ -439,30 +479,7 @@ export function PricingSection() {
           <Link to="/priser" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Priser per operatör <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         <div className={cn(sectionBody, "grid gap-5 md:grid-cols-3")}>
-          {plans.map((plan, index) => {
-            // The plan with a badge ("Populärast") is the one to lift out, on the navy surface.
-            const featured = Boolean(plan.badge);
-            return (
-              <div key={plan.slug} data-reveal style={order(index)} className={cn("flex flex-col rounded-2xl p-7 sm:p-8", featured ? "bg-ink text-ink-foreground" : "bg-card shadow-card")}>
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-xl font-extrabold">{plan.name}</h3>
-                  {plan.badge ? <span className="rounded-full bg-ink-foreground px-2.5 py-0.5 text-xs font-semibold text-ink">{plan.badge}</span> : null}
-                </div>
-                {/* Price right under the name, so the three prices line up; when to pick it under that. */}
-                <p className="mt-5 flex items-baseline gap-1.5">
-                  <span className={cn("text-sm font-semibold", featured ? "text-ink-muted" : "text-muted-foreground")}>från</span>
-                  <span className="text-4xl font-extrabold tabular-nums">{plan.price}</span>
-                </p>
-                <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>listpris per meddelande</p>
-                <p className={cn("mt-6 flex-1 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.short || plan.contents}</p>
-                {/* One filled action, on the lifted plan; the plan follows into the sign-up form. */}
-                <div className="h-7" />
-                <Button asChild size="lg" variant="outline" className={cn("w-full", featured && "border-transparent")}>
-                  <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
-                </Button>
-              </div>
-            );
-          })}
+          {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} style={order(index)} />)}
         </div>
         <p data-reveal className="mt-5 text-sm leading-relaxed text-pretty text-muted-foreground">
           Osäkra på vilken ni behöver?{" "}
@@ -505,7 +522,7 @@ export function BlogSection() {
             </Link>
             <div className="grid gap-5">
               {rest.map((article, index) => (
-                <Link key={article.slug} to="/blogg/$slug" params={{ slug: article.slug }} data-reveal style={order(index + 1)} className="group flex flex-col rounded-2xl bg-card p-6 shadow-card">
+                <Link key={article.slug} to="/blogg/$slug" params={{ slug: article.slug }} data-reveal style={order(index + 1)} className="group flex flex-col rounded-2xl bg-card p-6 shadow-card transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                   <Badge variant="secondary" className="self-start">{article.category}</Badge>
                   <h3 className="mt-3 text-lg font-extrabold leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>

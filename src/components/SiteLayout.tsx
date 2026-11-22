@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const navLinkBase =
   "rounded-full px-3.5 py-2 text-sm font-semibold whitespace-nowrap transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-const navLinkActive = "bg-primary-soft text-foreground";
+const navLinkActive = "text-foreground";
 const navLinkInactive = "text-foreground/70 hover:bg-muted hover:text-foreground";
 
 const mobileLinkClass =
@@ -139,6 +139,18 @@ export function SiteHeader() {
 
   useEffect(() => setOpen(false), [pathname, hash]);
   const active = useActiveLink(pathname);
+  const navRef = useRef<HTMLElement>(null);
+  // Keeps its last place when nothing is active, so it fades out where it was instead of sliding away.
+  const [pill, setPill] = useState<{ left: number; width: number; shown: boolean } | null>(null);
+  useEffect(() => {
+    const place = () => {
+      const item = active ? navRef.current?.querySelector<HTMLElement>(`[data-nav="${active}"]`) : null;
+      setPill((last) => (item ? { left: item.offsetLeft, width: item.offsetWidth, shown: true } : last ? { ...last, shown: false } : null));
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [active]);
 
   useEffect(() => {
     if (!open) return;
@@ -165,9 +177,15 @@ export function SiteHeader() {
           <BrandLogo className="h-6 sm:h-7" />
         </Link>
 
-        <nav aria-label="Huvudmeny" className="hidden items-center min-[1200px]:flex">
+        <nav ref={navRef} aria-label="Huvudmeny" className="relative hidden items-center min-[1200px]:flex">
+          {/* One pill glides to the active item instead of each item lighting up on its own. */}
+          <span
+            aria-hidden
+            className={cn("pointer-events-none absolute top-1/2 left-0 h-9 -translate-y-1/2 rounded-full bg-primary-soft transition-[translate,width,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none", pill?.shown ? "opacity-100" : "opacity-0")}
+            style={pill ? { width: pill.width, translate: `${pill.left}px -50%` } : undefined}
+          />
           {headerLinks.map((link) => (
-            <Link key={link.label} to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeOptions={{ exact: link.to === "/", includeHash: true }} activeProps={{ "aria-current": active === link.label ? (pathname === "/" ? "location" : "page") : undefined }} inactiveProps={{ "aria-current": active === link.label ? (pathname === "/" ? "location" : "page") : undefined }} className={cn(navLinkBase, active === link.label ? navLinkActive : navLinkInactive)}>
+            <Link key={link.label} data-nav={link.label} to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeOptions={{ exact: link.to === "/", includeHash: true }} activeProps={{ "aria-current": active === link.label ? (pathname === "/" ? "location" : "page") : undefined }} inactiveProps={{ "aria-current": active === link.label ? (pathname === "/" ? "location" : "page") : undefined }} className={cn(navLinkBase, "relative", active === link.label ? navLinkActive : navLinkInactive)}>
               {link.label}
             </Link>
           ))}

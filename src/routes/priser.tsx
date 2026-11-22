@@ -3,6 +3,7 @@ import { ArrowRight, Check, ChevronDown } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
+import { PlanCard } from "@/components/PlanCard";
 import { priser } from "@/content/priser";
 import type { NetworkPrice } from "@/content";
 import { PriceCalculator } from "@/components/HomepageSections";
@@ -143,28 +144,7 @@ const lowest = (column: Column) => Math.min(...[...column.prices.values()].map(n
 function PlanCards() {
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {pricingPlans.map((plan) => {
-        const featured = Boolean(plan.badge);
-        return (
-          <div key={plan.slug} className={cn("flex flex-col rounded-2xl p-6", featured ? "bg-ink text-ink-foreground" : "bg-card shadow-card")}>
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-lg font-extrabold">{plan.name}</h2>
-              {plan.badge ? <span className="rounded-full bg-ink-foreground px-2.5 py-0.5 text-xs font-semibold text-ink">{plan.badge}</span> : null}
-            </div>
-            {/* Price right under the name, so the prices line up; when to pick it under that. */}
-            <p className="mt-4 flex items-baseline gap-1.5">
-              <span className={cn("text-sm font-semibold", featured ? "text-ink-muted" : "text-muted-foreground")}>från</span>
-              <span className="text-3xl font-extrabold tabular-nums">{plan.price}</span>
-            </p>
-            <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>per meddelande</p>
-            <p className={cn("mt-5 flex-1 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.short || plan.contents}</p>
-            <div className="h-6" />
-            <Button asChild variant="outline" className={cn("w-full", featured && "border-transparent")}>
-              <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
-            </Button>
-          </div>
-        );
-      })}
+      {pricingPlans.map((plan) => <PlanCard key={plan.slug} plan={plan} size="md" />)}
     </div>
   );
 }
