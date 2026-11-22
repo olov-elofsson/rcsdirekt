@@ -54,9 +54,8 @@ function HeroFirst() {
           {/* One line on where RCS stands, leading to the article with each operator's status. */}
           <p className="mb-5">
             <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} hash="operatorer" className={labelLink}>
-              <span className="rounded-full bg-ink px-2 py-0.5 text-[11px] font-bold tracking-wide text-ink-foreground tabular-nums">2026</span>
               <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-              {t("RCS kommer till både iPhone och Android")}
+              {t("Under 2026 kommer RCS till både iPhone och Android")}
               <ArrowRight aria-hidden className="size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
             </Link>
           </p>
