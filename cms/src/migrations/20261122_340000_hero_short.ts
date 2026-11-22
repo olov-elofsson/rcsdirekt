@@ -7,7 +7,7 @@ const FROM = [
   'RCS är nästa steg efter SMS. Utskicket kommer med ert namn och er logga, och kunden ser bilder och trycker på knappar direkt i sin vanliga meddelandeapp. Ni skickar från webben eller via API och betalar per meddelande.',
 ]
 const TO =
-  'RCS är nästa steg efter SMS, med ert namn, er logga, bilder och knappar direkt i kundens meddelandeapp. Vi har över 800 direktkopplingar till operatörer världen över. Ni skickar från webben eller via API och betalar per meddelande.'
+  'RCS är nästa steg efter SMS, med ert namn, er logga, bilder och knappar direkt i kundens meddelandeapp. Meddelandena går via över 800 direktkopplingar till operatörer världen över. Ni skickar från webben eller via API och betalar per meddelande.'
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   const startsida = (await payload.findGlobal({ slug: 'startsida', depth: 0, req })) as Record<string, any>
