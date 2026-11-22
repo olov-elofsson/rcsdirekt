@@ -305,12 +305,12 @@ function featuresOf(start: Step): Feature[] {
 }
 
 /** One case: the photo with its conversation on top, and a short explanation under it. */
-function CaseCard({ scenario, index, className }: { scenario: Scenario; index: number; className?: string }) {
+function CaseCard({ scenario, index, featured = false, className }: { scenario: Scenario; index: number; featured?: boolean; className?: string }) {
   const conversation = useConversation(scenario.start);
   const features = featuresOf(scenario.start);
   return (
-    <article data-reveal style={order(index)} className={cn("flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card text-card-foreground md:w-auto", className)}>
-      <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[500px]">
+    <article data-reveal style={order(index)} className={cn("flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card text-card-foreground md:w-auto", featured && "lg:grid lg:grid-cols-[1.5fr_1fr]", className)}>
+      <figure className={cn("relative h-[460px] overflow-hidden bg-muted sm:h-[500px]", featured && "lg:h-[540px]")}>
         <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 50vw, 100vw" alt={scenario.photo.alt} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
@@ -318,9 +318,9 @@ function CaseCard({ scenario, index, className }: { scenario: Scenario; index: n
           <ConversationView sender={scenario.customer} conversation={conversation} />
         </figcaption>
       </figure>
-      <div className="p-6 sm:p-7">
+      <div className={cn("p-6 sm:p-7", featured && "lg:flex lg:flex-col lg:justify-center lg:p-10")}>
         <p className="text-sm font-bold text-foreground">{scenario.company}</p>
-        <h3 className="mt-2 text-xl font-extrabold leading-snug">{scenario.title}</h3>
+        <h3 className={cn("mt-2 text-xl font-extrabold leading-snug", featured && "lg:text-3xl lg:leading-tight")}>{scenario.title}</h3>
         <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (
           <ul aria-label="Det här använder exemplet" className="mt-5 flex flex-wrap gap-2">
@@ -338,6 +338,9 @@ function CaseCard({ scenario, index, className }: { scenario: Scenario; index: n
 }
 
 /** Photos from the customer cases with a tappable RCS conversation on top, two cards per row on navy. */
+/** The featured example first, then the others in their order. */
+const ordered = [...scenarios.filter((scenario) => scenario.featured), ...scenarios.filter((scenario) => !scenario.featured)];
+
 export function CustomerExamples() {
   return (
     <section
@@ -355,12 +358,12 @@ export function CustomerExamples() {
             Så kan RCS se ut hos fyra av våra kunder. Tryck på knapparna och svara som en kund. Fotona kommer från kundcasen och meddelandena är exempel.
           </p>
         </div>
-        {/* Narrow and wide cards (2/5 and 3/5) swap sides between the rows. The second and third
-            cards are wide: Maptun's carousel and Nercia's name in the photo need the width. */}
+        {/* One example large across the full width, the others side by side under it. On phones all
+            are a row to swipe, so they do not stack into one long column. */}
         {/* On phones the cards are a row to swipe, so the four do not stack into one long column. */}
-        <div className={cn(sectionBody, "scrollbar-none -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-5")}>
-          {scenarios.map((scenario, index) => (
-            <CaseCard key={scenario.customer} scenario={scenario} index={index} className={index % 4 === 1 || index % 4 === 2 ? "lg:col-span-3" : "lg:col-span-2"} />
+        <div className={cn(sectionBody, "scrollbar-none -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3")}>
+          {ordered.map((scenario, index) => (
+            <CaseCard key={scenario.customer} scenario={scenario} index={index} featured={Boolean(scenario.featured)} className={scenario.featured ? "md:col-span-2 lg:col-span-3" : ""} />
           ))}
         </div>
         <div data-reveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">

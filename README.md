@@ -50,7 +50,7 @@ Allt ligger i Google Cloud-projektet `rcsdirekt` (europe-west1).
 | `RcsPhone.tsx` | Telefonen och meddelandena i Google Messages-stil. |
 | `BlogLayout.tsx` | Ramen för bloggen och artiklarna. |
 | `ArticleCard.tsx` | Kortet för en artikel i listor. |
-| `ArticleReadingTools.tsx` | Lästid, innehållsförteckning och "Kopiera länk" i artiklarna. |
+| `ArticleReadingTools.tsx` | Förloppsstapeln överst i artiklarna. |
 | `LegalPage.tsx` | Integritetspolicyn och villkoren. |
 | `BrandLogo.tsx` | Logotypen. |
 | `rcs-video/RcsVideoGenerator.tsx` | Videogeneratorn på /video-generator. |
