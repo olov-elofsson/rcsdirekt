@@ -78,7 +78,7 @@ export function LeadForm({ mode, defaultMessage, webinar, compact = false }: { m
   );
 
   return (
-    <form noValidate onSubmit={onSubmit} className={compact ? "relative space-y-5" : "relative space-y-5 rounded-lg bg-card p-7 shadow-card sm:p-9"}>
+    <form noValidate onSubmit={onSubmit} className={compact ? "relative space-y-5" : "relative space-y-5 rounded-lg bg-card p-5 shadow-card sm:p-9"}>
       <div className="grid gap-5 sm:grid-cols-2">
         {field("name", "Namn", { autoComplete: "name" })}
         {field("company", signup ? "Företag" : "Företag (valfritt)", { autoComplete: "organization" })}

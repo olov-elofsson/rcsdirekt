@@ -228,7 +228,7 @@ const footerLinkClass =
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-ink pt-16 pb-10 text-ink-foreground sm:pt-20">
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
           <div>
             <Link to="/" aria-label="RCS Direkt, startsida" className="inline-block">

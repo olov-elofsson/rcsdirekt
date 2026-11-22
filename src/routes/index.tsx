@@ -61,15 +61,15 @@ function Index() {
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
 // so a left-aligned heading would look indented next to the text under it.
 
-function DualCtas() { return <div className="flex flex-col gap-3 sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to="/" hash="kontakt">Prata med oss</Link></Button></div>; }
+function DualCtas() { return <div className="flex w-full max-w-xs flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to="/" hash="kontakt">Prata med oss</Link></Button></div>; }
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
 
-/** The number in the logo's drop: a circle with one square corner. On navy it alternates white and blue. */
+/** The number in the logo's drop: a circle with one square corner, white on navy. */
 function NumberDrop({ n }: { n: number }) {
   return (
-    <span aria-hidden className={cn("relative grid size-10 place-items-center rounded-[50%_50%_50%_0] font-display text-base font-extrabold tabular-nums", n % 2 ? "bg-ink-foreground text-ink" : "bg-logo-blue text-white")}>
+    <span aria-hidden className={cn("relative grid size-10 place-items-center rounded-[50%_50%_50%_0] font-display text-base font-extrabold tabular-nums", "bg-ink-foreground text-ink")}>
       {n}
     </span>
   );
@@ -81,7 +81,7 @@ const operators = content.priser.operators.filter((name) => !name.startsWith("Ö
 
 /** A plain, centred hero: headline, one line on what it is, two actions and the list price. No decoration. */
 function HeroFirst() {
-  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 py-20 text-center sm:py-28 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">{home.hero.title}<br />{home.hero.highlight}</h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div></section>;
+  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div></section>;
 }
 
 
@@ -95,7 +95,7 @@ const STEPS = [
 function Steps() {
   return (
     <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>Kom igång</h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>Från konto till första meddelande. Vi hjälper till med avsändaren och upplägget på vägen.</p>
@@ -116,24 +116,21 @@ function Steps() {
             </li>
           ))}
         </ol>
-        {/* The outline variant is a white pill, the primary action on the dark surface. */}
-        {/* The action beside what every account includes, from the pricing page in the CMS. */}
-        <div data-reveal className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
-          <Button className="home-cta shrink-0 self-start border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
-          {content.priser.included.length ? (
-            <div>
-              <p className="text-xs font-bold tracking-[0.08em] text-ink-muted uppercase">{content.priser.includedHeading}</p>
-              <ul className="mt-3 grid gap-x-8 gap-y-2.5 sm:grid-cols-2 xl:grid-cols-3">
-                {content.priser.included.map((item) => (
-                  <li key={item} className="flex items-center gap-2.5 text-sm font-semibold">
-                    <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </div>
+        {/* What every account includes, from the pricing page in the CMS, in the cards' columns; then the action. */}
+        {content.priser.included.length ? (
+          <div data-reveal className="mt-10">
+            <p className="text-xs font-bold tracking-[0.08em] text-ink-muted uppercase">{content.priser.includedHeading}</p>
+            <ul className="mt-4 grid gap-x-5 gap-y-3 sm:grid-cols-2 md:grid-cols-3">
+              {content.priser.included.map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm font-semibold">
+                  <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        <div data-reveal className="mt-10"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button></div>
       </div>
     </section>
   );

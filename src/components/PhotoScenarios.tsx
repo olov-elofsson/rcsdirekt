@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
+import { Button } from "@/components/ui/button";
 import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
@@ -298,7 +300,8 @@ function featuresOf(start: Step): Feature[] {
     }
   };
   walk(start);
-  return [...found.values()];
+  // Three tags at most, in the order the example uses them, so a card stays calm.
+  return [...found.values()].slice(0, 3);
 }
 
 /** One case: the photo with its conversation on top, and a short explanation under it. */
@@ -306,7 +309,7 @@ function CaseCard({ scenario, index, className }: { scenario: Scenario; index: n
   const conversation = useConversation(scenario.start);
   const features = featuresOf(scenario.start);
   return (
-    <article data-reveal style={order(index)} className={cn("flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground", className)}>
+    <article data-reveal style={order(index)} className={cn("flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card text-card-foreground md:w-auto", className)}>
       <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[500px]">
         <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 50vw, 100vw" alt={scenario.photo.alt} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
@@ -346,7 +349,7 @@ export function PhotoScenarios() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
-            Exempel
+            Kundexempel
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
             Exempel för några av våra kunder. Tryck på knapparna i meddelandena
@@ -356,10 +359,17 @@ export function PhotoScenarios() {
         </div>
         {/* Narrow and wide cards (2/5 and 3/5) swap sides between the rows. The second and third
             cards are wide: Maptun's carousel and Nercia's name in the photo need the width. */}
-        <div className={cn(sectionBody, "grid gap-6 md:grid-cols-2 lg:grid-cols-5")}>
+        {/* On phones the cards are a row to swipe, so the four do not stack into one long column. */}
+        <div className={cn(sectionBody, "scrollbar-none -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-5")}>
           {scenarios.map((scenario, index) => (
             <CaseCard key={scenario.customer} scenario={scenario} index={index} className={index % 4 === 1 || index % 4 === 2 ? "lg:col-span-3" : "lg:col-span-2"} />
           ))}
+        </div>
+        <div data-reveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <Button asChild size="lg" variant="outline" className="home-cta self-start border-transparent">
+            <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
+          </Button>
+          <p className="text-sm text-ink-muted">Bygg ett eget upplägg för era kunder.</p>
         </div>
       </div>
     </section>

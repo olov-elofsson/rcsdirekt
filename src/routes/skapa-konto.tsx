@@ -3,8 +3,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LeadForm } from "@/components/LeadForm";
 import { SiteHeader, SiteFooter } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
+import { content } from "@/content";
+
+// The plan chosen on the pricing cards, accepted only if it is one of the plans on the site.
+const planNames = new Set(content.priser.plans.map((plan) => plan.name));
 
 export const Route = createFileRoute("/skapa-konto")({
+  validateSearch: (search: Record<string, unknown>): { plan?: string } =>
+    typeof search["plan"] === "string" && planNames.has(search["plan"]) ? { plan: search["plan"] } : {},
   head: () => ({
     meta: [
       { title: "Skapa konto och skicka RCS" },
@@ -20,6 +26,7 @@ export const Route = createFileRoute("/skapa-konto")({
 });
 
 function SignupPage() {
+  const { plan } = Route.useSearch();
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
@@ -30,7 +37,7 @@ function SignupPage() {
         />
         <section className="px-5 pb-16 sm:pb-24 lg:px-8">
           <div className="mx-auto w-full max-w-2xl">
-            <LeadForm mode="signup" />
+            <LeadForm mode="signup" {...(plan ? { defaultMessage: `Vi är intresserade av ${plan}.` } : {})} />
             <p className="mt-7 text-center text-xs leading-relaxed text-muted-foreground">Ni betalar per skickat meddelande, utan fasta avgifter eller bindningstid.</p>
           </div>
         </section>

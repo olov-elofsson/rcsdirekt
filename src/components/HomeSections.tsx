@@ -63,7 +63,7 @@ export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
     <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
@@ -127,14 +127,14 @@ function WebSketch() {
   return (
     <div aria-hidden className="overflow-hidden rounded-xl bg-background text-left shadow-card">
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
-        <div className="flex items-center gap-1.5 text-xs font-semibold">
+        <div className="flex min-w-0 items-center gap-1.5 text-xs font-semibold">
           <span className="text-muted-foreground">Mottagare</span>
           <span className="text-muted-foreground/50">›</span>
           <span className="rounded-full bg-primary-soft px-2.5 py-1">Innehåll</span>
           <span className="text-muted-foreground/50">›</span>
           <span className="text-muted-foreground">Skicka</span>
         </div>
-        <span className="text-xs text-muted-foreground tabular-nums">1 240 mottagare</span>
+        <span className="hidden text-xs text-muted-foreground tabular-nums sm:inline">1 240 mottagare</span>
       </div>
       <div className="grid gap-4 p-4 sm:grid-cols-[1fr_auto]">
         <div className="grid content-start gap-3">
@@ -169,6 +169,12 @@ const API_EXAMPLE = `{
   "buttons": ["Bekräfta", "Boka om"]
 }`;
 
+const API_EVENTS: [time: string, status: string, detail: string][] = [
+  ["14:02", "DELIVERED", "Levererat till telefonen"],
+  ["14:05", "SEEN", "Öppnat av mottagaren"],
+  ["14:06", "CLICKED", "Tryckte på Bekräfta"],
+];
+
 function ApiSketch() {
   return (
     <figure className="overflow-hidden rounded-xl bg-ink text-left shadow-card">
@@ -177,6 +183,19 @@ function ApiSketch() {
         <span>Förenklat exempel</span>
       </figcaption>
       <pre className="overflow-x-auto p-5 text-[13px] leading-relaxed text-ink-foreground"><code>{API_EXAMPLE}</code></pre>
+      {/* What comes back: the statuses that the comparison calls delivered, seen and clicked. */}
+      <div className="border-t border-ink-foreground/10 px-5 py-4">
+        <p className="text-xs font-semibold text-ink-foreground">Statushändelser via webhook</p>
+        <ol className="mt-3 grid gap-2 text-[13px] text-ink-muted">
+          {API_EVENTS.map(([time, status, detail]) => (
+            <li key={status} className="flex items-center gap-3">
+              <span className="font-mono tabular-nums text-ink-muted/80">{time}</span>
+              <span className="rounded-full bg-ink-foreground/10 px-2 py-0.5 font-mono text-[12px] text-ink-foreground">{status}</span>
+              <span className="truncate">{detail}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
     </figure>
   );
 }
@@ -186,14 +205,14 @@ export function WaysSection() {
   const visual: Record<number, ReactNode> = { 0: <WebSketch />, 1: <ApiSketch /> };
   return (
     <section id="vad-ar-rcs" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
           <p className={sectionIntro}>{home.vagar.intro}</p>
         </div>
         <div className={cn(sectionBody, "grid gap-6 lg:grid-cols-2")}>
           {[web, api].filter(Boolean).map((item, index) => (
-            <div key={item!.title} data-reveal style={order(index)} className="flex flex-col gap-6 rounded-2xl bg-primary-soft p-6 sm:p-8">
+            <div key={item!.title} data-reveal style={order(index)} className="flex min-w-0 flex-col gap-6 rounded-2xl bg-primary-soft p-5 sm:p-8">
               <div>
                 {(() => {
                   const Icon = contentIcon(item!.icon);
@@ -230,7 +249,7 @@ function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
     <div data-reveal className="grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
       <div>
         <h3 className="text-xl font-extrabold">Priskalkyl</h3>
-        <div role="group" aria-label="Meddelandetyp" className="mt-4 flex flex-wrap gap-2">
+        <div role="group" aria-label="Meddelandetyp" className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
           {plans.map((option, index) => (
             <button
               key={option.slug}
@@ -242,21 +261,33 @@ function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
                 index === planIndex ? "bg-ink text-ink-foreground" : "bg-card text-foreground hover:bg-card/70",
               )}
             >
-              {option.name}
+              <span className="sm:hidden">{option.name.replace(/^RCS /, "")}</span>
+              <span className="hidden sm:inline">{option.name}</span>
             </button>
           ))}
         </div>
-        <label htmlFor={countId} className="mt-6 flex items-baseline justify-between gap-4 text-sm font-semibold">
-          Antal meddelanden <span className="font-display text-lg font-extrabold tabular-nums">{sek(count)}</span>
-        </label>
+        <div className="mt-6 flex items-center justify-between gap-4">
+          <label htmlFor={countId} className="text-sm font-semibold">Antal meddelanden</label>
+          <input
+            type="number"
+            inputMode="numeric"
+            aria-label="Antal meddelanden"
+            min={1}
+            max={1000000}
+            value={count}
+            onChange={(event) => setCount(Math.max(0, Math.min(1000000, Math.round(Number(event.target.value) || 0))))}
+            className="h-10 w-32 rounded-full bg-card px-4 text-right font-display text-base font-extrabold tabular-nums ring-1 ring-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+        </div>
         <input
           id={countId}
           type="range"
           min={500}
           max={50000}
           step={500}
-          value={count}
+          value={Math.min(count, 50000)}
           onChange={(event) => setCount(Number(event.target.value))}
+          aria-valuetext={`${sek(count)} meddelanden`}
           className="mt-3 h-11 w-full cursor-pointer accent-primary"
         />
       </div>
@@ -273,7 +304,7 @@ export function PricingSection() {
   const plans = content.priser.plans;
   return (
     <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className={sectionTitle}>{home.pris.heading}</h2>
@@ -297,8 +328,9 @@ export function PricingSection() {
                   <span className="text-4xl font-extrabold tabular-nums">{plan.price}</span>
                 </p>
                 <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>listpris per meddelande</p>
-                <Button asChild size="lg" variant={featured ? "outline" : "default"} className={cn("mt-8 w-full", featured && "border-transparent")}>
-                  <Link to="/skapa-konto">Skapa konto</Link>
+                {/* One filled action, on the lifted plan; the plan follows into the sign-up form. */}
+                <Button asChild size="lg" variant="outline" className={cn("mt-8 w-full", featured && "border-transparent")}>
+                  <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
                 </Button>
               </div>
             );
@@ -322,7 +354,7 @@ export function BlogSection() {
   const [first, ...rest] = picks;
   return (
     <section id="blogg" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className={sectionTitle}>{home.blogg.heading}</h2>
@@ -332,7 +364,7 @@ export function BlogSection() {
         </div>
         {first ? (
           <div className={cn(sectionBody, "grid gap-5 lg:grid-cols-[1.2fr_0.8fr]")}>
-            <Link to="/blogg/$slug" params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
+            <Link to="/blogg/$slug" params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[280px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
               <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
               <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
               <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
@@ -362,7 +394,7 @@ export function BlogSection() {
 export function ContactSection() {
   return (
     <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
         <div data-reveal className="lg:pt-4">
           <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
           <p className={sectionIntro}>{home.kontakt.intro}</p>

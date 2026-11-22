@@ -13,6 +13,7 @@ import * as migration_20261122_110000_short_headings from './20261122_110000_sho
 import * as migration_20261122_120000_legal_pages from './20261122_120000_legal_pages';
 import * as migration_20261122_120100_legal_texts from './20261122_120100_legal_texts';
 import * as migration_20261122_130000_hero_and_comparison from './20261122_130000_hero_and_comparison';
+import * as migration_20261122_140000_comparison_rows from './20261122_140000_comparison_rows';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -127,5 +128,10 @@ export const migrations = [
     up: migration_20261122_130000_hero_and_comparison.up,
     down: migration_20261122_130000_hero_and_comparison.down,
     name: '20261122_130000_hero_and_comparison',
+  },
+  {
+    up: migration_20261122_140000_comparison_rows.up,
+    down: migration_20261122_140000_comparison_rows.down,
+    name: '20261122_140000_comparison_rows',
   },
 ];
