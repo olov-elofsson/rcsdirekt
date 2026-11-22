@@ -32,7 +32,7 @@ export const Route = createFileRoute("/priser")({
     scripts: [{ type: "application/ld+json", children: JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",
-      name: "RCS Direkt",
+      name: "rcsdirekt.se",
       serviceType: "RCS-meddelanden för företag",
       areaServed: { "@type": "Country", name: "Sverige" },
       provider: organizationSchema,

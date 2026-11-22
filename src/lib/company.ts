@@ -1,7 +1,7 @@
-// The company behind RCS Direkt, in one place: the footer, /om-oss, /kontakt and the structured
+// The company behind rcsdirekt.se, in one place: the footer, /om-oss, /kontakt and the structured
 // data all read from here, so the facts never differ between pages.
 export const company = {
-  brand: "RCS Direkt",
+  brand: "rcsdirekt.se",
   legalName: "WIGOSE AB",
   orgNumber: "559415-6753",
   street: "Klostergatan 15",

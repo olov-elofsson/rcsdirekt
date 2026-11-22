@@ -11,7 +11,7 @@ import { sources } from "@/content/sources";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
-const title = "RCS API för utvecklare | RCS Direkt";
+const title = "RCS API för utvecklare | rcsdirekt.se";
 const description = "Skicka RCS från era egna system via REST API och ta emot status och svar med webhooks. Så fungerar flödet, och vad en integration behöver hantera.";
 
 export const Route = createFileRoute("/utvecklare")({

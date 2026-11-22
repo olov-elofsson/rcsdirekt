@@ -72,9 +72,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "RCS Direkt" },
+      { title: "rcsdirekt.se" },
       { name: "description", content: "RCS Business Messaging för svenska företag." },
-      { property: "og:title", content: "RCS Direkt" },
+      { property: "og:title", content: "rcsdirekt.se" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

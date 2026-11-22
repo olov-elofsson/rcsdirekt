@@ -60,7 +60,7 @@ const smtpPort = Number(process.env.SMTP_PORT || 587)
 const email = smtp
   ? nodemailerAdapter({
       defaultFromAddress: process.env.EMAIL_FROM || 'info@rcsdirekt.se',
-      defaultFromName: 'RCS Direkt',
+      defaultFromName: 'rcsdirekt.se',
       transportOptions: {
         host: process.env.SMTP_HOST,
         port: smtpPort,
@@ -76,7 +76,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || '',
   admin: {
     user: Users.slug,
-    meta: { titleSuffix: ' – RCS Direkt CMS' },
+    meta: { titleSuffix: ' | rcsdirekt.se CMS' },
     importMap: { baseDir: path.resolve(dirname) },
   },
   i18n: { supportedLanguages: { sv, en }, fallbackLanguage: 'sv' },

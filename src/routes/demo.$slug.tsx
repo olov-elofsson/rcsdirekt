@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export const Route = createFileRoute("/demo/$slug")({
   head: () => ({
     meta: [
-      { title: "RCS Direkt" },
+      { title: "rcsdirekt.se" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -37,7 +37,7 @@ function DemoPresentation() {
 
   return (
     <iframe
-      title="RCS Direkt presentation"
+      title="rcsdirekt.se presentation"
       src={`https://rcs-saljverktyg.augin-d18.workers.dev/p/${slug}`}
       allow="clipboard-write"
       className="fixed inset-0 h-dvh w-screen border-0"

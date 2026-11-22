@@ -2,9 +2,9 @@ import bannerUrl from "../../brand/SVG/rcs-banner.svg";
 import logoUrl from "../../brand/SVG/rcs-avsandare.svg";
 import type { SenderProfile } from "@/components/RcsPhone";
 
-/** RCS Direkt as the sender in the site's phones: logo, description and business profile. */
+/** rcsdirekt.se as the sender in the site's phones: logo, description and business profile. */
 export const rcsDirektSender = {
-  sender: "RCS Direkt",
+  sender: "rcsdirekt.se",
   logo: logoUrl,
   description: "Skicka RCS direkt från webben eller via API.",
   profile: {

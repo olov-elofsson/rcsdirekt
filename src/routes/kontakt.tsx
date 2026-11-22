@@ -6,8 +6,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { company, organizationSchema, phoneHref } from "@/lib/company";
 
-const title = "Kontakta RCS Direkt";
-const description = "Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration. RCS Direkt drivs av WIGOSE AB i Örebro.";
+const title = "Kontakta rcsdirekt.se";
+const description = "Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration. rcsdirekt.se drivs av WIGOSE AB i Örebro.";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({

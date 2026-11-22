@@ -4,7 +4,6 @@ import { ArrowRight, CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, Mess
 
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
-import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/customer-examples";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
@@ -352,7 +351,6 @@ export function CustomerExamples() {
       {/* A wider row than the other sections, so the photos get room; heading and cards share its edge. */}
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
-          <SectionEyebrow onDark>Kunder</SectionEyebrow>
           <h2 id="exempel-title" className={sectionTitle}>
             Kundexempel
           </h2>

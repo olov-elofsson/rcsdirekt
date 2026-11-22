@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/LegalPage";
 import { juridiskt } from "@/content/juridiskt";
 
 const page = juridiskt?.integritetspolicy;
-const title = `${page?.title || "Integritetspolicy"} | RCS Direkt`;
-const description = page?.description || "Så behandlar WIGOSE AB personuppgifter när du använder rcsdirekt.se och RCS Direkt.";
+const title = `${page?.title || "Integritetspolicy"} | rcsdirekt.se`;
+const description = page?.description || "Så behandlar WIGOSE AB personuppgifter när du använder rcsdirekt.se.";
 
 export const Route = createFileRoute("/integritetspolicy")({
   head: () => ({

@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/LegalPage";
 import { juridiskt } from "@/content/juridiskt";
 
 const page = juridiskt?.villkor;
-const title = `${page?.title || "Villkor"} | RCS Direkt`;
-const description = `${page?.description || "Villkoren för företag som skickar RCS genom RCS Direkt."} Om tjänsten, priser, tillåten användning, personuppgifter och uppsägning.`;
+const title = `${page?.title || "Villkor"} | rcsdirekt.se`;
+const description = `${page?.description || "Villkoren för företag som skickar RCS genom rcsdirekt.se."} Om tjänsten, priser, tillåten användning, personuppgifter och uppsägning.`;
 
 export const Route = createFileRoute("/villkor")({
   head: () => ({

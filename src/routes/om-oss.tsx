@@ -8,8 +8,8 @@ import { priser } from "@/content/priser";
 import { company, organizationSchema } from "@/lib/company";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 
-const title = "Om RCS Direkt | WIGOSE AB i Örebro";
-const description = "RCS Direkt är en tjänst från WIGOSE AB i Örebro. Svenska företag skickar RCS från webben eller via API och betalar per meddelande.";
+const title = "Om rcsdirekt.se | WIGOSE AB i Örebro";
+const description = "rcsdirekt.se är en tjänst från WIGOSE AB i Örebro. Svenska företag skickar RCS från webben eller via API och betalar per meddelande.";
 const operators = priser.operators.filter((name) => !name.startsWith("Övriga"));
 
 export const Route = createFileRoute("/om-oss")({
@@ -42,8 +42,8 @@ function AboutPage() {
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
         <PageHeading
-          title="Om RCS Direkt"
-          description={<p>RCS Direkt är en tjänst från {company.legalName} i {company.city}. Vi hjälper svenska företag att skicka RCS från webben eller via API.</p>}
+          title="Om rcsdirekt.se"
+          description={<p>rcsdirekt.se är en tjänst från {company.legalName} i {company.city}. Vi hjälper svenska företag att skicka RCS från webben eller via API.</p>}
         />
 
         <section className="pb-16 sm:pb-20">
@@ -65,7 +65,7 @@ function AboutPage() {
             <div>
               <h2 className={sectionTitle}>Vad vi gör</h2>
               <p className={sectionIntro}>
-                Med RCS Direkt skickar företag meddelanden med namn, logotyp, bilder och knappar till kundernas vanliga meddelandeapp. Ni bygger utskicket i webbverktyget eller kopplar in ert system via API, och vi hjälper till med avsändaren och upplägget.
+                Med rcsdirekt.se skickar företag meddelanden med namn, logotyp, bilder och knappar till kundernas vanliga meddelandeapp. Ni bygger utskicket i webbverktyget eller kopplar in ert system via API, och vi hjälper till med avsändaren och upplägget.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>

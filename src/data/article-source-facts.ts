@@ -3,7 +3,7 @@ import type { Source } from "@/content";
 
 export type SourceFact = { sourceId: string; finding: string; implication: string };
 
-// Findings describe the original publisher's service, not RCS Direkt's results.
+// Findings describe the original publisher's service, not rcsdirekt.se's results.
 export const sourceFacts: Record<string, SourceFact> = Object.fromEntries(
   kunskap.sources
     .filter((source) => source.finding && source.implication)

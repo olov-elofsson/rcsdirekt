@@ -12,7 +12,7 @@ const description =
 export const Route = createFileRoute("/video-generator")({
   head: () => ({
     meta: [
-      { title: `${title} | RCS Direkt` },
+      { title: `${title} | rcsdirekt.se` },
       { name: "description", content: metaDescription(description) },
       { property: "og:title", content: title },
       { property: "og:description", content: metaDescription(description) },

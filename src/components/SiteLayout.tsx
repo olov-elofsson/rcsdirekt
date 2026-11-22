@@ -128,7 +128,7 @@ export function SiteHeader() {
     <WebinarBar />
     <header ref={headerRef} className={cn("sticky top-0 z-50 border-b bg-background/85 backdrop-blur-xl transition-[border-color,box-shadow] duration-200 ease-out", scrolled ? "border-border/70 shadow-[0_1px_12px_-6px_rgb(21_17_95/0.15)]" : "border-transparent")}>
       <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
-        <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0 py-2.5">
+        <Link to="/" aria-label="rcsdirekt.se, startsida" className="min-w-0 py-2.5">
           <BrandLogo className="h-6 sm:h-7" />
         </Link>
 
@@ -201,7 +201,7 @@ export function SiteHeader() {
 
 const footerNav = [
   {
-    title: "RCS Direkt",
+    title: "rcsdirekt.se",
     links: [
       { label: "Om oss", to: "/om-oss" },
       { label: "Kundexempel", to: "/", hash: "exempel" },
@@ -238,13 +238,52 @@ const footerLinkClass =
   "group inline-flex min-h-10 items-center gap-1.5 text-sm text-ink-muted transition-colors duration-150 ease-out hover:text-ink-foreground";
 
 /** The footer: who we are, the links grouped, and one line at the bottom. */
+/**
+ * On phones: "Skapa konto" fixed at the bottom once the visitor has scrolled past the first screen,
+ * hidden again when the footer is in view and on the pages that already are the next step.
+ */
+function MobileSignupBar() {
+  const { pathname } = useLocation();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const update = () => {
+      const footer = document.querySelector("footer");
+      const footerInView = footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
+      setVisible(window.scrollY > window.innerHeight * 0.8 && !footerInView);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [pathname]);
+  if (pathname === "/skapa-konto" || pathname === "/kontakt") return null;
+  return (
+    <div
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 transition-[translate,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-opacity sm:hidden",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0",
+      )}
+      aria-hidden={!visible}
+    >
+      <Button asChild size="lg" className="w-full shadow-lift" tabIndex={visible ? 0 : -1}>
+        <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
+      </Button>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   return (
+    <>
+    <MobileSignupBar />
     <footer className="relative overflow-hidden bg-ink pt-16 pb-10 text-ink-foreground sm:pt-20">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
           <div>
-            <Link to="/" aria-label="RCS Direkt, startsida" className="inline-block">
+            <Link to="/" aria-label="rcsdirekt.se, startsida" className="inline-block">
               <BrandLogo inverse className="h-8" />
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-pretty text-ink-muted">
@@ -284,7 +323,7 @@ export function SiteFooter() {
 
         <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-ink-muted">
-            © {new Date().getFullYear()} WIGOSE AB · RCS Direkt. Alla rättigheter reserverade.
+            © {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se. Alla rättigheter reserverade.
             {/* For the team: the CMS where the site's texts are edited. */}
             <a href="https://cms.rcsdirekt.se/admin" className="ml-3 inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
           </p>
@@ -298,5 +337,6 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

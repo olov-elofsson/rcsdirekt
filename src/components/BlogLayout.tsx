@@ -15,7 +15,7 @@ export function metaDescription(text: string, max = 160) {
 }
 
 /** The page title with the brand after it, when it still fits in about 60 characters. */
-const withBrand = (title: string) => (title.includes("RCS Direkt") || title.length > 47 ? title : `${title} | RCS Direkt`);
+const withBrand = (title: string) => (title.includes("rcsdirekt.se") || title.length > 47 ? title : `${title} | rcsdirekt.se`);
 
 export function blogHead(rawTitle: string, rawDescription: string, path: string, article = false) {
   const title = withBrand(rawTitle);
