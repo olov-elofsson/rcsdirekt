@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
+import { useAutoToggle } from "@/hooks/use-auto-toggle";
 import { cn } from "@/lib/utils";
 import { useT } from "@/lib/i18n";
 
@@ -118,37 +119,8 @@ const SWITCH_MS = 3600;
  */
 export function HeroMessage({ className }: { className?: string }) {
   const { t } = useT();
-  const [rcs, setRcs] = useState(false);
-  const touched = useRef(false);
   const box = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const element = box.current;
-    if (!element || reducedMotion()) {
-      setRcs(true);
-      return;
-    }
-    let timer: number | undefined;
-    // Runs only while the box is on screen, and stops for good once the visitor has taken over.
-    const observer = new IntersectionObserver(([entry]) => {
-      window.clearInterval(timer);
-      if (!entry?.isIntersecting || touched.current) return;
-      timer = window.setInterval(() => {
-        if (touched.current) window.clearInterval(timer);
-        else setRcs((value) => !value);
-      }, SWITCH_MS);
-    }, { threshold: 0.4 });
-    observer.observe(element);
-    return () => {
-      observer.disconnect();
-      window.clearInterval(timer);
-    };
-  }, []);
-
-  const pick = (value: boolean) => {
-    touched.current = true;
-    setRcs(value);
-  };
+  const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS);
 
   return (
     <div ref={box} className={cn("w-full rounded-3xl bg-muted px-4 pt-4 pb-5 lg:max-w-[20rem]", className)}>
@@ -180,7 +152,7 @@ export function HeroMessage({ className }: { className?: string }) {
               rcs === value ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-1 scale-[0.98] opacity-0",
             )}
           >
-            {value ? <AsRcs active={rcs} onInteract={() => { touched.current = true; }} /> : <AsSms />}
+            {value ? <AsRcs active={rcs} onInteract={touch} /> : <AsSms />}
           </div>
         ))}
       </div>

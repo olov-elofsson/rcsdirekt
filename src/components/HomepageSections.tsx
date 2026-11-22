@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, Send, X } from "lucide-react";
+import restaurantPhoto from "@/assets/foto-restaurang-800.webp";
+import bowlingPhoto from "@/assets/foto-bowling-800.webp";
 
 import { InquiryForm } from "@/components/InquiryForm";
 import { PlanCard } from "@/components/PlanCard";
@@ -15,6 +17,7 @@ import { useT } from "@/lib/i18n";
 import { articleList as articleListEn } from "@/content/en/article-list";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { formatPrice, formatTotal, useCurrency } from "@/lib/money";
+import { useAutoToggle } from "@/hooks/use-auto-toggle";
 import { cn } from "@/lib/utils";
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -53,9 +56,16 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
 }
 
 
+/**
+ * SMS and RCS compared one side at a time: the same list of properties, switching between what
+ * SMS gives and what RCS gives, like the message in the hero. It flips by itself while in view
+ * and stays on the side the visitor picks.
+ */
 export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
+  const box = useRef<HTMLDivElement>(null);
+  const { rcs, pick } = useAutoToggle(box);
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
@@ -64,57 +74,46 @@ export function CompareSection() {
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
-        {/* On a phone three columns get too narrow, so each property becomes a row of its own
-            with SMS and RCS side by side under it. */}
-        <ul data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card sm:hidden")}>
-          <li aria-hidden className="grid grid-cols-2 gap-2 px-4 pt-4 pb-1">
-            <span className="px-3 text-xs font-semibold text-muted-foreground">SMS</span>
-            <span className="px-3 font-display text-sm font-extrabold text-foreground">RCS</span>
-          </li>
-          {rows.map((item) => {
-            return (
-              <li key={item.label} className="border-t border-border px-4 py-4 first-of-type:border-t-0 [&:nth-child(2)]:border-t-0">
-                <p className="text-sm font-semibold">{item.label}</p>
-                <dl className="mt-3 grid grid-cols-2 gap-2">
-                  <div className="flex min-h-11 items-center rounded-xl px-3 py-2">
-                    <dt className="sr-only">SMS</dt>
-                    <dd><Fact value={item.sms} rcs={false} /></dd>
-                  </div>
-                  <div className="flex min-h-11 items-center rounded-xl bg-primary-soft px-3 py-2">
-                    <dt className="sr-only">RCS</dt>
-                    <dd><Fact value={item.rcs} rcs /></dd>
-                  </div>
-                </dl>
-              </li>
-            );
-          })}
-        </ul>
-        <div data-reveal style={order(1)} className={cn(sectionBody, "hidden overflow-hidden rounded-2xl bg-card sm:block")}>
-          <table className="w-full table-fixed border-collapse text-left">
-            <colgroup>
-              <col className="w-[38%]" />
-              <col />
-              <col />
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col" className="px-5 py-4 sm:px-8"><span className="sr-only">{t("Egenskap")}</span></th>
-                <th scope="col" className="px-3 py-4 text-sm font-semibold text-muted-foreground sm:px-6">SMS</th>
-                <th scope="col" className="bg-ink px-3 py-4 font-display text-base font-extrabold text-ink-foreground sm:px-6">RCS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((item) => (
-                <tr key={item.label} className="border-t border-border">
-                  <th scope="row" className="px-5 py-4 text-sm font-semibold leading-snug text-pretty sm:px-8 sm:text-[15px]">
-                    {item.label}
-                  </th>
-                  <td className="px-3 py-4 sm:px-6"><Fact value={item.sms} rcs={false} /></td>
-                  <td className="bg-muted px-3 py-4 sm:px-6"><Fact value={item.rcs} rcs /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div ref={box} className={cn(sectionBody, "mx-auto max-w-3xl")}>
+          <div role="radiogroup" aria-label={t("Visa jämförelsen för")} className="mx-auto mb-5 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
+            {[false, true].map((value) => (
+              <button
+                key={String(value)}
+                type="button"
+                role="radio"
+                aria-checked={rcs === value}
+                onClick={() => pick(value)}
+                className={cn(
+                  "h-9 rounded-full px-6 transition-[background-color,color] duration-200 ease-out",
+                  rcs === value ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {value ? "RCS" : "SMS"}
+              </button>
+            ))}
+          </div>
+          {/* One list; each value cell holds both answers in one grid cell, so rows keep their height while they switch. */}
+          <dl aria-live="polite" className="overflow-hidden rounded-2xl bg-card shadow-card">
+            {rows.map((item) => (
+              <div key={item.label} className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-4 border-t border-border px-5 py-4 first:border-t-0 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] sm:px-8">
+                <dt className="text-sm font-semibold leading-snug text-pretty sm:text-[15px]">{item.label}</dt>
+                <dd className="grid">
+                  {[false, true].map((value) => (
+                    <span
+                      key={String(value)}
+                      aria-hidden={rcs !== value}
+                      className={cn(
+                        "col-start-1 row-start-1 flex items-center transition-[opacity,translate] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none",
+                        rcs === value ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-1 opacity-0",
+                      )}
+                    >
+                      <Fact value={value ? item.rcs : item.sms} rcs={value} />
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
@@ -133,6 +132,16 @@ const BUTTON_KINDS = [
 const fieldClass =
   "mt-1.5 w-full rounded-lg border border-transparent bg-muted px-3 py-2 text-sm font-normal leading-snug text-foreground outline-none transition-[border-color,background-color] duration-150 placeholder:text-muted-foreground/70 focus:border-logo-blue focus:bg-background";
 
+/** Pictures the visitor can put on the card: the brand banner and two of the customer photos. */
+const SKETCH_IMAGES = [
+  { id: "banner", src: rcsDirektSender.profile.banner, label: "Grafik" },
+  { id: "restaurant", src: restaurantPhoto, label: "Restaurang" },
+  { id: "bowling", src: bowlingPhoto, label: "Bowling" },
+] as const;
+
+/** What happens after "Skicka test", as the delivery report would show it. */
+const SEND_STEPS = ["Skickat", "Levererat", "Läst"] as const;
+
 /**
  * The web tool, reduced to a card editor the visitor can use: what is typed in the fields shows
  * at once in the message beside them, the way it reaches the customer. A sketch of how such an
@@ -140,23 +149,41 @@ const fieldClass =
  */
 function WebSketch() {
   const { t } = useT();
-  const banner = rcsDirektSender.profile.banner;
   const [title, setTitle] = useState(() => t("Ert första utskick"));
   const [body, setBody] = useState(() => t("Skriv här, så ser ni direkt hur kortet ser ut hos kunden."));
   const [button, setButton] = useState(() => t("Läs mer"));
   const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
-  const [sent, setSent] = useState(0);
+  const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
+  // -1: not sent; 0..2: how far the test message has come.
+  const [step, setStep] = useState(-1);
+  const timers = useRef<number[]>([]);
+  useEffect(() => () => timers.current.forEach((timer) => window.clearTimeout(timer)), []);
+  const reset = () => {
+    timers.current.forEach((timer) => window.clearTimeout(timer));
+    setStep(-1);
+  };
+  const send = () => {
+    reset();
+    setStep(0);
+    const fast = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    timers.current = [window.setTimeout(() => setStep(1), fast ? 0 : 700), window.setTimeout(() => setStep(2), fast ? 0 : 1800)];
+  };
   const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
+  const picture = SKETCH_IMAGES.find((item) => item.id === image)?.src;
   const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => {
     set(event.target.value);
-    setSent(0);
+    reset();
   };
+  const chip = (active: boolean) =>
+    cn(
+      "inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold transition-[background-color,color,scale] duration-150 ease-out active:scale-[0.96]",
+      active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground",
+    );
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
       <div className="flex flex-1 flex-col p-2.5">
-        {/* The message alone, without a phone around it: the sender line and the card, above the editor. */}
         {/* The preview sits inset in the editor's white card, so the two halves read as one tool. */}
-        <div className="relative flex flex-col items-center justify-center gap-3 rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-10 pb-5">
+        <div className="relative flex flex-col items-center gap-3 rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-9 pb-4">
           <span className="absolute top-3 left-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
             <span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />{t("Förhandsvisning")}
           </span>
@@ -164,7 +191,7 @@ function WebSketch() {
             <RcsSnippet width={300} scale={0.8}>
               <SenderLine name={rcsDirektSender.sender} verified />
               <div className="card">
-                <img src={banner} alt="" />
+                {picture ? <img src={picture} alt="" style={{ objectFit: "cover" }} /> : null}
                 <div className="ct">{title || t("Rubrik")}</div>
                 {body ? <div className="cb">{body}</div> : null}
                 {button ? (
@@ -178,15 +205,25 @@ function WebSketch() {
               </div>
             </RcsSnippet>
           </div>
-          <p className={cn("flex h-5 items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-opacity duration-200", sent ? "opacity-100" : "opacity-0")}>
-            <CheckCheck aria-hidden className="size-4 text-logo-blue" /> {t("Testutskick levererat")}
-          </p>
+          {/* The delivery report for the test message, step by step. */}
+          <ol aria-live="polite" className="flex h-5 items-center gap-3 text-xs font-semibold text-muted-foreground">
+            {step < 0 ? (
+              <li>{t("Ändra fälten nedan, så uppdateras kortet.")}</li>
+            ) : (
+              SEND_STEPS.map((label, index) => (
+                <li key={label} className={cn("inline-flex items-center gap-1 transition-opacity duration-200", index <= step ? "opacity-100" : "opacity-30")}>
+                  {index === 0 ? <Check aria-hidden className="size-3.5 text-logo-blue" /> : <CheckCheck aria-hidden className="size-3.5 text-logo-blue" />}
+                  {t(label)}
+                </li>
+              ))
+            )}
+          </ol>
         </div>
         <form
           className="grid flex-1 gap-4 px-3 pt-5 pb-3 sm:grid-cols-2 sm:px-4"
           onSubmit={(event) => {
             event.preventDefault();
-            setSent((count) => count + 1);
+            send();
           }}
         >
           <p className="font-display text-base font-extrabold sm:col-span-2">{t("Nytt utskick")}</p>
@@ -194,35 +231,47 @@ function WebSketch() {
             {t("Rubrik")}
             <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
           </label>
-          <label className="block text-xs font-semibold text-muted-foreground sm:row-span-2">
-            {t("Text")}
-            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={4} className={cn(fieldClass, "resize-none")} />
-          </label>
           <div>
-            <label className="block text-xs font-semibold text-muted-foreground">
-              {t("Knapp")}
-              <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
-            </label>
-            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-2 flex flex-wrap gap-1.5">
-              {BUTTON_KINDS.map((item) => (
+            <p className="text-xs font-semibold text-muted-foreground">{t("Bild")}</p>
+            <div role="radiogroup" aria-label={t("Bild")} className="mt-1.5 flex gap-2">
+              {SKETCH_IMAGES.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   role="radio"
-                  aria-checked={kind === item.id}
-                  onClick={() => { setKind(item.id); setSent(0); }}
-                  className={cn(
-                    "inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold transition-[background-color,color,scale] duration-150 ease-out active:scale-[0.96]",
-                    kind === item.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground",
-                  )}
+                  aria-checked={image === item.id}
+                  aria-label={t(item.label)}
+                  onClick={() => { setImage(item.id); reset(); }}
+                  className={cn("h-10 w-14 overflow-hidden rounded-lg ring-2 ring-offset-2 ring-offset-background transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.96]", image === item.id ? "ring-logo-blue" : "ring-transparent hover:ring-border")}
                 >
+                  <img src={item.src} alt="" className="size-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+          <label className="block text-xs font-semibold text-muted-foreground sm:col-span-2">
+            <span className="flex justify-between">
+              {t("Text")}
+              <span className="font-normal tabular-nums">{body.length}/160</span>
+            </span>
+            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={3} className={cn(fieldClass, "resize-none")} />
+          </label>
+          <label className="block text-xs font-semibold text-muted-foreground">
+            {t("Knapp")}
+            <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
+          </label>
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground">{t("Vad knappen gör")}</p>
+            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-1.5 flex flex-wrap gap-1.5">
+              {BUTTON_KINDS.map((item) => (
+                <button key={item.id} type="button" role="radio" aria-checked={kind === item.id} onClick={() => { setKind(item.id); reset(); }} className={chip(kind === item.id)}>
                   {t(item.label)}
                 </button>
               ))}
             </div>
           </div>
           <div className="flex items-end justify-end sm:col-span-2">
-            <Button type="submit" size="sm">{t("Skicka test")}</Button>
+            <Button type="submit" size="sm">{t("Skicka test")} <Send data-icon="end" /></Button>
           </div>
         </form>
       </div>

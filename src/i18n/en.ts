@@ -316,4 +316,14 @@ export const en: Record<string, string> = {
   Nyheter: "News",
   "Läs nyheten": "Read the news",
   "Det viktigaste om RCS": "The essentials of RCS",
+
+  // Web builder
+  Grafik: "Graphic",
+  Restaurang: "Restaurant",
+  Bowling: "Bowling",
+  Bild: "Image",
+  Skickat: "Sent",
+  Levererat: "Delivered",
+  "Ändra fälten nedan, så uppdateras kortet.": "Change the fields below and the card updates.",
+  "Visa jämförelsen för": "Show the comparison for",
 };
