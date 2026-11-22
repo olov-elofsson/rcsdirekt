@@ -352,9 +352,7 @@ export function PhotoScenarios() {
             Kundexempel
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
-            Exempel för några av våra kunder. Tryck på knapparna i meddelandena
-            och svara som en kund. Fotona kommer från kundcasen, och meddelandena är tänkbara
-            upplägg.
+            Så kan RCS se ut hos fyra av våra kunder. Tryck på knapparna och svara som en kund. Fotona kommer från kundcasen och meddelandena är exempel.
           </p>
         </div>
         {/* Narrow and wide cards (2/5 and 3/5) swap sides between the rows. The second and third
