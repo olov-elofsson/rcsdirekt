@@ -36,6 +36,7 @@ import * as migration_20261121_195000_humanizer_copy from './20261121_195000_hum
 import * as migration_20261122_280000_merge_topics from './20261122_280000_merge_topics';
 import * as migration_20261122_290000_merge_topics_options from './20261122_290000_merge_topics_options';
 import * as migration_20261122_300000_hero_direct from './20261122_300000_hero_direct';
+import * as migration_20261122_310000_iphone_operators from './20261122_310000_iphone_operators';
 
 export const migrations = [
   {
@@ -229,5 +230,10 @@ export const migrations = [
     up: migration_20261122_300000_hero_direct.up,
     down: migration_20261122_300000_hero_direct.down,
     name: '20261122_300000_hero_direct',
+  },
+  {
+    up: migration_20261122_310000_iphone_operators.up,
+    down: migration_20261122_310000_iphone_operators.down,
+    name: '20261122_310000_iphone_operators',
   },
 ];
