@@ -271,4 +271,39 @@ export const en: Record<string, string> = {
   "Ni betalar bara för det ni skickar. Det finns inga fasta avgifter och ingen bindningstid.": "You only pay for what you send. There are no fixed fees and no lock-in period.",
   "Så går det till": "How it works",
   "{brand} drivs av {company}, org.nr {org}, {city}.": "{brand} is run by {company}, reg. no. {org}, {city}, Sweden.",
+
+  // Blog
+  "Korta artiklar om RCS och vad som gäller i Sverige. Alla har källor, så du kan kolla själv.": "Short articles about RCS and what applies in Sweden. All of them have sources, so you can check for yourself.",
+  "Sök artiklar": "Search articles",
+  "Sök bland {n} artiklar": "Search {n} articles",
+  "Rensa sökningen": "Clear the search",
+  "Utvalda artiklar": "Featured articles",
+  "Börja här": "Start here",
+  "Utforska ämnen": "Explore topics",
+  "Välj ett ämne, så ser du artiklarna om det.": "Choose a topic to see its articles.",
+  artiklar: "articles",
+  artikel: "article",
+  för: "for",
+  "Filtrera på ämne": "Filter by topic",
+  Alla: "All",
+  "Visa fler": "Show more",
+  kvar: "left",
+  "Inga artiklar hittades": "No articles found",
+  "Prova ett annat ord eller ett annat ämne.": "Try another word or another topic.",
+  "Sök i alla ämnen": "Search all topics",
+  "Visa alla artiklar": "Show all articles",
+
+  // Article page
+  Källor: "Sources",
+  "Läs vidare": "Read next",
+  "Skicka RCS för ert företag": "Send RCS for your business",
+  "Från {price} per meddelande.": "From {price} per message.",
+  "Ingen startavgift eller bindningstid.": "No setup fee or lock-in period.",
+  "Artikeln finns inte": "The article does not exist",
+  "Den kan ha flyttats eller så är adressen fel.": "It may have moved, or the address is wrong.",
+  "Till Insikter": "Go to Insights",
+
+  // Legal pages
+  "Senast ändrad": "Last changed",
+  "Texten publiceras inom kort.": "The text will be published shortly.",
 };

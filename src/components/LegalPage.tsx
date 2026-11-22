@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import type { LegalPage as LegalContent } from "@/content";
+import { useT } from "@/lib/i18n";
 
 /** A section's text: paragraphs at blank lines, and lines starting with "- " as a bulleted list. */
 function Body({ text }: { text: string }) {
@@ -26,8 +27,9 @@ function Body({ text }: { text: string }) {
 }
 
 /** /integritetspolicy and /villkor: the shared heading, the date of the last change and the sections from the CMS. */
-export function LegalPage({ page, fallbackTitle, children }: { page: LegalContent | undefined; fallbackTitle: string; children?: ReactNode }) {
+export function LegalPage({ page, fallbackTitle, swedish = "/", children }: { page: LegalContent | undefined; fallbackTitle: string; swedish?: string; children?: ReactNode }) {
   const ready = Boolean(page?.title && page.sections.length);
+  const { t, lp, locale } = useT();
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
@@ -38,10 +40,12 @@ export function LegalPage({ page, fallbackTitle, children }: { page: LegalConten
             ready ? (
               <>
                 <p>{page!.description}</p>
-                <p className="mt-3 text-sm">Senast ändrad {page!.updated}</p>
+                <p className="mt-3 text-sm">{t("Senast ändrad")} {page!.updated}</p>
+                {/* The English text is a translation; the approved Swedish text is the one that applies. */}
+                {locale === "en" ? <p className="mt-2 text-sm">This is a translation. If it differs from the <a href={swedish} hrefLang="sv" className="font-semibold underline underline-offset-4">Swedish version</a>, the Swedish version applies.</p> : null}
               </>
             ) : (
-              <p>Texten publiceras inom kort.</p>
+              <p>{t("Texten publiceras inom kort.")}</p>
             )
           }
         />

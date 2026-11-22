@@ -28,8 +28,12 @@ import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as EnContactRouteImport } from './routes/en.contact'
 import { Route as EnDevelopersRouteImport } from './routes/en.developers'
 import { Route as EnPricingRouteImport } from './routes/en.pricing'
+import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
 import { Route as EnSignUpRouteImport } from './routes/en.sign-up'
+import { Route as EnTermsRouteImport } from './routes/en.terms'
 import { Route as VFileRouteImport } from './routes/v/$file'
+import { Route as EnBlogIndexRouteImport } from './routes/en.blog.index'
+import { Route as EnBlogSlugRouteImport } from './routes/en.blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -126,14 +130,34 @@ const EnPricingRoute = EnPricingRouteImport.update({
   path: '/en/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnPrivacyRoute = EnPrivacyRouteImport.update({
+  id: '/en/privacy',
+  path: '/en/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnSignUpRoute = EnSignUpRouteImport.update({
   id: '/en/sign-up',
   path: '/en/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnTermsRoute = EnTermsRouteImport.update({
+  id: '/en/terms',
+  path: '/en/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VFileRoute = VFileRouteImport.update({
   id: '/v/$file',
   path: '/v/$file',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnBlogIndexRoute = EnBlogIndexRouteImport.update({
+  id: '/en/blog/',
+  path: '/en/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnBlogSlugRoute = EnBlogSlugRouteImport.update({
+  id: '/en/blog/$slug',
+  path: '/en/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -155,10 +179,14 @@ export interface FileRoutesByFullPath {
   '/en/contact': typeof EnContactRoute
   '/en/developers': typeof EnDevelopersRoute
   '/en/pricing': typeof EnPricingRoute
+  '/en/privacy': typeof EnPrivacyRoute
   '/en/sign-up': typeof EnSignUpRoute
+  '/en/terms': typeof EnTermsRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
   '/en/': typeof EnIndexRoute
+  '/en/blog/$slug': typeof EnBlogSlugRoute
+  '/en/blog/': typeof EnBlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -178,10 +206,14 @@ export interface FileRoutesByTo {
   '/en/contact': typeof EnContactRoute
   '/en/developers': typeof EnDevelopersRoute
   '/en/pricing': typeof EnPricingRoute
+  '/en/privacy': typeof EnPrivacyRoute
   '/en/sign-up': typeof EnSignUpRoute
+  '/en/terms': typeof EnTermsRoute
   '/v/$file': typeof VFileRoute
   '/blogg': typeof BloggIndexRoute
   '/en': typeof EnIndexRoute
+  '/en/blog/$slug': typeof EnBlogSlugRoute
+  '/en/blog': typeof EnBlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -202,10 +234,14 @@ export interface FileRoutesById {
   '/en/contact': typeof EnContactRoute
   '/en/developers': typeof EnDevelopersRoute
   '/en/pricing': typeof EnPricingRoute
+  '/en/privacy': typeof EnPrivacyRoute
   '/en/sign-up': typeof EnSignUpRoute
+  '/en/terms': typeof EnTermsRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
   '/en/': typeof EnIndexRoute
+  '/en/blog/$slug': typeof EnBlogSlugRoute
+  '/en/blog/': typeof EnBlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -227,10 +263,14 @@ export interface FileRouteTypes {
     | '/en/contact'
     | '/en/developers'
     | '/en/pricing'
+    | '/en/privacy'
     | '/en/sign-up'
+    | '/en/terms'
     | '/v/$file'
     | '/blogg/'
     | '/en/'
+    | '/en/blog/$slug'
+    | '/en/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -250,10 +290,14 @@ export interface FileRouteTypes {
     | '/en/contact'
     | '/en/developers'
     | '/en/pricing'
+    | '/en/privacy'
     | '/en/sign-up'
+    | '/en/terms'
     | '/v/$file'
     | '/blogg'
     | '/en'
+    | '/en/blog/$slug'
+    | '/en/blog'
   id:
     | '__root__'
     | '/'
@@ -273,10 +317,14 @@ export interface FileRouteTypes {
     | '/en/contact'
     | '/en/developers'
     | '/en/pricing'
+    | '/en/privacy'
     | '/en/sign-up'
+    | '/en/terms'
     | '/v/$file'
     | '/blogg/'
     | '/en/'
+    | '/en/blog/$slug'
+    | '/en/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -297,10 +345,14 @@ export interface RootRouteChildren {
   EnContactRoute: typeof EnContactRoute
   EnDevelopersRoute: typeof EnDevelopersRoute
   EnPricingRoute: typeof EnPricingRoute
+  EnPrivacyRoute: typeof EnPrivacyRoute
   EnSignUpRoute: typeof EnSignUpRoute
+  EnTermsRoute: typeof EnTermsRoute
   VFileRoute: typeof VFileRoute
   BloggIndexRoute: typeof BloggIndexRoute
   EnIndexRoute: typeof EnIndexRoute
+  EnBlogSlugRoute: typeof EnBlogSlugRoute
+  EnBlogIndexRoute: typeof EnBlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -438,6 +490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnPricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/privacy': {
+      id: '/en/privacy'
+      path: '/en/privacy'
+      fullPath: '/en/privacy'
+      preLoaderRoute: typeof EnPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/sign-up': {
       id: '/en/sign-up'
       path: '/en/sign-up'
@@ -445,11 +504,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/terms': {
+      id: '/en/terms'
+      path: '/en/terms'
+      fullPath: '/en/terms'
+      preLoaderRoute: typeof EnTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/v/$file': {
       id: '/v/$file'
       path: '/v/$file'
       fullPath: '/v/$file'
       preLoaderRoute: typeof VFileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/blog/': {
+      id: '/en/blog/'
+      path: '/en/blog'
+      fullPath: '/en/blog/'
+      preLoaderRoute: typeof EnBlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/blog/$slug': {
+      id: '/en/blog/$slug'
+      path: '/en/blog/$slug'
+      fullPath: '/en/blog/$slug'
+      preLoaderRoute: typeof EnBlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -473,10 +553,14 @@ const rootRouteChildren: RootRouteChildren = {
   EnContactRoute: EnContactRoute,
   EnDevelopersRoute: EnDevelopersRoute,
   EnPricingRoute: EnPricingRoute,
+  EnPrivacyRoute: EnPrivacyRoute,
   EnSignUpRoute: EnSignUpRoute,
+  EnTermsRoute: EnTermsRoute,
   VFileRoute: VFileRoute,
   BloggIndexRoute: BloggIndexRoute,
   EnIndexRoute: EnIndexRoute,
+  EnBlogSlugRoute: EnBlogSlugRoute,
+  EnBlogIndexRoute: EnBlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
