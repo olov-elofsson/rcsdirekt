@@ -289,7 +289,7 @@ export function PricingSection() {
               <div key={plan.slug} data-reveal style={order(index)} className={cn("flex flex-col rounded-2xl p-7 sm:p-8", featured ? "bg-ink text-ink-foreground" : "bg-card shadow-card")}>
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-xl font-extrabold">{plan.name}</h3>
-                  {plan.badge ? <span className="rounded-full bg-logo-blue px-2.5 py-0.5 text-xs font-semibold text-white">{plan.badge}</span> : null}
+                  {plan.badge ? <span className="rounded-full bg-ink-foreground px-2.5 py-0.5 text-xs font-semibold text-ink">{plan.badge}</span> : null}
                 </div>
                 <p className={cn("mt-1.5 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.contents}</p>
                 <p className="mt-8 flex items-baseline gap-1.5">

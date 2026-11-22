@@ -3,13 +3,17 @@
 // "Exempel för …". Keep them in line with the case descriptions in the CMS. The messages have no
 // pictures of their own; the case photo they sit on carries the image.
 import careUrl from "@/assets/foto-omsorg.webp";
+import careUrlSmall from "@/assets/foto-omsorg-800.webp";
 import workshopUrl from "@/assets/foto-verkstad.webp";
+import workshopUrlSmall from "@/assets/foto-verkstad-800.webp";
 import courseUrl from "@/assets/foto-utbildning.webp";
+import courseUrlSmall from "@/assets/foto-utbildning-800.webp";
 import carDealerUrl from "@/assets/foto-bilhandel.webp";
+import carDealerUrlSmall from "@/assets/foto-bilhandel-800.webp";
 
 /** The photo a case's conversation is laid over. */
 /** `messageAt: "right"` puts the conversation on the right, for photos whose subject is on the left. */
-export type Picture = { src: string; position?: string; messageAt?: "right" };
+export type Picture = { src: string; /** An 800 px wide copy for phones and narrow cards. */ small?: string; position?: string; messageAt?: "right" };
 
 /**
  * A button in a message. A reply sends its label as the recipient's answer, and the business
@@ -123,7 +127,7 @@ export const scenarios: Scenario[] = [
     customer: "DreamCare",
     title: "Påminnelser som går att svara på",
     copy: "Kunden bekräftar besöket eller väljer en ny tid, ser vem som kommer och säger efteråt vad den tyckte. Allt i samma tråd.",
-    photo: { src: careUrl, alt: "En ung kvinna och en äldre kvinna skrattar tillsammans i en soffa hemma", position: "50% 35%" },
+    photo: { src: careUrl, small: careUrlSmall, alt: "En ung kvinna och en äldre kvinna skrattar tillsammans i en soffa hemma", position: "50% 35%" },
     start: {
       card: {
         title: "Besök i morgon kl. 10.00",
@@ -150,7 +154,7 @@ export const scenarios: Scenario[] = [
     customer: "Maptun",
     title: "Tjänster att svepa mellan",
     copy: "En karusell med en knapp per tjänst. Tiden bokas i samma konversation, med vägbeskrivning och påminnelse.",
-    photo: { src: workshopUrl, alt: "En svart Saab i Maptuns verkstad, kopplad till en effektbänk", position: "50% 60%" },
+    photo: { src: workshopUrl, small: workshopUrlSmall, alt: "En svart Saab i Maptuns verkstad, kopplad till en effektbänk", position: "50% 60%" },
     start: {
       text: "Hej! Dags för något nytt till bilen? Här är tre av våra tjänster.",
       carousel: [
@@ -164,7 +168,7 @@ export const scenarios: Scenario[] = [
     customer: "Nercia",
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
-    photo: { src: courseUrl, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },
+    photo: { src: courseUrl, small: courseUrlSmall, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },
     start: {
       card: {
         title: "Välkommen till kursen!",
@@ -177,7 +181,7 @@ export const scenarios: Scenario[] = [
     customer: "Bilia",
     title: "Inbjudan med anmälan i meddelandet",
     copy: "Gästen anmäler sig med ett tryck, bokar en provkörning samma kväll och lägger tiden i kalendern.",
-    photo: { src: carDealerUrl, alt: "Bilias skylt på en glasfasad mot en blå himmel", position: "50% 30%" },
+    photo: { src: carDealerUrl, small: carDealerUrlSmall, alt: "Bilias skylt på en glasfasad mot en blå himmel", position: "50% 30%" },
     start: {
       card: {
         title: "Välkommen på premiärkväll",

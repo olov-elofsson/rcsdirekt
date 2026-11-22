@@ -308,7 +308,7 @@ function CaseCard({ scenario, index, className }: { scenario: Scenario; index: n
   return (
     <article data-reveal style={order(index)} className={cn("flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground", className)}>
       <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[500px]">
-        <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
+        <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 50vw, 100vw" alt={scenario.photo.alt} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
         <figcaption className={cn("absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : "sm:right-auto")}>
@@ -316,7 +316,7 @@ function CaseCard({ scenario, index, className }: { scenario: Scenario; index: n
         </figcaption>
       </figure>
       <div className="p-6 sm:p-7">
-        <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.08em] text-logo-blue uppercase">{scenario.customer}</p>
+        <p className="text-xs font-bold tracking-[0.08em] text-foreground uppercase">{scenario.customer}</p>
         <h3 className="mt-2 text-xl font-extrabold leading-snug">{scenario.title}</h3>
         <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (
