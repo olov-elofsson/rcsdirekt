@@ -9,7 +9,14 @@ export const company = {
   city: "Örebro",
   country: "SE",
   url: "https://rcsdirekt.se",
+  /** Fill in to show them on /kontakt, /om-oss, in the footer and in the structured data. Empty hides them. */
+  email: "",
+  phone: "",
+  linkedin: "",
 } as const;
+
+/** The phone number as a tel: link, digits and a leading + only. */
+export const phoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, "")}`;
 
 /** schema.org Organization with the registered name, organisation number, address and contact page. */
 export const organizationSchema = {
@@ -29,5 +36,13 @@ export const organizationSchema = {
     addressCountry: company.country,
   },
   areaServed: { "@type": "Country", name: "Sverige" },
-  contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: `${company.url}/kontakt`, availableLanguage: ["sv"] },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    url: `${company.url}/kontakt`,
+    availableLanguage: ["sv"],
+    ...(company.email ? { email: company.email } : {}),
+    ...(company.phone ? { telephone: company.phone } : {}),
+  },
+  ...(company.linkedin ? { sameAs: [company.linkedin] } : {}),
 };

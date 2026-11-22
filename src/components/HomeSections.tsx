@@ -1,9 +1,9 @@
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, ChevronDown, ChevronLeft, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Plus, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
-import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, Timestamp, VerifiedMark } from "@/components/RcsPhone";
+import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -115,15 +115,12 @@ export function CompareSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
-/** A labelled field in the editor sketch, styled like an input. */
-function SketchField({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
+/** A labelled field in the editor sketch: a label over a quiet input. */
+function SketchField({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div>
-      <p className="flex items-baseline justify-between gap-2 text-xs font-bold">
-        {label}
-        {hint ? <span className="font-normal text-muted-foreground tabular-nums">{hint}</span> : null}
-      </p>
-      <div className="mt-1.5 flex min-h-9 items-center gap-2 rounded-lg bg-background px-3 py-1.5 text-[13px] leading-snug ring-1 ring-border">{children}</div>
+      <p className="text-xs font-semibold text-muted-foreground">{label}</p>
+      <div className="mt-1.5 flex min-h-10 items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm leading-snug">{children}</div>
     </div>
   );
 }
@@ -132,24 +129,15 @@ const SKETCH_TITLE = "Ert första utskick";
 const SKETCH_BODY = "Så ser ett kort med bild och knapp ut hos kunden.";
 
 /**
- * The web tool as a card editor: the message in the site's phone on the left, the card's parts on
- * the right. A sketch of how such an editor works, not a copy of one product.
+ * The web tool, reduced to a card editor: the message in the site's phone on one side, its three
+ * fields on the other and one send action. A sketch of how such an editor works, not one product.
  */
 function WebSketch() {
   const banner = rcsDirektSender.profile.banner;
   return (
     <div aria-hidden className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
-      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
-        <p className="flex min-w-0 items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-          <ChevronLeft className="size-3.5 shrink-0" />
-          <span className="truncate">Höstkampanj</span>
-          <span className="text-muted-foreground/50">/</span>
-          <span className="text-foreground">Rich card</span>
-        </p>
-        <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground">Utkast</span>
-      </div>
       <div className="grid flex-1 sm:grid-cols-2">
-        <div className="flex flex-col items-center justify-center gap-3 bg-muted px-4 py-6">
+        <div className="flex items-center justify-center bg-muted px-4 py-6">
           <div className="w-full max-w-[13.5rem]">
             <RcsPhone sender={rcsDirektSender.sender} logo={rcsDirektSender.logo} maxScale={0.6}>
               <DateLabel>I dag</DateLabel>
@@ -163,39 +151,17 @@ function WebSketch() {
                   </div>
                 </div>
               </IncomingRow>
-              <Timestamp>13:16</Timestamp>
             </RcsPhone>
           </div>
-          <p className="text-[11px] font-semibold text-muted-foreground">Förhandsvisning</p>
         </div>
-        <div className="grid content-start gap-3.5 p-4 sm:p-5">
-          <div className="flex gap-4 border-b border-border text-xs font-semibold">
-            <span className="-mb-px border-b-2 border-primary pb-2">Design</span>
-            <span className="pb-2 text-muted-foreground">Testvärden</span>
+        <div className="flex flex-col gap-4 p-5 sm:p-6">
+          <p className="font-display text-base font-extrabold">Nytt utskick</p>
+          <SketchField label="Rubrik">{SKETCH_TITLE}</SketchField>
+          <SketchField label="Text">{SKETCH_BODY}</SketchField>
+          <SketchField label="Knapp">Läs mer<span className="ml-auto text-xs text-muted-foreground">Öppnar länk</span></SketchField>
+          <div className="mt-auto flex justify-end pt-2">
+            <span className="inline-flex h-9 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground">Skicka</span>
           </div>
-          <SketchField label="Kortets riktning">Vertikal<ChevronDown className="ml-auto size-3.5 text-muted-foreground" /></SketchField>
-          <SketchField label="Media">
-            <img src={banner} alt="" className="h-6 w-10 shrink-0 rounded object-cover ring-1 ring-border" />
-            <span className="truncate">rcs-banner.svg</span>
-            <X className="ml-auto size-3.5 shrink-0 text-muted-foreground" />
-          </SketchField>
-          <SketchField label="Rubrik" hint={`${SKETCH_TITLE.length}/200`}>{SKETCH_TITLE}</SketchField>
-          <SketchField label="Beskrivning" hint={`${SKETCH_BODY.length}/2000`}>{SKETCH_BODY}</SketchField>
-          <div>
-            <p className="flex items-baseline justify-between text-xs font-bold">Knappar <span className="font-normal text-muted-foreground tabular-nums">1/4</span></p>
-            <div className="mt-1.5 flex items-center gap-2 rounded-lg bg-background px-3 py-1.5 text-[13px] ring-1 ring-border">
-              <span className="font-semibold">Läs mer</span>
-              <span className="ml-auto rounded-full bg-primary-soft px-2 py-0.5 text-[11px] font-semibold">Öppnar länk</span>
-            </div>
-            <p className="mt-2 flex items-center gap-1.5 text-xs font-bold"><Plus className="size-3.5" />Lägg till knapp</p>
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center justify-between gap-2 border-t border-border px-4 py-3">
-        <span className="text-[11px] text-muted-foreground tabular-nums">1 240 mottagare</span>
-        <div className="flex gap-2">
-          <span className="inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold text-muted-foreground ring-1 ring-border">Skicka test</span>
-          <span className="inline-flex h-8 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span>
         </div>
       </div>
     </div>
@@ -242,7 +208,7 @@ const API_EVENTS: [time: string, status: string, detail: string][] = [
 ];
 
 /** The API in three steps: the request, the answer and the events that come back. */
-function ApiSketch() {
+export function ApiSketch() {
   const step = "flex items-center gap-2 text-[11px] font-semibold tracking-[0.06em] text-ink-muted uppercase";
   return (
     <figure className="flex h-full flex-col overflow-hidden rounded-xl bg-ink text-left shadow-card">

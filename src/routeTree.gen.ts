@@ -15,6 +15,7 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as OmOssRouteImport } from './routes/om-oss'
 import { Route as PriserRouteImport } from './routes/priser'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
+import { Route as UtvecklareRouteImport } from './routes/utvecklare'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
 import { Route as VillkorRouteImport } from './routes/villkor'
 import { Route as ApiLeadRouteImport } from './routes/api/lead'
@@ -52,6 +53,11 @@ const PriserRoute = PriserRouteImport.update({
 const SkapaKontoRoute = SkapaKontoRouteImport.update({
   id: '/skapa-konto',
   path: '/skapa-konto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UtvecklareRoute = UtvecklareRouteImport.update({
+  id: '/utvecklare',
+  path: '/utvecklare',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VideoGeneratorRoute = VideoGeneratorRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
+  '/utvecklare': typeof UtvecklareRoute
   '/video-generator': typeof VideoGeneratorRoute
   '/villkor': typeof VillkorRoute
   '/api/lead': typeof ApiLeadRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
+  '/utvecklare': typeof UtvecklareRoute
   '/video-generator': typeof VideoGeneratorRoute
   '/villkor': typeof VillkorRoute
   '/api/lead': typeof ApiLeadRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
+  '/utvecklare': typeof UtvecklareRoute
   '/video-generator': typeof VideoGeneratorRoute
   '/villkor': typeof VillkorRoute
   '/api/lead': typeof ApiLeadRoute
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/om-oss'
     | '/priser'
     | '/skapa-konto'
+    | '/utvecklare'
     | '/video-generator'
     | '/villkor'
     | '/api/lead'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/om-oss'
     | '/priser'
     | '/skapa-konto'
+    | '/utvecklare'
     | '/video-generator'
     | '/villkor'
     | '/api/lead'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/om-oss'
     | '/priser'
     | '/skapa-konto'
+    | '/utvecklare'
     | '/video-generator'
     | '/villkor'
     | '/api/lead'
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   OmOssRoute: typeof OmOssRoute
   PriserRoute: typeof PriserRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
+  UtvecklareRoute: typeof UtvecklareRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
   VillkorRoute: typeof VillkorRoute
   ApiLeadRoute: typeof ApiLeadRoute
@@ -254,6 +267,13 @@ declare module '@tanstack/react-router' {
       path: '/skapa-konto'
       fullPath: '/skapa-konto'
       preLoaderRoute: typeof SkapaKontoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/utvecklare': {
+      id: '/utvecklare'
+      path: '/utvecklare'
+      fullPath: '/utvecklare'
+      preLoaderRoute: typeof UtvecklareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/video-generator': {
@@ -322,6 +342,7 @@ const rootRouteChildren: RootRouteChildren = {
   OmOssRoute: OmOssRoute,
   PriserRoute: PriserRoute,
   SkapaKontoRoute: SkapaKontoRoute,
+  UtvecklareRoute: UtvecklareRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,
   VillkorRoute: VillkorRoute,
   ApiLeadRoute: ApiLeadRoute,

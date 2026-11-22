@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Building2, MapPin } from "lucide-react";
+import { ArrowUpRight, Building2, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { company, organizationSchema } from "@/lib/company";
+import { company, organizationSchema, phoneHref } from "@/lib/company";
 
 const title = "Kontakta RCS Direkt";
 const description = "Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration. RCS Direkt drivs av WIGOSE AB i Örebro.";
@@ -41,6 +41,9 @@ function ContactPage() {
                 <ul className="mt-4 space-y-3">
                   <li className={row}><Building2 aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><span>{company.legalName}, org.nr {company.orgNumber}</span></li>
                   <li className={row}><MapPin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><span>{company.street}, {company.postalCode} {company.city}</span></li>
+                  {company.email ? <li className={row}><Mail aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={`mailto:${company.email}`} className="font-semibold underline-offset-4 hover:underline">{company.email}</a></li> : null}
+                  {company.phone ? <li className={row}><Phone aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={phoneHref(company.phone)} className="font-semibold underline-offset-4 hover:underline">{company.phone}</a></li> : null}
+                  {company.linkedin ? <li className={row}><Linkedin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={company.linkedin} className="font-semibold underline-offset-4 hover:underline">LinkedIn</a></li> : null}
                 </ul>
               </div>
               <div className="rounded-2xl bg-card p-6 shadow-card">

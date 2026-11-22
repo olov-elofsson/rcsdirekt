@@ -1,5 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Linkedin, Menu, X } from "lucide-react";
+import { company, phoneHref } from "@/lib/company";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -211,7 +212,10 @@ const footerNav = [
   },
   {
     title: "Verktyg",
-    links: [{ label: "Videogenerator", to: "/video-generator" }],
+    links: [
+      { label: "För utvecklare", to: "/utvecklare" },
+      { label: "Videogenerator", to: "/video-generator" },
+    ],
   },
   {
     title: "Juridiskt",
@@ -239,10 +243,13 @@ export function SiteFooter() {
               RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-              WIGOSE AB, org.nr 559415-6753
+              {company.legalName}, org.nr {company.orgNumber}
               <br />
-              Klostergatan 15, 703 39 Örebro
+              {company.street}, {company.postalCode} {company.city}
+              {company.email ? <><br /><a href={`mailto:${company.email}`} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.email}</a></> : null}
+              {company.phone ? <><br /><a href={phoneHref(company.phone)} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.phone}</a></> : null}
             </p>
+            {company.linkedin ? <a href={company.linkedin} className="mt-3 inline-flex min-h-10 items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink-foreground"><Linkedin aria-hidden className="size-4" />LinkedIn</a> : null}
           </div>
           <nav aria-label="Sidfot" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {footerNav.map((group) => (
