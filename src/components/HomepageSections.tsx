@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, X } from "lucide-react";
 
 import { InquiryForm } from "@/components/InquiryForm";
 import { PlanCard } from "@/components/PlanCard";
@@ -13,7 +13,6 @@ import { priser } from "@/content/priser";
 import { usePriser, useStartsida } from "@/content/localized";
 import { useT } from "@/lib/i18n";
 import { articleList as articleListEn } from "@/content/en/article-list";
-import { contentIcon } from "@/content/icons";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { formatPrice, formatTotal, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -53,35 +52,6 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
   return <span className={cn("text-sm leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
 
-/** An icon for each property in the table, matched on the start of its label; others get none. */
-const PROPERTY_ICONS: [prefix: string, Icon: LucideIcon][] = [
-  ["Verifierad", BadgeCheck],
-  ["Avsändarprofil", IdCard],
-  ["Tecken", Type],
-  ["Analys", BarChart3],
-  ["Tillgänglighet", Smartphone],
-  ["Bilder", ImageIcon],
-  ["Installation", Download],
-  ["Klickfrekvens", MousePointerClick],
-  ["Läskvitton", CheckCheck],
-  ["Svar", MessageSquareReply],
-  ["Avregistrering", BellOff],
-  ["Listpris", Wallet],
-  // The same properties in the English content.
-  ["Verified", BadgeCheck],
-  ["Sender profile", IdCard],
-  ["Characters", Type],
-  ["Analytics", BarChart3],
-  ["Availability", Smartphone],
-  ["Images", ImageIcon],
-  ["Click", MousePointerClick],
-  ["Read receipts", CheckCheck],
-  ["Replies", MessageSquareReply],
-  ["Unsubscrib", BellOff],
-  ["Opt-out", BellOff],
-  ["List price", Wallet],
-];
-const propertyIcon = (label: string) => PROPERTY_ICONS.find(([prefix]) => label.startsWith(prefix))?.[1];
 
 export function CompareSection() {
   const home = useStartsida();
@@ -102,13 +72,9 @@ export function CompareSection() {
             <span className="px-3 font-display text-sm font-extrabold text-foreground">RCS</span>
           </li>
           {rows.map((item) => {
-            const Icon = propertyIcon(item.label);
             return (
               <li key={item.label} className="border-t border-border px-4 py-4 first-of-type:border-t-0 [&:nth-child(2)]:border-t-0">
-                <p className="flex items-center gap-2.5 text-sm font-semibold">
-                  {Icon ? <span aria-hidden className="grid size-7 shrink-0 place-items-center rounded-lg bg-primary-soft text-logo-blue"><Icon strokeWidth={2} className="size-4" /></span> : null}
-                  {item.label}
-                </p>
+                <p className="text-sm font-semibold">{item.label}</p>
                 <dl className="mt-3 grid grid-cols-2 gap-2">
                   <div className="flex min-h-11 items-center rounded-xl px-3 py-2">
                     <dt className="sr-only">SMS</dt>
@@ -141,13 +107,7 @@ export function CompareSection() {
               {rows.map((item) => (
                 <tr key={item.label} className="border-t border-border">
                   <th scope="row" className="px-5 py-4 text-sm font-semibold leading-snug text-pretty sm:px-8 sm:text-[15px]">
-                    <span className="flex items-center gap-3">
-                      {(() => {
-                        const Icon = propertyIcon(item.label);
-                        return Icon ? <span aria-hidden className="hidden size-9 shrink-0 place-items-center rounded-xl bg-primary-soft text-logo-blue sm:grid"><Icon strokeWidth={2} className="size-[18px]" /></span> : null;
-                      })()}
-                      {item.label}
-                    </span>
+                    {item.label}
                   </th>
                   <td className="px-3 py-4 sm:px-6"><Fact value={item.sms} rcs={false} /></td>
                   <td className="bg-muted px-3 py-4 sm:px-6"><Fact value={item.rcs} rcs /></td>
@@ -377,10 +337,6 @@ export function WaysSection() {
           {[web, api].filter(Boolean).map((item, index) => (
             <div key={item!.title} data-reveal style={order(index)} className="flex min-w-0 flex-col gap-6 rounded-2xl bg-primary-soft p-5 sm:p-8 lg:row-span-2 lg:grid lg:grid-rows-subgrid">
               <div>
-                {(() => {
-                  const Icon = contentIcon(item!.icon);
-                  return <span aria-hidden className="mb-5 grid size-11 place-items-center rounded-xl bg-card text-logo-blue shadow-card"><Icon strokeWidth={2} className="size-5" /></span>;
-                })()}
                 <h3 className="text-2xl font-extrabold">{item!.title}</h3>
                 <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{item!.copy}</p>
               </div>

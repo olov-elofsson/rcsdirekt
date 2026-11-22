@@ -6,4 +6,4 @@ export { readingMinutes } from "./article-collection";
 
 const collection = articleCollection(kunskap, "sv");
 
-export const { sources, glossary, articles, findSources, searchArticles, searchGlossary } = collection;
+export const { sources, glossary, articles, findSources, searchArticles, searchGlossary, redirectFor } = collection;

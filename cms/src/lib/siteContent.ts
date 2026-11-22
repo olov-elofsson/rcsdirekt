@@ -47,7 +47,14 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     implication: text(doc.implication),
   }))
 
-  const articles: Article[] = articleDocs.map((doc) => ({
+  // Hidden articles stay in the CMS; the site only gets their old address and where it leads.
+  const visibleDocs = articleDocs.filter((doc) => !doc.archived)
+  const redirects = articleDocs
+    .filter((doc) => doc.archived && relation(doc.replacedBy, 'slug'))
+    .map((doc) => ({ from: text(doc.slug), to: relation(doc.replacedBy, 'slug') }))
+  const visibleSlugs = new Set(visibleDocs.map((doc) => text(doc.slug)))
+
+  const articles: Article[] = visibleDocs.map((doc) => ({
     slug: text(doc.slug),
     title: text(doc.title),
     description: text(doc.description),
@@ -61,7 +68,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       points: list(section.points).map((row) => text(row.text)),
       sources: list(section.sources).map((source) => relation(source, 'sourceId')).filter(Boolean),
     })),
-    related: list(doc.related).map((related) => relation(related, 'slug')).filter(Boolean),
+    related: list(doc.related).map((related) => relation(related, 'slug')).filter((slug) => visibleSlugs.has(slug)),
   }))
 
   const glossary: GlossaryTerm[] = glossaryDocs.map((doc) => ({
@@ -191,6 +198,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       })),
     },
     juridiskt: { integritetspolicy: legalPage(juridiskt.integritetspolicy), villkor: legalPage(juridiskt.villkor) },
-    kunskap: { sources, glossary, articles },
+    kunskap: { sources, glossary, articles, redirects },
   }
 }

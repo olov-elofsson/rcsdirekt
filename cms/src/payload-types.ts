@@ -245,7 +245,7 @@ export interface Artiklar {
    * Visas som rcsdirekt.se/blogg/<adress>. Om du ändrar den slutar gamla länkar fungera.
    */
   slug: string;
-  category: 'Grunder' | 'Företag' | 'Meddelandedesign' | 'Teknik' | 'Mobil & operatörer' | 'Begrepp';
+  category: 'Nyheter' | 'Grunder' | 'Företag' | 'Meddelandedesign' | 'Teknik' | 'Mobil & operatörer' | 'Begrepp';
   /**
    * ÅÅÅÅ-MM-DD
    */
@@ -285,6 +285,14 @@ export interface Artiklar {
     id?: string | null;
   }[];
   related?: (number | Artiklar)[] | null;
+  /**
+   * Visas inte i bloggen. Adressen leder till artikeln nedan.
+   */
+  archived?: boolean | null;
+  /**
+   * Dit en dold artikels gamla adress leder.
+   */
+  replacedBy?: (number | null) | Artiklar;
   updatedAt: string;
   createdAt: string;
 }
@@ -587,6 +595,8 @@ export interface ArtiklarSelect<T extends boolean = true> {
         id?: T;
       };
   related?: T;
+  archived?: T;
+  replacedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }

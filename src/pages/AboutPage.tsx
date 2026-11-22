@@ -40,15 +40,15 @@ export function AboutPage() {
 
         <section className="pb-16 sm:pb-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {principles(operators).map(({ Icon, title: heading, copy }) => (
-                <div key={heading} className="rounded-2xl bg-card p-6 shadow-card">
-                  <span aria-hidden className="grid size-11 place-items-center rounded-xl bg-primary-soft text-logo-blue"><Icon strokeWidth={2} className="size-5" /></span>
-                  <h2 className="mt-5 text-lg font-extrabold leading-snug">{t(heading)}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-pretty text-muted-foreground">{text(heading, copy)}</p>
+            {/* Plain text in two columns: a list of facts reads as a statement, not a row of feature cards. */}
+            <dl className="grid gap-x-12 gap-y-8 border-t border-border pt-10 sm:grid-cols-2">
+              {principles(operators).map(({ title: heading, copy }) => (
+                <div key={heading}>
+                  <dt className="text-lg font-extrabold leading-snug">{t(heading)}</dt>
+                  <dd className="mt-2 leading-relaxed text-pretty text-muted-foreground">{text(heading, copy)}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
         </section>
 

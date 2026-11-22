@@ -250,8 +250,8 @@ export const en: Record<string, string> = {
   "Trycker kunden på ett förslag eller skriver något kommer det också som en händelse. Då kan ert system svara i samma tråd.":
     "If the customer taps a suggestion or writes something, that also comes as an event. Your system can then reply in the same thread.",
   "Det en integration behöver hantera": "What an integration needs to handle",
-  "Händelser från webhooks kommer inte alltid en gång och i rätt ordning. Här är det som brukar ställa till det, med en artikel om varje sak.":
-    "Webhook events do not always arrive once and in the right order. Here is what usually causes trouble, with an article on each.",
+  "Händelser från webhooks kommer inte alltid en gång och i rätt ordning. Här är det som brukar ställa till det.":
+    "Webhook events do not always arrive once and in the right order. Here is what usually causes trouble.",
   "Samma händelse kan komma två gånger": "The same event can arrive twice",
   "Händelser kan komma i fel ordning": "Events can arrive in the wrong order",
   "Lägg inkommande händelser i en kö": "Put incoming events in a queue",
@@ -310,4 +310,10 @@ export const en: Record<string, string> = {
   // Hero label
   och: "and",
   "Svenska operatörer öppnar RCS på iPhone under 2026": "Swedish operators open RCS on iPhone during 2026",
+
+  // Blog front page
+  "Det viktigaste om RCS, och nyheter om hur det går i Sverige. Alla artiklar har källor.": "The essentials of RCS, and news on how it is going in Sweden. Every article has sources.",
+  Nyheter: "News",
+  "Läs nyheten": "Read the news",
+  "Det viktigaste om RCS": "The essentials of RCS",
 };

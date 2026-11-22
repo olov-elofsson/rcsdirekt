@@ -6,7 +6,7 @@ import type { Article as ContentArticle, GlossaryTerm, Section, Source } from "@
 export type { GlossaryTerm, Section, Source };
 export type SourceFact = { sourceId: string; finding: string; implication: string };
 export type Article = ContentArticle & { facts?: SourceFact[] };
-type Knowledge = { sources: Source[]; glossary: GlossaryTerm[]; articles: ContentArticle[] };
+type Knowledge = { sources: Source[]; glossary: GlossaryTerm[]; articles: ContentArticle[]; redirects?: { from: string; to: string }[] };
 
 export function readingMinutes(article: Article) {
   const text = [
@@ -37,10 +37,13 @@ export function articleCollection(data: Knowledge, lang: "sv" | "en") {
     facts: factsForSources(article.sections.flatMap((section) => section.sources)),
   }));
   const all = lang === "sv" ? "Alla" : "All";
+  // Old addresses of articles hidden in the CMS, and the article each leads to now.
+  const redirects = new Map((data.redirects ?? []).map((row) => [row.from, row.to]));
   return {
     sources,
     glossary,
     articles,
+    redirectFor: (slug: string) => redirects.get(slug),
     sourceFacts,
     factsForSources,
     findSources: (ids: string[]) => sources.filter((source) => ids.includes(source.id)),

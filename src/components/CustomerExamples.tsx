@@ -323,7 +323,10 @@ function featuresOf(start: Step, locale: Locale): Feature[] {
     }
   };
   walk(start);
-  return [...found.values()];
+  // What this example shows that a plain SMS cannot, at most four; the sender and read receipts are
+  // the same in every example, so they are left to the comparison table.
+  const generic = new Set(["Verifierad avsändare", "Företagsnamn som avsändare", "Läskvitto", "Visar att ni skriver", "Svar i tråden"].map((label) => translate(locale, label)));
+  return [...found.values()].filter((feature) => !generic.has(feature.label)).slice(0, 4);
 }
 
 /** One case large: the photo with its conversation beside the text, and what the customer can try. */

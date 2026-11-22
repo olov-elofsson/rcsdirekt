@@ -5,4 +5,4 @@ import { articleCollection } from "../article-collection";
 
 const collection = articleCollection(data as SiteContent["kunskap"], "en");
 
-export const { sources, glossary, articles, findSources, searchArticles, searchGlossary } = collection;
+export const { sources, glossary, articles, findSources, searchArticles, searchGlossary, redirectFor } = collection;

@@ -212,12 +212,9 @@
 @utility animate-message-in { animation: message-in 320ms cubic-bezier(0.23, 1, 0.32, 1) both; }
 @keyframes message-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
 
-/* Start page: sections below the fold fade up once as they come into view (see useReveal). */
-.home-refined.reveal-ready [data-reveal]:not([data-shown]) { opacity: 0; transform: translateY(18px); }
-.home-refined [data-reveal] {
-  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--reveal-order, 0) * 70ms);
-}
+/* Start page: blocks stay still as they come into view. Only what shows something moves (the
+   line through the steps, the customer examples, the SMS/RCS switch), so motion keeps a meaning
+   instead of every block fading up the same way. */
 /* The line between the steps grows from the first drop instead of sliding in. */
 .home-refined .steps-line[data-reveal] { transform-origin: left center; transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1) 150ms; }
 .home-refined.reveal-ready .steps-line[data-reveal]:not([data-shown]) { opacity: 1; transform: scaleX(0); }

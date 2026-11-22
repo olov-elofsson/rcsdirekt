@@ -98,8 +98,7 @@ function Steps() {
               {/* Indented by the card's padding, so each number stands over its heading. */}
               <div className="pl-7"><NumberDrop n={index + 1} /></div>
               <div className="mt-4 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
-                <step.Icon aria-hidden strokeWidth={2} className="size-6 text-logo-blue" />
-                <h3 className="mt-4 text-xl font-extrabold leading-snug">{t(step.title)}</h3>
+                <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
                 <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
               </div>
             </li>

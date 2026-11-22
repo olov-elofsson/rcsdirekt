@@ -1,14 +1,19 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { blogHead } from "@/components/BlogLayout";
 import { articleList } from "@/content/en/article-list";
-import { articles, findSources } from "@/data/en/blog-articles";
+import { articles, findSources, redirectFor } from "@/data/en/blog-articles";
 import { ArticleNotFound, ArticlePage } from "@/pages/ArticlePage";
 
 export const Route = createFileRoute("/en/blog/$slug")({
   loader: ({ params }) => {
     const article = articles.find((item) => item.slug === params.slug);
-    if (!article) throw notFound();
+    if (!article) {
+      // An article hidden in the CMS: its old address leads permanently to the one that replaced it.
+      const next = redirectFor(params.slug);
+      if (next) throw redirect({ to: "/en/blog/$slug", params: { slug: next }, statusCode: 301 });
+      throw notFound();
+    }
     return article;
   },
   head: ({ loaderData }) => {

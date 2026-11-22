@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { loggedIn } from '../lib/access'
 
 export const articleCategories = [
+  'Nyheter',
   'Grunder',
   'Företag',
   'Meddelandedesign',
@@ -90,6 +91,20 @@ export const Articles: CollectionConfig = {
       type: 'relationship',
       relationTo: 'artiklar',
       hasMany: true,
+    },
+    {
+      name: 'archived',
+      label: 'Dold på sajten',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { position: 'sidebar', description: 'Visas inte i bloggen. Adressen leder till artikeln nedan.' },
+    },
+    {
+      name: 'replacedBy',
+      label: 'Ersätts av',
+      type: 'relationship',
+      relationTo: 'artiklar',
+      admin: { position: 'sidebar', condition: (data) => Boolean(data?.archived), description: 'Dit en dold artikels gamla adress leder.' },
     },
   ],
 }

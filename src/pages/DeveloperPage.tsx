@@ -34,7 +34,7 @@ const CHECKLIST: { Icon: typeof Send; slug: string; label: string }[] = [
   { Icon: Activity, slug: "rcs-handelser-overvakning", label: "Märk när händelser slutar komma" },
 ];
 
-const GUIDE_SLUGS = ["rcs-api-webhooks", "rcs-leveransstatus", "rcs-fallback-sms", "kapabilitetskontroll", "testa-rcs-utskick", "rcs-loggning"];
+const GUIDE_SLUGS = ["rcs-api-webhooks", "rcs-basic-single-conversation", "verifierad-avsandare"];
 
 export function DeveloperPage() {
   const { t, lp, locale } = useT();
@@ -75,15 +75,12 @@ export function DeveloperPage() {
         <section className="bg-ink py-16 text-ink-foreground sm:py-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <h2 className={sectionTitle}>{t("Det en integration behöver hantera")}</h2>
-            <p className={cn(sectionIntro, "text-ink-muted")}>{t("Händelser från webhooks kommer inte alltid en gång och i rätt ordning. Här är det som brukar ställa till det, med en artikel om varje sak.")}</p>
+            <p className={cn(sectionIntro, "text-ink-muted")}>{t("Händelser från webhooks kommer inte alltid en gång och i rätt ordning. Här är det som brukar ställa till det.")}</p>
             <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {CHECKLIST.filter((item) => bySlug(item.slug)).map(({ Icon, slug, label }) => (
-                <li key={slug}>
-                  <Link to={lp("/blogg/$slug")} params={{ slug }} className="group flex min-h-16 items-center gap-3 rounded-2xl bg-ink-foreground/[0.06] px-4 py-3 ring-1 ring-ink-foreground/10 transition-colors duration-150 hover:bg-ink-foreground/[0.1]">
-                    <Icon aria-hidden strokeWidth={2} className="size-5 shrink-0 text-logo-blue" />
-                    <span className="text-sm font-semibold leading-snug">{t(label)}</span>
-                    <ArrowRight aria-hidden className="ml-auto size-4 shrink-0 text-ink-muted transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
-                  </Link>
+              {CHECKLIST.map(({ Icon, slug, label }) => (
+                <li key={slug} className="flex min-h-16 items-center gap-3 rounded-2xl bg-ink-foreground/[0.06] px-4 py-3 ring-1 ring-ink-foreground/10">
+                  <Icon aria-hidden strokeWidth={2} className="size-5 shrink-0 text-logo-blue" />
+                  <span className="text-sm font-semibold leading-snug">{t(label)}</span>
                 </li>
               ))}
             </ul>

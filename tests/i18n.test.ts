@@ -35,3 +35,11 @@ test("addresses map between the languages", () => {
   expect(swedishPath("/en/blog/vad-ar-rcs")).toBe("/blogg/vad-ar-rcs");
   expect(swedishPath("/en/sign-up")).toBe("/skapa-konto");
 });
+
+test("the English blog has the same articles as the important Swedish ones, and the same redirects", async () => {
+  const en = await import("../src/data/en/blog-articles");
+  const slugs = en.articles.map((article) => article.slug);
+  expect(slugs.length).toBeGreaterThanOrEqual(10);
+  expect(en.redirectFor("rcs-e-handel")).toBe("rcs-for-foretag");
+  for (const article of en.articles) for (const slug of article.related) expect(slugs).toContain(slug);
+});

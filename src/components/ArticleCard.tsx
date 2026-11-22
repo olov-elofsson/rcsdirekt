@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, BookOpen, Building2, Clock, Cpu, Library, Palette, Smartphone, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, BookOpen, Building2, Clock, Cpu, Library, Newspaper, Palette, Smartphone, type LucideIcon } from "lucide-react";
 
 import type { ArticleSummary } from "@/content";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ const TOPIC_ICONS: Record<string, LucideIcon> = {
   Teknik: Cpu,
   "Mobil & operatörer": Smartphone,
   Begrepp: Library,
+  Nyheter: Newspaper,
+  News: Newspaper,
   // The English topics.
   Basics: BookOpen,
   Business: Building2,

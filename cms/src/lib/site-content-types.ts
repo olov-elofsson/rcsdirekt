@@ -120,7 +120,8 @@ export type SiteContent = {
   };
   /** /integritetspolicy and /villkor. Missing in content from before the pages existed. */
   juridiskt?: { integritetspolicy: LegalPage; villkor: LegalPage };
-  kunskap: { sources: Source[]; glossary: GlossaryTerm[]; articles: Article[] };
+  /** `redirects`: old addresses of articles hidden in the CMS and the article each now leads to. */
+  kunskap: { sources: Source[]; glossary: GlossaryTerm[]; articles: Article[]; redirects?: { from: string; to: string }[] };
 };
 
 /** A section's body: paragraphs split at blank lines; lines starting with "- " form a list. */

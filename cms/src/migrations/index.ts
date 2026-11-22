@@ -40,6 +40,8 @@ import * as migration_20261122_310000_iphone_operators from './20261122_310000_i
 import * as migration_20261122_320000_hero_figures from './20261122_320000_hero_figures';
 import * as migration_20261122_330000_iphone_news from './20261122_330000_iphone_news';
 import * as migration_20261122_340000_hero_short from './20261122_340000_hero_short';
+import * as migration_20261122_350000_blog_archive from './20261122_350000_blog_archive';
+import * as migration_20261122_360000_blog_ten from './20261122_360000_blog_ten';
 
 export const migrations = [
   {
@@ -253,5 +255,15 @@ export const migrations = [
     up: migration_20261122_340000_hero_short.up,
     down: migration_20261122_340000_hero_short.down,
     name: '20261122_340000_hero_short',
+  },
+  {
+    up: migration_20261122_350000_blog_archive.up,
+    down: migration_20261122_350000_blog_archive.down,
+    name: '20261122_350000_blog_archive',
+  },
+  {
+    up: migration_20261122_360000_blog_ten.up,
+    down: migration_20261122_360000_blog_ten.down,
+    name: '20261122_360000_blog_ten',
   },
 ];
