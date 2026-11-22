@@ -35,7 +35,7 @@ const SUGGESTIONS: Reply[] = [
 ];
 
 /** The same notice as RCS: logo, verified name, a greeting, a card with buttons and suggestions. */
-function AsRcs({ active }: { active: boolean }) {
+function AsRcs({ active, onInteract }: { active: boolean; onInteract: () => void }) {
   const { t } = useT();
   const [sent, setSent] = useState<Reply | null>(null);
   const [typing, setTyping] = useState(false);
@@ -45,6 +45,7 @@ function AsRcs({ active }: { active: boolean }) {
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const choose = (reply: Reply) => {
+    onInteract();
     if (reply.opens) {
       setOpened(reply.opens);
       return;
@@ -73,10 +74,10 @@ function AsRcs({ active }: { active: boolean }) {
         <div className="ct">{t("Ditt konto är klart")}</div>
         <div className="cb">{t("Skicka ditt första utskick från webben, eller koppla in ert system via API.")}</div>
         <div className="cbtns">
-          <button type="button" tabIndex={active ? 0 : -1} className="cbtn" onClick={() => setOpened("portalen")}>
+          <button type="button" tabIndex={active ? 0 : -1} className="cbtn" onClick={() => { onInteract(); setOpened("portalen"); }}>
             <span className="ci"><PhoneIcon name="open" size={18} /></span>{t("Logga in")}
           </button>
-          <button type="button" tabIndex={active ? 0 : -1} className="cbtn" onClick={() => setOpened("telefonen")}>
+          <button type="button" tabIndex={active ? 0 : -1} className="cbtn" onClick={() => { onInteract(); setOpened("telefonen"); }}>
             <span className="ci"><PhoneIcon name="call" size={18} /></span>{t("Ring oss")}
           </button>
         </div>
@@ -107,9 +108,13 @@ function AsRcs({ active }: { active: boolean }) {
   );
 }
 
+/** How long each version shows before the box switches by itself. */
+const SWITCH_MS = 3600;
+
 /**
- * Beside the hero text: one notice, switchable between how it arrives as SMS and as RCS. It turns
- * into RCS once by itself when it comes into view, and the RCS version's buttons can be tried.
+ * Beside the hero text: one notice, switchable between how it arrives as SMS and as RCS. While it
+ * is in view it switches by itself every few seconds; once the visitor picks a version or taps the
+ * message, it stays put. With reduced motion it simply shows the RCS version.
  */
 export function HeroMessage({ className }: { className?: string }) {
   const { t } = useT();
@@ -124,15 +129,19 @@ export function HeroMessage({ className }: { className?: string }) {
       return;
     }
     let timer: number | undefined;
+    // Runs only while the box is on screen, and stops for good once the visitor has taken over.
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry?.isIntersecting) return;
-      observer.disconnect();
-      timer = window.setTimeout(() => !touched.current && setRcs(true), 1400);
+      window.clearInterval(timer);
+      if (!entry?.isIntersecting || touched.current) return;
+      timer = window.setInterval(() => {
+        if (touched.current) window.clearInterval(timer);
+        else setRcs((value) => !value);
+      }, SWITCH_MS);
     }, { threshold: 0.4 });
     observer.observe(element);
     return () => {
       observer.disconnect();
-      window.clearTimeout(timer);
+      window.clearInterval(timer);
     };
   }, []);
 
@@ -160,7 +169,7 @@ export function HeroMessage({ className }: { className?: string }) {
           </button>
         ))}
       </div>
-      {/* Both versions share one grid cell, so the box keeps its height while they cross-fade. */}
+      {/* Both versions share one grid cell, so the box keeps its height and the page never moves while they switch. */}
       <div className="grid text-left lg:min-h-[27.5rem]" aria-live="polite">
         {[false, true].map((value) => (
           <div
@@ -168,11 +177,10 @@ export function HeroMessage({ className }: { className?: string }) {
             aria-hidden={rcs !== value}
             className={cn(
               "col-start-1 row-start-1 flex justify-center self-center transition-[opacity,translate,scale] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none",
-              // On phones only the shown version takes room, so the box fits it instead of keeping a gap.
-              rcs === value ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-1 scale-[0.98] opacity-0 max-lg:hidden",
+              rcs === value ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-1 scale-[0.98] opacity-0",
             )}
           >
-            {value ? <AsRcs active={rcs} /> : <AsSms />}
+            {value ? <AsRcs active={rcs} onInteract={() => { touched.current = true; }} /> : <AsSms />}
           </div>
         ))}
       </div>
