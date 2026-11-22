@@ -22,7 +22,7 @@ export const Articles: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'published', 'slug'],
     listSearchableFields: ['title', 'slug', 'description'],
-    description: 'Guider och begreppsartiklar under rcsdirekt.se/blogg.',
+    description: 'Artiklar och begrepp under Insikter (rcsdirekt.se/blogg).',
   },
   orderable: true,
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },

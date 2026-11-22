@@ -87,7 +87,7 @@ function DeveloperPage() {
         <section className="bg-ink py-16 text-ink-foreground sm:py-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <h2 className={sectionTitle}>Det en integration behöver hantera</h2>
-            <p className={cn(sectionIntro, "text-ink-muted")}>Händelser via webhook kommer inte alltid en gång och i ordning. Varje punkt har en guide.</p>
+            <p className={cn(sectionIntro, "text-ink-muted")}>Händelser via webhook kommer inte alltid en gång och i ordning. Varje punkt har en artikel.</p>
             <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {CHECKLIST.filter((item) => bySlug(item.slug)).map(({ Icon, slug, label }) => (
                 <li key={slug}>
@@ -104,7 +104,7 @@ function DeveloperPage() {
 
         <section className="py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <h2 className={sectionTitle}>Guider för integrationen</h2>
+            <h2 className={sectionTitle}>Artiklar om integrationen</h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {GUIDES.map((article) => <ArticleCard key={article.slug} article={article} />)}
             </div>

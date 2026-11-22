@@ -232,7 +232,7 @@ export interface Kundcase {
   createdAt: string;
 }
 /**
- * Guider och begreppsartiklar under rcsdirekt.se/blogg.
+ * Artiklar och begrepp under Insikter (rcsdirekt.se/blogg).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "artiklar".

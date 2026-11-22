@@ -13,6 +13,7 @@ import { priser } from "@/content/priser";
 import { startsida } from "@/content/startsida";
 import { webinarer } from "@/content/webinarer";
 import { organizationSchema } from "@/lib/company";
+import { HeroMessage } from "@/components/HeroMessage";
 import { STEPS } from "@/data/onboarding";
 
 const home = startsida;
@@ -58,7 +59,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerExamples /><CompareSection /><WaysSection /><Steps /><PricingSection /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerExamples /><WaysSection /><CompareSection /><PricingSection /><BlogSection /><Steps /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -78,14 +79,14 @@ function NumberDrop({ n }: { n: number }) {
   );
 }
 
-/** A plain, centred hero: headline, one line on what it is and two actions. No decoration. */
+/** A centred hero: headline, one line on what it is, two actions and one notice shown as SMS and as RCS. */
 function HeroFirst() {
-  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div></div></section>;
+  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div><HeroMessage /></div></section>;
 }
 
 
 
-/** How a company gets started: three steps in a row, so the process is visible before the price. */
+/** How a company gets started: three steps in a row, near the end beside the contact form. */
 function Steps() {
   return (
     <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">

@@ -476,7 +476,7 @@ export function PricingSection() {
 }
 
 /* ------------------------------------------------------------------------------------------ */
-/* Guider: one article large, two beside it.                                                   */
+/* Insikter: one article large, two beside it.                                                 */
 
 export function BlogSection() {
   const picks = home.blogg.picks.map((slug) => articleList.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));

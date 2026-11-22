@@ -17,7 +17,7 @@ import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/blogg/")({
-  head: () => blogHead("Guider om RCS", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
+  head: () => blogHead("Insikter om RCS", "Vad är RCS och hur fungerar det? Korta, källbelagda artiklar om meddelanden, företags-RCS, teknik och begrepp.", "/blogg"),
   component: BlogPage,
 });
 
@@ -48,7 +48,7 @@ function BlogPage() {
   const [lead, ...side] = featured;
   return (
     <BlogLayout>
-      <PageHeading title="Guider om RCS" description={<p>Korta artiklar om RCS och vad som gäller för företag i Sverige. Varje artikel anger sina källor.</p>}>
+      <PageHeading title="Insikter" description={<p>Korta artiklar om RCS och vad som gäller för företag i Sverige. Varje artikel anger sina källor.</p>}>
         <div className="relative w-full max-w-xl">
           <Search aria-hidden strokeWidth={1.75} className="pointer-events-none absolute left-5 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
           <input
