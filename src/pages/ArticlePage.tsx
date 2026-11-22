@@ -8,7 +8,6 @@ import { ReadingProgress } from "@/components/ArticleReadingTools";
 import { BlogLayout } from "@/components/BlogLayout";
 import { Button } from "@/components/ui/button";
 import type { ArticleSummary } from "@/content/article-list";
-import { usePriser } from "@/content/localized";
 import { readingMinutes, type Article, type Source } from "@/data/article-collection";
 import { useT } from "@/lib/i18n";
 
@@ -81,8 +80,6 @@ export function ArticlePage({
   list: ArticleSummary[];
 }) {
   const { t, lp, locale } = useT();
-  const priser = usePriser();
-  const lowestPrice = priser.plans[0]?.price;
   const latest = list
     .filter((item) => item.slug !== article.slug)
     .sort((a, b) => b.published.localeCompare(a.published))
@@ -207,24 +204,6 @@ export function ArticlePage({
                 </details>
               ) : null}
 
-              <div className="mt-12 flex flex-col gap-4 rounded-2xl bg-primary-soft p-6 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="font-display text-lg font-extrabold">
-                    {t("Skicka RCS för ert företag")}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {lowestPrice
-                      ? `${t("Från {price} per meddelande.").replace("{price}", lowestPrice)} `
-                      : ""}
-                    {t("Ingen startavgift eller bindningstid.")}
-                  </p>
-                </div>
-                <Button asChild className="shrink-0">
-                  <Link to={lp("/skapa-konto")}>
-                    {t("Skapa konto")} <ArrowRight data-icon="end" />
-                  </Link>
-                </Button>
-              </div>
             </div>
           </div>
 
@@ -237,13 +216,13 @@ export function ArticlePage({
                 {t("Senaste artiklar")}
               </h2>
               {/* Each entry reads like a small article: topic, heading, the start of the summary, date and reading time. */}
-              <ul className="mt-5 space-y-6">
+              <ul className="mt-4 space-y-3">
                 {latest.map((item) => (
                   <li key={item.slug}>
                     <Link
                       to={lp("/blogg/$slug")}
                       params={{ slug: item.slug }}
-                      className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      className="group block rounded-xl bg-background p-4 shadow-card transition-shadow duration-200 ease-out hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
                       <span className="block text-xs font-bold tracking-[0.06em] text-muted-foreground uppercase">
                         {item.category}

@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { formatDate } from "@/components/ArticleCard";
 import { BlogLayout } from "@/components/BlogLayout";
+import { NumberDrop } from "@/components/NumberDrop";
 import { PageHeading } from "@/components/PageHeading";
 import { articleList as articlesSv } from "@/content/article-list";
 import { articleList as articlesEn } from "@/content/en/article-list";
@@ -67,8 +68,8 @@ export function BlogIndexPage() {
         <ol className="mt-8 border-t border-border">
           {guides.map((item, index) => (
             <li key={item.slug} className="border-b border-border">
-              <Link to={lp("/blogg/$slug")} params={{ slug: item.slug }} className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[3.5rem_1fr_auto] sm:gap-x-6">
-                <span aria-hidden className="font-display text-xl font-extrabold text-muted-foreground/60 tabular-nums transition-colors duration-150 group-hover:text-logo-blue sm:text-2xl">{String(index + 1).padStart(2, "0")}</span>
+              <Link to={lp("/blogg/$slug")} params={{ slug: item.slug }} className="group grid grid-cols-[2.5rem_1fr_auto] items-start gap-x-4 py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6">
+                <NumberDrop n={index + 1} className="self-start transition-colors duration-150 group-hover:bg-logo-blue" />
                 <span>
                   <span className="block text-lg font-extrabold leading-snug text-balance transition-colors duration-150 group-hover:text-logo-blue sm:text-xl">{item.title}</span>
                   <span className="mt-1.5 block text-sm leading-relaxed text-pretty text-muted-foreground sm:text-base">{item.description}</span>

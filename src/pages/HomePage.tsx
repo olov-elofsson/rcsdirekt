@@ -5,6 +5,7 @@ import { ArrowRight, Check, RadioTower } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { NumberDrop } from "@/components/NumberDrop";
 import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomepageSections";
 import { useReveal } from "@/hooks/use-reveal";
@@ -33,15 +34,6 @@ function DualCtas() {
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
-
-/** The number in the logo's drop: a circle with one square corner, white on navy. */
-function NumberDrop({ n }: { n: number }) {
-  return (
-    <span aria-hidden className={cn("relative grid size-10 place-items-center rounded-[50%_50%_50%_0] font-display text-base font-extrabold tabular-nums", "bg-ink-foreground text-ink")}>
-      {n}
-    </span>
-  );
-}
 
 /** The hero split in two: headline, one line on what it is and two actions beside one notice shown as SMS and as RCS. */
 /** The news article the line above the heading leads to; until it is in the content, the iPhone article's operator section. */
@@ -94,7 +86,7 @@ function Steps() {
           {STEPS.map((step, index) => (
             <li key={step.title} data-reveal style={revealOrder(index + 1)} className="flex flex-col">
               {/* Indented by the card's padding, so each number stands over its heading. */}
-              <div className="pl-7"><NumberDrop n={index + 1} /></div>
+              <div className="pl-7"><NumberDrop tone="light" n={index + 1} /></div>
               <div className="mt-4 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
                 <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
                 <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
