@@ -29,11 +29,11 @@ export const Startsida: GlobalConfig = {
                 { name: 'description', label: 'Text under rubriken', type: 'textarea', required: true },
               ],
             },
-            { name: 'kundcaseHeading', label: 'Rubrik för kundcase', type: 'text', required: true, admin: { description: 'Själva korten redigeras under Kundcase.' } },
+            { name: 'kundcaseHeading', label: 'Rubrik för Kunder', type: 'text', required: true, admin: { description: 'Kunderna redigeras under Kunder.' } },
           ],
         },
         {
-          label: 'Fördelar',
+          label: 'Fördelar (används inte)',
           fields: [
             {
               name: 'fordelar',
@@ -54,7 +54,7 @@ export const Startsida: GlobalConfig = {
           ],
         },
         {
-          label: 'RCS mot SMS',
+          label: 'RCS jämfört med sms',
           fields: [
             {
               name: 'jamforelse',
@@ -85,11 +85,11 @@ export const Startsida: GlobalConfig = {
           ],
         },
         {
-          label: 'Webb eller API',
+          label: 'Plattform',
           fields: [
             {
               name: 'vagar',
-              label: 'Sätt att skicka',
+              label: 'Plattform: webb och API',
               type: 'group',
               fields: [
                 heading,
@@ -106,18 +106,18 @@ export const Startsida: GlobalConfig = {
           ],
         },
         {
-          label: 'Priser, blogg och kontakt',
+          label: 'Priser, Insikter och Kontakt',
           fields: [
             {
               name: 'pris',
-              label: 'Prissektionen',
+              label: 'Priser',
               type: 'group',
               admin: { description: 'Själva priserna redigeras under Prissida.' },
               fields: [heading, { name: 'subheading', label: 'Underrubrik', type: 'text', required: true }, intro],
             },
             {
               name: 'blogg',
-              label: 'Bloggsektionen',
+              label: 'Insikter',
               type: 'group',
               fields: [
                 heading,
@@ -125,7 +125,7 @@ export const Startsida: GlobalConfig = {
                 { name: 'picks', label: 'Utvalda artiklar', type: 'relationship', relationTo: 'artiklar', hasMany: true, maxRows: 3, required: true },
               ],
             },
-            { name: 'kontakt', label: 'Kontaktsektionen', type: 'group', fields: [heading, intro] },
+            { name: 'kontakt', label: 'Kontakt', type: 'group', fields: [heading, intro] },
           ],
         },
         { label: 'Sökmotorer', fields: [seoField] },

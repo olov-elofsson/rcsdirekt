@@ -330,7 +330,7 @@ export function RcsVideoGenerator() {
         <Step n={1} title="Avsändaren" hint="Skriv av avsändarens registrerade uppgifter (Sender details).">
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Display name"><Input value={form.displayName} onChange={set("displayName")} /></Field>
-            <Field label="Brand"><Input value={form.brand} placeholder="Nercia Utbildning AB" onChange={set("brand")} /></Field>
+            <Field label="Brand"><Input value={form.brand} placeholder="Ert företag AB" onChange={set("brand")} /></Field>
             <Field label="Description" className="sm:col-span-2"><Input value={form.description} onChange={set("description")} /></Field>
           </div>
           <div className="grid gap-4 sm:grid-cols-[140px_1fr]">

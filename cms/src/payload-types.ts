@@ -201,7 +201,7 @@ export interface Media {
   };
 }
 /**
- * Korten under "Kundcase" på startsidan. Dra för att ändra ordning.
+ * Kunderna på startsidan och deras presentationer under /demo. Dra för att ändra ordning.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "kundcase".
@@ -210,7 +210,7 @@ export interface Kundcase {
   id: number;
   _order?: string | null;
   /**
-   * Hela bolagsnamnet, till exempel "Bilia AB".
+   * Hela bolagsnamnet som det är registrerat, till exempel "Bilia AB".
    */
   name: string;
   /**
@@ -225,7 +225,7 @@ export interface Kundcase {
   height?: number | null;
   description: string;
   /**
-   * Namnet på presentationen som visas under rcsdirekt.se/demo/<namn>. Lämna tomt för att visa "Kundcase kommer snart".
+   * Namnet på presentationen som visas under rcsdirekt.se/demo/<namn>. Lämna tomt om kunden inte har någon presentation.
    */
   slug?: string | null;
   updatedAt: string;
@@ -709,7 +709,7 @@ export interface Startsida {
     description: string;
   };
   /**
-   * Själva korten redigeras under Kundcase.
+   * Kunderna redigeras under Kunder.
    */
   kundcaseHeading: string;
   fordelar: {

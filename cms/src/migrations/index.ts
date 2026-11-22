@@ -22,6 +22,7 @@ import * as migration_20261122_180000_brand_name from './20261122_180000_brand_n
 import * as migration_20261122_190000_section_headings from './20261122_190000_section_headings';
 import * as migration_20261122_200000_plan_guide from './20261122_200000_plan_guide';
 import * as migration_20261122_210000_pricing_intro from './20261122_210000_pricing_intro';
+import * as migration_20261122_220000_names_everywhere from './20261122_220000_names_everywhere';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -181,5 +182,10 @@ export const migrations = [
     up: migration_20261122_210000_pricing_intro.up,
     down: migration_20261122_210000_pricing_intro.down,
     name: '20261122_210000_pricing_intro',
+  },
+  {
+    up: migration_20261122_220000_names_everywhere.up,
+    down: migration_20261122_220000_names_everywhere.down,
+    name: '20261122_220000_names_everywhere',
   },
 ];

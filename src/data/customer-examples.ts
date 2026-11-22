@@ -170,7 +170,7 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Nercia",
-    company: "Nercia Utbildning AB",
+    company: "NERCIA Utbildning Aktiebolag",
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
     photo: { src: courseUrl, small: courseUrlSmall, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },

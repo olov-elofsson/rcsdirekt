@@ -79,12 +79,23 @@ function NumberDrop({ n }: { n: number }) {
   );
 }
 
-/** A centred hero: headline, one line on what it is, two actions and one notice shown as SMS and as RCS. */
+/** The hero split in two: headline, one line on what it is and two actions beside one notice shown as SMS and as RCS. */
 function HeroFirst() {
-  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div><HeroMessage /></div></section>;
+  return (
+    <section id="top" className="bg-background">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-14 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-8 lg:pt-16">
+        <div className="text-center lg:text-left">
+          <h1 className="mx-auto max-w-3xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:mx-0 lg:text-[3.6rem]">
+            {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl lg:mx-0">{home.hero.description}</p>
+          <div className="mt-9 flex justify-center lg:justify-start"><DualCtas /></div>
+        </div>
+        <HeroMessage className="mx-auto" />
+      </div>
+    </section>
+  );
 }
-
-
 
 /** How a company gets started: three steps in a row, near the end beside the contact form. */
 function Steps() {

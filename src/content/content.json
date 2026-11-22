@@ -2,13 +2,13 @@
   "version": 1,
   "startsida": {
     "seo": {
-      "title": "RCS för företag i Sverige | RCS Direkt",
+      "title": "RCS för företag i Sverige | rcsdirekt.se",
       "description": "Skicka RCS från webben eller via API, med bilder, knappar och verifierad avsändare. Från 0,316 SEK per meddelande och utan månadsavgift."
     },
     "hero": {
-      "title": "Meddelanden kunden känner igen",
-      "highlight": "och kan svara på",
-      "description": "Med RCS kommer utskicket med ert namn, er logotyp, bilder och knappar i kundens vanliga meddelandeapp. Skicka från webben eller via API och betala per meddelande."
+      "title": "Det smidiga sättet att",
+      "highlight": "skicka RCS",
+      "description": "RCS är nästa steg efter sms. Utskicket kommer med ert namn och er logga, och kunden ser bilder och trycker på knappar direkt i sin vanliga meddelandeapp. Ni skickar från webben eller via API och betalar per meddelande."
     },
     "kundcaseHeading": "Kundcase",
     "fordelar": {
@@ -43,8 +43,8 @@
       ]
     },
     "jamforelse": {
-      "heading": "Det RCS kan som sms inte kan",
-      "intro": "Båda hamnar i kundens meddelandeapp och kostar per meddelande. Med RCS får meddelandet också avsändarprofil, bilder och knappar.",
+      "heading": "RCS jämfört med SMS",
+      "intro": "Ett sms är text från ett nummer. RCS kommer i samma app men med er logga, en verifierad avsändare, bilder och knappar. För kunden känns det mer som en liten app i tråden än som ett sms.",
       "rows": [
         {
           "label": "Verifierad avsändare",
@@ -53,8 +53,8 @@
         },
         {
           "label": "Avsändarprofil",
-          "sms": "Begränsad",
-          "rcs": "Stark"
+          "sms": "Nummer eller kort namn",
+          "rcs": "Namn, logotyp och beskrivning"
         },
         {
           "label": "Tecken per meddelande",
@@ -62,14 +62,9 @@
           "rcs": "Upp till ca 4 000"
         },
         {
-          "label": "Analys och insikter",
-          "sms": "Levererat",
-          "rcs": "Levererat, sett, klick"
-        },
-        {
           "label": "Tillgänglighet i Sverige",
           "sms": "Alla mobiler",
-          "rcs": "Android 5.0 eller senare, iOS 18 eller senare"
+          "rcs": "Android 5+ och iOS 18+"
         },
         {
           "label": "Bilder, video och knappar",
@@ -77,15 +72,35 @@
           "rcs": "✓"
         },
         {
-          "label": "Installation",
-          "sms": "Ingen",
-          "rcs": "Ingen (inbyggt där det finns)"
+          "label": "Klickfrekvens (CTR)",
+          "sms": "Bara via spårade länkar",
+          "rcs": "Klick per knapp och länk"
+        },
+        {
+          "label": "Läskvitton",
+          "sms": "✗",
+          "rcs": "Läst, om mottagaren tillåter"
+        },
+        {
+          "label": "Svar från kunden",
+          "sms": "Fritext",
+          "rcs": "Knappar, förslag och fritext"
+        },
+        {
+          "label": "Avregistrering",
+          "sms": "Svar STOPP eller länk",
+          "rcs": "Knapp, STOPP eller i appen"
+        },
+        {
+          "label": "Listpris per meddelande",
+          "sms": "Från 0,317 SEK",
+          "rcs": "Från 0,316 SEK"
         }
       ]
     },
     "vagar": {
-      "heading": "Skicka från webben eller koppla in era system",
-      "intro": "Webbverktyget och API:t skickar från samma avsändare och till samma pris. Välj det som passar hur ni arbetar.",
+      "heading": "Webb och API",
+      "intro": "Vill ni bygga ett utskick själva gör ni det i webbläsaren. Vill ni att era system skickar automatiskt kopplar ni in API:t. Avsändaren och priset är desamma.",
       "items": [
         {
           "icon": "globe",
@@ -100,13 +115,13 @@
       ]
     },
     "pris": {
-      "heading": "Betala per meddelande",
+      "heading": "Priser",
       "subheading": "Inga månadskostnader",
-      "intro": "Priset beror på meddelandetyp och mottagarens operatör. Det finns ingen startavgift eller bindningstid."
+      "intro": "Ni betalar för det ni skickar. Priset beror på vilken typ av meddelande det är och vilken operatör mottagaren har. Det kostar inget att starta och det finns ingen bindningstid."
     },
     "blogg": {
-      "heading": "Guider om RCS",
-      "intro": "Från grunderna till API och webhooks. Artiklarna är på svenska och anger sina källor.",
+      "heading": "Guider",
+      "intro": "Allt från vad RCS är till hur API:t och webhooks fungerar. Skrivet på svenska, med källor.",
       "picks": [
         "vad-ar-rcs",
         "rcs-e-handel",
@@ -114,8 +129,8 @@
       ]
     },
     "kontakt": {
-      "heading": "Prata med oss",
-      "intro": "Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration."
+      "heading": "Kontakt",
+      "intro": "Berätta lite om vad ni vill skicka. Vi hör av oss och hjälper till med avsändare, upplägg och koppling."
     }
   },
   "priser": {
@@ -124,15 +139,15 @@
       "description": "Priser för RCS i Sverige: Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK per meddelande. Inga månadskostnader eller bindningstider."
     },
     "heading": "RCS-priser för Sverige",
-    "intro": "Listpris per skickat meddelande, för varje meddelandetyp och operatör. Det finns ingen månadskostnad eller bindningstid.",
+    "intro": "Här är listpriset per meddelande för varje typ och operatör. Ni betalar bara för det ni skickar, och det finns ingen månadskostnad eller bindningstid.",
     "plans": [
       {
         "name": "RCS Basic",
         "slug": "basic",
         "price": "0,316 SEK",
         "badge": "",
-        "short": "Verifierade textmeddelanden för korta och tydliga besked.",
-        "copy": "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt sms. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare. Mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
+        "short": "Välj Basic när ni bara skickar text, högst 160 tecken. Till exempel orderbekräftelser, leveransbesked och engångskoder.",
+        "copy": "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt SMS. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare. Mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
         "contents": "Text upp till 160 tecken",
         "operatorPrices": [
           {
@@ -162,7 +177,7 @@
         "slug": "single",
         "price": "0,462 SEK",
         "badge": "Populärast",
-        "short": "Rika utskick med bilder, video, karuseller och knappar.",
+        "short": "Välj Single när meddelandet har bild, video, knappar eller mer än 160 tecken. Till exempel kampanjer, nyhetsbrev och erbjudanden.",
         "copy": "Använd hela bredden av vad RCS kan erbjuda i ett enskilt utskick. Ett meddelande kan innehålla bilder, video, GIF-animationer, rika kort med rubrik och beskrivning, karuseller där mottagaren bläddrar mellan flera produkter, samt klickbara knappar och förslag som leder vidare till er webbplats, ett telefonsamtal, en karta eller en kalenderhändelse. Även rena textmeddelanden längre än 160 tecken räknas hit. Single passar för kampanjer, nyhetsutskick, produktlanseringar och erbjudanden där ni vill fånga uppmärksamheten visuellt och göra det enkelt för kunden att agera direkt i meddelandet.",
         "contents": "Bild, video, karusell och knappar",
         "operatorPrices": [
@@ -193,7 +208,7 @@
         "slug": "conversation",
         "price": "0,641 SEK",
         "badge": "",
-        "short": "Tvåvägsdialog med bilder, knappar och snabbsvar.",
+        "short": "Välj Conversation när kunden svarar och ni skriver fram och tillbaka, vanligtvis inom 24 timmar. Till exempel kundservice och ombokningar.",
         "copy": "Byggt för dialog snarare än envägskommunikation. När mottagaren svarar öppnas en konversation där ni kan skicka meddelanden fram och tillbaka inom ett begränsat tidsfönster, vanligtvis 24 timmar. Under konversationen kan ni använda alla rika funktioner, som bilder, knappar och snabbsvar, vilket gör det enkelt att guida kunden steg för steg. Passar för kundservice, ombokningar, felanmälningar, orderuppföljning och automatiserade flöden med chattbottar, där kunden får hjälp direkt i sin meddelandeapp i stället för att behöva ringa eller logga in någonstans.",
         "contents": "Tvåvägsdialog i 24 timmar",
         "operatorPrices": [
@@ -299,9 +314,675 @@
       {
         "question": "Hur räknas ett längre textmeddelande?",
         "answer": "Text över 160 tecken räknas som RCS Single."
+      },
+      {
+        "question": "Vad kostar det när kunden skriver först?",
+        "answer": "Samma pris som när ni startar samtalet. RCS Conversation har samma listpris oavsett vem som skriver först."
       }
     ],
-    "volumeText": "Skickar ni stora volymer?"
+    "volumeText": "Skickar ni stora volymer?",
+    "sms": {
+      "name": "SMS",
+      "contents": "Text upp till 160 tecken, till exempel som reserv",
+      "operatorPrices": [
+        {
+          "operator": "Telia",
+          "price": "0,346 SEK"
+        },
+        {
+          "operator": "Tele2",
+          "price": "0,336 SEK"
+        },
+        {
+          "operator": "Telenor",
+          "price": "0,395 SEK"
+        },
+        {
+          "operator": "Tre",
+          "price": "0,317 SEK"
+        },
+        {
+          "operator": "Övriga operatörer",
+          "price": "0,385 SEK"
+        }
+      ]
+    },
+    "networksHeading": "Alla nät och priser",
+    "networksNote": "Listpris per meddelande för varje nät i Sverige. Ett tomt fält betyder att nätet inte tar emot den typen av meddelande.",
+    "networks": [
+      {
+        "network": "Telia",
+        "host": "",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,346 SEK"
+      },
+      {
+        "network": "Tele2",
+        "host": "",
+        "basic": "0,326 SEK",
+        "single": "0,462 SEK",
+        "conversation": "0,662 SEK",
+        "sms": "0,336 SEK"
+      },
+      {
+        "network": "Telenor",
+        "host": "",
+        "basic": "0,363 SEK",
+        "single": "0,557 SEK",
+        "conversation": "0,988 SEK",
+        "sms": "0,395 SEK"
+      },
+      {
+        "network": "Tre",
+        "host": "",
+        "basic": "0,316 SEK",
+        "single": "0,481 SEK",
+        "conversation": "0,641 SEK",
+        "sms": "0,317 SEK"
+      },
+      {
+        "network": "Götalandsnätet",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "0700 Sverige AB",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "42 Telecom AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "42 Telecom LTD",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "ACN Communications",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Ainmt Sverige AB (Netett)",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Alltele Foretag Sverige AB (f.d.Ventelo Sverige AB)",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Alltele Privat AB (f.d.Timepiece-Services De Consultoria Lda)",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Animatele Inc.",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Bahnhof AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Beepsend AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "BM Sverige AB",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Campuz Mobile AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Cell Mobile Scandinavia AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "CLX Networks AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Core Telecom Limited (42 Telecom AB MVNO)",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,297 SEK"
+      },
+      {
+        "network": "Devicom AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "DGC Access AB",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Djuice Mobile Sweden",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "EasyTelecom i Stockholm AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "eRate",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Eu Tel AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "First New Media Scandinavia AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Fogg Mobile AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Freshbody Sweden",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Generic Mobile Systems Sweden AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Glocalnet Scandinavia AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Horisen AG",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Infobip Ltd.",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "InfraCom Communications AB (Weblink IP Phone AB/Cellip AB)",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Interactive digital media GmbH",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Internet Payment Exchange AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "IntJoors Sverige AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Limitless Mobile AB (f.d. Telogic AB, LUDO Mobil AB)",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Lindholmen Science Park",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Loxytel AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Lycamobile Sweden",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Megaphone AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Mercury International Carrier Services",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Mobil 2 Sverige AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Mobile Arts AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Mobiweb Ltd",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Monty Mobile",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Net at Once Sweden AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Netnet AS",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "NextGen Mobile Ltd",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Optimal Telecom Sverige",
+        "host": "Tele2",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Phone Family AB",
+        "host": "Tre",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Phonera Foretag AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Qall Telecom AB",
+        "host": "Telenor",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "RebTel Networks AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "ReWiCom Scandinavia AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Soft Telecom Sweden AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": ""
+      },
+      {
+        "network": "Spinbox AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Spirius AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Spring Mobil AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "SSTNet Sverige AB",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Svea Billing System AB (UNO Mobile)",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Svensk Konsumentmobil AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Svenska Tele i Lidkoping AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "SwedfoneNet AB (WARSIN HOLDING AB)",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "TelaVox AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Telecom3 Sverige AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Teledigit Scand. AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Telenor Connexion AB",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Telness AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Tigo LTD",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Truphone Ltd.",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Unicorn Telecom AB",
+        "host": "Tele2",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Uno Telefoni AB",
+        "host": "Telia",
+        "basic": "0,346 SEK",
+        "single": "0,483 SEK",
+        "conversation": "0,694 SEK",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Vanso GmbH",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Vectone Mobile (Ex. Mundio Mobile) (Sweden)",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Voxbone SA",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Wifog AB",
+        "host": "Götalandsnätet",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      },
+      {
+        "network": "Wireless Maingate AB (iMEZ AB)",
+        "host": "",
+        "basic": "",
+        "single": "",
+        "conversation": "",
+        "sms": "0,385 SEK"
+      }
+    ]
   },
   "kundcase": [
     {
@@ -464,6 +1145,102 @@
         ]
       }
     ]
+  },
+  "juridiskt": {
+    "integritetspolicy": {
+      "title": "Integritetspolicy",
+      "description": "Så behandlar WIGOSE AB personuppgifter när du använder rcsdirekt.se och rcsdirekt.se.",
+      "updated": "22 november 2026",
+      "sections": [
+        {
+          "heading": "Vem som ansvarar",
+          "body": "WIGOSE AB (org.nr 559415-6753), Klostergatan 15, 703 39 Örebro, driver rcsdirekt.se och är personuppgiftsansvarig för behandlingen som beskrivs här.\n\nFrågor om dina uppgifter skickar du till info@rcsdirekt.se, via kontaktformuläret på rcsdirekt.se eller med post till adressen ovan."
+        },
+        {
+          "heading": "Vilka uppgifter vi samlar in",
+          "body": "När du skickar kontaktformuläret, ber om ett konto eller anmäler dig till ett webinar sparar vi det du fyller i: namn och e-post, och företag, telefonnummer och meddelande om du anger dem. Vid en webinaranmälan sparar vi också vilket webinar det gäller.\n\nNär du laddar upp en video i videogeneratorn sparar vi videon och tidpunkten för uppladdningen tillsammans med en hash av din IP-adress. Hashen är en kod som räknas fram ur adressen. Själva IP-adressen sparar vi inte.\n\nVåra servrar loggar tekniska uppgifter om varje anrop, till exempel tidpunkt och IP-adress. När ett formulär tas emot loggas även e-postadressen."
+        },
+        {
+          "heading": "Varför vi behandlar uppgifterna",
+          "body": "- Kontaktformuläret: för att svara på din fråga. Den rättsliga grunden är vårt berättigade intresse av att kunna svara den som hör av sig (artikel 6.1 f i dataskyddsförordningen).\n- Kontoförfrågan: för att aktivera kontot och komma överens om villkoren. Behandlingen behövs innan ett avtal ingås (artikel 6.1 b).\n- Webinaranmälan: för att skicka länken och genomföra webinaret. Grunden är vårt berättigade intresse (artikel 6.1 f).\n- Videouppladdning: för att visa videon via länken och begränsa hur många videor samma avsändare kan ladda upp. Grunden är vårt berättigade intresse av att förhindra missbruk (artikel 6.1 f).\n- Serverloggar: för drift och säkerhet. Grunden är vårt berättigade intresse (artikel 6.1 f).\n\nVi fattar inga automatiserade beslut om dig och säljer inte dina uppgifter."
+        },
+        {
+          "heading": "Hur länge vi sparar uppgifterna",
+          "body": "- Kontaktförfrågningar och kontoförfrågningar som inte leder till ett avtal: 12 månader efter den senaste kontakten.\n- Webinaranmälningar: 3 månader efter webinaret.\n- Uppgifter om kunder: så länge kundförhållandet pågår. Underlag för bokföringen sparas i 7 år enligt bokföringslagen.\n- Uppladdade videor: så länge länken behövs. Vill du att en video tas bort kan du kontakta oss.\n- Hashade IP-adresser: används bara för att räkna uppladdningar under det senaste dygnet.\n- Serverloggar: 30 dagar."
+        },
+        {
+          "heading": "Vilka som tar del av uppgifterna",
+          "body": "Uppgifterna lagras hos Google Cloud i regionen europe-west1, som ligger i Belgien. Google behandlar dem för vår räkning enligt Googles personuppgiftsbiträdesavtal för Google Cloud.\n\nGoogle är ett amerikanskt företag och kan i vissa fall föra över uppgifter till USA, till exempel vid support. Sådana överföringar stöds av EU-kommissionens beslut om EU-USA Data Privacy Framework och av standardavtalsklausuler.\n\nNär vi svarar dig använder vi vår e-posttjänst, och vid ett webinar den plattform som webinaret sänds på."
+        },
+        {
+          "heading": "Typsnitt och cookies",
+          "body": "Sidan hämtar typsnitt från Google Fonts. Då skickas din IP-adress till Google när sidan laddas.\n\nVi använder inga cookies för statistik eller marknadsföring. Webbläsaren sparar lokalt om du har stängt notisraden högst upp, och videogeneratorn sparar det du har fyllt i så att det finns kvar nästa gång. De uppgifterna stannar i din webbläsare."
+        },
+        {
+          "heading": "Meddelanden som våra kunder skickar",
+          "body": "När ett företag skickar RCS genom oss är företaget personuppgiftsansvarigt för mottagarnas uppgifter, och vi är personuppgiftsbiträde. Det regleras i ett personuppgiftsbiträdesavtal mellan oss och kunden. Frågor om ett meddelande du har fått ställer du till företaget som skickade det."
+        },
+        {
+          "heading": "Dina rättigheter",
+          "body": "Du har rätt att få veta vilka uppgifter vi har om dig och att få en kopia av dem. Du kan begära att vi rättar eller raderar uppgifter, att vi begränsar behandlingen eller att du får ut de uppgifter du själv har lämnat i ett maskinläsbart format. När behandlingen bygger på vårt berättigade intresse har du rätt att invända mot den.\n\nHör av dig till info@rcsdirekt.se, via kontaktformuläret eller med post. Vi svarar inom en månad.\n\nOm du är missnöjd med hur vi behandlar dina uppgifter kan du klaga hos Integritetsskyddsmyndigheten (IMY) på imy.se."
+        },
+        {
+          "heading": "Ändringar",
+          "body": "Vi uppdaterar policyn när vi ändrar hur vi behandlar personuppgifter. Datumet högst upp visar när den senast ändrades."
+        }
+      ]
+    },
+    "villkor": {
+      "title": "Villkor",
+      "description": "Villkoren för företag som skickar RCS genom rcsdirekt.se.",
+      "updated": "22 november 2026",
+      "sections": [
+        {
+          "heading": "Om villkoren",
+          "body": "Villkoren gäller mellan WIGOSE AB (org.nr 559415-6753), som driver rcsdirekt.se, och det företag som skapar ett konto (kunden). Tjänsten är till för företag och organisationer, inte för privatpersoner.\n\nHar kunden och rcsdirekt.se ett skriftligt avtal gäller det före dessa villkor."
+        },
+        {
+          "heading": "Tjänsten",
+          "body": "Med rcsdirekt.se skickar kunden RCS-meddelanden från ett webbverktyg eller via API. Meddelandena levereras genom mobiloperatörerna och Googles RCS-tjänst. Stöder mottagarens telefon eller operatör inte RCS kan meddelandet inte levereras som RCS.\n\nVi arbetar för att tjänsten ska fungera utan avbrott, men vi kan inte lova att varje meddelande kommer fram."
+        },
+        {
+          "heading": "Konto och avsändare",
+          "body": "Kunden ska lämna korrekta uppgifter om företaget. Varje avsändare registreras och kontrolleras innan den får skicka. Kunden får bara skicka i eget namn eller i namn av ett företag som har gett kunden rätt till det.\n\nKunden ansvarar för att inloggningsuppgifter och API-nycklar hålls hemliga och för allt som skickas från kontot."
+        },
+        {
+          "heading": "Priser och betalning",
+          "body": "Kunden betalar per skickat meddelande enligt prislistan på rcsdirekt.se/priser eller enligt ett pris vi har kommit överens om. Priserna anges exklusive moms. Det finns ingen startavgift, månadsavgift eller bindningstid.\n\nHur och när kunden betalar står i avtalet eller på fakturan. Vid sen betalning har vi rätt till dröjsmålsränta enligt räntelagen. Vi kan ändra priserna med 30 dagars varsel."
+        },
+        {
+          "heading": "Tillåten användning",
+          "body": "Kunden ansvarar för innehållet i meddelandena och för att utskicken följer lagen, särskilt marknadsföringslagen och dataskyddsförordningen. Det innebär bland annat att\n\n- reklam till privatpersoner bara får skickas till den som har samtyckt i förväg, eller till befintliga kunder enligt undantaget i 19 § marknadsföringslagen\n- varje reklammeddelande ska visa vem som skickar det och ge mottagaren ett enkelt sätt att tacka nej till fler utskick\n- kunden ska ha en rättslig grund för att använda mottagarnas telefonnummer.\n\nKunden får inte skicka meddelanden som är vilseledande eller olagliga, eller som utger sig för att komma från någon annan. Kunden ska också följa de regler för RCS-avsändare som Google och operatörerna ställer."
+        },
+        {
+          "heading": "Avstängning",
+          "body": "Vi får stänga av ett konto eller en avsändare direkt om kunden bryter mot villkoren, om utskicken leder till klagomål eller om en operatör eller Google kräver det. Vi meddelar kunden så snart vi kan."
+        },
+        {
+          "heading": "Personuppgifter",
+          "body": "När kunden skickar meddelanden är kunden personuppgiftsansvarig för mottagarnas uppgifter och WIGOSE AB är personuppgiftsbiträde. Det regleras i ett personuppgiftsbiträdesavtal som ingås innan kunden börjar skicka. Hur vi behandlar uppgifter om kunden och dess kontaktpersoner står i integritetspolicyn."
+        },
+        {
+          "heading": "Ansvar",
+          "body": "Vi ansvarar inte för indirekta skador, till exempel utebliven vinst, eller för fel som beror på operatörer, Google, mottagarens telefon eller annat utanför vår kontroll. Vårt sammanlagda ansvar är begränsat till det kunden har betalat för tjänsten under de senaste tre månaderna."
+        },
+        {
+          "heading": "Uppsägning",
+          "body": "Kunden kan säga upp kontot när som helst. Meddelanden som redan har skickats debiteras. Vi kan säga upp tjänsten med 30 dagars varsel, eller direkt om kunden väsentligt bryter mot villkoren."
+        },
+        {
+          "heading": "Ändringar av villkoren",
+          "body": "Vi kan ändra villkoren. Väsentliga ändringar meddelar vi kunden minst 30 dagar innan de börjar gälla."
+        },
+        {
+          "heading": "Tillämplig lag och tvister",
+          "body": "Svensk lag gäller för villkoren. Tvister avgörs av allmän domstol, med Örebro tingsrätt som första instans."
+        }
+      ]
+    }
   },
   "kunskap": {
     "sources": [
@@ -1309,7 +2086,7 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Hos RCS Direkt kostar Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
+              "Hos rcsdirekt.se kostar Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
               "Räkna antalet meddelanden per typ när du uppskattar ett utskick. Kontrollera separat vad eventuell SMS-reserv kostar och ta med integration och hantering om du vill beräkna hela projektkostnaden."
             ],
             "points": [],

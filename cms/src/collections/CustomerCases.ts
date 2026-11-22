@@ -4,12 +4,12 @@ import { loggedIn } from '../lib/access'
 
 export const CustomerCases: CollectionConfig = {
   slug: 'kundcase',
-  labels: { singular: 'Kundcase', plural: 'Kundcase' },
-  admin: { group: 'Innehåll', useAsTitle: 'name', defaultColumns: ['name', 'slug'], description: 'Korten under "Kundcase" på startsidan. Dra för att ändra ordning.' },
+  labels: { singular: 'Kund', plural: 'Kunder' },
+  admin: { group: 'Innehåll', useAsTitle: 'name', defaultColumns: ['name', 'slug'], description: 'Kunderna på startsidan och deras presentationer under /demo. Dra för att ändra ordning.' },
   orderable: true,
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   fields: [
-    { name: 'name', label: 'Företag', type: 'text', required: true, admin: { description: 'Hela bolagsnamnet, till exempel "Bilia AB".' } },
+    { name: 'name', label: 'Företag', type: 'text', required: true, admin: { description: 'Hela bolagsnamnet som det är registrerat, till exempel "Bilia AB".' } },
     {
       name: 'image',
       label: 'Bild',
@@ -36,7 +36,7 @@ export const CustomerCases: CollectionConfig = {
       name: 'slug',
       label: 'Presentation',
       type: 'text',
-      admin: { description: 'Namnet på presentationen som visas under rcsdirekt.se/demo/<namn>. Lämna tomt för att visa "Kundcase kommer snart".' },
+      admin: { description: 'Namnet på presentationen som visas under rcsdirekt.se/demo/<namn>. Lämna tomt om kunden inte har någon presentation.' },
     },
   ],
 }
