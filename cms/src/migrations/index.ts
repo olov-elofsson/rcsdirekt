@@ -33,6 +33,8 @@ import * as migration_20261121_192000_webinars from './20261121_192000_webinars'
 import * as migration_20261121_193000_first_webinar from './20261121_193000_first_webinar';
 import * as migration_20261121_194000_logo_shape_article from './20261121_194000_logo_shape_article';
 import * as migration_20261121_195000_humanizer_copy from './20261121_195000_humanizer_copy';
+import * as migration_20261122_280000_merge_topics from './20261122_280000_merge_topics';
+import * as migration_20261122_290000_merge_topics_options from './20261122_290000_merge_topics_options';
 
 export const migrations = [
   {
@@ -211,5 +213,15 @@ export const migrations = [
     up: migration_20261122_260000_compare_heading.up,
     down: migration_20261122_260000_compare_heading.down,
     name: '20261122_260000_compare_heading',
+  },
+  {
+    up: migration_20261122_280000_merge_topics.up,
+    down: migration_20261122_280000_merge_topics.down,
+    name: '20261122_280000_merge_topics',
+  },
+  {
+    up: migration_20261122_290000_merge_topics_options.up,
+    down: migration_20261122_290000_merge_topics_options.down,
+    name: '20261122_290000_merge_topics_options',
   },
 ];

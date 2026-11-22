@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, BookOpen, Briefcase, Building2, Clock, Code2, Cpu, Library, MessageSquare, Palette, Smartphone, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, BookOpen, Building2, Clock, Cpu, Library, Palette, Smartphone, type LucideIcon } from "lucide-react";
 
 import type { ArticleSummary } from "@/content";
 import { cn } from "@/lib/utils";
@@ -10,18 +10,14 @@ export type ArticleItem = ArticleSummary;
 /** One icon per topic, so the topic is recognisable before its name is read. */
 const TOPIC_ICONS: Record<string, LucideIcon> = {
   Grunder: BookOpen,
-  "För företag": Briefcase,
   Företag: Building2,
-  Meddelanden: MessageSquare,
   Meddelandedesign: Palette,
-  Integration: Code2,
   Teknik: Cpu,
   "Mobil & operatörer": Smartphone,
   Begrepp: Library,
   // The English topics.
   Basics: BookOpen,
   Business: Building2,
-  Messages: MessageSquare,
   "Message design": Palette,
   Technology: Cpu,
   "Phones & operators": Smartphone,

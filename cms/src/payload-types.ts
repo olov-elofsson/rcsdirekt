@@ -245,16 +245,7 @@ export interface Artiklar {
    * Visas som rcsdirekt.se/blogg/<adress>. Om du ändrar den slutar gamla länkar fungera.
    */
   slug: string;
-  category:
-    | 'Grunder'
-    | 'För företag'
-    | 'Meddelanden'
-    | 'Integration'
-    | 'Begrepp'
-    | 'Mobil & operatörer'
-    | 'Teknik'
-    | 'Meddelandedesign'
-    | 'Företag';
+  category: 'Grunder' | 'Företag' | 'Meddelandedesign' | 'Teknik' | 'Mobil & operatörer' | 'Begrepp';
   /**
    * ÅÅÅÅ-MM-DD
    */

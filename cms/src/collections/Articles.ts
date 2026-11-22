@@ -4,14 +4,11 @@ import { loggedIn } from '../lib/access'
 
 export const articleCategories = [
   'Grunder',
-  'För företag',
-  'Meddelanden',
-  'Integration',
-  'Begrepp',
-  'Mobil & operatörer',
-  'Teknik',
-  'Meddelandedesign',
   'Företag',
+  'Meddelandedesign',
+  'Teknik',
+  'Mobil & operatörer',
+  'Begrepp',
 ]
 
 export const Articles: CollectionConfig = {
