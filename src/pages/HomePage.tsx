@@ -66,7 +66,7 @@ function HeroFirst() {
                 <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
                 {t("Når kunder hos {operators}").replace("{operators}", `${operators.slice(0, -1).join(", ")} ${t("och")} ${operators.at(-1)}`)}
               </Link>
-              <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} className={labelLink}>
+              <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} hash="operatorer" className={labelLink}>
                 <Smartphone aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
                 {t("På iPhone hos {operators}").replace("{operators}", `${IPHONE_OPERATORS.slice(0, -1).join(", ")} ${t("och")} ${IPHONE_OPERATORS.at(-1)}`)}
               </Link>

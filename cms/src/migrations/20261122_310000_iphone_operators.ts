@@ -7,18 +7,18 @@ const NEW_SOURCE = {
   sourceId: 'tre-hallon-ios-27-3',
   title: 'Hurbra.se: RCS på iPhone hos Tre och Hallon',
   url: 'https://hurbra.se/rcs-iphone-tre-hallon-ios-27-3/',
-  finding: 'Hurbra.se rapporterar att RCS för iPhone är aktiverat hos Tre och Hallon i testversionen av iOS 27.3.',
-  implication: 'Det gäller en testversion. Stödet når alla kunder först när operatörerna och Apple släpper det i den vanliga uppdateringen.',
+  finding: 'Hurbra.se rapporterar att RCS är aktiverat hos Tre i den första testversionen av iOS 27.3, som Apple släppte 3 november 2026, och att det också har testats med Hallon.',
+  implication: 'Det gäller en testversion. Operatörerna har inte bekräftat när alla kunder får stödet.',
 }
 
 const SECTION = {
   sectionId: 'operatorer',
   title: 'Vilka operatörer har RCS på iPhone i Sverige?',
   paragraphs: [
-    'Läget i november 2026: Tele2 och Comviq har öppnat RCS på iPhone för alla sina kunder. Hos Tre och Hallon finns stödet i testversionen av iOS 27.3, och det väntas nå alla kunder när uppdateringen släpps. Telia och Telenor har ännu inte bekräftat när de öppnar.',
-    'Listan ändras när fler operatörer kommer till. Det säkraste beskedet för just din linje står på operatörens egen supportsida.',
+    'Läget i november 2026: Tele2 och Comviq har öppnat RCS på iPhone för alla sina kunder. Hos Tre fungerar det i testversionen av iOS 27.3, som Apple släppte 3 november, och det har också testats med Hallon. Det kan komma till alla kunder med den färdiga uppdateringen, men operatörerna har inte bekräftat när. Telia och Telenor har inte bekräftat något stöd än.',
+    'Använder du en vanlig iOS-version får du vänta på den uppdateringen. Det är sällan värt att installera en testversion bara för RCS. Listan ändras när fler operatörer kommer till, och det säkraste beskedet för just din linje står på operatörens egen supportsida.',
   ],
-  points: ['Tele2 och Comviq: öppet för alla kunder', 'Tre och Hallon: i testversionen av iOS 27.3', 'Telia och Telenor: inget bekräftat stöd än'],
+  points: ['Tele2: öppet för alla kunder', 'Comviq: öppet för alla kunder', 'Tre: fungerar i testversionen av iOS 27.3', 'Hallon: testat i testversionen av iOS 27.3', 'Telia: inget bekräftat stöd än', 'Telenor: inget bekräftat stöd än'],
   sources: ['tele2-rcs', 'comviq-rcs', 'tre-hallon-ios-27-3'],
 }
 
