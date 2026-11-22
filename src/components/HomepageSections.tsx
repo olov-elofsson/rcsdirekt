@@ -64,6 +64,7 @@ export function CompareSection() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
+          <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
         {/* One table on every screen; on a phone the columns and text are tighter. */}
         <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card")}>
@@ -370,6 +371,7 @@ export function WaysSection() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
+          <p className={sectionIntro}>{home.vagar.intro}</p>
         </div>
         {/* The cards share rows (subgrid), so both visuals start and end at the same height. */}
         <div className={cn(sectionBody, "grid gap-6 lg:grid-cols-2 lg:grid-rows-[auto_1fr]")}>
@@ -545,6 +547,7 @@ export function BlogSection() {
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className={sectionTitle}>{home.blogg.heading}</h2>
+            <p className={sectionIntro}>{home.blogg.intro}</p>
           </div>
           <Link to={lp("/blogg")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>

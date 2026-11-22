@@ -210,7 +210,7 @@ export function ArticlePage({
           {latest.length ? (
             <aside
               aria-labelledby="senaste"
-              className="rounded-2xl bg-muted p-6 lg:sticky lg:top-28 lg:self-start"
+              className="lg:sticky lg:top-28 lg:self-start"
             >
               <h2 id="senaste" className="font-display text-lg font-extrabold">
                 {t("Senaste artiklar")}
