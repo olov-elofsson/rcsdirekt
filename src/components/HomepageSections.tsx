@@ -173,9 +173,13 @@ function WebSketch() {
   };
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col p-2.5">
         {/* The message alone, without a phone around it: the sender line and the card, above the editor. */}
-        <div className="flex flex-col items-center justify-center gap-3 bg-muted px-4 pt-8 pb-5">
+        {/* The preview sits inset in the editor's white card, so the two halves read as one tool. */}
+        <div className="relative flex flex-col items-center justify-center gap-3 rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-10 pb-5">
+          <span className="absolute top-3 left-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+            <span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />Förhandsvisning
+          </span>
           <div aria-live="polite" className="flex w-full justify-center">
             <RcsSnippet width={300} scale={0.8}>
               <SenderLine name={rcsDirektSender.sender} verified />
@@ -199,7 +203,7 @@ function WebSketch() {
           </p>
         </div>
         <form
-          className="grid flex-1 gap-4 p-5 sm:grid-cols-2 sm:p-6"
+          className="grid flex-1 gap-4 px-3 pt-5 pb-3 sm:grid-cols-2 sm:px-4"
           onSubmit={(event) => {
             event.preventDefault();
             setSent((count) => count + 1);
