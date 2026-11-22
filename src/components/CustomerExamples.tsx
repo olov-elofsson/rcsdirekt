@@ -446,7 +446,7 @@ export function CustomerExamples() {
             {t("Kunder")}
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
-            {t("Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
+            {t("Tryck på knapparna i meddelandet och se vad som händer.")}
           </p>
         </div>
         <CaseShowcase />

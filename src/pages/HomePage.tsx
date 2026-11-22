@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomepageSections";
 import { useReveal } from "@/hooks/use-reveal";
-import { sectionIntro, sectionTitle } from "@/lib/typography";
+import { sectionTitle } from "@/lib/typography";
 import { usePriser, useStartsida } from "@/content/localized";
 import { HeroMessage } from "@/components/HeroMessage";
 import { STEPS } from "@/data/onboarding";
@@ -61,7 +61,7 @@ function HeroFirst() {
           <p className="mb-5">
             <Link to={lp("/blogg/$slug")} params={{ slug: news ? NEWS_SLUG : "rcs-pa-iphone" }} {...(news ? {} : { hash: "operatorer" })} className={labelLink}>
               <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-              {t("Svenska operatörer öppnar RCS på iPhone under 2026")}
+              {t("RCS öppnar på iPhone i Sverige")}
               {/* Only where the line fits on one row; on phones a wrapped line would push the arrow to the edge. */}
               <ArrowRight aria-hidden className="hidden size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 sm:block" />
             </Link>
@@ -86,7 +86,6 @@ function Steps() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{t("Kom igång")}</h2>
-          <p className={cn(sectionIntro, "text-ink-muted")}>{t("Tre steg från konto till första meddelandet. Vi hjälper er med avsändaren på vägen.")}</p>
         </div>
         <ol className="relative mt-10 grid gap-8 sm:mt-12 md:grid-cols-3 md:gap-5">
           {/* The line through the drops, drawn from left to right when the steps come into view.

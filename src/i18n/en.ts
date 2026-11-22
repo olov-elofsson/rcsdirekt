@@ -309,7 +309,7 @@ export const en: Record<string, string> = {
 
   // Hero label
   och: "and",
-  "Svenska operatörer öppnar RCS på iPhone under 2026": "Swedish operators open RCS on iPhone during 2026",
+  "RCS öppnar på iPhone i Sverige": "RCS opens on iPhone in Sweden",
 
   // Blog front page
   "Det viktigaste om RCS, och nyheter om hur det går i Sverige. Alla artiklar har källor.": "The essentials of RCS, and news on how it is going in Sweden. Every article has sources.",
@@ -334,4 +334,5 @@ export const en: Record<string, string> = {
   "Visa hela exemplet": "Show the whole example",
   "Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.": "Tap the buttons in the message and see what happens. The photos come from the customer cases, the messages are examples.",
   Funktion: "Feature",
+  "Tryck på knapparna i meddelandet och se vad som händer.": "Tap the buttons in the message and see what happens.",
 };
