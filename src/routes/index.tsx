@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, BadgeCheck, Send, UserPlus } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Send, UserPlus } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -87,7 +87,7 @@ function HeroFirst() {
 
 const STEPS = [
   { Icon: UserPlus, title: "Skapa ett konto", copy: "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss med nästa steg." },
-  { Icon: BadgeCheck, title: "Avsändaren registreras", copy: "Ni skickar företagsnamn, logotyp och en kort beskrivning. Vi registrerar avsändaren, och den kontrolleras innan den får skicka." },
+  { Icon: BadgeCheck, title: "Registrera avsändare", copy: "Ni skickar företagsnamn, logotyp och en kort beskrivning. Vi registrerar avsändaren, och den kontrolleras innan den får skicka." },
   { Icon: Send, title: "Skicka första utskicket", copy: "Bygg meddelandet i webbverktyget eller koppla in ert system via API. Ni betalar för de meddelanden som skickas." },
 ];
 
@@ -117,7 +117,23 @@ function Steps() {
           ))}
         </ol>
         {/* The outline variant is a white pill, the primary action on the dark surface. */}
-        <div data-reveal className="mt-10"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button></div>
+        {/* The action beside what every account includes, from the pricing page in the CMS. */}
+        <div data-reveal className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+          <Button className="home-cta shrink-0 self-start border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+          {content.priser.included.length ? (
+            <div>
+              <p className="text-xs font-bold tracking-[0.08em] text-ink-muted uppercase">{content.priser.includedHeading}</p>
+              <ul className="mt-3 grid gap-x-8 gap-y-2.5 sm:grid-cols-2 xl:grid-cols-3">
+                {content.priser.included.map((item) => (
+                  <li key={item} className="flex items-center gap-2.5 text-sm font-semibold">
+                    <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
       </div>
     </section>
   );

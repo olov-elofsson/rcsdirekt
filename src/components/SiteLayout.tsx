@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, ArrowUpRight, Building2, CalendarDays, MapPin, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -224,27 +224,12 @@ const footerNav = [
 const footerLinkClass =
   "group inline-flex min-h-10 items-center gap-1.5 text-sm text-ink-muted transition-colors duration-150 ease-out hover:text-ink-foreground";
 
-/** The footer: two ways forward, who we are, the links grouped, and the wordmark large at the bottom. */
+/** The footer: who we are, the links grouped, and one line at the bottom. */
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-ink pt-16 pb-12 text-ink-foreground sm:pt-20 sm:pb-14">
+    <footer className="relative overflow-hidden bg-ink pt-16 pb-10 text-ink-foreground sm:pt-20">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="grid gap-8 rounded-2xl bg-ink-foreground/[0.06] p-7 ring-1 ring-ink-foreground/10 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
-            <p className="font-display text-2xl font-extrabold leading-tight sm:text-3xl">Kom igång med RCS</p>
-            <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-ink-muted">Skapa ett konto direkt eller prata med oss om ert upplägg.</p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" variant="outline" className="border-transparent">
-              <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
-            </Button>
-            <Button asChild size="lg" variant="inverted">
-              <Link to="/" hash="kontakt">Prata med oss</Link>
-            </Button>
-          </div>
-        </div>
-
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
           <div>
             <Link to="/" aria-label="RCS Direkt, startsida" className="inline-block">
               <BrandLogo inverse className="h-8" />
@@ -252,16 +237,11 @@ export function SiteFooter() {
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-pretty text-ink-muted">
               RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.
             </p>
-            <ul className="mt-6 space-y-3 text-sm text-ink-muted">
-              <li className="flex items-start gap-3">
-                <Building2 aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" />
-                <span>WIGOSE AB, org.nr 559415-6753</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" />
-                <span>Klostergatan 15, 703 39 Örebro</span>
-              </li>
-            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+              WIGOSE AB, org.nr 559415-6753
+              <br />
+              Klostergatan 15, 703 39 Örebro
+            </p>
           </div>
           <nav aria-label="Sidfot" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {footerNav.map((group) => (
@@ -300,9 +280,6 @@ export function SiteFooter() {
             Till toppen <ArrowUp className="size-3.5" />
           </Button>
         </div>
-        <Link to="/" aria-label="RCS Direkt, startsida" className="mt-12 block w-full sm:mt-16">
-          <BrandLogo inverse className="h-auto w-full" />
-        </Link>
       </div>
     </footer>
   );

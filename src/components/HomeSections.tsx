@@ -109,24 +109,56 @@ export function CompareSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
-/** The web tool, reduced to what matters: who receives it and what they see. */
+/** A field in the editor sketch: a label over a value, styled like an input. */
+function SketchField({ label, children, tall = false }: { label: string; children: ReactNode; tall?: boolean }) {
+  return (
+    <div>
+      <p className="text-[11px] font-semibold text-muted-foreground">{label}</p>
+      <div className={cn("mt-1 rounded-lg bg-background px-3 text-[13px] ring-1 ring-border", tall ? "py-2 leading-snug" : "flex h-9 items-center")}>{children}</div>
+    </div>
+  );
+}
+
+/**
+ * The web tool as a message editor: steps along the top, the message's fields on the left and a
+ * preview of the card on the right. A sketch of how such a tool works, not a copy of one product.
+ */
 function WebSketch() {
   return (
-    <div aria-hidden className="rounded-xl bg-background p-5 text-left">
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-semibold">Nytt utskick</span>
-        <span className="text-muted-foreground tabular-nums">1 240 mottagare</span>
+    <div aria-hidden className="overflow-hidden rounded-xl bg-background text-left shadow-card">
+      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+        <div className="flex items-center gap-1.5 text-xs font-semibold">
+          <span className="text-muted-foreground">Mottagare</span>
+          <span className="text-muted-foreground/50">›</span>
+          <span className="rounded-full bg-primary-soft px-2.5 py-1">Innehåll</span>
+          <span className="text-muted-foreground/50">›</span>
+          <span className="text-muted-foreground">Skicka</span>
+        </div>
+        <span className="text-xs text-muted-foreground tabular-nums">1 240 mottagare</span>
       </div>
-      <div className="mt-4 flex justify-center rounded-lg bg-muted py-5">
-        <RcsSnippet width={220} scale={0.9}>
-          <div className="card" style={{ background: "#fff", boxShadow: "none" }}>
-            <div className="ct">Höstrea i butiken</div>
-            <div className="cb">Upp till halva priset i helgen.</div>
-            <div className="cbtns"><div className="cbtn" style={{ background: "#f0f4f9" }}>Se erbjudandet</div></div>
-          </div>
-        </RcsSnippet>
+      <div className="grid gap-4 p-4 sm:grid-cols-[1fr_auto]">
+        <div className="grid content-start gap-3">
+          <SketchField label="Avsändare"><span className="font-semibold">Butiken</span><span className="ml-1.5 text-logo-blue">✓</span></SketchField>
+          <SketchField label="Typ"><span>Kort med knapp</span></SketchField>
+          <SketchField label="Rubrik"><span>Höstrea i butiken</span></SketchField>
+          <SketchField label="Text" tall><span>Upp till halva priset i helgen.</span></SketchField>
+          <SketchField label="Knapp"><span>Se erbjudandet</span><span className="ml-auto text-[11px] text-muted-foreground">Öppnar länk</span></SketchField>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-2 rounded-lg bg-muted px-3 py-4">
+          <p className="text-[11px] font-semibold text-muted-foreground">Förhandsvisning</p>
+          <RcsSnippet width={200} scale={0.9}>
+            <div className="card" style={{ background: "#fff", boxShadow: "none" }}>
+              <div className="ct">Höstrea i butiken</div>
+              <div className="cb">Upp till halva priset i helgen.</div>
+              <div className="cbtns"><div className="cbtn" style={{ background: "#f0f4f9" }}>Se erbjudandet</div></div>
+            </div>
+          </RcsSnippet>
+        </div>
       </div>
-      <div className="mt-4 flex justify-end"><span className="inline-flex h-9 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span></div>
+      <div className="flex items-center justify-end gap-2 border-t border-border px-4 py-3">
+        <span className="inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold text-muted-foreground ring-1 ring-border">Skicka test</span>
+        <span className="inline-flex h-8 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span>
+      </div>
     </div>
   );
 }
@@ -272,20 +304,7 @@ export function PricingSection() {
             );
           })}
         </div>
-        {content.priser.included.length ? (
-          <div data-reveal className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-8">
-            <p className="shrink-0 text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase">{content.priser.includedHeading}</p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-3">
-              {content.priser.included.map((item) => (
-                <li key={item} className="inline-flex items-center gap-2 text-sm font-semibold">
-                  <span aria-hidden className="grid size-5 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-        <div className="mt-8"><PriceCalculator plans={plans} /></div>
+        <div className="mt-5"><PriceCalculator plans={plans} /></div>
         <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
           Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.{" "}
           <Link to="/" hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Fråga om volympris</Link>
