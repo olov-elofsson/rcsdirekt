@@ -33,7 +33,7 @@ const bySlug = (slug: string) => articles.find((article) => article.slug === slu
 
 /** The flow in three steps, as the start page and the guides describe it. */
 const FLOW = [
-  { Icon: Send, title: "Skicka", copy: "Ert system anropar API:t med mottagare och innehåll, till exempel text, ett kort, en karusell eller knappar. Går RCS inte fram kan ni låta det gå som sms i stället." },
+  { Icon: Send, title: "Skicka", copy: "Ert system anropar API:t med mottagare och innehåll, till exempel text, ett kort, en karusell eller knappar. Går RCS inte fram kan ni låta det gå som SMS i stället." },
   { Icon: Activity, title: "Följ status", copy: "Ni får händelser till er webhook när meddelandet har kommit fram, när kunden har öppnat det och när någon trycker på en knapp." },
   { Icon: MessageSquareReply, title: "Ta emot svar", copy: "Trycker kunden på ett förslag eller skriver något kommer det också som en händelse. Då kan ert system svara i samma tråd." },
 ];

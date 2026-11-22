@@ -20,7 +20,7 @@ function AsSms() {
       <div className="inrow">
         <div className="bubble">Hej Anna! Ditt konto är klart. Logga in här för att skicka ditt första utskick: rcsdirekt.se/l/8k2Q.</div>
       </div>
-      <div className="ts tsin" style={{ marginBottom: 0 }}>13:16 · Sms</div>
+      <div className="ts tsin" style={{ marginBottom: 0 }}>13:16 · SMS</div>
     </RcsSnippet>
   );
 }

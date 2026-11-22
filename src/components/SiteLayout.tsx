@@ -20,6 +20,7 @@ const mobileLinkClass =
 const headerLinks = [
   { label: "Kunder", to: "/", hash: "exempel" },
   { label: "Plattform", to: "/", hash: "vad-ar-rcs" },
+  { label: "Jämför", to: "/", hash: "rcs-mot-sms" },
   { label: "Priser", to: "/priser" },
   { label: "Insikter", to: "/blogg" },
 ] as const;
@@ -28,7 +29,7 @@ const headerLinks = [
 const SECTION_LINKS: [id: string, label: string][] = [
   ["exempel", "Kunder"],
   ["vad-ar-rcs", "Plattform"],
-  ["rcs-mot-sms", "Plattform"],
+  ["rcs-mot-sms", "Jämför"],
   ["pris", "Priser"],
   ["blogg", "Insikter"],
 ];
@@ -242,7 +243,7 @@ const footerNav = [
       { label: "Om oss", to: "/om-oss" },
       { label: "Kunder", to: "/", hash: "exempel" },
       { label: "Plattform", to: "/", hash: "vad-ar-rcs" },
-      { label: "RCS jämfört med sms", to: "/", hash: "rcs-mot-sms" },
+      { label: "Jämför", to: "/", hash: "rcs-mot-sms" },
       { label: "Priser", to: "/priser" },
       { label: "Insikter", to: "/blogg" },
     ],
