@@ -54,6 +54,19 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     .map((doc) => ({ from: text(doc.slug), to: relation(doc.replacedBy, 'slug') }))
   const visibleSlugs = new Set(visibleDocs.map((doc) => text(doc.slug)))
 
+  // The card uses the generated 'card' size (960x600 WebP) when it exists, otherwise the original.
+  const caseImage = (image: Doc | undefined, name: string): CustomerCase['image'] => {
+    if (!image?.filename) return null
+    const card = image.sizes?.card
+    const file = card?.filename ? card : image
+    return {
+      url: `/media/${encodeURIComponent(file.filename)}`,
+      alt: text(image.alt) || name,
+      width: Number(file.width) || 960,
+      height: Number(file.height) || 600,
+    }
+  }
+
   const articles: Article[] = visibleDocs.map((doc) => ({
     slug: text(doc.slug),
     title: text(doc.title),
@@ -61,6 +74,8 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     category: text(doc.category),
     keywords: list(doc.keywords).map((row) => text(row.keyword)),
     published: text(doc.published),
+    author: text(doc.author),
+    image: caseImage(doc.image, text(doc.title)),
     sections: list(doc.sections).map((section, index) => ({
       id: text(section.sectionId) || `avsnitt-${index + 1}`,
       title: text(section.title),
@@ -78,19 +93,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     source: relation(doc.source, 'sourceId'),
     article: relation(doc.article, 'slug'),
   }))
-
-  // The card uses the generated 'card' size (960x600 WebP) when it exists, otherwise the original.
-  const caseImage = (image: Doc | undefined, name: string): CustomerCase['image'] => {
-    if (!image?.filename) return null
-    const card = image.sizes?.card
-    const file = card?.filename ? card : image
-    return {
-      url: `/media/${encodeURIComponent(file.filename)}`,
-      alt: text(image.alt) || name,
-      width: Number(file.width) || 960,
-      height: Number(file.height) || 600,
-    }
-  }
 
   const kundcase: CustomerCase[] = caseDocs.map((doc) => ({
     name: text(doc.name),

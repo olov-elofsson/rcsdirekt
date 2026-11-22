@@ -39,7 +39,20 @@ export const Articles: CollectionConfig = {
     },
     { name: 'category', label: 'Ämne', type: 'select', required: true, options: articleCategories, admin: { position: 'sidebar' } },
     { name: 'published', label: 'Publicerad', type: 'text', required: true, admin: { position: 'sidebar', description: 'ÅÅÅÅ-MM-DD' }, validate: (value: string | null | undefined) => (value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? true : 'Ange datum som ÅÅÅÅ-MM-DD.') },
+    {
+      name: 'author',
+      label: 'Författare',
+      type: 'text',
+      admin: { position: 'sidebar', description: 'Visas som "Av …" under rubriken. Lämnas tom står det rcsdirekt.se.' },
+    },
     { name: 'description', label: 'Ingress', type: 'textarea', required: true },
+    {
+      name: 'image',
+      label: 'Bild',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Stor bild under rubriken. Utan bild visas ett av kundcasens foton.' },
+    },
     {
       name: 'keywords',
       label: 'Sökord',

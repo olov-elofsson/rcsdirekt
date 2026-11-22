@@ -250,7 +250,15 @@ export interface Artiklar {
    * ÅÅÅÅ-MM-DD
    */
   published: string;
+  /**
+   * Visas som "Av …" under rubriken. Lämnas tom står det rcsdirekt.se.
+   */
+  author?: string | null;
   description: string;
+  /**
+   * Stor bild under rubriken. Utan bild visas ett av kundcasens foton.
+   */
+  image?: (number | null) | Media;
   /**
    * Ord och fraser som ska hitta artikeln i bloggens sökning.
    */
@@ -567,7 +575,9 @@ export interface ArtiklarSelect<T extends boolean = true> {
   slug?: T;
   category?: T;
   published?: T;
+  author?: T;
   description?: T;
+  image?: T;
   keywords?:
     | T
     | {
