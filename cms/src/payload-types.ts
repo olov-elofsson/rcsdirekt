@@ -854,6 +854,39 @@ export interface Priser {
       }[]
     | null;
   vatNote: string;
+  /**
+   * Visas som en egen pristabell på /priser, under meddelandetyperna. Inte på startsidan.
+   */
+  sms?: {
+    name?: string | null;
+    contents?: string | null;
+    operatorPrices?:
+      | {
+          operator: string;
+          price: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Rubriken på den utfällbara listan med varje nät, till exempel "Alla nät och priser".
+   */
+  networksHeading?: string | null;
+  networksNote?: string | null;
+  /**
+   * Ett nät per rad. Lämna en priscell tom om nätet inte tar emot den typen.
+   */
+  networks?:
+    | {
+        network: string;
+        host?: string | null;
+        basic?: string | null;
+        single?: string | null;
+        conversation?: string | null;
+        sms?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   countries?:
     | {
         code: string;
@@ -1117,6 +1150,32 @@ export interface PriserSelect<T extends boolean = true> {
         id?: T;
       };
   vatNote?: T;
+  sms?:
+    | T
+    | {
+        name?: T;
+        contents?: T;
+        operatorPrices?:
+          | T
+          | {
+              operator?: T;
+              price?: T;
+              id?: T;
+            };
+      };
+  networksHeading?: T;
+  networksNote?: T;
+  networks?:
+    | T
+    | {
+        network?: T;
+        host?: T;
+        basic?: T;
+        single?: T;
+        conversation?: T;
+        sms?: T;
+        id?: T;
+      };
   countries?:
     | T
     | {

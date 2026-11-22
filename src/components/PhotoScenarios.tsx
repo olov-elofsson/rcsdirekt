@@ -319,7 +319,7 @@ function CaseCard({ scenario, index, className }: { scenario: Scenario; index: n
         </figcaption>
       </figure>
       <div className="p-6 sm:p-7">
-        <p className="text-xs font-bold tracking-[0.08em] text-foreground uppercase">{scenario.customer}</p>
+        <p className="text-sm font-bold text-foreground">{scenario.company}</p>
         <h3 className="mt-2 text-xl font-extrabold leading-snug">{scenario.title}</h3>
         <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (

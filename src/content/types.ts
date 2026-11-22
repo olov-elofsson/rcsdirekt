@@ -102,6 +102,12 @@ export type SiteContent = {
     faqHeading: string;
     faq: { question: string; answer: string }[];
     volumeText: string;
+    /** SMS list prices per operator, shown on /priser only. Missing in content from before SMS prices. */
+    sms?: { name: string; contents: string; operatorPrices: { operator: string; price: string }[] };
+    networksHeading?: string;
+    networksNote?: string;
+    /** Every network with its list price per type; an empty price means the network does not take that type. */
+    networks?: NetworkPrice[];
   };
   kundcase: CustomerCase[];
   /** Upcoming webinars, earliest first. Missing in content from before webinars existed. */
@@ -119,3 +125,5 @@ export type SiteContent = {
 
 /** A section's body: paragraphs split at blank lines; lines starting with "- " form a list. */
 export type LegalPage = { title: string; description: string; updated: string; sections: { heading: string; body: string }[] };
+
+export type NetworkPrice = { network: string; host: string; basic: string; single: string; conversation: string; sms: string };

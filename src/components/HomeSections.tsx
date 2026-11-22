@@ -1,9 +1,10 @@
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, Check, Clock, Download, IdCard, Image as ImageIcon, Smartphone, Type, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, ChevronDown, ChevronLeft, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Plus, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
-import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
+import { IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
+import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { content } from "@/content";
@@ -56,6 +57,11 @@ const PROPERTY_ICONS: [prefix: string, Icon: LucideIcon][] = [
   ["Tillgänglighet", Smartphone],
   ["Bilder", ImageIcon],
   ["Installation", Download],
+  ["Klickfrekvens", MousePointerClick],
+  ["Läskvitton", CheckCheck],
+  ["Svar", MessageSquareReply],
+  ["Avregistrering", BellOff],
+  ["Listpris", Wallet],
 ];
 const propertyIcon = (label: string) => PROPERTY_ICONS.find(([prefix]) => label.startsWith(prefix))?.[1];
 
@@ -109,50 +115,64 @@ export function CompareSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
-/** A field in the editor sketch: a label over a value, styled like an input. */
-function SketchField({ label, children, tall = false }: { label: string; children: ReactNode; tall?: boolean }) {
+/** A labelled field in the editor sketch, styled like an input. */
+function SketchField({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold text-muted-foreground">{label}</p>
-      <div className={cn("mt-1 rounded-lg bg-background px-3 text-[13px] ring-1 ring-border", tall ? "py-2 leading-snug" : "flex h-9 items-center")}>{children}</div>
+      <p className="text-xs font-bold">{label}</p>
+      <div className="mt-1.5 flex min-h-9 items-center rounded-md bg-background px-3 py-1.5 text-[13px] leading-snug ring-1 ring-border">{children}</div>
     </div>
   );
 }
 
+/** "+ Lägg till …" as the editor shows it for an empty optional part. */
+function SketchAdd({ children }: { children: ReactNode }) {
+  return <p className="flex items-center gap-1.5 text-xs font-bold text-primary"><Plus aria-hidden className="size-3.5" />{children}</p>;
+}
+
 /**
- * The web tool as a message editor: steps along the top, the message's fields on the left and a
- * preview of the card on the right. A sketch of how such a tool works, not a copy of one product.
+ * The web tool as a card editor: a preview of the message in the site's phone on the left and the
+ * card's parts on the right. A sketch of how such an editor works, not a copy of one product.
  */
 function WebSketch() {
   return (
-    <div aria-hidden className="overflow-hidden rounded-xl bg-background text-left shadow-card">
-      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
-        <div className="flex min-w-0 items-center gap-1.5 text-xs font-semibold">
-          <span className="text-muted-foreground">Mottagare</span>
-          <span className="text-muted-foreground/50">›</span>
-          <span className="rounded-full bg-primary-soft px-2.5 py-1">Innehåll</span>
-          <span className="text-muted-foreground/50">›</span>
-          <span className="text-muted-foreground">Skicka</span>
+    <div aria-hidden className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
+      <div className="grid flex-1 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div className="flex items-center justify-center bg-muted px-4 py-5">
+          <div className="w-full max-w-[11rem]">
+            <RcsPhone sender={rcsDirektSender.sender} logo={rcsDirektSender.logo} maxScale={0.5}>
+              <div style={{ height: 12 }} />
+              <IncomingRow>
+                <div className="card">
+                  <div className="ct">Ert första utskick</div>
+                  <div className="cb">Så ser ett kort med knapp ut hos kunden.</div>
+                  <div className="cbtns"><div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div></div>
+                </div>
+              </IncomingRow>
+            </RcsPhone>
+          </div>
         </div>
-        <span className="hidden text-xs text-muted-foreground tabular-nums sm:inline">1 240 mottagare</span>
-      </div>
-      <div className="grid gap-4 p-4 sm:grid-cols-[1fr_auto]">
-        <div className="grid content-start gap-3">
-          <SketchField label="Avsändare"><span className="font-semibold">Butiken</span><span className="ml-1.5 text-logo-blue">✓</span></SketchField>
-          <SketchField label="Typ"><span>Kort med knapp</span></SketchField>
-          <SketchField label="Rubrik"><span>Höstrea i butiken</span></SketchField>
-          <SketchField label="Text" tall><span>Upp till halva priset i helgen.</span></SketchField>
-          <SketchField label="Knapp"><span>Se erbjudandet</span><span className="ml-auto text-[11px] text-muted-foreground">Öppnar länk</span></SketchField>
-        </div>
-        <div className="flex flex-col items-center justify-center gap-2 rounded-lg bg-muted px-3 py-4">
-          <p className="text-[11px] font-semibold text-muted-foreground">Förhandsvisning</p>
-          <RcsSnippet width={200} scale={0.9}>
-            <div className="card" style={{ background: "#fff", boxShadow: "none" }}>
-              <div className="ct">Höstrea i butiken</div>
-              <div className="cb">Upp till halva priset i helgen.</div>
-              <div className="cbtns"><div className="cbtn" style={{ background: "#f0f4f9" }}>Se erbjudandet</div></div>
+        <div className="grid content-start gap-3.5 p-4 sm:p-5">
+          <p className="flex items-center gap-1 text-[11px] font-bold tracking-[0.06em] text-muted-foreground uppercase"><ChevronLeft aria-hidden className="size-3.5" />Tillbaka</p>
+          <p className="font-display text-lg font-extrabold leading-none">Rich card</p>
+          <div className="flex gap-4 border-b border-border text-xs font-semibold">
+            <span className="-mb-px border-b-2 border-primary pb-2">Design</span>
+            <span className="pb-2 text-muted-foreground">Testvärden</span>
+          </div>
+          <SketchField label="Kortets riktning"><span>Vertikal</span><ChevronDown aria-hidden className="ml-auto size-3.5 text-muted-foreground" /></SketchField>
+          <div>
+            <p className="text-xs font-bold">Media <span className="font-normal text-muted-foreground">(valfritt)</span></p>
+            <div className="mt-1.5"><SketchAdd>Lägg till media</SketchAdd></div>
+          </div>
+          <SketchField label="Rubrik">Ert första utskick</SketchField>
+          <SketchField label="Beskrivning">Så ser ett kort med knapp ut hos kunden.</SketchField>
+          <div>
+            <p className="text-xs font-bold">Knappar (1/4)</p>
+            <div className="mt-1.5 flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold">Läs mer · Öppnar länk</span>
+              <SketchAdd>Lägg till knapp</SketchAdd>
             </div>
-          </RcsSnippet>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 border-t border-border px-4 py-3">
@@ -177,12 +197,12 @@ const API_EVENTS: [time: string, status: string, detail: string][] = [
 
 function ApiSketch() {
   return (
-    <figure className="overflow-hidden rounded-xl bg-ink text-left shadow-card">
+    <figure className="flex h-full flex-col overflow-hidden rounded-xl bg-ink text-left shadow-card">
       <figcaption className="flex items-center justify-between border-b border-ink-foreground/10 px-4 py-2.5 text-xs text-ink-muted">
         <span className="font-semibold text-ink-foreground">Ett meddelande via API</span>
         <span>Förenklat exempel</span>
       </figcaption>
-      <pre className="overflow-x-auto p-5 text-[13px] leading-relaxed text-ink-foreground"><code>{API_EXAMPLE}</code></pre>
+      <pre className="flex flex-1 items-center overflow-x-auto p-5 text-[13px] leading-relaxed text-ink-foreground"><code>{API_EXAMPLE}</code></pre>
       {/* What comes back: the statuses that the comparison calls delivered, seen and clicked. */}
       <div className="border-t border-ink-foreground/10 px-5 py-4">
         <p className="text-xs font-semibold text-ink-foreground">Statushändelser via webhook</p>
@@ -210,9 +230,10 @@ export function WaysSection() {
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
           <p className={sectionIntro}>{home.vagar.intro}</p>
         </div>
-        <div className={cn(sectionBody, "grid gap-6 lg:grid-cols-2")}>
+        {/* The cards share rows (subgrid), so both visuals start and end at the same height. */}
+        <div className={cn(sectionBody, "grid gap-6 lg:grid-cols-2 lg:grid-rows-[auto_1fr]")}>
           {[web, api].filter(Boolean).map((item, index) => (
-            <div key={item!.title} data-reveal style={order(index)} className="flex min-w-0 flex-col gap-6 rounded-2xl bg-primary-soft p-5 sm:p-8">
+            <div key={item!.title} data-reveal style={order(index)} className="flex min-w-0 flex-col gap-6 rounded-2xl bg-primary-soft p-5 sm:p-8 lg:row-span-2 lg:grid lg:grid-rows-subgrid">
               <div>
                 {(() => {
                   const Icon = contentIcon(item!.icon);
@@ -221,7 +242,7 @@ export function WaysSection() {
                 <h3 className="text-2xl font-extrabold">{item!.title}</h3>
                 <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{item!.copy}</p>
               </div>
-              <div className="mt-auto">{visual[index]}</div>
+              <div className="h-full">{visual[index]}</div>
             </div>
           ))}
         </div>

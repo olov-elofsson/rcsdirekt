@@ -30,6 +30,8 @@ export type Step = { text?: string; card?: Card; carousel?: Card[]; chips?: Choi
 export type Scenario = {
   /** The customer case: shown as "Exempel för …" and as the sender. */
   customer: string;
+  /** The company's registered name, as in the customer case in the CMS; the card's name. */
+  company: string;
   title: string;
   copy: string;
   photo: Picture & { alt: string };
@@ -125,6 +127,7 @@ const signedUp: Step = {
 export const scenarios: Scenario[] = [
   {
     customer: "DreamCare",
+    company: "DreamCare Omsorg AB",
     title: "Påminnelser som går att svara på",
     copy: "Kunden bekräftar besöket eller väljer en ny tid, ser vem som kommer och säger efteråt vad den tyckte. Allt i samma tråd.",
     photo: { src: careUrl, small: careUrlSmall, alt: "En ung kvinna och en äldre kvinna skrattar tillsammans i en soffa hemma", position: "50% 35%" },
@@ -152,6 +155,7 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Maptun",
+    company: "Maptun Performance AB",
     title: "Tjänster att svepa mellan",
     copy: "En karusell med en knapp per tjänst. Tiden bokas i samma konversation, med vägbeskrivning och påminnelse.",
     photo: { src: workshopUrl, small: workshopUrlSmall, alt: "En svart Saab i Maptuns verkstad, kopplad till en effektbänk", position: "50% 60%" },
@@ -166,6 +170,7 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Nercia",
+    company: "Nercia Utbildning AB",
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
     photo: { src: courseUrl, small: courseUrlSmall, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },
@@ -179,6 +184,7 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Bilia",
+    company: "Bilia AB",
     title: "Inbjudan med anmälan i meddelandet",
     copy: "Gästen anmäler sig med ett tryck, bokar en provkörning samma kväll och lägger tiden i kalendern.",
     photo: { src: carDealerUrl, small: carDealerUrlSmall, alt: "Bilias skylt på en glasfasad mot en blå himmel", position: "50% 30%" },

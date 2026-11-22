@@ -82,6 +82,63 @@ export const Priser: GlobalConfig = {
           ],
         },
         {
+          label: 'SMS och alla nät',
+          fields: [
+            {
+              name: 'sms',
+              label: 'SMS',
+              type: 'group',
+              admin: { description: 'Visas som en egen pristabell på /priser, under meddelandetyperna. Inte på startsidan.' },
+              fields: [
+                { name: 'name', label: 'Namn', type: 'text' },
+                { name: 'contents', label: 'Innehåll i korthet', type: 'text' },
+                {
+                  name: 'operatorPrices',
+                  label: 'Listpris per operatör',
+                  type: 'array',
+                  labels: { singular: 'Pris', plural: 'Priser' },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'operator', label: 'Operatör', type: 'text', required: true },
+                        { name: 'price', label: 'Listpris', type: 'text', required: true },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            { name: 'networksHeading', label: 'Rubrik för alla nät', type: 'text', admin: { description: 'Rubriken på den utfällbara listan med varje nät, till exempel "Alla nät och priser".' } },
+            { name: 'networksNote', label: 'Text över listan', type: 'textarea' },
+            {
+              name: 'networks',
+              label: 'Alla nät',
+              type: 'array',
+              labels: { singular: 'Nät', plural: 'Nät' },
+              admin: { description: 'Ett nät per rad. Lämna en priscell tom om nätet inte tar emot den typen.' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'network', label: 'Nät', type: 'text', required: true },
+                    { name: 'host', label: 'Använder nätet hos', type: 'text' },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'basic', label: 'Basic', type: 'text' },
+                    { name: 'single', label: 'Single', type: 'text' },
+                    { name: 'conversation', label: 'Conversation', type: 'text' },
+                    { name: 'sms', label: 'SMS', type: 'text' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'Land och valuta',
           fields: [
             availability('countries', 'Länder', 'Landskod'),

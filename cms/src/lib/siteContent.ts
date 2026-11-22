@@ -160,6 +160,23 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       faqHeading: text(priser.faqHeading),
       faq: list(priser.faq).map((row) => ({ question: text(row.question), answer: text(row.answer) })),
       volumeText: text(priser.volumeText),
+      sms: {
+        name: text(priser.sms?.name),
+        contents: text(priser.sms?.contents),
+        operatorPrices: list(priser.sms?.operatorPrices)
+          .map((row) => ({ operator: text(row.operator), price: text(row.price) }))
+          .filter((row) => row.operator && row.price),
+      },
+      networksHeading: text(priser.networksHeading),
+      networksNote: text(priser.networksNote),
+      networks: list(priser.networks).map((row) => ({
+        network: text(row.network),
+        host: text(row.host),
+        basic: text(row.basic),
+        single: text(row.single),
+        conversation: text(row.conversation),
+        sms: text(row.sms),
+      })),
     },
     kundcase,
     webinarer,
