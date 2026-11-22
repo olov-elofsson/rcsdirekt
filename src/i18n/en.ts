@@ -333,4 +333,5 @@ export const en: Record<string, string> = {
   "Visa alla {count} jämförelser": "Show all {count} comparisons",
   "Prova att ändra kortet": "Try changing the card",
   "Visa hela exemplet": "Show the whole example",
+  "Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.": "Tap the buttons in the message and see what happens. The photos come from the customer cases, the messages are examples.",
 };

@@ -51,7 +51,7 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
     ) : (
       <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-5" /><span className="sr-only">{t("Nej")}</span></span>
     );
-  return <span className={cn("text-sm leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
+  return <span className={cn("text-[13px] leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
 
 
@@ -61,7 +61,7 @@ export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   // On a phone the list is long, so it starts with the first five properties.
   const [allRows, setAllRows] = useState(false);
-  const phoneRows = allRows ? rows : rows.slice(0, 5);
+  const shown = allRows ? rows : rows.slice(0, 5);
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -69,63 +69,39 @@ export function CompareSection() {
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
-        {/* On a phone three columns get too narrow, so each property becomes a row of its own
-            with SMS and RCS side by side under it. */}
-        <ul data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card sm:hidden")}>
-          <li aria-hidden className="grid grid-cols-2 gap-2 px-4 pt-4 pb-1">
-            <span className="px-3 text-xs font-semibold text-muted-foreground">SMS</span>
-            <span className="px-3 font-display text-sm font-extrabold text-foreground">RCS</span>
-          </li>
-          {phoneRows.map((item) => {
-            return (
-              <li key={item.label} className="border-t border-border px-4 py-4 first-of-type:border-t-0 [&:nth-child(2)]:border-t-0">
-                <p className="text-sm font-semibold">{item.label}</p>
-                <dl className="mt-3 grid grid-cols-2 gap-2">
-                  <div className="flex min-h-11 items-center rounded-xl px-3 py-2">
-                    <dt className="sr-only">SMS</dt>
-                    <dd><Fact value={item.sms} rcs={false} /></dd>
-                  </div>
-                  <div className="flex min-h-11 items-center rounded-xl bg-primary-soft px-3 py-2">
-                    <dt className="sr-only">RCS</dt>
-                    <dd><Fact value={item.rcs} rcs /></dd>
-                  </div>
-                </dl>
-              </li>
-            );
-          })}
-        </ul>
-        {rows.length > phoneRows.length ? (
-          <Button type="button" variant="outline" className="mt-4 w-full sm:hidden" onClick={() => setAllRows(true)}>
-            {t("Visa alla {count} jämförelser").replace("{count}", String(rows.length))}
-          </Button>
-        ) : null}
-        <div data-reveal style={order(1)} className={cn(sectionBody, "hidden overflow-hidden rounded-2xl bg-card sm:block")}>
+        {/* One table on every screen; on a phone the columns and text are tighter. */}
+        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card")}>
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
-              <col className="w-[38%]" />
+              <col className="w-[34%] sm:w-[38%]" />
               <col />
               <col />
             </colgroup>
             <thead>
-              <tr>
-                <th scope="col" className="px-5 py-4 sm:px-8"><span className="sr-only">{t("Egenskap")}</span></th>
-                <th scope="col" className="px-3 py-4 text-sm font-semibold text-muted-foreground sm:px-6">SMS</th>
-                <th scope="col" className="bg-ink px-3 py-4 font-display text-base font-extrabold text-ink-foreground sm:px-6">RCS</th>
+              <tr className="bg-ink text-ink-foreground">
+                <th scope="col" className="px-3 py-3.5 sm:px-8 sm:py-4"><span className="sr-only">{t("Egenskap")}</span></th>
+                <th scope="col" className="px-2 py-3.5 text-sm font-semibold text-ink-muted sm:px-6 sm:py-4">SMS</th>
+                <th scope="col" className="px-2 py-3.5 font-display text-base font-extrabold sm:px-6 sm:py-4">RCS</th>
               </tr>
             </thead>
             <tbody>
-              {rows.map((item) => (
-                <tr key={item.label} className="border-t border-border">
-                  <th scope="row" className="px-5 py-4 text-sm font-semibold leading-snug text-pretty sm:px-8 sm:text-[15px]">
+              {shown.map((item) => (
+                <tr key={item.label} className="border-t border-border first:border-t-0">
+                  <th scope="row" className="px-3 py-3.5 text-[13px] font-semibold leading-snug text-pretty sm:px-8 sm:py-4 sm:text-[15px]">
                     {item.label}
                   </th>
-                  <td className="px-3 py-4 sm:px-6"><Fact value={item.sms} rcs={false} /></td>
-                  <td className="bg-muted px-3 py-4 sm:px-6"><Fact value={item.rcs} rcs /></td>
+                  <td className="px-2 py-3.5 sm:px-6 sm:py-4"><Fact value={item.sms} rcs={false} /></td>
+                  <td className="bg-muted px-2 py-3.5 sm:px-6 sm:py-4"><Fact value={item.rcs} rcs /></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {rows.length > shown.length ? (
+          <Button type="button" variant="outline" className="mt-4 w-full sm:w-auto" onClick={() => setAllRows(true)}>
+            {t("Visa alla {count} jämförelser").replace("{count}", String(rows.length))}
+          </Button>
+        ) : null}
       </div>
     </section>
   );
@@ -220,9 +196,7 @@ function WebSketch() {
           </div>
           {/* The delivery report for the test message, step by step. */}
           <ol aria-live="polite" className="flex h-5 items-center gap-3 text-xs font-semibold text-muted-foreground">
-            {step < 0 ? (
-              <li>{t("Ändra fälten nedan, så uppdateras kortet.")}</li>
-            ) : (
+            {step < 0 ? null : (
               SEND_STEPS.map((label, index) => (
                 <li key={label} className={cn("inline-flex items-center gap-1 transition-opacity duration-200", index <= step ? "opacity-100" : "opacity-30")}>
                   {index === 0 ? <Check aria-hidden className="size-3.5 text-logo-blue" /> : <CheckCheck aria-hidden className="size-3.5 text-logo-blue" />}
@@ -473,13 +447,13 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   const [planIndex, setPlanIndex] = useState(() => Math.max(0, plans.findIndex((plan) => plan.badge)));
   const [count, setCount] = useState(5000);
   const currency = useCurrency();
+  const { t, locale } = useT();
   const plan = plans[planIndex];
   if (!plan) return null;
   const unit = Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", "."));
   if (!Number.isFinite(unit)) return null;
   const countId = "kalkyl-antal";
   const total = unit * count;
-  const { t, locale } = useT();
   const number = (value: number) => value.toLocaleString(locale === "en" ? "en-GB" : "sv-SE");
   return (
     <div data-reveal className="grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
@@ -552,7 +526,7 @@ export function PricingSection() {
         </div>
         {/* On a phone the plans sit in a row to swipe through, so the section is one card tall. */}
         <div className={cn(sectionBody, "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden")}>
-          {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} style={order(index)} className="w-[84%] shrink-0 snap-center md:w-auto" />)}
+          {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} uses={false} style={order(index)} className="w-[84%] shrink-0 snap-center md:w-auto" />)}
         </div>
         <p data-reveal className="mt-5 text-sm leading-relaxed text-pretty text-muted-foreground">
           {t("Osäkra på vilken ni behöver?")}{" "}

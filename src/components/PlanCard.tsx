@@ -25,12 +25,13 @@ function usesOf(text: string): string[] {
 }
 
 /** One message type: name, from price, what is included, what it suits and a way to start. */
-export function PlanCard({ plan, size = "lg", className, style }: { plan: PricingPlan; size?: "md" | "lg"; className?: string; style?: CSSProperties }) {
+/** `uses={false}` leaves out "Passar för", where the card should stay short (the start page). */
+export function PlanCard({ plan, size = "lg", uses: showUses = true, className, style }: { plan: PricingPlan; size?: "md" | "lg"; uses?: boolean; className?: string; style?: CSSProperties }) {
   const featured = Boolean(plan.badge);
   const currency = useCurrency();
   const { t, lp, locale } = useT();
   const includes = INCLUDES[plan.slug];
-  const uses = usesOf(plan.short ?? "");
+  const uses = showUses ? usesOf(plan.short ?? "") : [];
   const muted = featured ? "text-ink-muted" : "text-muted-foreground";
   return (
     <div data-reveal style={style} className={cn("flex flex-col rounded-2xl transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0", size === "lg" ? "p-7 sm:p-8" : "p-6", featured ? "bg-ink text-ink-foreground" : "bg-card shadow-card", className)}>

@@ -80,7 +80,6 @@ function HeroFirst() {
 
 /** How a company gets started: three steps in a row, near the end beside the contact form. */
 function Steps() {
-  const priser = usePriser();
   const { t, lp } = useT();
   return (
     <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">
@@ -105,19 +104,6 @@ function Steps() {
           ))}
         </ol>
         {/* What every account includes, from the pricing page in the CMS, in the cards' columns; then the action. */}
-        {priser.included.length ? (
-          <div data-reveal className="mt-10">
-            <p className="text-xs font-bold tracking-[0.08em] text-ink-muted uppercase">{priser.includedHeading}</p>
-            <ul className="mt-4 grid gap-x-5 gap-y-3 sm:grid-cols-2 md:grid-cols-3">
-              {priser.included.map((item) => (
-                <li key={item} className="flex items-center gap-2.5 text-sm font-semibold">
-                  <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
         <div data-reveal className="mt-10"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button></div>
       </div>
     </section>

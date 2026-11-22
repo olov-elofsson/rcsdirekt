@@ -291,49 +291,10 @@ function ConversationView({
   );
 }
 
-type Feature = { label: string; Icon: LucideIcon };
-
-/** The RCS features an example really uses, read from its messages, so the tags never claim more. */
-function featuresOf(start: Step, locale: Locale): Feature[] {
-  const found = new Map<string, Feature>();
-  const add = (label: string, Icon: LucideIcon) => found.set(label, { label: translate(locale, label), Icon });
-  // Every RCS business sender is verified, and the example shows the sender's name above it.
-  add("Verifierad avsändare", BadgeCheck);
-  add("Företagsnamn som avsändare", IdCard);
-  const seen = new Set<Step>();
-  const walk = (step: Step) => {
-    if (seen.has(step)) return;
-    seen.add(step);
-    if (step.card) add("Kort med knappar", SquareMousePointer);
-    if (/^(Kupong|Coupon)/.test(step.card?.title ?? "")) add("Kuponger", Ticket);
-    if (step.carousel) add("Karusell", GalleryHorizontal);
-    if (step.chips?.some((chip) => chip.next)) add("Snabbsvar", MousePointerClick);
-    for (const choice of choicesIn(step)) {
-      if (choice.next) {
-        add("Svar i tråden", MessagesSquare);
-        // The answer shows as read and the business types before it replies, as in the app.
-        add("Läskvitto", CheckCheck);
-        add("Visar att ni skriver", MoreHorizontal);
-        walk(choice.next);
-      }
-      if (choice.opens === "kalendern" || choice.opens === "the calendar") add("Kalender", CalendarPlus);
-      else if (choice.opens === "kartan" || choice.opens === "the map") add("Vägbeskrivning", MapPin);
-      else if (choice.opens === "telefonen" || choice.opens === "the phone") add("Samtal", Phone);
-      else if (choice.opens) add("Länk", ExternalLink);
-    }
-  };
-  walk(start);
-  // What this example shows that a plain SMS cannot, at most four; the sender and read receipts are
-  // the same in every example, so they are left to the comparison table.
-  const generic = new Set(["Verifierad avsändare", "Företagsnamn som avsändare", "Läskvitto", "Visar att ni skriver", "Svar i tråden"].map((label) => translate(locale, label)));
-  return [...found.values()].filter((feature) => !generic.has(feature.label)).slice(0, 4);
-}
-
 /** One case large: the photo with its conversation beside the text, and what the customer can try. */
 function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 | -1) => void }) {
   const conversation = useConversation(scenario.start);
   const { t, locale } = useT();
-  const features = featuresOf(scenario.start, locale);
   const [hint, setHint] = useState<Choice | undefined>(undefined);
   const touched = useRef(false);
   const box = useRef<HTMLElement>(null);
@@ -401,16 +362,6 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
         <p className="text-sm font-bold">{scenario.company}</p>
         <h3 className="mt-2 text-2xl font-extrabold leading-tight text-balance sm:text-3xl">{scenario.title}</h3>
         <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
-        {features.length ? (
-          <ul aria-label={t("Det här använder exemplet")} className="mt-5 flex flex-wrap gap-2">
-            {features.map(({ label, Icon }) => (
-              <li key={label} className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold">
-                <Icon aria-hidden strokeWidth={2} className="size-3.5 text-logo-blue" />
-                {label}
-              </li>
-            ))}
-          </ul>
-        ) : null}
       </div>
     </article>
   );
@@ -495,16 +446,10 @@ export function CustomerExamples() {
             {t("Kunder")}
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
-            {t("Så här kan det se ut hos några av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
+            {t("Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
           </p>
         </div>
         <CaseShowcase />
-        <div data-reveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Button asChild size="lg" variant="outline" className="home-cta self-start border-transparent">
-            <Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link>
-          </Button>
-          <p className="text-sm text-ink-muted">{t("Bygg ett eget upplägg för era kunder.")}</p>
-        </div>
       </div>
     </section>
   );
