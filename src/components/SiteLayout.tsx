@@ -427,6 +427,9 @@ export function SiteFooter() {
             <p>© {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se. {t("Alla rättigheter reserverade.")}</p>
             {/* For the team: the CMS where the site's texts are edited. */}
             <a href="https://cms.rcsdirekt.se/admin" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
+            {/* For search engines and the curious: the files are served as they are, outside the router. */}
+            <a href="/sitemap.xml" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">{t("Webbplatskarta")}</a>
+            <a href="/robots.txt" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">robots.txt</a>
             <FooterLanguageLink />
           </div>
           <Button variant="link" size="sm"

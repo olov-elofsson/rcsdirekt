@@ -325,9 +325,9 @@ export const en: Record<string, string> = {
   Skickat: "Sent",
   Levererat: "Delivered",
   "Ändra fälten nedan, så uppdateras kortet.": "Change the fields below and the card updates.",
-  "Visa jämförelsen för": "Show the comparison for",
   "Publicerad": "Published",
   "Av": "By",
   "Senaste artiklar": "Latest articles",
   "Se skillnaden själv": "See the difference yourself",
+  Webbplatskarta: "Sitemap",
 };
