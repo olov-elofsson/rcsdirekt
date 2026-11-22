@@ -132,7 +132,7 @@ function LanguageSwitch({ pathname, block = false }: { pathname: string; block?:
   const target = locale === "en" ? swedishPath(pathname) : hasEnglish(pathname) ? englishPath(pathname) : "/en";
   const label = locale === "en" ? "Svenska" : "English";
   return (
-    <Button asChild variant="ghost" size={block ? "lg" : "default"} className={block ? "w-full" : "hidden sm:inline-flex"}>
+    <Button asChild variant="ghost" size="default" className={block ? "w-full bg-muted" : "hidden sm:inline-flex"}>
       {/* A plain link: the other language is a different page, with its own lang and texts. */}
       <a href={target} hrefLang={locale === "en" ? "sv" : "en"} lang={locale === "en" ? "sv" : "en"}>
         <Globe aria-hidden className="size-4" />
@@ -262,6 +262,7 @@ export function SiteHeader() {
               {headerLinks.map((link) => <li key={link.label}><Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} activeProps={{ "aria-current": active === link.label ? "page" : undefined }} inactiveProps={{ "aria-current": active === link.label ? "page" : undefined }} className={cn(mobileLinkClass, active === link.label && "text-logo-blue")}>{t(link.label)}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
             </ul>
             <div className="mt-5 flex flex-col gap-3">
+              <LanguageSwitch pathname={pathname} block />
               <Button asChild variant="outline" size="lg" className="w-full">
               <a href="https://portal.rcsdirekt.se/login">
                 {t("Logga in")}
@@ -270,7 +271,6 @@ export function SiteHeader() {
               <Button asChild size="lg" className="w-full">
                 <Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link>
               </Button>
-              <LanguageSwitch pathname={pathname} block />
             </div>
           </nav>
         </div>
