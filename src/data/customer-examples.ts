@@ -43,7 +43,7 @@ const map: Choice = { label: "Visa vägen", icon: "open", opens: "kartan" };
 
 /* DreamCare: a visit reminder that can be confirmed or moved, then a reminder and a rating. */
 const rating: Step = {
-  text: "Hur var besöket i dag?",
+  text: "Hej igen! Hur var besöket med Anna i dag?",
   chips: ["Mycket bra", "Bra", "Mindre bra"].map((label) => ({
     label,
     next: { text: label === "Mindre bra" ? "Tack för att du säger till. Vi ringer dig i morgon och hör vad vi kan göra bättre." : "Tack, vad roligt att höra! Vi hälsar Anna." },
@@ -53,7 +53,7 @@ const visitBooked = (when: string): Step => ({
   text: `Klart! Anna kommer ${when}.`,
   chips: [
     calendar,
-    { label: "Vem är Anna?", next: { text: "Anna har varit hos oss i fyra år och kommer till dig varje vecka.", chips: [{ label: "Tack!", next: rating }] } },
+    { label: "Tack, vi ses!", next: { text: "Vi ses! Efter besöket hör vi av oss och frågar hur det gick.", chips: [{ label: "Visa frågan", next: rating }] } },
   ],
 });
 
