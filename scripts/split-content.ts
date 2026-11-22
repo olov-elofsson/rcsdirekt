@@ -35,6 +35,8 @@ export async function splitContent() {
   const enFolder = new URL("../src/content/en/parts/", import.meta.url);
   if (!existsSync(new URL("article-list.json", enFolder))) writeFileSync(new URL("article-list.json", enFolder), "[]\n");
   const en = await import("../src/data/en/blog-articles");
+  // The author is set in the CMS on the Swedish article and follows into the English one.
+  const authors = new Map(((content.kunskap as { articles?: { slug: string; author?: string }[] } | undefined)?.articles ?? []).map((article) => [article.slug, article.author ?? ""]));
   const enList = en.articles.map((article) => ({
     slug: article.slug,
     title: article.title,
@@ -43,6 +45,7 @@ export async function splitContent() {
     keywords: article.keywords,
     published: article.published,
     minutes: readingMinutes(article),
+    author: authors.get(article.slug) ?? "",
   }));
   writeFileSync(new URL("article-list.json", enFolder), JSON.stringify(enList) + "\n");
   writeFileSync(new URL("sources.json", enFolder), JSON.stringify(en.sources) + "\n");
