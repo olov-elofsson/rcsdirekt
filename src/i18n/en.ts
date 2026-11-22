@@ -307,23 +307,7 @@ export const en: Record<string, string> = {
   "Senast ändrad": "Last changed",
   "Texten publiceras inom kort.": "The text will be published shortly.",
 
-  // Why rcsdirekt.se
-  "Varför rcsdirekt.se": "Why rcsdirekt.se",
-  "Vi gör RCS enkelt för svenska företag. Det här får ni hos oss.": "We make RCS easy for businesses in Sweden. This is what you get with us.",
-  "Mer om oss": "More about us",
-  "Vi registrerar avsändaren": "We register your sender",
-  "Ni ger oss namn, logga och en kort beskrivning. Sedan tar vi hand om registreringen och hjälper er med videon som krävs för att avsändaren ska godkännas.":
-    "You give us your name, logo and a short description. Then we take care of the registration and help you with the video needed for the sender to be approved.",
-  "Svensk support och avtal": "Swedish support and contract",
-  "Ni har avtal med ett svenskt bolag i Örebro och får hjälp på svenska, från första utskicket och framåt.":
-    "Your contract is with a Swedish company in Örebro, and you get help from your first campaign onwards.",
-  "Betala bara för det ni skickar": "Pay only for what you send",
-  "Priset är per meddelande i kronor och står öppet på prissidan. Det kostar inget att starta och ni är inte bundna.":
-    "The price is per message and shown openly on the pricing page. It costs nothing to start and you are not tied in.",
-  "Webb eller API": "Web or API",
-  "Bygg utskicket i webbläsaren utan utvecklare, eller låt era system skicka via API. Avsändaren och priset är desamma.":
-    "Build the campaign in the browser without a developer, or let your systems send through the API. The sender and price are the same.",
-
+  // Hero label
   och: "and",
   "RCS kommer till både iPhone och Android": "RCS comes to both iPhone and Android",
 };
