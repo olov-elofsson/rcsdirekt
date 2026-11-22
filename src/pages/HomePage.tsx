@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, RadioTower } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ export function HomePage() {
 
 function DualCtas() {
   const { t, lp } = useT();
-  return <div className="flex w-full max-w-xs flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/")} hash="kontakt">{t("Prata med oss")}</Link></Button></div>;
+  return <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/")} hash="kontakt">{t("Prata med oss")}</Link></Button></div>;
 }
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
@@ -44,17 +44,26 @@ function NumberDrop({ n }: { n: number }) {
 /** The hero split in two: headline, one line on what it is and two actions beside one notice shown as SMS and as RCS. */
 function HeroFirst() {
   const home = useStartsida();
+  const { t } = useT();
+  const operators = usePriser().operators.filter((name) => !/^(Övriga|Other)/.test(name));
   return (
     <section id="top" className="bg-background">
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-14 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.55fr_1fr] lg:gap-12 lg:px-8 lg:pt-16">
-        <div className="text-center lg:text-left">
-          <h1 className="mx-auto max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:mx-0 lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
+      {/* Text and message share the header's edges: the text starts at the logo, the message ends at the last button. */}
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.55fr_1fr] lg:gap-12 lg:px-8 lg:pt-16">
+        <div>
+          {operators.length ? (
+            <p className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+              <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
+              {t("Når kunder hos {operators}").replace("{operators}", `${operators.slice(0, -1).join(", ")} ${t("och")} ${operators.at(-1)}`)}
+            </p>
+          ) : null}
+          <h1 className="max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
             {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl lg:mx-0">{home.hero.description}</p>
-          <div className="mt-9 flex justify-center lg:justify-start"><DualCtas /></div>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p>
+          <div className="mt-9 flex"><DualCtas /></div>
         </div>
-        <HeroMessage className="mx-auto" />
+        <HeroMessage className="lg:ml-auto" />
       </div>
     </section>
   );

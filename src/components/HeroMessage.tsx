@@ -142,7 +142,7 @@ export function HeroMessage({ className }: { className?: string }) {
   };
 
   return (
-    <div ref={box} className={cn("w-full max-w-[20rem] rounded-3xl bg-muted px-4 pt-4 pb-5", className)}>
+    <div ref={box} className={cn("w-full rounded-3xl bg-muted px-4 pt-4 pb-5 lg:max-w-[20rem]", className)}>
       <div role="radiogroup" aria-label={t("Visa meddelandet som")} className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
         {[false, true].map((value) => (
           <button
@@ -161,14 +161,15 @@ export function HeroMessage({ className }: { className?: string }) {
         ))}
       </div>
       {/* Both versions share one grid cell, so the box keeps its height while they cross-fade. */}
-      <div className="grid min-h-[27.5rem] text-left" aria-live="polite">
+      <div className="grid text-left lg:min-h-[27.5rem]" aria-live="polite">
         {[false, true].map((value) => (
           <div
             key={String(value)}
             aria-hidden={rcs !== value}
             className={cn(
               "col-start-1 row-start-1 flex justify-center self-center transition-[opacity,translate,scale] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none",
-              rcs === value ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-1 scale-[0.98] opacity-0",
+              // On phones only the shown version takes room, so the box fits it instead of keeping a gap.
+              rcs === value ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-1 scale-[0.98] opacity-0 max-lg:hidden",
             )}
           >
             {value ? <AsRcs active={rcs} /> : <AsSms />}

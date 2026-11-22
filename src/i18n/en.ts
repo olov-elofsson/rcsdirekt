@@ -323,4 +323,7 @@ export const en: Record<string, string> = {
   "Webb eller API": "Web or API",
   "Bygg utskicket i webbläsaren utan utvecklare, eller låt era system skicka via API. Avsändaren och priset är desamma.":
     "Build the campaign in the browser without a developer, or let your systems send through the API. The sender and price are the same.",
+
+  "Når kunder hos {operators}": "Reaches customers on {operators}",
+  och: "and",
 };

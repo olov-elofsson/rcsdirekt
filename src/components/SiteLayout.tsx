@@ -368,7 +368,7 @@ function FooterLanguageLink() {
   const pathname = useLocation({ select: (location) => location.pathname });
   const target = locale === "en" ? swedishPath(pathname) : hasEnglish(pathname) ? englishPath(pathname) : "/en";
   return (
-    <a href={target} hrefLang={locale === "en" ? "sv" : "en"} lang={locale === "en" ? "sv" : "en"} className="ml-3 inline-flex min-h-10 items-center gap-1.5 underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">
+    <a href={target} hrefLang={locale === "en" ? "sv" : "en"} lang={locale === "en" ? "sv" : "en"} className="inline-flex min-h-10 items-center gap-1.5 underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">
       <Globe aria-hidden className="size-3.5" />
       {locale === "en" ? "Svenska" : "English"}
     </a>
@@ -423,12 +423,12 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-ink-muted">
-            © {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se. {t("Alla rättigheter reserverade.")}
+          <div className="flex flex-wrap items-center gap-x-5 text-xs text-ink-muted">
+            <p>© {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se. {t("Alla rättigheter reserverade.")}</p>
             {/* For the team: the CMS where the site's texts are edited. */}
-            <a href="https://cms.rcsdirekt.se/admin" className="ml-3 inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
+            <a href="https://cms.rcsdirekt.se/admin" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
             <FooterLanguageLink />
-          </p>
+          </div>
           <Button variant="link" size="sm"
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
