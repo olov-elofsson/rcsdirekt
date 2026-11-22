@@ -10,7 +10,7 @@ import { shortWhen, useNextWebinar, when } from "@/lib/webinar";
 import { cn } from "@/lib/utils";
 
 const navLinkBase =
-  "rounded-full px-4 py-2.5 text-[15px] font-semibold whitespace-nowrap transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "rounded-full px-3.5 py-2 text-sm font-semibold whitespace-nowrap transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const navLinkActive = { className: "text-foreground" };
 const navLinkInactive = { className: "text-foreground/70 hover:bg-muted hover:text-foreground" };
 
@@ -65,7 +65,7 @@ function WebinarBar() {
   const linkClass = "group flex min-w-0 cursor-pointer items-center gap-2 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/70";
   return (
     <div className="relative bg-primary text-primary-foreground">
-      <div className="mx-auto flex h-10 max-w-7xl items-center justify-center gap-2 px-12 text-[13px] sm:text-sm">
+      <div className="mx-auto flex h-9 max-w-7xl items-center justify-center gap-2 px-12 text-[13px]">
         {webinar.registrationUrl ? (
           <a href={webinar.registrationUrl} target="_blank" rel="noreferrer" className={linkClass}>{label}</a>
         ) : (
@@ -93,6 +93,14 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [menuTop, setMenuTop] = useState(80);
   const headerRef = useRef<HTMLElement>(null);
+  // The line under the header shows once the page has scrolled, so the header sits flush on the hero.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const { pathname, hash } = useLocation({
     select: (location) => ({ pathname: location.pathname, hash: location.hash }),
   });
@@ -118,10 +126,10 @@ export function SiteHeader() {
     <>
     <a href="#innehall" className="sr-only z-[80] rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-3">Hoppa till innehållet</a>
     <WebinarBar />
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
+    <header ref={headerRef} className={cn("sticky top-0 z-50 border-b bg-background/85 backdrop-blur-xl transition-[border-color,box-shadow] duration-200 ease-out", scrolled ? "border-border/70 shadow-[0_1px_12px_-6px_rgb(21_17_95/0.15)]" : "border-transparent")}>
+      <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
         <Link to="/" aria-label="RCS Direkt, startsida" className="min-w-0 py-2.5">
-          <BrandLogo className="h-6 sm:h-9" />
+          <BrandLogo className="h-6 sm:h-7" />
         </Link>
 
         <nav aria-label="Huvudmeny" className="hidden items-center min-[1200px]:flex">

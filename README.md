@@ -42,6 +42,7 @@ Allt ligger i Google Cloud-projektet `rcsdirekt` (europe-west1).
 | Fil | Vad den visar |
 | --- | --- |
 | `SiteLayout.tsx` | Sidhuvud, notisrad för webinar och sidfot. |
+| `SectionEyebrow.tsx` | Den lilla etiketten med blått streck över rubrikerna på startsidan. |
 | `PageHeading.tsx` | Rubriken överst på undersidor. |
 | `HomepageSections.tsx` | Startsidans sektioner: jämförelsen, webb och API, priser, guider och kontakt. |
 | `CustomerExamples.tsx` | Kundexemplen med meddelanden över foton. |

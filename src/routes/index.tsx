@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, BadgeCheck, CalendarX, Check, Headset, ShieldCheck } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -13,8 +13,9 @@ import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { priser } from "@/content/priser";
 import { startsida } from "@/content/startsida";
 import { webinarer } from "@/content/webinarer";
-import { organizationSchema } from "@/lib/company";
+import { company, organizationSchema } from "@/lib/company";
 import { STEPS } from "@/data/onboarding";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 const home = startsida;
 
@@ -83,9 +84,33 @@ const lowestPrice = pricingPlans[0]?.price;
 // Named operators only; "Övriga operatörer" (MVNOs) is a price row, not a network to name.
 const operators = priser.operators.filter((name) => !name.startsWith("Övriga"));
 
+/** Facts about the service in one calm row under the hero, each one also stated elsewhere on the site. */
+const HERO_FACTS = [
+  { Icon: BadgeCheck, label: "Verifierade avsändare" },
+  { Icon: ShieldCheck, label: "Uppgifter inom EU" },
+  { Icon: CalendarX, label: "Ingen bindningstid" },
+  { Icon: Headset, label: "Svensk support" },
+];
+
+function HeroFacts() {
+  return (
+    <div className="mx-auto mt-12 max-w-4xl border-t border-border pt-8">
+      <ul className="grid grid-cols-2 gap-y-5 sm:grid-cols-4 sm:divide-x sm:divide-border">
+        {HERO_FACTS.map(({ Icon, label }) => (
+          <li key={label} className="flex flex-col items-center gap-2 px-3 text-sm font-semibold">
+            <Icon aria-hidden strokeWidth={1.75} className="size-5 text-logo-blue" />
+            {label}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-8 text-xs text-muted-foreground">En tjänst från {company.legalName}, org.nr {company.orgNumber}</p>
+    </div>
+  );
+}
+
 /** A plain, centred hero: headline, one line on what it is, two actions and the list price. No decoration. */
 function HeroFirst() {
-  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}</div></section>;
+  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><p className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-primary-soft px-3.5 py-1.5 text-xs font-semibold"><span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />RCS för företag i Sverige</p><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div>{lowestPrice && operators.length ? <p className="mx-auto mt-6 max-w-md text-sm text-pretty text-muted-foreground">Listpris från <span className="font-semibold text-foreground tabular-nums">{lowestPrice}</span> per meddelande till kunder hos {operators.slice(0, -1).join(", ")} och {operators.at(-1)}. Priset beror på volym.</p> : null}<HeroFacts /></div></section>;
 }
 
 
@@ -96,6 +121,7 @@ function Steps() {
     <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
+          <SectionEyebrow onDark>Process</SectionEyebrow>
           <h2 className={sectionTitle}>Kom igång</h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>Från konto till första meddelande. Vi hjälper till med avsändaren och upplägget på vägen.</p>
         </div>

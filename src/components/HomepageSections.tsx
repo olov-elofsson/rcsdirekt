@@ -7,6 +7,7 @@ import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, VerifiedMark }
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { articleList } from "@/content/article-list";
 import { priser } from "@/content/priser";
 import { startsida } from "@/content/startsida";
@@ -72,6 +73,7 @@ export function CompareSection() {
     <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
+          <SectionEyebrow>Jämförelse</SectionEyebrow>
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
@@ -251,6 +253,7 @@ export function WaysSection() {
     <section id="vad-ar-rcs" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
+          <SectionEyebrow>Plattform</SectionEyebrow>
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
           <p className={sectionIntro}>{home.vagar.intro}</p>
         </div>
@@ -352,6 +355,7 @@ export function PricingSection() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
+            <SectionEyebrow>Prismodell</SectionEyebrow>
             <h2 className={sectionTitle}>{home.pris.heading}</h2>
             <p className={sectionIntro}>{home.pris.intro}</p>
           </div>
@@ -402,6 +406,7 @@ export function BlogSection() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
+            <SectionEyebrow>Kunskap</SectionEyebrow>
             <h2 className={sectionTitle}>{home.blogg.heading}</h2>
             <p className={sectionIntro}>{home.blogg.intro}</p>
           </div>
@@ -441,6 +446,7 @@ export function ContactSection() {
     <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
         <div data-reveal className="lg:pt-4">
+          <SectionEyebrow>Kontakt</SectionEyebrow>
           <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
           <p className={sectionIntro}>{home.kontakt.intro}</p>
         </div>
