@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, ChevronDown, ChevronLeft, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Plus, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
-import { IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
+import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, Timestamp, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -116,101 +116,158 @@ export function CompareSection() {
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
 /** A labelled field in the editor sketch, styled like an input. */
-function SketchField({ label, children }: { label: string; children: ReactNode }) {
+function SketchField({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
   return (
     <div>
-      <p className="text-xs font-bold">{label}</p>
-      <div className="mt-1.5 flex min-h-9 items-center rounded-md bg-background px-3 py-1.5 text-[13px] leading-snug ring-1 ring-border">{children}</div>
+      <p className="flex items-baseline justify-between gap-2 text-xs font-bold">
+        {label}
+        {hint ? <span className="font-normal text-muted-foreground tabular-nums">{hint}</span> : null}
+      </p>
+      <div className="mt-1.5 flex min-h-9 items-center gap-2 rounded-lg bg-background px-3 py-1.5 text-[13px] leading-snug ring-1 ring-border">{children}</div>
     </div>
   );
 }
 
-/** "+ Lägg till …" as the editor shows it for an empty optional part. */
-function SketchAdd({ children }: { children: ReactNode }) {
-  return <p className="flex items-center gap-1.5 text-xs font-bold text-primary"><Plus aria-hidden className="size-3.5" />{children}</p>;
-}
+const SKETCH_TITLE = "Ert första utskick";
+const SKETCH_BODY = "Så ser ett kort med bild och knapp ut hos kunden.";
 
 /**
- * The web tool as a card editor: a preview of the message in the site's phone on the left and the
- * card's parts on the right. A sketch of how such an editor works, not a copy of one product.
+ * The web tool as a card editor: the message in the site's phone on the left, the card's parts on
+ * the right. A sketch of how such an editor works, not a copy of one product.
  */
 function WebSketch() {
+  const banner = rcsDirektSender.profile.banner;
   return (
     <div aria-hidden className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
-      <div className="grid flex-1 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-        <div className="flex items-center justify-center bg-muted px-4 py-5">
-          <div className="w-full max-w-[11rem]">
-            <RcsPhone sender={rcsDirektSender.sender} logo={rcsDirektSender.logo} maxScale={0.5}>
-              <div style={{ height: 12 }} />
+      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
+        <p className="flex min-w-0 items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+          <ChevronLeft className="size-3.5 shrink-0" />
+          <span className="truncate">Höstkampanj</span>
+          <span className="text-muted-foreground/50">/</span>
+          <span className="text-foreground">Rich card</span>
+        </p>
+        <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground">Utkast</span>
+      </div>
+      <div className="grid flex-1 sm:grid-cols-2">
+        <div className="flex flex-col items-center justify-center gap-3 bg-muted px-4 py-6">
+          <div className="w-full max-w-[13.5rem]">
+            <RcsPhone sender={rcsDirektSender.sender} logo={rcsDirektSender.logo} maxScale={0.6}>
+              <DateLabel>I dag</DateLabel>
               <IncomingRow>
                 <div className="card">
-                  <div className="ct">Ert första utskick</div>
-                  <div className="cb">Så ser ett kort med knapp ut hos kunden.</div>
-                  <div className="cbtns"><div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div></div>
+                  <img src={banner} alt="" />
+                  <div className="ct">{SKETCH_TITLE}</div>
+                  <div className="cb">{SKETCH_BODY}</div>
+                  <div className="cbtns">
+                    <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div>
+                  </div>
                 </div>
               </IncomingRow>
+              <Timestamp>13:16</Timestamp>
             </RcsPhone>
           </div>
+          <p className="text-[11px] font-semibold text-muted-foreground">Förhandsvisning</p>
         </div>
         <div className="grid content-start gap-3.5 p-4 sm:p-5">
-          <p className="flex items-center gap-1 text-[11px] font-bold tracking-[0.06em] text-muted-foreground uppercase"><ChevronLeft aria-hidden className="size-3.5" />Tillbaka</p>
-          <p className="font-display text-lg font-extrabold leading-none">Rich card</p>
           <div className="flex gap-4 border-b border-border text-xs font-semibold">
             <span className="-mb-px border-b-2 border-primary pb-2">Design</span>
             <span className="pb-2 text-muted-foreground">Testvärden</span>
           </div>
-          <SketchField label="Kortets riktning"><span>Vertikal</span><ChevronDown aria-hidden className="ml-auto size-3.5 text-muted-foreground" /></SketchField>
+          <SketchField label="Kortets riktning">Vertikal<ChevronDown className="ml-auto size-3.5 text-muted-foreground" /></SketchField>
+          <SketchField label="Media">
+            <img src={banner} alt="" className="h-6 w-10 shrink-0 rounded object-cover ring-1 ring-border" />
+            <span className="truncate">rcs-banner.svg</span>
+            <X className="ml-auto size-3.5 shrink-0 text-muted-foreground" />
+          </SketchField>
+          <SketchField label="Rubrik" hint={`${SKETCH_TITLE.length}/200`}>{SKETCH_TITLE}</SketchField>
+          <SketchField label="Beskrivning" hint={`${SKETCH_BODY.length}/2000`}>{SKETCH_BODY}</SketchField>
           <div>
-            <p className="text-xs font-bold">Media <span className="font-normal text-muted-foreground">(valfritt)</span></p>
-            <div className="mt-1.5"><SketchAdd>Lägg till media</SketchAdd></div>
-          </div>
-          <SketchField label="Rubrik">Ert första utskick</SketchField>
-          <SketchField label="Beskrivning">Så ser ett kort med knapp ut hos kunden.</SketchField>
-          <div>
-            <p className="text-xs font-bold">Knappar (1/4)</p>
-            <div className="mt-1.5 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold">Läs mer · Öppnar länk</span>
-              <SketchAdd>Lägg till knapp</SketchAdd>
+            <p className="flex items-baseline justify-between text-xs font-bold">Knappar <span className="font-normal text-muted-foreground tabular-nums">1/4</span></p>
+            <div className="mt-1.5 flex items-center gap-2 rounded-lg bg-background px-3 py-1.5 text-[13px] ring-1 ring-border">
+              <span className="font-semibold">Läs mer</span>
+              <span className="ml-auto rounded-full bg-primary-soft px-2 py-0.5 text-[11px] font-semibold">Öppnar länk</span>
             </div>
+            <p className="mt-2 flex items-center gap-1.5 text-xs font-bold"><Plus className="size-3.5" />Lägg till knapp</p>
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-end gap-2 border-t border-border px-4 py-3">
-        <span className="inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold text-muted-foreground ring-1 ring-border">Skicka test</span>
-        <span className="inline-flex h-8 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span>
+      <div className="flex items-center justify-between gap-2 border-t border-border px-4 py-3">
+        <span className="text-[11px] text-muted-foreground tabular-nums">1 240 mottagare</span>
+        <div className="flex gap-2">
+          <span className="inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold text-muted-foreground ring-1 ring-border">Skicka test</span>
+          <span className="inline-flex h-8 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Skicka</span>
+        </div>
       </div>
     </div>
   );
 }
 
-const API_EXAMPLE = `{
+/** A simplified request: a card with an image, two reply buttons and SMS as the fallback. */
+const API_REQUEST = `{
+  "sender": "RCSDirekt",
   "to": "+46701234567",
-  "text": "Din tid är bokad tisdag kl. 14.00.",
-  "buttons": ["Bekräfta", "Boka om"]
+  "card": {
+    "title": "Din tid är bokad",
+    "description": "Tisdag 14 januari kl. 14.00",
+    "media": "https://exempel.se/bild.jpg",
+    "buttons": [
+      { "type": "reply", "text": "Bekräfta" },
+      { "type": "reply", "text": "Boka om" }
+    ]
+  },
+  "fallback": { "sms": "Din tid: tis 14/1 kl. 14.00" }
 }`;
+
+const API_RESPONSE = `{ "messageId": "a1b2c3", "status": "ACCEPTED" }`;
+
+/** Light JSON colouring: keys muted, strings bright, punctuation faint. No library. */
+function JsonCode({ code }: { code: string }) {
+  const parts = code.split(/("(?:[^"\\]|\\.)*")(\s*:)?/g);
+  const out: ReactNode[] = [];
+  for (let i = 0; i < parts.length; i += 3) {
+    const plain = parts[i];
+    if (plain) out.push(<span key={`p${i}`} className="text-ink-muted/70">{plain}</span>);
+    const str = parts[i + 1];
+    const colon = parts[i + 2];
+    if (str) out.push(<span key={`s${i}`} className={colon ? "text-ink-muted" : "text-ink-foreground"}>{str}</span>);
+    if (colon) out.push(<span key={`c${i}`} className="text-ink-muted/70">{colon}</span>);
+  }
+  return <code>{out}</code>;
+}
 
 const API_EVENTS: [time: string, status: string, detail: string][] = [
   ["14:02", "DELIVERED", "Levererat till telefonen"],
   ["14:05", "SEEN", "Öppnat av mottagaren"],
-  ["14:06", "CLICKED", "Tryckte på Bekräfta"],
+  ["14:06", "REPLY", "Svarade Bekräfta"],
 ];
 
+/** The API in three steps: the request, the answer and the events that come back. */
 function ApiSketch() {
+  const step = "flex items-center gap-2 text-[11px] font-semibold tracking-[0.06em] text-ink-muted uppercase";
   return (
     <figure className="flex h-full flex-col overflow-hidden rounded-xl bg-ink text-left shadow-card">
       <figcaption className="flex items-center justify-between border-b border-ink-foreground/10 px-4 py-2.5 text-xs text-ink-muted">
-        <span className="font-semibold text-ink-foreground">Ett meddelande via API</span>
+        <span className="flex items-center gap-2 font-semibold text-ink-foreground">
+          <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono text-[11px]">POST</span>
+          <span className="font-mono">/messages</span>
+        </span>
         <span>Förenklat exempel</span>
       </figcaption>
-      <pre className="flex flex-1 items-center overflow-x-auto p-5 text-[13px] leading-relaxed text-ink-foreground"><code>{API_EXAMPLE}</code></pre>
-      {/* What comes back: the statuses that the comparison calls delivered, seen and clicked. */}
-      <div className="border-t border-ink-foreground/10 px-5 py-4">
-        <p className="text-xs font-semibold text-ink-foreground">Statushändelser via webhook</p>
-        <ol className="mt-3 grid gap-2 text-[13px] text-ink-muted">
+      <div className="flex-1 px-5 pt-4">
+        <p className={step}>1 Anrop</p>
+        <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={API_REQUEST} /></pre>
+      </div>
+      <div className="border-t border-ink-foreground/10 px-5 py-3">
+        <p className={step}>2 Svar <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono normal-case tracking-normal text-ink-foreground">202</span></p>
+        <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={API_RESPONSE} /></pre>
+      </div>
+      <div className="border-t border-ink-foreground/10 px-5 py-3">
+        <p className={step}>3 Händelser via webhook</p>
+        <ol className="mt-2 grid gap-1.5 text-[12.5px] text-ink-muted">
           {API_EVENTS.map(([time, status, detail]) => (
             <li key={status} className="flex items-center gap-3">
               <span className="font-mono tabular-nums text-ink-muted/80">{time}</span>
-              <span className="rounded-full bg-ink-foreground/10 px-2 py-0.5 font-mono text-[12px] text-ink-foreground">{status}</span>
+              <span className="rounded-full bg-ink-foreground/10 px-2 py-0.5 font-mono text-[11.5px] text-ink-foreground">{status}</span>
               <span className="truncate">{detail}</span>
             </li>
           ))}
