@@ -45,6 +45,7 @@ export async function splitContent() {
     minutes: readingMinutes(article),
   }));
   writeFileSync(new URL("article-list.json", enFolder), JSON.stringify(enList) + "\n");
+  writeFileSync(new URL("sources.json", enFolder), JSON.stringify(en.sources) + "\n");
   return [...parts, "article-list", "sources"];
 }
 

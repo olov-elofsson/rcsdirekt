@@ -24,6 +24,11 @@ import { Route as BloggIndexRouteImport } from './routes/blogg.index'
 import { Route as BloggSlugRouteImport } from './routes/blogg.$slug'
 import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as EnIndexRouteImport } from './routes/en.index'
+import { Route as EnAboutRouteImport } from './routes/en.about'
+import { Route as EnContactRouteImport } from './routes/en.contact'
+import { Route as EnDevelopersRouteImport } from './routes/en.developers'
+import { Route as EnPricingRouteImport } from './routes/en.pricing'
+import { Route as EnSignUpRouteImport } from './routes/en.sign-up'
 import { Route as VFileRouteImport } from './routes/v/$file'
 
 const IndexRoute = IndexRouteImport.update({
@@ -101,6 +106,31 @@ const EnIndexRoute = EnIndexRouteImport.update({
   path: '/en/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/en/about',
+  path: '/en/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnContactRoute = EnContactRouteImport.update({
+  id: '/en/contact',
+  path: '/en/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnDevelopersRoute = EnDevelopersRouteImport.update({
+  id: '/en/developers',
+  path: '/en/developers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPricingRoute = EnPricingRouteImport.update({
+  id: '/en/pricing',
+  path: '/en/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSignUpRoute = EnSignUpRouteImport.update({
+  id: '/en/sign-up',
+  path: '/en/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VFileRoute = VFileRouteImport.update({
   id: '/v/$file',
   path: '/v/$file',
@@ -121,6 +151,11 @@ export interface FileRoutesByFullPath {
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/developers': typeof EnDevelopersRoute
+  '/en/pricing': typeof EnPricingRoute
+  '/en/sign-up': typeof EnSignUpRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
   '/en/': typeof EnIndexRoute
@@ -139,6 +174,11 @@ export interface FileRoutesByTo {
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/developers': typeof EnDevelopersRoute
+  '/en/pricing': typeof EnPricingRoute
+  '/en/sign-up': typeof EnSignUpRoute
   '/v/$file': typeof VFileRoute
   '/blogg': typeof BloggIndexRoute
   '/en': typeof EnIndexRoute
@@ -158,6 +198,11 @@ export interface FileRoutesById {
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/developers': typeof EnDevelopersRoute
+  '/en/pricing': typeof EnPricingRoute
+  '/en/sign-up': typeof EnSignUpRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
   '/en/': typeof EnIndexRoute
@@ -178,6 +223,11 @@ export interface FileRouteTypes {
     | '/api/rcs-video'
     | '/blogg/$slug'
     | '/demo/$slug'
+    | '/en/about'
+    | '/en/contact'
+    | '/en/developers'
+    | '/en/pricing'
+    | '/en/sign-up'
     | '/v/$file'
     | '/blogg/'
     | '/en/'
@@ -196,6 +246,11 @@ export interface FileRouteTypes {
     | '/api/rcs-video'
     | '/blogg/$slug'
     | '/demo/$slug'
+    | '/en/about'
+    | '/en/contact'
+    | '/en/developers'
+    | '/en/pricing'
+    | '/en/sign-up'
     | '/v/$file'
     | '/blogg'
     | '/en'
@@ -214,6 +269,11 @@ export interface FileRouteTypes {
     | '/api/rcs-video'
     | '/blogg/$slug'
     | '/demo/$slug'
+    | '/en/about'
+    | '/en/contact'
+    | '/en/developers'
+    | '/en/pricing'
+    | '/en/sign-up'
     | '/v/$file'
     | '/blogg/'
     | '/en/'
@@ -233,6 +293,11 @@ export interface RootRouteChildren {
   ApiRcsVideoRoute: typeof ApiRcsVideoRoute
   BloggSlugRoute: typeof BloggSlugRoute
   DemoSlugRoute: typeof DemoSlugRoute
+  EnAboutRoute: typeof EnAboutRoute
+  EnContactRoute: typeof EnContactRoute
+  EnDevelopersRoute: typeof EnDevelopersRoute
+  EnPricingRoute: typeof EnPricingRoute
+  EnSignUpRoute: typeof EnSignUpRoute
   VFileRoute: typeof VFileRoute
   BloggIndexRoute: typeof BloggIndexRoute
   EnIndexRoute: typeof EnIndexRoute
@@ -345,6 +410,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/about': {
+      id: '/en/about'
+      path: '/en/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/contact': {
+      id: '/en/contact'
+      path: '/en/contact'
+      fullPath: '/en/contact'
+      preLoaderRoute: typeof EnContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/developers': {
+      id: '/en/developers'
+      path: '/en/developers'
+      fullPath: '/en/developers'
+      preLoaderRoute: typeof EnDevelopersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/pricing': {
+      id: '/en/pricing'
+      path: '/en/pricing'
+      fullPath: '/en/pricing'
+      preLoaderRoute: typeof EnPricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/sign-up': {
+      id: '/en/sign-up'
+      path: '/en/sign-up'
+      fullPath: '/en/sign-up'
+      preLoaderRoute: typeof EnSignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/v/$file': {
       id: '/v/$file'
       path: '/v/$file'
@@ -369,6 +469,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiRcsVideoRoute: ApiRcsVideoRoute,
   BloggSlugRoute: BloggSlugRoute,
   DemoSlugRoute: DemoSlugRoute,
+  EnAboutRoute: EnAboutRoute,
+  EnContactRoute: EnContactRoute,
+  EnDevelopersRoute: EnDevelopersRoute,
+  EnPricingRoute: EnPricingRoute,
+  EnSignUpRoute: EnSignUpRoute,
   VFileRoute: VFileRoute,
   BloggIndexRoute: BloggIndexRoute,
   EnIndexRoute: EnIndexRoute,

@@ -176,4 +176,99 @@ export const en: Record<string, string> = {
   "Sidan du letar efter finns inte eller har flyttats.": "The page you are looking for does not exist or has moved.",
   "Till startsidan": "Go to the home page",
   "Läs om RCS": "Read about RCS",
+
+  // Pricing page
+  "Priser i": "Prices in",
+  Nät: "Network",
+  Via: "Via",
+  "Listpris per meddelande och operatör, exklusive moms": "List price per message and operator, excluding VAT",
+  Operatör: "Operator",
+  Lägst: "Lowest",
+  "Välj land": "Choose country",
+  "Välj valuta": "Choose currency",
+  "kommer snart": "coming soon",
+  "Europriserna är leverantörens listpriser. Kronpriserna är omräknade med": "The euro prices are the supplier's list prices. The krona prices are converted at",
+  "kr per euro.": "SEK per euro.",
+  "Pris per operatör": "Price per operator",
+  "Priset beror på vilken operatör mottagaren har.": "The price depends on which operator the recipient has.",
+  "Alla nät och priser": "All networks and prices",
+  "Räkna på ett utskick": "Estimate a campaign",
+  "Välj meddelandetyp och antal. Kalkylen räknar med det lägsta listpriset.": "Choose a message type and quantity. The calculator uses the lowest list price.",
+
+  // About page
+  "Global plattform": "Global platform",
+  "Vår plattform har direktkopplingar till operatörerna och räckvidd över hela världen. I dag säljer vi i Sverige, och samma plattform når fler länder när ni vill växa.":
+    "Our platform has direct connections to the operators and reach across the world. Today we sell in Sweden, and the same platform reaches more countries when you want to grow.",
+  "Kontrollerade avsändare": "Checked senders",
+  "Vi registrerar varje avsändare och den kontrolleras innan den får skicka. Så vet kunden att det verkligen är ni.":
+    "We register every sender and it is checked before it can send. That way the customer knows it really is you.",
+  "Alla stora nät": "All major networks",
+  "Era kunder nås oavsett om de har {first} eller {last}, och även om de har en operatör som använder något av de näten.":
+    "Your customers are reached whether they use {first} or {last}, and also if their operator runs on one of those networks.",
+  "Meddelandena når kunder hos de stora operatörerna i Sverige.": "The messages reach customers on the major operators in Sweden.",
+  "Uppgifter inom EU": "Data stays in the EU",
+  "Det ni fyller i och era konton sparas hos Google Cloud i Belgien. I integritetspolicyn står vad vi sparar och hur länge.":
+    "What you fill in and your accounts are stored with Google Cloud in Belgium. The privacy policy says what we store and for how long.",
+  "Öppna priser": "Open pricing",
+  "Alla listpriser står på prissidan, per meddelandetyp och operatör. Ni betalar för det ni skickar.":
+    "All list prices are on the pricing page, per message type and operator. You pay for what you send.",
+  "Om rcsdirekt.se": "About rcsdirekt.se",
+  "rcsdirekt.se drivs av {company} i {city}. Vi vill att det ska vara enkelt för svenska företag att skicka RCS, från webben eller via API.":
+    "rcsdirekt.se is run by {company} in {city}, Sweden. We want it to be easy for businesses to send RCS, from the web or through an API.",
+  "Vad vi gör": "What we do",
+  "Vi gör det möjligt för företag att skicka meddelanden med namn, logga, bilder och knappar direkt till kundens vanliga meddelandeapp. Ni bygger utskicket själva i webben eller låter ert system skicka via API. Avsändaren och upplägget hjälper vi er med.":
+    "We make it possible for businesses to send messages with their name, logo, images and buttons straight to the customer's regular messaging app. You build the campaign yourself on the web or let your system send through the API. We help you with the sender and the setup.",
+  "Kontakta oss": "Contact us",
+  Företagsuppgifter: "Company details",
+  Bolag: "Company",
+  Organisationsnummer: "Registration number",
+  Adress: "Address",
+  Tjänst: "Service",
+
+  // Contact page
+  "Berätta lite om vad ni vill skicka, så hör vi av oss. Vi hjälper till med avsändare, upplägg och koppling.":
+    "Tell us a little about what you want to send, and we will get back to you. We help with the sender, setup and integration.",
+  "Har ni redan ett konto?": "Already have an account?",
+  "Logga in i portalen, där skickar ni och ser hur det gick.": "Log in to the portal, where you send and see how it went.",
+  "Undrar ni över priserna? Kolla": "Wondering about pricing? See the",
+  prissidan: "pricing page",
+  "Om personuppgifter står i": "Personal data is covered in the",
+  integritetspolicyn: "privacy policy",
+
+  // Developer page
+  "RCS för utvecklare": "RCS for developers",
+  "Låt era egna system skicka RCS via vårt REST API. Status och svar från kunderna kommer tillbaka till er med webhooks.":
+    "Let your own systems send RCS through our REST API. Status and replies from customers come back to you with webhooks.",
+  "Så fungerar flödet": "How the flow works",
+  Skicka: "Send",
+  "Ert system anropar API:t med mottagare och innehåll, till exempel text, ett kort, en karusell eller knappar. Går RCS inte fram kan ni låta det gå som SMS i stället.":
+    "Your system calls the API with the recipient and the content, for example text, a card, a carousel or buttons. If RCS does not get through, you can let it go as an SMS instead.",
+  "Följ status": "Track status",
+  "Ni får händelser till er webhook när meddelandet har kommit fram, när kunden har öppnat det och när någon trycker på en knapp.":
+    "You get events to your webhook when the message has arrived, when the customer has opened it and when someone taps a button.",
+  "Ta emot svar": "Receive replies",
+  "Trycker kunden på ett förslag eller skriver något kommer det också som en händelse. Då kan ert system svara i samma tråd.":
+    "If the customer taps a suggestion or writes something, that also comes as an event. Your system can then reply in the same thread.",
+  "Det en integration behöver hantera": "What an integration needs to handle",
+  "Händelser från webhooks kommer inte alltid en gång och i rätt ordning. Här är det som brukar ställa till det, med en artikel om varje sak.":
+    "Webhook events do not always arrive once and in the right order. Here is what usually causes trouble, with an article on each.",
+  "Samma händelse kan komma två gånger": "The same event can arrive twice",
+  "Händelser kan komma i fel ordning": "Events can arrive in the wrong order",
+  "Lägg inkommande händelser i en kö": "Put incoming events in a queue",
+  "Kontrollera vem som skickar till webhooken": "Check who is calling the webhook",
+  "Håll API-nycklarna hemliga": "Keep the API keys secret",
+  "Märk när händelser slutar komma": "Notice when events stop arriving",
+  "Artiklar om integrationen": "Articles about the integration",
+  "Googles dokumentation": "Google's documentation",
+  "RCS bygger på Googles RCS for Business. Vill ni gå på djupet finns allt om meddelanden, händelser och webhooks där.":
+    "RCS builds on Google's RCS for Business. To go deeper, everything about messages, events and webhooks is there.",
+
+  // Sign-up page
+  "Skapa ditt konto": "Create your account",
+  "Berätta vilka ni är, så aktiverar vi kontot och hör av oss om vad som händer sen. Har ni redan ett konto?":
+    "Tell us who you are, and we will activate the account and let you know what happens next. Already have an account?",
+  "Vi är intresserade av {plan}.": "We are interested in {plan}.",
+  "Ni betalar bara för det ni skickar. Det finns inga fasta avgifter och ingen bindningstid.": "You only pay for what you send. There are no fixed fees and no lock-in period.",
+  "Så går det till": "How it works",
+  "{brand} drivs av {company}, org.nr {org}, {city}.": "{brand} is run by {company}, reg. no. {org}, {city}, Sweden.",
 };
