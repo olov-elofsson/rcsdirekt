@@ -1,4 +1,4 @@
-import { metaDescription } from "@/components/KnowledgeLayout";
+import { metaDescription } from "@/components/BlogLayout";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";

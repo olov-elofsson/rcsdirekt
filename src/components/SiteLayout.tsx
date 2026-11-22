@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { FormDialog } from "@/components/FormDialog";
-import { LeadForm } from "@/components/LeadForm";
+import { InquiryForm } from "@/components/InquiryForm";
 import { shortWhen, useNextWebinar, when } from "@/lib/webinar";
 import { cn } from "@/lib/utils";
 
@@ -82,7 +82,7 @@ function WebinarBar() {
       </button>
       {signingUp ? (
         <FormDialog title={webinar.title} description={<p>{day}, {time}. {webinar.description} Vi skickar länken till din e-post.</p>} onClose={closeDialog}>
-          <LeadForm mode="webinar" webinar={`${webinar.title}, ${day} ${time}`} compact />
+          <InquiryForm mode="webinar" webinar={`${webinar.title}, ${day} ${time}`} compact />
         </FormDialog>
       ) : null}
     </div>

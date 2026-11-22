@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Building2, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
-import { LeadForm } from "@/components/LeadForm";
+import { InquiryForm } from "@/components/InquiryForm";
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { company, organizationSchema, phoneHref } from "@/lib/company";
@@ -34,7 +34,7 @@ function ContactPage() {
         <PageHeading title="Kontakta oss" description={<p>Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration.</p>} />
         <section className="px-5 pb-16 sm:pb-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
-            <LeadForm mode="contact" />
+            <InquiryForm mode="contact" />
             <aside className="space-y-6">
               <div className="rounded-2xl bg-primary-soft p-6">
                 <h2 className="text-lg font-extrabold">{company.brand}</h2>

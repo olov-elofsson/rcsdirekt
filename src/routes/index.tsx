@@ -6,8 +6,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { pricingPlans } from "@/data/pricing-plans";
 import { cn } from "@/lib/utils";
-import { PhotoScenarios } from "@/components/PhotoScenarios";
-import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomeSections";
+import { CustomerExamples } from "@/components/CustomerExamples";
+import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomepageSections";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { content } from "@/content";
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><PhotoScenarios /><CompareSection /><WaysSection /><Steps /><PricingSection /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerExamples /><CompareSection /><WaysSection /><Steps /><PricingSection /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,

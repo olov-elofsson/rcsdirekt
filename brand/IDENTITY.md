@@ -1,6 +1,6 @@
 # RCS Direkt: visuell identitet
 
-En brief för den som designar något åt RCS Direkt: en sida, en annons, en presentation eller ett utskick. Den bygger på `brand/BRAND.md` (filer, färger och typsnitt), `.agents/brand-context.md` och skillen `brand-identity`, och beskriver hur sajten ser ut i november 2026. Står något här i strid med BRAND.md gäller BRAND.md.
+En brief för den som designar något åt RCS Direkt: en sida, en annons, en presentation eller ett utskick. Den bygger på `brand/BRAND.md` (filer, färger och typsnitt), `brand/brand-context.md`, och beskriver hur sajten ser ut i november 2026. Står något här i strid med BRAND.md gäller BRAND.md.
 
 ## 01 Strategi
 

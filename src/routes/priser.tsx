@@ -4,7 +4,7 @@ import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { content, type NetworkPrice } from "@/content";
-import { PriceCalculator } from "@/components/HomeSections";
+import { PriceCalculator } from "@/components/HomepageSections";
 import { Button } from "@/components/ui/button";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";

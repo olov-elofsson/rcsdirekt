@@ -1,13 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
-import { KnowledgeLayout, knowledgeHead } from "@/components/KnowledgeLayout";
+import { BlogLayout, blogHead } from "@/components/BlogLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { content } from "@/content";
-import { CopyLink, ReadingProgress, useActiveSection } from "@/components/ArticleExtras";
-import { ArticleCard } from "@/components/BlogCards";
-import { articles, findSources, readingMinutes } from "@/data/rcs-knowledge";
+import { CopyLink, ReadingProgress, useActiveSection } from "@/components/ArticleReadingTools";
+import { ArticleCard } from "@/components/ArticleCard";
+import { articles, findSources, readingMinutes } from "@/data/blog-articles";
 
 const lowestPrice = content.priser.plans[0]?.price;
 
@@ -60,18 +60,18 @@ export const Route = createFileRoute("/blogg/$slug")({
     return article;
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { ...knowledgeHead("Artikeln är inte tillgänglig", "Artikeln kunde inte visas. Läs fler guider i vår RCS-kunskapsbank.", "/blogg"), meta: [...knowledgeHead("Artikeln är inte tillgänglig", "Artikeln kunde inte visas.", "/blogg").meta, { name: "robots", content: "noindex" }] };
-    return { ...knowledgeHead(loaderData.title, loaderData.description, `/blogg/${loaderData.slug}`, true), scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: loaderData.title, description: loaderData.description, datePublished: loaderData.published, dateModified: loaderData.published, inLanguage: "sv-SE", author: { "@type": "Organization", name: "RCS Direkt", url: "https://rcsdirekt.se" }, publisher: { "@type": "Organization", name: "RCS Direkt" }, mainEntityOfPage: `https://rcsdirekt.se/blogg/${loaderData.slug}`, citation: findSources(loaderData.sections.flatMap((section) => section.sources)).map((source) => source.url) }) }] };
+    if (!loaderData) return { ...blogHead("Artikeln är inte tillgänglig", "Artikeln kunde inte visas. Läs fler guider i vår RCS-kunskapsbank.", "/blogg"), meta: [...blogHead("Artikeln är inte tillgänglig", "Artikeln kunde inte visas.", "/blogg").meta, { name: "robots", content: "noindex" }] };
+    return { ...blogHead(loaderData.title, loaderData.description, `/blogg/${loaderData.slug}`, true), scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: loaderData.title, description: loaderData.description, datePublished: loaderData.published, dateModified: loaderData.published, inLanguage: "sv-SE", author: { "@type": "Organization", name: "RCS Direkt", url: "https://rcsdirekt.se" }, publisher: { "@type": "Organization", name: "RCS Direkt" }, mainEntityOfPage: `https://rcsdirekt.se/blogg/${loaderData.slug}`, citation: findSources(loaderData.sections.flatMap((section) => section.sources)).map((source) => source.url) }) }] };
   },
   component: ArticlePage,
-  notFoundComponent: () => <KnowledgeLayout><div className="mx-auto max-w-3xl px-5 py-24"><h1 className="text-4xl tracking-normal">Artikeln finns inte</h1><p className="mt-5 text-muted-foreground">Den kan ha flyttats eller så är adressen fel.</p><Button asChild className="mt-7"><Link to="/blogg">Till alla artiklar <ArrowRight data-icon="end" /></Link></Button></div></KnowledgeLayout>,
+  notFoundComponent: () => <BlogLayout><div className="mx-auto max-w-3xl px-5 py-24"><h1 className="text-4xl tracking-normal">Artikeln finns inte</h1><p className="mt-5 text-muted-foreground">Den kan ha flyttats eller så är adressen fel.</p><Button asChild className="mt-7"><Link to="/blogg">Till alla artiklar <ArrowRight data-icon="end" /></Link></Button></div></BlogLayout>,
 });
 
 function ArticlePage() {
   const article = Route.useLoaderData();
   const references = findSources(article.sections.flatMap((section) => section.sources));
   const related = article.related.map((slug) => articles.find((item) => item.slug === slug)).filter((item): item is (typeof articles)[number] => Boolean(item)).slice(0, 4);
-  return <KnowledgeLayout><ReadingProgress /><article>
+  return <BlogLayout><ReadingProgress /><article>
     <PageHeading title={article.title} description={<p>{article.description}</p>}><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span><span className="text-sm text-muted-foreground">Av <Link to="/om-oss" className="font-semibold text-foreground underline-offset-4 hover:underline">RCS Direkt</Link> · Publicerad <time dateTime={article.published}>{new Date(article.published).toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" })}</time></span></PageHeading>
     <div className="mx-auto grid max-w-6xl gap-16 px-5 pb-16 sm:pb-24 lg:grid-cols-[minmax(0,1fr)_17rem] lg:px-8">
     <div className="min-w-0 max-w-3xl">
@@ -110,5 +110,5 @@ function ArticlePage() {
     </div>
     <ArticleAside sections={article.sections} category={article.category} slug={article.slug} />
     </div>
-  </article></KnowledgeLayout>;
+  </article></BlogLayout>;
 }

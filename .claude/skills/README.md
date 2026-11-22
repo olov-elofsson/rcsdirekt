@@ -1,5 +1,7 @@
 # Skills i repot
 
+Elva skills, var och en med en uppgift på rcsdirekt.se. AGENTS.md säger när de ska användas.
+
 ## Egna
 
 | Skill | Används till |
@@ -10,28 +12,16 @@
 
 ## Från andra
 
-Kopierade oförändrade från upphovspersonernas repon den 21 november 2026. Varje mapp har sin licensfil. Uppdatera genom att hämta repot på nytt och kopiera över mappen.
+Kopierade oförändrade från upphovspersonernas repon den 21 november 2026. Varje mapp har sin licensfil. Uppdatera genom att hämta repot på nytt och kopiera över mappen. De kan nämna andra skills från samma bibliotek; de finns inte här.
 
-| Skill | Källa | Version | Licens |
+| Skill | Används till | Källa | Licens |
 | --- | --- | --- | --- |
-| `humanizer` | [blader/humanizer](https://github.com/blader/humanizer) | `a32f244` | MIT |
-| `grill-me`, `grilling` | [mattpocock/skills](https://github.com/mattpocock/skills), `skills/productivity/` | `abeeaf9` | MIT |
-| `caveman`, `ultracave`, `megacave` | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman), `skills/` | `a192894` | Apache 2.0 |
-| 53 marknadsföringsskills, från `ab-testing` till `video` | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills), `skills/` | `5b2b400` | MIT |
-| `brand-identity`, `brand-context` | [arnabbagxd/brand-building-skills](https://github.com/arnabbagxd/brand-building-skills), `skills/` | `4a0a8b5` | MIT |
-| `ui-ux-pro-max` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), `.claude/skills/` | `f76d165` | MIT |
+| `humanizer` | All text på sajten och i CMS:et | [blader/humanizer](https://github.com/blader/humanizer) `a32f244` | MIT |
+| `copywriting` | Ny text | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) `5b2b400` | MIT |
+| `copy-editing` | Ändrad text | samma | MIT |
+| `seo-audit` | Sökmotoroptimering | samma | MIT |
+| `schema` | Strukturerad data (JSON-LD) | samma | MIT |
+| `cro` | Konvertering på sidor och formulär | samma | MIT |
+| `grill-me`, `grilling` | Fråga ut beställaren före större ändringar (`grill-me` anropar `grilling`) | [mattpocock/skills](https://github.com/mattpocock/skills) `abeeaf9` | MIT |
 
-`grill-me` anropar `grilling`, och `caveman` hänvisar till `ultracave` och `megacave`, så de ligger med.
-
-Från marknadsföringsbiblioteket ingår inte mapparna `evals/` (testfall) och `scripts/` (körbar kod). `reverse-engineer-marketing` och `conversion-tracking` nämner skript som därför saknas. Hämta dem från källrepot om de behövs, och läs koden innan den körs: `teardown.mjs` hämtar data från nätet och kräver en egen API-nyckel.
-
-`ui-ux-pro-max` har ett sökskript i Python (`scripts/search.py`) som bara läser skillens egen data; testmappen är inte med. Det har inte körts här, eftersom körning av tredjepartsskript kräver ditt godkännande. Regler och checklista finns som text i `references/`.
-
-Skill Creator från Anthropic finns redan inbyggd i Claude och ligger inte här.
-
-## För rcsdirekt.se
-
-- Texter på sajten och i CMS:et ska gå igenom `humanizer`. Skriver du ny text, använd också `copywriting`, och ändrar du befintlig text, `copy-editing`. Brandkitet och AGENTS.md går före skillsens allmänna råd.
-- `brand-identity` har använts till `brand/IDENTITY.md`, och `brand-context` läser och skriver `.agents/brand-context.md`.
-- Marknadsföringsskillsen utgår från ett kontextdokument, `.agents/product-marketing.md`. Det skapas med `product-marketing`.
-- Skillsen är skrivna på engelska och för amerikanska förhållanden. Svenska regler gäller före deras råd, till exempel marknadsföringslagen, GDPR och PTS regler om reklam via sms och RCS.
+Svenska regler gäller före skillsens amerikanska råd, till exempel marknadsföringslagen, GDPR och reglerna för reklam via SMS och RCS. Brandkitet och AGENTS.md går före skillsens allmänna råd.

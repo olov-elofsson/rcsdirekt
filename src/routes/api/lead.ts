@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { leadSchema, type LeadType } from "@/lib/leads/schema";
+import { inquirySchema, type InquiryType } from "@/lib/inquiries/schema";
 
 const CMS_URL = (process.env["CMS_URL"] || "https://rcsdirekt-cms-631487523529.europe-west1.run.app").replace(/\/$/, "");
 
@@ -22,8 +22,8 @@ export const Route = createFileRoute("/api/lead")({
       if (!body) return Response.json({ error: "invalid" }, { status: 400 });
       // Hidden field that people never fill in; bots often do. Pretend success.
       if (typeof body["website"] === "string" && body["website"] !== "") return Response.json({ ok: true });
-      const type: LeadType = body["type"] === "signup" || body["type"] === "webinar" ? body["type"] : "contact";
-      const parsed = leadSchema(type).safeParse(body);
+      const type: InquiryType = body["type"] === "signup" || body["type"] === "webinar" ? body["type"] : "contact";
+      const parsed = inquirySchema(type).safeParse(body);
       if (!parsed.success) return Response.json({ error: "invalid" }, { status: 400 });
       const key = process.env["LEAD_API_KEY"];
       if (!key) return Response.json({ error: "unavailable" }, { status: 503 });

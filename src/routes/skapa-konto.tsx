@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 
-import { LeadForm } from "@/components/LeadForm";
+import { InquiryForm } from "@/components/InquiryForm";
 import { SiteHeader, SiteFooter } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { content } from "@/content";
@@ -41,7 +41,7 @@ function SignupPage() {
         <section className="px-5 pb-16 sm:pb-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
             <div>
-              <LeadForm mode="signup" {...(plan ? { defaultMessage: `Vi är intresserade av ${plan}.` } : {})} />
+              <InquiryForm mode="signup" {...(plan ? { defaultMessage: `Vi är intresserade av ${plan}.` } : {})} />
               <p className="mt-7 text-center text-xs leading-relaxed text-muted-foreground">Ni betalar per skickat meddelande, utan fasta avgifter eller bindningstid.</p>
             </div>
             {/* What happens after the form, what every account includes and who is behind it. */}

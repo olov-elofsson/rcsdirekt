@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Copy, ExternalLink, Inbox, KeyRound, ListOrdered, MessageSquareReply, Send, ShieldCheck, Activity } from "lucide-react";
 
-import { ArticleCard } from "@/components/BlogCards";
-import { ApiSketch } from "@/components/HomeSections";
+import { ArticleCard } from "@/components/ArticleCard";
+import { ApiSketch } from "@/components/HomepageSections";
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
-import { articles, sources } from "@/data/rcs-knowledge";
+import { articles, sources } from "@/data/blog-articles";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
