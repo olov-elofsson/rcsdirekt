@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolicy'
+import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as OmOssRouteImport } from './routes/om-oss'
 import { Route as PriserRouteImport } from './routes/priser'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
@@ -30,6 +32,16 @@ const IndexRoute = IndexRouteImport.update({
 const IntegritetspolicyRoute = IntegritetspolicyRouteImport.update({
   id: '/integritetspolicy',
   path: '/integritetspolicy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OmOssRoute = OmOssRouteImport.update({
+  id: '/om-oss',
+  path: '/om-oss',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PriserRoute = PriserRouteImport.update({
@@ -86,6 +98,8 @@ const VFileRoute = VFileRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
+  '/kontakt': typeof KontaktRoute
+  '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
@@ -100,6 +114,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
+  '/kontakt': typeof KontaktRoute
+  '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
@@ -115,6 +131,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
+  '/kontakt': typeof KontaktRoute
+  '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
@@ -131,6 +149,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/integritetspolicy'
+    | '/kontakt'
+    | '/om-oss'
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
@@ -145,6 +165,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/integritetspolicy'
+    | '/kontakt'
+    | '/om-oss'
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
@@ -159,6 +181,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/integritetspolicy'
+    | '/kontakt'
+    | '/om-oss'
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
@@ -174,6 +198,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   IntegritetspolicyRoute: typeof IntegritetspolicyRoute
+  KontaktRoute: typeof KontaktRoute
+  OmOssRoute: typeof OmOssRoute
   PriserRoute: typeof PriserRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
@@ -200,6 +226,20 @@ declare module '@tanstack/react-router' {
       path: '/integritetspolicy'
       fullPath: '/integritetspolicy'
       preLoaderRoute: typeof IntegritetspolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/om-oss': {
+      id: '/om-oss'
+      path: '/om-oss'
+      fullPath: '/om-oss'
+      preLoaderRoute: typeof OmOssRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/priser': {
@@ -278,6 +318,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   IntegritetspolicyRoute: IntegritetspolicyRoute,
+  KontaktRoute: KontaktRoute,
+  OmOssRoute: OmOssRoute,
   PriserRoute: PriserRoute,
   SkapaKontoRoute: SkapaKontoRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,

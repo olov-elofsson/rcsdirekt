@@ -8,6 +8,7 @@ import { PriceCalculator } from "@/components/HomeSections";
 import { Button } from "@/components/ui/button";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
+import { organizationSchema } from "@/lib/company";
 
 const page = content.priser;
 const { plans: pricingPlans, countries: pricingCountries, currencies: pricingCurrencies } = page;
@@ -27,6 +28,21 @@ export const Route = createFileRoute("/priser")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://rcsdirekt.se/priser" }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "RCS Direkt",
+      serviceType: "RCS-meddelanden för företag",
+      areaServed: { "@type": "Country", name: "Sverige" },
+      provider: organizationSchema,
+      offers: pricingPlans.map((plan) => ({
+        "@type": "Offer",
+        name: plan.name,
+        description: plan.contents,
+        priceCurrency: "SEK",
+        priceSpecification: { "@type": "UnitPriceSpecification", price: Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", ".")), priceCurrency: "SEK", unitText: "meddelande", valueAddedTaxIncluded: false },
+      })),
+    }) }],
   }),
   component: PricingPage,
 });

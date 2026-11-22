@@ -194,6 +194,7 @@ const footerNav = [
   {
     title: "RCS Direkt",
     links: [
+      { label: "Om oss", to: "/om-oss" },
       { label: "Kundexempel", to: "/", hash: "exempel" },
       { label: "Varför RCS", to: "/", hash: "rcs-mot-sms" },
       { label: "Priser", to: "/priser" },
@@ -204,7 +205,7 @@ const footerNav = [
     title: "Kom igång",
     links: [
       { label: "Skapa konto", to: "/skapa-konto" },
-      { label: "Kontakt", to: "/", hash: "kontakt" },
+      { label: "Kontakt", to: "/kontakt" },
       { label: "Logga in", href: "https://portal.rcsdirekt.se/login" },
     ],
   },

@@ -4,7 +4,39 @@ import { KnowledgeLayout, knowledgeHead } from "@/components/KnowledgeLayout";
 import { PageHeading } from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { content } from "@/content";
 import { articles, findSources, readingMinutes } from "@/data/rcs-knowledge";
+
+const lowestPrice = content.priser.plans[0]?.price;
+
+/** The aside on wide screens: the article's sections, then the way to try RCS. */
+function ArticleAside({ sections }: { sections: { id: string; title: string }[] }) {
+  const titled = sections.filter((section) => section.title);
+  return (
+    <aside className="hidden lg:block">
+      <div className="sticky top-28 space-y-6">
+        {titled.length > 1 ? (
+          <nav aria-label="Innehåll i artikeln">
+            <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase">Innehåll</p>
+            <ul className="mt-3 space-y-1 border-l border-border">
+              {titled.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">{section.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
+        <div className="rounded-2xl bg-ink p-6 text-ink-foreground">
+          <p className="font-display text-lg font-extrabold leading-snug">Skicka RCS för ert företag</p>
+          <p className="mt-2 text-sm leading-relaxed text-ink-muted">{lowestPrice ? `Från ${lowestPrice} per meddelande. ` : ""}Ingen startavgift eller bindningstid.</p>
+          <Button asChild variant="outline" className="mt-5 w-full border-transparent"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+          <Link to="/priser" className="mt-3 inline-flex min-h-10 w-full items-center justify-center text-sm font-semibold text-ink-muted underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">Se alla priser</Link>
+        </div>
+      </div>
+    </aside>
+  );
+}
 
 export const Route = createFileRoute("/blogg/$slug")({
   loader: ({ params }) => {
@@ -23,9 +55,11 @@ export const Route = createFileRoute("/blogg/$slug")({
 function ArticlePage() {
   const article = Route.useLoaderData();
   const references = findSources(article.sections.flatMap((section) => section.sources));
+  const related = article.related.map((slug) => articles.find((item) => item.slug === slug)).filter((item): item is (typeof articles)[number] => Boolean(item)).slice(0, 4);
   return <KnowledgeLayout><article>
-    <PageHeading title={article.title} description={<p>{article.description}</p>}><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span></PageHeading>
-    <div className="mx-auto max-w-3xl px-5 pb-16 sm:pb-24 lg:px-8">
+    <PageHeading title={article.title} description={<p>{article.description}</p>}><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span><span className="text-sm text-muted-foreground">Av <Link to="/om-oss" className="font-semibold text-foreground underline-offset-4 hover:underline">RCS Direkt</Link> · Publicerad <time dateTime={article.published}>{new Date(article.published).toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" })}</time></span></PageHeading>
+    <div className="mx-auto grid max-w-6xl gap-16 px-5 pb-16 sm:pb-24 lg:grid-cols-[minmax(0,1fr)_17rem] lg:px-8">
+    <div className="min-w-0 max-w-3xl">
     <Link to="/blogg" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-logo-blue"><ArrowLeft aria-hidden className="size-4" /> Alla artiklar</Link>
     <div className="mt-8 space-y-12">
       {article.sections.map((section) => (
@@ -43,6 +77,29 @@ function ArticlePage() {
       ))}
     </div>
     <section aria-label="Källor" className="mt-14"><h2 className="font-sans text-sm font-semibold text-muted-foreground">Källor</h2><ul className="mt-5 space-y-4">{references.map((source) => <li key={source.id}><a href={source.url} target="_blank" rel="noreferrer" className="group inline-flex min-h-11 max-w-full items-start gap-3 rounded-sm text-sm leading-relaxed text-muted-foreground outline-none transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4"><ExternalLink aria-hidden strokeWidth={1.5} className="mt-1 size-3.5 shrink-0 opacity-60" /><span className="min-w-0"><span className="block underline-offset-4 group-hover:underline">{source.title}</span><span className="mt-0.5 block text-xs opacity-70">{new URL(source.url).hostname}</span></span></a></li>)}</ul></section>
+    {related.length ? (
+      <section aria-label="Läs vidare" className="mt-14 border-t border-border pt-10">
+        <h2 className="text-xl font-extrabold">Läs vidare</h2>
+        <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+          {related.map((item) => (
+            <li key={item.slug}>
+              <Link to="/blogg/$slug" params={{ slug: item.slug }} className="group flex h-full flex-col rounded-2xl bg-card p-5 shadow-card transition-[box-shadow,translate] duration-200 ease-out hover:-translate-y-0.5">
+                <span className="text-xs font-semibold text-muted-foreground">{item.category}</span>
+                <span className="mt-1.5 font-bold leading-snug transition-colors group-hover:text-logo-blue">{item.title}</span>
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-xs font-semibold text-muted-foreground">{readingMinutes(item)} min läsning</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null}
+    <div className="mt-14 rounded-2xl bg-ink p-6 text-ink-foreground lg:hidden">
+      <p className="font-display text-lg font-extrabold">Skicka RCS för ert företag</p>
+      <p className="mt-2 text-sm text-ink-muted">{lowestPrice ? `Från ${lowestPrice} per meddelande. ` : ""}Ingen startavgift eller bindningstid.</p>
+      <Button asChild variant="outline" className="mt-5 border-transparent"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+    </div>
+    </div>
+    <ArticleAside sections={article.sections} />
     </div>
   </article></KnowledgeLayout>;
 }

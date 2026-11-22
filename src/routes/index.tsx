@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, BadgeCheck, Check, Send, UserPlus } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,8 @@ import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSectio
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { content } from "@/content";
+import { organizationSchema } from "@/lib/company";
+import { STEPS } from "@/data/onboarding";
 
 const home = content.startsida;
 
@@ -46,7 +48,7 @@ export const Route = createFileRoute("/")({
   ],
   links: [{ rel: "canonical", href: "https://rcsdirekt.se/" }],
   scripts: [
-    { type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "RCS Direkt", legalName: "WIGOSE AB", url: "https://rcsdirekt.se/", logo: "https://rcsdirekt.se/icon-512.png", description: home.seo.description }) },
+    { type: "application/ld+json", children: JSON.stringify({ ...organizationSchema, description: home.seo.description }) },
     ...webinarSchema(),
   ],
   }),
@@ -85,11 +87,6 @@ function HeroFirst() {
 }
 
 
-const STEPS = [
-  { Icon: UserPlus, title: "Skapa ett konto", copy: "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss med nästa steg." },
-  { Icon: BadgeCheck, title: "Registrera avsändare", copy: "Ni skickar företagsnamn, logotyp och en kort beskrivning. Vi registrerar avsändaren, och den kontrolleras innan den får skicka." },
-  { Icon: Send, title: "Skicka första utskicket", copy: "Bygg meddelandet i webbverktyget eller koppla in ert system via API. Ni betalar för de meddelanden som skickas." },
-];
 
 /** How a company gets started: three steps in a row, so the process is visible before the price. */
 function Steps() {
