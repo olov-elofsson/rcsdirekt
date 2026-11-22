@@ -48,7 +48,7 @@ function BlogPage() {
   const [lead, ...side] = featured;
   return (
     <BlogLayout>
-      <PageHeading title="Insikter" description={<p>Korta artiklar om RCS och vad som gäller för företag i Sverige. Varje artikel anger sina källor.</p>}>
+      <PageHeading title="Insikter" description={<p>Korta artiklar om RCS och vad som gäller i Sverige. Alla har källor, så du kan kolla själv.</p>}>
         <div className="relative w-full max-w-xl">
           <Search aria-hidden strokeWidth={1.75} className="pointer-events-none absolute left-5 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -95,7 +95,7 @@ function BlogPage() {
         <section aria-labelledby="amnen" className="bg-primary-soft py-14 sm:py-16">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <h2 id="amnen" className={sectionTitle}>Utforska ämnen</h2>
-            <p className={sectionIntro}>Välj ett ämne för att se artiklarna om det.</p>
+            <p className={sectionIntro}>Välj ett ämne, så ser du artiklarna om det.</p>
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               {topics.map(([name, count]) => {
                 const Icon = topicIcon(name);

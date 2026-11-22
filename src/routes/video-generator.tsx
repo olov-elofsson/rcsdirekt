@@ -7,7 +7,7 @@ import { RcsVideoGenerator } from "@/components/rcs-video/RcsVideoGenerator";
 
 const title = "Video till RCS-ansökan";
 const description =
-  "För att lansera en RCS-avsändare krävs en video av hela mottagarupplevelsen, inklusive samtycke, avregistrering och HJÄLP, på en offentlig länk. Fyll i avsändaren, så skapas både videon och texterna till ansökan.";
+  "Innan en RCS-avsändare kan lanseras behöver ni en video som visar hela upplevelsen för mottagaren, med samtycke, avregistrering och HJÄLP, på en offentlig länk. Fyll i er avsändare här, så får ni både videon och texterna till ansökan.";
 
 export const Route = createFileRoute("/video-generator")({
   head: () => ({

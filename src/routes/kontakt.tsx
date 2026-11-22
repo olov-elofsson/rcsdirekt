@@ -7,7 +7,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { company, organizationSchema, phoneHref } from "@/lib/company";
 
 const title = "Kontakta rcsdirekt.se";
-const description = "Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration. rcsdirekt.se drivs av WIGOSE AB i Örebro.";
+const description = "Berätta lite om vad ni vill skicka, så hör vi av oss och hjälper till med avsändare, upplägg och koppling. rcsdirekt.se drivs av WIGOSE AB i Örebro.";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -31,7 +31,7 @@ function ContactPage() {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
-        <PageHeading title="Kontakta oss" description={<p>Berätta vad ni vill skicka, så hjälper vi er med avsändare, upplägg och integration.</p>} />
+        <PageHeading title="Kontakta oss" description={<p>Berätta lite om vad ni vill skicka, så hör vi av oss. Vi hjälper till med avsändare, upplägg och koppling.</p>} />
         <section className="px-5 pb-16 sm:pb-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
             <InquiryForm mode="contact" />
@@ -48,11 +48,11 @@ function ContactPage() {
               </div>
               <div className="rounded-2xl bg-card p-6 shadow-card">
                 <h2 className="text-lg font-extrabold">Har ni redan ett konto?</h2>
-                <p className="mt-1.5 text-sm text-muted-foreground">Logga in i portalen för att skicka och se rapporter.</p>
+                <p className="mt-1.5 text-sm text-muted-foreground">Logga in i portalen, där skickar ni och ser hur det gick.</p>
                 <a href="https://portal.rcsdirekt.se/login" className="mt-3 inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:text-logo-blue hover:underline">Logga in <ArrowUpRight aria-hidden className="size-4" /></a>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Frågor om priser? Se <Link to="/priser" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">prissidan</Link>. Om personuppgifter, se <Link to="/integritetspolicy" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">integritetspolicyn</Link>.
+                Undrar ni över priserna? Kolla <Link to="/priser" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">prissidan</Link>. Om personuppgifter står i <Link to="/integritetspolicy" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">integritetspolicyn</Link>.
               </p>
             </aside>
           </div>

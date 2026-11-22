@@ -9,7 +9,7 @@ import { company, organizationSchema } from "@/lib/company";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 
 const title = "Om rcsdirekt.se | WIGOSE AB i Örebro";
-const description = "rcsdirekt.se är en tjänst från WIGOSE AB i Örebro. Svenska företag skickar RCS från webben eller via API och betalar per meddelande.";
+const description = "rcsdirekt.se drivs av WIGOSE AB i Örebro. Här skickar svenska företag RCS från webben eller via API och betalar per meddelande.";
 const operators = priser.operators.filter((name) => !name.startsWith("Övriga"));
 
 export const Route = createFileRoute("/om-oss")({
@@ -30,10 +30,10 @@ export const Route = createFileRoute("/om-oss")({
 
 /** How we work, each point backed by something on the site: the sender check, the networks, where data lives, the prices. */
 const PRINCIPLES = [
-  { Icon: BadgeCheck, title: "Kontrollerade avsändare", copy: "Varje avsändare registreras och kontrolleras innan den får skicka, så att kunden ser ett riktigt företagsnamn och en logotyp." },
-  { Icon: RadioTower, title: "Alla stora nät", copy: operators.length ? `Meddelandena når kunder hos ${operators.slice(0, -1).join(", ")} och ${operators.at(-1)}, och hos operatörerna som använder deras nät.` : "Meddelandena når kunder hos de stora operatörerna i Sverige." },
-  { Icon: ShieldCheck, title: "Uppgifter inom EU", copy: "Formulär och konton lagras hos Google Cloud i Belgien. Integritetspolicyn beskriver vad vi sparar och hur länge." },
-  { Icon: Coins, title: "Öppna priser", copy: "Listpriset för varje meddelandetyp och operatör står på prissidan. Ni betalar per skickat meddelande." },
+  { Icon: BadgeCheck, title: "Kontrollerade avsändare", copy: "Vi registrerar varje avsändare och den kontrolleras innan den får skicka. Så vet kunden att det verkligen är ni." },
+  { Icon: RadioTower, title: "Alla stora nät", copy: operators.length ? `Era kunder nås oavsett om de har ${operators.slice(0, -1).join(", ")} eller ${operators.at(-1)}, och även om de har en operatör som använder något av de näten.` : "Meddelandena når kunder hos de stora operatörerna i Sverige." },
+  { Icon: ShieldCheck, title: "Uppgifter inom EU", copy: "Det ni fyller i och era konton sparas hos Google Cloud i Belgien. I integritetspolicyn står vad vi sparar och hur länge." },
+  { Icon: Coins, title: "Öppna priser", copy: "Alla listpriser står på prissidan, per meddelandetyp och operatör. Ni betalar för det ni skickar." },
 ];
 
 function AboutPage() {
@@ -43,7 +43,7 @@ function AboutPage() {
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
         <PageHeading
           title="Om rcsdirekt.se"
-          description={<p>rcsdirekt.se är en tjänst från {company.legalName} i {company.city}. Vi hjälper svenska företag att skicka RCS från webben eller via API.</p>}
+          description={<p>rcsdirekt.se drivs av {company.legalName} i {company.city}. Vi vill att det ska vara enkelt för svenska företag att skicka RCS, från webben eller via API.</p>}
         />
 
         <section className="pb-16 sm:pb-20">
@@ -65,7 +65,7 @@ function AboutPage() {
             <div>
               <h2 className={sectionTitle}>Vad vi gör</h2>
               <p className={sectionIntro}>
-                Med rcsdirekt.se skickar företag meddelanden med namn, logotyp, bilder och knappar till kundernas vanliga meddelandeapp. Ni bygger utskicket i webbverktyget eller kopplar in ert system via API, och vi hjälper till med avsändaren och upplägget.
+                Vi gör det möjligt för företag att skicka meddelanden med namn, logga, bilder och knappar direkt till kundens vanliga meddelandeapp. Ni bygger utskicket själva i webben eller låter ert system skicka via API. Avsändaren och upplägget hjälper vi er med.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>

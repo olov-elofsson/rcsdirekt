@@ -33,9 +33,9 @@ const bySlug = (slug: string) => articles.find((article) => article.slug === slu
 
 /** The flow in three steps, as the start page and the guides describe it. */
 const FLOW = [
-  { Icon: Send, title: "Skicka", copy: "Ert system anropar API:t med mottagare och innehåll: text, kort, karusell eller knappar. Ni kan ange SMS som reserv om RCS inte går fram." },
-  { Icon: Activity, title: "Följ status", copy: "Status kommer tillbaka som händelser till er webhook: levererat till telefonen, öppnat och tryck på knappar." },
-  { Icon: MessageSquareReply, title: "Ta emot svar", copy: "När kunden trycker på ett förslag eller skriver ett svar kommer det som en händelse, så att ert system kan svara i samma tråd." },
+  { Icon: Send, title: "Skicka", copy: "Ert system anropar API:t med mottagare och innehåll, till exempel text, ett kort, en karusell eller knappar. Går RCS inte fram kan ni låta det gå som sms i stället." },
+  { Icon: Activity, title: "Följ status", copy: "Ni får händelser till er webhook när meddelandet har kommit fram, när kunden har öppnat det och när någon trycker på en knapp." },
+  { Icon: MessageSquareReply, title: "Ta emot svar", copy: "Trycker kunden på ett förslag eller skriver något kommer det också som en händelse. Då kan ert system svara i samma tråd." },
 ];
 
 /** What a working integration handles, each point backed by a guide on the site. */
@@ -59,7 +59,7 @@ function DeveloperPage() {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
-        <PageHeading title="RCS för utvecklare" description={<p>Skicka RCS från era egna system via REST API och ta emot status och svar med webhooks.</p>}>
+        <PageHeading title="RCS för utvecklare" description={<p>Låt era egna system skicka RCS via vårt REST API. Status och svar från kunderna kommer tillbaka till er med webhooks.</p>}>
           <Button asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
           <Button asChild size="lg" variant="outline"><Link to="/kontakt">Prata med oss</Link></Button>
         </PageHeading>
@@ -87,7 +87,7 @@ function DeveloperPage() {
         <section className="bg-ink py-16 text-ink-foreground sm:py-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <h2 className={sectionTitle}>Det en integration behöver hantera</h2>
-            <p className={cn(sectionIntro, "text-ink-muted")}>Händelser via webhook kommer inte alltid en gång och i ordning. Varje punkt har en artikel.</p>
+            <p className={cn(sectionIntro, "text-ink-muted")}>Händelser från webhooks kommer inte alltid en gång och i rätt ordning. Här är det som brukar ställa till det, med en artikel om varje sak.</p>
             <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {CHECKLIST.filter((item) => bySlug(item.slug)).map(({ Icon, slug, label }) => (
                 <li key={slug}>
@@ -111,7 +111,7 @@ function DeveloperPage() {
             {DOCS.length ? (
               <div className="mt-12 rounded-2xl bg-primary-soft p-6 sm:p-8">
                 <h3 className="text-lg font-extrabold">Googles dokumentation</h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">RCS bygger på Googles RCS for Business. Där beskrivs meddelanden, händelser och webhooks i detalj.</p>
+                <p className="mt-1.5 text-sm text-muted-foreground">RCS bygger på Googles RCS for Business. Vill ni gå på djupet finns allt om meddelanden, händelser och webhooks där.</p>
                 <ul className="mt-4 grid gap-2 sm:grid-cols-3">
                   {DOCS.map((source) => (
                     <li key={source.id}>
