@@ -59,9 +59,6 @@ export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
-  // On a phone the list is long, so it starts with the first five properties.
-  const [allRows, setAllRows] = useState(false);
-  const shown = allRows ? rows : rows.slice(0, 5);
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -78,16 +75,17 @@ export function CompareSection() {
               <col />
             </colgroup>
             <thead>
-              <tr className="bg-ink text-ink-foreground">
-                <th scope="col" className="px-3 py-3.5 sm:px-8 sm:py-4"><span className="sr-only">{t("Egenskap")}</span></th>
-                <th scope="col" className="px-2 py-3.5 text-sm font-semibold text-ink-muted sm:px-6 sm:py-4">SMS</th>
-                <th scope="col" className="px-2 py-3.5 font-display text-base font-extrabold sm:px-6 sm:py-4">RCS</th>
+              {/* The properties and RCS each stand as their own lit block; SMS stays plain between them. */}
+              <tr>
+                <th scope="col" className="bg-ink px-3 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-8 sm:py-4">{t("Funktion")}</th>
+                <th scope="col" className="px-2 py-3.5 text-sm font-semibold text-muted-foreground sm:px-6 sm:py-4">SMS</th>
+                <th scope="col" className="bg-ink px-2 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-6 sm:py-4">RCS</th>
               </tr>
             </thead>
             <tbody>
-              {shown.map((item) => (
+              {rows.map((item) => (
                 <tr key={item.label} className="border-t border-border first:border-t-0">
-                  <th scope="row" className="px-3 py-3.5 text-[13px] font-semibold leading-snug text-pretty sm:px-8 sm:py-4 sm:text-[15px]">
+                  <th scope="row" className="bg-muted px-3 py-3.5 text-[13px] font-semibold leading-snug text-pretty sm:px-8 sm:py-4 sm:text-[15px]">
                     {item.label}
                   </th>
                   <td className="px-2 py-3.5 sm:px-6 sm:py-4"><Fact value={item.sms} rcs={false} /></td>
@@ -97,11 +95,6 @@ export function CompareSection() {
             </tbody>
           </table>
         </div>
-        {rows.length > shown.length ? (
-          <Button type="button" variant="outline" className="mt-4 w-full sm:w-auto" onClick={() => setAllRows(true)}>
-            {t("Visa alla {count} jämförelser").replace("{count}", String(rows.length))}
-          </Button>
-        ) : null}
       </div>
     </section>
   );
