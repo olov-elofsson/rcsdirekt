@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, CheckCheck, Send, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, Send, X } from "lucide-react";
 import restaurantPhoto from "@/assets/foto-restaurang-800.webp";
 import bowlingPhoto from "@/assets/foto-bowling-800.webp";
 
@@ -539,8 +539,7 @@ export function BlogSection() {
   const { t, lp, locale } = useT();
   const list = locale === "en" ? articleListEn : articleList;
   const picks = home.blogg.picks.map((slug) => list.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
-  // Only the first pick (the latest news), large; the rest are one click away under "Alla artiklar".
-  const [first] = picks;
+  const [first, ...rest] = picks;
   return (
     <section id="blogg" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -552,20 +551,24 @@ export function BlogSection() {
           <Link to={lp("/blogg")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         {first ? (
-          <div className={sectionBody}>
-            <Link to={lp("/blogg/$slug")} params={{ slug: first.slug }} data-reveal style={order(0)} className="group grid gap-5 rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9 lg:grid-cols-2 lg:gap-12">
-              <div>
-                <Badge variant="secondary" className="bg-ink-foreground text-ink">{first.category}</Badge>
-                <h3 className="mt-4 text-3xl font-extrabold leading-tight text-balance">{first.title}</h3>
-              </div>
-              <div className="lg:pt-10">
-                <p className="leading-relaxed text-pretty text-ink-muted">{first.description}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold">
-                  {t("Läs artikeln")} · {first.minutes} {t("min läsning")}
-                  <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </span>
-              </div>
+          <div className={cn(sectionBody, "grid gap-5 lg:grid-cols-[1.2fr_0.8fr]")}>
+            <Link to={lp("/blogg/$slug")} params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[280px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
+              <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
+              <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
+              <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
+              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{first.minutes} {t("min läsning")}</span>
+              <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold">{t("Läs artikeln")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
             </Link>
+            <div className="grid gap-5">
+              {rest.map((article, index) => (
+                <Link key={article.slug} to={lp("/blogg/$slug")} params={{ slug: article.slug }} data-reveal style={order(index + 1)} className="group flex flex-col rounded-2xl bg-card p-6 shadow-card transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                  <Badge variant="secondary" className="self-start">{article.category}</Badge>
+                  <h3 className="mt-3 text-lg font-extrabold leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{article.minutes} {t("min läsning")}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         ) : null}
       </div>
