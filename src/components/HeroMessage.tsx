@@ -121,10 +121,10 @@ const SWITCH_MS = 3600;
 export function HeroMessage({ className }: { className?: string }) {
   const { t } = useT();
   const box = useRef<HTMLDivElement>(null);
-  const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS);
+  const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS, true);
 
   return (
-    <div ref={box} className={cn("w-full lg:max-w-[20rem]", className)}>
+    <div ref={box} className={cn("w-full", className)}>
       {/* A label above the box, in the same style as the line above the hero heading. */}
       <p id="se-skillnaden" className="mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold text-muted-foreground sm:text-sm">
         <MousePointerClick aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
@@ -149,7 +149,7 @@ export function HeroMessage({ className }: { className?: string }) {
         ))}
       </div>
       {/* Both versions share one grid cell, so the box keeps its height and the page never moves while they switch. */}
-      <div className="grid text-left lg:min-h-[27.5rem]" aria-live="polite">
+      <div className="grid text-left" aria-live="polite">
         {[false, true].map((value) => (
           <div
             key={String(value)}

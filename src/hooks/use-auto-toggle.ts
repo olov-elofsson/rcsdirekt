@@ -4,12 +4,12 @@ const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * An SMS/RCS switch that flips by itself every `interval` ms while `ref` is on screen, and stops
+ * An SMS/RCS switch (starting on RCS when `startWithRcs` is set) that flips by itself every `interval` ms while `ref` is on screen, and stops
  * for good once the visitor picks a side (`pick`) or otherwise takes over (`touch`). With reduced
  * motion it simply shows RCS.
  */
-export function useAutoToggle(ref: RefObject<HTMLElement | null>, interval = 3600) {
-  const [rcs, setRcs] = useState(false);
+export function useAutoToggle(ref: RefObject<HTMLElement | null>, interval = 3600, startWithRcs = false) {
+  const [rcs, setRcs] = useState(startWithRcs);
   const touched = useRef(false);
 
   useEffect(() => {
