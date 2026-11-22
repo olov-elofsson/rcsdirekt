@@ -9,6 +9,7 @@ import * as migration_20261121_198000_five_advantages from './20261121_198000_fi
 import * as migration_20261121_199000_headings_and_advantages from './20261121_199000_headings_and_advantages';
 import * as migration_20261121_200000_section_intros from './20261121_200000_section_intros';
 import * as migration_20261122_100000_pitch from './20261122_100000_pitch';
+import * as migration_20261122_110000_advantage_sms from './20261122_110000_advantage_sms';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -103,5 +104,10 @@ export const migrations = [
     up: migration_20261122_100000_pitch.up,
     down: migration_20261122_100000_pitch.down,
     name: '20261122_100000_pitch',
+  },
+  {
+    up: migration_20261122_110000_advantage_sms.up,
+    down: migration_20261122_110000_advantage_sms.down,
+    name: '20261122_110000_advantage_sms',
   },
 ];

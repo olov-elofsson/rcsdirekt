@@ -108,7 +108,11 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       seo: { title: text(startsida.seo?.title), description: text(startsida.seo?.description) },
       hero: { title: text(startsida.hero?.title), highlight: text(startsida.hero?.highlight), description: text(startsida.hero?.description) },
       kundcaseHeading: text(startsida.kundcaseHeading),
-      fordelar: { heading: text(startsida.fordelar?.heading), intro: text(startsida.fordelar?.intro), items: items(startsida.fordelar?.items) },
+      fordelar: {
+        heading: text(startsida.fordelar?.heading),
+        intro: text(startsida.fordelar?.intro),
+        items: list(startsida.fordelar?.items).map((row) => ({ icon: text(row.icon), title: text(row.title), copy: text(row.copy), sms: text(row.sms) })),
+      },
       jamforelse: {
         heading: text(startsida.jamforelse?.heading),
         intro: text(startsida.jamforelse?.intro),

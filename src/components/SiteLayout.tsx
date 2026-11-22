@@ -212,18 +212,9 @@ const footerNav = [
   },
 ] as const;
 
-function FooterWave({ fill }: { fill: string }) {
-  return (
-    <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-px z-0 h-14 w-full -rotate-180 sm:h-20 lg:h-28" viewBox="0 0 1440 120" preserveAspectRatio="none">
-      <path d="M0 62 C240 12 480 6 720 38 C960 70 1200 110 1440 54 L1440 120 L0 120 Z" fill={fill} />
-    </svg>
-  );
-}
-
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-ink pt-28 pb-12 text-ink-foreground sm:pt-36 sm:pb-14">
-      <FooterWave fill="var(--color-background)" />
+    <footer className="relative overflow-hidden bg-ink pt-16 pb-12 text-ink-foreground sm:pt-20 sm:pb-14">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div className="grid gap-14">
           <div>

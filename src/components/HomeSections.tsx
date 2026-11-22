@@ -1,11 +1,11 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, MapPin, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, X } from "lucide-react";
 
-import { Wave } from "@/components/BandWave";
 import { LeadForm } from "@/components/LeadForm";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { content } from "@/content";
 import { articles } from "@/data/rcs-knowledge";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
@@ -32,44 +32,53 @@ function SenderLine({ name, verified }: { name: string; verified: boolean }) {
 function compareValue(value: string): boolean | string {
   if (value.trim() === "✓") return true;
   if (value.trim() === "✗") return false;
-  return value;
+  // A no-break space inside numbers like "4 000", so a narrow column never splits them.
+  return value.replace(/(\d) (?=\d)/g, "$1\u00a0");
 }
 
 function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
   if (typeof value === "boolean")
     return value ? (
-      <span className={cn("inline-flex", rcs ? "text-logo-blue" : "text-foreground")}><Check aria-hidden className="size-4.5" /><span className="sr-only">Ja</span></span>
+      <span className={cn("inline-flex", rcs ? "text-logo-blue" : "text-foreground")}><Check aria-hidden className="size-5" /><span className="sr-only">Ja</span></span>
     ) : (
-      <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-4.5" /><span className="sr-only">Nej</span></span>
+      <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-5" /><span className="sr-only">Nej</span></span>
     );
-  return <span className={cn("text-[13px] font-semibold leading-snug", rcs ? "text-foreground" : "text-muted-foreground")}>{value}</span>;
+  return <span className={cn("text-sm leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
 
 export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
     <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
-      <Wave flip fill="var(--color-background)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
-        <div data-reveal style={order(1)} className={cn(sectionBody, "max-w-3xl rounded-2xl bg-card px-6 py-2 sm:px-8")}>
-          <div aria-hidden className="grid grid-cols-[1fr_5rem_6.5rem] gap-x-3 pt-4 pb-1 text-xs font-semibold text-muted-foreground sm:grid-cols-[1fr_8rem_9rem]">
-            <span />
-            <span>SMS</span>
-            <span className="text-foreground">RCS</span>
-          </div>
-          <dl className="divide-y divide-border">
-            {rows.map((item) => (
-              <div key={item.label} className="grid grid-cols-[1fr_5rem_6.5rem] items-center gap-x-3 py-3.5 sm:grid-cols-[1fr_8rem_9rem]">
-                <dt className="text-sm font-semibold leading-snug">{item.label}</dt>
-                <dd><Fact value={item.sms} rcs={false} /></dd>
-                <dd><Fact value={item.rcs} rcs /></dd>
-              </div>
-            ))}
-          </dl>
+        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card")}>
+          <table className="w-full table-fixed border-collapse text-left">
+            <colgroup>
+              <col className="w-[38%]" />
+              <col />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" className="px-5 py-4 sm:px-8"><span className="sr-only">Egenskap</span></th>
+                <th scope="col" className="px-3 py-4 text-sm font-semibold text-muted-foreground sm:px-6">SMS</th>
+                <th scope="col" className="bg-ink px-3 py-4 font-display text-base font-extrabold text-ink-foreground sm:px-6">RCS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((item) => (
+                <tr key={item.label} className="border-t border-border">
+                  <th scope="row" className="px-5 py-4 text-sm font-semibold leading-snug text-pretty sm:px-8 sm:text-[15px]">{item.label}</th>
+                  <td className="px-3 py-4 sm:px-6"><Fact value={item.sms} rcs={false} /></td>
+                  <td className="bg-muted px-3 py-4 sm:px-6"><Fact value={item.rcs} rcs /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -124,7 +133,6 @@ export function WaysSection() {
   const visual: Record<number, ReactNode> = { 0: <WebSketch />, 1: <ApiSketch /> };
   return (
     <section id="vad-ar-rcs" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <Wave flip fill="var(--color-primary-soft)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
@@ -147,14 +155,12 @@ export function WaysSection() {
 }
 
 /* ------------------------------------------------------------------------------------------ */
-/* Priser: name, what it contains and the from price. */
+/* Priser: name, what it contains, the from price and a way to start. */
 
 export function PricingSection() {
   const plans = content.priser.plans;
   return (
-    // Follows "Så kommer ni igång" on lavender; the trust columns follow on the same white.
-    <section id="pris" className="relative overflow-hidden bg-background pt-16 pb-14 sm:pt-24 sm:pb-16">
-      <Wave flip fill="var(--color-primary-soft)" />
+    <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -164,17 +170,27 @@ export function PricingSection() {
           <Link to="/priser" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Priser per operatör <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         <div className={cn(sectionBody, "grid gap-5 md:grid-cols-3")}>
-          {plans.map((plan, index) => (
-            <Link key={plan.slug} to="/priser" data-reveal style={order(index)} className="group flex flex-col rounded-2xl bg-card p-7 shadow-card">
-              <div className="flex items-center justify-between gap-3">
-                <p className="font-bold">{plan.name}</p>
-                {plan.badge ? <span className="rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-semibold">{plan.badge}</span> : null}
+          {plans.map((plan, index) => {
+            // The plan with a badge ("Populärast") is the one to lift out, on the navy surface.
+            const featured = Boolean(plan.badge);
+            return (
+              <div key={plan.slug} data-reveal style={order(index)} className={cn("flex flex-col rounded-2xl p-7 sm:p-8", featured ? "bg-ink text-ink-foreground" : "bg-card shadow-card")}>
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-xl font-extrabold">{plan.name}</h3>
+                  {plan.badge ? <span className="rounded-full bg-logo-blue px-2.5 py-0.5 text-xs font-semibold text-white">{plan.badge}</span> : null}
+                </div>
+                <p className={cn("mt-1.5 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.contents}</p>
+                <p className="mt-8 flex items-baseline gap-1.5">
+                  <span className={cn("text-sm font-semibold", featured ? "text-ink-muted" : "text-muted-foreground")}>från</span>
+                  <span className="text-4xl font-extrabold tabular-nums">{plan.price}</span>
+                </p>
+                <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>listpris per meddelande</p>
+                <Button asChild size="lg" variant={featured ? "outline" : "default"} className={cn("mt-8 w-full", featured && "border-transparent")}>
+                  <Link to="/skapa-konto">Skapa konto</Link>
+                </Button>
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">{plan.contents}</p>
-              <p className="mt-8 flex items-baseline gap-1.5"><span className="text-sm font-semibold text-muted-foreground">från</span><span className="text-3xl font-extrabold tabular-nums">{plan.price}</span></p>
-              <p className="mt-1 text-sm text-muted-foreground">listpris per meddelande</p>
-            </Link>
-          ))}
+            );
+          })}
         </div>
         <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
           Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.{" "}
@@ -193,7 +209,6 @@ export function BlogSection() {
   const [first, ...rest] = picks;
   return (
     <section id="blogg" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
-      <Wave flip fill="var(--color-background)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -227,22 +242,15 @@ export function BlogSection() {
 }
 
 /* ------------------------------------------------------------------------------------------ */
-/* Kontakt: who you reach beside the form.                                                     */
+/* Kontakt: the heading beside the form.                                                        */
 
 export function ContactSection() {
   return (
     <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
-      <Wave flip fill="var(--color-primary-soft)" />
       <div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
         <div data-reveal className="lg:pt-4">
           <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
           <p className={sectionIntro}>{home.kontakt.intro}</p>
-          <div className="relative mt-8 overflow-hidden rounded-2xl bg-primary-soft p-6">
-            <p className="font-display text-lg font-extrabold">RCS Direkt</p>
-            <p className="mt-1 text-sm text-muted-foreground">En tjänst från WIGOSE AB</p>
-            <p className="mt-4 flex items-start gap-2 text-sm"><MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-logo-blue" />Klostergatan 15, 703 39 Örebro</p>
-            <a href="https://portal.rcsdirekt.se/login" className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Har ni redan ett konto? Logga in <ArrowRight aria-hidden className="size-4" /></a>
-          </div>
         </div>
         <div data-reveal style={order(1)}>
           <LeadForm mode="contact" />

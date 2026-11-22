@@ -726,6 +726,10 @@ export interface Startsida {
             | 'sparkles';
           title: string;
           copy: string;
+          /**
+           * En kort rad om hur det blir med sms. Visas under texten med etiketten "Med sms". Lämna tomt för att dölja.
+           */
+          sms?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -970,6 +974,7 @@ export interface StartsidaSelect<T extends boolean = true> {
               icon?: T;
               title?: T;
               copy?: T;
+              sms?: T;
               id?: T;
             };
       };

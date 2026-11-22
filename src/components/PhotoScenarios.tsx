@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { RotateCcw } from "lucide-react";
 
-import { Wave } from "@/components/BandWave";
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
 import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
@@ -275,14 +274,12 @@ function ConversationView({
   );
 }
 
-/** One case: the photo with its conversation, and a short explanation beside it. */
-function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
+/** One case: the photo with its conversation on top, and a short explanation under it. */
+function CaseCard({ scenario, index }: { scenario: Scenario; index: number }) {
   const conversation = useConversation(scenario.start);
-  // The photo and its white text card form one unit with no gap; the text is centred in height.
-  // One grid per case, so `order` only swaps the photo and the card within its own row.
   return (
-    <div className="grid overflow-hidden rounded-2xl lg:grid-cols-3">
-      <figure data-reveal style={order(0)} className={cn("relative h-[440px] overflow-hidden bg-muted sm:h-[500px] lg:col-span-2", flip && "lg:order-2")}>
+    <article data-reveal style={order(index)} className="flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground">
+      <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[500px]">
         <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
@@ -290,38 +287,37 @@ function CaseRow({ scenario, flip }: { scenario: Scenario; flip: boolean }) {
           <ConversationView sender={scenario.customer} conversation={conversation} />
         </figcaption>
       </figure>
-      <div data-reveal style={order(1)} className={cn("flex flex-col justify-center bg-card p-7 sm:p-9", flip && "lg:order-1")}>
+      <div className="p-6 sm:p-7">
         <p className="text-sm font-semibold text-muted-foreground">{scenario.customer}</p>
-        <h3 className="mt-2 text-2xl font-extrabold leading-tight">{scenario.title}</h3>
-        <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
+        <h3 className="mt-1.5 text-xl font-extrabold leading-snug">{scenario.title}</h3>
+        <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
       </div>
-    </div>
+    </article>
   );
 }
 
-/** Photos from the customer cases with a tappable RCS conversation on top, beside a short explanation. */
+/** Photos from the customer cases with a tappable RCS conversation on top, two cards per row on navy. */
 export function PhotoScenarios() {
   return (
     <section
       id="exempel"
       aria-labelledby="exempel-title"
-      className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24"
     >
-      <Wave flip fill="var(--color-background)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
             Så kan det se ut hos era kunder
           </h2>
-          <p className={sectionIntro}>
+          <p className={cn(sectionIntro, "text-ink-muted")}>
             Exempel för några av våra kunder. Tryck på knapparna i meddelandena
             och svara som en kund. Fotona kommer från kundcasen, och meddelandena är tänkbara
             upplägg.
           </p>
         </div>
-        <div className={cn(sectionBody, "grid gap-6")}>
+        <div className={cn(sectionBody, "grid gap-6 md:grid-cols-2")}>
           {scenarios.map((scenario, index) => (
-            <CaseRow key={scenario.customer} scenario={scenario} flip={index % 2 === 1} />
+            <CaseCard key={scenario.customer} scenario={scenario} index={index} />
           ))}
         </div>
       </div>

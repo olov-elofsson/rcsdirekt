@@ -75,7 +75,8 @@ export type SiteContent = {
     seo: Seo;
     hero: { title: string; highlight: string; description: string };
     kundcaseHeading: string;
-    fordelar: { heading: string; intro: string; items: IconItem[] };
+    /** `sms` is a short line on how the same thing works with sms; empty hides it. */
+    fordelar: { heading: string; intro: string; items: (IconItem & { sms?: string })[] };
     /** "✓" renders a check mark and "✗" a cross; anything else is shown as text. */
     jamforelse: {
       heading: string;

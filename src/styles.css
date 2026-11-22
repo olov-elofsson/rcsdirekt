@@ -182,13 +182,13 @@
   --shadow-home-hover: 0 0 0 1px color-mix(in oklab, var(--foreground) 14%, transparent), 0 4px 8px color-mix(in oklab, var(--foreground) 4%, transparent), 0 20px 36px -20px color-mix(in oklab, var(--foreground) 18%, transparent);
 }
 .home-refined main > section:not(#top) { padding-block: 4rem; }
-.home-refined main > section > svg { height: 2rem; display: block; }
 .home-refined main > section:not(#sa-fungerar) h2,
 .home-refined main > section:not(#sa-fungerar) h3 { text-wrap: balance; letter-spacing: 0; }
 .home-refined main > section:not(#sa-fungerar) h2 + p { max-width: 60ch; }
 .home-refined main > section:not(#sa-fungerar) .text-center h2 + p { margin-inline: auto; }
+/* 1rem, the same as rounded-2xl, so cards with and without a shadow have the same corners. */
 .home-refined main > section:not(#sa-fungerar) :is(.shadow-card, .home-card) {
-  border-radius: var(--radius);
+  border-radius: 1rem;
   box-shadow: var(--shadow-home-card);
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
@@ -202,7 +202,6 @@
 .home-refined .home-cta { min-width: 10.5rem; }
 @media (min-width: 640px) {
   .home-refined main > section:not(#top) { padding-block: 6rem; }
-  .home-refined main > section > svg { height: 3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   /* Same specificity as the hover rule (it has :not(#sa-fungerar)), or this never wins. */
