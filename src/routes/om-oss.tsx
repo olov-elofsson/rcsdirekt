@@ -80,6 +80,7 @@ function AboutPage() {
                   ["Organisationsnummer", company.orgNumber],
                   ["Adress", `${company.street}, ${company.postalCode} ${company.city}`],
                   ["Tjänst", company.brand],
+                  ...(company.email ? [["E-post", company.email]] : []),
                 ].map(([term, value]) => (
                   <div key={term} className="flex flex-col gap-1 py-3 sm:flex-row sm:justify-between">
                     <dt className="text-muted-foreground">{term}</dt>
@@ -91,6 +92,7 @@ function AboutPage() {
                 <Link to="/villkor" className="underline underline-offset-4 hover:text-logo-blue">Villkor</Link>
                 <Link to="/integritetspolicy" className="underline underline-offset-4 hover:text-logo-blue">Integritetspolicy</Link>
                 <Link to="/kontakt" className="underline underline-offset-4 hover:text-logo-blue">Kontakt</Link>
+                {company.linkedin ? <a href={company.linkedin} className="underline underline-offset-4 hover:text-logo-blue">LinkedIn</a> : null}
               </p>
             </div>
           </div>

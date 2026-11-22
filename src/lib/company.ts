@@ -10,9 +10,9 @@ export const company = {
   country: "SE",
   url: "https://rcsdirekt.se",
   /** Fill in to show them on /kontakt, /om-oss, in the footer and in the structured data. Empty hides them. */
-  email: "",
+  email: "info@rcsdirekt.se",
   phone: "",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/company/rcsdirekt/",
 } as const;
 
 /** The phone number as a tel: link, digits and a leading + only. */
