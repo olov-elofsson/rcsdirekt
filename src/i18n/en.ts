@@ -312,8 +312,8 @@ export const en: Record<string, string> = {
   "Vi gör RCS enkelt för svenska företag. Det här får ni hos oss.": "We make RCS easy for businesses in Sweden. This is what you get with us.",
   "Mer om oss": "More about us",
   "Vi registrerar avsändaren": "We register your sender",
-  "Ni skickar namn, logga och en kort beskrivning. Vi sköter registreringen och hjälper till med videon som krävs innan avsändaren får lanseras.":
-    "You send us your name, logo and a short description. We handle the registration and help with the video required before the sender can launch.",
+  "Ni ger oss namn, logga och en kort beskrivning. Sedan tar vi hand om registreringen och hjälper er med videon som krävs för att avsändaren ska godkännas.":
+    "You give us your name, logo and a short description. Then we take care of the registration and help you with the video needed for the sender to be approved.",
   "Svensk support och avtal": "Swedish support and contract",
   "Ni har avtal med ett svenskt bolag i Örebro och får hjälp på svenska, från första utskicket och framåt.":
     "Your contract is with a Swedish company in Örebro, and you get help from your first campaign onwards.",

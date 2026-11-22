@@ -168,7 +168,7 @@ const REASONS: { Icon: LucideIcon; title: string; copy: string }[] = [
   {
     Icon: BadgeCheck,
     title: "Vi registrerar avsändaren",
-    copy: "Ni skickar namn, logga och en kort beskrivning. Vi sköter registreringen och hjälper till med videon som krävs innan avsändaren får lanseras.",
+    copy: "Ni ger oss namn, logga och en kort beskrivning. Sedan tar vi hand om registreringen och hjälper er med videon som krävs för att avsändaren ska godkännas.",
   },
   {
     Icon: Headset,
