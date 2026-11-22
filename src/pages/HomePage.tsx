@@ -51,7 +51,8 @@ const IPHONE_OPERATORS = ["Tele2", "Comviq"];
 
 function HeroFirst() {
   const home = useStartsida();
-  const { t } = useT();
+  const { t, lp } = useT();
+  const labelLink = "-my-2 inline-flex min-h-10 items-center gap-2 underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline";
   const operators = usePriser().operators.filter((name) => !/^(Övriga|Other)/.test(name));
   return (
     <section id="top" className="bg-background">
@@ -59,15 +60,16 @@ function HeroFirst() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.55fr_1fr] lg:gap-12 lg:px-8 lg:pt-16">
         <div>
           {operators.length ? (
-            <p className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm font-semibold text-muted-foreground">
-              <span className="inline-flex items-center gap-2">
+            <p className="mb-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-semibold text-muted-foreground">
+              {/* Each line leads to the article that backs it. */}
+              <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-sverige-operatorer" }} className={labelLink}>
                 <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
                 {t("Når kunder hos {operators}").replace("{operators}", `${operators.slice(0, -1).join(", ")} ${t("och")} ${operators.at(-1)}`)}
-              </span>
-              <span className="inline-flex items-center gap-2">
+              </Link>
+              <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-pa-iphone" }} className={labelLink}>
                 <Smartphone aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
                 {t("På iPhone hos {operators}").replace("{operators}", `${IPHONE_OPERATORS.slice(0, -1).join(", ")} ${t("och")} ${IPHONE_OPERATORS.at(-1)}`)}
-              </span>
+              </Link>
             </p>
           ) : null}
           <h1 className="max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
