@@ -151,7 +151,7 @@ export function HeroMessage({ className }: { className?: string }) {
               rcs === value ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
             )}
           >
-            {value ? "Som RCS" : "Som sms"}
+            {value ? "RCS" : "SMS"}
           </button>
         ))}
       </div>
