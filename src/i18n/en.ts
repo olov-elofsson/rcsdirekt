@@ -306,4 +306,21 @@ export const en: Record<string, string> = {
   // Legal pages
   "Senast ändrad": "Last changed",
   "Texten publiceras inom kort.": "The text will be published shortly.",
+
+  // Why rcsdirekt.se
+  "Varför rcsdirekt.se": "Why rcsdirekt.se",
+  "Vi gör RCS enkelt för svenska företag. Det här får ni hos oss.": "We make RCS easy for businesses in Sweden. This is what you get with us.",
+  "Mer om oss": "More about us",
+  "Vi registrerar avsändaren": "We register your sender",
+  "Ni skickar namn, logga och en kort beskrivning. Vi sköter registreringen och hjälper till med videon som krävs innan avsändaren får lanseras.":
+    "You send us your name, logo and a short description. We handle the registration and help with the video required before the sender can launch.",
+  "Svensk support och avtal": "Swedish support and contract",
+  "Ni har avtal med ett svenskt bolag i Örebro och får hjälp på svenska, från första utskicket och framåt.":
+    "Your contract is with a Swedish company in Örebro, and you get help from your first campaign onwards.",
+  "Betala bara för det ni skickar": "Pay only for what you send",
+  "Priset är per meddelande i kronor och står öppet på prissidan. Det kostar inget att starta och ni är inte bundna.":
+    "The price is per message and shown openly on the pricing page. It costs nothing to start and you are not tied in.",
+  "Webb eller API": "Web or API",
+  "Bygg utskicket i webbläsaren utan utvecklare, eller låt era system skicka via API. Avsändaren och priset är desamma.":
+    "Build the campaign in the browser without a developer, or let your systems send through the API. The sender and price are the same.",
 };

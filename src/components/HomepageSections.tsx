@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, Headset, MonitorSmartphone, BarChart3, BellOff, Check, CheckCheck, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
 
 import { InquiryForm } from "@/components/InquiryForm";
 import { PlanCard } from "@/components/PlanCard";
@@ -156,6 +156,58 @@ export function CompareSection() {
             </tbody>
           </table>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* Varför rcsdirekt.se: what a company gets here, each point something the service does.        */
+
+const REASONS: { Icon: LucideIcon; title: string; copy: string }[] = [
+  {
+    Icon: BadgeCheck,
+    title: "Vi registrerar avsändaren",
+    copy: "Ni skickar namn, logga och en kort beskrivning. Vi sköter registreringen och hjälper till med videon som krävs innan avsändaren får lanseras.",
+  },
+  {
+    Icon: Headset,
+    title: "Svensk support och avtal",
+    copy: "Ni har avtal med ett svenskt bolag i Örebro och får hjälp på svenska, från första utskicket och framåt.",
+  },
+  {
+    Icon: Wallet,
+    title: "Betala bara för det ni skickar",
+    copy: "Priset är per meddelande i kronor och står öppet på prissidan. Det kostar inget att starta och ni är inte bundna.",
+  },
+  {
+    Icon: MonitorSmartphone,
+    title: "Webb eller API",
+    copy: "Bygg utskicket i webbläsaren utan utvecklare, eller låt era system skicka via API. Avsändaren och priset är desamma.",
+  },
+];
+
+export function WhySection() {
+  const { t, lp } = useT();
+  return (
+    <section id="varfor" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className={sectionTitle}>{t("Varför rcsdirekt.se")}</h2>
+            <p className={sectionIntro}>{t("Vi gör RCS enkelt för svenska företag. Det här får ni hos oss.")}</p>
+          </div>
+          <Link to={lp("/om-oss")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Mer om oss")} <ArrowRight aria-hidden className="size-4" /></Link>
+        </div>
+        <ul className={cn(sectionBody, "grid gap-5 sm:grid-cols-2 lg:grid-cols-4")}>
+          {REASONS.map(({ Icon, title, copy }, index) => (
+            <li key={title} data-reveal style={order(index)} className="flex flex-col rounded-2xl bg-card p-6 shadow-card transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7">
+              <span aria-hidden className="grid size-11 place-items-center rounded-xl bg-primary-soft text-logo-blue"><Icon strokeWidth={2} className="size-5" /></span>
+              <h3 className="mt-5 text-lg font-extrabold leading-snug">{t(title)}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-pretty text-muted-foreground">{t(copy)}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
