@@ -10,6 +10,8 @@ import * as migration_20261121_199000_headings_and_advantages from './20261121_1
 import * as migration_20261121_200000_section_intros from './20261121_200000_section_intros';
 import * as migration_20261122_100000_pitch from './20261122_100000_pitch';
 import * as migration_20261122_110000_short_headings from './20261122_110000_short_headings';
+import * as migration_20261122_120000_legal_pages from './20261122_120000_legal_pages';
+import * as migration_20261122_120100_legal_texts from './20261122_120100_legal_texts';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -109,5 +111,15 @@ export const migrations = [
     up: migration_20261122_110000_short_headings.up,
     down: migration_20261122_110000_short_headings.down,
     name: '20261122_110000_short_headings',
+  },
+  {
+    up: migration_20261122_120000_legal_pages.up,
+    down: migration_20261122_120000_legal_pages.down,
+    name: '20261122_120000_legal_pages',
+  },
+  {
+    up: migration_20261122_120100_legal_texts.up,
+    down: migration_20261122_120100_legal_texts.down,
+    name: '20261122_120100_legal_texts',
   },
 ];

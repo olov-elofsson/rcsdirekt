@@ -112,5 +112,10 @@ export type SiteContent = {
     richCards: IconItem[];
     replies: { option: string; title: string; copy: string; actions: string[] }[];
   };
+  /** /integritetspolicy and /villkor. Missing in content from before the pages existed. */
+  juridiskt?: { integritetspolicy: LegalPage; villkor: LegalPage };
   kunskap: { sources: Source[]; glossary: GlossaryTerm[]; articles: Article[] };
 };
+
+/** A section's body: paragraphs split at blank lines; lines starting with "- " form a list. */
+export type LegalPage = { title: string; description: string; updated: string; sections: { heading: string; body: string }[] };

@@ -25,7 +25,7 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 | Grund | Vit | `#FFFFFF` | Sidans bas |
 
 - **Känsla:** sval, ren och pålitlig. Paletten är analog: nyanser av blått på vitt.
-- **Regler:** marinblått bär texten. Blått (#2F7BFF) ger bara 3,9:1 mot vitt och används därför till ikoner, former och stora rubriker, aldrig till text under 24 px. Låt varannan sektion vara lavendel och varannan vit, med vågen som övergång. Orange och persika förekommer inte, inte heller i illustrationer.
+- **Regler:** marinblått bär texten. Blått (#2F7BFF) ger bara 3,9:1 mot vitt och används därför till ikoner, former och stora rubriker, aldrig till text under 24 px. Sektionerna möts med raka kanter och växlar mellan vit, lavendel och marin, så att sidan får rytm. Orange och persika förekommer inte, inte heller i illustrationer.
 - **Inne i en telefon** gäller Google Messages färger (se skillen `rcs-phone`), inte brandkitets.
 
 ## 04 Typografi
@@ -47,8 +47,8 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 
 ## 06 Ikoner och illustrationer
 
-- **Ingen dekoration.** Sajten använder inga dekorativa symboler eller svävande former. Logotypen är den enda grafiska formen, och sidorna bärs av text, foton och riktiga meddelanden.
-- **Ikoner** används bara där de gör ett jobb: lucide i gränssnittet (pilar, stäng, meny, kalender i notisraden) och Material-ikoner från `engine.ts` i telefoner och meddelanden.
+- **Inga svävande former.** Logotypen är den enda grafiska formen, och sidorna bärs av text, foton och riktiga meddelanden.
+- **Ikoner bär information.** Lucide i gränssnittet, alltid med en text bredvid: egenskaper i jämförelsen, stegen, webb och API, det som ingår i priset, funktionerna ett kundexempel använder och lästid. Ikonen står i blått (#2F7BFF), ofta i en lavendelruta med rundade hörn, med linjebredd 2. I telefoner och meddelanden används Material-ikonerna från `engine.ts`.
 - **Bilder i meddelanden:** exemplen på kundcasens foton har inga egna bilder i korten; fotot bär bilden.
 - **Listor** numreras med siffror, inte ikoner.
 - **Mängd text:** en rubrik och ett kort stycke per del. Längre listor (till exempel jämförelsen) visar det viktigaste och resten bakom "Visa alla".
@@ -61,7 +61,7 @@ RCS Direkt säljer något tekniskt till företag som inte vill tänka på teknik
 
 ## 08 Uttryck
 
-- **Webb:** se `src/routes/index.tsx` och komponenterna där. Hjälteytan är centrerad text med former i kanterna. Exemplen över kundcasens foton är sidans hjärta.
+- **Webb:** se `src/routes/index.tsx` och komponenterna där. Hjälteytan är centrerad text utan dekoration. Exemplen över kundcasens foton är sidans hjärta.
 - **Sociala medier:** profilbild är symbolen på vit eller lavendel yta. Inlägg visar ett meddelande, en bild eller ett kundcase, med rubrik i Archivo och en droppe som enda dekoration.
 - **Presentationer:** vit bakgrund, marinblå rubrik, en bild eller ett meddelande per bild. Avslutande bild med symbolen stort.
 - **Utskick och e-post:** ordmärket överst, en rubrik, ett meddelande eller en bild, en knapp i marinblått.

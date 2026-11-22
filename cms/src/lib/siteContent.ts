@@ -13,9 +13,19 @@ async function all(payload: Payload, collection: 'artiklar' | 'kallor' | 'begrep
   return result.docs as Doc[]
 }
 
+/** A legal page from the Juridiskt global: heading, intro, last change and sections. */
+function legalPage(group: Doc | undefined) {
+  return {
+    title: text(group?.title),
+    description: text(group?.description),
+    updated: text(group?.updated),
+    sections: list(group?.sections).map((row) => ({ heading: text(row.heading), body: text(row.body) })),
+  }
+}
+
 /** Builds the content the site renders, in the shape of src/content/types.ts. */
 export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
-  const [articleDocs, sourceDocs, glossaryDocs, caseDocs, webinarDocs, startsida, priser, demo] = await Promise.all([
+  const [articleDocs, sourceDocs, glossaryDocs, caseDocs, webinarDocs, startsida, priser, demo, juridiskt] = await Promise.all([
     all(payload, 'artiklar'),
     all(payload, 'kallor'),
     all(payload, 'begrepp'),
@@ -26,6 +36,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     payload.findGlobal({ slug: 'startsida', depth: 1 }) as Promise<Doc>,
     payload.findGlobal({ slug: 'priser', depth: 0 }) as Promise<Doc>,
     payload.findGlobal({ slug: 'demo', depth: 0 }) as Promise<Doc>,
+    payload.findGlobal({ slug: 'juridiskt', depth: 0 }) as Promise<Doc>,
   ])
 
   const sources: Source[] = sourceDocs.map((doc) => ({
@@ -162,6 +173,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
         actions: list(row.actions).map((action) => text(action.label)),
       })),
     },
+    juridiskt: { integritetspolicy: legalPage(juridiskt.integritetspolicy), villkor: legalPage(juridiskt.villkor) },
     kunskap: { sources, glossary, articles },
   }
 }

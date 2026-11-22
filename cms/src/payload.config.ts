@@ -16,6 +16,7 @@ import { Sources } from './collections/Sources'
 import { Users } from './collections/Users'
 import { Webinars } from './collections/Webinars'
 import { Demo } from './globals/Demo'
+import { Juridiskt } from './globals/Juridiskt'
 import { Priser } from './globals/Priser'
 import { Startsida } from './globals/Startsida'
 import { rebuildAfterChange, rebuildAfterDelete, rebuildAfterGlobalChange } from './lib/rebuild'
@@ -69,7 +70,7 @@ export default buildConfig({
     publishing(Webinars),
     Inquiries,
   ],
-  globals: [publishingGlobal(Startsida), publishingGlobal(Priser), publishingGlobal(Demo)],
+  globals: [publishingGlobal(Startsida), publishingGlobal(Priser), publishingGlobal(Demo), publishingGlobal(Juridiskt)],
   endpoints: [
     {
       // Public: the website reads its content from here while it is being built.

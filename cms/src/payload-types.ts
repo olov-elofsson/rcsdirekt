@@ -103,11 +103,13 @@ export interface Config {
     startsida: Startsida;
     priser: Priser;
     demo: Demo;
+    juridiskt: Juridiskt;
   };
   globalsSelect: {
     startsida: StartsidaSelect<false> | StartsidaSelect<true>;
     priser: PriserSelect<false> | PriserSelect<true>;
     demo: DemoSelect<false> | DemoSelect<true>;
+    juridiskt: JuridisktSelect<false> | JuridisktSelect<true>;
   };
   locale: null;
   widgets: {
@@ -174,6 +176,8 @@ export interface Media {
    * Beskriv bilden för den som inte kan se den, till exempel företagsnamnet för en logotyp.
    */
   alt: string;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -510,6 +514,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -947,6 +953,53 @@ export interface Demo {
   createdAt?: string | null;
 }
 /**
+ * Integritetspolicyn (/integritetspolicy) och villkoren (/villkor).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "juridiskt".
+ */
+export interface Juridiskt {
+  id: number;
+  integritetspolicy: {
+    title: string;
+    description: string;
+    /**
+     * Visas under ingressen, till exempel "22 november 2026". Ändra datumet när innehållet ändras.
+     */
+    updated: string;
+    /**
+     * Tom rad mellan stycken. Rader som börjar med "- " blir en punktlista.
+     */
+    sections?:
+      | {
+          heading: string;
+          body: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  villkor: {
+    title: string;
+    description: string;
+    /**
+     * Visas under ingressen, till exempel "22 november 2026". Ändra datumet när innehållet ändras.
+     */
+    updated: string;
+    /**
+     * Tom rad mellan stycken. Rader som börjar med "- " blir en punktlista.
+     */
+    sections?:
+      | {
+          heading: string;
+          body: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "startsida_select".
  */
@@ -1140,6 +1193,43 @@ export interface DemoSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "juridiskt_select".
+ */
+export interface JuridisktSelect<T extends boolean = true> {
+  integritetspolicy?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        updated?: T;
+        sections?:
+          | T
+          | {
+              heading?: T;
+              body?: T;
+              id?: T;
+            };
+      };
+  villkor?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        updated?: T;
+        sections?:
+          | T
+          | {
+              heading?: T;
+              body?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

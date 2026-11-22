@@ -8,7 +8,8 @@ import courseUrl from "@/assets/foto-utbildning.webp";
 import carDealerUrl from "@/assets/foto-bilhandel.webp";
 
 /** The photo a case's conversation is laid over. */
-export type Picture = { src: string; position?: string };
+/** `messageAt: "right"` puts the conversation on the right, for photos whose subject is on the left. */
+export type Picture = { src: string; position?: string; messageAt?: "right" };
 
 /**
  * A button in a message. A reply sends its label as the recipient's answer, and the business
@@ -163,7 +164,7 @@ export const scenarios: Scenario[] = [
     customer: "Nercia",
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
-    photo: { src: courseUrl, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%" },
+    photo: { src: courseUrl, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },
     start: {
       card: {
         title: "Välkommen till kursen!",

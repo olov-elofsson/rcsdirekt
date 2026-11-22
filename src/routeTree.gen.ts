@@ -10,9 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolicy'
 import { Route as PriserRouteImport } from './routes/priser'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
+import { Route as VillkorRouteImport } from './routes/villkor'
 import { Route as ApiLeadRouteImport } from './routes/api/lead'
 import { Route as ApiRcsVideoRouteImport } from './routes/api/rcs-video'
 import { Route as BloggIndexRouteImport } from './routes/blogg.index'
@@ -23,6 +25,11 @@ import { Route as VFileRouteImport } from './routes/v/$file'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegritetspolicyRoute = IntegritetspolicyRouteImport.update({
+  id: '/integritetspolicy',
+  path: '/integritetspolicy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PriserRoute = PriserRouteImport.update({
@@ -38,6 +45,11 @@ const SkapaKontoRoute = SkapaKontoRouteImport.update({
 const VideoGeneratorRoute = VideoGeneratorRouteImport.update({
   id: '/video-generator',
   path: '/video-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VillkorRoute = VillkorRouteImport.update({
+  id: '/villkor',
+  path: '/villkor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiLeadRoute = ApiLeadRouteImport.update({
@@ -73,9 +85,11 @@ const VFileRoute = VFileRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/integritetspolicy': typeof IntegritetspolicyRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/villkor': typeof VillkorRoute
   '/api/lead': typeof ApiLeadRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
@@ -85,9 +99,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/integritetspolicy': typeof IntegritetspolicyRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/villkor': typeof VillkorRoute
   '/api/lead': typeof ApiLeadRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
@@ -98,9 +114,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/integritetspolicy': typeof IntegritetspolicyRoute
   '/priser': typeof PriserRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/video-generator': typeof VideoGeneratorRoute
+  '/villkor': typeof VillkorRoute
   '/api/lead': typeof ApiLeadRoute
   '/api/rcs-video': typeof ApiRcsVideoRoute
   '/blogg/$slug': typeof BloggSlugRoute
@@ -112,9 +130,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/integritetspolicy'
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
+    | '/villkor'
     | '/api/lead'
     | '/api/rcs-video'
     | '/blogg/$slug'
@@ -124,9 +144,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/integritetspolicy'
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
+    | '/villkor'
     | '/api/lead'
     | '/api/rcs-video'
     | '/blogg/$slug'
@@ -136,9 +158,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/integritetspolicy'
     | '/priser'
     | '/skapa-konto'
     | '/video-generator'
+    | '/villkor'
     | '/api/lead'
     | '/api/rcs-video'
     | '/blogg/$slug'
@@ -149,9 +173,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  IntegritetspolicyRoute: typeof IntegritetspolicyRoute
   PriserRoute: typeof PriserRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
+  VillkorRoute: typeof VillkorRoute
   ApiLeadRoute: typeof ApiLeadRoute
   ApiRcsVideoRoute: typeof ApiRcsVideoRoute
   BloggSlugRoute: typeof BloggSlugRoute
@@ -167,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integritetspolicy': {
+      id: '/integritetspolicy'
+      path: '/integritetspolicy'
+      fullPath: '/integritetspolicy'
+      preLoaderRoute: typeof IntegritetspolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/priser': {
@@ -188,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/video-generator'
       fullPath: '/video-generator'
       preLoaderRoute: typeof VideoGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/villkor': {
+      id: '/villkor'
+      path: '/villkor'
+      fullPath: '/villkor'
+      preLoaderRoute: typeof VillkorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/lead': {
@@ -237,9 +277,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  IntegritetspolicyRoute: IntegritetspolicyRoute,
   PriserRoute: PriserRoute,
   SkapaKontoRoute: SkapaKontoRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,
+  VillkorRoute: VillkorRoute,
   ApiLeadRoute: ApiLeadRoute,
   ApiRcsVideoRoute: ApiRcsVideoRoute,
   BloggSlugRoute: BloggSlugRoute,

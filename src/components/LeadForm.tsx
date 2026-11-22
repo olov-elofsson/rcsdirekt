@@ -1,4 +1,5 @@
 import { useId, useState, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -113,11 +114,14 @@ export function LeadForm({ mode, defaultMessage, webinar, compact = false }: { m
               aria-invalid={!!errors["terms"]}
               aria-describedby={errors["terms"] ? errorId("terms") : undefined}
             />
-            Jag godkänner villkoren och att RCS Direkt kontaktar mig om kontot.
+            <span>Jag har läst och godkänner <Link to="/villkor" target="_blank" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">villkoren</Link>.</span>
           </label>
           <div className="mt-1">{fieldError("terms")}</div>
         </div>
       ) : null}
+      <p className="text-xs leading-relaxed text-pretty text-muted-foreground">
+        Vi behandlar dina uppgifter enligt vår <Link to="/integritetspolicy" target="_blank" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">integritetspolicy</Link>.
+      </p>
       {status === "failed" ? (
         <p role="alert" className="rounded-lg bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
           Det gick inte att skicka just nu. Försök igen om en stund.

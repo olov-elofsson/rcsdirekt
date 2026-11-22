@@ -1,13 +1,14 @@
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, Check, Clock, Download, IdCard, Image as ImageIcon, Smartphone, Type, X, type LucideIcon } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { content } from "@/content";
-import { articles } from "@/data/rcs-knowledge";
+import { articles, readingMinutes } from "@/data/rcs-knowledge";
+import { contentIcon } from "@/content/icons";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
@@ -46,6 +47,18 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
   return <span className={cn("text-sm leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
 
+/** An icon for each property in the table, matched on the start of its label; others get none. */
+const PROPERTY_ICONS: [prefix: string, Icon: LucideIcon][] = [
+  ["Verifierad", BadgeCheck],
+  ["Avsändarprofil", IdCard],
+  ["Tecken", Type],
+  ["Analys", BarChart3],
+  ["Tillgänglighet", Smartphone],
+  ["Bilder", ImageIcon],
+  ["Installation", Download],
+];
+const propertyIcon = (label: string) => PROPERTY_ICONS.find(([prefix]) => label.startsWith(prefix))?.[1];
+
 export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
@@ -72,7 +85,15 @@ export function CompareSection() {
             <tbody>
               {rows.map((item) => (
                 <tr key={item.label} className="border-t border-border">
-                  <th scope="row" className="px-5 py-4 text-sm font-semibold leading-snug text-pretty sm:px-8 sm:text-[15px]">{item.label}</th>
+                  <th scope="row" className="px-5 py-4 text-sm font-semibold leading-snug text-pretty sm:px-8 sm:text-[15px]">
+                    <span className="flex items-center gap-3">
+                      {(() => {
+                        const Icon = propertyIcon(item.label);
+                        return Icon ? <span aria-hidden className="hidden size-9 shrink-0 place-items-center rounded-xl bg-primary-soft text-logo-blue sm:grid"><Icon strokeWidth={2} className="size-[18px]" /></span> : null;
+                      })()}
+                      {item.label}
+                    </span>
+                  </th>
                   <td className="px-3 py-4 sm:px-6"><Fact value={item.sms} rcs={false} /></td>
                   <td className="bg-muted px-3 py-4 sm:px-6"><Fact value={item.rcs} rcs /></td>
                 </tr>
@@ -142,6 +163,10 @@ export function WaysSection() {
           {[web, api].filter(Boolean).map((item, index) => (
             <div key={item!.title} data-reveal style={order(index)} className="flex flex-col gap-6 rounded-2xl bg-primary-soft p-6 sm:p-8">
               <div>
+                {(() => {
+                  const Icon = contentIcon(item!.icon);
+                  return <span aria-hidden className="mb-5 grid size-11 place-items-center rounded-xl bg-card text-logo-blue shadow-card"><Icon strokeWidth={2} className="size-5" /></span>;
+                })()}
                 <h3 className="text-2xl font-extrabold">{item!.title}</h3>
                 <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{item!.copy}</p>
               </div>
@@ -170,7 +195,7 @@ function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
   if (!Number.isFinite(unit)) return null;
   const countId = "kalkyl-antal";
   return (
-    <div data-reveal className="mt-5 grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+    <div data-reveal className="grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
       <div>
         <h3 className="text-xl font-extrabold">Priskalkyl</h3>
         <div role="group" aria-label="Meddelandetyp" className="mt-4 flex flex-wrap gap-2">
@@ -247,7 +272,20 @@ export function PricingSection() {
             );
           })}
         </div>
-        <PriceCalculator plans={plans} />
+        {content.priser.included.length ? (
+          <div data-reveal className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-8">
+            <p className="shrink-0 text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase">{content.priser.includedHeading}</p>
+            <ul className="flex flex-wrap gap-x-6 gap-y-3">
+              {content.priser.included.map((item) => (
+                <li key={item} className="inline-flex items-center gap-2 text-sm font-semibold">
+                  <span aria-hidden className="grid size-5 place-items-center rounded-full bg-logo-blue text-white"><Check strokeWidth={3} className="size-3" /></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        <div className="mt-8"><PriceCalculator plans={plans} /></div>
         <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
           Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.{" "}
           <Link to="/" hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Fråga om volympris</Link>
@@ -279,7 +317,8 @@ export function BlogSection() {
               <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
               <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
               <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
-              <span className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold">Läs artikeln <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
+              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{readingMinutes(first)} min läsning</span>
+              <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold">Läs artikeln <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
             </Link>
             <div className="grid gap-5">
               {rest.map((article, index) => (
@@ -287,6 +326,7 @@ export function BlogSection() {
                   <Badge variant="secondary" className="self-start">{article.category}</Badge>
                   <h3 className="mt-3 text-lg font-extrabold leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{readingMinutes(article)} min läsning</span>
                 </Link>
               ))}
             </div>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { RotateCcw } from "lucide-react";
+import { CalendarPlus, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, type LucideIcon } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing } from "@/components/RcsPhone";
 import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/rcs-scenarios";
@@ -274,23 +274,61 @@ function ConversationView({
   );
 }
 
+type Feature = { label: string; Icon: LucideIcon };
+
+/** The RCS features an example really uses, read from its messages, so the tags never claim more. */
+function featuresOf(start: Step): Feature[] {
+  const found = new Map<string, Feature>();
+  const add = (label: string, Icon: LucideIcon) => found.set(label, { label, Icon });
+  const seen = new Set<Step>();
+  const walk = (step: Step) => {
+    if (seen.has(step)) return;
+    seen.add(step);
+    if (step.card) add("Kort med knappar", SquareMousePointer);
+    if (step.carousel) add("Karusell", GalleryHorizontal);
+    for (const choice of choicesIn(step)) {
+      if (choice.next) {
+        add("Svar i tråden", MessagesSquare);
+        walk(choice.next);
+      }
+      if (choice.opens === "kalendern") add("Kalender", CalendarPlus);
+      else if (choice.opens === "kartan") add("Vägbeskrivning", MapPin);
+      else if (choice.opens === "telefonen") add("Samtal", Phone);
+      else if (choice.opens) add("Länk", ExternalLink);
+    }
+  };
+  walk(start);
+  return [...found.values()];
+}
+
 /** One case: the photo with its conversation on top, and a short explanation under it. */
-function CaseCard({ scenario, index }: { scenario: Scenario; index: number }) {
+function CaseCard({ scenario, index, className }: { scenario: Scenario; index: number; className?: string }) {
   const conversation = useConversation(scenario.start);
+  const features = featuresOf(scenario.start);
   return (
-    <article data-reveal style={order(index)} className="flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground">
+    <article data-reveal style={order(index)} className={cn("flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground", className)}>
       <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[500px]">
         <img src={scenario.photo.src} alt={scenario.photo.alt} loading="lazy" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
-        <figcaption className="absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end sm:right-auto">
+        <figcaption className={cn("absolute inset-x-5 bottom-5 top-12 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : "sm:right-auto")}>
           <ConversationView sender={scenario.customer} conversation={conversation} />
         </figcaption>
       </figure>
       <div className="p-6 sm:p-7">
-        <p className="text-sm font-semibold text-muted-foreground">{scenario.customer}</p>
-        <h3 className="mt-1.5 text-xl font-extrabold leading-snug">{scenario.title}</h3>
+        <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.08em] text-logo-blue uppercase">{scenario.customer}</p>
+        <h3 className="mt-2 text-xl font-extrabold leading-snug">{scenario.title}</h3>
         <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
+        {features.length ? (
+          <ul aria-label="Det här använder exemplet" className="mt-5 flex flex-wrap gap-2">
+            {features.map(({ label, Icon }) => (
+              <li key={label} className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold">
+                <Icon aria-hidden strokeWidth={2} className="size-3.5 text-logo-blue" />
+                {label}
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </article>
   );
@@ -304,6 +342,7 @@ export function PhotoScenarios() {
       aria-labelledby="exempel-title"
       className="relative scroll-mt-24 overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24"
     >
+      {/* The heading lines up with the other sections; the cards below use a wider row. */}
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
@@ -315,9 +354,13 @@ export function PhotoScenarios() {
             upplägg.
           </p>
         </div>
-        <div className={cn(sectionBody, "grid gap-6 md:grid-cols-2")}>
+      </div>
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        {/* Narrow and wide cards (2/5 and 3/5) swap sides between the rows. The second and third
+            cards are wide: Maptun's carousel and Nercia's name in the photo need the width. */}
+        <div className={cn(sectionBody, "grid gap-6 md:grid-cols-2 lg:grid-cols-5")}>
           {scenarios.map((scenario, index) => (
-            <CaseCard key={scenario.customer} scenario={scenario} index={index} />
+            <CaseCard key={scenario.customer} scenario={scenario} index={index} className={index % 4 === 1 || index % 4 === 2 ? "lg:col-span-3" : "lg:col-span-2"} />
           ))}
         </div>
       </div>

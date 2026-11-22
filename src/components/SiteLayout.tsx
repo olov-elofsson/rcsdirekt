@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUp, ArrowUpRight, Building2, CalendarDays, MapPin, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -9,18 +9,18 @@ import { shortWhen, useNextWebinar, when } from "@/lib/webinar";
 import { cn } from "@/lib/utils";
 
 const navLinkBase =
-  "rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors";
+  "rounded-full px-4 py-2.5 text-[15px] font-semibold whitespace-nowrap transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const navLinkActive = { className: "text-foreground" };
-const navLinkInactive = { className: "text-muted-foreground hover:text-foreground" };
+const navLinkInactive = { className: "text-foreground/70 hover:bg-muted hover:text-foreground" };
 
 const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blue";
 
 const headerLinks = [
-  { label: "Exempel", to: "/", hash: "exempel" },
-  { label: "RCS och sms", to: "/", hash: "rcs-mot-sms" },
-  { label: "Guider", to: "/blogg" },
+  { label: "Kundexempel", to: "/", hash: "exempel" },
+  { label: "Varför RCS", to: "/", hash: "rcs-mot-sms" },
   { label: "Priser", to: "/priser" },
+  { label: "Resurser", to: "/blogg" },
 ] as const;
 
 /**
@@ -194,72 +194,104 @@ const footerNav = [
   {
     title: "RCS Direkt",
     links: [
-      { label: "Exempel på RCS", to: "/", hash: "exempel" },
+      { label: "Kundexempel", to: "/", hash: "exempel" },
+      { label: "Varför RCS", to: "/", hash: "rcs-mot-sms" },
       { label: "Priser", to: "/priser" },
-      { label: "Guider", to: "/blogg" },
+      { label: "Resurser", to: "/blogg" },
     ],
   },
   {
     title: "Kom igång",
     links: [
       { label: "Skapa konto", to: "/skapa-konto" },
+      { label: "Kontakt", to: "/", hash: "kontakt" },
       { label: "Logga in", href: "https://portal.rcsdirekt.se/login" },
     ],
   },
   {
     title: "Verktyg",
-    links: [{ label: "Videogenerator för avsändare", to: "/video-generator" }],
+    links: [{ label: "Videogenerator", to: "/video-generator" }],
+  },
+  {
+    title: "Juridiskt",
+    links: [
+      { label: "Integritetspolicy", to: "/integritetspolicy" },
+      { label: "Villkor", to: "/villkor" },
+    ],
   },
 ] as const;
 
+const footerLinkClass =
+  "group inline-flex min-h-10 items-center gap-1.5 text-sm text-ink-muted transition-colors duration-150 ease-out hover:text-ink-foreground";
+
+/** The footer: two ways forward, who we are, the links grouped, and the wordmark large at the bottom. */
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-ink pt-16 pb-12 text-ink-foreground sm:pt-20 sm:pb-14">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="grid gap-14">
+        <div className="grid gap-8 rounded-2xl bg-ink-foreground/[0.06] p-7 ring-1 ring-ink-foreground/10 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <p className="max-w-md text-sm leading-relaxed text-ink-muted">
-              RCS för svenska företag. Skicka direkt från webben eller koppla era system via API, och betala bara för de meddelanden ni skickar.
-            </p>
+            <p className="font-display text-2xl font-extrabold leading-tight sm:text-3xl">Kom igång med RCS</p>
+            <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-ink-muted">Skapa ett konto direkt eller prata med oss om ert upplägg.</p>
           </div>
-          <nav className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-8 lg:grid-cols-[1fr_1fr_1fr_1.5fr]">
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" variant="outline" className="border-transparent">
+              <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
+            </Button>
+            <Button asChild size="lg" variant="inverted">
+              <Link to="/" hash="kontakt">Prata med oss</Link>
+            </Button>
+          </div>
+        </div>
+
+        <div className="mt-16 grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
+          <div>
+            <Link to="/" aria-label="RCS Direkt, startsida" className="inline-block">
+              <BrandLogo inverse className="h-8" />
+            </Link>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-pretty text-ink-muted">
+              RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-ink-muted">
+              <li className="flex items-start gap-3">
+                <Building2 aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" />
+                <span>WIGOSE AB, org.nr 559415-6753</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" />
+                <span>Klostergatan 15, 703 39 Örebro</span>
+              </li>
+            </ul>
+          </div>
+          <nav aria-label="Sidfot" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {footerNav.map((group) => (
               <div key={group.title}>
-                <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">{group.title}</p>
+                <p className="text-xs font-bold uppercase tracking-[0.08em] text-ink-foreground">{group.title}</p>
                 <ul className="mt-3">
-                  {group.links.map((link) => {
-                    const linkClass = "group inline-flex min-h-11 items-center sm:min-h-10 gap-1.5 text-[13px] text-ink-muted transition-colors hover:text-ink-foreground";
-                    return (
-                      <li key={link.label}>
-                        {"to" in link ? (
-                          <Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={linkClass}>
-                            {link.label}
-                            <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none" />
-                          </Link>
-                        ) : (
-                          <a href={link.href} className={linkClass}>
-                            {link.label}
-                            <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none" />
-                          </a>
-                        )}
-                      </li>
-                    );
-                  })}
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      {"to" in link ? (
+                        <Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={footerLinkClass}>{link.label}</Link>
+                      ) : (
+                        <a href={link.href} className={footerLinkClass}>
+                          {link.label}
+                          <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                        </a>
+                      )}
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}
-            <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-              <p className="text-xs font-semibold uppercase tracking-wider text-ink-foreground/70">Kontaktuppgifter</p>
-              <ul className="mt-5 space-y-2.5 text-[13px] text-ink-muted">
-                <li>WIGOSE AB</li>
-                <li>Org.nr 559415-6753</li>
-                <li>Klostergatan 15, 703 39 Örebro</li>
-              </ul>
-            </div>
           </nav>
         </div>
+
         <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-ink-muted">© {new Date().getFullYear()} WIGOSE AB · RCS Direkt. Alla rättigheter reserverade.</p>
+          <p className="text-xs text-ink-muted">
+            © {new Date().getFullYear()} WIGOSE AB · RCS Direkt. Alla rättigheter reserverade.
+            {/* For the team: the CMS where the site's texts are edited. */}
+            <a href="https://cms.rcsdirekt.se/admin" className="ml-3 inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
+          </p>
           <Button variant="link" size="sm"
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}

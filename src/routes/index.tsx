@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BadgeCheck, Send, UserPlus } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -86,9 +86,9 @@ function HeroFirst() {
 
 
 const STEPS = [
-  { title: "Skapa ett konto", copy: "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss med nästa steg." },
-  { title: "Avsändaren registreras", copy: "Ni skickar företagsnamn, logotyp och en kort beskrivning. Vi registrerar avsändaren, och den kontrolleras innan den får skicka." },
-  { title: "Skicka första utskicket", copy: "Bygg meddelandet i webbverktyget eller koppla in ert system via API. Ni betalar för de meddelanden som skickas." },
+  { Icon: UserPlus, title: "Skapa ett konto", copy: "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss med nästa steg." },
+  { Icon: BadgeCheck, title: "Avsändaren registreras", copy: "Ni skickar företagsnamn, logotyp och en kort beskrivning. Vi registrerar avsändaren, och den kontrolleras innan den får skicka." },
+  { Icon: Send, title: "Skicka första utskicket", copy: "Bygg meddelandet i webbverktyget eller koppla in ert system via API. Ni betalar för de meddelanden som skickas." },
 ];
 
 /** How a company gets started: three steps in a row, so the process is visible before the price. */
@@ -109,7 +109,8 @@ function Steps() {
               {/* Indented by the card's padding, so each number stands over its heading. */}
               <div className="pl-7"><NumberDrop n={index + 1} /></div>
               <div className="mt-4 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
-                <h3 className="text-xl font-extrabold leading-snug">{step.title}</h3>
+                <step.Icon aria-hidden strokeWidth={2} className="size-6 text-logo-blue" />
+                <h3 className="mt-4 text-xl font-extrabold leading-snug">{step.title}</h3>
                 <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{step.copy}</p>
               </div>
             </li>
