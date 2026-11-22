@@ -152,8 +152,9 @@ export function WaysSection() {
 export function PricingSection() {
   const plans = content.priser.plans;
   return (
-    // Follows "Från webben eller via API" on the same white, so it has no wave at the top.
-    <section id="pris" className="relative overflow-hidden bg-background pb-16 sm:pb-24">
+    // Follows "Så kommer ni igång" on lavender; the trust columns follow on the same white.
+    <section id="pris" className="relative overflow-hidden bg-background pt-16 pb-14 sm:pt-24 sm:pb-16">
+      <Wave flip fill="var(--color-primary-soft)" />
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>

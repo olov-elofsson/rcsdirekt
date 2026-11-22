@@ -218,7 +218,12 @@ function ConversationView({
                       gap: 8,
                       overflowX: "auto",
                       marginTop: step.text ? 8 : 0,
+                      // Room for the cards' shadow, which the scroll box would otherwise cut.
+                      padding: "0 0 14px",
+                      marginBottom: -14,
                       scrollSnapType: "x mandatory",
+                      // The next card fades out at the edge instead of being cut off, a hint to swipe.
+                      maskImage: "linear-gradient(to right, #000 calc(100% - 56px), transparent)",
                     }}
                   >
                     {step.carousel.map((card) => (
@@ -226,6 +231,8 @@ function ConversationView({
                         <CardView card={card} narrow active={active} onChoose={choose} />
                       </div>
                     ))}
+                    {/* Lets the last card scroll clear of the fade. */}
+                    <div aria-hidden style={{ flex: "none", width: 48 }} />
                   </div>
                 ) : null}
                 {step.chips && active ? (
