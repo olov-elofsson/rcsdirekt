@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, BellOff, Check, CheckCheck, Clock, Download, IdCard, Image as ImageIcon, MessageSquareReply, MousePointerClick, Smartphone, Type, Wallet, X, type LucideIcon } from "lucide-react";
 
 import { InquiryForm } from "@/components/InquiryForm";
-import { DateLabel, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
+import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -69,13 +69,42 @@ const propertyIcon = (label: string) => PROPERTY_ICONS.find(([prefix]) => label.
 export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
-    <section id="rcs-mot-sms" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
+    <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
-        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card")}>
+        {/* On a phone three columns get too narrow, so each property becomes a row of its own
+            with SMS and RCS side by side under it. */}
+        <ul data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card sm:hidden")}>
+          <li aria-hidden className="grid grid-cols-2 gap-2 px-4 pt-4 pb-1">
+            <span className="px-3 text-xs font-semibold text-muted-foreground">SMS</span>
+            <span className="px-3 font-display text-sm font-extrabold text-foreground">RCS</span>
+          </li>
+          {rows.map((item) => {
+            const Icon = propertyIcon(item.label);
+            return (
+              <li key={item.label} className="border-t border-border px-4 py-4 first-of-type:border-t-0 [&:nth-child(2)]:border-t-0">
+                <p className="flex items-center gap-2.5 text-sm font-semibold">
+                  {Icon ? <span aria-hidden className="grid size-7 shrink-0 place-items-center rounded-lg bg-primary-soft text-logo-blue"><Icon strokeWidth={2} className="size-4" /></span> : null}
+                  {item.label}
+                </p>
+                <dl className="mt-3 grid grid-cols-2 gap-2">
+                  <div className="flex min-h-11 items-center rounded-xl px-3 py-2">
+                    <dt className="sr-only">SMS</dt>
+                    <dd><Fact value={item.sms} rcs={false} /></dd>
+                  </div>
+                  <div className="flex min-h-11 items-center rounded-xl bg-primary-soft px-3 py-2">
+                    <dt className="sr-only">RCS</dt>
+                    <dd><Fact value={item.rcs} rcs /></dd>
+                  </div>
+                </dl>
+              </li>
+            );
+          })}
+        </ul>
+        <div data-reveal style={order(1)} className={cn(sectionBody, "hidden overflow-hidden rounded-2xl bg-card sm:block")}>
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
               <col className="w-[38%]" />
@@ -116,54 +145,102 @@ export function CompareSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
-/** A labelled field in the editor sketch: a label over a quiet input. */
-function SketchField({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div>
-      <p className="text-xs font-semibold text-muted-foreground">{label}</p>
-      <div className="mt-1.5 flex min-h-10 items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm leading-snug">{children}</div>
-    </div>
-  );
-}
+const BUTTON_KINDS = [
+  { id: "open", label: "Öppnar länk", icon: "open" },
+  { id: "call", label: "Ringer", icon: "call" },
+  { id: "reply", label: "Svar", icon: null },
+] as const;
 
-const SKETCH_TITLE = "Ert första utskick";
-const SKETCH_BODY = "Så ser ett kort med bild och knapp ut hos kunden.";
+const fieldClass =
+  "mt-1.5 w-full rounded-lg border border-transparent bg-muted px-3 py-2 text-sm font-normal leading-snug text-foreground outline-none transition-[border-color,background-color] duration-150 placeholder:text-muted-foreground/70 focus:border-logo-blue focus:bg-background";
 
 /**
- * The web tool, reduced to a card editor: the message in the site's phone on one side, its three
- * fields on the other and one send action. A sketch of how such an editor works, not one product.
+ * The web tool, reduced to a card editor the visitor can use: what is typed in the fields shows
+ * at once in the message beside them, the way it reaches the customer. A sketch of how such an
+ * editor works, not one product; nothing is sent.
  */
 function WebSketch() {
   const banner = rcsDirektSender.profile.banner;
+  const [title, setTitle] = useState("Ert första utskick");
+  const [body, setBody] = useState("Skriv här, så ser ni direkt hur kortet ser ut hos kunden.");
+  const [button, setButton] = useState("Läs mer");
+  const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
+  const [sent, setSent] = useState(0);
+  const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
+  const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => {
+    set(event.target.value);
+    setSent(0);
+  };
   return (
-    <div aria-hidden className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
+    <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
       <div className="grid flex-1 sm:grid-cols-2">
-        <div className="flex items-center justify-center bg-muted px-4 py-6">
-          <div className="w-full max-w-[13.5rem]">
-            <RcsPhone sender={rcsDirektSender.sender} logo={rcsDirektSender.logo} maxScale={0.6}>
-              <DateLabel>I dag</DateLabel>
-              <IncomingRow>
-                <div className="card">
-                  <img src={banner} alt="" />
-                  <div className="ct">{SKETCH_TITLE}</div>
-                  <div className="cb">{SKETCH_BODY}</div>
+        {/* The message alone, without a phone around it: the sender line and the card. */}
+        <div className="flex flex-col items-center justify-center gap-3 bg-muted px-4 py-8">
+          <div aria-live="polite" className="flex w-full justify-center">
+            <RcsSnippet width={300} scale={0.8}>
+              <SenderLine name={rcsDirektSender.sender} verified />
+              <div className="card">
+                <img src={banner} alt="" />
+                <div className="ct">{title || "Rubrik"}</div>
+                {body ? <div className="cb">{body}</div> : null}
+                {button ? (
                   <div className="cbtns">
-                    <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div>
+                    <div className="cbtn">
+                      {icon ? <span className="ci"><PhoneIcon name={icon} size={18} /></span> : null}
+                      {button}
+                    </div>
                   </div>
-                </div>
-              </IncomingRow>
-            </RcsPhone>
+                ) : null}
+              </div>
+            </RcsSnippet>
           </div>
+          <p className={cn("flex h-5 items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-opacity duration-200", sent ? "opacity-100" : "opacity-0")}>
+            <CheckCheck aria-hidden className="size-4 text-logo-blue" /> Testutskick levererat
+          </p>
         </div>
-        <div className="flex flex-col gap-4 p-5 sm:p-6">
+        <form
+          className="flex flex-col gap-4 p-5 sm:p-6"
+          onSubmit={(event) => {
+            event.preventDefault();
+            setSent((count) => count + 1);
+          }}
+        >
           <p className="font-display text-base font-extrabold">Nytt utskick</p>
-          <SketchField label="Rubrik">{SKETCH_TITLE}</SketchField>
-          <SketchField label="Text">{SKETCH_BODY}</SketchField>
-          <SketchField label="Knapp">Läs mer<span className="ml-auto text-xs text-muted-foreground">Öppnar länk</span></SketchField>
-          <div className="mt-auto flex justify-end pt-2">
-            <span className="inline-flex h-9 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground">Skicka</span>
+          <label className="block text-xs font-semibold text-muted-foreground">
+            Rubrik
+            <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
+          </label>
+          <label className="block text-xs font-semibold text-muted-foreground">
+            Text
+            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={3} className={cn(fieldClass, "resize-none")} />
+          </label>
+          <div>
+            <label className="block text-xs font-semibold text-muted-foreground">
+              Knapp
+              <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
+            </label>
+            <div role="radiogroup" aria-label="Vad knappen gör" className="mt-2 flex flex-wrap gap-1.5">
+              {BUTTON_KINDS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={kind === item.id}
+                  onClick={() => { setKind(item.id); setSent(0); }}
+                  className={cn(
+                    "inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold transition-[background-color,color,scale] duration-150 ease-out active:scale-[0.96]",
+                    kind === item.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+          <div className="mt-auto flex justify-end pt-2">
+            <Button type="submit" size="sm">Skicka test</Button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -248,7 +325,7 @@ export function WaysSection() {
   const [web, api] = home.vagar.items;
   const visual: Record<number, ReactNode> = { 0: <WebSketch />, 1: <ApiSketch /> };
   return (
-    <section id="vad-ar-rcs" className="relative overflow-hidden bg-background py-16 sm:py-24">
+    <section id="vad-ar-rcs" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>{home.vagar.heading}</h2>
@@ -373,14 +450,21 @@ export function PricingSection() {
                   <span className="text-4xl font-extrabold tabular-nums">{plan.price}</span>
                 </p>
                 <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>listpris per meddelande</p>
+                {/* When to pick this type, so the three are easy to tell apart. */}
+                {plan.short ? <p className={cn("mt-6 border-t pt-5 text-sm leading-relaxed text-pretty", featured ? "border-ink-foreground/15" : "border-border")}>{plan.short}</p> : null}
                 {/* One filled action, on the lifted plan; the plan follows into the sign-up form. */}
-                <Button asChild size="lg" variant="outline" className={cn("mt-8 w-full", featured && "border-transparent")}>
+                <div className="min-h-8 flex-1" />
+                <Button asChild size="lg" variant="outline" className={cn("w-full", featured && "border-transparent")}>
                   <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
                 </Button>
               </div>
             );
           })}
         </div>
+        <p data-reveal className="mt-5 text-sm leading-relaxed text-pretty text-muted-foreground">
+          Osäkra på vilken ni behöver?{" "}
+          <Link to="/blogg/$slug" params={{ slug: "rcs-basic-single-conversation" }} className="font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Så skiljer sig Basic, Single och Conversation</Link>
+        </p>
         <div className="mt-5"><PriceCalculator plans={plans} /></div>
         <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
           Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.{" "}

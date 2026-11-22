@@ -4,7 +4,6 @@ import { ArrowRight, Check } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
-import { pricingPlans } from "@/data/pricing-plans";
 import { cn } from "@/lib/utils";
 import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection, WaysSection } from "@/components/HomepageSections";
@@ -13,8 +12,7 @@ import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { priser } from "@/content/priser";
 import { startsida } from "@/content/startsida";
 import { webinarer } from "@/content/webinarer";
-import { company, organizationSchema } from "@/lib/company";
-import { articleList } from "@/content/article-list";
+import { organizationSchema } from "@/lib/company";
 import { STEPS } from "@/data/onboarding";
 
 const home = startsida;
@@ -80,36 +78,9 @@ function NumberDrop({ n }: { n: number }) {
   );
 }
 
-const lowestPrice = pricingPlans[0]?.price;
-// Named operators only; "Övriga operatörer" (MVNOs) is a price row, not a network to name.
-const operators = priser.operators.filter((name) => !name.startsWith("Övriga"));
-
-/** Three figures under the hero, each read from the content so they follow the CMS. */
-function HeroFigures() {
-  const figures = [
-    operators.length ? { value: String(operators.length), label: `operatörer: ${operators.slice(0, -1).join(", ")} och ${operators.at(-1)}` } : null,
-    lowestPrice ? { value: `från ${lowestPrice.replace(" SEK", " kr")}`, label: "listpris per meddelande, priset beror på volym" } : null,
-    articleList.length ? { value: String(articleList.length), label: "guider om RCS, med källor" } : null,
-  ].filter((figure): figure is { value: string; label: string } => Boolean(figure));
-  return (
-    <div className="mx-auto mt-12 max-w-4xl border-t border-border pt-8">
-      <dl className="grid gap-6 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border">
-        {figures.map(({ value, label }) => (
-          <div key={label} className="flex flex-col items-center gap-1 px-4">
-            <dt className="sr-only">{label}</dt>
-            <dd className="font-display text-3xl font-extrabold tabular-nums sm:text-4xl">{value}</dd>
-            <dd className="text-sm text-pretty text-muted-foreground">{label}</dd>
-          </div>
-        ))}
-      </dl>
-      <p className="mt-8 text-xs text-muted-foreground">En tjänst från {company.legalName}, org.nr {company.orgNumber}</p>
-    </div>
-  );
-}
-
-/** A plain, centred hero: headline, one line on what it is, two actions and the list price. No decoration. */
+/** A plain, centred hero: headline, one line on what it is and two actions. No decoration. */
 function HeroFirst() {
-  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><p className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-primary-soft px-3.5 py-1.5 text-xs font-semibold"><span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />RCS för företag i Sverige</p><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div><HeroFigures /></div></section>;
+  return <section id="top" className="bg-background"><div className="relative mx-auto max-w-5xl px-5 pt-16 pb-14 text-center sm:pt-24 sm:pb-16 lg:px-8"><h1 className="mx-auto max-w-4xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:text-6xl">{home.hero.title} <span className="sm:block">{home.hero.highlight}</span></h1><p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">{home.hero.description}</p><div className="mt-9 flex justify-center"><DualCtas /></div></div></section>;
 }
 
 
@@ -121,7 +92,7 @@ function Steps() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>Kom igång</h2>
-          <p className={cn(sectionIntro, "text-ink-muted")}>Från konto till första meddelande. Vi hjälper till med avsändaren och upplägget på vägen.</p>
+          <p className={cn(sectionIntro, "text-ink-muted")}>Tre steg från konto till första meddelandet. Vi hjälper er med avsändaren på vägen.</p>
         </div>
         <ol className="relative mt-10 grid gap-8 sm:mt-12 md:grid-cols-3 md:gap-5">
           {/* The line through the drops, drawn from left to right when the steps come into view.

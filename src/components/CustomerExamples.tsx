@@ -317,8 +317,6 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
   const touched = useRef(false);
   const box = useRef<HTMLElement>(null);
   const swipeFrom = useRef<{ x: number; y: number } | null>(null);
-  const { current, answered, typing, started } = conversation;
-  const choices = answered || typing ? [] : choicesIn(current);
 
   // The person's own taps stop the demo.
   const choose = (choice: Choice) => {
@@ -373,7 +371,7 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
       <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[520px] lg:h-[560px]">
         <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 60vw, 100vw" alt={scenario.photo.alt} decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.company}</span>
         <figcaption className={cn("absolute inset-x-5 bottom-5 top-14 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : "sm:right-auto")}>
           <ConversationView sender={scenario.customer} conversation={{ ...conversation, choose }} hint={hint} />
         </figcaption>
@@ -392,27 +390,6 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
             ))}
           </ul>
         ) : null}
-        {/* The same choices as the buttons in the message, so the example can be tried from here too.
-            On a phone the message sits right above with the same buttons, so this is left out there. */}
-        <div className="mt-7 hidden border-t border-border pt-5 lg:block">
-          <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase">{choices.length ? "Prova som kund" : started ? "Klart" : "Prova som kund"}</p>
-          <div aria-live="polite" className="mt-3 flex flex-wrap gap-2">
-            {choices.length ? (
-              choices.map((choice) => (
-                <button key={choice.label} type="button" onClick={() => choose(choice)} className="inline-flex min-h-10 items-center rounded-full bg-muted px-4 text-sm font-semibold transition-colors duration-150 hover:bg-primary-soft active:scale-[0.97]">
-                  {choice.label}
-                  {choice.opens ? <span className="ml-1.5 font-normal text-muted-foreground">öppnar {choice.opens}</span> : null}
-                </button>
-              ))
-            ) : typing ? (
-              <span className="inline-flex min-h-10 items-center text-sm text-muted-foreground">{scenario.customer} skriver …</span>
-            ) : (
-              <button type="button" onClick={() => { touched.current = true; conversation.reset(); }} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-muted px-4 text-sm font-semibold transition-colors duration-150 hover:bg-primary-soft active:scale-[0.97]">
-                <RotateCcw aria-hidden className="size-3.5" /> Börja om
-              </button>
-            )}
-          </div>
-        </div>
       </div>
     </article>
   );
@@ -457,7 +434,7 @@ function CaseShowcase() {
               itemIndex === index ? "bg-ink-foreground text-ink" : "bg-ink-foreground/10 text-ink-foreground hover:bg-ink-foreground/20",
             )}
           >
-            {item.customer}
+            {item.company}
           </button>
         ))}
       </div>
@@ -491,10 +468,10 @@ export function CustomerExamples() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
-            Kundexempel
+            Kunder
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
-            Så kan RCS se ut hos fyra av våra kunder. Tryck på knapparna och svara som en kund. Fotona kommer från kundcasen och meddelandena är exempel.
+            Så här kan det se ut hos fyra av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.
           </p>
         </div>
         <CaseShowcase />

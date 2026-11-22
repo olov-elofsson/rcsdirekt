@@ -19,6 +19,8 @@ import * as migration_20261122_150100_prices_and_texts from './20261122_150100_p
 import * as migration_20261122_160000_comparison_tidy from './20261122_160000_comparison_tidy';
 import * as migration_20261122_170000_privacy_email from './20261122_170000_privacy_email';
 import * as migration_20261122_180000_brand_name from './20261122_180000_brand_name';
+import * as migration_20261122_190000_section_headings from './20261122_190000_section_headings';
+import * as migration_20261122_200000_plan_guide from './20261122_200000_plan_guide';
 import * as migration_20261121_190000_case_names from './20261121_190000_case_names';
 import * as migration_20261121_191000_case_photos from './20261121_191000_case_photos';
 import * as migration_20261121_192000_webinars from './20261121_192000_webinars';
@@ -163,5 +165,15 @@ export const migrations = [
     up: migration_20261122_180000_brand_name.up,
     down: migration_20261122_180000_brand_name.down,
     name: '20261122_180000_brand_name',
+  },
+  {
+    up: migration_20261122_190000_section_headings.up,
+    down: migration_20261122_190000_section_headings.down,
+    name: '20261122_190000_section_headings',
+  },
+  {
+    up: migration_20261122_200000_plan_guide.up,
+    down: migration_20261122_200000_plan_guide.down,
+    name: '20261122_200000_plan_guide',
   },
 ];

@@ -163,7 +163,10 @@ function PlanCards() {
               <span className="text-3xl font-extrabold tabular-nums">{plan.price}</span>
             </p>
             <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>per meddelande</p>
-            <Button asChild variant="outline" className={cn("mt-6 w-full", featured && "border-transparent")}>
+            {/* When to pick this type, so the three are easy to tell apart. */}
+            {plan.short ? <p className={cn("mt-5 border-t pt-4 text-sm leading-relaxed text-pretty", featured ? "border-ink-foreground/15" : "border-border")}>{plan.short}</p> : null}
+            <div className="min-h-6 flex-1" />
+            <Button asChild variant="outline" className={cn("w-full", featured && "border-transparent")}>
               <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
             </Button>
           </div>
