@@ -5,13 +5,17 @@ import { PageHeading } from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { content } from "@/content";
+import { CopyLink, ReadingProgress, useActiveSection } from "@/components/ArticleExtras";
+import { ArticleCard } from "@/components/BlogCards";
 import { articles, findSources, readingMinutes } from "@/data/rcs-knowledge";
 
 const lowestPrice = content.priser.plans[0]?.price;
 
 /** The aside on wide screens: the article's sections, then the way to try RCS. */
-function ArticleAside({ sections }: { sections: { id: string; title: string }[] }) {
+function ArticleAside({ sections, category, slug }: { sections: { id: string; title: string }[]; category: string; slug: string }) {
+  const more = articles.filter((item) => item.category === category && item.slug !== slug).slice(0, 5);
   const titled = sections.filter((section) => section.title);
+  const active = useActiveSection(titled.map((section) => section.id));
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-28 space-y-6">
@@ -21,7 +25,18 @@ function ArticleAside({ sections }: { sections: { id: string; title: string }[] 
             <ul className="mt-3 space-y-1 border-l border-border">
               {titled.map((section) => (
                 <li key={section.id}>
-                  <a href={`#${section.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">{section.title}</a>
+                  <a href={`#${section.id}`} aria-current={active === section.id ? "location" : undefined} className={`-ml-px block border-l py-1.5 pl-4 text-sm transition-colors duration-150 ${active === section.id ? "border-logo-blue font-semibold text-foreground" : "border-transparent text-muted-foreground hover:border-foreground hover:text-foreground"}`}>{section.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : more.length ? (
+          <nav aria-label={`Mer om ${category}`}>
+            <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase">Mer om {category}</p>
+            <ul className="mt-3 space-y-1 border-l border-border">
+              {more.map((item) => (
+                <li key={item.slug}>
+                  <Link to="/blogg/$slug" params={{ slug: item.slug }} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm leading-snug text-muted-foreground transition-colors duration-150 hover:border-foreground hover:text-foreground">{item.title}</Link>
                 </li>
               ))}
             </ul>
@@ -56,11 +71,11 @@ function ArticlePage() {
   const article = Route.useLoaderData();
   const references = findSources(article.sections.flatMap((section) => section.sources));
   const related = article.related.map((slug) => articles.find((item) => item.slug === slug)).filter((item): item is (typeof articles)[number] => Boolean(item)).slice(0, 4);
-  return <KnowledgeLayout><article>
+  return <KnowledgeLayout><ReadingProgress /><article>
     <PageHeading title={article.title} description={<p>{article.description}</p>}><Badge variant="secondary">{article.category}</Badge><span className="text-sm text-muted-foreground">{readingMinutes(article)} min läsning</span><span className="text-sm text-muted-foreground">Av <Link to="/om-oss" className="font-semibold text-foreground underline-offset-4 hover:underline">RCS Direkt</Link> · Publicerad <time dateTime={article.published}>{new Date(article.published).toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" })}</time></span></PageHeading>
     <div className="mx-auto grid max-w-6xl gap-16 px-5 pb-16 sm:pb-24 lg:grid-cols-[minmax(0,1fr)_17rem] lg:px-8">
     <div className="min-w-0 max-w-3xl">
-    <Link to="/blogg" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-logo-blue"><ArrowLeft aria-hidden className="size-4" /> Alla artiklar</Link>
+    <div className="flex items-center justify-between gap-3"><Link to="/blogg" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-logo-blue"><ArrowLeft aria-hidden className="size-4" /> Alla artiklar</Link><CopyLink /></div>
     <div className="mt-8 space-y-12">
       {article.sections.map((section) => (
         <section key={section.id} id={section.id} aria-labelledby={section.title ? `${section.id}-title` : undefined} className="scroll-mt-28">
@@ -82,13 +97,7 @@ function ArticlePage() {
         <h2 className="text-xl font-extrabold">Läs vidare</h2>
         <ul className="mt-5 grid gap-4 sm:grid-cols-2">
           {related.map((item) => (
-            <li key={item.slug}>
-              <Link to="/blogg/$slug" params={{ slug: item.slug }} className="group flex h-full flex-col rounded-2xl bg-card p-5 shadow-card transition-[box-shadow,translate] duration-200 ease-out hover:-translate-y-0.5">
-                <span className="text-xs font-semibold text-muted-foreground">{item.category}</span>
-                <span className="mt-1.5 font-bold leading-snug transition-colors group-hover:text-logo-blue">{item.title}</span>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-xs font-semibold text-muted-foreground">{readingMinutes(item)} min läsning</span>
-              </Link>
-            </li>
+            <li key={item.slug} className="flex"><ArticleCard article={item} className="w-full" /></li>
           ))}
         </ul>
       </section>
@@ -99,7 +108,7 @@ function ArticlePage() {
       <Button asChild variant="outline" className="mt-5 border-transparent"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
     </div>
     </div>
-    <ArticleAside sections={article.sections} />
+    <ArticleAside sections={article.sections} category={article.category} slug={article.slug} />
     </div>
   </article></KnowledgeLayout>;
 }
