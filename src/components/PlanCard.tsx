@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import type { PricingPlan } from "@/content";
 import { formatPrice, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n";
 
 /**
  * What each message type gives, step by step: each type has everything the one before has. Matches
@@ -17,16 +18,17 @@ const INCLUDES: Record<string, { lead?: string; items: string[] }> = {
   conversation: { lead: "Allt i Single, plus", items: ["Kunden kan svara i tråden", "Fram och tillbaka, vanligtvis inom 24 timmar"] },
 };
 
-/** "Till exempel a, b och c." at the end of the plan's description, as a short list of uses. */
+/** "Till exempel a, b och c." (or "For example a, b and c.") ending the description, as a list of uses. */
 function usesOf(text: string): string[] {
-  const match = /Till exempel (.+?)\.?$/.exec(text.trim());
-  return match?.[1] ? match[1].split(/, | och /).map((use) => use.trim()).filter(Boolean) : [];
+  const match = /(?:Till exempel|For example) (.+?)\.?$/.exec(text.trim());
+  return match?.[1] ? match[1].split(/, | och | and /).map((use) => use.trim()).filter(Boolean) : [];
 }
 
 /** One message type: name, from price, what is included, what it suits and a way to start. */
 export function PlanCard({ plan, size = "lg", className, style }: { plan: PricingPlan; size?: "md" | "lg"; className?: string; style?: CSSProperties }) {
   const featured = Boolean(plan.badge);
   const currency = useCurrency();
+  const { t, lp, locale } = useT();
   const includes = INCLUDES[plan.slug];
   const uses = usesOf(plan.short ?? "");
   const muted = featured ? "text-ink-muted" : "text-muted-foreground";
@@ -38,22 +40,22 @@ export function PlanCard({ plan, size = "lg", className, style }: { plan: Pricin
       </div>
       <p className={cn("mt-1.5 text-sm", muted)}>{plan.contents}</p>
       <p className="mt-6 flex items-baseline gap-1.5">
-        <span className={cn("text-sm font-semibold", muted)}>från</span>
-        <span className={cn("font-extrabold tabular-nums", size === "lg" ? "text-4xl" : "text-3xl")}>{formatPrice(plan.price, currency)}</span>
+        <span className={cn("text-sm font-semibold", muted)}>{t("från")}</span>
+        <span className={cn("font-extrabold tabular-nums", size === "lg" ? "text-4xl" : "text-3xl")}>{formatPrice(plan.price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" })}</span>
       </p>
-      <p className={cn("mt-1 text-sm", muted)}>listpris per meddelande</p>
+      <p className={cn("mt-1 text-sm", muted)}>{t("listpris per meddelande")}</p>
 
       <div className={cn("mt-6 flex-1 border-t pt-6", featured ? "border-ink-foreground/15" : "border-border")}>
         {includes ? (
           <>
-            {includes.lead ? <p className="text-sm font-semibold">{includes.lead}</p> : <p className="text-sm font-semibold">Ingår</p>}
+            <p className="text-sm font-semibold">{t(includes.lead ?? "Ingår")}</p>
             <ul className="mt-3 space-y-2.5">
               {includes.items.map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-sm leading-snug">
                   <span aria-hidden className={cn("mt-px grid size-[18px] shrink-0 place-items-center rounded-full", featured ? "bg-ink-foreground text-ink" : "bg-primary-soft text-logo-blue")}>
                     <Check strokeWidth={3} className="size-3" />
                   </span>
-                  {item}
+                  {t(item)}
                 </li>
               ))}
             </ul>
@@ -63,7 +65,7 @@ export function PlanCard({ plan, size = "lg", className, style }: { plan: Pricin
         )}
         {uses.length ? (
           <div className="mt-6">
-            <p className={cn("text-xs font-semibold", muted)}>Passar för</p>
+            <p className={cn("text-xs font-semibold", muted)}>{t("Passar för")}</p>
             <ul className="mt-2 flex flex-wrap gap-1.5">
               {uses.map((use) => (
                 <li key={use} className={cn("rounded-full px-2.5 py-1 text-xs font-semibold", featured ? "bg-ink-foreground/10" : "bg-muted")}>
@@ -77,7 +79,7 @@ export function PlanCard({ plan, size = "lg", className, style }: { plan: Pricin
 
       {/* One filled action, on the lifted plan; the plan follows into the sign-up form. */}
       <Button asChild size={size === "lg" ? "lg" : "default"} variant="outline" className={cn("mt-8 w-full", featured && "border-transparent")}>
-        <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
+        <Link to={lp("/skapa-konto")} search={{ plan: plan.name }}>{t("Välj")} {plan.name.replace(/^RCS /, "")}</Link>
       </Button>
     </div>
   );

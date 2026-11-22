@@ -10,13 +10,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { articleList } from "@/content/article-list";
 import { priser } from "@/content/priser";
-import { startsida } from "@/content/startsida";
+import { usePriser, useStartsida } from "@/content/localized";
+import { useT } from "@/lib/i18n";
+import { articleList as articleListEn } from "@/content/en/article-list";
 import { contentIcon } from "@/content/icons";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { formatPrice, formatTotal, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
-const home = startsida;
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
 // so a left-aligned heading would look indented next to the text under it.
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
@@ -42,11 +43,12 @@ function compareValue(value: string): boolean | string {
 }
 
 function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
+  const { t } = useT();
   if (typeof value === "boolean")
     return value ? (
-      <span className={cn("inline-flex", rcs ? "text-logo-blue" : "text-foreground")}><Check aria-hidden className="size-5" /><span className="sr-only">Ja</span></span>
+      <span className={cn("inline-flex", rcs ? "text-logo-blue" : "text-foreground")}><Check aria-hidden className="size-5" /><span className="sr-only">{t("Ja")}</span></span>
     ) : (
-      <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-5" /><span className="sr-only">Nej</span></span>
+      <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-5" /><span className="sr-only">{t("Nej")}</span></span>
     );
   return <span className={cn("text-sm leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
@@ -65,10 +67,25 @@ const PROPERTY_ICONS: [prefix: string, Icon: LucideIcon][] = [
   ["Svar", MessageSquareReply],
   ["Avregistrering", BellOff],
   ["Listpris", Wallet],
+  // The same properties in the English content.
+  ["Verified", BadgeCheck],
+  ["Sender profile", IdCard],
+  ["Characters", Type],
+  ["Analytics", BarChart3],
+  ["Availability", Smartphone],
+  ["Images", ImageIcon],
+  ["Click", MousePointerClick],
+  ["Read receipts", CheckCheck],
+  ["Replies", MessageSquareReply],
+  ["Unsubscrib", BellOff],
+  ["Opt-out", BellOff],
+  ["List price", Wallet],
 ];
 const propertyIcon = (label: string) => PROPERTY_ICONS.find(([prefix]) => label.startsWith(prefix))?.[1];
 
 export function CompareSection() {
+  const home = useStartsida();
+  const { t } = useT();
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
@@ -115,7 +132,7 @@ export function CompareSection() {
             </colgroup>
             <thead>
               <tr>
-                <th scope="col" className="px-5 py-4 sm:px-8"><span className="sr-only">Egenskap</span></th>
+                <th scope="col" className="px-5 py-4 sm:px-8"><span className="sr-only">{t("Egenskap")}</span></th>
                 <th scope="col" className="px-3 py-4 text-sm font-semibold text-muted-foreground sm:px-6">SMS</th>
                 <th scope="col" className="bg-ink px-3 py-4 font-display text-base font-extrabold text-ink-foreground sm:px-6">RCS</th>
               </tr>
@@ -162,10 +179,11 @@ const fieldClass =
  * editor works, not one product; nothing is sent.
  */
 function WebSketch() {
+  const { t } = useT();
   const banner = rcsDirektSender.profile.banner;
-  const [title, setTitle] = useState("Ert första utskick");
-  const [body, setBody] = useState("Skriv här, så ser ni direkt hur kortet ser ut hos kunden.");
-  const [button, setButton] = useState("Läs mer");
+  const [title, setTitle] = useState(() => t("Ert första utskick"));
+  const [body, setBody] = useState(() => t("Skriv här, så ser ni direkt hur kortet ser ut hos kunden."));
+  const [button, setButton] = useState(() => t("Läs mer"));
   const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
   const [sent, setSent] = useState(0);
   const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
@@ -180,14 +198,14 @@ function WebSketch() {
         {/* The preview sits inset in the editor's white card, so the two halves read as one tool. */}
         <div className="relative flex flex-col items-center justify-center gap-3 rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-10 pb-5">
           <span className="absolute top-3 left-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-            <span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />Förhandsvisning
+            <span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />{t("Förhandsvisning")}
           </span>
           <div aria-live="polite" className="flex w-full justify-center">
             <RcsSnippet width={300} scale={0.8}>
               <SenderLine name={rcsDirektSender.sender} verified />
               <div className="card">
                 <img src={banner} alt="" />
-                <div className="ct">{title || "Rubrik"}</div>
+                <div className="ct">{title || t("Rubrik")}</div>
                 {body ? <div className="cb">{body}</div> : null}
                 {button ? (
                   <div className="cbtns">
@@ -201,7 +219,7 @@ function WebSketch() {
             </RcsSnippet>
           </div>
           <p className={cn("flex h-5 items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-opacity duration-200", sent ? "opacity-100" : "opacity-0")}>
-            <CheckCheck aria-hidden className="size-4 text-logo-blue" /> Testutskick levererat
+            <CheckCheck aria-hidden className="size-4 text-logo-blue" /> {t("Testutskick levererat")}
           </p>
         </div>
         <form
@@ -211,21 +229,21 @@ function WebSketch() {
             setSent((count) => count + 1);
           }}
         >
-          <p className="font-display text-base font-extrabold sm:col-span-2">Nytt utskick</p>
+          <p className="font-display text-base font-extrabold sm:col-span-2">{t("Nytt utskick")}</p>
           <label className="block text-xs font-semibold text-muted-foreground">
-            Rubrik
+            {t("Rubrik")}
             <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
           </label>
           <label className="block text-xs font-semibold text-muted-foreground sm:row-span-2">
-            Text
+            {t("Text")}
             <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={4} className={cn(fieldClass, "resize-none")} />
           </label>
           <div>
             <label className="block text-xs font-semibold text-muted-foreground">
-              Knapp
+              {t("Knapp")}
               <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
             </label>
-            <div role="radiogroup" aria-label="Vad knappen gör" className="mt-2 flex flex-wrap gap-1.5">
+            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-2 flex flex-wrap gap-1.5">
               {BUTTON_KINDS.map((item) => (
                 <button
                   key={item.id}
@@ -238,13 +256,13 @@ function WebSketch() {
                     kind === item.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  {item.label}
+                  {t(item.label)}
                 </button>
               ))}
             </div>
           </div>
           <div className="flex items-end justify-end sm:col-span-2">
-            <Button type="submit" size="sm">Skicka test</Button>
+            <Button type="submit" size="sm">{t("Skicka test")}</Button>
           </div>
         </form>
       </div>
@@ -266,6 +284,21 @@ const API_REQUEST = `{
     ]
   },
   "fallback": { "sms": "Din tid: tis 14/1 kl. 14.00" }
+}`;
+
+const API_REQUEST_EN = `{
+  "sender": "rcsdirekt",
+  "to": "+46701234567",
+  "card": {
+    "title": "Your appointment is booked",
+    "description": "Tuesday 14 January at 2 pm",
+    "media": "https://example.com/image.jpg",
+    "buttons": [
+      { "type": "reply", "text": "Confirm" },
+      { "type": "reply", "text": "Reschedule" }
+    ]
+  },
+  "fallback": { "sms": "Your appointment: Tue 14/1 at 2 pm" }
 }`;
 
 const API_RESPONSE = `{ "messageId": "a1b2c3", "status": "ACCEPTED" }`;
@@ -293,6 +326,7 @@ const API_EVENTS: [time: string, status: string, detail: string][] = [
 
 /** The API in three steps: the request, the answer and the events that come back. */
 export function ApiSketch() {
+  const { t, locale } = useT();
   const step = "flex items-center gap-2 text-[11px] font-semibold tracking-[0.06em] text-ink-muted uppercase";
   return (
     <figure className="flex h-full flex-col overflow-hidden rounded-xl bg-ink text-left shadow-card">
@@ -301,24 +335,24 @@ export function ApiSketch() {
           <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono text-[11px]">POST</span>
           <span className="font-mono">/messages</span>
         </span>
-        <span>Förenklat exempel</span>
+        <span>{t("Förenklat exempel")}</span>
       </figcaption>
       <div className="flex-1 px-5 pt-4">
-        <p className={step}>1 Anrop</p>
-        <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={API_REQUEST} /></pre>
+        <p className={step}>1 {t("Anrop")}</p>
+        <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={locale === "en" ? API_REQUEST_EN : API_REQUEST} /></pre>
       </div>
       <div className="border-t border-ink-foreground/10 px-5 py-3">
-        <p className={step}>2 Svar <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono normal-case tracking-normal text-ink-foreground">202</span></p>
+        <p className={step}>2 {t("Svar")} <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono normal-case tracking-normal text-ink-foreground">202</span></p>
         <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={API_RESPONSE} /></pre>
       </div>
       <div className="border-t border-ink-foreground/10 px-5 py-3">
-        <p className={step}>3 Händelser via webhook</p>
+        <p className={step}>3 {t("Händelser via webhook")}</p>
         <ol className="mt-2 grid gap-1.5 text-[12.5px] text-ink-muted">
           {API_EVENTS.map(([time, status, detail]) => (
             <li key={status} className="flex items-center gap-3">
               <span className="font-mono tabular-nums text-ink-muted/80">{time}</span>
               <span className="rounded-full bg-ink-foreground/10 px-2 py-0.5 font-mono text-[11.5px] text-ink-foreground">{status}</span>
-              <span className="truncate">{detail}</span>
+              <span className="truncate">{t(detail)}</span>
             </li>
           ))}
         </ol>
@@ -328,6 +362,7 @@ export function ApiSketch() {
 }
 
 export function WaysSection() {
+  const home = useStartsida();
   const [web, api] = home.vagar.items;
   const visual: Record<number, ReactNode> = { 0: <WebSketch />, 1: <ApiSketch /> };
   return (
@@ -366,12 +401,13 @@ const sek = (value: number, digits = 0) =>
 
 /** The list price for a number of messages: the plan's from price times the count, nothing else. */
 /** The total, counted up or down to the new value; screen readers get only the final figure. */
-function GlidingTotal({ value, currency }: { value: number; currency: "SEK" | "EUR" }) {
+function GlidingTotal({ value, currency, locale = "sv" }: { value: number; currency: "SEK" | "EUR"; locale?: "sv" | "en" }) {
+  const tag = locale === "en" ? "en-GB" : "sv-SE";
   const shown = useGlide(value);
   return (
     <p className="mt-1 text-4xl font-extrabold tabular-nums">
-      <span aria-hidden>{formatTotal(shown, currency)}</span>
-      <span className="sr-only" aria-live="polite">{formatTotal(value, currency)}</span>
+      <span aria-hidden>{formatTotal(shown, currency, tag)}</span>
+      <span className="sr-only" aria-live="polite">{formatTotal(value, currency, tag)}</span>
     </p>
   );
 }
@@ -413,11 +449,13 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   if (!Number.isFinite(unit)) return null;
   const countId = "kalkyl-antal";
   const total = unit * count;
+  const { t, locale } = useT();
+  const number = (value: number) => value.toLocaleString(locale === "en" ? "en-GB" : "sv-SE");
   return (
     <div data-reveal className="grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
       <div>
-        <h3 className="text-xl font-extrabold">Priskalkyl</h3>
-        <div role="group" aria-label="Meddelandetyp" className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
+        <h3 className="text-xl font-extrabold">{t("Priskalkyl")}</h3>
+        <div role="group" aria-label={t("Meddelandetyp")} className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
           {plans.map((option, index) => (
             <button
               key={option.slug}
@@ -435,11 +473,11 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
           ))}
         </div>
         <div className="mt-6 flex items-center justify-between gap-4">
-          <label htmlFor={countId} className="text-sm font-semibold">Antal meddelanden</label>
+          <label htmlFor={countId} className="text-sm font-semibold">{t("Antal meddelanden")}</label>
           <input
             type="number"
             inputMode="numeric"
-            aria-label="Antal meddelanden"
+            aria-label={t("Antal meddelanden")}
             min={1}
             max={1000000}
             value={count}
@@ -455,21 +493,23 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
           step={500}
           value={Math.min(count, 50000)}
           onChange={(event) => setCount(Number(event.target.value))}
-          aria-valuetext={`${sek(count)} meddelanden`}
+          aria-valuetext={`${number(count)} ${t("meddelanden")}`}
           className="mt-3 h-11 w-full cursor-pointer accent-primary"
         />
       </div>
       <div className="lg:min-w-64 lg:text-right">
-        <p className="text-sm text-muted-foreground">Listpris från</p>
-        <GlidingTotal value={total} currency={currency} />
-        <p className="mt-1 text-sm text-muted-foreground">exkl. moms, {sek(count)} × {formatPrice(plan.price, currency)}</p>
+        <p className="text-sm text-muted-foreground">{t("Listpris från")}</p>
+        <GlidingTotal value={total} currency={currency} locale={locale} />
+        <p className="mt-1 text-sm text-muted-foreground">{t("exkl. moms")}, {number(count)} × {formatPrice(plan.price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" })}</p>
       </div>
     </div>
   );
 }
 
 export function PricingSection() {
-  const plans = priser.plans;
+  const home = useStartsida();
+  const plans = usePriser().plans;
+  const { t, lp } = useT();
   return (
     <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -478,19 +518,19 @@ export function PricingSection() {
             <h2 className={sectionTitle}>{home.pris.heading}</h2>
             <p className={sectionIntro}>{home.pris.intro}</p>
           </div>
-          <Link to="/priser" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Priser per operatör <ArrowRight aria-hidden className="size-4" /></Link>
+          <Link to={lp("/priser")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Priser per operatör")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         <div className={cn(sectionBody, "grid gap-5 md:grid-cols-3")}>
           {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} style={order(index)} />)}
         </div>
         <p data-reveal className="mt-5 text-sm leading-relaxed text-pretty text-muted-foreground">
-          Osäkra på vilken ni behöver?{" "}
-          <Link to="/blogg/$slug" params={{ slug: "rcs-basic-single-conversation" }} className="font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Så skiljer sig Basic, Single och Conversation</Link>
+          {t("Osäkra på vilken ni behöver?")}{" "}
+          <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-basic-single-conversation" }} className="font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">{t("Så skiljer sig Basic, Single och Conversation")}</Link>
         </p>
         <div className="mt-5"><PriceCalculator plans={plans} /></div>
         <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
-          Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.{" "}
-          <Link to="/" hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Fråga om volympris</Link>
+          {t("Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.")}{" "}
+          <Link to={lp("/")} hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">{t("Fråga om volympris")}</Link>
         </p>
       </div>
     </section>
@@ -501,7 +541,10 @@ export function PricingSection() {
 /* Insikter: one article large, two beside it.                                                 */
 
 export function BlogSection() {
-  const picks = home.blogg.picks.map((slug) => articleList.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
+  const home = useStartsida();
+  const { t, lp, locale } = useT();
+  const list = locale === "en" ? articleListEn : articleList;
+  const picks = home.blogg.picks.map((slug) => list.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
   const [first, ...rest] = picks;
   return (
     <section id="blogg" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
@@ -511,24 +554,24 @@ export function BlogSection() {
             <h2 className={sectionTitle}>{home.blogg.heading}</h2>
             <p className={sectionIntro}>{home.blogg.intro}</p>
           </div>
-          <Link to="/blogg" className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">Alla artiklar <ArrowRight aria-hidden className="size-4" /></Link>
+          <Link to={lp("/blogg")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         {first ? (
           <div className={cn(sectionBody, "grid gap-5 lg:grid-cols-[1.2fr_0.8fr]")}>
-            <Link to="/blogg/$slug" params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[280px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
+            <Link to={lp("/blogg/$slug")} params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[280px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
               <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
               <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
               <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
-              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{first.minutes} min läsning</span>
-              <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold">Läs artikeln <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
+              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{first.minutes} {t("min läsning")}</span>
+              <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold">{t("Läs artikeln")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
             </Link>
             <div className="grid gap-5">
               {rest.map((article, index) => (
-                <Link key={article.slug} to="/blogg/$slug" params={{ slug: article.slug }} data-reveal style={order(index + 1)} className="group flex flex-col rounded-2xl bg-card p-6 shadow-card transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                <Link key={article.slug} to={lp("/blogg/$slug")} params={{ slug: article.slug }} data-reveal style={order(index + 1)} className="group flex flex-col rounded-2xl bg-card p-6 shadow-card transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                   <Badge variant="secondary" className="self-start">{article.category}</Badge>
                   <h3 className="mt-3 text-lg font-extrabold leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{article.minutes} min läsning</span>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{article.minutes} {t("min läsning")}</span>
                 </Link>
               ))}
             </div>
@@ -543,6 +586,7 @@ export function BlogSection() {
 /* Kontakt: the heading beside the form.                                                        */
 
 export function ContactSection() {
+  const home = useStartsida();
   return (
     <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">

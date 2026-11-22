@@ -30,6 +30,21 @@ export async function splitContent() {
     minutes: readingMinutes(article),
   }));
   writeFileSync(new URL("article-list.json", folder), JSON.stringify(list) + "\n");
+
+  // The same list for the English translation in src/content/en, which is kept in the repository.
+  const enFolder = new URL("../src/content/en/parts/", import.meta.url);
+  if (!existsSync(new URL("article-list.json", enFolder))) writeFileSync(new URL("article-list.json", enFolder), "[]\n");
+  const en = await import("../src/data/en/blog-articles");
+  const enList = en.articles.map((article) => ({
+    slug: article.slug,
+    title: article.title,
+    description: article.description,
+    category: article.category,
+    keywords: article.keywords,
+    published: article.published,
+    minutes: readingMinutes(article),
+  }));
+  writeFileSync(new URL("article-list.json", enFolder), JSON.stringify(enList) + "\n");
   return [...parts, "article-list", "sources"];
 }
 

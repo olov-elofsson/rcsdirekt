@@ -1,22 +1,9 @@
 import { kunskap } from "@/content/kunskap";
-import type { Source } from "@/content";
+import { articleCollection } from "./article-collection";
 
-export type SourceFact = { sourceId: string; finding: string; implication: string };
+export type { SourceFact } from "./article-collection";
+export { factPublisher } from "./article-collection";
 
-// Findings describe the original publisher's service, not rcsdirekt.se's results.
-export const sourceFacts: Record<string, SourceFact> = Object.fromEntries(
-  kunskap.sources
-    .filter((source) => source.finding && source.implication)
-    .map((source) => [
-      source.id,
-      { sourceId: source.id, finding: source.finding, implication: source.implication },
-    ]),
-);
+const collection = articleCollection(kunskap, "sv");
 
-export function factsForSources(ids: string[]): SourceFact[] {
-  return [...new Set(ids)].flatMap((id) => (sourceFacts[id] ? [sourceFacts[id]] : [])).slice(0, 2);
-}
-
-export function factPublisher(source: Pick<Source, "title">) {
-  return source.title.split(":")[0];
-}
+export const { sourceFacts, factsForSources } = collection;

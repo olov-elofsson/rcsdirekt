@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -16,18 +17,20 @@ import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import appCss from "../styles.css?url";
+import { localeOf, useT } from "@/lib/i18n";
 
 function NotFoundComponent() {
+  const { t, lp } = useT();
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="outline-none flex-1">
-        <PageHeading title="Sidan finns inte" description={<p>Sidan du letar efter finns inte eller har flyttats.</p>}>
+        <PageHeading title={t("Sidan finns inte")} description={<p>{t("Sidan du letar efter finns inte eller har flyttats.")}</p>}>
           <Button asChild size="lg">
-            <Link to="/">Till startsidan <ArrowRight data-icon="end" /></Link>
+            <Link to={lp("/")}>{t("Till startsidan")} <ArrowRight data-icon="end" /></Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link to="/blogg">Läs om RCS</Link>
+            <Link to={lp("/blogg")}>{t("Läs om RCS")}</Link>
           </Button>
         </PageHeading>
       </main>
@@ -107,8 +110,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const lang = useRouterState({ select: (state) => localeOf(state.location.pathname) });
   return (
-    <html lang="sv">
+    <html lang={lang}>
       <head>
         <HeadContent />
       </head>

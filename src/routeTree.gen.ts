@@ -23,6 +23,7 @@ import { Route as ApiRcsVideoRouteImport } from './routes/api/rcs-video'
 import { Route as BloggIndexRouteImport } from './routes/blogg.index'
 import { Route as BloggSlugRouteImport } from './routes/blogg.$slug'
 import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
+import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as VFileRouteImport } from './routes/v/$file'
 
 const IndexRoute = IndexRouteImport.update({
@@ -95,6 +96,11 @@ const DemoSlugRoute = DemoSlugRouteImport.update({
   path: '/demo/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/en/',
+  path: '/en/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VFileRoute = VFileRouteImport.update({
   id: '/v/$file',
   path: '/v/$file',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/demo/$slug': typeof DemoSlugRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
+  '/en/': typeof EnIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/demo/$slug': typeof DemoSlugRoute
   '/v/$file': typeof VFileRoute
   '/blogg': typeof BloggIndexRoute
+  '/en': typeof EnIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/demo/$slug': typeof DemoSlugRoute
   '/v/$file': typeof VFileRoute
   '/blogg/': typeof BloggIndexRoute
+  '/en/': typeof EnIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/demo/$slug'
     | '/v/$file'
     | '/blogg/'
+    | '/en/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/demo/$slug'
     | '/v/$file'
     | '/blogg'
+    | '/en'
   id:
     | '__root__'
     | '/'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/demo/$slug'
     | '/v/$file'
     | '/blogg/'
+    | '/en/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -223,6 +235,7 @@ export interface RootRouteChildren {
   DemoSlugRoute: typeof DemoSlugRoute
   VFileRoute: typeof VFileRoute
   BloggIndexRoute: typeof BloggIndexRoute
+  EnIndexRoute: typeof EnIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -325,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/': {
+      id: '/en/'
+      path: '/en'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/v/$file': {
       id: '/v/$file'
       path: '/v/$file'
@@ -351,6 +371,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoSlugRoute: DemoSlugRoute,
   VFileRoute: VFileRoute,
   BloggIndexRoute: BloggIndexRoute,
+  EnIndexRoute: EnIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
