@@ -5,7 +5,7 @@ import { content } from "@/content";
 
 const page = content.juridiskt?.villkor;
 const title = `${page?.title || "Villkor"} | RCS Direkt`;
-const description = page?.description || "Villkoren för företag som skickar RCS genom RCS Direkt.";
+const description = `${page?.description || "Villkoren för företag som skickar RCS genom RCS Direkt."} Om tjänsten, priser, tillåten användning, personuppgifter och uppsägning.`;
 
 export const Route = createFileRoute("/villkor")({
   head: () => ({

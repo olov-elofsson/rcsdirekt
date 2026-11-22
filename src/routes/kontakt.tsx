@@ -41,9 +41,9 @@ function ContactPage() {
                 <ul className="mt-4 space-y-3">
                   <li className={row}><Building2 aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><span>{company.legalName}, org.nr {company.orgNumber}</span></li>
                   <li className={row}><MapPin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><span>{company.street}, {company.postalCode} {company.city}</span></li>
-                  {company.email ? <li className={row}><Mail aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={`mailto:${company.email}`} className="font-semibold underline-offset-4 hover:underline">{company.email}</a></li> : null}
-                  {company.phone ? <li className={row}><Phone aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={phoneHref(company.phone)} className="font-semibold underline-offset-4 hover:underline">{company.phone}</a></li> : null}
-                  {company.linkedin ? <li className={row}><Linkedin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={company.linkedin} className="font-semibold underline-offset-4 hover:underline">LinkedIn</a></li> : null}
+                  {company.email ? <li className={row}><Mail aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={`mailto:${company.email}`} className="-my-2.5 inline-flex min-h-10 items-center font-semibold underline-offset-4 hover:underline">{company.email}</a></li> : null}
+                  {company.phone ? <li className={row}><Phone aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={phoneHref(company.phone)} className="-my-2.5 inline-flex min-h-10 items-center font-semibold underline-offset-4 hover:underline">{company.phone}</a></li> : null}
+                  {company.linkedin ? <li className={row}><Linkedin aria-hidden strokeWidth={1.75} className="mt-0.5 size-4 shrink-0 text-logo-blue" /><a href={company.linkedin} className="-my-2.5 inline-flex min-h-10 items-center font-semibold underline-offset-4 hover:underline">LinkedIn</a></li> : null}
                 </ul>
               </div>
               <div className="rounded-2xl bg-card p-6 shadow-card">

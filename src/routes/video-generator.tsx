@@ -1,3 +1,4 @@
+import { metaDescription } from "@/components/KnowledgeLayout";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
@@ -11,10 +12,10 @@ const description =
 export const Route = createFileRoute("/video-generator")({
   head: () => ({
     meta: [
-      { title },
-      { name: "description", content: description },
+      { title: `${title} | RCS Direkt` },
+      { name: "description", content: metaDescription(description) },
       { property: "og:title", content: title },
-      { property: "og:description", content: description },
+      { property: "og:description", content: metaDescription(description) },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://rcsdirekt.se/video-generator" },
       { name: "twitter:card", content: "summary_large_image" },

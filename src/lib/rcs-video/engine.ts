@@ -506,7 +506,7 @@ export function createRenderer(host, P) {
     const optin = P.messages.find(m => m.id === 'optin');
     let h = `<div id="search">${icon('search', 22, '#444746')}<span class="t">Sök i konversationer</span></div>
     <div id="me" style="background:${P.inbox.meColor}">${esc(P.inbox.meInitial)}</div>
-    <div class="row unread" id="inbox-row-sender" style="top:92px"><img class="av" src="${S.logo}"><div class="n">${esc(S.displayName)}${verifiedBadge(15)}</div><div class="p">${esc(optin.text)}</div><div class="tm">${clockAt(P.startClock, 0)}</div></div>`;
+    <div class="row unread" id="inbox-row-sender" style="top:92px"><img alt="" class="av" src="${S.logo}"><div class="n">${esc(S.displayName)}${verifiedBadge(15)}</div><div class="p">${esc(optin.text)}</div><div class="tm">${clockAt(P.startClock, 0)}</div></div>`;
     P.inbox.others.forEach((o, i) => {
       h += `<div class="row" style="top:${152 + i * 60}px"><div class="av" style="background:${o.color}">${esc(o.name[0])}</div><div class="n">${esc(o.name)}</div><div class="p">${esc(o.preview).replace(/😊/g, `<img src="${EMOJI_SMILE}" alt="" style="display:inline-block;width:14px;height:14px;vertical-align:-2px">`)}</div><div class="tm">${esc(o.time)}</div></div>`;
     });
@@ -517,8 +517,8 @@ export function createRenderer(host, P) {
   function buildProfile() {
     let h = `<div class="back" id="prof-back" style="position:absolute;left:12px;top:46px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center">${icon('back', 24)}</div>
     <div class="more">${icon('more', 24)}</div>
-    <img class="banner" src="${S.banner}">
-    <img class="logo" src="${S.logo}">
+    <img alt="" class="banner" src="${S.banner}">
+    <img alt="" class="logo" src="${S.logo}">
     <div class="name">${esc(S.displayName)}${verifiedBadge(19)}</div>
     <div class="desc">${esc(S.description)}</div>`;
     const n = S.contacts.length;
@@ -585,7 +585,7 @@ export function createRenderer(host, P) {
       const tid = `card-${m.id}-btn-${i}`;
       b += `<div class="cbtn${isPressed(tid, t) ? ' hl' : ''}" id="${tid}">${bt.icon ? `<span class="ci">${icon(bt.icon, 18, '#1f1f1f')}</span>` : ''}${esc(bt.label)}</div>`;
     });
-    const img = m.image ? `<img src="${m.image}">` : '';
+    const img = m.image ? `<img alt="" src="${m.image}">` : '';
     return `<div class="card">${img}${m.title ? `<div class="ct">${esc(m.title)}</div>` : ''}${m.body ? `<div class="cb">${esc(m.body)}</div>` : '<div class="cgap"></div>'}${b ? `<div class="cbtns">${b}</div>` : ''}</div>`;
   }
 
@@ -625,7 +625,7 @@ export function createRenderer(host, P) {
     const compTop = 640 - inset - 60;
     const msgsH = compTop - 90 + 8;
     let h = `<div id="hdr"><div class="back">${icon('back', 24)}</div>
-      <div id="hdr-name"><img src="${S.logo}"><span>${esc(S.displayName)}</span>${verifiedBadge(16)}</div>
+      <div id="hdr-name"><img alt="" src="${S.logo}"><span>${esc(S.displayName)}</span>${verifiedBadge(16)}</div>
       <div class="more">${icon('more', 24)}</div></div>`;
     h += `<div id="msgs" style="height:${msgsH}px"><div class="inner">${buildMessages(t)}</div></div>`;
     const hasText = ty.text.length > 0;

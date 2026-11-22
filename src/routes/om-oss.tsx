@@ -88,11 +88,11 @@ function AboutPage() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                <Link to="/villkor" className="underline underline-offset-4 hover:text-logo-blue">Villkor</Link>
-                <Link to="/integritetspolicy" className="underline underline-offset-4 hover:text-logo-blue">Integritetspolicy</Link>
-                <Link to="/kontakt" className="underline underline-offset-4 hover:text-logo-blue">Kontakt</Link>
-                {company.linkedin ? <a href={company.linkedin} className="underline underline-offset-4 hover:text-logo-blue">LinkedIn</a> : null}
+              <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
+                <Link to="/villkor" className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Villkor</Link>
+                <Link to="/integritetspolicy" className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Integritetspolicy</Link>
+                <Link to="/kontakt" className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Kontakt</Link>
+                {company.linkedin ? <a href={company.linkedin} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">LinkedIn</a> : null}
               </p>
             </div>
           </div>
