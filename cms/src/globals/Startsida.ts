@@ -54,7 +54,7 @@ export const Startsida: GlobalConfig = {
           ],
         },
         {
-          label: 'RCS jämfört med SMS',
+          label: 'Jämför',
           fields: [
             {
               name: 'jamforelse',
