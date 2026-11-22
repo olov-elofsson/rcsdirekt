@@ -23,6 +23,7 @@ const headerLinks = [
   { label: "Jämför", to: "/", hash: "rcs-mot-sms" },
   { label: "Priser", to: "/priser" },
   { label: "Insikter", to: "/blogg" },
+  { label: "Kontakta oss", to: "/kontakt" },
 ] as const;
 
 /** Start page sections that light up a menu item while they are under the header. */
@@ -53,6 +54,7 @@ function useActiveLink(pathname: string): string | null {
   }, [pathname]);
   if (pathname.startsWith("/priser")) return "Priser";
   if (pathname.startsWith("/blogg")) return "Insikter";
+  if (pathname.startsWith("/kontakt")) return "Kontakta oss";
   return pathname === "/" ? section : null;
 }
 
