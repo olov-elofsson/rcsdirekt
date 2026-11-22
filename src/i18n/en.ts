@@ -326,4 +326,5 @@ export const en: Record<string, string> = {
 
   "Når kunder hos {operators}": "Reaches customers on {operators}",
   och: "and",
+  "På iPhone hos {operators}": "On iPhone with {operators}",
 };

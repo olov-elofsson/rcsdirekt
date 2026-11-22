@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, Check, RadioTower } from "lucide-react";
+import { ArrowRight, Check, RadioTower, Smartphone } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,13 @@ function NumberDrop({ n }: { n: number }) {
 }
 
 /** The hero split in two: headline, one line on what it is and two actions beside one notice shown as SMS and as RCS. */
+/**
+ * Operators whose customers can get RCS on iPhone, as their own support pages say (Tele2 and
+ * Comviq, November 2026; sources tele2-rcs and comviq-rcs in the CMS). Tre and Hallon are testing
+ * it in iOS 27.3; add them here once they have opened it for all customers.
+ */
+const IPHONE_OPERATORS = ["Tele2", "Comviq"];
+
 function HeroFirst() {
   const home = useStartsida();
   const { t } = useT();
@@ -52,9 +59,15 @@ function HeroFirst() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.55fr_1fr] lg:gap-12 lg:px-8 lg:pt-16">
         <div>
           {operators.length ? (
-            <p className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground">
-              <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-              {t("Når kunder hos {operators}").replace("{operators}", `${operators.slice(0, -1).join(", ")} ${t("och")} ${operators.at(-1)}`)}
+            <p className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm font-semibold text-muted-foreground">
+              <span className="inline-flex items-center gap-2">
+                <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
+                {t("Når kunder hos {operators}").replace("{operators}", `${operators.slice(0, -1).join(", ")} ${t("och")} ${operators.at(-1)}`)}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Smartphone aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
+                {t("På iPhone hos {operators}").replace("{operators}", `${IPHONE_OPERATORS.slice(0, -1).join(", ")} ${t("och")} ${IPHONE_OPERATORS.at(-1)}`)}
+              </span>
             </p>
           ) : null}
           <h1 className="max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
