@@ -75,10 +75,10 @@ export function CompareSection() {
               <col />
             </colgroup>
             <thead>
-              {/* The properties and RCS each stand as their own lit block; SMS stays plain between them. */}
+              {/* One dark heading row over all three columns; in the body the properties and RCS are lit, SMS stays white. */}
               <tr>
                 <th scope="col" className="bg-ink px-3 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-8 sm:py-4">{t("Funktion")}</th>
-                <th scope="col" className="px-2 py-3.5 text-sm font-semibold text-muted-foreground sm:px-6 sm:py-4">SMS</th>
+                <th scope="col" className="bg-ink px-2 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-6 sm:py-4">SMS</th>
                 <th scope="col" className="bg-ink px-2 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-6 sm:py-4">RCS</th>
               </tr>
             </thead>
