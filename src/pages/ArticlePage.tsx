@@ -83,10 +83,6 @@ export function ArticlePage({
   const { t, lp, locale } = useT();
   const priser = usePriser();
   const lowestPrice = priser.plans[0]?.price;
-  const related = (article.related ?? [])
-    .map((slug) => list.find((item) => item.slug === slug))
-    .filter((item): item is ArticleSummary => Boolean(item))
-    .slice(0, 4);
   const latest = list
     .filter((item) => item.slug !== article.slug)
     .sort((a, b) => b.published.localeCompare(a.published))
@@ -106,7 +102,7 @@ export function ArticlePage({
           <h1 className="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {article.title}
           </h1>
-          <p className="mt-6 flex flex-wrap items-center gap-y-2 text-sm tracking-[0.04em] text-muted-foreground uppercase gap-x-4 sm:gap-x-0 sm:[&>span+span]:ml-4 sm:[&>span+span]:border-l sm:[&>span+span]:border-border sm:[&>span+span]:pl-4">
+          <p className="mt-6 flex flex-wrap items-center gap-y-2 text-sm tracking-[0.04em] text-muted-foreground uppercase gap-x-6">
             {Number.isNaN(published.getTime()) ? null : (
               <span>
                 {t("Publicerad")}{" "}
@@ -176,7 +172,7 @@ export function ArticlePage({
               </div>
 
               {references.length ? (
-                <details className="group mt-12 border-t border-border pt-6">
+                <details className="group mt-12">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-muted-foreground [&::-webkit-details-marker]:hidden">
                     {t("Källor")} ({references.length})
                     <ChevronDown
@@ -211,31 +207,6 @@ export function ArticlePage({
                 </details>
               ) : null}
 
-              {related.length ? (
-                <section aria-labelledby="las-vidare" className="mt-10 border-t border-border pt-8">
-                  <h2 id="las-vidare" className="text-lg font-extrabold">
-                    {t("Läs vidare")}
-                  </h2>
-                  <ul className="mt-3">
-                    {related.map((item) => (
-                      <li key={item.slug}>
-                        <Link
-                          to={lp("/blogg/$slug")}
-                          params={{ slug: item.slug }}
-                          className="group flex min-h-12 items-center justify-between gap-4 border-b border-border py-3 font-semibold transition-colors hover:text-logo-blue"
-                        >
-                          {item.title}
-                          <ArrowRight
-                            aria-hidden
-                            className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-hover:translate-x-0.5"
-                          />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ) : null}
-
               <div className="mt-12 flex flex-col gap-4 rounded-2xl bg-primary-soft p-6 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="font-display text-lg font-extrabold">
@@ -258,26 +229,34 @@ export function ArticlePage({
           </div>
 
           {latest.length ? (
-            <aside aria-labelledby="senaste" className="lg:sticky lg:top-28 lg:self-start">
-              <h2
-                id="senaste"
-                className="border-b border-border pb-3 text-xs font-bold tracking-[0.08em] text-muted-foreground uppercase"
-              >
+            <aside
+              aria-labelledby="senaste"
+              className="rounded-2xl bg-muted p-6 lg:sticky lg:top-28 lg:self-start"
+            >
+              <h2 id="senaste" className="font-display text-lg font-extrabold">
                 {t("Senaste artiklar")}
               </h2>
-              <ul>
+              {/* Each entry reads like a small article: topic, heading, the start of the summary, date and reading time. */}
+              <ul className="mt-5 space-y-6">
                 {latest.map((item) => (
-                  <li key={item.slug} className="border-b border-border">
+                  <li key={item.slug}>
                     <Link
                       to={lp("/blogg/$slug")}
                       params={{ slug: item.slug }}
-                      className="group block py-4"
+                      className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
                       <span className="block text-xs font-bold tracking-[0.06em] text-muted-foreground uppercase">
                         {item.category}
                       </span>
-                      <span className="mt-1 block font-extrabold leading-snug text-balance transition-colors duration-150 group-hover:text-logo-blue">
+                      <span className="mt-1.5 block text-[17px] font-extrabold leading-snug text-balance transition-colors duration-150 group-hover:text-logo-blue">
                         {item.title}
+                      </span>
+                      <span className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-pretty text-muted-foreground">
+                        {item.description}
+                      </span>
+                      <span className="mt-2 block text-xs text-muted-foreground tabular-nums">
+                        <time dateTime={item.published}>{formatDate(item.published, locale)}</time>{" "}
+                        · {item.minutes} {t("min läsning")}
                       </span>
                     </Link>
                   </li>

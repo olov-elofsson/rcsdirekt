@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { MousePointerClick } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
@@ -123,8 +124,13 @@ export function HeroMessage({ className }: { className?: string }) {
   const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS);
 
   return (
-    <div ref={box} className={cn("w-full rounded-3xl bg-muted px-4 pt-4 pb-5 lg:max-w-[20rem]", className)}>
-      <p id="se-skillnaden" className="mb-2.5 text-center text-sm font-semibold text-muted-foreground">{t("Se skillnaden själv")}</p>
+    <div ref={box} className={cn("w-full lg:max-w-[20rem]", className)}>
+      {/* A label above the box, in the same style as the line above the hero heading. */}
+      <p id="se-skillnaden" className="mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold text-muted-foreground sm:text-sm">
+        <MousePointerClick aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
+        {t("Se skillnaden själv")}
+      </p>
+      <div className="rounded-3xl bg-muted px-4 pt-4 pb-5">
       <div role="radiogroup" aria-labelledby="se-skillnaden" className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
         {[false, true].map((value) => (
           <button
@@ -156,6 +162,7 @@ export function HeroMessage({ className }: { className?: string }) {
             {value ? <AsRcs active={rcs} onInteract={touch} /> : <AsSms />}
           </div>
         ))}
+      </div>
       </div>
     </div>
   );
