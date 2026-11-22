@@ -78,6 +78,7 @@ export function RcsPhone({
   messagesRef,
   introWrap = (intro) => intro,
   profile,
+  sms = false,
   children,
 }: {
   sender: string;
@@ -92,6 +93,8 @@ export function RcsPhone({
   introWrap?: (intro: ReactNode) => ReactNode;
   /** The business profile that opens from the sender's name or logo, as in Google Messages. */
   profile?: SenderProfile;
+  /** An sms thread from the same sender: a round initial instead of the logo, no check mark, no intro. */
+  sms?: boolean;
   children: ReactNode;
 }) {
   const [fitRef, scale] = useFitScale(maxScale);
@@ -130,7 +133,12 @@ export function RcsPhone({
               <div id="hdr">
                 <div className="back"><PhoneIcon name="back" /></div>
                 <div id="hdr-name" style={{ opacity: compact ? 1 : 0, transition: "opacity 160ms ease-out", pointerEvents: compact ? "auto" : "none" }} aria-hidden={!compact}>
-                  {senderButton(
+                  {sms ? (
+                    <>
+                      <div className="pav">{sender[0]}</div>
+                      <span>{sender}</span>
+                    </>
+                  ) : senderButton(
                     <>
                       <img src={logo} alt="" />
                       <span>{sender}</span>
@@ -167,7 +175,7 @@ export function RcsPhone({
               <div id="composer" style={{ top: COMPOSER_TOP, zIndex: 6 }}>
                 <div id="composer-input">
                   <div className="plus"><PhoneIcon name="plus" color="#444746" /></div>
-                  <div className="ph">RCS-meddelande</div>
+                  <div className="ph">{sms ? "SMS-meddelande" : "RCS-meddelande"}</div>
                   <div className="emoji"><PhoneIcon name="emoji" size={22} color="#444746" /></div>
                   <div className="gal"><PhoneIcon name="image" size={22} color="#444746" /></div>
                 </div>

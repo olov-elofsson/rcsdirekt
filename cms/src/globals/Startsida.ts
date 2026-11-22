@@ -47,17 +47,7 @@ export const Startsida: GlobalConfig = {
                   label: 'Kort',
                   type: 'array',
                   labels: { singular: 'Kort', plural: 'Kort' },
-                  fields: [
-                    iconField(),
-                    { name: 'title', label: 'Rubrik', type: 'text', required: true },
-                    { name: 'copy', label: 'Text', type: 'textarea', required: true },
-                    {
-                      name: 'sms',
-                      label: 'Med sms',
-                      type: 'text',
-                      admin: { description: 'En kort rad om hur det blir med sms. Visas under texten med etiketten "Med sms". Lämna tomt för att dölja.' },
-                    },
-                  ],
+                  fields: [iconField(), { name: 'title', label: 'Rubrik', type: 'text', required: true }, { name: 'copy', label: 'Text', type: 'textarea', required: true }],
                 },
               ],
             },

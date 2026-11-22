@@ -18,7 +18,7 @@ const mobileLinkClass =
 
 const headerLinks = [
   { label: "Exempel", to: "/", hash: "exempel" },
-  { label: "Fördelar", to: "/", hash: "fordelar" },
+  { label: "RCS och sms", to: "/", hash: "rcs-mot-sms" },
   { label: "Guider", to: "/blogg" },
   { label: "Priser", to: "/priser" },
 ] as const;

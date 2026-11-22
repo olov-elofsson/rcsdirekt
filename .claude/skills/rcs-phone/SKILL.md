@@ -16,7 +16,7 @@ Referensens kod finns i `src/lib/rcs-video/engine.ts`:
 
 ## Grundregel
 
-**Återanvänd referensen i stället för att rita en ny telefon.** Använd `src/components/RcsPhone.tsx`: `RcsPhone` ger ram, statusrad, avsändarhuvud, början av tråden (med `description`) och skrivfält, och `IncomingRow`, `Bubble`, `OutgoingBubble`, `Timestamp`, `Typing`, `DateLabel` och `PhoneIcon` bygger meddelandena. Startsidans demo (`InteractiveRcsDemo`) är exemplet. Komponenterna använder samma `.rcsv`-klasser och mått som `createRenderer`. Skala den med `transform: scale()`. Bygg ingen egen Tailwind-telefon med andra mått, och kopiera inte värden för hand. Saknas en vy, lägg till den i `RCSV_CSS` så att alla telefoner får den.
+**Återanvänd referensen i stället för att rita en ny telefon.** Använd `src/components/RcsPhone.tsx`: `RcsPhone` ger ram, statusrad, avsändarhuvud, början av tråden (med `description`) och skrivfält, och `IncomingRow`, `Bubble`, `OutgoingBubble`, `Timestamp`, `Typing`, `DateLabel` och `PhoneIcon` bygger meddelandena. Startsidans demo (`InteractiveRcsDemo`) är exemplet. Komponenterna använder samma `.rcsv`-klasser och mått som `createRenderer`. Skala den med `transform: scale()`. Ska samma avsändare visas som sms, för jämförelse, används `RcsPhone` med `sms`: rund avatar med initial (`.pav`), ingen bock, inget intro och platshållaren "SMS-meddelande". Bygg ingen egen Tailwind-telefon med andra mått, och kopiera inte värden för hand. Saknas en vy, lägg till den i `RCSV_CSS` så att alla telefoner får den.
 
 ## Skärmen (360 × 640 px, skalas som helhet)
 

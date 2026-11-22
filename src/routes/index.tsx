@@ -55,7 +55,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><PhotoScenarios /><Advantages /><CompareSection /><WaysSection /><Steps /><PricingSection /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><PhotoScenarios /><CompareSection /><WaysSection /><Steps /><PricingSection /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -65,18 +65,14 @@ function DualCtas() { return <div className="flex flex-col gap-3 sm:flex-row"><B
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
-/** Advantages as a numbered editorial list beside a sticky heading, instead of icon cards. */
-/** The number in the logo's drop: a circle with one square corner, alternating navy and blue. */
+
+/** The number in the logo's drop: a circle with one square corner. On navy it alternates white and blue. */
 function NumberDrop({ n }: { n: number }) {
   return (
-    <span aria-hidden className={cn("grid size-10 place-items-center rounded-[50%_50%_50%_0] font-display text-base font-extrabold tabular-nums text-primary-foreground", n % 2 ? "bg-primary" : "bg-logo-blue")}>
+    <span aria-hidden className={cn("relative grid size-10 place-items-center rounded-[50%_50%_50%_0] font-display text-base font-extrabold tabular-nums", n % 2 ? "bg-ink-foreground text-ink" : "bg-logo-blue text-white")}>
       {n}
     </span>
   );
-}
-
-function Advantages() {
-  return <section id="fordelar" className="relative overflow-hidden bg-background py-16 sm:py-24"><div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:px-8"><div data-reveal className="lg:sticky lg:top-28 lg:self-start"><h2 className={sectionTitle}>{home.fordelar.heading}</h2><p className={sectionIntro}>{home.fordelar.intro}</p><div className="mt-8 hidden lg:block"><DualCtas /></div></div><ol className="grid gap-9">{home.fordelar.items.map(({ title, copy, sms }, index) => <li key={title} data-reveal style={revealOrder(index)} className="grid grid-cols-[2.5rem_1fr] items-start gap-x-5"><NumberDrop n={index + 1} /><div><h3 className="text-xl font-extrabold leading-snug tracking-normal">{title}</h3><p className="mt-2 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground">{copy}</p>{sms ? <p className="mt-3 flex max-w-xl items-baseline gap-2.5 text-sm leading-relaxed text-pretty text-muted-foreground"><span className="shrink-0 rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-foreground">Med sms</span>{sms}</p> : null}</div></li>)}</ol><div className="lg:hidden"><DualCtas /></div></div></section>;
 }
 
 const lowestPrice = pricingPlans[0]?.price;
@@ -104,12 +100,16 @@ function Steps() {
           <h2 className={sectionTitle}>Så kommer ni igång</h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>Från konto till första meddelande. Vi hjälper till med avsändaren och upplägget på vägen.</p>
         </div>
-        <ol className="mt-10 grid gap-5 sm:mt-12 md:grid-cols-3">
+        <ol className="relative mt-10 grid gap-8 sm:mt-12 md:grid-cols-3 md:gap-5">
+          {/* The line between the three drops, drawn from left to right when the steps come into view. */}
+          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-5 top-5 hidden h-0.5 w-[calc((100%-2.5rem)*2/3+2.5rem)] -translate-y-1/2 rounded-full bg-ink-foreground/25 md:block" />
           {STEPS.map((step, index) => (
-            <li key={step.title} data-reveal style={revealOrder(index)} className="rounded-2xl bg-card p-7 text-card-foreground">
+            <li key={step.title} data-reveal style={revealOrder(index + 1)} className="flex flex-col">
               <NumberDrop n={index + 1} />
-              <h3 className="mt-6 text-xl font-extrabold leading-snug">{step.title}</h3>
-              <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{step.copy}</p>
+              <div className="mt-5 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
+                <h3 className="text-xl font-extrabold leading-snug">{step.title}</h3>
+                <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{step.copy}</p>
+              </div>
             </li>
           ))}
         </ol>

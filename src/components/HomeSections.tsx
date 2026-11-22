@@ -1,9 +1,10 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Check, X } from "lucide-react";
 
 import { LeadForm } from "@/components/LeadForm";
-import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
+import { Bubble, IncomingRow, PhoneIcon, RcsPhone, RcsSnippet, Timestamp, VerifiedMark } from "@/components/RcsPhone";
+import { rcsDirektSender } from "@/data/rcs-sender";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { content } from "@/content";
@@ -46,6 +47,87 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
   return <span className={cn("text-sm leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
 }
 
+type Channel = "sms" | "rcs";
+
+/**
+ * The same notice sent as sms and as RCS, in the site's phone. It starts on sms and turns to RCS
+ * once when the phone comes into view; the switch above changes it at any time.
+ */
+function ChannelPhone() {
+  const [channel, setChannel] = useState<Channel>("sms");
+  const touched = useRef(false);
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = box.current;
+    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let timer: number | undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return;
+      observer.disconnect();
+      timer = window.setTimeout(() => {
+        if (!touched.current) setChannel("rcs");
+      }, 1400);
+    }, { threshold: 0.6 });
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, []);
+  const choose = (next: Channel) => {
+    touched.current = true;
+    setChannel(next);
+  };
+  const layer = (shown: boolean) =>
+    cn("col-start-1 row-start-1 transition-[opacity,scale] duration-300 ease-out motion-reduce:transition-none", shown ? "opacity-100" : "pointer-events-none scale-[0.98] opacity-0");
+  return (
+    <div ref={box} className="flex flex-col items-center gap-5">
+      <div role="group" aria-label="Visa meddelandet som" className="inline-flex rounded-full bg-card p-1 shadow-card">
+        {(["sms", "rcs"] as const).map((option) => (
+          <button
+            key={option}
+            type="button"
+            aria-pressed={channel === option}
+            onClick={() => choose(option)}
+            className={cn(
+              "h-10 min-w-24 rounded-full px-5 text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              channel === option ? "bg-ink text-ink-foreground" : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {option === "sms" ? "Som sms" : "Som RCS"}
+          </button>
+        ))}
+      </div>
+      <div className="grid w-full">
+        <div className={layer(channel === "sms")} aria-hidden={channel !== "sms"} inert={channel !== "sms"}>
+          <RcsPhone sms sender="RCSDirekt" logo={rcsDirektSender.logo} maxScale={0.8}>
+            <div style={{ height: 12 }} />
+            <IncomingRow>
+              <Bubble>RCS Direkt: Ert konto är aktiverat. Logga in på portal.rcsdirekt.se och skicka ert första utskick.</Bubble>
+            </IncomingRow>
+            <Timestamp>13:16 · SMS</Timestamp>
+          </RcsPhone>
+        </div>
+        <div className={layer(channel === "rcs")} aria-hidden={channel !== "rcs"} inert={channel !== "rcs"}>
+          <RcsPhone sender={rcsDirektSender.sender} logo={rcsDirektSender.logo} description={rcsDirektSender.description} maxScale={0.8}>
+            <IncomingRow>
+              <div className="card">
+                <div className="ct">Ert konto är aktiverat</div>
+                <div className="cb">Logga in och skicka ert första utskick från webben eller via API.</div>
+                <div className="cbtns">
+                  <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Logga in</div>
+                  <div className="cbtn">Prata med oss</div>
+                </div>
+              </div>
+            </IncomingRow>
+            <Timestamp>13:16</Timestamp>
+          </RcsPhone>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function CompareSection() {
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
@@ -55,7 +137,9 @@ export function CompareSection() {
           <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
           <p className={sectionIntro}>{home.jamforelse.intro}</p>
         </div>
-        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card")}>
+        <div className={cn(sectionBody, "grid items-start gap-10 lg:grid-cols-[20rem_1fr] lg:gap-12")}>
+        <div data-reveal style={order(1)}><ChannelPhone /></div>
+        <div data-reveal style={order(2)} className="overflow-hidden rounded-2xl bg-card">
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
               <col className="w-[38%]" />
@@ -79,6 +163,7 @@ export function CompareSection() {
               ))}
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </section>
@@ -157,6 +242,61 @@ export function WaysSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Priser: name, what it contains, the from price and a way to start. */
 
+const sek = (value: number, digits = 0) =>
+  value.toLocaleString("sv-SE", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+/** The list price for a number of messages: the plan's from price times the count, nothing else. */
+function PriceCalculator({ plans }: { plans: typeof content.priser.plans }) {
+  const [planIndex, setPlanIndex] = useState(() => Math.max(0, plans.findIndex((plan) => plan.badge)));
+  const [count, setCount] = useState(5000);
+  const plan = plans[planIndex];
+  if (!plan) return null;
+  const unit = Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", "."));
+  if (!Number.isFinite(unit)) return null;
+  const countId = "kalkyl-antal";
+  return (
+    <div data-reveal className="mt-5 grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+      <div>
+        <h3 className="text-xl font-extrabold">Räkna på ett utskick</h3>
+        <div role="group" aria-label="Meddelandetyp" className="mt-4 flex flex-wrap gap-2">
+          {plans.map((option, index) => (
+            <button
+              key={option.slug}
+              type="button"
+              aria-pressed={index === planIndex}
+              onClick={() => setPlanIndex(index)}
+              className={cn(
+                "h-10 rounded-full px-4 text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                index === planIndex ? "bg-ink text-ink-foreground" : "bg-card text-foreground hover:bg-card/70",
+              )}
+            >
+              {option.name}
+            </button>
+          ))}
+        </div>
+        <label htmlFor={countId} className="mt-6 flex items-baseline justify-between gap-4 text-sm font-semibold">
+          Antal meddelanden <span className="font-display text-lg font-extrabold tabular-nums">{sek(count)}</span>
+        </label>
+        <input
+          id={countId}
+          type="range"
+          min={500}
+          max={50000}
+          step={500}
+          value={count}
+          onChange={(event) => setCount(Number(event.target.value))}
+          className="mt-3 h-11 w-full cursor-pointer accent-primary"
+        />
+      </div>
+      <div className="lg:min-w-64 lg:text-right" aria-live="polite">
+        <p className="text-sm text-muted-foreground">Listpris från</p>
+        <p className="mt-1 text-4xl font-extrabold tabular-nums">{sek(unit * count)} SEK</p>
+        <p className="mt-1 text-sm text-muted-foreground">exkl. moms, {sek(count)} × {plan.price}</p>
+      </div>
+    </div>
+  );
+}
+
 export function PricingSection() {
   const plans = content.priser.plans;
   return (
@@ -192,6 +332,7 @@ export function PricingSection() {
             );
           })}
         </div>
+        <PriceCalculator plans={plans} />
         <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
           Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.{" "}
           <Link to="/" hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">Fråga om volympris</Link>

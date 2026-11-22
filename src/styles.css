@@ -218,6 +218,10 @@
   transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: calc(var(--reveal-order, 0) * 70ms);
 }
+/* The line between the steps grows from the first drop instead of sliding in. */
+.home-refined .steps-line[data-reveal] { transform-origin: left center; transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1) 150ms; }
+.home-refined.reveal-ready .steps-line[data-reveal]:not([data-shown]) { opacity: 1; transform: scaleX(0); }
+.home-refined .steps-line[data-shown] { transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) {
   .home-refined.reveal-ready [data-reveal]:not([data-shown]) { opacity: 1; transform: none; }
   .home-refined [data-reveal] { transition: none; }
