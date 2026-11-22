@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { gcsStorage } from '@payloadcms/storage-gcs'
 import { en } from '@payloadcms/translations/languages/en'
 import { sv } from '@payloadcms/translations/languages/sv'
@@ -51,7 +52,26 @@ const trustedOrigins = [
   'http://localhost:3000',
 ].filter((origin): origin is string => Boolean(origin))
 
+// Email (password resets) goes out over SMTP once SMTP_HOST, SMTP_USER and SMTP_PASS are set on the
+// Cloud Run service; SMTP_PORT defaults to 587 (STARTTLS) and EMAIL_FROM to info@rcsdirekt.se. Without
+// them Payload only writes the email to the log, as before.
+const smtp = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
+const smtpPort = Number(process.env.SMTP_PORT || 587)
+const email = smtp
+  ? nodemailerAdapter({
+      defaultFromAddress: process.env.EMAIL_FROM || 'info@rcsdirekt.se',
+      defaultFromName: 'RCS Direkt',
+      transportOptions: {
+        host: process.env.SMTP_HOST,
+        port: smtpPort,
+        secure: smtpPort === 465,
+        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      },
+    })
+  : undefined
+
 export default buildConfig({
+  ...(email ? { email } : {}),
   csrf: trustedOrigins,
   secret: process.env.PAYLOAD_SECRET || '',
   admin: {

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.94.1",
+    "@payloadcms/email-nodemailer": "3.94.1",
     "@payloadcms/next": "3.94.1",
     "@payloadcms/storage-gcs": "3.94.1",
     "@payloadcms/translations": "3.94.1",
