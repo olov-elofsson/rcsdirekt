@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 const navLinkBase =
   "rounded-full px-3.5 py-2 text-sm font-semibold whitespace-nowrap transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-const navLinkActive = { className: "text-foreground" };
-const navLinkInactive = { className: "text-foreground/70 hover:bg-muted hover:text-foreground" };
+const navLinkActive = "bg-primary-soft text-foreground";
+const navLinkInactive = "text-foreground/70 hover:bg-muted hover:text-foreground";
 
 const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blue";
@@ -23,6 +23,37 @@ const headerLinks = [
   { label: "Priser", to: "/priser" },
   { label: "Insikter", to: "/blogg" },
 ] as const;
+
+/** Start page sections that light up a menu item while they are under the header. */
+const SECTION_LINKS: [id: string, label: string][] = [
+  ["exempel", "Kunder"],
+  ["vad-ar-rcs", "Plattform"],
+  ["rcs-mot-sms", "Plattform"],
+  ["pris", "Priser"],
+  ["blogg", "Insikter"],
+];
+
+/** The menu item for where the visitor is: the page, or on the start page the section in view. */
+function useActiveLink(pathname: string): string | null {
+  const [section, setSection] = useState<string | null>(null);
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const update = () => {
+      const line = 120;
+      const hit = SECTION_LINKS.find(([id]) => {
+        const box = document.getElementById(id)?.getBoundingClientRect();
+        return box ? box.top <= line && box.bottom > line : false;
+      });
+      setSection(hit ? hit[1] : null);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [pathname]);
+  if (pathname.startsWith("/priser")) return "Priser";
+  if (pathname.startsWith("/blogg")) return "Insikter";
+  return pathname === "/" ? section : null;
+}
 
 /**
  * Notice about the next webinar, above the header on every page. Scrolls away; the header stays.
@@ -106,6 +137,7 @@ export function SiteHeader() {
   });
 
   useEffect(() => setOpen(false), [pathname, hash]);
+  const active = useActiveLink(pathname);
 
   useEffect(() => {
     if (!open) return;
@@ -133,7 +165,11 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Huvudmeny" className="hidden items-center min-[1200px]:flex">
-          {headerLinks.map((link) => <Link key={link.label} to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeOptions={{ includeHash: true }} className={navLinkBase} activeProps={navLinkActive} inactiveProps={navLinkInactive}>{link.label}</Link>)}
+          {headerLinks.map((link) => (
+            <Link key={link.label} to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeOptions={{ exact: link.to === "/", includeHash: true }} activeProps={{ "aria-current": active === link.label ? (pathname === "/" ? "location" : "page") : undefined }} inactiveProps={{ "aria-current": active === link.label ? (pathname === "/" ? "location" : "page") : undefined }} className={cn(navLinkBase, active === link.label ? navLinkActive : navLinkInactive)}>
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex shrink-0 items-center justify-end gap-2">
@@ -179,7 +215,7 @@ export function SiteHeader() {
                   <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
                 </Link>
               </li>
-              {headerLinks.map((link) => <li key={link.label}><Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} className={mobileLinkClass}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
+              {headerLinks.map((link) => <li key={link.label}><Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeProps={{ "aria-current": active === link.label ? "page" : undefined }} inactiveProps={{ "aria-current": active === link.label ? "page" : undefined }} className={cn(mobileLinkClass, active === link.label && "text-logo-blue")}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
             </ul>
             <div className="mt-5 flex flex-col gap-3">
               <Button asChild variant="outline" size="lg" className="w-full">

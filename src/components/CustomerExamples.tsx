@@ -480,7 +480,7 @@ export function CustomerExamples() {
             Kunder
           </h2>
           <p className={cn(sectionIntro, "text-ink-muted")}>
-            Så här kan det se ut hos fyra av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.
+            Så här kan det se ut hos några av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.
           </p>
         </div>
         <CaseShowcase />

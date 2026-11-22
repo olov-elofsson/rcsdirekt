@@ -83,9 +83,9 @@ function NumberDrop({ n }: { n: number }) {
 function HeroFirst() {
   return (
     <section id="top" className="bg-background">
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-14 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-8 lg:pt-16">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pt-14 pb-14 sm:pt-20 sm:pb-16 lg:grid-cols-[1.55fr_1fr] lg:gap-12 lg:px-8 lg:pt-16">
         <div className="text-center lg:text-left">
-          <h1 className="mx-auto max-w-3xl text-[2.4rem] font-extrabold leading-[1.08] text-balance sm:text-5xl lg:mx-0 lg:text-[3.6rem]">
+          <h1 className="mx-auto max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance sm:text-5xl lg:mx-0 lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
             {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl lg:mx-0">{home.hero.description}</p>

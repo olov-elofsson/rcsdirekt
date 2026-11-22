@@ -101,8 +101,7 @@ function NetworkPrices({ heading, note, networks }: { heading: string; note: str
                 <th scope="col" className="px-5 py-2.5">Nät</th>
                 <th scope="col" className="px-3 py-2.5 text-right">Basic</th>
                 <th scope="col" className="px-3 py-2.5 text-right">Single</th>
-                <th scope="col" className="px-3 py-2.5 text-right">Conversation</th>
-                <th scope="col" className="px-5 py-2.5 text-right">SMS</th>
+                <th scope="col" className="px-5 py-2.5 text-right">Conversation</th>
               </tr>
             </thead>
             <tbody>
@@ -114,8 +113,7 @@ function NetworkPrices({ heading, note, networks }: { heading: string; note: str
                   </th>
                   <td className="px-3 py-2.5 text-right">{cell(row.basic)}</td>
                   <td className="px-3 py-2.5 text-right">{cell(row.single)}</td>
-                  <td className="px-3 py-2.5 text-right">{cell(row.conversation)}</td>
-                  <td className="px-5 py-2.5 text-right">{cell(row.sms)}</td>
+                  <td className="px-5 py-2.5 text-right">{cell(row.conversation)}</td>
                 </tr>
               ))}
             </tbody>
@@ -128,7 +126,7 @@ function NetworkPrices({ heading, note, networks }: { heading: string; note: str
 
 const num = (price: string) => Number.parseFloat(price.replace(/[^\d,]/g, "").replace(",", "."));
 
-/** One column per message type: the RCS plans, then SMS when it has prices. */
+/** One column per RCS message type. */
 type Column = { key: string; name: string; contents: string; prices: Map<string, string> };
 const columns: Column[] = [
   ...pricingPlans.map((plan) => ({
@@ -137,18 +135,14 @@ const columns: Column[] = [
     contents: plan.contents,
     prices: new Map((plan.operatorPrices?.length ? plan.operatorPrices : operators.map((operator) => ({ operator, price: plan.price }))).map((row) => [row.operator, row.price])),
   })),
-  ...(page.sms?.operatorPrices.length
-    ? [{ key: "sms", name: page.sms.name || "SMS", contents: page.sms.contents, prices: new Map(page.sms.operatorPrices.map((row) => [row.operator, row.price])) }]
-    : []),
 ];
 const tableOperators = [...new Set(columns.flatMap((column) => [...column.prices.keys()]))];
 const lowest = (column: Column) => Math.min(...[...column.prices.values()].map(num));
-const smsFrom = page.sms?.operatorPrices.length ? `${Math.min(...page.sms.operatorPrices.map((row) => num(row.price))).toFixed(3).replace(".", ",")} SEK` : "";
 
-/** The from-price cards: the three RCS types, the popular one on navy, and SMS as the plain fallback. */
+/** The from-price cards: the three RCS types, the popular one on navy. */
 function PlanCards() {
   return (
-    <div className={cn("grid gap-5 sm:grid-cols-2", page.sms?.operatorPrices.length ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {pricingPlans.map((plan) => {
         const featured = Boolean(plan.badge);
         return (
@@ -157,35 +151,20 @@ function PlanCards() {
               <h2 className="text-lg font-extrabold">{plan.name}</h2>
               {plan.badge ? <span className="rounded-full bg-ink-foreground px-2.5 py-0.5 text-xs font-semibold text-ink">{plan.badge}</span> : null}
             </div>
-            <p className={cn("mt-1.5 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.contents}</p>
-            <p className="mt-6 flex items-baseline gap-1.5">
+            {/* Price right under the name, so the prices line up; when to pick it under that. */}
+            <p className="mt-4 flex items-baseline gap-1.5">
               <span className={cn("text-sm font-semibold", featured ? "text-ink-muted" : "text-muted-foreground")}>från</span>
               <span className="text-3xl font-extrabold tabular-nums">{plan.price}</span>
             </p>
             <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>per meddelande</p>
-            {/* When to pick this type, so the three are easy to tell apart. */}
-            {plan.short ? <p className={cn("mt-5 border-t pt-4 text-sm leading-relaxed text-pretty", featured ? "border-ink-foreground/15" : "border-border")}>{plan.short}</p> : null}
-            <div className="min-h-6 flex-1" />
+            <p className={cn("mt-5 flex-1 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.short || plan.contents}</p>
+            <div className="h-6" />
             <Button asChild variant="outline" className={cn("w-full", featured && "border-transparent")}>
               <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
             </Button>
           </div>
         );
       })}
-      {page.sms?.operatorPrices.length ? (
-        <div className="flex flex-col rounded-2xl bg-muted p-6">
-          <h2 className="text-lg font-extrabold">{page.sms.name || "SMS"}</h2>
-          <p className="mt-1.5 text-sm leading-relaxed text-pretty text-muted-foreground">{page.sms.contents}</p>
-          <p className="mt-6 flex items-baseline gap-1.5">
-            <span className="text-sm font-semibold text-muted-foreground">från</span>
-            <span className="text-3xl font-extrabold tabular-nums">{smsFrom}</span>
-          </p>
-          <p className="mt-1 text-sm text-muted-foreground">per meddelande</p>
-          <Button asChild variant="outline" className="mt-6 w-full">
-            <Link to="/" hash="kontakt">Fråga om SMS</Link>
-          </Button>
-        </div>
-      ) : null}
     </div>
   );
 }

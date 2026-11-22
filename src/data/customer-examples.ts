@@ -10,6 +10,8 @@ import courseUrl from "@/assets/foto-utbildning.webp";
 import courseUrlSmall from "@/assets/foto-utbildning-800.webp";
 import carDealerUrl from "@/assets/foto-bilhandel.webp";
 import carDealerUrlSmall from "@/assets/foto-bilhandel-800.webp";
+import bowlingUrl from "@/assets/foto-bowling.webp";
+import bowlingUrlSmall from "@/assets/foto-bowling-800.webp";
 
 /** The photo a case's conversation is laid over. */
 /** `messageAt` moves the conversation off the people in the photo: "right" for a subject on the left, "center" for people on both sides. */
@@ -54,6 +56,16 @@ const visitBooked = (when: string): Step => ({
   chips: [
     calendar,
     { label: "Tack, vi ses!", next: { text: "Vi ses! Efter besöket hör vi av oss och frågar hur det gick.", chips: [{ label: "Visa frågan", next: rating }] } },
+  ],
+});
+
+/* Big Bowl: a lane booked in the thread, with food added and the time in the calendar. */
+const laneDone = (text: string): Step => ({ text, chips: [calendar, map] });
+const laneBooked = (time: string): Step => ({
+  text: `Klart! Ni har bana 4 kl. ${time} på fredag. Vill ni lägga till mat?`,
+  chips: [
+    { label: "Ja, gärna", next: laneDone("Vi har lagt till mat för sällskapet. Välkomna!") },
+    { label: "Nej tack", next: laneDone("Toppen, välkomna!") },
   ],
 });
 
@@ -201,6 +213,29 @@ export const scenarios: Scenario[] = [
             },
           },
           { label: "Se nyheten", icon: "open", opens: "bilia.se" },
+        ],
+      },
+    },
+  },
+  {
+    customer: "Big Bowl",
+    company: "Big Bowl Sverige AB",
+    title: "Boka bana i meddelandet",
+    copy: "Kunden väljer tid, lägger till mat och får tiden i kalendern och vägen dit, utan att lämna tråden.",
+    photo: { src: bowlingUrl, small: bowlingUrlSmall, alt: "Ett bowlingklot slår ner käglor på en blank bana", position: "50% 50%" },
+    start: {
+      card: {
+        title: "Lediga banor på fredag",
+        body: "Bowla med kompisarna eller jobbet. Boka direkt här.",
+        actions: [
+          {
+            label: "Boka bana",
+            next: {
+              text: "Vilken tid passar?",
+              chips: ["18.00", "19.00", "20.00"].map((time) => ({ label: time, next: laneBooked(time) })),
+            },
+          },
+          { label: "Se menyn", icon: "open", opens: "bigbowl.se" },
         ],
       },
     },

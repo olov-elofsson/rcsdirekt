@@ -444,16 +444,15 @@ export function PricingSection() {
                   <h3 className="text-xl font-extrabold">{plan.name}</h3>
                   {plan.badge ? <span className="rounded-full bg-ink-foreground px-2.5 py-0.5 text-xs font-semibold text-ink">{plan.badge}</span> : null}
                 </div>
-                <p className={cn("mt-1.5 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.contents}</p>
-                <p className="mt-8 flex items-baseline gap-1.5">
+                {/* Price right under the name, so the three prices line up; when to pick it under that. */}
+                <p className="mt-5 flex items-baseline gap-1.5">
                   <span className={cn("text-sm font-semibold", featured ? "text-ink-muted" : "text-muted-foreground")}>från</span>
                   <span className="text-4xl font-extrabold tabular-nums">{plan.price}</span>
                 </p>
                 <p className={cn("mt-1 text-sm", featured ? "text-ink-muted" : "text-muted-foreground")}>listpris per meddelande</p>
-                {/* When to pick this type, so the three are easy to tell apart. */}
-                {plan.short ? <p className={cn("mt-6 border-t pt-5 text-sm leading-relaxed text-pretty", featured ? "border-ink-foreground/15" : "border-border")}>{plan.short}</p> : null}
+                <p className={cn("mt-6 flex-1 text-sm leading-relaxed text-pretty", featured ? "text-ink-muted" : "text-muted-foreground")}>{plan.short || plan.contents}</p>
                 {/* One filled action, on the lifted plan; the plan follows into the sign-up form. */}
-                <div className="min-h-8 flex-1" />
+                <div className="h-7" />
                 <Button asChild size="lg" variant="outline" className={cn("w-full", featured && "border-transparent")}>
                   <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
                 </Button>
