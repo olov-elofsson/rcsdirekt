@@ -151,6 +151,9 @@ function WebSketch() {
   const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
   const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
   const [url, setUrl] = useState("https://exempel.se/erbjudande");
+  // Suggestions under the card, as RCS shows them: rounded chips the customer taps to answer.
+  const [chip1, setChip1] = useState(() => t("Ja tack"));
+  const [chip2, setChip2] = useState(() => t("Ring mig"));
   // A short link replaces the address in the button and counts the clicks in the report.
   const [short, setShort] = useState(true);
   // -1: not sent; 0..2: how far the test message has come.
@@ -209,6 +212,12 @@ function WebSketch() {
                   </div>
                 ) : null}
               </div>
+              {chip1.trim() || chip2.trim() ? (
+                <div className="chips">
+                  {chip1.trim() ? <div className="chip">{chip1}</div> : null}
+                  {chip2.trim() ? <div className="chip"><PhoneIcon name="call" size={16} color="#0b57d0" />{chip2}</div> : null}
+                </div>
+              ) : null}
             </RcsSnippet>
           </div>
           {/* The delivery report for the test message, step by step. */}
@@ -279,6 +288,14 @@ function WebSketch() {
               ))}
             </div>
           </div>
+          <label className="block text-xs font-semibold text-muted-foreground">
+            {t("Snabbsvar")}
+            <input value={chip1} onChange={edit(setChip1)} maxLength={25} className={fieldClass} />
+          </label>
+          <label className="block text-xs font-semibold text-muted-foreground">
+            {t("Förslag som ringer")}
+            <input value={chip2} onChange={edit(setChip2)} maxLength={25} className={fieldClass} />
+          </label>
           {kind === "open" ? (
             <div className="sm:col-span-2">
               <label className="block text-xs font-semibold text-muted-foreground">
