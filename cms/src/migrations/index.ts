@@ -47,6 +47,7 @@ import * as migration_20261122_380000_hero_customer_sees from './20261122_380000
 import * as migration_20261122_390000_article_author from './20261122_390000_article_author';
 import * as migration_20261122_400000_hero_ecosystem from './20261122_400000_hero_ecosystem';
 import * as migration_20261122_410000_hero_with_us from './20261122_410000_hero_with_us';
+import * as migration_20261123_100000_remove_dreamcare from './20261123_100000_remove_dreamcare';
 
 export const migrations = [
   {
@@ -295,5 +296,10 @@ export const migrations = [
     up: migration_20261122_410000_hero_with_us.up,
     down: migration_20261122_410000_hero_with_us.down,
     name: '20261122_410000_hero_with_us',
+  },
+  {
+    up: migration_20261123_100000_remove_dreamcare.up,
+    down: migration_20261123_100000_remove_dreamcare.down,
+    name: '20261123_100000_remove_dreamcare',
   },
 ];

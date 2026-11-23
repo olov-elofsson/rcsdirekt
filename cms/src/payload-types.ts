@@ -201,7 +201,7 @@ export interface Media {
   };
 }
 /**
- * Kunderna på startsidan och deras presentationer under /demo. Dra för att ändra ordning.
+ * Kundcasen på startsidan och deras presentationer under /demo. Dra för att ändra ordning.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "kundcase".

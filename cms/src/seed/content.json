@@ -238,17 +238,6 @@
   },
   "kundcase": [
     {
-      "name": "DreamCare",
-      "logo": {
-        "url": "/media/dreamcare-logo.png",
-        "alt": "DreamCare",
-        "width": 512,
-        "height": 512
-      },
-      "description": "Trygg kontakt med kunder, anhöriga och kollegor. Utforska åtta RCS-exempel för DreamCare, från kundträffar och påminnelser till frågor om hemtjänst.",
-      "slug": "dreamcare"
-    },
-    {
       "name": "Maptun",
       "logo": {
         "url": "/media/maptun-logo.png",

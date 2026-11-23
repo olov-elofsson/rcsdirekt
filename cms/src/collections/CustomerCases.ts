@@ -4,8 +4,8 @@ import { loggedIn } from '../lib/access'
 
 export const CustomerCases: CollectionConfig = {
   slug: 'kundcase',
-  labels: { singular: 'Kund', plural: 'Kunder' },
-  admin: { group: 'Innehåll', useAsTitle: 'name', defaultColumns: ['name', 'slug'], description: 'Kunderna på startsidan och deras presentationer under /demo. Dra för att ändra ordning.' },
+  labels: { singular: 'Kundcase', plural: 'Kundcase' },
+  admin: { group: 'Innehåll', useAsTitle: 'name', defaultColumns: ['name', 'slug'], description: 'Kundcasen på startsidan och deras presentationer under /demo. Dra för att ändra ordning.' },
   orderable: true,
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   fields: [
