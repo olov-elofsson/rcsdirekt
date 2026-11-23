@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, Send, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, Link2, MousePointerClick, Send, X } from "lucide-react";
 import restaurantPhoto from "@/assets/foto-restaurang-800.webp";
 import bowlingPhoto from "@/assets/foto-bowling-800.webp";
 
@@ -123,6 +123,22 @@ const SKETCH_IMAGES = [
 const SEND_STEPS = ["Skickat", "Levererat", "Läst"] as const;
 
 /**
+ * A short link for the button's address: the same address always gets the same code, so the
+ * link does not jump while the visitor types. A sketch; nothing is shortened on a server.
+ */
+function shortCode(url: string) {
+  const chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let hash = 2166136261;
+  for (const char of url) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+  let code = "";
+  for (let i = 0; i < 5; i++) {
+    code += chars[hash % chars.length];
+    hash = Math.floor(hash / chars.length) || hash * 31 + i;
+  }
+  return code;
+}
+
+/**
  * The web tool, reduced to a card editor the visitor can use: what is typed in the fields shows
  * at once in the message beside them, the way it reaches the customer. A sketch of how such an
  * editor works, not one product; nothing is sent.
@@ -134,6 +150,9 @@ function WebSketch() {
   const [button, setButton] = useState(() => t("Läs mer"));
   const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
   const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
+  const [url, setUrl] = useState("https://exempel.se/erbjudande");
+  // A short link replaces the address in the button and counts the clicks in the report.
+  const [short, setShort] = useState(true);
   // -1: not sent; 0..2: how far the test message has come.
   const [step, setStep] = useState(-1);
   // On a phone the form starts folded, so the section shows the card first and the fields on request.
@@ -149,8 +168,13 @@ function WebSketch() {
     setStep(0);
     const fast = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     timers.current = [window.setTimeout(() => setStep(1), fast ? 0 : 700), window.setTimeout(() => setStep(2), fast ? 0 : 1800)];
+    if (tracked) timers.current.push(window.setTimeout(() => setStep(3), fast ? 0 : 3000));
   };
   const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
+  // Clicks can only be counted on a button that opens a short link.
+  const tracked = kind === "open" && short && url.trim() !== "";
+  const shortLink = `rcsdirekt.se/k/${shortCode(url.trim())}`;
+  const steps: string[] = tracked ? [...SEND_STEPS, "Klickat"] : [...SEND_STEPS];
   const picture = SKETCH_IMAGES.find((item) => item.id === image)?.src;
   const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => {
     set(event.target.value);
@@ -190,9 +214,9 @@ function WebSketch() {
           {/* The delivery report for the test message, step by step. */}
           <ol aria-live="polite" className="flex h-5 items-center gap-3 text-xs font-semibold text-muted-foreground">
             {step < 0 ? null : (
-              SEND_STEPS.map((label, index) => (
+              steps.map((label, index) => (
                 <li key={label} className={cn("inline-flex items-center gap-1 transition-opacity duration-200", index <= step ? "opacity-100" : "opacity-30")}>
-                  {index === 0 ? <Check aria-hidden className="size-3.5 text-logo-blue" /> : <CheckCheck aria-hidden className="size-3.5 text-logo-blue" />}
+                  {index === 0 ? <Check aria-hidden className="size-3.5 text-logo-blue" /> : index === 3 ? <MousePointerClick aria-hidden className="size-3.5 text-logo-blue" /> : <CheckCheck aria-hidden className="size-3.5 text-logo-blue" />}
                   {t(label)}
                 </li>
               ))
@@ -255,6 +279,22 @@ function WebSketch() {
               ))}
             </div>
           </div>
+          {kind === "open" ? (
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-semibold text-muted-foreground">
+                {t("Länk")}
+                <input type="url" inputMode="url" value={url} onChange={edit(setUrl)} maxLength={200} className={fieldClass} />
+              </label>
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+                <button type="button" role="switch" aria-checked={short} onClick={() => { setShort(!short); reset(); }} className={chip(short)}>
+                  <Link2 aria-hidden className="mr-1.5 size-3.5" />{t("Kortlänk")}
+                </button>
+                <span className="min-w-0 truncate text-xs text-muted-foreground">
+                  {tracked ? <><span className="font-mono text-foreground">{shortLink}</span> · {t("klicken syns i rapporten")}</> : t("Knappen öppnar adressen som den är")}
+                </span>
+              </div>
+            </div>
+          ) : null}
           <div className="flex items-end justify-end sm:col-span-2">
             <Button type="submit" size="sm">{t("Skicka test")} <Send data-icon="end" /></Button>
           </div>
