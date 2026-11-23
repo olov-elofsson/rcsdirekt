@@ -6,7 +6,7 @@ export const en: Record<string, string> = {
   "rcsdirekt.se, startsida": "rcsdirekt.se, home",
   Huvudmeny: "Main menu",
   Startsida: "Home",
-  Kunder: "Customers",
+  Kundcase: "Customer cases",
   Plattform: "Platform",
   Jämför: "Compare",
   Priser: "Pricing",

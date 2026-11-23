@@ -19,7 +19,7 @@ const mobileLinkClass =
   "flex items-center justify-between gap-3 py-4 text-base font-semibold transition-colors hover:text-logo-blue";
 
 const headerLinks = [
-  { label: "Kunder", to: "/", hash: "exempel" },
+  { label: "Kundcase", to: "/", hash: "exempel" },
   { label: "Plattform", to: "/", hash: "vad-ar-rcs" },
   { label: "Jämför", to: "/", hash: "rcs-mot-sms" },
   { label: "Priser", to: "/priser" },
@@ -28,7 +28,7 @@ const headerLinks = [
 
 /** Start page sections that light up a menu item while they are under the header. */
 const SECTION_LINKS: [id: string, label: string][] = [
-  ["exempel", "Kunder"],
+  ["exempel", "Kundcase"],
   ["vad-ar-rcs", "Plattform"],
   ["rcs-mot-sms", "Jämför"],
   ["pris", "Priser"],
@@ -285,7 +285,7 @@ const footerNav = [
     title: "rcsdirekt.se",
     links: [
       { label: "Om oss", to: "/om-oss" },
-      { label: "Kunder", to: "/", hash: "exempel" },
+      { label: "Kundcase", to: "/", hash: "exempel" },
       { label: "Plattform", to: "/", hash: "vad-ar-rcs" },
       { label: "Jämför", to: "/", hash: "rcs-mot-sms" },
       { label: "Priser", to: "/priser" },
