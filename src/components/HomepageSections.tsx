@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock, Link2, MousePointerClick, Send, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Clock, X } from "lucide-react";
 import restaurantPhoto from "@/assets/foto-restaurang-800.webp";
 import bowlingPhoto from "@/assets/foto-bowling-800.webp";
 
@@ -104,8 +104,8 @@ export function CompareSection() {
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
 const BUTTON_KINDS = [
-  { id: "open", label: "Öppnar länk", icon: "open" },
-  { id: "call", label: "Ringer", icon: "call" },
+  { id: "open", label: "Länk", icon: "open" },
+  { id: "call", label: "Ring", icon: "call" },
   { id: "reply", label: "Svar", icon: null },
 ] as const;
 
@@ -118,9 +118,6 @@ const SKETCH_IMAGES = [
   { id: "restaurant", src: restaurantPhoto, label: "Restaurang" },
   { id: "bowling", src: bowlingPhoto, label: "Bowling" },
 ] as const;
-
-/** What happens after "Skicka test", as the delivery report would show it. */
-const SEND_STEPS = ["Skickat", "Levererat", "Läst"] as const;
 
 /**
  * A short link for the button's address: the same address always gets the same code, so the
@@ -138,9 +135,12 @@ function shortCode(url: string) {
   return code;
 }
 
+/** A field's label: the same size, weight and gap above every field. */
+const labelClass = "block text-xs font-semibold text-muted-foreground";
+
 /**
  * The web tool, reduced to a card editor the visitor can use: what is typed in the fields shows
- * at once in the message beside them, the way it reaches the customer. A sketch of how such an
+ * at once in the message above them, the way it reaches the customer. A sketch of how such an
  * editor works, not one product; nothing is sent.
  */
 function WebSketch() {
@@ -151,48 +151,19 @@ function WebSketch() {
   const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
   const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
   const [url, setUrl] = useState("https://exempel.se/erbjudande");
-  // Suggestions under the card, as RCS shows them: rounded chips the customer taps to answer.
-  const chip1 = t("Ja tack");
-  const chip2 = t("Ring mig");
-  // A short link replaces the address in the button and counts the clicks in the report.
+  // A short link replaces the address in the button, so clicks can be counted.
   const [short, setShort] = useState(true);
-  // -1: not sent; 0..2: how far the test message has come.
-  const [step, setStep] = useState(-1);
   // On a phone the form starts folded, so the section shows the card first and the fields on request.
   const [editing, setEditing] = useState(false);
-  const timers = useRef<number[]>([]);
-  useEffect(() => () => timers.current.forEach((timer) => window.clearTimeout(timer)), []);
-  const reset = () => {
-    timers.current.forEach((timer) => window.clearTimeout(timer));
-    setStep(-1);
-  };
-  const send = () => {
-    reset();
-    setStep(0);
-    const fast = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    timers.current = [window.setTimeout(() => setStep(1), fast ? 0 : 700), window.setTimeout(() => setStep(2), fast ? 0 : 1800)];
-    if (tracked) timers.current.push(window.setTimeout(() => setStep(3), fast ? 0 : 3000));
-  };
   const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
-  // Clicks can only be counted on a button that opens a short link.
-  const tracked = kind === "open" && short && url.trim() !== "";
-  const shortLink = `rcsdirekt.se/k/${shortCode(url.trim())}`;
-  const steps: string[] = tracked ? [...SEND_STEPS, "Klickat"] : [...SEND_STEPS];
   const picture = SKETCH_IMAGES.find((item) => item.id === image)?.src;
-  const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => {
-    set(event.target.value);
-    reset();
-  };
-  const chip = (active: boolean) =>
-    cn(
-      "inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold transition-[background-color,color,scale] duration-150 ease-out active:scale-[0.96]",
-      active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground",
-    );
+  const shortLink = `rcsdirekt.se/k/${shortCode(url.trim())}`;
+  const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => set(event.target.value);
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
       <div className="flex flex-1 flex-col p-2.5">
         {/* The preview sits inset in the editor's white card, so the two halves read as one tool. */}
-        <div className="relative flex flex-col items-center gap-3 rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-9 pb-4">
+        <div className="relative flex flex-col items-center rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-9 pb-5">
           <span className="absolute top-3 left-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
             <span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />{t("Förhandsvisning")}
           </span>
@@ -212,45 +183,27 @@ function WebSketch() {
                   </div>
                 ) : null}
               </div>
-              {chip1.trim() || chip2.trim() ? (
-                <div className="chips">
-                  {chip1.trim() ? <div className="chip">{chip1}</div> : null}
-                  {chip2.trim() ? <div className="chip"><PhoneIcon name="call" size={16} color="#0b57d0" />{chip2}</div> : null}
-                </div>
-              ) : null}
+              {/* Suggestions under the card, as RCS shows them: rounded chips the customer taps. */}
+              <div className="chips">
+                <div className="chip">{t("Ja tack")}</div>
+                <div className="chip"><PhoneIcon name="call" size={16} color="#0b57d0" />{t("Ring mig")}</div>
+              </div>
             </RcsSnippet>
           </div>
-          {/* The delivery report for the test message, step by step. */}
-          <ol aria-live="polite" className="flex h-5 items-center gap-3 text-xs font-semibold text-muted-foreground">
-            {step < 0 ? null : (
-              steps.map((label, index) => (
-                <li key={label} className={cn("inline-flex items-center gap-1 transition-opacity duration-200", index <= step ? "opacity-100" : "opacity-30")}>
-                  {index === 0 ? <Check aria-hidden className="size-3.5 text-logo-blue" /> : index === 3 ? <MousePointerClick aria-hidden className="size-3.5 text-logo-blue" /> : <CheckCheck aria-hidden className="size-3.5 text-logo-blue" />}
-                  {t(label)}
-                </li>
-              ))
-            )}
-          </ol>
         </div>
         {!editing ? (
           <Button type="button" variant="outline" className="mt-3 w-full sm:hidden" onClick={() => setEditing(true)}>
             {t("Prova att ändra kortet")}
           </Button>
         ) : null}
-        <form
-          className={cn("flex-1 grid-cols-2 gap-x-3 gap-y-3 px-3 pt-4 pb-3 sm:grid sm:gap-x-4 sm:px-4", editing ? "grid" : "hidden")}
-          onSubmit={(event) => {
-            event.preventDefault();
-            send();
-          }}
-        >
-          <label className="block text-xs font-semibold text-muted-foreground">
+        <div className={cn("flex-1 grid-cols-2 gap-x-4 gap-y-4 px-3 pt-5 pb-3 sm:grid sm:px-4", editing ? "grid" : "hidden")}>
+          <label className={labelClass}>
             {t("Rubrik")}
             <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
           </label>
           <div>
-            <p className="text-xs font-semibold text-muted-foreground">{t("Bild")}</p>
-            <div role="radiogroup" aria-label={t("Bild")} className="mt-1.5 flex gap-1.5 sm:gap-2">
+            <p className={labelClass}>{t("Bild")}</p>
+            <div role="radiogroup" aria-label={t("Bild")} className="mt-1.5 flex h-[38px] gap-1.5">
               {SKETCH_IMAGES.map((item) => (
                 <button
                   key={item.id}
@@ -258,56 +211,59 @@ function WebSketch() {
                   role="radio"
                   aria-checked={image === item.id}
                   aria-label={t(item.label)}
-                  onClick={() => { setImage(item.id); reset(); }}
-                  className={cn("h-9 w-11 overflow-hidden rounded-lg ring-2 sm:h-10 sm:w-14 ring-offset-2 ring-offset-background transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.96]", image === item.id ? "ring-logo-blue" : "ring-transparent hover:ring-border")}
+                  onClick={() => setImage(item.id)}
+                  className={cn("h-full w-12 overflow-hidden rounded-lg ring-2 ring-offset-1 ring-offset-background transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.96]", image === item.id ? "ring-logo-blue" : "ring-transparent hover:ring-border")}
                 >
                   <img src={item.src} alt="" className="size-full object-cover" />
                 </button>
               ))}
             </div>
           </div>
-          <label className="col-span-2 block text-xs font-semibold text-muted-foreground">
+          <label className={cn(labelClass, "col-span-2")}>
             <span className="flex justify-between">
               {t("Text")}
               <span className="font-normal tabular-nums">{body.length}/160</span>
             </span>
             <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={2} className={cn(fieldClass, "block resize-none")} />
           </label>
-          {/* The button's text and what it does on one row; on phones the choice wraps under the field. */}
-          <div className="col-span-2">
-            <label htmlFor="sketch-button" className="text-xs font-semibold text-muted-foreground">{t("Knapp")}</label>
-            <div className="mt-1.5 flex flex-wrap items-center gap-2">
-              <input id="sketch-button" value={button} onChange={edit(setButton)} maxLength={25} className={cn(fieldClass, "mt-0 min-w-0 flex-1 basis-40")} />
-              <div role="radiogroup" aria-label={t("Vad knappen gör")} className="flex flex-wrap gap-1.5">
+          <label className={labelClass}>
+            {t("Knapp")}
+            <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
+          </label>
+          <div>
+            <p className={labelClass}>{t("Vad knappen gör")}</p>
+            {/* One segmented control, as tall as the fields beside it. */}
+            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-1.5 grid h-[38px] grid-cols-3 gap-0.5 rounded-lg bg-muted p-0.5">
               {BUTTON_KINDS.map((item) => (
-                <button key={item.id} type="button" role="radio" aria-checked={kind === item.id} onClick={() => { setKind(item.id); reset(); }} className={chip(kind === item.id)}>
+                <button
+                  key={item.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={kind === item.id}
+                  onClick={() => setKind(item.id)}
+                  className={cn("truncate rounded-md px-1 text-xs font-semibold transition-[background-color,color,box-shadow] duration-150 ease-out", kind === item.id ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
+                >
                   {t(item.label)}
                 </button>
               ))}
-              </div>
             </div>
           </div>
           {kind === "open" ? (
             <div className="col-span-2">
-              {/* The address and the short link on one row; the short code shows only when it is on. */}
-              <label className="block text-xs font-semibold text-muted-foreground">
-                <span className="flex justify-between gap-3">
-                  {t("Länk")}
-                  {tracked ? <span className="truncate font-mono font-normal text-foreground">{shortLink}</span> : null}
-                </span>
-                <span className="mt-1.5 flex items-center gap-2">
-                  <input type="url" inputMode="url" value={url} onChange={edit(setUrl)} maxLength={200} className={cn(fieldClass, "mt-0 min-w-0 flex-1")} />
-                  <button type="button" role="switch" aria-checked={short} onClick={() => { setShort(!short); reset(); }} className={cn(chip(short), "shrink-0")}>
-                    <Link2 aria-hidden className="mr-1.5 size-3.5" />{t("Kortlänk")}
-                  </button>
+              <label className={labelClass}>
+                {t("Länk")}
+                <input type="url" inputMode="url" value={url} onChange={edit(setUrl)} maxLength={200} className={fieldClass} />
+              </label>
+              <label className="mt-2.5 flex cursor-pointer items-center gap-2 text-xs text-muted-foreground">
+                <input type="checkbox" checked={short} onChange={(event) => setShort(event.target.checked)} className="size-4 accent-[var(--color-primary)]" />
+                <span>
+                  {t("Korta länken")}
+                  {short && url.trim() ? <span className="font-mono text-foreground"> {shortLink}</span> : null}
                 </span>
               </label>
             </div>
           ) : null}
-          <div className="col-span-2 flex items-end justify-end">
-            <Button type="submit" size="sm">{t("Skicka test")} <Send data-icon="end" /></Button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
