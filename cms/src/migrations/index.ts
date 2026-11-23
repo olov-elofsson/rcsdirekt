@@ -49,6 +49,7 @@ import * as migration_20261122_400000_hero_ecosystem from './20261122_400000_her
 import * as migration_20261122_410000_hero_with_us from './20261122_410000_hero_with_us';
 import * as migration_20261123_100000_remove_dreamcare from './20261123_100000_remove_dreamcare';
 import * as migration_20261123_110000_iphone_news_polish from './20261123_110000_iphone_news_polish';
+import * as migration_20261123_120000_webinar_february from './20261123_120000_webinar_february';
 
 export const migrations = [
   {
@@ -307,5 +308,10 @@ export const migrations = [
     up: migration_20261123_110000_iphone_news_polish.up,
     down: migration_20261123_110000_iphone_news_polish.down,
     name: '20261123_110000_iphone_news_polish',
+  },
+  {
+    up: migration_20261123_120000_webinar_february.up,
+    down: migration_20261123_120000_webinar_february.down,
+    name: '20261123_120000_webinar_february',
   },
 ];
