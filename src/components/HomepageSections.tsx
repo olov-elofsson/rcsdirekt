@@ -110,7 +110,7 @@ const BUTTON_KINDS = [
 ] as const;
 
 const fieldClass =
-  "mt-1.5 w-full rounded-lg border border-transparent bg-muted px-3 py-2 text-sm font-normal leading-snug text-foreground outline-none transition-[border-color,background-color] duration-150 placeholder:text-muted-foreground/70 focus:border-logo-blue focus:bg-background";
+  "mt-1 w-full rounded-lg border border-transparent bg-muted px-3 py-1.5 text-sm font-normal leading-snug text-foreground outline-none transition-[border-color,background-color] duration-150 placeholder:text-muted-foreground/70 focus:border-logo-blue focus:bg-background";
 
 /** Pictures the visitor can put on the card: the brand banner and two of the customer photos. */
 const SKETCH_IMAGES = [
@@ -118,22 +118,6 @@ const SKETCH_IMAGES = [
   { id: "restaurant", src: restaurantPhoto, label: "Restaurang" },
   { id: "bowling", src: bowlingPhoto, label: "Bowling" },
 ] as const;
-
-/**
- * A short link for the button's address: the same address always gets the same code, so the
- * link does not jump while the visitor types. A sketch; nothing is shortened on a server.
- */
-function shortCode(url: string) {
-  const chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let hash = 2166136261;
-  for (const char of url) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
-  let code = "";
-  for (let i = 0; i < 5; i++) {
-    code += chars[hash % chars.length];
-    hash = Math.floor(hash / chars.length) || hash * 31 + i;
-  }
-  return code;
-}
 
 /** A field's label: the same size, weight and gap above every field. */
 const labelClass = "block text-xs font-semibold text-muted-foreground";
@@ -150,14 +134,10 @@ function WebSketch() {
   const [button, setButton] = useState(() => t("Läs mer"));
   const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
   const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
-  const [url, setUrl] = useState("https://exempel.se/erbjudande");
-  // A short link replaces the address in the button, so clicks can be counted.
-  const [short, setShort] = useState(true);
   // On a phone the form starts folded, so the section shows the card first and the fields on request.
   const [editing, setEditing] = useState(false);
   const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
   const picture = SKETCH_IMAGES.find((item) => item.id === image)?.src;
-  const shortLink = `rcsdirekt.se/k/${shortCode(url.trim())}`;
   const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => set(event.target.value);
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
@@ -196,14 +176,14 @@ function WebSketch() {
             {t("Prova att ändra kortet")}
           </Button>
         ) : null}
-        <div className={cn("flex-1 grid-cols-2 gap-x-4 gap-y-4 px-3 pt-5 pb-3 sm:grid sm:px-4", editing ? "grid" : "hidden")}>
+        <div className={cn("flex-1 grid-cols-2 gap-x-3 gap-y-3 px-2.5 pt-4 pb-2 sm:grid sm:px-3", editing ? "grid" : "hidden")}>
           <label className={labelClass}>
             {t("Rubrik")}
             <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
           </label>
           <div>
             <p className={labelClass}>{t("Bild")}</p>
-            <div role="radiogroup" aria-label={t("Bild")} className="mt-1.5 flex h-[38px] gap-1.5">
+            <div role="radiogroup" aria-label={t("Bild")} className="mt-1 flex h-[34px] gap-1.5">
               {SKETCH_IMAGES.map((item) => (
                 <button
                   key={item.id}
@@ -233,7 +213,7 @@ function WebSketch() {
           <div>
             <p className={labelClass}>{t("Vad knappen gör")}</p>
             {/* One segmented control, as tall as the fields beside it. */}
-            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-1.5 grid h-[38px] grid-cols-3 gap-0.5 rounded-lg bg-muted p-0.5">
+            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-1 grid h-[34px] grid-cols-3 gap-0.5 rounded-lg bg-muted p-0.5">
               {BUTTON_KINDS.map((item) => (
                 <button
                   key={item.id}
@@ -248,21 +228,6 @@ function WebSketch() {
               ))}
             </div>
           </div>
-          {kind === "open" ? (
-            <div className="col-span-2">
-              <label className={labelClass}>
-                {t("Länk")}
-                <input type="url" inputMode="url" value={url} onChange={edit(setUrl)} maxLength={200} className={fieldClass} />
-              </label>
-              <label className="mt-2.5 flex cursor-pointer items-center gap-2 text-xs text-muted-foreground">
-                <input type="checkbox" checked={short} onChange={(event) => setShort(event.target.checked)} className="size-4 accent-[var(--color-primary)]" />
-                <span>
-                  {t("Korta länken")}
-                  {short && url.trim() ? <span className="font-mono text-foreground"> {shortLink}</span> : null}
-                </span>
-              </label>
-            </div>
-          ) : null}
         </div>
       </div>
     </div>

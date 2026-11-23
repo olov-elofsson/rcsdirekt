@@ -48,7 +48,6 @@ export const en: Record<string, string> = {
   "Testutskick levererat": "Test message delivered",
   "Nytt utskick": "New campaign",
   "Vad knappen gör": "What the button does",
-  "Korta länken": "Shorten the link",
   Ring: "Call",
   "Ja tack": "Yes please",
   "Ring mig": "Call me",
