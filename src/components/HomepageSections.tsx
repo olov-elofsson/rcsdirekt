@@ -152,8 +152,8 @@ function WebSketch() {
   const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
   const [url, setUrl] = useState("https://exempel.se/erbjudande");
   // Suggestions under the card, as RCS shows them: rounded chips the customer taps to answer.
-  const [chip1, setChip1] = useState(() => t("Ja tack"));
-  const [chip2, setChip2] = useState(() => t("Ring mig"));
+  const chip1 = t("Ja tack");
+  const chip2 = t("Ring mig");
   // A short link replaces the address in the button and counts the clicks in the report.
   const [short, setShort] = useState(true);
   // -1: not sent; 0..2: how far the test message has come.
@@ -238,20 +238,19 @@ function WebSketch() {
           </Button>
         ) : null}
         <form
-          className={cn("flex-1 gap-4 px-3 pt-5 pb-3 sm:grid sm:grid-cols-2 sm:px-4", editing ? "grid" : "hidden")}
+          className={cn("flex-1 grid-cols-2 gap-x-3 gap-y-3 px-3 pt-4 pb-3 sm:grid sm:gap-x-4 sm:px-4", editing ? "grid" : "hidden")}
           onSubmit={(event) => {
             event.preventDefault();
             send();
           }}
         >
-          <p className="font-display text-base font-extrabold sm:col-span-2">{t("Nytt utskick")}</p>
           <label className="block text-xs font-semibold text-muted-foreground">
             {t("Rubrik")}
             <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
           </label>
           <div>
             <p className="text-xs font-semibold text-muted-foreground">{t("Bild")}</p>
-            <div role="radiogroup" aria-label={t("Bild")} className="mt-1.5 flex gap-2">
+            <div role="radiogroup" aria-label={t("Bild")} className="mt-1.5 flex gap-1.5 sm:gap-2">
               {SKETCH_IMAGES.map((item) => (
                 <button
                   key={item.id}
@@ -260,59 +259,52 @@ function WebSketch() {
                   aria-checked={image === item.id}
                   aria-label={t(item.label)}
                   onClick={() => { setImage(item.id); reset(); }}
-                  className={cn("h-10 w-14 overflow-hidden rounded-lg ring-2 ring-offset-2 ring-offset-background transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.96]", image === item.id ? "ring-logo-blue" : "ring-transparent hover:ring-border")}
+                  className={cn("h-9 w-11 overflow-hidden rounded-lg ring-2 sm:h-10 sm:w-14 ring-offset-2 ring-offset-background transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.96]", image === item.id ? "ring-logo-blue" : "ring-transparent hover:ring-border")}
                 >
                   <img src={item.src} alt="" className="size-full object-cover" />
                 </button>
               ))}
             </div>
           </div>
-          <label className="block text-xs font-semibold text-muted-foreground sm:col-span-2">
+          <label className="col-span-2 block text-xs font-semibold text-muted-foreground">
             <span className="flex justify-between">
               {t("Text")}
               <span className="font-normal tabular-nums">{body.length}/160</span>
             </span>
-            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={3} className={cn(fieldClass, "resize-none")} />
+            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={2} className={cn(fieldClass, "block resize-none")} />
           </label>
-          <label className="block text-xs font-semibold text-muted-foreground">
-            {t("Knapp")}
-            <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
-          </label>
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground">{t("Vad knappen gör")}</p>
-            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-1.5 flex flex-wrap gap-1.5">
+          {/* The button's text and what it does on one row; on phones the choice wraps under the field. */}
+          <div className="col-span-2">
+            <label htmlFor="sketch-button" className="text-xs font-semibold text-muted-foreground">{t("Knapp")}</label>
+            <div className="mt-1.5 flex flex-wrap items-center gap-2">
+              <input id="sketch-button" value={button} onChange={edit(setButton)} maxLength={25} className={cn(fieldClass, "mt-0 min-w-0 flex-1 basis-40")} />
+              <div role="radiogroup" aria-label={t("Vad knappen gör")} className="flex flex-wrap gap-1.5">
               {BUTTON_KINDS.map((item) => (
                 <button key={item.id} type="button" role="radio" aria-checked={kind === item.id} onClick={() => { setKind(item.id); reset(); }} className={chip(kind === item.id)}>
                   {t(item.label)}
                 </button>
               ))}
-            </div>
-          </div>
-          <label className="block text-xs font-semibold text-muted-foreground">
-            {t("Snabbsvar")}
-            <input value={chip1} onChange={edit(setChip1)} maxLength={25} className={fieldClass} />
-          </label>
-          <label className="block text-xs font-semibold text-muted-foreground">
-            {t("Förslag som ringer")}
-            <input value={chip2} onChange={edit(setChip2)} maxLength={25} className={fieldClass} />
-          </label>
-          {kind === "open" ? (
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-muted-foreground">
-                {t("Länk")}
-                <input type="url" inputMode="url" value={url} onChange={edit(setUrl)} maxLength={200} className={fieldClass} />
-              </label>
-              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
-                <button type="button" role="switch" aria-checked={short} onClick={() => { setShort(!short); reset(); }} className={chip(short)}>
-                  <Link2 aria-hidden className="mr-1.5 size-3.5" />{t("Kortlänk")}
-                </button>
-                <span className="min-w-0 truncate text-xs text-muted-foreground">
-                  {tracked ? <><span className="font-mono text-foreground">{shortLink}</span> · {t("klicken syns i rapporten")}</> : t("Knappen öppnar adressen som den är")}
-                </span>
               </div>
             </div>
+          </div>
+          {kind === "open" ? (
+            <div className="col-span-2">
+              {/* The address and the short link on one row; the short code shows only when it is on. */}
+              <label className="block text-xs font-semibold text-muted-foreground">
+                <span className="flex justify-between gap-3">
+                  {t("Länk")}
+                  {tracked ? <span className="truncate font-mono font-normal text-foreground">{shortLink}</span> : null}
+                </span>
+                <span className="mt-1.5 flex items-center gap-2">
+                  <input type="url" inputMode="url" value={url} onChange={edit(setUrl)} maxLength={200} className={cn(fieldClass, "mt-0 min-w-0 flex-1")} />
+                  <button type="button" role="switch" aria-checked={short} onClick={() => { setShort(!short); reset(); }} className={cn(chip(short), "shrink-0")}>
+                    <Link2 aria-hidden className="mr-1.5 size-3.5" />{t("Kortlänk")}
+                  </button>
+                </span>
+              </label>
+            </div>
           ) : null}
-          <div className="flex items-end justify-end sm:col-span-2">
+          <div className="col-span-2 flex items-end justify-end">
             <Button type="submit" size="sm">{t("Skicka test")} <Send data-icon="end" /></Button>
           </div>
         </form>
