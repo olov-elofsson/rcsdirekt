@@ -2,8 +2,6 @@
 // page. They are possible set-ups, not measured customer results, and the section labels each one
 // "Exempel för …". Keep them in line with the case descriptions in the CMS. The messages have no
 // pictures of their own; the case photo they sit on carries the image.
-import careUrl from "@/assets/foto-omsorg.webp";
-import careUrlSmall from "@/assets/foto-omsorg-800.webp";
 import workshopUrl from "@/assets/foto-verkstad.webp";
 import workshopUrlSmall from "@/assets/foto-verkstad-800.webp";
 import courseUrl from "@/assets/foto-utbildning.webp";
@@ -44,22 +42,6 @@ export type Scenario = {
 
 const calendar: Choice = { label: "Lägg i kalendern", icon: "event", opens: "kalendern" };
 const map: Choice = { label: "Visa vägen", icon: "open", opens: "kartan" };
-
-/* DreamCare: a visit reminder that can be confirmed or moved, then a reminder and a rating. */
-const rating: Step = {
-  text: "Hej igen! Hur var besöket med Anna i dag?",
-  chips: ["Mycket bra", "Bra", "Mindre bra"].map((label) => ({
-    label,
-    next: { text: label === "Mindre bra" ? "Tack för att du säger till. Vi ringer dig i morgon och hör vad vi kan göra bättre." : "Tack, vad roligt att höra! Vi hälsar Anna." },
-  })),
-};
-const visitBooked = (when: string): Step => ({
-  text: `Klart! Anna kommer ${when}.`,
-  chips: [
-    calendar,
-    { label: "Tack, vi ses!", next: { text: "Vi ses! Efter besöket hör vi av oss och frågar hur det gick.", chips: [{ label: "Visa frågan", next: rating }] } },
-  ],
-});
 
 /* Big Bowl: a lane booked in the thread, with food added and the time in the calendar. */
 const laneDone = (text: string): Step => ({ text, chips: [calendar, map] });
@@ -157,34 +139,6 @@ const signedUp: Step = {
 };
 
 export const scenarios: Scenario[] = [
-  {
-    customer: "DreamCare",
-    company: "DreamCare Omsorg AB",
-    title: "Påminnelser som går att svara på",
-    copy: "Kunden bekräftar besöket eller väljer en ny tid, lägger det i kalendern och säger efteråt vad den tyckte. Allt i samma tråd.",
-    photo: { src: careUrl, small: careUrlSmall, alt: "Två äldre kvinnor skrattar tillsammans vid ett bord i en ljus lokal", position: "50% 30%", messageAt: "center" },
-    start: {
-      card: {
-        title: "Besök i morgon kl. 10.00",
-        body: "Anna från hemtjänsten kommer till dig. Passar tiden?",
-        actions: [
-          { label: "Ja, det passar", next: visitBooked("i morgon kl. 10.00") },
-          {
-            label: "Boka om",
-            next: {
-              text: "Inga problem. Vilken tid passar bättre?",
-              chips: [
-                { label: "Ons 10.00", next: visitBooked("onsdag kl. 10.00") },
-                { label: "Tor 13.00", next: visitBooked("torsdag kl. 13.00") },
-                { label: "Fre 9.00", next: visitBooked("fredag kl. 9.00") },
-              ],
-            },
-          },
-          { label: "Ring oss", icon: "call", opens: "telefonen" },
-        ],
-      },
-    },
-  },
   {
     customer: "Maptun",
     company: "Maptun Performance AB",

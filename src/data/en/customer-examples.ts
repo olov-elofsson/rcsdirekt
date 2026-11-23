@@ -1,8 +1,6 @@
 // English translation of ../customer-examples.ts. It must keep the same structure (steps, branching,
 // icons and `opens` semantics) as the Swedish module; only the user-visible strings differ.
 import type { Choice, Step, Scenario } from "../customer-examples";
-import careUrl from "@/assets/foto-omsorg.webp";
-import careUrlSmall from "@/assets/foto-omsorg-800.webp";
 import workshopUrl from "@/assets/foto-verkstad.webp";
 import workshopUrlSmall from "@/assets/foto-verkstad-800.webp";
 import courseUrl from "@/assets/foto-utbildning.webp";
@@ -16,22 +14,6 @@ import restaurantUrlSmall from "@/assets/foto-restaurang-800.webp";
 
 const calendar: Choice = { label: "Add to calendar", icon: "event", opens: "the calendar" };
 const map: Choice = { label: "Get directions", icon: "open", opens: "the map" };
-
-/* DreamCare: a visit reminder that can be confirmed or moved, then a reminder and a rating. */
-const rating: Step = {
-  text: "Hello again! How was today's visit with Anna?",
-  chips: ["Very good", "Good", "Not so good"].map((label) => ({
-    label,
-    next: { text: label === "Not so good" ? "Thank you for telling us. We will call you tomorrow to hear what we can do better." : "Thank you, that's great to hear! We'll pass it on to Anna." },
-  })),
-};
-const visitBooked = (when: string): Step => ({
-  text: `Done! Anna will visit ${when}.`,
-  chips: [
-    calendar,
-    { label: "Thanks, see you!", next: { text: "See you then! After the visit we'll get in touch to ask how it went.", chips: [{ label: "Show the question", next: rating }] } },
-  ],
-});
 
 /* Big Bowl: a lane booked in the thread, with food added and the time in the calendar. */
 const laneDone = (text: string): Step => ({ text, chips: [calendar, map] });
@@ -129,34 +111,6 @@ const signedUp: Step = {
 };
 
 export const scenarios: Scenario[] = [
-  {
-    customer: "DreamCare",
-    company: "DreamCare Omsorg AB",
-    title: "Reminders you can reply to",
-    copy: "The customer confirms the visit or picks a new time, adds it to the calendar and says afterward what they thought. All in the same thread.",
-    photo: { src: careUrl, small: careUrlSmall, alt: "Two elderly women laughing together at a table in a bright room", position: "50% 30%", messageAt: "center" },
-    start: {
-      card: {
-        title: "Visit tomorrow at 10:00",
-        body: "Anna from home care will visit you. Does the time work?",
-        actions: [
-          { label: "Yes, that works", next: visitBooked("tomorrow at 10:00") },
-          {
-            label: "Reschedule",
-            next: {
-              text: "No problem. Which time works better?",
-              chips: [
-                { label: "Wed 10:00", next: visitBooked("Wednesday at 10:00") },
-                { label: "Thu 13:00", next: visitBooked("Thursday at 13:00") },
-                { label: "Fri 9:00", next: visitBooked("Friday at 9:00") },
-              ],
-            },
-          },
-          { label: "Call us", icon: "call", opens: "the phone" },
-        ],
-      },
-    },
-  },
   {
     customer: "Maptun",
     company: "Maptun Performance AB",
