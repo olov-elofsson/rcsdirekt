@@ -48,6 +48,7 @@ import * as migration_20261122_390000_article_author from './20261122_390000_art
 import * as migration_20261122_400000_hero_ecosystem from './20261122_400000_hero_ecosystem';
 import * as migration_20261122_410000_hero_with_us from './20261122_410000_hero_with_us';
 import * as migration_20261123_100000_remove_dreamcare from './20261123_100000_remove_dreamcare';
+import * as migration_20261123_110000_iphone_news_polish from './20261123_110000_iphone_news_polish';
 
 export const migrations = [
   {
@@ -301,5 +302,10 @@ export const migrations = [
     up: migration_20261123_100000_remove_dreamcare.up,
     down: migration_20261123_100000_remove_dreamcare.down,
     name: '20261123_100000_remove_dreamcare',
+  },
+  {
+    up: migration_20261123_110000_iphone_news_polish.up,
+    down: migration_20261123_110000_iphone_news_polish.down,
+    name: '20261123_110000_iphone_news_polish',
   },
 ];

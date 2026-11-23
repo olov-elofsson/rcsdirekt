@@ -53,7 +53,7 @@ function HeroFirst() {
           <p className="mb-5">
             <Link to={lp("/blogg/$slug")} params={{ slug: news ? NEWS_SLUG : "rcs-pa-iphone" }} {...(news ? {} : { hash: "operatorer" })} className={labelLink}>
               <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-              {t("RCS öppnar på iPhone i Sverige")}
+              {t("Tele2 och Comviq har öppnat RCS för iPhone")}
               {/* Only where the line fits on one row; on phones a wrapped line would push the arrow to the edge. */}
               <ArrowRight aria-hidden className="hidden size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 sm:block" />
             </Link>

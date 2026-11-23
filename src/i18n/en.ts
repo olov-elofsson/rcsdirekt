@@ -316,7 +316,7 @@ export const en: Record<string, string> = {
 
   // Hero label
   och: "and",
-  "RCS öppnar på iPhone i Sverige": "RCS opens on iPhone in Sweden",
+  "Tele2 och Comviq har öppnat RCS för iPhone": "Tele2 and Comviq have opened RCS for iPhone",
 
   // Blog front page
   "Det viktigaste om RCS, och nyheter om hur det går i Sverige. Alla artiklar har källor.": "The essentials of RCS, and news on how it is going in Sweden. Every article has sources.",
