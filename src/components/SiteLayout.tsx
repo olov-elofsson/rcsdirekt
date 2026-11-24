@@ -384,47 +384,58 @@ export function SiteFooter() {
     <MobileSignupBar />
     <footer className="relative overflow-hidden bg-ink pt-16 pb-10 text-ink-foreground sm:pt-20">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
+        {/* As on fortnox.se: the logo and one line centred, the link columns, then who we are. */}
+        <div className="flex flex-col items-center text-center">
+          <Link to={lp("/")} aria-label={t("rcsdirekt.se, startsida")} className="inline-block">
+            <BrandLogo inverse className="h-9" />
+          </Link>
+          <p className="mt-6 max-w-md text-base leading-relaxed text-pretty text-ink-muted">
+            {t("RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.")}
+          </p>
+        </div>
+        <nav aria-label={t("Sidfot")} className="mt-16 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+          {footerNav.map((group) => (
+            <div key={group.title}>
+              <p className="text-lg font-semibold text-ink-foreground">{t(group.title)}</p>
+              <ul className="mt-3">
+                {group.links.map((link) => (
+                  <li key={link.label}>
+                    {"to" in link ? (
+                      <Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} className={footerLinkClass}>{t(link.label)}</Link>
+                    ) : (
+                      <a href={link.href} className={footerLinkClass}>
+                        {t(link.label)}
+                        <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+        <div className="mt-14 grid gap-10 border-t border-ink-foreground/10 pt-12 sm:grid-cols-3">
           <div>
-            <Link to={lp("/")} aria-label={t("rcsdirekt.se, startsida")} className="inline-block">
-              <BrandLogo inverse className="h-8" />
-            </Link>
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-pretty text-ink-muted">
-              {t("RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.")}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-              {company.legalName}, {t("org.nr")} {company.orgNumber}
-              <br />
-              {company.street}, {company.postalCode} {company.city}
-              {company.email ? <><br /><a href={`mailto:${company.email}`} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.email}</a></> : null}
-              {company.phone ? <><br /><a href={phoneHref(company.phone)} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.phone}</a></> : null}
-            </p>
-            {company.linkedin ? <a href={company.linkedin} className="mt-3 inline-flex min-h-10 items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink-foreground"><Linkedin aria-hidden className="size-4" />LinkedIn</a> : null}
+            <p className="font-semibold text-ink-foreground">{t("Vår adress")}</p>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted">{company.legalName}, {t("org.nr")} {company.orgNumber}<br />{company.street}, {company.postalCode} {company.city}</p>
           </div>
-          <nav aria-label={t("Sidfot")} className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
-            {footerNav.map((group) => (
-              <div key={group.title}>
-                <p className="text-xs font-bold uppercase tracking-[0.08em] text-ink-foreground">{t(group.title)}</p>
-                <ul className="mt-3">
-                  {group.links.map((link) => (
-                    <li key={link.label}>
-                      {"to" in link ? (
-                        <Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} className={footerLinkClass}>{t(link.label)}</Link>
-                      ) : (
-                        <a href={link.href} className={footerLinkClass}>
-                          {t(link.label)}
-                          <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" />
-                        </a>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
+          <div>
+            <p className="font-semibold text-ink-foreground">{t("Kontakta oss")}</p>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+              {company.email ? <a href={`mailto:${company.email}`} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.email}</a> : null}
+              {company.phone ? <><br /><a href={phoneHref(company.phone)} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.phone}</a></> : null}
+              <br /><Link to={lp("/kontakt")} className="underline-offset-4 hover:text-ink-foreground hover:underline">{t("Kontaktformulär")}</Link>
+            </p>
+          </div>
+          {company.linkedin ? (
+            <div>
+              <p className="font-semibold text-ink-foreground">{t("Följ oss")}</p>
+              <a href={company.linkedin} aria-label="LinkedIn" className="mt-2 inline-flex min-h-10 items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink-foreground"><Linkedin aria-hidden className="size-5" />LinkedIn</a>
+            </div>
+          ) : null}
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-5 text-xs text-ink-muted">
             <p>© {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se. {t("Alla rättigheter reserverade.")}</p>
             {/* For the team: the CMS where the site's texts are edited. */}

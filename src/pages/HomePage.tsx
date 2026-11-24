@@ -1,46 +1,33 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, ArrowUpRight, Check, RadioTower } from "lucide-react";
+import { ArrowRight, RadioTower } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CustomerExamples } from "@/components/CustomerExamples";
-import { BlogSection, CompareSection, FaqSection, PricingSection } from "@/components/HomepageSections";
-import { CtaBand, CustomerStrip, DifferenceRow, FeatureGrid, HowItWorks, SendRows } from "@/components/HomeRows";
+import { BigCards, CtaBox, Entrances, LinkCards, PlanBlocks, ProductRows, Statement } from "@/components/HomeRows";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
-import { usePriser, useStartsida } from "@/content/localized";
+import { useStartsida } from "@/content/localized";
 import { useT } from "@/lib/i18n";
 import { articleList as articleListSv } from "@/content/article-list";
 import { articleList as articleListEn } from "@/content/en/article-list";
 
 // The start page, in Swedish at / and in English at /en; the routes only add their own head.
 
-// Modules people know from company sites, in a familiar order: hero, customers, a feature grid,
-// rows with pictures, a comparison table, customer cases, how it works, pricing, FAQ, blog and a
-// closing call to action.
+// Built block for block after fortnox.se's start page, with our content and brand kit: a centred
+// Marin hero with one action, three entrance cards, rows of picture and text, one large statement,
+// two large coloured cards, three link cards, the customer cases, the three message types and one
+// coloured closing box.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerStrip /><FeatureGrid /><DifferenceRow /><CompareSection /><CustomerExamples /><SendRows /><HowItWorks /><PricingSection /><FaqSection /><BlogSection /><CtaBand /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><ProductRows /><Statement /><BigCards /><LinkCards /><CustomerExamples /><PlanBlocks /><CtaBox /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
 // so a left-aligned heading would look indented next to the text under it.
 
-function DualCtas({ dark = false }: { dark?: boolean }) {
-  const { t, lp } = useT();
-  // On Marin the primary action is the white outline Button, and the second a quiet white link.
-  if (dark) {
-    return (
-      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-        <Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
-        <Link to={lp("/kontakt")} className="group inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">{t("Prata med oss")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" /></Link>
-      </div>
-    );
-  }
-  return <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button><Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/kontakt")}>{t("Prata med oss")}</Link></Button></div>;
-}
 
 const revealOrder = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
@@ -71,7 +58,7 @@ function HeroFirst() {
           {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
         </h1>
         <p className="mt-7 max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted sm:text-xl">{home.hero.description}</p>
-        <div className="mt-10 flex justify-center"><DualCtas dark /></div>
+        <div className="mt-10 flex justify-center"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")}</Link></Button></div>
       </div>
     </section>
   );
