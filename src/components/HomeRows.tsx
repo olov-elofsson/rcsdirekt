@@ -6,6 +6,7 @@ import { HeroMessage } from "@/components/HeroMessage";
 import { Button } from "@/components/ui/button";
 import { usePriser } from "@/content/localized";
 import { useT } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 import { formatPrice, useCurrency } from "@/lib/money";
 
 // The start page sections, all in the style of the hero and the entrance cards: a short centred
@@ -53,25 +54,29 @@ export function CtaBox() {
 
 type IconCard = { Icon: LucideIcon; title: string; copy: string; link: string; to: string; hash?: string; search?: Record<string, string> };
 
-const sectionHeading = "mx-auto max-w-3xl text-center text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]";
-const sectionLead = "mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]";
+// Left-aligned like the rest of the page below the hero; -0.04em lines Archivo's capitals up with the text.
+const sectionHeading = "-ml-[0.04em] max-w-3xl text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]";
+const sectionLead = "mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]";
 
-/** The card row every section uses: bordered cards with a large line icon, centred text and a blue link. */
-function CardGrid({ id, label, title, intro, cards, after, muted = false }: { id: string; label?: string; title?: string; intro?: string; cards: IconCard[]; after?: ReactNode; muted?: boolean }) {
+/** The card row the sections use: bordered cards with a line icon, text and a blue link. The heading sits left, with an optional link on the right. */
+function CardGrid({ id, label, title, intro, cards, after, muted = false, centered = false }: { id: string; label?: string; title?: string; intro?: string; cards: IconCard[]; after?: ReactNode; muted?: boolean; centered?: boolean }) {
   return (
     <section id={id} aria-label={title ? undefined : label} className={muted ? "scroll-mt-24 bg-muted" : "scroll-mt-24 bg-background"}>
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         {title ? (
-          <div data-reveal className="mb-12">
-            <h2 className={sectionHeading}>{title}</h2>
-            {intro ? <p className={sectionLead}>{intro}</p> : null}
+          <div data-reveal className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className={sectionHeading}>{title}</h2>
+              {intro ? <p className={sectionLead}>{intro}</p> : null}
+            </div>
+            {after}
           </div>
         ) : null}
         <ul className="grid gap-6 lg:grid-cols-3">
           {cards.map(({ Icon, ...card }, index) => (
             <li key={card.title} data-reveal style={order(index)}>
-              <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} {...(card.search ? { search: card.search } : {})} className="group flex h-full flex-col items-center rounded-2xl border border-border bg-card px-8 pt-10 pb-9 text-center transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card">
-                <Icon aria-hidden strokeWidth={1.25} className="size-16 text-logo-blue" />
+              <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} {...(card.search ? { search: card.search } : {})} className={cn("group flex h-full flex-col rounded-2xl border border-border bg-card px-8 pt-10 pb-9 transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card", centered ? "items-center text-center" : "items-start text-left")}>
+                <Icon aria-hidden strokeWidth={1.25} className={centered ? "size-16 text-logo-blue" : "size-12 text-logo-blue"} />
                 <h3 className="mt-7 text-xl font-extrabold leading-snug">{card.title}</h3>
                 <p className="mt-3 flex-1 text-base leading-relaxed text-pretty text-muted-foreground">{card.copy}</p>
                 <span className="mt-7 inline-flex items-center gap-1.5 text-base font-semibold text-logo-blue">{card.link} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></span>
@@ -79,7 +84,6 @@ function CardGrid({ id, label, title, intro, cards, after, muted = false }: { id
             </li>
           ))}
         </ul>
-        {after ? <div data-reveal className="mt-10 flex justify-center">{after}</div> : null}
       </div>
     </section>
   );
@@ -92,6 +96,7 @@ export function Entrances() {
   return (
     <CardGrid
       id="vad-ar-rcs"
+      centered
       label={t("Kom vidare")}
       cards={[
         { Icon: MonitorSmartphone, title: t("Skicka från webben"), copy: t("Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden."), link: t("Prova webbverktyget"), to: lp("/skapa-konto") },
@@ -102,23 +107,22 @@ export function Entrances() {
   );
 }
 
-/** The SMS/RCS demo, centred under a short heading. */
+/** Why RCS: the text and actions on the left, the SMS/RCS demo on the right. */
 export function Difference() {
   const { t, lp } = useT();
   return (
     <section id="rcs-mot-sms" className="scroll-mt-24 bg-muted">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="mb-12">
-          <h2 className={sectionHeading}>{t("SMS eller RCS?")}</h2>
-          <p className={sectionLead}>{t("Samma besked, två sätt. Med RCS ser kunden ert namn och er logga, och kan svara med ett tryck.")}</p>
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2 lg:gap-20 lg:px-8">
+        <div data-reveal>
+          <h2 className={sectionHeading}>{t("Låt kunden se vem som skriver")}</h2>
+          <p className={sectionLead}>{t("Ett SMS kommer från ett nummer. Med RCS kommer samma besked med ert namn, er logga och knappar som kunden svarar med. Växla och jämför.")}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Button asChild size="lg" className="home-cta"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
+            <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-vs-sms" }} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Läs om skillnaden")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
+          </div>
         </div>
-        <div data-reveal className="mx-auto flex max-w-3xl justify-center rounded-3xl border border-border bg-card px-6 py-12 sm:py-14">
+        <div data-reveal style={order(1)} className="flex justify-center rounded-3xl border border-border bg-card px-6 py-12 sm:py-14">
           <div className="w-full max-w-[22rem]"><HeroMessage bare /></div>
-        </div>
-        {/* The next step once the difference is clear, with the long read as a second choice. */}
-        <div data-reveal className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-          <Button asChild size="lg" className="home-cta"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
-          <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-vs-sms" }} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Läs om skillnaden")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
         </div>
       </div>
     </section>
@@ -132,8 +136,8 @@ export function Steps() {
     <CardGrid
       id="kom-igang"
       muted
-      title={t("Så kommer ni igång")}
-      intro={t("Från konto till första utskick i tre steg.")}
+      title={t("Från konto till första utskick")}
+      intro={t("Tre steg, och vi hjälper er med avsändaren på vägen.")}
       cards={[
         { Icon: UserPlus, title: t("Skapa ett konto"), copy: t("Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss."), link: t("Skapa konto"), to: lp("/skapa-konto") },
         { Icon: BadgeCheck, title: t("Registrera avsändare"), copy: t("Ni skickar namn, logotyp och en kort beskrivning. Avsändaren kontrolleras innan den får skicka."), link: t("Om verifierad avsändare"), to: lp("/blogg/$slug").replace("$slug", "verifierad-avsandare") },
@@ -152,8 +156,8 @@ export function Plans() {
   return (
     <CardGrid
       id="pris"
-      title={t("Priser")}
-      intro={t("Ni betalar per meddelande. Det kostar inget att starta och det finns ingen bindningstid.")}
+      title={t("Betala för det ni skickar")}
+      intro={t("Priset beror på meddelandetyp och mottagarens operatör. Det kostar inget att starta och det finns ingen bindningstid.")}
       cards={priser.plans.map((plan, index) => ({
         Icon: icons[index] ?? MessageSquareText,
         title: plan.name,

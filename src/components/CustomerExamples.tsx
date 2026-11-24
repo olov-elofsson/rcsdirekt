@@ -8,7 +8,7 @@ import { scenarios as scenariosEn } from "@/data/en/customer-examples";
 import { translate, useT, type Locale } from "@/lib/i18n";
 
 const useScenarios = () => (useT().locale === "en" ? scenariosEn : scenariosSv);
-import { sectionBody, sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
+import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
@@ -442,7 +442,7 @@ function CaseShowcase() {
   const nextName = scenarios[(index + 1) % scenarios.length]?.customer;
   return (
     <div className={sectionBody}>
-      <div ref={tabs} role="tablist" aria-label={t("Välj kundexempel")} className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0 lg:justify-center">
+      <div ref={tabs} role="tablist" aria-label={t("Välj kundexempel")} className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
         {scenarios.map((item, itemIndex) => (
           <button
             key={item.customer}
@@ -489,17 +489,17 @@ export function CustomerExamples() {
     >
       {/* A wider row than the other sections, so the photos get room; heading and cards share its edge. */}
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="text-center">
-          <h2 id="exempel-title" className={sectionTitleCentered}>
-            {t("Kundcase")}
+        <div data-reveal>
+          <h2 id="exempel-title" className={sectionTitle}>
+            {t("Exempel från våra kunder")}
           </h2>
-          <p className={cn(sectionIntro, "mx-auto")}>
+          <p className={sectionIntro}>
             {t("Så kan RCS se ut hos några av våra kunder. Tryck på knapparna och se vad som händer. Meddelandena är exempel.")}
           </p>
         </div>
         <CaseShowcase />
         {/* After the proof, the way to something similar of one's own. */}
-        <div data-reveal className="mt-10 flex justify-center">
+        <div data-reveal className="mt-8">
           <Link to={lp("/kontakt")} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Prata med oss om ert upplägg")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
         </div>
       </div>

@@ -230,7 +230,7 @@ export function FaqSection() {
   return (
     <section id="fragor" className="relative overflow-hidden bg-muted py-16 sm:py-24">
       <div className="mx-auto max-w-3xl px-5 lg:px-8">
-        <h2 data-reveal className={sectionTitleCentered}>{t("Vanliga frågor")}</h2>
+        <h2 data-reveal className={sectionTitleCentered}>{t("Frågor vi ofta får")}</h2>
         <div data-reveal className={cn(sectionBody, "divide-y divide-border rounded-2xl border border-border bg-card px-6 sm:px-8")}>
           {priser.faq.map((item) => (
             <details key={item.question} className="group">
