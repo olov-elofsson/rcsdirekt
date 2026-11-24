@@ -2,6 +2,23 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Allt ni behöver för att skicka RCS": "Everything you need to send RCS",
+  "Meddelandet hamnar i kundens vanliga meddelandeapp, med det här på köpet.": "The message lands in the customer's usual messaging app, with all of this included.",
+  "Bilder och video": "Images and video",
+  "Visa produkten, platsen eller erbjudandet direkt i meddelandet.": "Show the product, the place or the offer right in the message.",
+  "Knappar och snabbsvar": "Buttons and quick replies",
+  "Kunden bekräftar, bokar om eller väljer ett alternativ med ett tryck.": "The customer confirms, reschedules or picks an option with one tap.",
+  Karuseller: "Carousels",
+  "Flera kort att svepa mellan, med en egen knapp på varje kort.": "Several cards to swipe through, each with its own button.",
+  "Se om meddelandet har kommit fram, och vilka knappar kunderna har tryckt på.": "See whether the message arrived, and which buttons customers tapped.",
+  "Webb och API": "Web and API",
+  "Skicka från webbläsaren, eller låt era egna system skicka via API.": "Send from the browser, or let your own systems send through the API.",
+  "Så kommer ni igång": "How to get started",
+  "Från konto till första utskick i tre steg. Vi hjälper er med avsändaren på vägen.": "From account to first campaign in three steps. We help you with the sender along the way.",
+  "Redo att skicka ert första RCS-meddelande?": "Ready to send your first RCS message?",
+  "Det kostar inget att skapa ett konto. Ni betalar för de meddelanden ni skickar.": "Creating an account costs nothing. You pay for the messages you send.",
+  "Från bloggen": "From the blog",
+  "Hittar ni inte svaret?": "Can't find the answer?",
   "Prata med oss först": "Talk to us first",
   "Företag som skickar RCS med oss": "Companies sending RCS with us",
   "RCS för svenska företag, med räckvidd i hela världen": "RCS for Swedish companies, with reach across the world",

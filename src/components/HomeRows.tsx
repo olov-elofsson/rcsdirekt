@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { ArrowRight, ArrowUpRight, Code2, MonitorSmartphone, Receipt } from "lucide-react";
+import { ArrowRight, BadgeCheck, BarChart3, Code2, GalleryHorizontal, Images, MousePointerClick } from "lucide-react";
 
 import { HeroMessage } from "@/components/HeroMessage";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
@@ -22,27 +22,32 @@ const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 /** A row's heading: a full sentence, as Fortnox writes them, a little smaller than a section title. */
 const rowTitle = "-ml-[0.04em] text-[1.9rem] font-extrabold leading-[1.12] text-balance sm:text-[2.35rem]";
 
-/** Three cards right under the hero, each with a line icon, a short text and where it leads. */
-export function Entrances() {
-  const { t, lp } = useT();
-  const from = usePriser().plans[0]?.price;
-  const cards = [
-    { Icon: MonitorSmartphone, title: t("Skicka från webben"), copy: t("Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden."), link: t("Se webbverktyget"), to: lp("/"), hash: "vad-ar-rcs" },
-    { Icon: Code2, title: t("Koppla in ert system"), copy: t("Låt era system skicka bekräftelser och påminnelser via API, med svaren tillbaka som webhooks."), link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
-    { Icon: Receipt, title: t("Betala per meddelande"), copy: from ? t("Listpris från {price} per meddelande. Det kostar inget att starta och det finns ingen bindningstid.").replace("{price}", from) : t("Det kostar inget att starta och det finns ingen bindningstid."), link: t("Se priser"), to: lp("/priser") },
+/** The features as a standard grid of six, each with a small icon, a title and one sentence. */
+export function FeatureGrid() {
+  const { t } = useT();
+  const features = [
+    { Icon: BadgeCheck, title: t("Verifierad avsändare"), copy: t("Kunden ser ert namn, er logga och en bock i stället för ett okänt nummer.") },
+    { Icon: Images, title: t("Bilder och video"), copy: t("Visa produkten, platsen eller erbjudandet direkt i meddelandet.") },
+    { Icon: MousePointerClick, title: t("Knappar och snabbsvar"), copy: t("Kunden bekräftar, bokar om eller väljer ett alternativ med ett tryck.") },
+    { Icon: GalleryHorizontal, title: t("Karuseller"), copy: t("Flera kort att svepa mellan, med en egen knapp på varje kort.") },
+    { Icon: BarChart3, title: t("Leveransrapporter"), copy: t("Se om meddelandet har kommit fram, och vilka knappar kunderna har tryckt på.") },
+    { Icon: Code2, title: t("Webb och API"), copy: t("Skicka från webbläsaren, eller låt era egna system skicka via API.") },
   ];
   return (
-    <section id="ingangar" aria-label={t("Kom vidare")} className="bg-background">
+    <section id="funktioner" className="bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <ul className="grid gap-5 md:grid-cols-3">
-          {cards.map(({ Icon, ...card }, index) => (
-            <li key={card.title} data-reveal style={order(index)}>
-              <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} className="group flex h-full flex-col items-center rounded-2xl border border-border bg-card px-7 pt-9 pb-8 text-center transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                <Icon aria-hidden strokeWidth={1.4} className="size-14 text-logo-blue" />
-                <h3 className="mt-6 text-xl font-extrabold leading-snug">{card.title}</h3>
-                <p className="mt-2 flex-1 text-base leading-relaxed text-pretty text-muted-foreground">{card.copy}</p>
-                <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold">{card.link} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" /></span>
-              </Link>
+        <div data-reveal className="text-center">
+          <h2 className="mx-auto max-w-3xl text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]">{t("Allt ni behöver för att skicka RCS")}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]">{t("Meddelandet hamnar i kundens vanliga meddelandeapp, med det här på köpet.")}</p>
+        </div>
+        <ul className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map(({ Icon, title, copy }, index) => (
+            <li key={title} data-reveal style={order(index)} className="flex gap-5">
+              <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-logo-blue"><Icon strokeWidth={1.75} className="size-6" /></span>
+              <div>
+                <h3 className="text-lg font-extrabold leading-snug">{title}</h3>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-pretty text-muted-foreground">{copy}</p>
+              </div>
             </li>
           ))}
         </ul>
@@ -165,33 +170,42 @@ export function SendRows() {
   );
 }
 
-/**
- * The page's close, as Fortnox ends with one coloured box: how to get started in three steps, and
- * the two ways forward. It replaces separate sections for the steps, help and the contact form.
- */
-export function ClosingBox() {
-  const { t, lp } = useT();
+/** "Så funkar det": three numbered steps in a row, with the line drawn through the drops. */
+export function HowItWorks() {
+  const { t } = useT();
   return (
     <section id="kom-igang" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="rounded-3xl bg-primary-soft px-6 py-12 text-center sm:px-12 sm:py-16">
-          <h2 data-reveal className="mx-auto max-w-3xl text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]">{t("Från konto till första utskick i tre steg")}</h2>
-          <p data-reveal className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]">{t("Vi hjälper er med avsändaren och upplägget på vägen.")}</p>
-          <ol className="relative mx-auto mt-12 grid max-w-5xl gap-10 text-left md:grid-cols-3 md:gap-8">
-            {/* The line through the drops, drawn from left to right when the steps come into view. */}
-            <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-5 right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-primary/20 from-75% to-transparent md:block" />
-            {STEPS.map((step, index) => (
-              <li key={step.title} data-reveal style={order(index + 1)} className="relative">
-                <NumberDrop n={index + 1} />
-                <h3 className="mt-5 text-lg font-extrabold leading-snug">{t(step.title)}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
-              </li>
-            ))}
-          </ol>
-          <div data-reveal className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            <Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
-            <Link to={lp("/kontakt")} className="group inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">{t("Prata med oss först")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
-          </div>
+        <div data-reveal className="text-center">
+          <h2 className="mx-auto max-w-3xl text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]">{t("Så kommer ni igång")}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]">{t("Från konto till första utskick i tre steg. Vi hjälper er med avsändaren på vägen.")}</p>
+        </div>
+        <ol className="relative mx-auto mt-12 grid max-w-6xl gap-10 md:grid-cols-3 md:gap-8">
+          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-5 right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-border from-75% to-transparent md:block" />
+          {STEPS.map((step, index) => (
+            <li key={step.title} data-reveal style={order(index + 1)} className="relative">
+              <NumberDrop n={index + 1} />
+              <h3 className="mt-5 text-lg font-extrabold leading-snug">{t(step.title)}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/** The closing call to action: a full-width Marin band with a heading and two actions. */
+export function CtaBand() {
+  const { t, lp } = useT();
+  return (
+    <section id="kom-igang-nu" className="border-b border-ink-foreground/10 bg-ink text-ink-foreground">
+      <div data-reveal className="mx-auto flex max-w-4xl flex-col items-center px-5 text-center lg:px-8">
+        <h2 className="text-[2.1rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.65rem]">{t("Redo att skicka ert första RCS-meddelande?")}</h2>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-pretty text-ink-muted sm:text-[17px]">{t("Det kostar inget att skapa ett konto. Ni betalar för de meddelanden ni skickar.")}</p>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
+          <Link to={lp("/kontakt")} className="group inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">{t("Prata med oss")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
         </div>
       </div>
     </section>

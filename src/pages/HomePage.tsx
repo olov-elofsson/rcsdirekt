@@ -6,8 +6,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CustomerExamples } from "@/components/CustomerExamples";
-import { BlogSection, CompareSection, PricingSection } from "@/components/HomepageSections";
-import { ClosingBox, CustomerStrip, DifferenceRow, Entrances, SendRows } from "@/components/HomeRows";
+import { BlogSection, CompareSection, FaqSection, PricingSection } from "@/components/HomepageSections";
+import { CtaBand, CustomerStrip, DifferenceRow, FeatureGrid, HowItWorks, SendRows } from "@/components/HomeRows";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
 import { usePriser, useStartsida } from "@/content/localized";
@@ -17,12 +17,12 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 
 // The start page, in Swedish at / and in English at /en; the routes only add their own head.
 
-// The page is a journey from A to Ö for someone who has never sent RCS: what it is (hero), why
-// (the difference and the comparison), whether it works (reach and customer cases), how to send
-// (web and API), what it costs (prices), how to start (steps and help), then guides and contact.
+// Modules people know from company sites, in a familiar order: hero, customers, a feature grid,
+// rows with pictures, a comparison table, customer cases, how it works, pricing, FAQ, blog and a
+// closing call to action.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerStrip /><Entrances /><DifferenceRow /><CompareSection /><CustomerExamples /><SendRows /><Reach /><PricingSection /><BlogSection /><ClosingBox /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerStrip /><FeatureGrid /><DifferenceRow /><CompareSection /><CustomerExamples /><SendRows /><HowItWorks /><PricingSection /><FaqSection /><BlogSection /><CtaBand /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -80,35 +80,3 @@ function HeroFirst() {
 
 
 
-/**
- * Key figures on a full-width Marin band, as large companies state theirs: the reach, the Swedish
- * networks, the start fee and the lowest list price. Every figure comes from the site's own content.
- */
-function Reach() {
-  const { t } = useT();
-  const priser = usePriser();
-  const networks = priser.operators.filter((name) => !/^(Övriga|Other)/.test(name));
-  const from = priser.plans[0]?.price;
-  const stats = [
-    { value: "800+", label: t("direktkopplingar till operatörer världen över") },
-    { value: String(networks.length), label: t("svenska nät: {names}").replace("{names}", networks.join(", ")) },
-    { value: "0 kr", label: t("i startavgift, och ingen bindningstid") },
-    ...(from ? [{ value: from.replace(" SEK", ""), label: t("SEK per meddelande, lägsta listpris") }] : []),
-  ];
-  return (
-    <section id="rackvidd" aria-labelledby="rackvidd-title" className="bg-ink text-ink-foreground">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <h2 id="rackvidd-title" data-reveal className="mx-auto max-w-3xl text-center text-[2.1rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.65rem]">{t("RCS för svenska företag, med räckvidd i hela världen")}</h2>
-        <dl className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-ink-foreground/15 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <div key={stat.value} data-reveal style={revealOrder(index)} className="flex flex-col bg-ink px-7 py-9 sm:px-8 sm:py-10">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd className="font-display text-[3.25rem] font-extrabold leading-none tabular-nums text-ink-foreground sm:text-6xl">{stat.value}</dd>
-              <dd className="mt-4 text-base leading-snug text-pretty text-ink-muted">{stat.label}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}

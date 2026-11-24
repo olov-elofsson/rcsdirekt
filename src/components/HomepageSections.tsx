@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, Check, ChevronDown, Clock, Images, MousePointerClick, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Clock, X } from "lucide-react";
 
 import { PlanCard } from "@/components/PlanCard";
 import { VerifiedMark } from "@/components/RcsPhone";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { articleList } from "@/content/article-list";
 import { priser } from "@/content/priser";
@@ -46,37 +45,15 @@ export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
-  // As on fortnox.se: four things side by side with a line icon, and the full table under "Visa mer".
-  const [open, setOpen] = useState(false);
-  const features = [
-    { Icon: BadgeCheck, title: t("Verifierad avsändare"), copy: t("Kunden ser ert namn, er logga och en bock i stället för ett okänt nummer.") },
-    { Icon: Images, title: t("Bilder, video och knappar"), copy: t("Visa erbjudandet direkt i meddelandet, med kort och karuseller att svepa mellan.") },
-    { Icon: MousePointerClick, title: t("Svar med ett tryck"), copy: t("Kunden bekräftar, bokar om eller väljer ett alternativ med en knapp.") },
-    { Icon: BarChart3, title: t("Ni ser vad som händer"), copy: t("Ni ser vilka knappar kunden trycker på och, om mottagaren tillåter, när meddelandet läses.") },
-  ];
   return (
-    <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
+    <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-muted py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="text-center">
           <h2 className={sectionTitleCentered}>{home.jamforelse.heading}</h2>
           <p className={cn(sectionIntro, "mx-auto")}>{home.jamforelse.intro}</p>
         </div>
-        <ul className={cn(sectionBody, "grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8")}>
-          {features.map(({ Icon, title, copy }, index) => (
-            <li key={title} data-reveal style={order(index)}>
-              <Icon aria-hidden strokeWidth={1.4} className="size-12 text-logo-blue" />
-              <h3 className="mt-5 text-lg font-extrabold leading-snug">{title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">{copy}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-12 flex justify-center">
-          <Button type="button" className="home-cta" aria-expanded={open} aria-controls="jamforelse-tabell" onClick={() => setOpen((value) => !value)}>
-            {open ? t("Dölj jämförelsen") : t("Visa hela jämförelsen")} <ChevronDown data-icon="end" className={cn("transition-transform duration-200", open && "rotate-180")} />
-          </Button>
-        </div>
         {/* One table on every screen; on a phone the columns and text are tighter. */}
-        <div id="jamforelse-tabell" hidden={!open} className={cn("mt-10 overflow-hidden rounded-2xl border border-border bg-card", !open && "hidden")}>
+        <div data-reveal className={cn(sectionBody, "mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border bg-card")}>
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
               <col className="w-[34%] sm:w-[38%]" />
@@ -354,51 +331,59 @@ export function PricingSection() {
 /* ------------------------------------------------------------------------------------------ */
 /* Insikter: one article large, two beside it.                                                 */
 
+/** The latest articles as a standard three-card blog row, as "Från bloggen" on most company sites. */
 export function BlogSection() {
   const home = useStartsida();
-  const priser = usePriser();
   const { t, lp, locale } = useT();
   const list = locale === "en" ? articleListEn : articleList;
   const picks = home.blogg.picks.map((slug) => list.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
-  const card = "flex flex-col rounded-3xl border border-border bg-card p-8 sm:p-10";
-  // As Fortnox ends a page: the guides in one card, the common questions in the other.
   return (
     <section id="blogg" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-2 lg:px-8">
-        <div data-reveal className={card}>
-          <h2 className="-ml-[0.04em] text-[1.9rem] font-extrabold leading-[1.12] text-balance sm:text-[2.2rem]">{home.blogg.heading}</h2>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{home.blogg.intro}</p>
-          <ul className="mt-6 divide-y divide-border border-y border-border">
-            {picks.map((article) => (
-              <li key={article.slug}>
-                <Link to={lp("/blogg/$slug")} params={{ slug: article.slug }} className="group flex min-h-14 items-center justify-between gap-4 py-3.5 font-semibold transition-colors hover:text-logo-blue">
-                  <span className="text-pretty">{article.title}</span>
-                  <span className="flex shrink-0 items-center gap-3 text-sm font-normal text-muted-foreground"><span className="hidden items-center gap-1 sm:inline-flex"><Clock aria-hidden className="size-3.5" />{article.minutes} {t("min")}</span><ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-8">
-            <Button asChild size="lg" className="home-cta"><Link to={lp("/blogg")}>{t("Alla artiklar")} <ArrowRight data-icon="end" /></Link></Button>
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className={sectionTitle}>{t("Från bloggen")}</h2>
+            <p className={sectionIntro}>{home.blogg.intro}</p>
           </div>
+          <Link to={lp("/blogg")} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
-        <div data-reveal style={order(1)} className={card}>
-          <h2 className="-ml-[0.04em] text-[1.9rem] font-extrabold leading-[1.12] text-balance sm:text-[2.2rem]">{t("Vanliga frågor")}</h2>
-          <div className="mt-6 divide-y divide-border border-y border-border">
-            {priser.faq.map((item) => (
-              <details key={item.question} className="group py-1">
-                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-md font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
-                  <span className="text-pretty">{item.question}</span>
-                  <ChevronDown aria-hidden className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180" />
-                </summary>
-                <p className="pb-4 leading-relaxed text-pretty text-muted-foreground">{item.answer}</p>
-              </details>
-            ))}
-          </div>
-          <div className="mt-auto pt-8">
-            <Link to={lp("/priser")} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">{t("Fler frågor på prissidan")} <ArrowRight aria-hidden className="size-4" /></Link>
-          </div>
+        <ul className={cn(sectionBody, "grid gap-6 md:grid-cols-3")}>
+          {picks.map((article, index) => (
+            <li key={article.slug} data-reveal style={order(index)}>
+              <Link to={lp("/blogg/$slug")} params={{ slug: article.slug }} className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card">
+                <span className="text-sm font-semibold text-muted-foreground">{article.category}</span>
+                <h3 className="mt-3 text-xl font-extrabold leading-snug text-pretty transition-colors group-hover:text-logo-blue">{article.title}</h3>
+                <div className="mt-3 flex-1"><p className="line-clamp-3 text-[15px] leading-relaxed text-muted-foreground">{article.description}</p></div>
+                <span className="mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground"><Clock aria-hidden className="size-4" />{article.minutes} {t("min läsning")}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** Common questions as a plain accordion, the way pricing pages answer them. From the CMS. */
+export function FaqSection() {
+  const priser = usePriser();
+  const { t, lp } = useT();
+  return (
+    <section id="fragor" className="relative overflow-hidden bg-muted py-16 sm:py-24">
+      <div className="mx-auto max-w-3xl px-5 lg:px-8">
+        <h2 data-reveal className={sectionTitleCentered}>{t("Vanliga frågor")}</h2>
+        <div data-reveal className={cn(sectionBody, "divide-y divide-border rounded-2xl border border-border bg-card px-6 sm:px-8")}>
+          {priser.faq.map((item) => (
+            <details key={item.question} className="group">
+              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+                <span className="text-pretty">{item.question}</span>
+                <ChevronDown aria-hidden className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180" />
+              </summary>
+              <p className="pb-5 leading-relaxed text-pretty text-muted-foreground">{item.answer}</p>
+            </details>
+          ))}
         </div>
+        <p className="mt-6 text-center text-sm text-muted-foreground">{t("Hittar ni inte svaret?")} <Link to={lp("/kontakt")} className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">{t("Kontakta oss")}</Link></p>
       </div>
     </section>
   );
