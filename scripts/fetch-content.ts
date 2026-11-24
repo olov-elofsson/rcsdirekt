@@ -1,7 +1,6 @@
 // Runs before every build of the site: downloads the current content from Payload CMS
-// into src/content/content.json. If the CMS cannot be reached, the committed copy is
-// used so the site can still be built. If the CMS answers with content that does not
-// look right, the build stops, so a broken page is never published.
+// into src/content/content.json. If the CMS cannot be reached or answers with content that
+// does not look right, the build stops, so stale or broken content is never published.
 import { readFileSync, writeFileSync } from "node:fs";
 
 import type { SiteContent } from "../src/content/types";
@@ -30,19 +29,26 @@ function problems(content: SiteContent): string[] {
   return found;
 }
 
-let response: Response;
-try {
-  response = await fetch(`${cmsUrl}/api/site-content`, { signal: AbortSignal.timeout(60_000) });
-} catch (error) {
-  console.warn(`[content] CMS at ${cmsUrl} not reachable (${String(error)}); building with the committed content.`);
-  await splitContent();
-  process.exit(0);
+// A CMS that is starting up gets a few tries. After that the build stops, so the committed copy
+// (often weeks old, with old prices) never goes live; the running revision stays up meanwhile.
+async function download(): Promise<Response> {
+  let problem = "";
+  for (const wait of [0, 5_000, 15_000]) {
+    await new Promise((resolve) => setTimeout(resolve, wait));
+    try {
+      const response = await fetch(`${cmsUrl}/api/site-content`, { signal: AbortSignal.timeout(60_000) });
+      if (response.ok) return response;
+      problem = `answered ${response.status}`;
+    } catch (error) {
+      problem = `not reachable (${String(error)})`;
+    }
+    console.warn(`[content] CMS at ${cmsUrl} ${problem}.`);
+  }
+  console.error(`[content] Could not load the content from the CMS, so the build stops.`);
+  process.exit(1);
 }
-if (!response.ok) {
-  console.warn(`[content] CMS at ${cmsUrl} answered ${response.status}; building with the committed content.`);
-  await splitContent();
-  process.exit(0);
-}
+
+const response = await download();
 
 const content = (await response.json()) as SiteContent;
 const found = problems(content);

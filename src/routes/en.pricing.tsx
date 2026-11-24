@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { priser } from "@/content/en/priser";
 import { organizationSchema } from "@/lib/company";
+import { priceNumber } from "@/lib/money";
 import { pageHead } from "@/lib/page-head";
 import { PricingPage } from "@/pages/PricingPage";
 
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/en/pricing")({
         name: plan.name,
         description: plan.contents,
         priceCurrency: "SEK",
-        priceSpecification: { "@type": "UnitPriceSpecification", price: Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", ".")), priceCurrency: "SEK", unitText: "message", valueAddedTaxIncluded: false },
+        priceSpecification: { "@type": "UnitPriceSpecification", price: priceNumber(plan.price), priceCurrency: "SEK", unitText: "message", valueAddedTaxIncluded: false },
       })),
     }) }],
   }),

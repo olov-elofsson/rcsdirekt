@@ -21,6 +21,7 @@ export const Route = createFileRoute("/api/rcs-video")({
       const slot = await reserveUploadSlot(ipHash).catch((error) => (console.error("Upload slot failed", error), "unavailable" as const));
       if (slot === "limit") return new Response("Upload limit reached", { status: 429 });
       if (slot !== "reserved") return new Response("Upload unavailable", { status: 503 });
+      // shortcut: a rejected or failed upload still uses its slot, upgrade to a release call if real users hit the limit.
       // Bound the actual body too, even when Content-Length is absent or inaccurate.
       const reader = request.body?.getReader();
       if (!reader) return new Response("Invalid MP4", { status: 400 });

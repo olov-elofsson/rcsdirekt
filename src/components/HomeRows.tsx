@@ -1,39 +1,21 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { ArrowRight, BadgeCheck, Code2, Images, MessageSquareText, MessagesSquare, MonitorSmartphone, Receipt, Send, UserPlus, type LucideIcon } from "lucide-react";
+import { ArrowRight, Code2, Images, MessageSquareText, MessagesSquare, MonitorSmartphone, Receipt, type LucideIcon } from "lucide-react";
 
 import { HeroMessage } from "@/components/HeroMessage";
 import { Button } from "@/components/ui/button";
 import { usePriser } from "@/content/localized";
+import { STEPS } from "@/data/onboarding";
 import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { formatPrice, useCurrency } from "@/lib/money";
 
-// The start page sections, all in the style of the hero and the entrance cards: a short centred
-// heading and bordered cards with a large line icon, centred text and one blue link.
+// The start page sections, in the style of the hero and the entrance cards: a short heading and
+// bordered cards with a line icon and one blue link.
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
-
-
-
-
-
-
-
-
-
-
-
-/** Fortnox's rounded, outlined action: white with a thin border. */
-
-
-
-
-
-
-
-/** Fortnox block 9: one rounded coloured box with a question and one dark button. */
+/** The closing blue box: one line and the two ways to start. */
 export function CtaBox() {
   const { t, lp } = useT();
   return (
@@ -91,8 +73,10 @@ function CardGrid({ id, label, title, intro, cards, after, muted = false, center
 
 /** Section 2: where to go from the hero. Also the menu's "Plattform". */
 export function Entrances() {
-  const { t, lp } = useT();
-  const from = usePriser().plans[0]?.price;
+  const { t, lp, locale } = useT();
+  const currency = useCurrency();
+  const price = usePriser().plans[0]?.price;
+  const from = price ? formatPrice(price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" }) : undefined;
   return (
     <CardGrid
       id="vad-ar-rcs"
@@ -101,7 +85,7 @@ export function Entrances() {
       cards={[
         { Icon: MonitorSmartphone, title: t("Skicka från webben"), copy: t("Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden."), link: t("Prova webbverktyget"), to: lp("/skapa-konto") },
         { Icon: Code2, title: t("Koppla in ert system"), copy: t("Låt era system skicka bekräftelser och påminnelser via API."), link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
-        { Icon: Receipt, title: t("Betala per meddelande"), copy: from ? t("Listpris från {price} per meddelande, utan bindningstid.").replace("{price}", from) : t("Ni betalar för de meddelanden ni skickar."), link: t("Se priser"), to: lp("/") , hash: "pris" },
+        { Icon: Receipt, title: t("Betala per meddelande"), copy: from ? t("Listpris från {price} per meddelande, utan bindningstid.").replace("{price}", from) : t("Ni betalar för de meddelanden ni skickar."), link: t("Se priser"), to: lp("/"), hash: "pris" },
       ]}
     />
   );
@@ -138,11 +122,16 @@ export function Steps() {
       muted
       title={t("Från konto till första utskick")}
       intro={t("Tre steg, och vi hjälper er med avsändaren på vägen.")}
-      cards={[
-        { Icon: UserPlus, title: t("Skapa ett konto"), copy: t("Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss."), link: t("Skapa konto"), to: lp("/skapa-konto") },
-        { Icon: BadgeCheck, title: t("Registrera avsändare"), copy: t("Ni skickar namn, logotyp och en kort beskrivning. Avsändaren kontrolleras innan den får skicka."), link: t("Om verifierad avsändare"), to: lp("/blogg/$slug").replace("$slug", "verifierad-avsandare") },
-        { Icon: Send, title: t("Skicka första utskicket"), copy: t("Bygg meddelandet i webbverktyget eller koppla in ert system via API."), link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
-      ]}
+      cards={STEPS.map((step, index) => ({
+        Icon: step.Icon,
+        title: t(step.title),
+        copy: t(step.copy),
+        ...[
+          { link: t("Skapa konto"), to: lp("/skapa-konto") },
+          { link: t("Om verifierad avsändare"), to: lp("/blogg/$slug").replace("$slug", "verifierad-avsandare") },
+          { link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
+        ][index]!,
+      }))}
     />
   );
 }

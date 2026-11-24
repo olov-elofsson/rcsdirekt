@@ -10,7 +10,7 @@ import { usePriser } from "@/content/localized";
 import { PriceCalculator } from "@/components/HomepageSections";
 import { Button } from "@/components/ui/button";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
-import { CurrencyContext, formatPrice, SEK_PER_EUR, useCurrency, type Currency } from "@/lib/money";
+import { CurrencyContext, formatPrice, priceNumber, SEK_PER_EUR, useCurrency, type Currency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { useT } from "@/lib/i18n";
 
@@ -90,8 +90,6 @@ function NetworkPrices({ heading, note, networks }: { heading: string; note: str
   );
 }
 
-const num = (price: string) => Number.parseFloat(price.replace(/[^\d,]/g, "").replace(",", "."));
-
 /** One column per RCS message type. */
 type Column = { key: string; name: string; contents: string; prices: Map<string, string> };
 function columnsOf(page: ReturnType<typeof usePriser>) {
@@ -104,7 +102,7 @@ function columnsOf(page: ReturnType<typeof usePriser>) {
   const tableOperators = [...new Set(columns.flatMap((column) => [...column.prices.keys()]))];
   return { columns, tableOperators };
 }
-const lowest = (column: Column) => Math.min(...[...column.prices.values()].map(num));
+const lowest = (column: Column) => Math.min(...[...column.prices.values()].map(priceNumber));
 
 /** The from-price cards: the three RCS types, the popular one on navy. */
 function PlanCards() {
@@ -142,7 +140,7 @@ function OperatorTable() {
                 <th scope="row" className="px-5 py-3.5 font-semibold sm:px-6">{operator}</th>
                 {columns.map((column) => {
                   const price = column.prices.get(operator);
-                  const best = price ? num(price) === lowest(column) : false;
+                  const best = price ? priceNumber(price) === lowest(column) : false;
                   return (
                     <td key={column.key} className="px-4 py-3.5 text-right tabular-nums">
                       {price ? (

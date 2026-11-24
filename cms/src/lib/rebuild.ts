@@ -7,6 +7,8 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, GlobalAfterC
 const METADATA_TOKEN = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token'
 // Saves close together are covered by one build: the build fetches content tens of
 // seconds after it starts, so a later save in this window is still included.
+// shortcut: a save late in the window that the running build misses waits for the next save;
+// add a trailing trigger (Cloud Tasks, since Cloud Run idles CPU after the request) if that bites.
 const COALESCE_MS = 15_000
 
 let lastTriggered = 0

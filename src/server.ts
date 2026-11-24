@@ -56,7 +56,7 @@ const MEDIA_TYPES: Record<string, string> = {
 // Images uploaded in Payload CMS are stored in the same bucket under cms-media/.
 const CMS_MEDIA_PREFIX = "/media/";
 
-function bucketKey(pathname: string): string | null | undefined {
+export function bucketKey(pathname: string): string | null | undefined {
   if (pathname.startsWith(CMS_MEDIA_PREFIX)) {
     let name: string;
     try {
@@ -75,13 +75,17 @@ async function hostedAsset(request: Request): Promise<Response | undefined> {
   if (objectKey === undefined) return undefined;
   if (objectKey === null) return new Response("Not found", { status: 404 });
   const key = objectKey;
+  const type = MEDIA_TYPES[key.split(".").pop()?.toLowerCase() ?? ""];
+  if (!type) return new Response("Not found", { status: 404 });
   const { gcpVideoBucket, fetchVideo } = await import("./lib/rcs-video/gcp.server");
   const bucket = gcpVideoBucket();
   if (!bucket) return undefined;
   const stored = await fetchVideo(bucket, key, null).catch(() => undefined);
-  if (!stored || stored.status !== 200) return new Response("Not found", { status: 404 });
-  const type = MEDIA_TYPES[key.split(".").pop()?.toLowerCase() ?? ""];
-  if (!type) return new Response("Not found", { status: 404 });
+  if (!stored) return new Response("Media unavailable", { status: 503 });
+  if (stored.status !== 200) {
+    await stored.body?.cancel();
+    return new Response(stored.status === 404 ? "Not found" : "Media unavailable", { status: stored.status === 404 ? 404 : 502 });
+  }
   return new Response(stored.body, {
     headers: {
       "content-type": type,

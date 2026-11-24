@@ -42,7 +42,7 @@ export function InquiryForm({ mode, defaultMessage, webinar, compact = false }: 
       const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...data, type: mode, ...(locale === "en" ? { message: `[English site] ${String(data["message"] ?? "")}` } : {}) }),
+        body: JSON.stringify({ ...data, type: mode, locale }),
       });
       setStatus(response.ok ? "sent" : "failed");
     } catch {

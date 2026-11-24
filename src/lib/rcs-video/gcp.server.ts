@@ -2,7 +2,7 @@
 // Firestore holds the per-sender upload log. RCS_VIDEO_BUCKET names the bucket; without it
 // uploads and playback answer 503.
 // Plain REST with the runtime service account, so no SDK is bundled.
-import { DAY_UPLOAD_LIMIT, HOUR_UPLOAD_LIMIT } from "./upload-rules";
+import { uploadLimitReached } from "./upload-rules";
 
 const METADATA = "http://metadata.google.internal/computeMetadata/v1";
 const STORAGE = "https://storage.googleapis.com";
@@ -101,8 +101,9 @@ type UploadsDocument = {
 
 export type SlotResult = "reserved" | "limit" | "unavailable";
 
-// Atomically checks the hour/day limits and records the upload, so parallel requests
-// from one sender cannot slip past the quota.
+// Atomically checks the hour/day limits and records the attempt, so parallel requests
+// from one sender cannot slip past the quota. The key is the hashed sender, with a prefix
+// for other uses (lead- for the forms). expireAt lets a Firestore TTL policy drop old logs.
 export async function reserveUploadSlot(ipHash: string, now = Date.now()): Promise<SlotResult> {
   const database = `projects/${await projectId()}/databases/(default)`;
   const documents = `${FIRESTORE}/${database}/documents`;
@@ -124,10 +125,7 @@ export async function reserveUploadSlot(ipHash: string, now = Date.now()): Promi
     const recent = (stored.fields?.uploads?.arrayValue?.values ?? [])
       .map((value) => Number(value.integerValue))
       .filter((time) => Number.isFinite(time) && time >= now - DAY_MS);
-    if (
-      recent.filter((time) => time >= now - HOUR_MS).length >= HOUR_UPLOAD_LIMIT ||
-      recent.length >= DAY_UPLOAD_LIMIT
-    ) {
+    if (uploadLimitReached(recent.filter((time) => time >= now - HOUR_MS).length, recent.length)) {
       await authorized(`${documents}:rollback`, {
         method: "POST",
         headers: json,
@@ -141,7 +139,10 @@ export async function reserveUploadSlot(ipHash: string, now = Date.now()): Promi
       headers: json,
       body: JSON.stringify({
         transaction,
-        writes: [{ update: { name, fields: { uploads: { arrayValue: { values } } } } }],
+        writes: [{ update: { name, fields: {
+          uploads: { arrayValue: { values } },
+          expireAt: { timestampValue: new Date(now + DAY_MS).toISOString() },
+        } } }],
       }),
     });
     if (commit.ok) return "reserved";

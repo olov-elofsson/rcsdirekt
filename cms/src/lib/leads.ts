@@ -25,7 +25,7 @@ export const createLead: PayloadHandler = async (req) => {
     company: text(body.company, 120),
     email: text(body.email, 255),
     phone: text(body.phone, 30),
-    message: text(body.message, 1000),
+    message: text(body.message, 1100), // 1000 from the form plus the site's language prefix
   } as const
   if (!data.name || !data.email) return Response.json({ error: 'invalid' }, { status: 400 })
   try {

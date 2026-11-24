@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { priser } from "@/content/priser";
@@ -10,7 +10,6 @@ import { sectionBody, sectionTitleCentered } from "@/lib/typography";
 import { formatPrice, formatTotal, unitPrice, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
-const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */

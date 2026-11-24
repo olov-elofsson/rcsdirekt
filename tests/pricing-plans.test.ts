@@ -1,6 +1,9 @@
 import { expect, test } from "bun:test";
 
-import { pricingCountries, pricingCurrencies, pricingPlans } from "../src/data/pricing-plans";
+import { priser } from "../src/content/priser";
+
+// The live price list from the CMS, as the build fetched it.
+const { plans: pricingPlans, countries: pricingCountries, currencies: pricingCurrencies } = priser;
 
 const amount = (price: string) => Number(price.replace(" SEK", "").replace(",", "."));
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, CheckCheck, IdCard, MoreHorizontal, MousePointerClick, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, Ticket, type LucideIcon } from "lucide-react";
 
@@ -11,7 +11,6 @@ const useScenarios = () => (useT().locale === "en" ? scenariosEn : scenariosSv);
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
-const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -90,7 +89,6 @@ function CardView({
   /** The button the demo is about to press, marked with a pulsing ring. */
   hint?: Choice | undefined;
 }) {
-  const { t } = useT();
   return (
     <div className={cn("card", narrow && "narrow")} style={{ flex: "none" }}>
       <div className="ct">{card.title}</div>

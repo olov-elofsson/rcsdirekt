@@ -53,7 +53,7 @@ export const Inquiries: CollectionConfig = {
         { name: 'phone', label: 'Telefon', type: 'text', maxLength: 30, admin: { readOnly: true } },
       ],
     },
-    { name: 'message', label: 'Meddelande', type: 'textarea', maxLength: 1000, admin: { readOnly: true } },
+    { name: 'message', label: 'Meddelande', type: 'textarea', maxLength: 1100, admin: { readOnly: true } },
     { name: 'note', label: 'Intern anteckning', type: 'textarea', admin: { description: 'Syns bara här i CMS:et.' } },
   ],
 }

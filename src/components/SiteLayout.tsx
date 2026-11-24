@@ -32,7 +32,6 @@ const SECTION_LINKS: [id: string, label: string][] = [
   ["exempel", "Kundcase"],
   ["vad-ar-rcs", "Plattform"],
   ["pris", "Priser"],
-  ["blogg", "Insikter"],
 ];
 
 /** The menu item for where the visitor is: the page, or on the start page the section in view. */
@@ -160,7 +159,7 @@ export function SiteHeader() {
   });
 
   useEffect(() => setOpen(false), [pathname, hash]);
-  const { t, lp, locale } = useT();
+  const { t, lp } = useT();
   const onStart = swedishPath(pathname) === "/";
   const active = useActiveLink(pathname);
   const navRef = useRef<HTMLElement>(null);

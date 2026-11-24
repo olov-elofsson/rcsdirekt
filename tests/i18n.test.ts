@@ -26,6 +26,15 @@ test("every t() text has an English translation", () => {
   expect([...missing]).toEqual([]);
 });
 
+test("every English text is still used somewhere", () => {
+  const sources = files(join(import.meta.dir, "../src"))
+    .concat(readdirSync(join(import.meta.dir, "../src/content/parts")).map((name) => join(import.meta.dir, "../src/content/parts", name)))
+    .filter((path) => !path.endsWith("i18n/en.ts"))
+    .map((path) => readFileSync(path, "utf8"))
+    .join("\n");
+  expect(Object.keys(en).filter((text) => !sources.includes(JSON.stringify(text).slice(1, -1)))).toEqual([]);
+});
+
 test("addresses map between the languages", () => {
   expect(englishPath("/")).toBe("/en");
   expect(englishPath("/priser")).toBe("/en/pricing");

@@ -23,8 +23,22 @@ import { Startsida } from './globals/Startsida'
 import { rebuildAfterChange, rebuildAfterDelete, rebuildAfterGlobalChange } from './lib/rebuild'
 import { createLead } from './lib/leads'
 import { buildSiteContent } from './lib/siteContent'
+
 import { migrations } from './migrations'
 import { seedIfEmpty } from './seed/seed'
+
+// The endpoint is public, so repeated calls share one result for a few seconds. Builds fetch
+// tens of seconds after a save, well after this expires.
+const SITE_CONTENT_TTL_MS = 10_000
+let siteContent: { at: number; value: ReturnType<typeof buildSiteContent> } | undefined
+function cachedSiteContent(payload: Parameters<typeof buildSiteContent>[0]) {
+  if (!siteContent || Date.now() - siteContent.at > SITE_CONTENT_TTL_MS) {
+    const value = buildSiteContent(payload)
+    siteContent = { at: Date.now(), value }
+    value.catch(() => { if (siteContent?.value === value) siteContent = undefined })
+  }
+  return siteContent.value
+}
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -96,7 +110,7 @@ export default buildConfig({
       // Public: the website reads its content from here while it is being built.
       path: '/site-content',
       method: 'get',
-      handler: async (req) => Response.json(await buildSiteContent(req.payload), { headers: { 'cache-control': 'no-store' } }),
+      handler: async (req) => Response.json(await cachedSiteContent(req.payload), { headers: { 'cache-control': 'no-store' } }),
     },
     { path: '/leads', method: 'post', handler: createLead },
   ],

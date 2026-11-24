@@ -29,7 +29,7 @@ function Body({ text }: { text: string }) {
 /** /integritetspolicy and /villkor: the shared heading, the date of the last change and the sections from the CMS. */
 export function LegalPage({ page, fallbackTitle, swedish = "/", children }: { page: LegalContent | undefined; fallbackTitle: string; swedish?: string; children?: ReactNode }) {
   const ready = Boolean(page?.title && page.sections.length);
-  const { t, lp, locale } = useT();
+  const { t, locale } = useT();
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />

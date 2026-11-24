@@ -4,15 +4,17 @@ import { startsida } from "@/content/startsida";
 import { webinarer } from "@/content/webinarer";
 import { organizationSchema } from "@/lib/company";
 import { alternates } from "@/lib/i18n";
+import { endsAt } from "@/lib/webinar";
 import { HomePage } from "@/pages/HomePage";
 
 const home = startsida;
 
 /** Event markup for the next webinar, so search engines can show it as an online event. */
 function webinarSchema() {
-  const webinar = (webinarer ?? [])[0];
+  // The server runs for days after a build, so skip a webinar that has ended since.
+  const webinar = (webinarer ?? []).find((item) => endsAt(item) > Date.now());
   if (!webinar) return [];
-  const end = new Date(Date.parse(webinar.startsAt) + webinar.durationMinutes * 60_000).toISOString();
+  const end = new Date(endsAt(webinar)).toISOString();
   const event = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -22,7 +24,7 @@ function webinarSchema() {
     endDate: end,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-    location: { "@type": "VirtualLocation", url: webinar.registrationUrl || "https://rcsdirekt.se/#webinar" },
+    location: { "@type": "VirtualLocation", url: webinar.registrationUrl || "https://rcsdirekt.se/" },
     organizer: { "@type": "Organization", name: "rcsdirekt.se", url: "https://rcsdirekt.se/" },
     inLanguage: "sv-SE",
   };
