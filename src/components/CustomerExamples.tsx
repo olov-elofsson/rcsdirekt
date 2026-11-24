@@ -493,7 +493,7 @@ export function CustomerExamples() {
             {t("Så kan det se ut hos era kunder")}
           </h2>
           <p className={sectionIntro}>
-            {t("Så här kan det se ut hos några av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
+            {t("Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
           </p>
         </div>
         <CaseShowcase />

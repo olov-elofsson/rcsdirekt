@@ -1,7 +1,9 @@
 // English for the UI text written in Swedish in the components, keyed by the Swedish text.
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
-  // Start page: entrance cards and the reach statement
+  // Start page: rows, the reach statement and the comparison
+  "Visa färre": "Show fewer",
+  "Visa alla {n} jämförelser": "Show all {n} comparisons",
   "Se hela jämförelsen": "See the full comparison",
   "Bilder, text och knappar, byggt i webbläsaren.": "Images, text and buttons, built in the browser.",
   "Mottaget, status kommer via webhook": "Accepted, status follows by webhook",
@@ -197,8 +199,8 @@ export const en: Record<string, string> = {
   "Välj kundexempel": "Choose a customer example",
   av: "of",
   "Föregående exempel": "Previous example",
-  "Så här kan det se ut hos några av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.":
-    "This is how it can look for some of our customers. Tap the buttons in the message and see what happens. The photos come from the customer cases; the messages are examples.",
+  "Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.":
+    "Tap the buttons in the message and see what happens. The photos come from the customer cases; the messages are examples.",
   "Bygg ett eget upplägg för era kunder.": "Build your own setup for your customers.",
 
   // Start page

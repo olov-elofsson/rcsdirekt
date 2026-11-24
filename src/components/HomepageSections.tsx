@@ -46,7 +46,10 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
 export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
-  const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
+  const all = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
+  // The five that matter most show; the rest behind "Visa alla", as brand/IDENTITY.md asks of long lists.
+  const [open, setOpen] = useState(false);
+  const rows = open ? all : all.slice(0, 5);
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -83,6 +86,13 @@ export function CompareSection() {
             </tbody>
           </table>
         </div>
+        {all.length > 5 ? (
+          <div className="mt-6 flex justify-center">
+            <Button type="button" variant="outline" className="home-cta" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+              {open ? t("Visa färre") : t("Visa alla {n} jämförelser").replace("{n}", String(all.length))}
+            </Button>
+          </div>
+        ) : null}
       </div>
     </section>
   );
