@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, ArrowUpRight, Check, RadioTower } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BarChart3, Check, Code2, Headset, RadioTower, Unlock } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -117,6 +117,13 @@ function Steps() {
  * The reach as one large figure, the way Fortnox states its customer count: a small label, the
  * number in blue, what it counts, and one quiet line on the Swedish networks.
  */
+const INCLUDED = [
+  { Icon: Code2, label: "Webbgränssnitt och API" },
+  { Icon: BarChart3, label: "Leveransrapporter och statistik" },
+  { Icon: Unlock, label: "Ingen bindningstid" },
+  { Icon: Headset, label: "Svensk support" },
+];
+
 function Reach() {
   const { t, locale } = useT();
   const operators = usePriser().operators.filter((name) => !/^(Övriga|Other)/.test(name));
@@ -134,6 +141,16 @@ function Reach() {
           </p>
         ) : null}
       </div>
+      {/* What always comes with it, as Fortnox lists four things under its customer count. From the
+          pricing page's "Ingår alltid" in the CMS. */}
+      <ul className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 px-5 sm:mt-14 md:grid-cols-4 lg:px-8">
+        {INCLUDED.map(({ Icon, label }, index) => (
+          <li key={label} data-reveal style={revealOrder(index)} className="flex flex-col items-center text-center">
+            <Icon aria-hidden strokeWidth={1.4} className="size-12 text-logo-blue" />
+            <span className="mt-4 text-base font-extrabold leading-snug">{t(label)}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, Clock, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, Check, ChevronDown, Clock, Images, MousePointerClick, X } from "lucide-react";
 
 import { InquiryForm } from "@/components/InquiryForm";
 import { PlanCard } from "@/components/PlanCard";
@@ -47,6 +47,14 @@ export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
   const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
+  // As on fortnox.se: four things side by side with a line icon, and the full table under "Visa mer".
+  const [open, setOpen] = useState(false);
+  const features = [
+    { Icon: BadgeCheck, title: t("Verifierad avsändare"), copy: t("Kunden ser ert namn, er logga och en bock i stället för ett okänt nummer.") },
+    { Icon: Images, title: t("Bilder, video och knappar"), copy: t("Visa erbjudandet direkt i meddelandet, med kort och karuseller att svepa mellan.") },
+    { Icon: MousePointerClick, title: t("Svar med ett tryck"), copy: t("Kunden bekräftar, bokar om eller väljer ett alternativ med en knapp.") },
+    { Icon: BarChart3, title: t("Ni ser vad som händer"), copy: t("Ni ser vilka knappar kunden trycker på och, om mottagaren tillåter, när meddelandet läses.") },
+  ];
   return (
     <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -54,8 +62,22 @@ export function CompareSection() {
           <h2 className={sectionTitleCentered}>{home.jamforelse.heading}</h2>
           <p className={cn(sectionIntro, "mx-auto")}>{home.jamforelse.intro}</p>
         </div>
+        <ul className={cn(sectionBody, "grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8")}>
+          {features.map(({ Icon, title, copy }, index) => (
+            <li key={title} data-reveal style={order(index)}>
+              <Icon aria-hidden strokeWidth={1.4} className="size-12 text-logo-blue" />
+              <h3 className="mt-5 text-lg font-extrabold leading-snug">{title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">{copy}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-12 flex justify-center">
+          <Button type="button" className="home-cta" aria-expanded={open} aria-controls="jamforelse-tabell" onClick={() => setOpen((value) => !value)}>
+            {open ? t("Dölj jämförelsen") : t("Visa hela jämförelsen")} <ChevronDown data-icon="end" className={cn("transition-transform duration-200", open && "rotate-180")} />
+          </Button>
+        </div>
         {/* One table on every screen; on a phone the columns and text are tighter. */}
-        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl border border-border bg-card")}>
+        <div id="jamforelse-tabell" hidden={!open} className={cn("mt-10 overflow-hidden rounded-2xl border border-border bg-card", !open && "hidden")}>
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
               <col className="w-[34%] sm:w-[38%]" />
@@ -335,39 +357,49 @@ export function PricingSection() {
 
 export function BlogSection() {
   const home = useStartsida();
+  const priser = usePriser();
   const { t, lp, locale } = useT();
   const list = locale === "en" ? articleListEn : articleList;
   const picks = home.blogg.picks.map((slug) => list.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
-  const [first, ...rest] = picks;
+  const card = "flex flex-col rounded-3xl border border-border bg-card p-8 sm:p-10";
+  // As Fortnox ends a page: the guides in one card, the common questions in the other.
   return (
     <section id="blogg" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="flex flex-col items-center text-center">
-          <h2 className={sectionTitleCentered}>{home.blogg.heading}</h2>
-          <p className={cn(sectionIntro, "mx-auto")}>{home.blogg.intro}</p>
-          <Link to={lp("/blogg")} className="mt-4 inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
-        </div>
-        {first ? (
-          <div className={cn(sectionBody, "grid gap-5 lg:grid-cols-[1.2fr_0.8fr]")}>
-            <Link to={lp("/blogg/$slug")} params={{ slug: first.slug }} data-reveal style={order(0)} className="group relative flex min-h-[280px] flex-col justify-end overflow-hidden rounded-2xl bg-ink p-7 text-ink-foreground sm:p-9">
-              <Badge variant="secondary" className="relative self-start bg-ink-foreground text-ink">{first.category}</Badge>
-              <h3 className="relative mt-4 max-w-md text-3xl font-extrabold leading-tight">{first.title}</h3>
-              <p className="relative mt-3 max-w-md leading-relaxed text-pretty text-ink-muted">{first.description}</p>
-              <span className="relative mt-6 inline-flex items-center gap-2 text-sm text-ink-muted"><Clock aria-hidden className="size-4" />{first.minutes} {t("min läsning")}</span>
-              <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold">{t("Läs artikeln")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
-            </Link>
-            <div className="grid gap-5">
-              {rest.map((article, index) => (
-                <Link key={article.slug} to={lp("/blogg/$slug")} params={{ slug: article.slug }} data-reveal style={order(index + 1)} className="group flex flex-col rounded-2xl bg-card p-6 shadow-card transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                  <Badge variant="secondary" className="self-start">{article.category}</Badge>
-                  <h3 className="mt-3 text-lg font-extrabold leading-snug transition-colors group-hover:text-logo-blue">{article.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground"><Clock aria-hidden className="size-3.5" />{article.minutes} {t("min läsning")}</span>
+      <div className="relative mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-2 lg:px-8">
+        <div data-reveal className={card}>
+          <h2 className="-ml-[0.04em] text-[1.9rem] font-extrabold leading-[1.12] text-balance sm:text-[2.2rem]">{home.blogg.heading}</h2>
+          <p className="mt-4 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{home.blogg.intro}</p>
+          <ul className="mt-6 divide-y divide-border border-y border-border">
+            {picks.map((article) => (
+              <li key={article.slug}>
+                <Link to={lp("/blogg/$slug")} params={{ slug: article.slug }} className="group flex min-h-14 items-center justify-between gap-4 py-3.5 font-semibold transition-colors hover:text-logo-blue">
+                  <span className="text-pretty">{article.title}</span>
+                  <span className="flex shrink-0 items-center gap-3 text-sm font-normal text-muted-foreground"><span className="hidden items-center gap-1 sm:inline-flex"><Clock aria-hidden className="size-3.5" />{article.minutes} {t("min")}</span><ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
                 </Link>
-              ))}
-            </div>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-auto pt-8">
+            <Button asChild size="lg" className="home-cta"><Link to={lp("/blogg")}>{t("Alla artiklar")} <ArrowRight data-icon="end" /></Link></Button>
           </div>
-        ) : null}
+        </div>
+        <div data-reveal style={order(1)} className={card}>
+          <h2 className="-ml-[0.04em] text-[1.9rem] font-extrabold leading-[1.12] text-balance sm:text-[2.2rem]">{t("Vanliga frågor")}</h2>
+          <div className="mt-6 divide-y divide-border border-y border-border">
+            {priser.faq.map((item) => (
+              <details key={item.question} className="group py-1">
+                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-md font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+                  <span className="text-pretty">{item.question}</span>
+                  <ChevronDown aria-hidden className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180" />
+                </summary>
+                <p className="pb-4 leading-relaxed text-pretty text-muted-foreground">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+          <div className="mt-auto pt-8">
+            <Link to={lp("/priser")} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">{t("Fler frågor på prissidan")} <ArrowRight aria-hidden className="size-4" /></Link>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -380,18 +412,16 @@ export function ContactSection() {
   const home = useStartsida();
   const { t } = useT();
   return (
-    // The closing block, a large rounded Lavender surface as Fortnox ends its page with a coloured box.
+    // Centred, as Fortnox's "Vi hjälper dig": heading, one line and the form under it.
     <section id="kontakt" className="relative scroll-mt-24 bg-background py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-      <div className="relative grid gap-10 rounded-3xl bg-primary-soft px-6 py-10 sm:px-12 sm:py-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div data-reveal className="lg:pt-4">
-          <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
-          <p className={sectionIntro}>{home.kontakt.intro}</p>
+      <div className="mx-auto max-w-3xl px-5 lg:px-8">
+        <div data-reveal className="text-center">
+          <h2 className={sectionTitleCentered}>{home.kontakt.heading}</h2>
+          <p className={cn(sectionIntro, "mx-auto")}>{home.kontakt.intro}</p>
         </div>
-        <div data-reveal style={order(1)}>
+        <div data-reveal style={order(1)} className={sectionBody}>
           <InquiryForm mode="contact" />
         </div>
-      </div>
       </div>
     </section>
   );

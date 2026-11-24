@@ -2,6 +2,21 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Kunden ser ert namn, er logga och en bock i stället för ett okänt nummer.": "The customer sees your name, your logo and a check mark instead of an unknown number.",
+  "Bilder, video och knappar": "Images, video and buttons",
+  "Visa erbjudandet direkt i meddelandet, med kort och karuseller att svepa mellan.": "Show the offer right in the message, with cards and carousels to swipe through.",
+  "Svar med ett tryck": "Replies with one tap",
+  "Kunden bekräftar, bokar om eller väljer ett alternativ med en knapp.": "The customer confirms, reschedules or picks an option with a button.",
+  "Ni ser vad som händer": "You see what happens",
+  "Ni ser vilka knappar kunden trycker på och, om mottagaren tillåter, när meddelandet läses.": "You see which buttons the customer taps and, if the recipient allows it, when the message is read.",
+  "Dölj jämförelsen": "Hide the comparison",
+  "Webbgränssnitt och API": "Web interface and API",
+  "Leveransrapporter och statistik": "Delivery reports and statistics",
+  "Ingen bindningstid": "No lock-in",
+  "Svensk support": "Swedish support",
+  "Vanliga frågor": "Common questions",
+  "Fler frågor på prissidan": "More questions on the pricing page",
+  min: "min",
   "Se hela jämförelsen": "See the full comparison",
   "Bilder, text och knappar, byggt i webbläsaren.": "Images, text and buttons, built in the browser.",
   "Mottaget, status kommer via webhook": "Accepted, status follows by webhook",
@@ -197,8 +212,6 @@ export const en: Record<string, string> = {
   "Välj kundexempel": "Choose a customer example",
   av: "of",
   "Föregående exempel": "Previous example",
-  "Så här kan det se ut hos några av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.":
-    "This is how it can look for some of our customers. Tap the buttons in the message and see what happens. The photos come from the customer cases; the messages are examples.",
   "Bygg ett eget upplägg för era kunder.": "Build your own setup for your customers.",
 
   // Start page
