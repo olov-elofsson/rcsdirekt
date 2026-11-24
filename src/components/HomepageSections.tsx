@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, Check, ChevronDown, Clock, Images, MousePointerClick, X } from "lucide-react";
 
-import { InquiryForm } from "@/components/InquiryForm";
 import { PlanCard } from "@/components/PlanCard";
 import { VerifiedMark } from "@/components/RcsPhone";
 import { Badge } from "@/components/ui/badge";
@@ -345,7 +344,7 @@ export function PricingSection() {
         <div className="mt-5"><PriceCalculator plans={plans} /></div>
         <p data-reveal className="mt-8 text-center text-sm leading-relaxed text-pretty text-muted-foreground">
           {t("Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.")}{" "}
-          <Link to={lp("/")} hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">{t("Fråga om volympris")}</Link>
+          <Link to={lp("/kontakt")} className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">{t("Fråga om volympris")}</Link>
         </p>
       </div>
     </section>
@@ -405,24 +404,3 @@ export function BlogSection() {
   );
 }
 
-/* ------------------------------------------------------------------------------------------ */
-/* Kontakt: the heading beside the form.                                                        */
-
-export function ContactSection() {
-  const home = useStartsida();
-  const { t } = useT();
-  return (
-    // Centred, as Fortnox's "Vi hjälper dig": heading, one line and the form under it.
-    <section id="kontakt" className="relative scroll-mt-24 bg-background py-16 sm:py-24">
-      <div className="mx-auto max-w-3xl px-5 lg:px-8">
-        <div data-reveal className="text-center">
-          <h2 className={sectionTitleCentered}>{home.kontakt.heading}</h2>
-          <p className={cn(sectionIntro, "mx-auto")}>{home.kontakt.intro}</p>
-        </div>
-        <div data-reveal style={order(1)} className={sectionBody}>
-          <InquiryForm mode="contact" />
-        </div>
-      </div>
-    </section>
-  );
-}

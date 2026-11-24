@@ -6,6 +6,8 @@ import { HeroMessage } from "@/components/HeroMessage";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { scenarios } from "@/data/customer-examples";
+import { STEPS } from "@/data/onboarding";
+import { NumberDrop } from "@/components/NumberDrop";
 import { Button } from "@/components/ui/button";
 import { usePriser, useStartsida } from "@/content/localized";
 import { useT } from "@/lib/i18n";
@@ -163,30 +165,32 @@ export function SendRows() {
   );
 }
 
-/** Two large coloured cards side by side, as Fortnox's: help getting started, and support. */
-export function SupportCards() {
+/**
+ * The page's close, as Fortnox ends with one coloured box: how to get started in three steps, and
+ * the two ways forward. It replaces separate sections for the steps, help and the contact form.
+ */
+export function ClosingBox() {
   const { t, lp } = useT();
-  const link = "group inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline";
   return (
-    <section id="hjalp" aria-label={t("Hjälp")} className="bg-background">
-      <div className="mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-2 lg:px-8">
-        <div data-reveal className="flex flex-col rounded-3xl bg-ink p-8 text-ink-foreground sm:p-12">
-          <h2 className={cn(rowTitle, "text-ink-foreground")}>{t("Hjälp att komma igång")}</h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-ink-muted">{t("Vi registrerar er avsändare och hjälper er med det första utskicket, från webben eller med en koppling till era system.")}</p>
-          <div className="mt-auto grid gap-1 pt-8">
-            <p className="text-sm text-ink-muted">{t("För företag")}</p>
-            <Link to={lp("/")} hash="kontakt" className={cn(link, "text-ink-foreground")}>{t("Prata med oss om upplägget")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
-            <p className="mt-4 text-sm text-ink-muted">{t("För utvecklare")}</p>
-            <Link to={lp("/utvecklare")} className={cn(link, "text-ink-foreground")}>{t("Läs om API:t och webhooks")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
-          </div>
-        </div>
-        <div data-reveal style={order(1)} className="flex flex-col rounded-3xl bg-primary-soft p-8 sm:p-12">
-          <h2 className={rowTitle}>{t("Vi står bakom er")}</h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{t("Ni får svensk support när ni behöver hjälp, och raka svar på frågor om priser och volymer.")}</p>
-          <p className="mt-6 max-w-md text-base font-semibold">{t("Undrar ni vilken meddelandetyp ni behöver?")}</p>
-          <p className="mt-1 max-w-md text-base leading-relaxed text-muted-foreground">{t("Hör av er, så räknar vi på det tillsammans.")}</p>
-          <div className="mt-auto pt-8">
-            <Link to={lp("/kontakt")} className={link}>{t("Kontakta oss")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
+    <section id="kom-igang" className="scroll-mt-24 bg-background">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="rounded-3xl bg-primary-soft px-6 py-12 text-center sm:px-12 sm:py-16">
+          <h2 data-reveal className="mx-auto max-w-3xl text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]">{t("Från konto till första utskick i tre steg")}</h2>
+          <p data-reveal className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]">{t("Vi hjälper er med avsändaren och upplägget på vägen.")}</p>
+          <ol className="relative mx-auto mt-12 grid max-w-5xl gap-10 text-left md:grid-cols-3 md:gap-8">
+            {/* The line through the drops, drawn from left to right when the steps come into view. */}
+            <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-5 right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-primary/20 from-75% to-transparent md:block" />
+            {STEPS.map((step, index) => (
+              <li key={step.title} data-reveal style={order(index + 1)} className="relative">
+                <NumberDrop n={index + 1} />
+                <h3 className="mt-5 text-lg font-extrabold leading-snug">{t(step.title)}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
+              </li>
+            ))}
+          </ol>
+          <div data-reveal className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            <Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
+            <Link to={lp("/kontakt")} className="group inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">{t("Prata med oss först")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
           </div>
         </div>
       </div>

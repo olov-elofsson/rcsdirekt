@@ -258,7 +258,7 @@ export function PricingPage() {
             <div>
               <h2 className={sectionTitle}>{page.faqHeading}</h2>
               <p className={sectionIntro}>{page.volumeText}</p>
-              <Button asChild size="lg" className="mt-8"><Link to={lp("/")} hash="kontakt">{t("Fråga om volympris")} <ArrowRight data-icon="end" /></Link></Button>
+              <Button asChild size="lg" className="mt-8"><Link to={lp("/kontakt")}>{t("Fråga om volympris")} <ArrowRight data-icon="end" /></Link></Button>
             </div>
             <div className="divide-y divide-border border-y border-border">
               {page.faq.map((item) => (
