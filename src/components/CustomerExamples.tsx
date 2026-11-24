@@ -490,7 +490,7 @@ export function CustomerExamples() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="text-center">
           <h2 id="exempel-title" className={sectionTitleCentered}>
-            {t("Så kan det se ut hos era kunder")}
+            {t("Kundcase")}
           </h2>
           <p className={cn(sectionIntro, "mx-auto")}>
             {t("Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
