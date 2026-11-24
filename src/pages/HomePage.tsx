@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { NumberDrop } from "@/components/NumberDrop";
 import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection } from "@/components/HomepageSections";
-import { Entrances, ProductRows, SupportCards } from "@/components/HomeRows";
+import { DifferenceRow, Entrances, SendRows, SupportCards } from "@/components/HomeRows";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 import { usePriser, useStartsida } from "@/content/localized";
@@ -19,9 +19,12 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 
 // The start page, in Swedish at / and in English at /en; the routes only add their own head.
 
+// The page is a journey from A to Ö for someone who has never sent RCS: what it is (hero), why
+// (the difference and the comparison), whether it works (reach and customer cases), how to send
+// (web and API), what it costs (prices), how to start (steps and help), then guides and contact.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><ProductRows /><Reach /><CustomerExamples /><SupportCards /><CompareSection /><PricingSection /><BlogSection /><Steps /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><DifferenceRow /><CompareSection /><Reach /><CustomerExamples /><SendRows /><PricingSection /><Steps /><SupportCards /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,

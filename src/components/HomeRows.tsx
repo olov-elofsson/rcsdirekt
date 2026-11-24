@@ -118,33 +118,43 @@ function SplitRow({ id, flip = false, title, copy, action, visual }: { id?: stri
   );
 }
 
-/** The product in three rows, as Fortnox shows its areas: the difference, the web tool and the API. */
-export function ProductRows() {
-  const home = useStartsida();
+/** Step one of the journey, why RCS: the same notice shown as SMS and as RCS. */
+export function DifferenceRow() {
   const { t, lp } = useT();
-  const [web, api] = home.vagar.items;
-  const pill = "home-cta";
   return (
-    <section id="plattform" className="bg-background">
-      <div className="mx-auto grid max-w-7xl gap-24 px-5 sm:gap-32 lg:px-8">
+    <section id="skillnaden" className="bg-background">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SplitRow
           title={t("Samma besked, som SMS och som RCS")}
           copy={t("Växla mellan SMS och RCS och se hur samma besked ser ut hos kunden. Med RCS syns ert namn och er logga, och kunden kan svara med ett tryck.")}
-          action={<Button className={pill} asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")}</Link></Button>}
+          action={<Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/")} hash="rcs-mot-sms">{t("Se hela jämförelsen")}</Link></Button>}
           visual={<Panel><div className="w-full max-w-[22rem]"><HeroMessage bare /></div></Panel>}
         />
+      </div>
+    </section>
+  );
+}
+
+/** The journey's "how do we send": the web tool and the API, the same sender and price for both. */
+export function SendRows() {
+  const home = useStartsida();
+  const { t, lp } = useT();
+  const [web, api] = home.vagar.items;
+  return (
+    <section id="plattform" className="bg-background">
+      <div className="mx-auto grid max-w-7xl gap-24 px-5 sm:gap-32 lg:px-8">
         <SplitRow
           id="vad-ar-rcs"
           flip
           title={t("Bygg utskicket i webbläsaren")}
           copy={web?.copy ?? ""}
-          action={<Button className={pill} asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Prova webbverktyget")}</Link></Button>}
+          action={<Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Prova webbverktyget")}</Link></Button>}
           visual={<WebVisual />}
         />
         <SplitRow
           title={t("Låt era system skicka via API")}
           copy={api?.copy ?? ""}
-          action={<Button className={pill} asChild size="lg" variant="outline"><Link to={lp("/utvecklare")}>{t("Till utvecklarsidan")}</Link></Button>}
+          action={<Button className="home-cta" asChild size="lg" variant="outline"><Link to={lp("/utvecklare")}>{t("Till utvecklarsidan")}</Link></Button>}
           visual={<ApiVisual />}
         />
       </div>
