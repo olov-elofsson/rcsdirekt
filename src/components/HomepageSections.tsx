@@ -46,19 +46,16 @@ function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
 export function CompareSection() {
   const home = useStartsida();
   const { t } = useT();
-  const all = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
-  // The five that matter most show; the rest behind "Visa alla", as brand/IDENTITY.md asks of long lists.
-  const [open, setOpen] = useState(false);
-  const rows = open ? all : all.slice(0, 5);
+  const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
   return (
-    <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24">
+    <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal>
-          <h2 className={sectionTitle}>{home.jamforelse.heading}</h2>
-          <p className={sectionIntro}>{home.jamforelse.intro}</p>
+        <div data-reveal className="text-center">
+          <h2 className={sectionTitleCentered}>{home.jamforelse.heading}</h2>
+          <p className={cn(sectionIntro, "mx-auto")}>{home.jamforelse.intro}</p>
         </div>
         {/* One table on every screen; on a phone the columns and text are tighter. */}
-        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl bg-card")}>
+        <div data-reveal style={order(1)} className={cn(sectionBody, "overflow-hidden rounded-2xl border border-border bg-card")}>
           <table className="w-full table-fixed border-collapse text-left">
             <colgroup>
               <col className="w-[34%] sm:w-[38%]" />
@@ -86,13 +83,6 @@ export function CompareSection() {
             </tbody>
           </table>
         </div>
-        {all.length > 5 ? (
-          <div className="mt-6 flex justify-center">
-            <Button type="button" variant="outline" className="home-cta" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-              {open ? t("Visa färre") : t("Visa alla {n} jämförelser").replace("{n}", String(all.length))}
-            </Button>
-          </div>
-        ) : null}
       </div>
     </section>
   );
@@ -350,14 +340,12 @@ export function BlogSection() {
   const picks = home.blogg.picks.map((slug) => list.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
   const [first, ...rest] = picks;
   return (
-    <section id="blogg" className="relative overflow-hidden bg-primary-soft py-16 sm:py-24">
+    <section id="blogg" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className={sectionTitle}>{home.blogg.heading}</h2>
-            <p className={sectionIntro}>{home.blogg.intro}</p>
-          </div>
-          <Link to={lp("/blogg")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
+        <div data-reveal className="flex flex-col items-center text-center">
+          <h2 className={sectionTitleCentered}>{home.blogg.heading}</h2>
+          <p className={cn(sectionIntro, "mx-auto")}>{home.blogg.intro}</p>
+          <Link to={lp("/blogg")} className="mt-4 inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         {first ? (
           <div className={cn(sectionBody, "grid gap-5 lg:grid-cols-[1.2fr_0.8fr]")}>
@@ -392,8 +380,10 @@ export function ContactSection() {
   const home = useStartsida();
   const { t } = useT();
   return (
-    <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
+    // The closing block, a large rounded Lavender surface as Fortnox ends its page with a coloured box.
+    <section id="kontakt" className="relative scroll-mt-24 bg-background py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <div className="relative grid gap-10 rounded-3xl bg-primary-soft px-6 py-10 sm:px-12 sm:py-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div data-reveal className="lg:pt-4">
           <h2 className={sectionTitle}>{home.kontakt.heading}</h2>
           <p className={sectionIntro}>{home.kontakt.intro}</p>
@@ -401,6 +391,7 @@ export function ContactSection() {
         <div data-reveal style={order(1)}>
           <InquiryForm mode="contact" />
         </div>
+      </div>
       </div>
     </section>
   );

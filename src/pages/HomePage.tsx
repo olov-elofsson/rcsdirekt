@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 import { NumberDrop } from "@/components/NumberDrop";
 import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection } from "@/components/HomepageSections";
-import { DifferenceRow, SendRows } from "@/components/HomeRows";
+import { DifferenceRow, Entrances, SendRows, SupportCards } from "@/components/HomeRows";
 import { useReveal } from "@/hooks/use-reveal";
-import { sectionIntro, sectionTitle } from "@/lib/typography";
+import { sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
 import { usePriser, useStartsida } from "@/content/localized";
 import { STEPS } from "@/data/onboarding";
 import { useT } from "@/lib/i18n";
@@ -21,10 +21,10 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 
 // The page is a journey from A to Ö for someone who has never sent RCS: what it is (hero), why
 // (the difference and the comparison), whether it works (reach and customer cases), how to send
-// (web and API), what it costs (prices), how to start (steps), then guides and contact.
+// (web and API), what it costs (prices), how to start (steps and help), then guides and contact.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><DifferenceRow /><CompareSection /><Reach /><CustomerExamples /><SendRows /><PricingSection /><Steps /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><DifferenceRow /><CompareSection /><Reach /><CustomerExamples /><SendRows /><PricingSection /><Steps /><SupportCards /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -83,21 +83,21 @@ function HeroFirst() {
 function Steps() {
   const { t, lp } = useT();
   return (
-    <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">
+    <section id="kom-igang" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal>
-          <h2 className={sectionTitle}>{t("Från konto till första utskick i tre steg")}</h2>
-          <p className={cn(sectionIntro, "text-ink-muted")}>{t("Vi hjälper er med avsändaren och upplägget på vägen.")}</p>
+        <div data-reveal className="text-center">
+          <h2 className={sectionTitleCentered}>{t("Från konto till första utskick i tre steg")}</h2>
+          <p className={cn(sectionIntro, "mx-auto")}>{t("Vi hjälper er med avsändaren och upplägget på vägen.")}</p>
         </div>
         <ol className="relative mt-10 grid gap-8 sm:mt-12 md:grid-cols-3 md:gap-5">
           {/* The line through the drops, drawn from left to right when the steps come into view.
               It starts at the first drop's centre (card padding + half a drop) and fades out after the last. */}
-          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-[calc(1.75rem+1.25rem)] right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-ink-foreground/30 from-75% to-transparent md:block" />
+          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-[calc(1.75rem+1.25rem)] right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-border from-75% to-transparent md:block" />
           {STEPS.map((step, index) => (
             <li key={step.title} data-reveal style={revealOrder(index + 1)} className="flex flex-col">
               {/* Indented by the card's padding, so each number stands over its heading. */}
-              <div className="pl-7"><NumberDrop tone="light" n={index + 1} /></div>
-              <div className="mt-4 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
+              <div className="pl-7"><NumberDrop n={index + 1} /></div>
+              <div className="mt-4 flex-1 rounded-2xl border border-border bg-card p-7 text-card-foreground">
                 <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
                 <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
               </div>
@@ -105,7 +105,7 @@ function Steps() {
           ))}
         </ol>
         {/* What every account includes, from the pricing page in the CMS, in the cards' columns; then the action. */}
-        <div data-reveal className="mt-10"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button></div>
+        <div data-reveal className="mt-10 flex justify-center"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button></div>
       </div>
     </section>
   );
