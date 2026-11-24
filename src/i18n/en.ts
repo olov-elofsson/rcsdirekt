@@ -2,6 +2,12 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Företag som skickar RCS med oss": "Companies sending RCS with us",
+  "RCS för svenska företag, med räckvidd i hela världen": "RCS for Swedish companies, with reach across the world",
+  "svenska nät: {names}": "Swedish networks: {names}",
+  "i startavgift, och ingen bindningstid": "start fee, and no lock-in",
+  "SEK per meddelande, lägsta listpris": "SEK per message, lowest list price",
+  Kunder: "Customers",
   "Kunden ser ert namn, er logga och en bock i stället för ett okänt nummer.": "The customer sees your name, your logo and a check mark instead of an unknown number.",
   "Bilder, video och knappar": "Images, video and buttons",
   "Visa erbjudandet direkt i meddelandet, med kort och karuseller att svepa mellan.": "Show the offer right in the message, with cards and carousels to swipe through.",

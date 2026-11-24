@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Code2, MonitorSmartphone, Receipt } from "luc
 import { HeroMessage } from "@/components/HeroMessage";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
+import { scenarios } from "@/data/customer-examples";
 import { Button } from "@/components/ui/button";
 import { usePriser, useStartsida } from "@/content/localized";
 import { useT } from "@/lib/i18n";
@@ -188,6 +189,23 @@ export function SupportCards() {
             <Link to={lp("/kontakt")} className={link}>{t("Kontakta oss")} <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/** The customers behind the cases, as large companies show their logo wall right under the hero. */
+export function CustomerStrip() {
+  const { t } = useT();
+  return (
+    <section id="kunder" aria-label={t("Kunder")} className="bg-background">
+      <div data-reveal className="mx-auto max-w-7xl px-5 text-center lg:px-8">
+        <p className="text-sm font-semibold text-muted-foreground">{t("Företag som skickar RCS med oss")}</p>
+        <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-4 sm:gap-x-16">
+          {scenarios.map(({ customer }) => (
+            <li key={customer} className="font-display text-2xl font-extrabold tracking-[-0.01em] text-foreground/45 sm:text-[1.75rem]">{customer}</li>
+          ))}
+        </ul>
       </div>
     </section>
   );

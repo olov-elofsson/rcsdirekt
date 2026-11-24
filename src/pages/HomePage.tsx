@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowRight, ArrowUpRight, BarChart3, Check, Code2, Headset, RadioTower, Unlock } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, RadioTower } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { NumberDrop } from "@/components/NumberDrop";
 import { CustomerExamples } from "@/components/CustomerExamples";
 import { BlogSection, CompareSection, ContactSection, PricingSection } from "@/components/HomepageSections";
-import { DifferenceRow, Entrances, SendRows, SupportCards } from "@/components/HomeRows";
+import { CustomerStrip, DifferenceRow, Entrances, SendRows, SupportCards } from "@/components/HomeRows";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
 import { usePriser, useStartsida } from "@/content/localized";
@@ -24,7 +24,7 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 // (web and API), what it costs (prices), how to start (steps and help), then guides and contact.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><DifferenceRow /><CompareSection /><Reach /><CustomerExamples /><SendRows /><PricingSection /><Steps /><SupportCards /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><CustomerStrip /><Entrances /><DifferenceRow /><CompareSection /><Reach /><CustomerExamples /><SendRows /><PricingSection /><Steps /><SupportCards /><BlogSection /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -83,21 +83,21 @@ function HeroFirst() {
 function Steps() {
   const { t, lp } = useT();
   return (
-    <section id="kom-igang" className="relative overflow-hidden bg-background py-16 sm:py-24">
+    <section id="kom-igang" className="relative overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="text-center">
           <h2 className={sectionTitleCentered}>{t("Från konto till första utskick i tre steg")}</h2>
-          <p className={cn(sectionIntro, "mx-auto")}>{t("Vi hjälper er med avsändaren och upplägget på vägen.")}</p>
+          <p className={cn(sectionIntro, "mx-auto text-ink-muted")}>{t("Vi hjälper er med avsändaren och upplägget på vägen.")}</p>
         </div>
         <ol className="relative mt-10 grid gap-8 sm:mt-12 md:grid-cols-3 md:gap-5">
           {/* The line through the drops, drawn from left to right when the steps come into view.
               It starts at the first drop's centre (card padding + half a drop) and fades out after the last. */}
-          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-[calc(1.75rem+1.25rem)] right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-border from-75% to-transparent md:block" />
+          <li aria-hidden data-reveal className="steps-line pointer-events-none absolute left-[calc(1.75rem+1.25rem)] right-0 top-5 hidden h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-ink-foreground/30 from-75% to-transparent md:block" />
           {STEPS.map((step, index) => (
             <li key={step.title} data-reveal style={revealOrder(index + 1)} className="flex flex-col">
               {/* Indented by the card's padding, so each number stands over its heading. */}
-              <div className="pl-7"><NumberDrop n={index + 1} /></div>
-              <div className="mt-4 flex-1 rounded-2xl border border-border bg-card p-7 text-card-foreground">
+              <div className="pl-7"><NumberDrop tone="light" n={index + 1} /></div>
+              <div className="mt-4 flex-1 rounded-2xl bg-card p-7 text-card-foreground">
                 <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
                 <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
               </div>
@@ -105,7 +105,7 @@ function Steps() {
           ))}
         </ol>
         {/* What every account includes, from the pricing page in the CMS, in the cards' columns; then the action. */}
-        <div data-reveal className="mt-10 flex justify-center"><Button className="home-cta" asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button></div>
+        <div data-reveal className="mt-10 flex justify-center"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button></div>
       </div>
     </section>
   );
@@ -114,43 +114,34 @@ function Steps() {
 
 
 /**
- * The reach as one large figure, the way Fortnox states its customer count: a small label, the
- * number in blue, what it counts, and one quiet line on the Swedish networks.
+ * Key figures on a full-width Marin band, as large companies state theirs: the reach, the Swedish
+ * networks, the start fee and the lowest list price. Every figure comes from the site's own content.
  */
-const INCLUDED = [
-  { Icon: Code2, label: "Webbgränssnitt och API" },
-  { Icon: BarChart3, label: "Leveransrapporter och statistik" },
-  { Icon: Unlock, label: "Ingen bindningstid" },
-  { Icon: Headset, label: "Svensk support" },
-];
-
 function Reach() {
-  const { t, locale } = useT();
-  const operators = usePriser().operators.filter((name) => !/^(Övriga|Other)/.test(name));
-  const names = operators.length > 1 ? `${operators.slice(0, -1).join(", ")} ${locale === "en" ? "and" : "och"} ${operators.at(-1)}` : operators[0];
+  const { t } = useT();
+  const priser = usePriser();
+  const networks = priser.operators.filter((name) => !/^(Övriga|Other)/.test(name));
+  const from = priser.plans[0]?.price;
+  const stats = [
+    { value: "800+", label: t("direktkopplingar till operatörer världen över") },
+    { value: String(networks.length), label: t("svenska nät: {names}").replace("{names}", networks.join(", ")) },
+    { value: "0 kr", label: t("i startavgift, och ingen bindningstid") },
+    ...(from ? [{ value: from.replace(" SEK", ""), label: t("SEK per meddelande, lägsta listpris") }] : []),
+  ];
   return (
-    <section id="rackvidd" aria-labelledby="rackvidd-title" className="bg-background">
-      <div data-reveal className="mx-auto flex max-w-3xl flex-col items-center px-5 py-6 text-center sm:py-10">
-        <h2 id="rackvidd-title" className="mt-5">
-          <span className="block font-display text-[5.5rem] font-extrabold leading-none tracking-[-0.02em] text-logo-blue tabular-nums sm:text-[8.5rem]">800+</span>
-          <span className="mt-4 block text-[1.6rem] font-extrabold leading-tight text-balance sm:text-[2.25rem]">{t("direktkopplingar till operatörer världen över")}</span>
-        </h2>
-        {names ? (
-          <p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]">
-            {t("I Sverige når ni kunder hos {names}.").replace("{names}", names)}
-          </p>
-        ) : null}
+    <section id="rackvidd" aria-labelledby="rackvidd-title" className="bg-ink text-ink-foreground">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <h2 id="rackvidd-title" data-reveal className="mx-auto max-w-3xl text-center text-[2.1rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.65rem]">{t("RCS för svenska företag, med räckvidd i hela världen")}</h2>
+        <dl className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-ink-foreground/15 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat, index) => (
+            <div key={stat.value} data-reveal style={revealOrder(index)} className="flex flex-col bg-ink px-7 py-9 sm:px-8 sm:py-10">
+              <dt className="sr-only">{stat.label}</dt>
+              <dd className="font-display text-[3.25rem] font-extrabold leading-none tabular-nums text-ink-foreground sm:text-6xl">{stat.value}</dd>
+              <dd className="mt-4 text-base leading-snug text-pretty text-ink-muted">{stat.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
-      {/* What always comes with it, as Fortnox lists four things under its customer count. From the
-          pricing page's "Ingår alltid" in the CMS. */}
-      <ul className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 px-5 sm:mt-14 md:grid-cols-4 lg:px-8">
-        {INCLUDED.map(({ Icon, label }, index) => (
-          <li key={label} data-reveal style={revealOrder(index)} className="flex flex-col items-center text-center">
-            <Icon aria-hidden strokeWidth={1.4} className="size-12 text-logo-blue" />
-            <span className="mt-4 text-base font-extrabold leading-snug">{t(label)}</span>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
