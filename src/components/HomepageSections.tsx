@@ -15,7 +15,7 @@ import { priser } from "@/content/priser";
 import { usePriser, useStartsida } from "@/content/localized";
 import { useT } from "@/lib/i18n";
 import { articleList as articleListEn } from "@/content/en/article-list";
-import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
+import { sectionBody, sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
 import { formatPrice, formatTotal, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
@@ -127,7 +127,7 @@ const labelClass = "block text-xs font-semibold text-muted-foreground";
  * at once in the message above them, the way it reaches the customer. A sketch of how such an
  * editor works, not one product; nothing is sent.
  */
-function WebSketch() {
+export function WebSketch() {
   const { t } = useT();
   const [title, setTitle] = useState(() => t("Ert första utskick"));
   const [body, setBody] = useState(() => t("Skriv här, så ser ni direkt hur kortet ser ut hos kunden."));
@@ -332,33 +332,6 @@ export function ApiSketch() {
   );
 }
 
-export function WaysSection() {
-  const home = useStartsida();
-  const [web, api] = home.vagar.items;
-  const visual: Record<number, ReactNode> = { 0: <WebSketch />, 1: <ApiSketch /> };
-  return (
-    <section id="vad-ar-rcs" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal>
-          <h2 className={sectionTitle}>{home.vagar.heading}</h2>
-          <p className={sectionIntro}>{home.vagar.intro}</p>
-        </div>
-        {/* The cards share rows (subgrid), so both visuals start and end at the same height. */}
-        <div className={cn(sectionBody, "grid gap-6 lg:grid-cols-2 lg:grid-rows-[auto_1fr]")}>
-          {[web, api].filter(Boolean).map((item, index) => (
-            <div key={item!.title} data-reveal style={order(index)} className="flex min-w-0 flex-col gap-6 rounded-2xl bg-primary-soft p-5 sm:p-8 lg:row-span-2 lg:grid lg:grid-rows-subgrid">
-              <div>
-                <h3 className="text-2xl font-extrabold">{item!.title}</h3>
-                <p className="mt-2 max-w-md text-base leading-relaxed text-pretty text-muted-foreground">{item!.copy}</p>
-              </div>
-              <div className="h-full">{visual[index]}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------------------------------ */
 /* Priser: name, what it contains, the from price and a way to start. */
@@ -480,12 +453,11 @@ export function PricingSection() {
   return (
     <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className={sectionTitle}>{home.pris.heading}</h2>
-            <p className={sectionIntro}>{home.pris.intro}</p>
-          </div>
-          <Link to={lp("/priser")} className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Priser per operatör")} <ArrowRight aria-hidden className="size-4" /></Link>
+        {/* Centred over the three plans, as Fortnox sets "De första byggstenarna" over its products. */}
+        <div data-reveal className="flex flex-col items-center text-center">
+          <h2 className={sectionTitleCentered}>{home.pris.heading}</h2>
+          <p className={cn(sectionIntro, "mx-auto")}>{home.pris.intro}</p>
+          <Link to={lp("/priser")} className="mt-4 inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Priser per operatör")} <ArrowRight aria-hidden className="size-4" /></Link>
         </div>
         {/* On a phone the plans sit in a row to swipe through, so the section is one card tall. */}
         <div className={cn(sectionBody, "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden")}>
@@ -551,6 +523,7 @@ export function BlogSection() {
 
 export function ContactSection() {
   const home = useStartsida();
+  const { t } = useT();
   return (
     <section id="kontakt" className="relative scroll-mt-24 overflow-hidden bg-background py-16 sm:py-24">
       <div className="relative mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">

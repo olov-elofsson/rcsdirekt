@@ -26,12 +26,10 @@ function NotFoundComponent() {
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="outline-none flex-1">
         <PageHeading title={t("Sidan finns inte")} description={<p>{t("Sidan du letar efter finns inte eller har flyttats.")}</p>}>
-          <Button asChild size="lg">
+          <Button className="border-transparent" asChild size="lg" variant="outline">
             <Link to={lp("/")}>{t("Till startsidan")} <ArrowRight data-icon="end" /></Link>
           </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link to={lp("/blogg")}>{t("Läs om RCS")}</Link>
-          </Button>
+          <Link to={lp("/blogg")} className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">{t("Läs om RCS")}</Link>
         </PageHeading>
       </main>
       <SiteFooter />

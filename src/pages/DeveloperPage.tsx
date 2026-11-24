@@ -48,8 +48,8 @@ export function DeveloperPage() {
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
         <PageHeading title={t("RCS för utvecklare")} description={<p>{t("Låt era egna system skicka RCS via vårt REST API. Status och svar från kunderna kommer tillbaka till er med webhooks.")}</p>}>
-          <Button asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
-          <Button asChild size="lg" variant="outline"><Link to={lp("/kontakt")}>{t("Prata med oss")}</Link></Button>
+          <Button className="border-transparent" asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
+          <Link to={lp("/kontakt")} className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">{t("Prata med oss")}</Link>
         </PageHeading>
 
         <section className="pb-16 sm:pb-20">

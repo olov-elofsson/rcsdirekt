@@ -2,6 +2,21 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Samma besked, som SMS och som RCS": "The same notice, as SMS and as RCS",
+  "Växla mellan SMS och RCS och se hur samma besked ser ut hos kunden. Med RCS syns ert namn och er logga, och kunden kan svara med ett tryck.": "Switch between SMS and RCS and see how the same notice looks to the customer. With RCS your name and logo show, and the customer can reply with one tap.",
+  "Bygg utskicket i webbläsaren": "Build the campaign in the browser",
+  "Prova webbverktyget": "Try the web tool",
+  "Låt era system skicka via API": "Let your systems send through the API",
+  Hjälp: "Help",
+  "Hjälp att komma igång": "Help getting started",
+  "Vi registrerar er avsändare och hjälper er med det första utskicket, från webben eller med en koppling till era system.": "We register your sender and help you with the first campaign, from the web or with a connection to your systems.",
+  "För företag": "For businesses",
+  "Prata med oss om upplägget": "Talk to us about the setup",
+  "Läs om API:t och webhooks": "Read about the API and webhooks",
+  "Vi står bakom er": "We have your back",
+  "Ni får svensk support när ni behöver hjälp, och raka svar på frågor om priser och volymer.": "You get Swedish support when you need help, and straight answers on prices and volumes.",
+  "Undrar ni vilken meddelandetyp ni behöver?": "Not sure which message type you need?",
+  "Hör av er, så räknar vi på det tillsammans.": "Get in touch and we will work it out together.",
   "Skicka från webben": "Send from the web",
   "Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden.": "Build the campaign in the browser and see at once how it looks to the customer.",
   "Se webbverktyget": "See the web tool",
@@ -13,10 +28,12 @@ export const en: Record<string, string> = {
   "Det kostar inget att starta och det finns ingen bindningstid.": "It costs nothing to start and there is no lock-in.",
   "Se priser": "See prices",
   "Kom vidare": "Where to next",
-  "Ett ekosystem med": "An ecosystem with",
   Räckvidd: "Reach",
-  "över 800 direktkopplingar": "more than 800 direct connections",
-  "till operatörer världen över.": "to operators around the world.",
+  "Så kan det se ut hos era kunder": "What it can look like for your customers",
+  "Från konto till första utskick i tre steg": "From account to first campaign in three steps",
+  "Vi hjälper er med avsändaren och upplägget på vägen.": "We help you with the sender and the setup along the way.",
+  "direktkopplingar till operatörer världen över": "direct connections to operators around the world",
+  "I Sverige når ni kunder hos {names}.": "In Sweden you reach customers on {names}.",
   // Header, menu and footer
   "Hoppa till innehållet": "Skip to content",
   "rcsdirekt.se, startsida": "rcsdirekt.se, home",
@@ -183,7 +200,6 @@ export const en: Record<string, string> = {
 
   // Start page
   "Prata med oss": "Talk to us",
-  "Tre steg från konto till första meddelandet. Vi hjälper er med avsändaren på vägen.": "Three steps from account to first message. We help you with the sender along the way.",
   "Skapa ett konto": "Create an account",
   "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss med nästa steg.": "Tell us who you are and what you want to send. We activate the account and get back to you with the next step.",
   "Registrera avsändare": "Register your sender",
