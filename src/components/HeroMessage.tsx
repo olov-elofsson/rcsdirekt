@@ -118,7 +118,7 @@ const SWITCH_MS = 3600;
  * is in view it switches by itself every few seconds; once the visitor picks a version or taps the
  * message, it stays put. With reduced motion it simply shows the RCS version.
  */
-export function HeroMessage({ className }: { className?: string }) {
+export function HeroMessage({ className, dark = false }: { className?: string; dark?: boolean }) {
   const { t } = useT();
   const box = useRef<HTMLDivElement>(null);
   const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS, true);
@@ -126,7 +126,7 @@ export function HeroMessage({ className }: { className?: string }) {
   return (
     <div ref={box} className={cn("w-full", className)}>
       {/* A label above the box, in the same style as the line above the hero heading. */}
-      <p id="se-skillnaden" className="mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold text-muted-foreground sm:text-sm">
+      <p id="se-skillnaden" className={cn("mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold sm:text-sm", dark ? "text-ink-muted" : "text-muted-foreground")}>
         <MousePointerClick aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
         {t("Se skillnaden själv")}
       </p>

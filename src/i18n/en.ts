@@ -1,6 +1,21 @@
 // English for the UI text written in Swedish in the components, keyed by the Swedish text.
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
+  // Start page: entrance cards and the reach statement
+  "Skicka från webben": "Send from the web",
+  "Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden.": "Build the campaign in the browser and see at once how it looks to the customer.",
+  "Se webbverktyget": "See the web tool",
+  "Koppla in ert system": "Connect your system",
+  "Låt era system skicka bekräftelser och påminnelser via API, med svaren tillbaka som webhooks.": "Let your systems send confirmations and reminders through the API, with replies coming back as webhooks.",
+  "Till utvecklarsidan": "To the developer page",
+  "Betala per meddelande": "Pay per message",
+  "Listpris från {price} per meddelande. Det kostar inget att starta och det finns ingen bindningstid.": "List price from {price} per message. It costs nothing to start and there is no lock-in.",
+  "Det kostar inget att starta och det finns ingen bindningstid.": "It costs nothing to start and there is no lock-in.",
+  "Se priser": "See prices",
+  "Kom vidare": "Where to next",
+  "Era meddelanden går via ett ekosystem med": "Your messages travel through an ecosystem with",
+  "över 800 direktkopplingar": "more than 800 direct connections",
+  "till operatörer världen över.": "to operators around the world.",
   // Header, menu and footer
   "Hoppa till innehållet": "Skip to content",
   "rcsdirekt.se, startsida": "rcsdirekt.se, home",

@@ -195,8 +195,9 @@ export function SiteHeader() {
     <>
     <a href="#innehall" className="sr-only z-[80] rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-3">{t("Hoppa till innehållet")}</a>
     <WebinarBar />
-    <header ref={headerRef} className={cn("sticky top-0 z-50 border-b bg-background/85 backdrop-blur-xl transition-[border-color,box-shadow] duration-200 ease-out", scrolled ? "border-border shadow-[0_1px_12px_-6px_rgb(21_17_95/0.15)]" : "border-border/60")}>
-      <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-8">
+    {/* A floating, rounded menu bar inset from the edges; the page shows around it, and on the start page the Marin hero runs under it. */}
+    <header ref={headerRef} className="pointer-events-none sticky top-0 z-50 px-3 pt-3 sm:px-4">
+      <div className={cn("pointer-events-auto mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-full border bg-background pr-2.5 pl-5 transition-[border-color,box-shadow] duration-200 ease-out min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:pl-6", scrolled ? "border-border shadow-[0_8px_24px_-12px_rgb(21_17_95/0.25)]" : "border-border/60 shadow-[0_4px_16px_-10px_rgb(21_17_95/0.2)]")}>
         <Link to={lp("/")} aria-label={t("rcsdirekt.se, startsida")} className="min-w-0 py-2.5">
           <BrandLogo className="h-6 sm:h-7" />
         </Link>
@@ -243,7 +244,7 @@ export function SiteHeader() {
         </div>
       </div>
       {open ? (
-        <div id="mobile-nav" className="fixed inset-x-0 bottom-0 z-40 min-[1200px]:hidden" style={{ top: menuTop }}>
+        <div id="mobile-nav" className="pointer-events-auto fixed inset-x-0 bottom-0 z-40 min-[1200px]:hidden" style={{ top: menuTop }}>
           <button
             type="button"
             aria-label={t("Stäng menyn")}

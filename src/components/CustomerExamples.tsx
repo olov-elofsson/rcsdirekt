@@ -452,7 +452,7 @@ function CaseShowcase() {
             onClick={() => setIndex(itemIndex)}
             className={cn(
               "inline-flex h-11 shrink-0 items-center rounded-full px-5 text-sm font-semibold transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              itemIndex === index ? "bg-ink-foreground text-ink" : "bg-ink-foreground/10 text-ink-foreground hover:bg-ink-foreground/20",
+              itemIndex === index ? "bg-primary text-primary-foreground" : "bg-background text-foreground hover:bg-background/70",
             )}
           >
             {item.company}
@@ -463,12 +463,12 @@ function CaseShowcase() {
       <CaseRow key={scenario.customer} scenario={scenario} onSwipe={(step) => show(index + step)} />
       {/* On a phone the tabs have scrolled away by the end of a case, so the next one is offered here. */}
       <div className="mt-4 flex items-center justify-between gap-3 lg:hidden">
-        <span className="text-sm text-ink-muted tabular-nums">{index + 1} {t("av")} {scenarios.length}</span>
+        <span className="text-sm text-muted-foreground tabular-nums">{index + 1} {t("av")} {scenarios.length}</span>
         <div className="flex gap-2">
-          <button type="button" onClick={() => step(-1)} aria-label={t("Föregående exempel")} className="inline-flex size-11 items-center justify-center rounded-full bg-ink-foreground/10 text-ink-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
+          <button type="button" onClick={() => step(-1)} aria-label={t("Föregående exempel")} className="inline-flex size-11 items-center justify-center rounded-full bg-background text-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
             <ArrowLeft aria-hidden className="size-4" />
           </button>
-          <button type="button" onClick={() => step(1)} className="inline-flex h-11 items-center gap-2 rounded-full bg-ink-foreground px-5 text-sm font-semibold text-ink transition-[scale] duration-150 ease-out active:scale-[0.96]">
+          <button type="button" onClick={() => step(1)} className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-[scale] duration-150 ease-out active:scale-[0.96]">
             {nextName} <ArrowRight aria-hidden className="size-4" />
           </button>
         </div>
@@ -484,7 +484,7 @@ export function CustomerExamples() {
       id="exempel"
       data-no-mobile-cta
       aria-labelledby="exempel-title"
-      className="relative scroll-mt-24 overflow-hidden bg-ink py-16 text-ink-foreground sm:py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-primary-soft py-16 sm:py-24"
     >
       {/* A wider row than the other sections, so the photos get room; heading and cards share its edge. */}
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -492,7 +492,7 @@ export function CustomerExamples() {
           <h2 id="exempel-title" className={sectionTitle}>
             {t("Kundcase")}
           </h2>
-          <p className={cn(sectionIntro, "text-ink-muted")}>
+          <p className={sectionIntro}>
             {t("Så här kan det se ut hos några av våra kunder. Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.")}
           </p>
         </div>
