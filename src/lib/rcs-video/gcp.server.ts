@@ -16,8 +16,17 @@ export function gcpVideoBucket(): string | undefined {
 }
 
 // Cloud Run appends the connecting address last; earlier entries are sender-supplied.
+// An IPv6 sender controls a whole /64, so the quota counts the network, not the single address.
 export function cloudRunClientIp(request: Request): string | undefined {
-  return request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() || undefined;
+  const ip = request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim();
+  if (!ip) return undefined;
+  if (!ip.includes(":")) return ip;
+  if (ip.includes(".")) return ip.split(":").at(-1); // IPv4 written as IPv6, such as ::ffff:203.0.113.9
+  const [head = "", tail = ""] = ip.split("::");
+  const front = head.split(":").filter(Boolean);
+  const back = tail.split(":").filter(Boolean);
+  const groups = ip.includes("::") ? [...front, ...Array(8 - front.length - back.length).fill("0"), ...back] : front;
+  return `${groups.slice(0, 4).map((group) => group.toLowerCase().replace(/^0+(?=.)/, "")).join(":")}::/64`;
 }
 
 // Cloud Run terminates TLS before the container, so request.url is http there.

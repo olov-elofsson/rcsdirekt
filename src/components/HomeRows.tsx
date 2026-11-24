@@ -57,9 +57,9 @@ const sectionHeading = "mx-auto max-w-3xl text-center text-[2.1rem] font-extrabo
 const sectionLead = "mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]";
 
 /** The card row every section uses: bordered cards with a large line icon, centred text and a blue link. */
-function CardGrid({ id, label, title, intro, cards, after }: { id: string; label?: string; title?: string; intro?: string; cards: IconCard[]; after?: ReactNode }) {
+function CardGrid({ id, label, title, intro, cards, after, muted = false }: { id: string; label?: string; title?: string; intro?: string; cards: IconCard[]; after?: ReactNode; muted?: boolean }) {
   return (
-    <section id={id} aria-label={title ? undefined : label} className="scroll-mt-24 bg-background">
+    <section id={id} aria-label={title ? undefined : label} className={muted ? "scroll-mt-24 bg-muted" : "scroll-mt-24 bg-background"}>
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         {title ? (
           <div data-reveal className="mb-12">
@@ -115,7 +115,9 @@ export function Difference() {
         <div data-reveal className="mx-auto flex max-w-3xl justify-center rounded-3xl border border-border bg-card px-6 py-12 sm:py-14">
           <div className="w-full max-w-[22rem]"><HeroMessage bare /></div>
         </div>
-        <div data-reveal className="mt-8 flex justify-center">
+        {/* The next step once the difference is clear, with the long read as a second choice. */}
+        <div data-reveal className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <Button asChild size="lg" className="home-cta"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
           <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-vs-sms" }} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Läs om skillnaden")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
         </div>
       </div>
@@ -129,6 +131,7 @@ export function Steps() {
   return (
     <CardGrid
       id="kom-igang"
+      muted
       title={t("Så kommer ni igång")}
       intro={t("Från konto till första utskick i tre steg.")}
       cards={[

@@ -32,8 +32,11 @@ export const Route = createFileRoute("/api/lead")({
         method: "POST",
         headers: { "content-type": "application/json", "x-lead-key": key },
         body: JSON.stringify({ type, name, company, email, phone, message }),
-      }).catch(() => null);
-      if (!response?.ok) return Response.json({ error: "unavailable" }, { status: 502 });
+      }).catch((error) => (console.error("Lead to CMS failed", error), null));
+      if (!response?.ok) {
+        if (response) console.error("Lead to CMS failed", response.status);
+        return Response.json({ error: "unavailable" }, { status: 502 });
+      }
       return Response.json({ ok: true });
     },
   } },

@@ -21,7 +21,7 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 // cards with a large line icon, centred text and one blue link. Then questions and a closing box.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><Difference /><Steps /><CustomerExamples /><Plans /><FaqSection /><CtaBox /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><Difference /><CustomerExamples /><Steps /><Plans /><FaqSection /><CtaBox /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,

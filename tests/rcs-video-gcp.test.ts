@@ -106,3 +106,11 @@ test("share links use https behind Cloud Run's TLS termination", () => {
     "http://localhost:8080",
   );
 });
+
+test("cloudRunClientIp counts an IPv6 sender per /64 network", () => {
+  const ip = (forwarded: string) => cloudRunClientIp(new Request("https://rcsdirekt.se/", { headers: { "x-forwarded-for": forwarded } }));
+  expect(ip("2001:db8:1:2:aaaa::1")).toBe("2001:db8:1:2::/64");
+  expect(ip("2001:DB8:1:2:bbbb:cccc:dddd:eeee")).toBe("2001:db8:1:2::/64");
+  expect(ip("2001:db8::1")).toBe("2001:db8:0:0::/64");
+  expect(ip("::ffff:203.0.113.9")).toBe("203.0.113.9");
+});

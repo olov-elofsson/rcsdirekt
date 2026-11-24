@@ -1,90 +1,16 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ChevronDown, Clock, X } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
-import { PlanCard } from "@/components/PlanCard";
-import { VerifiedMark } from "@/components/RcsPhone";
 import { Button } from "@/components/ui/button";
-import { articleList } from "@/content/article-list";
 import { priser } from "@/content/priser";
-import { usePriser, useStartsida } from "@/content/localized";
+import { usePriser } from "@/content/localized";
 import { useT } from "@/lib/i18n";
-import { articleList as articleListEn } from "@/content/en/article-list";
-import { sectionBody, sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
-import { formatPrice, formatTotal, useCurrency } from "@/lib/money";
+import { sectionBody, sectionTitleCentered } from "@/lib/typography";
+import { formatPrice, formatTotal, unitPrice, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
-// -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
-// so a left-aligned heading would look indented next to the text under it.
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
-
-
-/* ------------------------------------------------------------------------------------------ */
-/* RCS och SMS: the same notice as an SMS and as RCS, beside the facts that differ.            */
-
-function compareValue(value: string): boolean | string {
-  if (value.trim() === "✓") return true;
-  if (value.trim() === "✗") return false;
-  // A no-break space inside numbers like "4 000", so a narrow column never splits them.
-  return value.replace(/(\d) (?=\d)/g, "$1\u00a0");
-}
-
-function Fact({ value, rcs }: { value: boolean | string; rcs: boolean }) {
-  const { t } = useT();
-  if (typeof value === "boolean")
-    return value ? (
-      <span className={cn("inline-flex", rcs ? "text-logo-blue" : "text-foreground")}><Check aria-hidden className="size-5" /><span className="sr-only">{t("Ja")}</span></span>
-    ) : (
-      <span className="inline-flex text-muted-foreground/60"><X aria-hidden className="size-5" /><span className="sr-only">{t("Nej")}</span></span>
-    );
-  return <span className={cn("text-[13px] leading-snug text-pretty sm:text-[15px]", rcs ? "font-semibold text-foreground" : "text-muted-foreground")}>{value}</span>;
-}
-
-
-export function CompareSection() {
-  const home = useStartsida();
-  const { t } = useT();
-  const rows = home.jamforelse.rows.map((row) => ({ label: row.label, sms: compareValue(row.sms), rcs: compareValue(row.rcs) }));
-  return (
-    <section id="rcs-mot-sms" className="relative scroll-mt-24 overflow-hidden bg-muted py-16 sm:py-24">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="text-center">
-          <h2 className={sectionTitleCentered}>{home.jamforelse.heading}</h2>
-          <p className={cn(sectionIntro, "mx-auto")}>{home.jamforelse.intro}</p>
-        </div>
-        {/* One table on every screen; on a phone the columns and text are tighter. */}
-        <div data-reveal className={cn(sectionBody, "mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border bg-card")}>
-          <table className="w-full table-fixed border-collapse text-left">
-            <colgroup>
-              <col className="w-[34%] sm:w-[38%]" />
-              <col />
-              <col />
-            </colgroup>
-            <thead>
-              {/* One dark heading row over all three columns; in the body the properties and RCS are lit, SMS stays white. */}
-              <tr>
-                <th scope="col" className="bg-ink px-3 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-8 sm:py-4">{t("Funktion")}</th>
-                <th scope="col" className="bg-ink px-2 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-6 sm:py-4">SMS</th>
-                <th scope="col" className="bg-ink px-2 py-3.5 font-display text-base font-extrabold text-ink-foreground sm:px-6 sm:py-4">RCS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((item) => (
-                <tr key={item.label} className="border-t border-border first:border-t-0">
-                  <th scope="row" className="bg-muted px-3 py-3.5 text-[13px] font-semibold leading-snug text-pretty sm:px-8 sm:py-4 sm:text-[15px]">
-                    {item.label}
-                  </th>
-                  <td className="px-2 py-3.5 sm:px-6 sm:py-4"><Fact value={item.sms} rcs={false} /></td>
-                  <td className="bg-muted px-2 py-3.5 sm:px-6 sm:py-4"><Fact value={item.rcs} rcs /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
@@ -187,14 +113,9 @@ export function ApiSketch() {
   );
 }
 
-
 /* ------------------------------------------------------------------------------------------ */
 /* Priser: name, what it contains, the from price and a way to start. */
 
-const sek = (value: number, digits = 0) =>
-  value.toLocaleString("sv-SE", { minimumFractionDigits: digits, maximumFractionDigits: digits });
-
-/** The list price for a number of messages: the plan's from price times the count, nothing else. */
 /** The total, counted up or down to the new value; screen readers get only the final figure. */
 function GlidingTotal({ value, currency, locale = "sv" }: { value: number; currency: "SEK" | "EUR"; locale?: "sv" | "en" }) {
   const tag = locale === "en" ? "en-GB" : "sv-SE";
@@ -241,7 +162,8 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
   const { t, locale } = useT();
   const plan = plans[planIndex];
   if (!plan) return null;
-  const unit = Number.parseFloat(plan.price.replace(/[^\d,]/g, "").replace(",", "."));
+  // The total uses the same rounded unit price the line under it shows, also in EUR.
+  const unit = unitPrice(plan.price, currency);
   if (!Number.isFinite(unit)) return null;
   const countId = "kalkyl-antal";
   const total = unit * count;
@@ -298,69 +220,6 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
         <p className="mt-1 text-sm text-muted-foreground">{t("exkl. moms")}, {number(count)} × {formatPrice(plan.price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" })}</p>
       </div>
     </div>
-  );
-}
-
-export function PricingSection() {
-  const home = useStartsida();
-  const plans = usePriser().plans;
-  const { t, lp } = useT();
-  return (
-    <section id="pris" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        {/* Centred over the three plans, as Fortnox sets "De första byggstenarna" over its products. */}
-        <div data-reveal className="flex flex-col items-center text-center">
-          <h2 className={sectionTitleCentered}>{home.pris.heading}</h2>
-          <p className={cn(sectionIntro, "mx-auto")}>{home.pris.intro}</p>
-          <Link to={lp("/priser")} className="mt-4 inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Priser per operatör")} <ArrowRight aria-hidden className="size-4" /></Link>
-        </div>
-        {/* On a phone the plans sit in a row to swipe through, so the section is one card tall. */}
-        <div className={cn(sectionBody, "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden")}>
-          {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} uses={false} style={order(index)} className="w-[84%] shrink-0 snap-center md:w-auto" />)}
-        </div>
-        <div className="mt-5"><PriceCalculator plans={plans} /></div>
-        <p data-reveal className="mt-8 text-center text-sm leading-relaxed text-pretty text-muted-foreground">
-          {t("Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.")}{" "}
-          <Link to={lp("/kontakt")} className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">{t("Fråga om volympris")}</Link>
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------------------------------ */
-/* Insikter: one article large, two beside it.                                                 */
-
-/** The latest articles as a standard three-card blog row, as "Från bloggen" on most company sites. */
-export function BlogSection() {
-  const home = useStartsida();
-  const { t, lp, locale } = useT();
-  const list = locale === "en" ? articleListEn : articleList;
-  const picks = home.blogg.picks.map((slug) => list.find((article) => article.slug === slug)).filter((a): a is (typeof articleList)[number] => Boolean(a));
-  return (
-    <section id="blogg" className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className={sectionTitle}>{t("Från bloggen")}</h2>
-            <p className={sectionIntro}>{home.blogg.intro}</p>
-          </div>
-          <Link to={lp("/blogg")} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold underline-offset-4 transition-colors hover:text-logo-blue hover:underline">{t("Alla artiklar")} <ArrowRight aria-hidden className="size-4" /></Link>
-        </div>
-        <ul className={cn(sectionBody, "grid gap-6 md:grid-cols-3")}>
-          {picks.map((article, index) => (
-            <li key={article.slug} data-reveal style={order(index)}>
-              <Link to={lp("/blogg/$slug")} params={{ slug: article.slug }} className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card">
-                <span className="text-sm font-semibold text-muted-foreground">{article.category}</span>
-                <h3 className="mt-3 text-xl font-extrabold leading-snug text-pretty transition-colors group-hover:text-logo-blue">{article.title}</h3>
-                <div className="mt-3 flex-1"><p className="line-clamp-3 text-[15px] leading-relaxed text-muted-foreground">{article.description}</p></div>
-                <span className="mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground"><Clock aria-hidden className="size-4" />{article.minutes} {t("min läsning")}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
   );
 }
 

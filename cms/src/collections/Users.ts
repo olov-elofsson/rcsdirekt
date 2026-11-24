@@ -22,7 +22,8 @@ export const Users: CollectionConfig = {
         if (operation !== 'create' || req.user) return data
         const allowed = firstUserEmails()
         const email = String(data?.email ?? '').trim().toLowerCase()
-        if (allowed.length && !allowed.includes(email)) {
+        // In production the first account needs an approved address, even if the list was never set.
+        if ((allowed.length || process.env.NODE_ENV === 'production') && !allowed.includes(email)) {
           throw new APIError('Det första kontot får bara skapas med en godkänd e-postadress.', 403, undefined, true)
         }
         return data

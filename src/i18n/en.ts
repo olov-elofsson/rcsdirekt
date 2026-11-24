@@ -2,6 +2,7 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Prata med oss om ert upplägg": "Talk to us about your setup",
   "Från konto till första utskick i tre steg.": "From account to first campaign in three steps.",
   "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss.": "Tell us who you are and what you want to send. We activate the account and get in touch.",
   "Ni skickar namn, logotyp och en kort beskrivning. Avsändaren kontrolleras innan den får skicka.": "You send your name, logo and a short description. The sender is checked before it may send.",
@@ -443,7 +444,7 @@ export const en: Record<string, string> = {
   Webbplatskarta: "Sitemap",
   "Prova att ändra kortet": "Try changing the card",
   "Visa hela exemplet": "Show the whole example",
-  "Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.": "Tap the buttons in the message and see what happens. The photos come from the customer cases, the messages are examples.",
+  "Så kan RCS se ut hos några av våra kunder. Tryck på knapparna och se vad som händer. Meddelandena är exempel.": "This is how RCS can look for some of our customers. Tap the buttons and see what happens. The messages are examples.",
   Funktion: "Feature",
   "Tryck på knapparna i meddelandet och se vad som händer.": "Tap the buttons in the message and see what happens.",
 };

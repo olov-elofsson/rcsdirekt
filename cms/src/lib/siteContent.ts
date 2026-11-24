@@ -49,10 +49,11 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
 
   // Hidden articles stay in the CMS; the site only gets their old address and where it leads.
   const visibleDocs = articleDocs.filter((doc) => !doc.archived)
-  const redirects = articleDocs
-    .filter((doc) => doc.archived && relation(doc.replacedBy, 'slug'))
-    .map((doc) => ({ from: text(doc.slug), to: relation(doc.replacedBy, 'slug') }))
   const visibleSlugs = new Set(visibleDocs.map((doc) => text(doc.slug)))
+  // A redirect may only lead to an article that is shown, or it ends on a 404 or loops.
+  const redirects = articleDocs
+    .filter((doc) => doc.archived && visibleSlugs.has(relation(doc.replacedBy, 'slug')))
+    .map((doc) => ({ from: text(doc.slug), to: relation(doc.replacedBy, 'slug') }))
 
   // The card uses the generated 'card' size (960x600 WebP) when it exists, otherwise the original.
   const caseImage = (image: Doc | undefined, name: string): CustomerCase['image'] => {
@@ -139,7 +140,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       blogg: {
         heading: text(startsida.blogg?.heading),
         intro: text(startsida.blogg?.intro),
-        picks: list(startsida.blogg?.picks).map((article) => relation(article, 'slug')).filter(Boolean),
+        picks: list(startsida.blogg?.picks).map((article) => relation(article, 'slug')).filter((slug) => visibleSlugs.has(slug)),
       },
       kontakt: { heading: text(startsida.kontakt?.heading), intro: text(startsida.kontakt?.intro) },
     },

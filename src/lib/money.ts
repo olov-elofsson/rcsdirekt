@@ -12,19 +12,24 @@ export const priceNumber = (price: string) => Number.parseFloat(price.replace(/[
 
 const inCurrency = (sek: number, currency: Currency) => (currency === "EUR" ? sek / SEK_PER_EUR : sek);
 
-/** A per-message list price in the chosen currency: three decimals in SEK, four or five in EUR (the supplier's own precision). */
+/** The per-message list price as shown: three decimals in SEK, at most five in EUR (the supplier's own precision). */
+export function unitPrice(sekPrice: string, currency: Currency): number {
+  // Rounded to six places first, so float noise does not tip a 5 the wrong way.
+  const exact = Math.round(inCurrency(priceNumber(sekPrice), currency) * 1e6) / 1e6;
+  return Number(exact.toFixed(currency === "EUR" ? 5 : 3));
+}
+
+/** A per-message list price in the chosen currency. */
 export function formatPrice(sekPrice: string, currency: Currency, { locale = "sv-SE", unit = true }: { locale?: string; unit?: boolean } = {}): string {
   const [min, max] = currency === "EUR" ? [4, 5] : [3, 3];
-  // Rounded to the supplier's precision first, so float noise does not tip a 5 the wrong way.
-  const exact = Math.round(inCurrency(priceNumber(sekPrice), currency) * 1e6) / 1e6;
-  const value = exact.toLocaleString(locale, { minimumFractionDigits: min, maximumFractionDigits: max });
+  const value = unitPrice(sekPrice, currency).toLocaleString(locale, { minimumFractionDigits: min, maximumFractionDigits: max });
   return unit ? `${value} ${currency}` : value;
 }
 
-/** A total for many messages: whole kronor, or euros with cents. */
-export function formatTotal(sek: number, currency: Currency, locale = "sv-SE"): string {
+/** A total already in the chosen currency (unit price × count): whole kronor, or euros with cents. */
+export function formatTotal(amount: number, currency: Currency, locale = "sv-SE"): string {
   const digits = currency === "EUR" ? 2 : 0;
-  return `${inCurrency(sek, currency).toLocaleString(locale, { minimumFractionDigits: digits, maximumFractionDigits: digits })} ${currency}`;
+  return `${amount.toLocaleString(locale, { minimumFractionDigits: digits, maximumFractionDigits: digits })} ${currency}`;
 }
 
 /** The currency prices are shown in; SEK unless a page offers another. */
