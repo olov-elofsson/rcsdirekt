@@ -2,6 +2,8 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Bilder, text och knappar, byggt i webbläsaren.": "Images, text and buttons, built in the browser.",
+  "Mottaget, status kommer via webhook": "Accepted, status follows by webhook",
   "Samma besked, som SMS och som RCS": "The same notice, as SMS and as RCS",
   "Växla mellan SMS och RCS och se hur samma besked ser ut hos kunden. Med RCS syns ert namn och er logga, och kunden kan svara med ett tryck.": "Switch between SMS and RCS and see how the same notice looks to the customer. With RCS your name and logo show, and the customer can reply with one tap.",
   "Bygg utskicket i webbläsaren": "Build the campaign in the browser",

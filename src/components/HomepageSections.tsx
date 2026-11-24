@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Check, Clock, X } from "lucide-react";
-import restaurantPhoto from "@/assets/foto-restaurang-800.webp";
-import bowlingPhoto from "@/assets/foto-bowling-800.webp";
 
 import { InquiryForm } from "@/components/InquiryForm";
 import { PlanCard } from "@/components/PlanCard";
-import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
-import { rcsDirektSender } from "@/data/rcs-sender";
+import { VerifiedMark } from "@/components/RcsPhone";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { articleList } from "@/content/article-list";
@@ -23,15 +20,6 @@ import { cn } from "@/lib/utils";
 // so a left-aligned heading would look indented next to the text under it.
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
-/** A sender line above a message on a light background, as the chat list shows it. */
-function SenderLine({ name, verified }: { name: string; verified: boolean }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", fontSize: 13, fontWeight: 500, color: "#444746", marginBottom: 6 }}>
-      {name}
-      {verified ? <VerifiedMark size={15} /> : null}
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------------------------------------ */
 /* RCS och SMS: the same notice as an SMS and as RCS, beside the facts that differ.            */
@@ -102,137 +90,6 @@ export function CompareSection() {
 
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
-
-const BUTTON_KINDS = [
-  { id: "open", label: "Länk", icon: "open" },
-  { id: "call", label: "Ring", icon: "call" },
-  { id: "reply", label: "Svar", icon: null },
-] as const;
-
-const fieldClass =
-  "mt-1 w-full rounded-lg border border-transparent bg-muted px-3 py-1.5 text-sm font-normal leading-snug text-foreground outline-none transition-[border-color,background-color] duration-150 placeholder:text-muted-foreground/70 focus:border-logo-blue focus:bg-background";
-
-/** Pictures the visitor can put on the card: the brand banner and two of the customer photos. */
-const SKETCH_IMAGES = [
-  { id: "banner", src: rcsDirektSender.profile.banner, label: "Grafik" },
-  { id: "restaurant", src: restaurantPhoto, label: "Restaurang" },
-  { id: "bowling", src: bowlingPhoto, label: "Bowling" },
-] as const;
-
-/** A field's label: the same size, weight and gap above every field. */
-const labelClass = "block text-xs font-semibold text-muted-foreground";
-
-/**
- * The web tool, reduced to a card editor the visitor can use: what is typed in the fields shows
- * at once in the message above them, the way it reaches the customer. A sketch of how such an
- * editor works, not one product; nothing is sent.
- */
-export function WebSketch() {
-  const { t } = useT();
-  const [title, setTitle] = useState(() => t("Ert första utskick"));
-  const [body, setBody] = useState(() => t("Skriv här, så ser ni direkt hur kortet ser ut hos kunden."));
-  const [button, setButton] = useState(() => t("Läs mer"));
-  const [kind, setKind] = useState<(typeof BUTTON_KINDS)[number]["id"]>("open");
-  const [image, setImage] = useState<(typeof SKETCH_IMAGES)[number]["id"]>("banner");
-  // On a phone the form starts folded, so the section shows the card first and the fields on request.
-  const [editing, setEditing] = useState(false);
-  const icon = BUTTON_KINDS.find((item) => item.id === kind)?.icon;
-  const picture = SKETCH_IMAGES.find((item) => item.id === image)?.src;
-  const edit = (set: (value: string) => void) => (event: { target: { value: string } }) => set(event.target.value);
-  return (
-    <div className="flex h-full flex-col overflow-hidden rounded-xl bg-background text-left shadow-card">
-      <div className="flex flex-1 flex-col p-2.5">
-        {/* The preview sits inset in the editor's white card, so the two halves read as one tool. */}
-        <div className="relative flex flex-col items-center rounded-[calc(var(--radius-xl)-0.375rem)] bg-muted px-4 pt-9 pb-5">
-          <span className="absolute top-3 left-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-            <span aria-hidden className="size-1.5 rounded-full bg-logo-blue" />{t("Förhandsvisning")}
-          </span>
-          <div aria-live="polite" className="flex w-full justify-center">
-            <RcsSnippet width={300} scale={0.8}>
-              <SenderLine name={rcsDirektSender.sender} verified />
-              <div className="card">
-                {picture ? <img src={picture} alt="" style={{ objectFit: "cover" }} /> : null}
-                <div className="ct">{title || t("Rubrik")}</div>
-                {body ? <div className="cb">{body}</div> : null}
-                {button ? (
-                  <div className="cbtns">
-                    <div className="cbtn">
-                      {icon ? <span className="ci"><PhoneIcon name={icon} size={18} /></span> : null}
-                      {button}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-              {/* Suggestions under the card, as RCS shows them: rounded chips the customer taps. */}
-              <div className="chips">
-                <div className="chip">{t("Ja tack")}</div>
-                <div className="chip"><PhoneIcon name="call" size={16} color="#0b57d0" />{t("Ring mig")}</div>
-              </div>
-            </RcsSnippet>
-          </div>
-        </div>
-        {!editing ? (
-          <Button type="button" variant="outline" className="mt-3 w-full sm:hidden" onClick={() => setEditing(true)}>
-            {t("Prova att ändra kortet")}
-          </Button>
-        ) : null}
-        <div className={cn("flex-1 grid-cols-2 gap-x-3 gap-y-3 px-2.5 pt-4 pb-2 sm:grid sm:px-3", editing ? "grid" : "hidden")}>
-          <label className={labelClass}>
-            {t("Rubrik")}
-            <input value={title} onChange={edit(setTitle)} maxLength={60} className={fieldClass} />
-          </label>
-          <div>
-            <p className={labelClass}>{t("Bild")}</p>
-            <div role="radiogroup" aria-label={t("Bild")} className="mt-1 flex h-[34px] gap-1.5">
-              {SKETCH_IMAGES.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={image === item.id}
-                  aria-label={t(item.label)}
-                  onClick={() => setImage(item.id)}
-                  className={cn("h-full w-12 overflow-hidden rounded-lg ring-2 ring-offset-1 ring-offset-background transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.96]", image === item.id ? "ring-logo-blue" : "ring-transparent hover:ring-border")}
-                >
-                  <img src={item.src} alt="" className="size-full object-cover" />
-                </button>
-              ))}
-            </div>
-          </div>
-          <label className={cn(labelClass, "col-span-2")}>
-            <span className="flex justify-between">
-              {t("Text")}
-              <span className="font-normal tabular-nums">{body.length}/160</span>
-            </span>
-            <textarea value={body} onChange={edit(setBody)} maxLength={160} rows={2} className={cn(fieldClass, "block resize-none")} />
-          </label>
-          <label className={labelClass}>
-            {t("Knapp")}
-            <input value={button} onChange={edit(setButton)} maxLength={25} className={fieldClass} />
-          </label>
-          <div>
-            <p className={labelClass}>{t("Vad knappen gör")}</p>
-            {/* One segmented control, as tall as the fields beside it. */}
-            <div role="radiogroup" aria-label={t("Vad knappen gör")} className="mt-1 grid h-[34px] grid-cols-3 gap-0.5 rounded-lg bg-muted p-0.5">
-              {BUTTON_KINDS.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={kind === item.id}
-                  onClick={() => setKind(item.id)}
-                  className={cn("truncate rounded-md px-1 text-xs font-semibold transition-[background-color,color,box-shadow] duration-150 ease-out", kind === item.id ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
-                >
-                  {t(item.label)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /** A simplified request: a card with an image, two reply buttons and SMS as the fallback. */
 const API_REQUEST = `{
@@ -464,7 +321,7 @@ export function PricingSection() {
           {plans.map((plan, index) => <PlanCard key={plan.slug} plan={plan} uses={false} style={order(index)} className="w-[84%] shrink-0 snap-center md:w-auto" />)}
         </div>
         <div className="mt-5"><PriceCalculator plans={plans} /></div>
-        <p data-reveal className="mt-8 text-sm leading-relaxed text-pretty text-muted-foreground">
+        <p data-reveal className="mt-8 text-center text-sm leading-relaxed text-pretty text-muted-foreground">
           {t("Listpriser exklusive moms. Ert pris beror på hur många meddelanden ni skickar.")}{" "}
           <Link to={lp("/")} hash="kontakt" className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4 transition-colors hover:text-logo-blue">{t("Fråga om volympris")}</Link>
         </p>

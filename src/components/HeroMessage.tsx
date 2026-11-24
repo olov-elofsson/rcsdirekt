@@ -118,7 +118,8 @@ const SWITCH_MS = 3600;
  * is in view it switches by itself every few seconds; once the visitor picks a version or taps the
  * message, it stays put. With reduced motion it simply shows the RCS version.
  */
-export function HeroMessage({ className, dark = false }: { className?: string; dark?: boolean }) {
+/** `bare` drops the label and the grey box, for a picture that already sits on a panel. */
+export function HeroMessage({ className, dark = false, bare = false }: { className?: string; dark?: boolean; bare?: boolean }) {
   const { t } = useT();
   const box = useRef<HTMLDivElement>(null);
   const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS, true);
@@ -126,11 +127,11 @@ export function HeroMessage({ className, dark = false }: { className?: string; d
   return (
     <div ref={box} className={cn("w-full", className)}>
       {/* A label above the box, in the same style as the line above the hero heading. */}
-      <p id="se-skillnaden" className={cn("mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold sm:text-sm", dark ? "text-ink-muted" : "text-muted-foreground")}>
+      <p id="se-skillnaden" className={cn("mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold sm:text-sm", dark ? "text-ink-muted" : "text-muted-foreground", bare && "sr-only")}>
         <MousePointerClick aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
         {t("Se skillnaden själv")}
       </p>
-      <div className="rounded-3xl bg-muted px-4 pt-4 pb-5">
+      <div className={bare ? undefined : "rounded-3xl bg-muted px-4 pt-4 pb-5"}>
       <div role="radiogroup" aria-labelledby="se-skillnaden" className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">
         {[false, true].map((value) => (
           <button

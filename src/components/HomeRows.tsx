@@ -3,7 +3,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { ArrowRight, ArrowUpRight, Code2, MonitorSmartphone, Receipt } from "lucide-react";
 
 import { HeroMessage } from "@/components/HeroMessage";
-import { ApiSketch, WebSketch } from "@/components/HomepageSections";
+import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
+import { rcsDirektSender } from "@/data/rcs-sender";
 import { Button } from "@/components/ui/button";
 import { usePriser, useStartsida } from "@/content/localized";
 import { useT } from "@/lib/i18n";
@@ -47,6 +48,62 @@ export function Entrances() {
   );
 }
 
+/** The soft panel every row's picture sits on, so the three pictures read as one set. */
+function Panel({ children, className }: { children: ReactNode; className?: string }) {
+  return <div className={cn("flex min-h-[22rem] items-center justify-center rounded-3xl bg-primary-soft p-8 sm:min-h-[26rem] sm:p-12", className)}>{children}</div>;
+}
+
+/** The web tool, reduced to its result: the card as the customer sees it. */
+function WebVisual() {
+  const { t } = useT();
+  return (
+    <Panel>
+      <RcsSnippet width={300} scale={0.95}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 500, color: "#444746", marginBottom: 6 }}>
+          {rcsDirektSender.sender} <VerifiedMark size={14} />
+        </div>
+        <div className="card">
+          <img src={rcsDirektSender.profile.banner} alt="" style={{ objectFit: "cover" }} />
+          <div className="ct">{t("Ert första utskick")}</div>
+          <div className="cb">{t("Bilder, text och knappar, byggt i webbläsaren.")}</div>
+          <div className="cbtns">
+            <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>{t("Läs mer")}</div>
+          </div>
+        </div>
+      </RcsSnippet>
+    </Panel>
+  );
+}
+
+/** The API, reduced to one request and its answer. */
+function ApiVisual() {
+  const { t, locale } = useT();
+  const body = locale === "en"
+    ? `{
+  "to": "+46701234567",
+  "text": "Your appointment is Tuesday at 2 pm.",
+  "buttons": ["Confirm", "Reschedule"]
+}`
+    : `{
+  "to": "+46701234567",
+  "text": "Din tid är tisdag kl. 14.00.",
+  "buttons": ["Bekräfta", "Boka om"]
+}`;
+  return (
+    <Panel className="bg-ink">
+      <figure className="w-full max-w-md text-left">
+        <figcaption className="flex items-center gap-2 font-mono text-xs text-ink-muted">
+          <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 text-ink-foreground">POST</span>/messages
+        </figcaption>
+        <pre className="mt-4 overflow-x-auto text-[13px] leading-relaxed text-ink-foreground sm:text-sm"><code>{body}</code></pre>
+        <p className="mt-5 flex items-center gap-2 border-t border-ink-foreground/10 pt-4 font-mono text-xs text-ink-muted">
+          <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 text-ink-foreground">202</span>{t("Mottaget, status kommer via webhook")}
+        </p>
+      </figure>
+    </Panel>
+  );
+}
+
 /** One row: a picture on one side, a heading, a paragraph and one rounded action on the other. */
 function SplitRow({ id, flip = false, title, copy, action, visual }: { id?: string; flip?: boolean; title: string; copy: string; action: ReactNode; visual: ReactNode }) {
   return (
@@ -74,7 +131,7 @@ export function ProductRows() {
           title={t("Samma besked, som SMS och som RCS")}
           copy={t("Växla mellan SMS och RCS och se hur samma besked ser ut hos kunden. Med RCS syns ert namn och er logga, och kunden kan svara med ett tryck.")}
           action={<Button className={pill} asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Skapa konto")}</Link></Button>}
-          visual={<div className="mx-auto max-w-[22rem]"><HeroMessage /></div>}
+          visual={<Panel><div className="w-full max-w-[22rem]"><HeroMessage bare /></div></Panel>}
         />
         <SplitRow
           id="vad-ar-rcs"
@@ -82,13 +139,13 @@ export function ProductRows() {
           title={t("Bygg utskicket i webbläsaren")}
           copy={web?.copy ?? ""}
           action={<Button className={pill} asChild size="lg" variant="outline"><Link to={lp("/skapa-konto")}>{t("Prova webbverktyget")}</Link></Button>}
-          visual={<WebSketch />}
+          visual={<WebVisual />}
         />
         <SplitRow
           title={t("Låt era system skicka via API")}
           copy={api?.copy ?? ""}
           action={<Button className={pill} asChild size="lg" variant="outline"><Link to={lp("/utvecklare")}>{t("Till utvecklarsidan")}</Link></Button>}
-          visual={<ApiSketch />}
+          visual={<ApiVisual />}
         />
       </div>
     </section>
