@@ -17,7 +17,9 @@ RUN PAYLOAD_SECRET=build-only DATABASE_URL=postgres://build-only npm run build
 
 FROM base AS runner
 WORKDIR /app
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=8080 HOSTNAME=0.0.0.0
+# SEED_ON_EMPTY=false: an empty database is never filled automatically; set it to true on the
+# service only when starting a new environment on purpose.
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=8080 HOSTNAME=0.0.0.0 SEED_ON_EMPTY=false
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./

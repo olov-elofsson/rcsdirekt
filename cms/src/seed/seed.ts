@@ -1,7 +1,7 @@
-// Fills an empty database with the content the site had before the CMS existed
-// (a copy of src/content/content.json). Each part is imported only while its
-// collection or global is still empty, so an interrupted import finishes on the
-// next start without duplicating what is already there.
+// Fills an empty database from content.json, a copy of the live /api/site-content (November 2026:
+// current prices, the ten shown articles and the start page). Off in production (SEED_ON_EMPTY=false
+// in the Dockerfile). Hidden articles and their redirects are not in the copy. A collection that
+// already has documents is skipped, so an import interrupted halfway must be finished by hand.
 import type { Payload } from 'payload'
 
 import type { SiteContent } from '../lib/site-content-types'
