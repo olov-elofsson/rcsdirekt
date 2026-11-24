@@ -199,8 +199,6 @@ export const en: Record<string, string> = {
   "Välj kundexempel": "Choose a customer example",
   av: "of",
   "Föregående exempel": "Previous example",
-  "Tryck på knapparna i meddelandet och se vad som händer. Fotona kommer från kundcasen, meddelandena är exempel.":
-    "Tap the buttons in the message and see what happens. The photos come from the customer cases; the messages are examples.",
   "Bygg ett eget upplägg för era kunder.": "Build your own setup for your customers.",
 
   // Start page
