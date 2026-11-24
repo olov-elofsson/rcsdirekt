@@ -13,7 +13,8 @@ export const en: Record<string, string> = {
   "Det kostar inget att starta och det finns ingen bindningstid.": "It costs nothing to start and there is no lock-in.",
   "Se priser": "See prices",
   "Kom vidare": "Where to next",
-  "Era meddelanden går via ett ekosystem med": "Your messages travel through an ecosystem with",
+  "Ett ekosystem med": "An ecosystem with",
+  Räckvidd: "Reach",
   "över 800 direktkopplingar": "more than 800 direct connections",
   "till operatörer världen över.": "to operators around the world.",
   // Header, menu and footer

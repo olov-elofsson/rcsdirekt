@@ -21,7 +21,7 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><CustomerExamples /><WaysSection /><CompareSection /><PricingSection /><BlogSection /><Steps /><ContactSection /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><CustomerExamples /><Reach /><WaysSection /><CompareSection /><PricingSection /><BlogSection /><Steps /><ContactSection /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
@@ -68,8 +68,6 @@ function HeroFirst() {
               <ArrowRight aria-hidden className="hidden size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 sm:block" />
             </Link>
           </p>
-          {/* The short accent bar over the heading, as over every section heading. */}
-          <span aria-hidden className="mb-6 block h-1 w-12 rounded-full bg-logo-blue" />
           <h1 className="max-w-3xl text-[2.4rem] font-extrabold leading-[1.06] text-balance text-ink-foreground sm:text-5xl lg:max-w-none lg:text-[3.4rem] lg:text-pretty xl:text-[3.75rem]">
             {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
           </h1>
@@ -128,11 +126,7 @@ function Entrances() {
   return (
     <section id="ingangar" aria-label={t("Kom vidare")} className="bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* The reach in one sentence, the way a statement under the hero carries a number. */}
-        <p data-reveal className="mx-auto max-w-4xl text-center font-display text-[1.55rem] font-extrabold leading-[1.2] text-balance sm:text-[2.35rem]">
-          {t("Era meddelanden går via ett ekosystem med")} <span className="text-logo-blue">{t("över 800 direktkopplingar")}</span> {t("till operatörer världen över.")}
-        </p>
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul className="grid gap-5 md:grid-cols-3">
           {cards.map((card, index) => (
             <li key={card.title} data-reveal style={revealOrder(index)}>
               <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -143,6 +137,20 @@ function Entrances() {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+/** The reach in one sentence on its own white band, large and centred, the way Fortnox states its customer count. */
+function Reach() {
+  const { t } = useT();
+  return (
+    <section id="rackvidd" aria-label={t("Räckvidd")} className="bg-background">
+      <div className="mx-auto max-w-7xl px-5 py-8 sm:py-16 lg:px-8">
+        <p data-reveal className="mx-auto max-w-5xl text-center font-display text-[1.9rem] font-extrabold leading-[1.15] text-balance sm:text-[2.9rem] lg:text-[3.4rem]">
+          {t("Ett ekosystem med")} <span className="text-logo-blue">{t("över 800 direktkopplingar")}</span> {t("till operatörer världen över.")}
+        </p>
       </div>
     </section>
   );
