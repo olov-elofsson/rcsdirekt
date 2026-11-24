@@ -3,7 +3,6 @@ import type { CSSProperties, ReactNode } from "react";
 import { ArrowRight, BadgeCheck, Code2, Images, MessageSquareText, MessagesSquare, MonitorSmartphone, Receipt, Send, UserPlus, type LucideIcon } from "lucide-react";
 
 import { HeroMessage } from "@/components/HeroMessage";
-import { scenarios } from "@/data/customer-examples";
 import { Button } from "@/components/ui/button";
 import { usePriser } from "@/content/localized";
 import { useT } from "@/lib/i18n";
@@ -29,19 +28,6 @@ const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
 
 
-/** Fortnox block 4: one large centred statement with the key part in colour. */
-export function Statement() {
-  const { t, locale } = useT();
-  const names = scenarios.map((scenario) => scenario.customer);
-  const list = `${names.slice(0, -1).join(", ")} ${locale === "en" ? "and" : "och"} ${names.at(-1)}`;
-  return (
-    <section id="kunder" aria-label={t("Kunder")} className="bg-background">
-      <p data-reveal className="mx-auto max-w-4xl px-5 text-center font-display text-[1.5rem] font-extrabold leading-[1.2] text-balance sm:text-[2rem] lg:px-8">
-        <span className="text-logo-blue">{list}</span> {t("skickar RCS med oss.")}
-      </p>
-    </section>
-  );
-}
 
 
 
