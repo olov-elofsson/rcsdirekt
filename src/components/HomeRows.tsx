@@ -114,7 +114,7 @@ export function Entrances() {
   ];
   return (
     <section id="ingangar" aria-label={t("Kom vidare")} className="bg-background">
-      <ul className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-3 lg:px-8">
+      <ul className="mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-3 lg:px-8">
         {cards.map(({ Icon, ...card }, index) => (
           <li key={card.title} data-reveal style={order(index)}>
             <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} className="group flex h-full flex-col items-center rounded-2xl border border-border bg-card px-8 pt-10 pb-9 text-center transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card">
@@ -215,7 +215,7 @@ export function LinkCards() {
   ];
   return (
     <section id="mer" aria-label={t("Mer om RCS")} className="bg-background">
-      <ul className="mx-auto grid max-w-6xl gap-6 px-5 md:grid-cols-3 lg:px-8">
+      <ul className="mx-auto grid max-w-6xl gap-6 px-5 lg:grid-cols-3 lg:px-8">
         {cards.map(({ Icon, ...card }, index) => (
           <li key={card.title} data-reveal style={order(index)} className="flex flex-col rounded-2xl border border-border bg-card p-8">
             <Icon aria-hidden strokeWidth={1.25} className="mx-auto size-16 text-logo-blue" />
@@ -239,7 +239,7 @@ export function PlanBlocks() {
     <section id="pris" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <h2 data-reveal className={centredTitle}>{t("Tre sorters meddelanden")}</h2>
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+        <ul className="mt-12 grid gap-6 lg:grid-cols-3">
           {priser.plans.map((plan, index) => {
             const Icon = icons[index] ?? MessageSquareText;
             return (
