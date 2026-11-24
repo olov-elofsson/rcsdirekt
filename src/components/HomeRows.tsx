@@ -106,13 +106,13 @@ export function Entrances() {
 export function Difference() {
   const { t, lp } = useT();
   return (
-    <section id="rcs-mot-sms" className="scroll-mt-24 bg-background">
+    <section id="rcs-mot-sms" className="scroll-mt-24 bg-muted">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="mb-12">
           <h2 className={sectionHeading}>{t("SMS eller RCS?")}</h2>
           <p className={sectionLead}>{t("Samma besked, två sätt. Med RCS ser kunden ert namn och er logga, och kan svara med ett tryck.")}</p>
         </div>
-        <div data-reveal className="mx-auto flex max-w-3xl justify-center rounded-3xl border border-border bg-primary-soft px-6 py-12 sm:py-14">
+        <div data-reveal className="mx-auto flex max-w-3xl justify-center rounded-3xl border border-border bg-card px-6 py-12 sm:py-14">
           <div className="w-full max-w-[22rem]"><HeroMessage bare /></div>
         </div>
         <div data-reveal className="mt-8 flex justify-center">
