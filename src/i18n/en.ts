@@ -2,6 +2,13 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
+  "Från konto till första utskick i tre steg.": "From account to first campaign in three steps.",
+  "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss.": "Tell us who you are and what you want to send. We activate the account and get in touch.",
+  "Ni skickar namn, logotyp och en kort beskrivning. Avsändaren kontrolleras innan den får skicka.": "You send your name, logo and a short description. The sender is checked before it may send.",
+  "Om verifierad avsändare": "About verified senders",
+  "Bygg meddelandet i webbverktyget eller koppla in ert system via API.": "Build the message in the web tool or connect your system through the API.",
+  "Ni betalar per meddelande. Det kostar inget att starta och det finns ingen bindningstid.": "You pay per message. It costs nothing to start and there is no lock-in.",
+  Från: "From",
   "SMS eller RCS?": "SMS or RCS?",
   "Samma besked, två sätt. Med RCS ser kunden ert namn och er logga, och kan svara med ett tryck.": "The same notice, two ways. With RCS the customer sees your name and logo, and can reply with one tap.",
   "Bygg i webbläsaren": "Build in the browser",

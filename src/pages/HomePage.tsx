@@ -6,8 +6,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CustomerExamples } from "@/components/CustomerExamples";
-import { CtaBox, Entrances, ProductRows, Statement } from "@/components/HomeRows";
-import { FaqSection, PricingSection } from "@/components/HomepageSections";
+import { CtaBox, Difference, Entrances, Plans, Statement, Steps } from "@/components/HomeRows";
+import { FaqSection } from "@/components/HomepageSections";
 import { useReveal } from "@/hooks/use-reveal";
 import { sectionIntro, sectionTitle, sectionTitleCentered } from "@/lib/typography";
 import { useStartsida } from "@/content/localized";
@@ -17,12 +17,11 @@ import { articleList as articleListEn } from "@/content/en/article-list";
 
 // The start page, in Swedish at / and in English at /en; the routes only add their own head.
 
-// A short path from interest to action: hero, proof (customers), three entrances, the product in
-// three rows each with its own action, customer cases, prices with one button per plan, questions
-// and a closing call to action. Section headings are short.
+// Every section continues the hero and the entrance cards: a short centred heading and bordered
+// cards with a large line icon, centred text and one blue link. Then questions and a closing box.
 export function HomePage() {
   const revealReady = useReveal();
-  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Statement /><Entrances /><ProductRows /><CustomerExamples /><PricingSection /><FaqSection /><CtaBox /></main><SiteFooter /></div>;
+  return <div className={cn("home-refined min-h-screen bg-background text-foreground", revealReady && "reveal-ready")}><SiteHeader /><main id="innehall" tabIndex={-1} className="outline-none"><HeroFirst /><Entrances /><Statement /><Difference /><Steps /><CustomerExamples /><Plans /><FaqSection /><CtaBox /></main><SiteFooter /></div>;
 }
 
 // -0.05em: Archivo has about 0.07em of space before straight capitals, the body text far less,
