@@ -12,23 +12,50 @@ import { cn } from "@/lib/utils";
 /* ------------------------------------------------------------------------------------------ */
 /* Från webben eller via API: a sketch of the web tool beside a simplified API request.         */
 
-/** A simplified request: a card with an image, two reply buttons and SMS as the fallback. */
+/** A real request in the API's format, shortened: a card with an image, two reply buttons and an SMS if RCS does not reach the phone. */
 const API_REQUEST = `{
-  "sender": "rcsdirekt",
-  "to": "+46701234567",
-  "card": {
-    "title": "Din tid är bokad",
-    "description": "Tisdag 14 januari kl. 14.00",
-    "media": "https://exempel.se/bild.jpg",
-    "buttons": [
-      { "type": "reply", "text": "Bekräfta" },
-      { "type": "reply", "text": "Boka om" }
-    ]
-  },
-  "fallback": { "sms": "Din tid: tis 14/1 kl. 14.00" }
+  "messages": [{
+    "sender": "Frisorsalongen",
+    "destinations": [{ "to": "46701234567" }],
+    "content": {
+      "type": "CARD",
+      "orientation": "VERTICAL",
+      "alignment": "LEFT",
+      "content": {
+        "title": "Din tid är bokad",
+        "description": "Tisdag 14 januari kl. 14.00",
+        "media": {
+          "file": { "url": "https://exempel.se/bild.jpg" },
+          "height": "MEDIUM"
+        },
+        "suggestions": [
+          { "type": "REPLY", "text": "Bekräfta",
+            "postbackData": "bekrafta" },
+          { "type": "REPLY", "text": "Boka om",
+            "postbackData": "boka-om" }
+        ]
+      }
+    },
+    "options": {
+      "smsFailover": {
+        "sender": "Frisorsalongen",
+        "text": "Din tid: tis 14/1 kl. 14.00"
+      }
+    }
+  }]
 }`;
 
-const API_RESPONSE = `{ "messageId": "a1b2c3", "status": "ACCEPTED" }`;
+const API_RESPONSE = `{
+  "bulkId": "a28dd97c-2222-4fcf",
+  "messages": [{
+    "messageId": "a28dd97c-1ffb-4fcf",
+    "status": {
+      "groupName": "PENDING",
+      "name": "PENDING_ACCEPTED"
+    },
+    "destination": "46701234567"
+  }]
+}`;
 
 /** Light JSON colouring: keys muted, strings bright, punctuation faint. No library. */
 function JsonCode({ code }: { code: string }) {
@@ -46,9 +73,9 @@ function JsonCode({ code }: { code: string }) {
 }
 
 const API_EVENTS: [time: string, status: string, detail: string][] = [
-  ["14:02", "DELIVERED", "Levererat till telefonen"],
-  ["14:05", "SEEN", "Öppnat av mottagaren"],
-  ["14:06", "REPLY", "Svarade Bekräfta"],
+  ["14:02", "DELIVERED_TO_HANDSET", "Leveransrapport"],
+  ["14:05", "SEEN", "Läsrapport"],
+  ["14:06", "SUGGESTION", "Kunden tryckte Bekräfta"],
 ];
 
 /** The API in three steps: the request, the answer and the events that come back. */
@@ -66,16 +93,16 @@ export function ApiSketch() {
       <figcaption className="flex items-center justify-between border-b border-ink-foreground/10 px-4 py-2.5 text-xs text-ink-muted">
         <span className="flex items-center gap-2 font-semibold text-ink-foreground">
           <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono text-[11px]">POST</span>
-          <span className="font-mono">/messages</span>
+          <span className="font-mono">/rcs/2/messages</span>
         </span>
-        <span>Förenklat exempel</span>
+        <span>Exempel, förkortat</span>
       </figcaption>
       <div className="flex-1 px-5 pt-4">
         <p className={step}>1 Anrop</p>
         <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={API_REQUEST} /></pre>
       </div>
       <div className="border-t border-ink-foreground/10 px-5 py-3">
-        <p className={step}>2 Svar <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono normal-case tracking-normal text-ink-foreground">202</span></p>
+        <p className={step}>2 Svar <span className="rounded bg-ink-foreground/15 px-1.5 py-0.5 font-mono normal-case tracking-normal text-ink-foreground">200</span></p>
         <pre className="mt-2 overflow-x-auto text-[12.5px] leading-relaxed"><JsonCode code={API_RESPONSE} /></pre>
       </div>
       <div className="border-t border-ink-foreground/10 px-5 py-3">

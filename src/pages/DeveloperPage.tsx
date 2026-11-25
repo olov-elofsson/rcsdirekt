@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Copy, ExternalLink, Inbox, KeyRound, ListOrdered, MessageSquareReply, Send, ShieldCheck, Activity } from "lucide-react";
+import { ArrowRight, Copy, ExternalLink, Inbox, KeyRound, ListOrdered, Send, ShieldCheck, Activity } from "lucide-react";
 
 import { ArticleCard } from "@/components/ArticleCard";
 import { ApiSketch } from "@/components/HomepageSections";
+import { NumberDrop } from "@/components/NumberDrop";
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -16,9 +17,32 @@ import { cn } from "@/lib/utils";
 
 /** The flow in three steps, as the start page and the guides describe it. */
 const FLOW = [
-  { Icon: Send, title: "Skicka", copy: "Ert system anropar API:t med mottagare och innehåll, till exempel text, ett kort, en karusell eller knappar. Går RCS inte fram kan ni låta det gå som SMS i stället." },
-  { Icon: Activity, title: "Följ status", copy: "Ni får händelser till er webhook när meddelandet har kommit fram, när kunden har öppnat det och när någon trycker på en knapp." },
-  { Icon: MessageSquareReply, title: "Ta emot svar", copy: "Trycker kunden på ett förslag eller skriver något kommer det också som en händelse. Då kan ert system svara i samma tråd." },
+  { title: "Skicka", copy: "Ert system skickar ett POST-anrop med avsändare, mottagare och innehåll: text, en fil, ett kort, en karusell eller en mall. Når RCS inte telefonen kan samma anrop låta meddelandet gå som SMS eller MMS i stället." },
+  { title: "Följ status", copy: "Till er webhook kommer en leveransrapport när meddelandet har nått telefonen och en läsrapport när kunden har öppnat det. Rapporten visar också vilken prisnivå meddelandet fick." },
+  { title: "Ta emot svar", copy: "Trycker kunden på ett förslag kommer en händelse med det postbackData ni satte på knappen. Skriver kunden själv kommer det som ett inkommande meddelande, och ert system kan svara i samma tråd." },
+];
+
+/** The endpoints and webhooks, in the API's own names. */
+const ENDPOINTS: [kind: string, path: string, copy: string][] = [
+  ["POST", "/rcs/2/messages", "Skicka text, fil, kort, karusell eller mall till en eller flera mottagare, högst 10 MB per anrop."],
+  ["POST", "/rcs/2/capability-check/query", "Kolla om upp till 500 nummer kan ta emot RCS från er avsändare. Inför ett utskick fungerar små omgångar om 1 till 10 nummer bäst."],
+  ["Webhook", "Leveransrapport", "Meddelandet har nått telefonen eller misslyckats, med prisnivån i fältet trafficType."],
+  ["Webhook", "Läsrapport", "Kunden har öppnat meddelandet."],
+  ["Webhook", "Händelse", "Kunden har tryckt på ett förslag. Ni får texten och ert postbackData."],
+  ["Webhook", "Inkommande meddelande", "Kunden har skrivit något eller skickat en fil eller plats."],
+  ["Webhook", "Samtal startat", "Kunden har svarat inom 24 timmar, och meddelandena räknas nu som ett samtal."],
+];
+
+/** Limits worth knowing before the first request. */
+const LIMITS = [
+  "En text får vara upp till 3 072 tecken.",
+  "En fil får vara upp till 100 MB, och länken till den upp till 2 048 tecken.",
+  "Ett meddelande kan ha upp till 11 förslag, som svar, länkar eller telefonnummer.",
+  "Giltighetstiden kan sättas från 10 sekunder till 48 timmar. Därefter försöker API:t inte längre leverera.",
+  "Reserven är SMS eller MMS, inte båda.",
+  "Ett leveransfönster styr vilka dagar och klockslag meddelanden får gå ut.",
+  "En text utan förslag räknas som Basic. Lägger ni till ett svarsförslag blir samma text Single.",
+  "Filer som kunden skickar till er finns kvar i 60 dagar.",
 ];
 
 /** What a working integration handles, each point backed by a guide on the site. */
@@ -51,11 +75,11 @@ export function DeveloperPage() {
             <div>
               <h2 className={sectionTitle}>Så fungerar flödet</h2>
               <ol className="mt-8 grid gap-6">
-                {FLOW.map(({ Icon, title: heading, copy }, index) => (
-                  <li key={heading} className="grid grid-cols-[2.75rem_1fr] gap-4">
-                    <span aria-hidden className="grid size-11 place-items-center rounded-xl bg-primary-soft text-logo-blue"><Icon strokeWidth={2} className="size-5" /></span>
+                {FLOW.map(({ title: heading, copy }, index) => (
+                  <li key={heading} className="grid grid-cols-[2.5rem_1fr] gap-4">
+                    <NumberDrop n={index + 1} />
                     <div>
-                      <h3 className="text-lg font-extrabold"><span className="text-muted-foreground tabular-nums">{index + 1}.</span> {heading}</h3>
+                      <h3 className="pt-2 text-lg font-extrabold">{heading}</h3>
                       <p className="mt-1.5 leading-relaxed text-pretty text-muted-foreground">{copy}</p>
                     </div>
                   </li>
@@ -63,6 +87,32 @@ export function DeveloperPage() {
               </ol>
             </div>
             <ApiSketch />
+          </div>
+        </section>
+
+        <section className="bg-muted py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <h2 className={sectionTitle}>Anrop och webhooks</h2>
+            <p className={sectionIntro}>Anropen autentiseras med en API-nyckel i huvudet Authorization. Adressen och nyckeln får ni när kontot är aktiverat, och webhookarna pekar ni mot er egen server.</p>
+            <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+              <ul className="divide-y divide-border rounded-2xl border border-border bg-card">
+                {ENDPOINTS.map(([kind, path, copy]) => (
+                  <li key={path} className="grid gap-1.5 px-5 py-4 sm:grid-cols-[18rem_1fr] sm:gap-6 sm:px-6">
+                    <p className="flex items-center gap-2 text-sm font-semibold">
+                      <span className="rounded bg-primary-soft px-1.5 py-0.5 font-mono text-[11px]">{kind}</span>
+                      <span className={kind === "POST" ? "font-mono text-[13px] break-all" : ""}>{path}</span>
+                    </p>
+                    <p className="text-sm leading-relaxed text-pretty text-muted-foreground">{copy}</p>
+                  </li>
+                ))}
+              </ul>
+              <div className="rounded-2xl border border-border bg-card px-5 py-5 sm:px-6">
+                <h3 className="text-lg font-extrabold">Bra att veta</h3>
+                <ul className="mt-3 grid gap-2.5 text-sm leading-relaxed text-pretty text-muted-foreground">
+                  {LIMITS.map((limit) => <li key={limit} className="border-t border-border pt-2.5 first:border-t-0 first:pt-0">{limit}</li>)}
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
