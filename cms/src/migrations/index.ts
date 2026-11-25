@@ -53,6 +53,7 @@ import * as migration_20261123_120000_webinar_february from './20261123_120000_w
 import * as migration_20261124_100000_sentence_headings from './20261124_100000_sentence_headings';
 import * as migration_20261124_110000_short_pricing_heading from './20261124_110000_short_pricing_heading';
 import * as migration_20261125_100000_short_hero from './20261125_100000_short_hero';
+import * as migration_20261125_110000_clearer_articles from './20261125_110000_clearer_articles';
 
 export const migrations = [
   {
@@ -331,5 +332,10 @@ export const migrations = [
     up: migration_20261125_100000_short_hero.up,
     down: migration_20261125_100000_short_hero.down,
     name: '20261125_100000_short_hero',
+  },
+  {
+    up: migration_20261125_110000_clearer_articles.up,
+    down: migration_20261125_110000_clearer_articles.down,
+    name: '20261125_110000_clearer_articles',
   },
 ];

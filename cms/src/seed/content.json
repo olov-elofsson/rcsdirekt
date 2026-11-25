@@ -1598,7 +1598,7 @@
       {
         "slug": "vad-ar-rcs",
         "title": "Vad är RCS?",
-        "description": "RCS är en meddelandestandard som låter dig skicka text, bilder och filer via internet i telefonens meddelandeapp. Namnet står för Rich Communication Services. Du behöver alltså inte en särskild RCS-app.",
+        "description": "RCS är en meddelandestandard som låter dig skicka text, bilder och filer via internet i telefonens vanliga meddelandeapp. Namnet står för Rich Communication Services, och du behöver ingen särskild app för att använda det.",
         "category": "Grunder",
         "keywords": [
           "vad är rcs",
@@ -1615,7 +1615,8 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "När båda deltagarna har stöd kan chatten visa läskvitton och när den andra personen skriver. Samma app kan också skicka SMS eller MMS, så alla meddelanden i den använder inte nödvändigtvis RCS.",
+              "RCS står för Rich Communication Services, en standard för meddelanden som går över wifi eller mobildata. Den gemensamma tekniska grunden heter Universal Profile och tas fram av GSMA, mobiloperatörernas branschorganisation.",
+              "När både du och den du skriver till har stöd kan chatten visa läskvitton och när den andra personen skriver. Samma app kan också skicka SMS eller MMS, så alla meddelanden i den går inte nödvändigtvis som RCS. Ett exempel: ett foto till en vän med RCS påslaget visar när hon har läst det, medan samma foto till någon utan stöd går som MMS och utan läskvitto.",
               "Företag kan använda en registrerad avsändare med namn och logotyp och skicka bilder eller svarsknappar. Den tjänsten har egna krav på registrering och räckvidd. Ett privat RCS-samtal och ett företagsutskick behöver därför bedömas var för sig."
             ],
             "points": [],
@@ -1634,7 +1635,8 @@
             "id": "fordjupning",
             "title": "Vad märker mottagaren?",
             "paragraphs": [
-              "Du kan börja ett samtal i den vanliga inkorgen och ändå få olika funktioner beroende på vem du skriver till. Därför är RCS bäst förstått som sättet meddelandet transporteras och visas, inte som en ny kontaktlista. För företag tillkommer en registrerad profil och ett system som hanterar utskick och svar. Kunden behöver inte installera företagets egen app för att läsa meddelandet."
+              "Du kan börja ett samtal i den vanliga inkorgen och ändå få olika funktioner beroende på vem du skriver till. Kontakterna och inkorgen är desamma, och RCS ändrar sättet meddelandet skickas och visas på. På iPhone kan både RCS och SMS visas med gröna bubblor, så titta på texten i samtalet för att se vilken kanal som används.",
+              "För företag tillkommer en registrerad profil och ett system som hanterar utskick och svar. Kunden behöver inte installera företagets egen app för att läsa meddelandet, och i Google Meddelanden kan kunden blockera en företagsavsändare."
             ],
             "points": [],
             "sources": [
@@ -1645,7 +1647,8 @@
               "security",
               "apple",
               "capabilities",
-              "practice"
+              "practice",
+              "apple-channels"
             ]
           }
         ],
@@ -1658,7 +1661,7 @@
       {
         "slug": "rcs-vs-sms",
         "title": "Vad skiljer RCS från SMS och MMS?",
-        "description": "SMS är textmeddelanden via mobilnätet. MMS kan även innehålla bilder. RCS använder wifi eller mobildata och kan ge bättre mediedelning, läskvitton och interaktiva företagsmeddelanden.",
+        "description": "SMS är textmeddelanden som skickas via mobilnätet, och MMS kan även innehålla bilder. RCS går över wifi eller mobildata och kan ge bättre mediedelning, läskvitton och företagsmeddelanden med bilder och knappar.",
         "category": "Grunder",
         "keywords": [
           "rcs vs SMS",
@@ -1674,8 +1677,9 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Alla tre kan visas i samma app, utan någon ny inkorg. Skillnaden märks först när du skickar innehåll eller läser status.",
-              "Ett enskilt SMS rymmer normalt 160 GSM-7-tecken. Andra tecken eller längre text kan ge flera delar. För företag som vill använda SMS när RCS inte fungerar behövs en bekräftad reservlösning och en separat SMS-text."
+              "Alla tre kan visas i samma app, utan någon ny inkorg. Skillnaden märks först när du skickar något annat än kort text, eller när du vill veta om meddelandet har kommit fram och lästs.",
+              "Ett enskilt SMS rymmer normalt 160 tecken ur teckenuppsättningen GSM-7. Andra tecken, till exempel emojier, eller längre text kan dela upp meddelandet i flera delar. RCS går över wifi eller mobildata och kan därför visa läskvitton och skicka bilder, kort och knappar, om mottagaren har stöd.",
+              "Ett företag som vill skicka SMS när RCS inte fungerar behöver en reservlösning, ofta kallad fallback. Den ska vara bekräftad med leverantören, och SMS-versionen behöver en egen text eftersom bilder och knappar inte följer med."
             ],
             "points": [],
             "sources": [
@@ -1694,7 +1698,8 @@
             "id": "fordjupning",
             "title": "Välj kanal efter uppgiften",
             "paragraphs": [
-              "Ett kort besked utan bild eller svarsalternativ kan fungera bra som SMS. RCS blir mer intressant när kunden behöver se något eller göra ett tydligt val direkt i meddelandet. Jämför därför samma uppgift i båda kanalerna. Om RCS-versionen visar tre produkter behöver SMS-versionen kanske länka till en sida där samma produkter kan jämföras, inte försöka återge hela karusellen i text."
+              "Ett kort besked utan bild eller svarsalternativ, som att paketet har kommit till ombudet, kan fungera bra som SMS. RCS blir mer intressant när kunden behöver se något eller göra ett tydligt val direkt i meddelandet, till exempel i ett kort med bild och knappar eller en karusell med flera kort.",
+              "Jämför därför samma uppgift i båda kanalerna. Om RCS-versionen visar tre jackor i en karusell kan SMS-versionen länka till en sida där samma jackor går att jämföra, i stället för att försöka återge karusellen i text."
             ],
             "points": [],
             "sources": [
@@ -1718,7 +1723,7 @@
       {
         "slug": "rcs-for-foretag",
         "title": "Vad är RCS för företag?",
-        "description": "RCS för företag låter en registrerad avsändare skicka besked med företagsprofil, bilder och valbara svar i kundens meddelandeapp. Det kallas ofta RCS Business Messaging, RBM.",
+        "description": "RCS för företag låter en registrerad avsändare skicka meddelanden med företagsprofil, bilder och valbara svar i kundens vanliga meddelandeapp. Det kallas ofta RCS Business Messaging, eller RBM.",
         "category": "Företag",
         "keywords": [
           "rcs för företag",
@@ -1735,8 +1740,9 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "En webbutik kan låta ordersystemet skicka ett leveransbesked med en spårningsknapp. Ett webbgränssnitt passar i stället när en person vill skapa ett utskick manuellt. RCS är kanalen; orderstatusen och hanteringen av kundsvar finns i företagets egna system.",
-              "Innan utskick behöver avsändaren vara godkänd och tjänsten kunna nå kunderna. Registreringen ger inte rätt att marknadsföra till vem som helst. Kontaktregler och eventuell SMS-reserv behöver också vara ordnade."
+              "I Googles modell kallas avsändaren en agent, med varumärkes- och kontaktuppgifter som kunden ser. Ordet kan låta som en chattbot, men agenten är bara den registrerade avsändaren, och vad den gör styrs av företagets egna system.",
+              "En webbutik kan låta ordersystemet skicka ett leveransbesked med en spårningsknapp. Ett webbgränssnitt passar i stället när en person vill skapa ett utskick för hand. RCS är kanalen, medan orderstatusen och hanteringen av kundsvar finns i företagets egna system, dit svar och händelser skickas via en webhook.",
+              "Innan utskick behöver avsändaren vara godkänd. Google kontrollerar varumärket och att partnern får hantera avsändaren, och det går att kontrollera i förväg om ett visst nummer kan ta emot RCS från den. Registreringen ger ingen rätt att marknadsföra till vem som helst, så kontaktregler och en eventuell SMS-reserv behöver också vara ordnade."
             ],
             "points": [],
             "sources": [
@@ -1756,7 +1762,8 @@
             "id": "fordjupning",
             "title": "Kanalen behöver ett sammanhang",
             "paragraphs": [
-              "Ett företagsmeddelande är användbart när det hör ihop med något kunden redan förstår: en beställning, en bokning eller en fråga. Planera även vem som äger nästa steg. Ett svar om ändrad leverans ska nå leveranshanteringen, inte fastna i en separat inkorg. Att välja RCS löser visningen i telefonen; rutinen bakom beskedet avgör om kunden faktiskt får hjälp."
+              "Ett företagsmeddelande är användbart när det hör ihop med något kunden redan förstår: en beställning, en bokning eller en fråga. Google rekommenderar relevanta meddelanden och tydliga val, men det är vägledning och inga uppmätta resultat, så effekten behöver du följa själv.",
+              "Planera även vem som äger nästa steg. Trycker kunden på en knapp för att ändra leveransdag ska svaret nå leveranshanteringen och inte fastna i en separat inkorg. Kunden kan också skriva fritt eller skicka en bild, så rutinen behöver klara mer än knapparna."
             ],
             "points": [],
             "sources": [
@@ -1769,7 +1776,8 @@
               "practice",
               "send",
               "webhooks",
-              "capabilities"
+              "capabilities",
+              "receive"
             ]
           }
         ],
@@ -1781,7 +1789,7 @@
       {
         "slug": "verifierad-avsandare",
         "title": "Vad betyder verifierad avsändare?",
-        "description": "Verifieringen kontrollerar kopplingen mellan RCS-avsändaren och varumärket den företräder. I Google Meddelanden kan kunden se företagsnamn, logotyp och en verifieringsmarkering.",
+        "description": "Verifieringen kontrollerar att RCS-avsändaren hör ihop med varumärket den företräder. I Google Meddelanden ser kunden då företagets namn, logotyp och en verifieringsmarkering.",
         "category": "Företag",
         "keywords": [
           "verifierad avsändare rcs",
@@ -1797,29 +1805,32 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "I Googles process bekräftar en behörig representant uppgifterna och att partnern får hantera avsändaren. Det görs före lansering. Fråga er partner vilka underlag som behövs och vilka marknader godkännandet gäller.",
-              "Märkningen hjälper kunden att känna igen företaget, men är ingen kvalitetsstämpel för varje erbjudande eller länk. Den säger heller inget om end-to-end-kryptering. En oväntad begäran om betalning eller känsliga uppgifter bör fortfarande kontrolleras."
+              "I Googles process bekräftar en behörig representant för varumärket uppgifterna och att partnern, alltså företaget som sköter avsändaren tekniskt, får hantera den. Det görs före lansering. Fråga din partner vilka underlag som behövs och vilka marknader godkännandet gäller.",
+              "Enligt leverantören Bandwidth får en verifierad avsändare en bock efter namnet i Google Meddelanden. Märkningen hjälper kunden att känna igen företaget men intygar inte varje erbjudande eller länk, och den säger inget om end-to-end-kryptering. En oväntad begäran om betalning eller känsliga uppgifter bör du fortfarande kontrollera på annat sätt."
             ],
             "points": [],
             "sources": [
               "business",
               "verification",
               "agent",
-              "security"
+              "security",
+              "google-messages-logo-2026"
             ]
           },
           {
             "id": "fordjupning",
             "title": "Igenkänning utan falsk trygghet",
             "paragraphs": [
-              "Profilens namn bör vara det kunden känner igen från köpet. Ett okänt koncernnamn kan skapa osäkerhet även när det är korrekt registrerat. Håll logotyp, kontaktvägar och länkdomäner konsekventa. Om varumärket ändras behöver uppgifterna ses över med partnern. Kunden ska kunna kontrollera avsändaren genom en oberoende kontaktväg, särskilt när meddelandet gäller pengar eller kontouppgifter."
+              "Profilens namn bör vara det kunden känner igen från köpet. Har kunden handlat i en butik som heter något annat än koncernen som äger den, kan koncernnamnet skapa osäkerhet även när det är korrekt registrerat.",
+              "Håll logotyp, kontaktvägar och länkdomäner konsekventa, och se över uppgifterna med partnern om varumärket ändras. Enligt Bandwidth ska logotypen nu vara 224 × 224 pixlar med enfärgad bakgrund och visas som en rundad kvadrat, och alla logotyper ska vara uppdaterade senast den 1 juni 2027. Kunden ska kunna kontrollera avsändaren genom en oberoende kontaktväg, till exempel numret på er webbplats, särskilt när meddelandet gäller pengar eller kontouppgifter."
             ],
             "points": [],
             "sources": [
               "business",
               "verification",
               "agent",
-              "security"
+              "security",
+              "google-messages-logo-2026"
             ]
           }
         ],
@@ -1831,7 +1842,7 @@
       {
         "slug": "rcs-api-webhooks",
         "title": "Hur fungerar RCS API och webhooks?",
-        "description": "Ett RCS API låter era system begära ett utskick. Webhooks tar emot senare händelser som leverans, lässtatus och kundsvar. Att API:et accepterat begäran betyder ännu inte att telefonen fått meddelandet.",
+        "description": "Med ett RCS API kan dina system begära ett utskick, och via webhooks får de senare veta vad som hände: leverans, läsning och kundens svar. Att API:et har tagit emot begäran betyder ännu inte att telefonen har fått meddelandet.",
         "category": "Teknik",
         "keywords": [
           "rcs api",
@@ -1848,8 +1859,9 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Spara meddelandets identifierare tillsammans med ordern eller ärendet. När en händelse kommer tillbaka går det då att uppdatera rätt post. Kontrollera webhook-anropets ursprung innan händelsen behandlas.",
-              "Adresser, fält och autentisering beror på leverantören. Använd dokumentationen för tjänsten ni kopplar till. Ska SMS vara reserv behöver integrationen även veta när det får skickas och hur väntande RCS hanteras utan dubbla besked."
+              "Ett API är det gränssnitt ditt ordersystem anropar för att be leverantören skicka ett meddelande. En webhook går åt andra hållet: en adress i ditt system som leverantören anropar när något händer. Google skiljer till exempel på händelserna DELIVERED, levererat, och READ, läst.",
+              "Spara meddelandets identifierare tillsammans med ordern eller ärendet, så går det att uppdatera rätt post när en händelse kommer tillbaka. Kontrollera webhook-anropets ursprung innan händelsen behandlas, och se till att samma händelse kan komma två gånger utan att ärendet ändras två gånger.",
+              "Adresser, fält och autentisering beror på leverantören, så utgå från dokumentationen för tjänsten du kopplar till. Ska SMS vara reserv behöver integrationen också veta när det får skickas och hur väntande RCS hanteras utan dubbla besked."
             ],
             "points": [],
             "sources": [
@@ -1865,7 +1877,8 @@
             "id": "fordjupning",
             "title": "Två riktningar i samma flöde",
             "paragraphs": [
-              "Utskicket och svaret lever olika länge. Ett orderprogram kan begära meddelandet nu medan telefonens leveransrapport kommer senare. Integrationen behöver därför kunna hitta samma order utan att det ursprungliga anropet fortfarande är öppet. Beskriv vad varje status får ändra och vad som ska hända om en händelse saknas. Det gör felsökningen betydligt tydligare än en enda etikett som säger skickat."
+              "Utskicket och svaret lever olika länge. Ordersystemet kan begära ett leveransbesked klockan 14, medan leveransrapporten kommer senare och kundens svar kanske nästa morgon. Integrationen behöver därför hitta samma order utan att det ursprungliga anropet är öppet.",
+              "Beskriv vad varje status får ändra och vad som ska hända om en händelse saknas. Det gör felsökningen betydligt tydligare än en enda etikett som säger skickat. Räkna också med att kunden kan svara med fri text eller en bild, även om meddelandet bara hade knappar."
             ],
             "points": [],
             "sources": [
@@ -1874,7 +1887,8 @@
               "capabilities",
               "webhooks",
               "chat",
-              "practice"
+              "practice",
+              "receive"
             ]
           }
         ],
@@ -1886,7 +1900,7 @@
       {
         "slug": "rcs-pa-iphone",
         "title": "Vad krävs för RCS på iPhone?",
-        "description": "RCS kan användas i iPhones app Meddelanden från iOS 18, men operatören måste också ha stöd. I Sverige har Tele2 och Comviq öppnat för alla kunder, och Tre och Hallon testar.",
+        "description": "RCS fungerar i iPhones app Meddelanden från iOS 18, men din operatör måste också ha stöd. I Sverige har Tele2 och Comviq öppnat för alla kunder, och hos Tre och Hallon fungerar det i en testversion av iOS.",
         "category": "Grunder",
         "keywords": [
           "rcs iphone",
@@ -1901,21 +1915,24 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Leta under Inställningar, Appar, Meddelanden efter RCS-meddelanden. Om valet saknas, fråga operatören om just din linje. När det fungerar kan ett samtal med Android få bättre bilddelning och läskvitton.",
-              "Kontrollera kanaltexten i själva samtalet. Gröna bubblor kan vara både RCS och SMS. Företag som vill nå iPhone behöver dessutom testa sin registrerade avsändare; privat chatt visar inte hela företagsräckvidden."
+              "För att använda RCS på iPhone behövs två saker. Telefonen måste ha iOS 18 eller senare, och din operatör måste ha öppnat för RCS. Det räcker alltså inte att uppdatera telefonen om operatören inte är med.",
+              "Så kontrollerar du: öppna Inställningar, välj Appar och sedan Meddelanden. Där ska det finnas ett val som heter RCS-meddelanden. Saknas det, fråga operatören om just din linje. När det fungerar kan ett samtal med någon som har Android få bättre bilddelning och läskvitton.",
+              "Vilken kanal ett samtal använder ser du i texten i själva samtalet. Gröna bubblor kan vara både RCS och SMS, så färgen säger inget om det. Blå bubblor är iMessage.",
+              "Skickar du för ett företag och vill nå kunder med iPhone behöver du dessutom testa din registrerade avsändare. Att två privatpersoner kan chatta med RCS visar inte att ett företagsutskick når samma telefoner."
             ],
             "points": [],
             "sources": [
               "apple",
-              "capabilities"
+              "capabilities",
+              "apple-channels"
             ]
           },
           {
             "id": "operatorer",
             "title": "Vilka operatörer har RCS på iPhone i Sverige?",
             "paragraphs": [
-              "Läget i november 2026: Tele2 och Comviq har öppnat RCS på iPhone för alla sina kunder. Hos Tre fungerar det i testversionen av iOS 27.3, som Apple släppte 3 november, och det har också testats med Hallon. Det kan komma till alla kunder med den färdiga uppdateringen, men operatörerna har inte bekräftat när. Telia och Telenor har inte bekräftat något stöd än.",
-              "Använder du en vanlig iOS-version får du vänta på den uppdateringen. Det är sällan värt att installera en testversion bara för RCS. Listan ändras när fler operatörer kommer till, och det säkraste beskedet för just din linje står på operatörens egen supportsida."
+              "Läget i november 2026: Tele2 och Comviq har öppnat RCS på iPhone för alla sina kunder. Hos Tre fungerar det i testversionen av iOS 27.3, som Apple släppte den 3 november, och det har också testats med Hallon. Det kan komma till alla kunder med den färdiga uppdateringen, men operatörerna har inte bekräftat när. Telia och Telenor har inte bekräftat något stöd än.",
+              "Använder du en vanlig iOS-version får du vänta på den färdiga uppdateringen. Testversioner av iOS är gjorda för utvecklare och kan innehålla fel, så det är sällan värt att installera en bara för RCS. Listan ändras när fler operatörer kommer till, och det säkraste beskedet för din linje står på operatörens egen supportsida."
             ],
             "points": [
               "Tele2: öppet för alla kunder",
@@ -1935,7 +1952,9 @@
             "id": "fordjupning",
             "title": "Testa ett verkligt samtal",
             "paragraphs": [
-              "När inställningen finns, öppna en konversation med någon som har bekräftat RCS och kontrollera kanaltexten innan du skickar. Ett lyckat bildmeddelande är inte ensamt bevis eftersom även MMS kan bära bilder. Om RCS saknas, notera iOS-version och vilken linje som används. För en företagsavsändare krävs dessutom ett separat test från just den agenten, inte bara mellan två privata telefoner."
+              "När inställningen finns kan du göra ett enkelt test. Öppna en konversation med någon som vet att hen har RCS, till exempel en vän med en Android-telefon där RCS är påslaget, och titta på kanaltexten innan du skickar.",
+              "Att en bild kommer fram bevisar inte att RCS används, eftersom MMS också kan bära bilder. Kanaltexten i samtalet är ett säkrare tecken. Fungerar det inte, skriv upp vilken iOS-version telefonen har och vilken linje du använder, så blir det lättare för operatörens support att svara.",
+              "För en företagsavsändare krävs ett eget test från just den avsändaren, eftersom ett test mellan två privata telefoner inte säger något om den. Inför ett utskick kan leverantören också göra en kapabilitetskontroll, som visar om ett visst telefonnummer kan ta emot RCS från avsändaren och vilka funktioner som stöds."
             ],
             "points": [],
             "sources": [
@@ -1951,7 +1970,7 @@
       {
         "slug": "vad-kostar-rcs",
         "title": "Vad kostar RCS?",
-        "description": "Privat RCS använder wifi eller mobildata. Kostnaden följer därför din uppkoppling. Företagsutskick har en separat prissättning hos tjänsten som skickar dem.",
+        "description": "Privat RCS går över wifi eller mobildata, så kostnaden följer din uppkoppling. Företagsutskick har en egen prissättning hos tjänsten som skickar dem, och hos rcsdirekt.se betalar du per meddelande.",
         "category": "Grunder",
         "keywords": [
           "vad kostar rcs",
@@ -1966,8 +1985,9 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Hos rcsdirekt.se kostar Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK per meddelande. Du betalar per meddelande utan månadsavgift eller bindningstid.",
-              "Räkna antalet meddelanden per typ när du uppskattar ett utskick. Kontrollera separat vad eventuell SMS-reserv kostar och ta med integration och hantering om du vill beräkna hela projektkostnaden."
+              "Privata RCS-meddelanden går över wifi eller mobildata, så de räknas mot din surfmängd när du inte är på wifi. För företag debiterar operatörerna RCS i nivåer efter vad meddelandet innehåller.",
+              "Hos rcsdirekt.se kostar Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK per meddelande, exklusive moms. Basic är text upp till 160 tecken, Single har bild, knappar eller längre text, och Conversation gäller när kunden svarar och ni skriver fram och tillbaka, vanligtvis inom 24 timmar. Du betalar per meddelande utan månadsavgift eller bindningstid.",
+              "Räkna antalet meddelanden per typ när du uppskattar ett utskick. 1 000 Basic-meddelanden kostar till exempel från 316 kronor. Kontrollera separat vad en eventuell SMS-reserv kostar och ta med integration och hantering om du vill beräkna hela projektkostnaden."
             ],
             "points": [],
             "sources": [
@@ -1980,7 +2000,8 @@
             "id": "fordjupning",
             "title": "Räkna på det som ska skickas",
             "paragraphs": [
-              "Två projekt med samma antal kunder kan ha olika kostnad om det ena skickar ett besked och det andra flera uppföljningar. Gör därför budgeten utifrån meddelanden, inte bara kontaktlistans storlek. Skilj också kanalens pris från arbetet med att ta fram innehåll och ansluta ordersystem. En eventuell reservkanal ska räknas separat så att kostnaden inte döljs i ett genomsnitt."
+              "Två projekt med lika många kunder kan kosta olika mycket om det ena skickar ett besked och det andra en påminnelse och två uppföljningar. Gör därför budgeten utifrån meddelanden, inte bara kontaktlistans storlek.",
+              "Skilj också kanalens pris från arbetet med att ta fram innehåll och ansluta ordersystemet. En eventuell reservkanal ska räknas för sig, så att kostnaden inte döljs i ett genomsnitt."
             ],
             "points": [],
             "sources": [
@@ -1998,7 +2019,7 @@
       {
         "slug": "rcs-gdpr-samtycke",
         "title": "Vilka regler gäller för RCS-utskick?",
-        "description": "Företaget ansvarar för personuppgifter och kontaktregler även när utskicket använder RCS. Telefonnummer, svar och leveransdata kan vara personuppgifter om de går att koppla till en person.",
+        "description": "Företaget ansvarar för personuppgifterna och för reglerna om marknadsföring även när utskicket går som RCS. Telefonnummer, svar och leveransdata kan vara personuppgifter om de går att koppla till en person.",
         "category": "Företag",
         "keywords": [
           "rcs gdpr",
@@ -2013,21 +2034,25 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "GDPR:s rättsliga grund för behandlingen och reglerna om marknadsföringskontakt är skilda frågor. En bokningsbekräftelse och ett reklamerbjudande behöver därför bedömas efter sina respektive syften.",
-              "Informera mottagaren och begränsa vad ni sparar och hur länge. Avregistrering behöver fungera i systemen som styr utskicken. Låt en dataskyddskunnig rådgivare bedöma ert upplägg; denna översikt ersätter inte juridisk rådgivning."
+              "Ett nytt meddelandeformat ändrar inte kraven. GDPR gäller hur du behandlar personuppgifter som telefonnummer och svar, och marknadsföringslagen gäller själva reklamen. Konsumentverket beskriver bland annat att reklam ska gå att känna igen som reklam och inte får vara vilseledande.",
+              "GDPR:s rättsliga grund och reglerna om marknadsföringskontakt är skilda frågor. En bokningsbekräftelse och ett reklamerbjudande behöver därför bedömas var för sig, efter vad de är till för.",
+              "Informera mottagaren och begränsa vad du sparar och hur länge. Enligt Integritetsskyddsmyndigheten kan en person alltid invända mot att hens uppgifter används för direktmarknadsföring, och en sådan invändning eller avregistrering måste få effekt i systemen som styr utskicken. Låt en dataskyddskunnig rådgivare bedöma ditt upplägg; den här översikten ersätter inte juridisk rådgivning."
             ],
             "points": [],
             "sources": [
               "practice",
               "features",
-              "events"
+              "events",
+              "marketing-law",
+              "imy-objection"
             ]
           },
           {
             "id": "fordjupning",
             "title": "Skilj på ändamålen",
             "paragraphs": [
-              "Samma telefonnummer kan finnas i både ett bokningsregister och en kampanjlista utan att användningen är densamma. Dokumentera varför uppgiften behövs i respektive flöde och hur mottagarens val slår igenom. En teknisk leveranskvittens kan användas för felsökning men ska inte automatiskt bli ett nytt marknadsföringsunderlag. Bedömning av rättslig grund, information och kontaktregler måste göras för den verkliga behandlingen."
+              "Samma telefonnummer kan finnas i både ett bokningsregister och en kampanjlista utan att användningen är densamma. En frisörsalongs påminnelse dagen före en bokad tid hör till bokningen, medan ett erbjudande till samma nummer är marknadsföring.",
+              "Dokumentera varför uppgiften behövs i respektive flöde och hur mottagarens val slår igenom, så att ett nej till erbjudanden inte stoppar påminnelserna. En teknisk leveranskvittens kan användas för felsökning men ska inte automatiskt bli ett nytt marknadsföringsunderlag. Bedömningen av rättslig grund, information och kontaktregler måste göras för den verkliga behandlingen."
             ],
             "points": [],
             "sources": [
@@ -2044,7 +2069,7 @@
       {
         "slug": "rcs-basic-single-conversation",
         "title": "Vad betyder Basic, Single och Conversation?",
-        "description": "Basic, Single och Conversation är meddelandetyper i företags-RCS, inte abonnemangsplaner. De beskriver olika slags innehåll och dialog.",
+        "description": "Basic, Single och Conversation är de nivåer som operatörerna debiterar RCS för företag efter. De beskriver vad meddelandet innehåller och om kunden svarar, och de är inga abonnemang.",
         "category": "Meddelandedesign",
         "keywords": [
           "rcs basic",
@@ -2060,8 +2085,8 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Basic används för enklare textbesked. Single kan vara ett rikt meddelande med media eller kort. Conversation är inriktat på ett samtal där kunden och företaget utbyter meddelanden.",
-              "Leverantörens definitioner avgör gränser, tidsfönster och debitering. Be om de villkoren innan ni räknar på ett flöde; en synlig svarsknapp avgör inte ensam hur det faktureras."
+              "Nivån bestäms för varje meddelande, så samma företag kan skicka alla tre. Basic är ren text upp till 160 tecken, till exempel en orderbekräftelse. Single har bild, video, knappar eller text längre än 160 tecken, som ett kort med bild och rubrik eller en karusell. Conversation börjar när kunden svarar, och sedan skriver ni fram och tillbaka under ett tidsfönster som vanligtvis är 24 timmar.",
+              "Leverantörens och operatörernas villkor avgör gränser, tidsfönster och debitering. Be om dem innan du räknar på ett flöde, eftersom en synlig svarsknapp inte ensam avgör hur meddelandet faktureras."
             ],
             "points": [],
             "sources": [
@@ -2074,7 +2099,8 @@
             "id": "fordjupning",
             "title": "Utgå från det verkliga innehållet",
             "paragraphs": [
-              "Börja med att rita kundens flöde: ett kort besked, ett rikt utskick eller ett samtal med flera steg. Fråga sedan hur leverantören klassificerar varje del. Namnen ska inte behandlas som nivåer där dyrast alltid är bäst. En enkel orderstatus kan klara sig med text, medan ett produktval behöver media. Debiteringsreglerna måste bekräftas separat från de tekniska möjligheterna."
+              "Börja med att rita kundens flöde: ett kort besked, ett rikt utskick eller ett samtal med flera steg. Fråga sedan hur leverantören klassificerar varje del. En tandläkares påminnelse i ren text blir till exempel Basic, med en knapp för att boka om blir den Single, och svarar patienten börjar en Conversation.",
+              "Se inte nivåerna som en trappa där den dyraste alltid är bäst. En enkel orderstatus kan klara sig med text, medan ett produktval behöver media. Debiteringsreglerna måste bekräftas separat från de tekniska möjligheterna."
             ],
             "points": [],
             "sources": [
@@ -2091,7 +2117,7 @@
       {
         "slug": "rcs-sverige-operatorer",
         "title": "Vilka svenska operatörer stöder RCS?",
-        "description": "Tele2 och Comviq uppger att RCS fungerar på både iPhone och Android. För andra svenska operatörer behöver du fråga om stödet för ditt abonnemang och din telefon.",
+        "description": "Tele2 och Comviq uppger att RCS fungerar på både iPhone och Android. Hos andra svenska operatörer behöver du fråga om stödet för ditt abonnemang och din telefon.",
         "category": "Mobil & operatörer",
         "keywords": [
           "rcs operatörer sverige tillgänglighet"
@@ -2104,6 +2130,7 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
+              "Tele2 och Comviq beskriver RCS för iPhone och Android på sina supportsidor. Enligt Hurbra.se fungerar RCS på iPhone även hos Tre i den första testversionen av iOS 27.3, och det har testats med Hallon, men operatörerna har inte bekräftat när alla kunder får det.",
               "Apples operatörslista och operatörernas egna supportsidor ger inte samma besked: den 1 november 2026 saknade Sveriges avsnitt hos Apple RCS-markeringar, trots Tele2s och Comviqs uppgifter om iPhone-stöd. Därför går det inte att ge ett säkert svar för hela Sverige utifrån den listan.",
               "Ska ett företag skicka RCS behövs en annan kontroll. Leverantören måste kunna nå kunderna från företagets registrerade avsändare. Att två personer kan chatta med RCS säger inte om ett företagsutskick når samma telefoner."
             ],
@@ -2112,14 +2139,16 @@
               "tele2-rcs",
               "comviq-rcs",
               "apple-carriers",
-              "apple"
+              "apple",
+              "tre-hallon-ios-27-3"
             ]
           },
           {
             "id": "fordjupning",
             "title": "Bygg en användbar stödbild",
             "paragraphs": [
-              "Dela upp frågan i privat Android-chatt, privat iPhone-chatt och företagsmeddelanden. De tre svaren kan skilja sig för samma kund. När en supportuppgift är oklar, notera källa och vilken telefon eller linje beskedet gäller. För planerade utskick är ett test från den registrerade avsändaren till ett relevant mottagarurval mer användbart än att summera operatörernas allmänna lanseringsnyheter."
+              "Dela upp frågan i privat Android-chatt, privat iPhone-chatt och företagsmeddelanden. De tre svaren kan skilja sig för samma kund, till exempel om operatören har öppnat för Android men ännu inte för iPhone.",
+              "När en supportuppgift är oklar, notera källa, datum och vilken telefon eller linje beskedet gäller, så ser du senare vad som behöver kontrolleras igen. För planerade utskick är ett test från den registrerade avsändaren till ett relevant mottagarurval mer användbart än att summera operatörernas allmänna lanseringsnyheter."
             ],
             "points": [],
             "sources": [
@@ -2153,21 +2182,23 @@
             "id": "nyheten",
             "title": "",
             "paragraphs": [
-              "Under 2026 har RCS börjat nå iPhone i Sverige. Tele2 och Comviq var först och har öppnat funktionen för alla sina kunder. Mellan iPhone och Android går bilder nu fram i högre kvalitet, och båda parter ser när den andra skriver och när ett meddelande har lästs.",
+              "Under 2026 har RCS börjat nå iPhone i Sverige. RCS är den nyare standarden för meddelanden som går över wifi eller mobildata i telefonens vanliga meddelandeapp. Tele2 och Comviq var först och har öppnat funktionen för alla sina kunder.",
+              "Skriver du från en iPhone till någon med Android märks skillnaden direkt. Bilder går fram i högre kvalitet, och båda ser när den andra skriver och när ett meddelande har lästs. Utan RCS går de samtalen som SMS och MMS.",
               "Tre och Hallon är nästa operatörer på tur. I den första testversionen av iOS 27.3, som Apple släppte den 3 november 2026, fungerar RCS hos Tre. Funktionen har också testats med ett abonnemang från Hallon."
             ],
             "points": [],
             "sources": [
               "tele2-rcs",
               "comviq-rcs",
-              "tre-hallon-ios-27-3"
+              "tre-hallon-ios-27-3",
+              "apple-channels"
             ]
           },
           {
             "id": "operatorer",
             "title": "Läget hos operatörerna",
             "paragraphs": [
-              "Sammanställningen gäller november 2026 och uppdateras när fler operatörer öppnar för RCS."
+              "Sammanställningen gäller november 2026 och uppdateras när fler operatörer öppnar för RCS. Tele2 och Comviq beskriver stödet på sina supportsidor. Uppgifterna om Tre och Hallon kommer från tester med testversionen av iOS 27.3 som Hurbra.se har rapporterat om."
             ],
             "points": [
               "Tele2: öppet för alla kunder",
@@ -2187,29 +2218,34 @@
             "id": "nar",
             "title": "När får kunder hos Tre och Hallon RCS?",
             "paragraphs": [
-              "Det finns inget bekräftat datum. Stödet kan nå alla kunder när den färdiga versionen av iOS 27.3 släpps, men varken Tre eller Hallon har bekräftat det. Testversioner av iOS är avsedda för utvecklare och kan innehålla fel, så det är sällan värt att installera en bara för att få RCS."
+              "Det finns inget bekräftat datum. Stödet kan nå alla kunder när den färdiga versionen av iOS 27.3 släpps, men varken Tre eller Hallon har bekräftat det. Testversioner av iOS är avsedda för utvecklare och kan innehålla fel, så det är sällan värt att installera en bara för att få RCS. Vill du veta när din linje får stöd, håll ett öga på operatörens supportsida, där Tele2 och Comviq har beskrivit sitt."
             ],
             "points": [],
             "sources": [
-              "tre-hallon-ios-27-3"
+              "tre-hallon-ios-27-3",
+              "tele2-rcs",
+              "comviq-rcs"
             ]
           },
           {
             "id": "kontrollera",
             "title": "Så kontrollerar du att RCS är påslaget",
             "paragraphs": [
-              "Öppna Inställningar, välj Appar och sedan Meddelanden. Finns valet RCS-meddelanden kan du slå på det där. Saknas det har din operatör ännu inte öppnat för RCS, eller så behöver telefonen en nyare version av iOS. Bubblans färg visar inte om RCS används, eftersom både SMS och RCS visas i grönt."
+              "Telefonen behöver iOS 18 eller senare. Öppna Inställningar, välj Appar och sedan Meddelanden. Finns valet RCS-meddelanden kan du slå på det där. Saknas det har din operatör ännu inte öppnat för RCS, eller så behöver telefonen en nyare version av iOS.",
+              "Bubblans färg visar inte om RCS används, eftersom både SMS och RCS visas i grönt. Titta i stället på texten i samtalet, som visar vilken kanal meddelandet går i."
             ],
             "points": [],
             "sources": [
-              "apple"
+              "apple",
+              "apple-channels"
             ]
           },
           {
             "id": "foretag",
             "title": "Vad det betyder för företag",
             "paragraphs": [
-              "När fler iPhone-användare får RCS kan fler mottagare se företagens meddelanden med avsändarnamn, logotyp, bilder och knappar i stället för som vanliga SMS. Räckvidden för en företagsavsändare kan ändå skilja sig mellan operatörerna. Testa därför utskicket mot de nät som dina kunder använder."
+              "När fler iPhone-användare får RCS kan fler mottagare se företagens meddelanden med avsändarnamn, logotyp, bilder och knappar i stället för som vanliga SMS. Räckvidden för en företagsavsändare kan ändå skilja sig mellan operatörerna. Testa därför utskicket mot de nät som dina kunder använder.",
+              "Inför ett utskick kan leverantören göra en kapabilitetskontroll. Den visar om ett visst telefonnummer kan ta emot RCS från avsändaren och vilka funktioner som stöds, vilket ger ett mer exakt svar än telefonmodell eller operatörsnamn."
             ],
             "points": [],
             "sources": [
