@@ -16,6 +16,7 @@ const ORDER = [
   "rcs-basic-single-conversation",
   "vad-kostar-rcs",
   "verifierad-avsandare",
+  "rcs-avsandare-anvandningsfall-registrering",
   "rcs-sverige-operatorer",
   "rcs-pa-iphone",
   "rcs-gdpr-samtycke",

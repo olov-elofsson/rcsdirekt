@@ -60,6 +60,7 @@ import * as migration_20261125_140000_seo_descriptions from './20261125_140000_s
 import * as migration_20261125_150000_hero_usp from './20261125_150000_hero_usp';
 import * as migration_20261125_160000_remove_unused_fields from './20261125_160000_remove_unused_fields';
 import * as migration_20261125_161000_remove_orphans from './20261125_161000_remove_orphans';
+import * as migration_20261125_170000_sender_use_cases from './20261125_170000_sender_use_cases';
 
 export const migrations = [
   {
@@ -373,5 +374,10 @@ export const migrations = [
     up: migration_20261125_161000_remove_orphans.up,
     down: migration_20261125_161000_remove_orphans.down,
     name: '20261125_161000_remove_orphans',
+  },
+  {
+    up: migration_20261125_170000_sender_use_cases.up,
+    down: migration_20261125_170000_sender_use_cases.down,
+    name: '20261125_170000_sender_use_cases',
   },
 ];
