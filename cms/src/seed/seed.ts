@@ -27,11 +27,10 @@ export async function seedIfEmpty(payload: Payload): Promise<void> {
     for (const doc of docs) sourceIds.set(doc.sourceId as string, doc.id)
   }
 
-  const articleIds = new Map<string, number | string>()
   if (await isEmpty('artiklar')) {
     payload.logger.info('Seed: importing articles.')
     for (const article of content.kunskap.articles) {
-      const doc = await payload.create({
+      await payload.create({
         collection: 'artiklar',
         context,
         data: {
@@ -49,16 +48,6 @@ export async function seedIfEmpty(payload: Payload): Promise<void> {
             sources: section.sources.map((id) => sourceIds.get(id)).filter((id) => id !== undefined) as never,
           })),
         },
-      })
-      articleIds.set(article.slug, doc.id)
-    }
-    for (const article of content.kunskap.articles) {
-      if (!article.related.length) continue
-      await payload.update({
-        collection: 'artiklar',
-        id: articleIds.get(article.slug)!,
-        context,
-        data: { related: article.related.map((slug) => articleIds.get(slug)).filter((id) => id !== undefined) as never },
       })
     }
   }

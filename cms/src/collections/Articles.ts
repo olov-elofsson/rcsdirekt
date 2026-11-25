@@ -99,13 +99,6 @@ export const Articles: CollectionConfig = {
       ],
     },
     {
-      name: 'related',
-      label: 'Relaterade artiklar',
-      type: 'relationship',
-      relationTo: 'artiklar',
-      hasMany: true,
-    },
-    {
       name: 'archived',
       label: 'Dold på sajten',
       type: 'checkbox',

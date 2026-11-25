@@ -58,6 +58,8 @@ import * as migration_20261125_120000_thorough_articles from './20261125_120000_
 import * as migration_20261125_130000_remove_unused from './20261125_130000_remove_unused';
 import * as migration_20261125_140000_seo_descriptions from './20261125_140000_seo_descriptions';
 import * as migration_20261125_150000_hero_usp from './20261125_150000_hero_usp';
+import * as migration_20261125_160000_remove_unused_fields from './20261125_160000_remove_unused_fields';
+import * as migration_20261125_161000_remove_orphans from './20261125_161000_remove_orphans';
 
 export const migrations = [
   {
@@ -361,5 +363,15 @@ export const migrations = [
     up: migration_20261125_150000_hero_usp.up,
     down: migration_20261125_150000_hero_usp.down,
     name: '20261125_150000_hero_usp',
+  },
+  {
+    up: migration_20261125_160000_remove_unused_fields.up,
+    down: migration_20261125_160000_remove_unused_fields.down,
+    name: '20261125_160000_remove_unused_fields',
+  },
+  {
+    up: migration_20261125_161000_remove_orphans.up,
+    down: migration_20261125_161000_remove_orphans.down,
+    name: '20261125_161000_remove_orphans',
   },
 ];

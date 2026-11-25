@@ -24,8 +24,6 @@
         "slug": "basic",
         "price": "0,316 SEK",
         "badge": "",
-        "short": "Välj Basic när ni bara skickar text, högst 160 tecken. Den kommer också från en verifierad avsändare med ert namn och er logga. Till exempel orderbekräftelser, leveransbesked och engångskoder.",
-        "copy": "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt SMS. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare. Mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
         "contents": "Text upp till 160 tecken från verifierad avsändare",
         "operatorPrices": [
           {
@@ -55,8 +53,6 @@
         "slug": "single",
         "price": "0,462 SEK",
         "badge": "Populärast",
-        "short": "Välj Single när meddelandet har bild, video, knappar eller mer än 160 tecken. Till exempel kampanjer, nyhetsbrev och erbjudanden.",
-        "copy": "Använd hela bredden av vad RCS kan erbjuda i ett enskilt utskick. Ett meddelande kan innehålla bilder, video, GIF-animationer, rika kort med rubrik och beskrivning, karuseller där mottagaren bläddrar mellan flera produkter, samt klickbara knappar och förslag som leder vidare till er webbplats, ett telefonsamtal, en karta eller en kalenderhändelse. Även rena textmeddelanden längre än 160 tecken räknas hit. Single passar för kampanjer, nyhetsutskick, produktlanseringar och erbjudanden där ni vill fånga uppmärksamheten visuellt och göra det enkelt för kunden att agera direkt i meddelandet.",
         "contents": "Bild, video, karusell och knappar",
         "operatorPrices": [
           {
@@ -86,8 +82,6 @@
         "slug": "conversation",
         "price": "0,641 SEK",
         "badge": "",
-        "short": "Välj Conversation när kunden svarar och ni skriver fram och tillbaka, vanligtvis inom 24 timmar. Till exempel kundservice och ombokningar.",
-        "copy": "Byggt för dialog snarare än envägskommunikation. När mottagaren svarar öppnas en konversation där ni kan skicka meddelanden fram och tillbaka inom ett begränsat tidsfönster, vanligtvis 24 timmar. Under konversationen kan ni använda alla rika funktioner, som bilder, knappar och snabbsvar, vilket gör det enkelt att guida kunden steg för steg. Passar för kundservice, ombokningar, felanmälningar, orderuppföljning och automatiserade flöden med chattbottar, där kunden får hjälp direkt i sin meddelandeapp i stället för att behöva ringa eller logga in någonstans.",
         "contents": "Tvåvägsdialog i 24 timmar",
         "operatorPrices": [
           {
@@ -1329,11 +1323,6 @@
               "tele2-rcs"
             ]
           }
-        ],
-        "related": [
-          "rcs-vs-sms",
-          "rcs-for-foretag",
-          "verifierad-avsandare"
         ]
       },
       {
@@ -1462,10 +1451,6 @@
               "send"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs",
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -1594,10 +1579,6 @@
               "webhooks"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare",
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -1736,10 +1717,6 @@
               "google-messages-logo-2026"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag",
-          "vad-ar-rcs"
         ]
       },
       {
@@ -1866,10 +1843,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag",
-          "rcs-vs-sms"
         ]
       },
       {
@@ -2001,9 +1974,6 @@
               "apple"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs"
         ]
       },
       {
@@ -2113,10 +2083,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-basic-single-conversation",
-          "rcs-for-foretag"
         ]
       },
       {
@@ -2244,9 +2210,6 @@
               "mfl-law"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare"
         ]
       },
       {
@@ -2365,9 +2328,6 @@
               "rcsdirekt-prices"
             ]
           }
-        ],
-        "related": [
-          "vad-kostar-rcs"
         ]
       },
       {
@@ -2497,8 +2457,7 @@
               "capabilities"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "svenska-operatorer-oppnar-rcs-pa-iphone",
@@ -2606,10 +2565,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "rcs-pa-iphone",
-          "rcs-sverige-operatorer"
         ]
       }
     ],

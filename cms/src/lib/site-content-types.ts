@@ -29,15 +29,12 @@ export type Article = {
   /** Large picture under the heading; without one the site picks a customer-case photo. */
   image?: { url: string; alt: string; width: number; height: number } | null;
   sections: Section[];
-  related: string[];
 };
 export type PricingPlan = {
   name: string;
   slug: string;
   price: string;
   badge: string;
-  short: string;
-  copy: string;
   contents: string;
   /** List price per operator, for the pricing page. Missing in content from before it existed. */
   operatorPrices?: { operator: string; price: string }[];

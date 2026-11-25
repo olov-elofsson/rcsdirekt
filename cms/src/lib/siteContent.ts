@@ -81,7 +81,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       points: list(section.points).map((row) => text(row.text)),
       sources: list(section.sources).map((source) => relation(source, 'sourceId')).filter(Boolean),
     })),
-    related: list(doc.related).map((related) => relation(related, 'slug')).filter((slug) => visibleSlugs.has(slug)),
   }))
 
   // Only webinars that have not ended; the site also hides one that ends after the build.
@@ -113,8 +112,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
         slug: text(plan.slug),
         price: text(plan.price),
         badge: text(plan.badge),
-        short: text(plan.short),
-        copy: text(plan.copy),
         contents: text(plan.contents),
         operatorPrices: list(plan.operatorPrices)
           .map((row) => ({ operator: text(row.operator), price: text(row.price) }))

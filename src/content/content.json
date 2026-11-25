@@ -24,8 +24,6 @@
         "slug": "basic",
         "price": "0,316 SEK",
         "badge": "",
-        "short": "Välj Basic när ni bara skickar text, högst 160 tecken. Till exempel orderbekräftelser, leveransbesked och engångskoder.",
-        "copy": "Det enklaste sättet att komma igång med RCS och ett naturligt nästa steg från traditionellt SMS. Ett textmeddelande på upp till 160 tecken skickas från en verifierad avsändare. Mottagaren ser ert företagsnamn, er logotyp och en verifieringsmarkering direkt i meddelandeappen. Det skapar trygghet och gör det lättare att skilja era meddelanden från bedrägeriförsök. Basic passar bra för korta och tydliga besked som orderbekräftelser, leveransaviseringar, bokningspåminnelser och engångskoder, där budskapet är det viktiga och ni vill hålla kostnaden låg.",
         "contents": "Text upp till 160 tecken",
         "operatorPrices": [
           {
@@ -55,8 +53,6 @@
         "slug": "single",
         "price": "0,462 SEK",
         "badge": "Populärast",
-        "short": "Välj Single när meddelandet har bild, video, knappar eller mer än 160 tecken. Till exempel kampanjer, nyhetsbrev och erbjudanden.",
-        "copy": "Använd hela bredden av vad RCS kan erbjuda i ett enskilt utskick. Ett meddelande kan innehålla bilder, video, GIF-animationer, rika kort med rubrik och beskrivning, karuseller där mottagaren bläddrar mellan flera produkter, samt klickbara knappar och förslag som leder vidare till er webbplats, ett telefonsamtal, en karta eller en kalenderhändelse. Även rena textmeddelanden längre än 160 tecken räknas hit. Single passar för kampanjer, nyhetsutskick, produktlanseringar och erbjudanden där ni vill fånga uppmärksamheten visuellt och göra det enkelt för kunden att agera direkt i meddelandet.",
         "contents": "Bild, video, karusell och knappar",
         "operatorPrices": [
           {
@@ -86,8 +82,6 @@
         "slug": "conversation",
         "price": "0,641 SEK",
         "badge": "",
-        "short": "Välj Conversation när kunden svarar och ni skriver fram och tillbaka, vanligtvis inom 24 timmar. Till exempel kundservice och ombokningar.",
-        "copy": "Byggt för dialog snarare än envägskommunikation. När mottagaren svarar öppnas en konversation där ni kan skicka meddelanden fram och tillbaka inom ett begränsat tidsfönster, vanligtvis 24 timmar. Under konversationen kan ni använda alla rika funktioner, som bilder, knappar och snabbsvar, vilket gör det enkelt att guida kunden steg för steg. Passar för kundservice, ombokningar, felanmälningar, orderuppföljning och automatiserade flöden med chattbottar, där kunden får hjälp direkt i sin meddelandeapp i stället för att behöva ringa eller logga in någonstans.",
         "contents": "Tvåvägsdialog i 24 timmar",
         "operatorPrices": [
           {
@@ -1164,11 +1158,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-vs-sms",
-          "rcs-for-foretag",
-          "verifierad-avsandare"
         ]
       },
       {
@@ -1223,11 +1212,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs",
-          "rcs-api-webhooks",
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -1285,11 +1269,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare",
-          "rich-cards-karuseller",
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -1334,11 +1313,6 @@
               "security"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag",
-          "vad-ar-rcs",
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -1386,11 +1360,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag",
-          "rcs-api-webhooks",
-          "rcs-vs-sms"
         ]
       },
       {
@@ -1440,11 +1409,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag",
-          "rcs-vs-sms",
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -1484,11 +1448,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs",
-          "rcs-pa-android",
-          "aktivera-rcs"
         ]
       },
       {
@@ -1526,11 +1485,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "rcs-pa-iphone",
-          "aktivera-rcs",
-          "vad-ar-rcs"
         ]
       },
       {
@@ -1571,11 +1525,6 @@
               "apple"
             ]
           }
-        ],
-        "related": [
-          "rcs-pa-android",
-          "rcs-pa-iphone",
-          "rcs-myter"
         ]
       },
       {
@@ -1617,11 +1566,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-basic-single-conversation",
-          "rcs-for-foretag",
-          "rcs-roi"
         ]
       },
       {
@@ -1665,11 +1609,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare",
-          "vad-ar-rcs",
-          "rcs-gdpr-samtycke"
         ]
       },
       {
@@ -1711,11 +1650,6 @@
               "apple"
             ]
           }
-        ],
-        "related": [
-          "universal-profile",
-          "vad-ar-rcs",
-          "rcs-vs-sms"
         ]
       },
       {
@@ -1755,11 +1689,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "rcs-historia",
-          "vad-ar-rcs",
-          "rcs-myter"
         ]
       },
       {
@@ -1799,11 +1728,6 @@
               "send"
             ]
           }
-        ],
-        "related": [
-          "rcs-fallback-sms",
-          "rcs-vs-sms",
-          "rcs-pa-android"
         ]
       },
       {
@@ -1847,11 +1771,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs",
-          "ar-rcs-sakert",
-          "rcs-vs-sms"
         ]
       },
       {
@@ -1895,11 +1814,6 @@
               "gsma"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs",
-          "rich-cards-karuseller",
-          "rcs-fallback-sms"
         ]
       },
       {
@@ -1941,11 +1855,6 @@
               "features"
             ]
           }
-        ],
-        "related": [
-          "rcs-kampanjplan",
-          "rich-cards-karuseller",
-          "rcs-roi"
         ]
       },
       {
@@ -1987,11 +1896,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-leveransnotiser",
-          "rcs-marknadsforing",
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -2031,11 +1935,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "foreslagna-svar",
-          "rcs-tonalitet",
-          "rcs-for-foretag"
         ]
       },
       {
@@ -2077,11 +1976,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "foreslagna-svar",
-          "rcs-kundservice",
-          "vad-kostar-rcs"
         ]
       },
       {
@@ -2123,11 +2017,6 @@
               "send"
             ]
           }
-        ],
-        "related": [
-          "rcs-e-handel",
-          "verifierad-avsandare",
-          "rcs-fallback-sms"
         ]
       },
       {
@@ -2169,11 +2058,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-marknadsforing",
-          "rcs-bokningspaminnelser",
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -2215,11 +2099,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "ar-rcs-sakert",
-          "rcs-marknadsforing",
-          "verifierad-avsandare"
         ]
       },
       {
@@ -2261,11 +2140,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-leveransstatus",
-          "vad-kostar-rcs",
-          "rcs-marknadsforing"
         ]
       },
       {
@@ -2305,11 +2179,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "rcs-marknadsforing",
-          "testa-rcs-utskick",
-          "rcs-roi"
         ]
       },
       {
@@ -2347,11 +2216,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "skriva-bra-rcs-meddelanden",
-          "rcs-kundservice",
-          "rcs-marknadsforing"
         ]
       },
       {
@@ -2394,11 +2258,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "vad-kostar-rcs",
-          "rich-cards-karuseller",
-          "foreslagna-svar"
         ]
       },
       {
@@ -2440,11 +2299,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "rcs-kundservice",
-          "rcs-bokningspaminnelser",
-          "lankar-och-knappar"
         ]
       },
       {
@@ -2486,11 +2340,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rich-cards-karuseller",
-          "rcs-restaurang-cafe",
-          "skriva-bra-rcs-meddelanden"
         ]
       },
       {
@@ -2530,11 +2379,6 @@
               "cards"
             ]
           }
-        ],
-        "related": [
-          "rcs-tonalitet",
-          "rcs-bilder-video",
-          "lankar-och-knappar"
         ]
       },
       {
@@ -2574,11 +2418,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "foreslagna-svar",
-          "rich-cards-karuseller",
-          "skriva-bra-rcs-meddelanden"
         ]
       },
       {
@@ -2620,11 +2459,6 @@
               "practice"
             ]
           }
-        ],
-        "related": [
-          "rcs-api-webhooks",
-          "kapabilitetskontroll",
-          "rcs-wifi-mobildata"
         ]
       },
       {
@@ -2664,11 +2498,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "rcs-roi",
-          "rcs-api-webhooks",
-          "rcs-fallback-sms"
         ]
       },
       {
@@ -2710,11 +2539,6 @@
               "capabilities"
             ]
           }
-        ],
-        "related": [
-          "rcs-kampanjplan",
-          "kapabilitetskontroll",
-          "skriva-bra-rcs-meddelanden"
         ]
       },
       {
@@ -2754,11 +2578,6 @@
               "send"
             ]
           }
-        ],
-        "related": [
-          "rcs-fallback-sms",
-          "testa-rcs-utskick",
-          "rcs-pa-android"
         ]
       },
       {
@@ -2798,11 +2617,6 @@
               "verification"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare",
-          "rcs-for-foretag",
-          "ar-rcs-sakert"
         ]
       },
       {
@@ -2838,9 +2652,6 @@
               "agent"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag"
         ]
       },
       {
@@ -2876,9 +2687,6 @@
               "agent"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare"
         ]
       },
       {
@@ -2914,9 +2722,6 @@
               "send"
             ]
           }
-        ],
-        "related": [
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -2952,9 +2757,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -2990,9 +2792,6 @@
               "verification"
             ]
           }
-        ],
-        "related": [
-          "verifierad-avsandare"
         ]
       },
       {
@@ -3028,9 +2827,6 @@
               "features"
             ]
           }
-        ],
-        "related": [
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -3066,9 +2862,6 @@
               "cards"
             ]
           }
-        ],
-        "related": [
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -3104,9 +2897,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -3142,9 +2932,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -3180,9 +2967,6 @@
               "gsma"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag"
         ]
       },
       {
@@ -3218,9 +3002,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "rcs-vs-sms"
         ]
       },
       {
@@ -3256,9 +3037,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs"
         ]
       },
       {
@@ -3294,9 +3072,6 @@
               "security"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag"
         ]
       },
       {
@@ -3332,9 +3107,6 @@
               "events"
             ]
           }
-        ],
-        "related": [
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -3370,9 +3142,6 @@
               "agent"
             ]
           }
-        ],
-        "related": [
-          "rcs-for-foretag"
         ]
       },
       {
@@ -3408,9 +3177,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs"
         ]
       },
       {
@@ -3446,9 +3212,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs"
         ]
       },
       {
@@ -3484,9 +3247,6 @@
               "cards"
             ]
           }
-        ],
-        "related": [
-          "rich-cards-karuseller"
         ]
       },
       {
@@ -3522,9 +3282,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "vad-ar-rcs"
         ]
       },
       {
@@ -3560,9 +3317,6 @@
               "chat"
             ]
           }
-        ],
-        "related": [
-          "rcs-vs-sms"
         ]
       },
       {
@@ -3598,9 +3352,6 @@
               "webhooks"
             ]
           }
-        ],
-        "related": [
-          "rcs-api-webhooks"
         ]
       },
       {
@@ -3642,8 +3393,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-tele2",
@@ -3680,8 +3430,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-comviq",
@@ -3718,8 +3467,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-telia-kontroll",
@@ -3758,8 +3506,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-telenor-kontroll",
@@ -3798,8 +3545,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-tre-kontroll",
@@ -3838,8 +3584,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-lagprisoperator",
@@ -3878,8 +3623,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-apple-operator-uppgifter",
@@ -3918,8 +3662,7 @@
               "comviq-rcs"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-operator-byte",
@@ -3956,8 +3699,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-sim-byte",
@@ -3994,8 +3736,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-dubbla-sim",
@@ -4032,8 +3773,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-saknad-installning",
@@ -4070,8 +3810,7 @@
               "tele2-rcs"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-fastnar-verifiering",
@@ -4106,8 +3845,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-vissa-kontakter",
@@ -4144,8 +3882,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-meddelandekanal",
@@ -4184,8 +3921,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-iphone-grona-bubblor",
@@ -4222,8 +3958,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-roaming",
@@ -4260,8 +3995,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kontantkort",
@@ -4298,8 +4032,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-flytta-telefon",
@@ -4336,8 +4069,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-avaktivera",
@@ -4374,8 +4106,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-foretagsmeddelanden-iphone",
@@ -4410,8 +4141,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-blockera-foretag",
@@ -4446,8 +4176,7 @@
               "business"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-gruppchatt",
@@ -4484,8 +4213,7 @@
               "apple-channels"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-supportunderlag",
@@ -4522,8 +4250,7 @@
               "apple"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-webhook-avsandarkontroll",
@@ -4558,8 +4285,7 @@
               "webhooks"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-dubbla-handelser",
@@ -4596,8 +4322,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-webhook-omsandning",
@@ -4632,8 +4357,7 @@
               "webhooks"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-handelser-ordning",
@@ -4670,8 +4394,7 @@
               "webhooks"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-handelser-ko",
@@ -4708,8 +4431,7 @@
               "receive"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-meddelandeidentifierare",
@@ -4746,8 +4468,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-loggning",
@@ -4786,8 +4507,7 @@
               "webhooks"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-api-nycklar",
@@ -4824,8 +4544,7 @@
               "webhooks"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-felaktiga-anrop",
@@ -4860,8 +4579,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-telefonnummer-format",
@@ -4896,8 +4614,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-giltighetstid",
@@ -4934,8 +4651,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-avbryta-vantande",
@@ -4970,8 +4686,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-reserv-dubbla-besked",
@@ -5010,8 +4725,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-inkommande-filer",
@@ -5046,8 +4760,7 @@
               "receive"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-ovantade-svar",
@@ -5084,8 +4797,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-delad-plats",
@@ -5122,8 +4834,7 @@
               "features"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-varumarken-agenter",
@@ -5160,8 +4871,7 @@
               "verification"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-lanseringsunderlag",
@@ -5198,8 +4908,7 @@
               "verification"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-testagent-produktion",
@@ -5236,8 +4945,7 @@
               "launch"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-automatiska-svarstider",
@@ -5274,8 +4982,7 @@
               "receive"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kort-medieadress",
@@ -5312,8 +5019,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kort-beskarning",
@@ -5348,8 +5054,7 @@
               "cards"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-funktion-utan-stod",
@@ -5386,8 +5091,7 @@
               "cards"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-handelser-overvakning",
@@ -5424,8 +5128,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-saker-aterstart",
@@ -5464,8 +5167,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-tillganglighet-textstorlek",
@@ -5502,8 +5204,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-skarm-lasare",
@@ -5540,8 +5241,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-karusell-forsta-kort",
@@ -5578,8 +5278,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-karusell-ordning",
@@ -5616,8 +5315,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-en-eller-flera-knappar",
@@ -5654,8 +5352,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-fritext-eller-knappar",
@@ -5694,8 +5391,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-knapp-bekraftelse",
@@ -5732,8 +5428,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-sprakversioner",
@@ -5770,8 +5465,7 @@
               "agent"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-prisvillkor-kort",
@@ -5808,8 +5502,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-emoji-foretag",
@@ -5844,8 +5537,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-lanka-ratt-order",
@@ -5882,8 +5574,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-forhandsvisning-test",
@@ -5920,8 +5611,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-sms-lanktext",
@@ -5958,8 +5648,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-bilder-utan-text",
@@ -5996,8 +5685,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-video-nar",
@@ -6034,8 +5722,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-personalisering-namn",
@@ -6070,8 +5757,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-igenkanning-lang-dialog",
@@ -6110,8 +5796,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kundresa-utan-app",
@@ -6148,8 +5833,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-mansklig-overlamning",
@@ -6186,8 +5870,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-felbudskap-kund",
@@ -6224,8 +5907,7 @@
               "receive"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-aterkommande-aviseringar",
@@ -6260,8 +5942,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-tidszon-kampanj",
@@ -6298,8 +5979,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-ab-test-ett-val",
@@ -6336,8 +6016,7 @@
               "analytics"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-trad-order-besked",
@@ -6374,8 +6053,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-ny-kanal-samma-budskap",
@@ -6412,8 +6090,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-marknadsforing-invandning",
@@ -6448,8 +6125,7 @@
               "imy-objection"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-svar-inte-samtycke",
@@ -6486,8 +6162,7 @@
               "marketing-law"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-marknadsforing-avsandare",
@@ -6522,8 +6197,7 @@
               "marketing-law"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-transaktion-reklam",
@@ -6560,8 +6234,7 @@
               "imy-objection"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-avregistrering-leverantor",
@@ -6598,8 +6271,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-dataminimering",
@@ -6636,8 +6308,7 @@
               "receive"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-lagring-kundsvar",
@@ -6674,8 +6345,7 @@
               "receive"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-support-atkomst",
@@ -6712,8 +6382,7 @@
               "webhooks"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kansliga-uppgifter",
@@ -6750,8 +6419,7 @@
               "security"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-statistik-senare",
@@ -6788,8 +6456,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-klick-konvertering",
@@ -6826,8 +6493,7 @@
               "analytics"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-sms-matt-jamforelse",
@@ -6864,8 +6530,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-serviceteam-matning",
@@ -6904,8 +6569,7 @@
               "analytics"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kostnad-reservkanal",
@@ -6942,8 +6606,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-debitering-status",
@@ -6980,8 +6643,7 @@
               "send"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-pilot-mottagare",
@@ -7018,8 +6680,7 @@
               "capabilities"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-pilot-avbryta",
@@ -7056,8 +6717,7 @@
               "events"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-upphandling-fragor",
@@ -7096,8 +6756,7 @@
               "verification"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-rackvidd-foretagsiphone",
@@ -7136,8 +6795,7 @@
               "capabilities"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-operatornyhet-tolka",
@@ -7176,8 +6834,7 @@
               "business"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-agent-profil-andring",
@@ -7230,8 +6887,7 @@
               "google-messages-logo-2026"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-avdelningar-samma-avsandare",
@@ -7268,8 +6924,7 @@
               "practice"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kundlistor-import",
@@ -7306,8 +6961,7 @@
               "imy-objection"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-kundreferenser-pastanden",
@@ -7342,8 +6996,7 @@
               "marketing-law"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-statusuppdatering-rutin",
@@ -7382,8 +7035,7 @@
               "comviq-rcs"
             ]
           }
-        ],
-        "related": []
+        ]
       },
       {
         "slug": "rcs-test-mellan-operatorer",
@@ -7422,8 +7074,7 @@
               "chat"
             ]
           }
-        ],
-        "related": []
+        ]
       }
     ]
   }

@@ -50,8 +50,6 @@ export const Priser: GlobalConfig = {
                   ],
                 },
                 { name: 'contents', label: 'Innehåll i korthet', type: 'text', required: true },
-                { name: 'short', label: 'Kort beskrivning', type: 'text', required: true },
-                { name: 'copy', label: 'Lång beskrivning', type: 'textarea', required: true },
                 { name: 'slug', label: 'Kortnamn', type: 'text', required: true, admin: { description: 'Till exempel "basic". Ändra inte i onödan.' } },
                 {
                   name: 'operatorPrices',

@@ -253,7 +253,6 @@ export interface Artiklar {
     sectionId?: string | null;
     id?: string | null;
   }[];
-  related?: (number | Artiklar)[] | null;
   /**
    * Visas inte i bloggen. Adressen leder till artikeln nedan.
    */
@@ -521,7 +520,6 @@ export interface ArtiklarSelect<T extends boolean = true> {
         sectionId?: T;
         id?: T;
       };
-  related?: T;
   archived?: T;
   replacedBy?: T;
   updatedAt?: T;
@@ -655,8 +653,6 @@ export interface Priser {
          */
         badge?: string | null;
         contents: string;
-        short: string;
-        copy: string;
         /**
          * Till exempel "basic". Ändra inte i onödan.
          */
@@ -829,8 +825,6 @@ export interface PriserSelect<T extends boolean = true> {
         price?: T;
         badge?: T;
         contents?: T;
-        short?: T;
-        copy?: T;
         slug?: T;
         operatorPrices?:
           | T
