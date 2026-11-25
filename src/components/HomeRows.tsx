@@ -135,9 +135,9 @@ export function Steps() {
     <section id="kom-igang" className="scroll-mt-24 bg-ink text-ink-foreground">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead dark title={t("Igång i tre steg")} intro={t("Vi hjälper er med avsändaren.")} />
-        <ol className="grid gap-x-10 lg:grid-cols-3">
+        <ol className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {STEPS.map((step, index) => (
-            <li key={step.title} data-reveal style={order(index)} className="flex gap-5 border-t border-ink-foreground/15 py-7 lg:flex-col lg:gap-6 lg:pt-8">
+            <li key={step.title} data-reveal style={order(index)} className="flex flex-col gap-6 rounded-2xl border border-ink-foreground/10 bg-ink-foreground/[0.06] px-6 pt-7 pb-6 sm:px-8 sm:pt-8 sm:pb-7">
               <NumberDrop n={index + 1} tone="light" />
               <div>
                 <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
