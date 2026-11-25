@@ -54,6 +54,7 @@ import * as migration_20261124_100000_sentence_headings from './20261124_100000_
 import * as migration_20261124_110000_short_pricing_heading from './20261124_110000_short_pricing_heading';
 import * as migration_20261125_100000_short_hero from './20261125_100000_short_hero';
 import * as migration_20261125_110000_clearer_articles from './20261125_110000_clearer_articles';
+import * as migration_20261125_120000_thorough_articles from './20261125_120000_thorough_articles';
 
 export const migrations = [
   {
@@ -337,5 +338,10 @@ export const migrations = [
     up: migration_20261125_110000_clearer_articles.up,
     down: migration_20261125_110000_clearer_articles.down,
     name: '20261125_110000_clearer_articles',
+  },
+  {
+    up: migration_20261125_120000_thorough_articles.up,
+    down: migration_20261125_120000_thorough_articles.down,
+    name: '20261125_120000_thorough_articles',
   },
 ];
