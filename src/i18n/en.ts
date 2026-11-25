@@ -77,7 +77,6 @@ export const en: Record<string, string> = {
   "RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.":
     "RCS for businesses in Sweden. Send from the web or through an API and pay for the messages you send.",
   "org.nr": "Reg. no.",
-  "Alla rättigheter reserverade.": "All rights reserved.",
   "Till toppen": "Back to top",
   // Start page sections
   Ja: "Yes",

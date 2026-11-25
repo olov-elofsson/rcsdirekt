@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
-import { ArrowRight, Code2, Images, MessageSquareText, MessagesSquare, MonitorSmartphone, Receipt, type LucideIcon } from "lucide-react";
+import { ArrowRight, Code2, MonitorSmartphone, Wallet, type LucideIcon } from "lucide-react";
 
 import { HeroMessage } from "@/components/HeroMessage";
+import { NumberDrop } from "@/components/NumberDrop";
 import { Button } from "@/components/ui/button";
 import { usePriser } from "@/content/localized";
 import { STEPS } from "@/data/onboarding";
@@ -40,26 +41,34 @@ type IconCard = { Icon: LucideIcon; title: string; copy: string; link: string; t
 const sectionHeading = "-ml-[0.04em] max-w-3xl text-[2.1rem] font-extrabold leading-[1.1] text-balance sm:text-[2.65rem]";
 const sectionLead = "mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]";
 
-/** The card row the sections use: bordered cards with a line icon, text and a blue link. The heading sits left, with an optional link on the right. */
+const blueLink = "group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue";
+const arrow = <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />;
+
+/** A section's heading and lead on the left, with an optional link on the right. */
+function SectionHead({ title, intro, after }: { title: string; intro?: string | undefined; after?: ReactNode }) {
+  return (
+    <div data-reveal className="mb-10 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 className={sectionHeading}>{title}</h2>
+        {intro ? <p className={sectionLead}>{intro}</p> : null}
+      </div>
+      {after}
+    </div>
+  );
+}
+
+/** The card row the entrances use: bordered cards with a line icon, text and a blue link. */
 function CardGrid({ id, label, title, intro, cards, after, muted = false, centered = false }: { id: string; label?: string; title?: string; intro?: string; cards: IconCard[]; after?: ReactNode; muted?: boolean; centered?: boolean }) {
   return (
     <section id={id} aria-label={title ? undefined : label} className={muted ? "scroll-mt-24 bg-muted" : "scroll-mt-24 bg-background"}>
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {title ? (
-          <div data-reveal className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className={sectionHeading}>{title}</h2>
-              {intro ? <p className={sectionLead}>{intro}</p> : null}
-            </div>
-            {after}
-          </div>
-        ) : null}
-        <ul className="grid gap-6 lg:grid-cols-3">
+        {title ? <SectionHead title={title} intro={intro} after={after} /> : null}
+        <ul className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {cards.map(({ Icon, ...card }, index) => (
             <li key={card.title} data-reveal style={order(index)}>
-              <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} {...(card.search ? { search: card.search } : {})} className={cn("group flex h-full flex-col rounded-2xl border border-border bg-card px-8 pt-10 pb-9 transition-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card", centered ? "items-center text-center" : "items-start text-left")}>
-                <Icon aria-hidden strokeWidth={1.25} className={centered ? "size-16 text-logo-blue" : "size-12 text-logo-blue"} />
-                <h3 className="mt-7 text-xl font-extrabold leading-snug">{card.title}</h3>
+              <Link to={card.to} {...(card.hash ? { hash: card.hash } : {})} {...(card.search ? { search: card.search } : {})} className={cn("group flex h-full flex-col rounded-2xl border border-border bg-card px-6 pt-8 pb-7 transition sm:px-8 sm:pt-10 sm:pb-9-[border-color,box-shadow] duration-200 ease-out hover:border-logo-blue/40 hover:shadow-card", centered ? "items-center text-center" : "items-start text-left")}>
+                <Icon aria-hidden strokeWidth={1.25} className={centered ? "size-12 text-logo-blue sm:size-16" : "size-12 text-logo-blue"} />
+                <h3 className="mt-5 text-xl sm:mt-7 font-extrabold leading-snug">{card.title}</h3>
                 <p className="mt-3 flex-1 text-base leading-relaxed text-pretty text-muted-foreground">{card.copy}</p>
                 <span className="mt-7 inline-flex items-center gap-1.5 text-base font-semibold text-logo-blue">{card.link} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></span>
               </Link>
@@ -85,7 +94,7 @@ export function Entrances() {
       cards={[
         { Icon: MonitorSmartphone, title: t("Skicka från webben"), copy: t("Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden."), link: t("Prova webbverktyget"), to: lp("/skapa-konto") },
         { Icon: Code2, title: t("Koppla in ert system"), copy: t("Låt era system skicka bekräftelser och påminnelser via API."), link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
-        { Icon: Receipt, title: t("Betala per meddelande"), copy: from ? t("Listpris från {price} per meddelande, utan bindningstid.").replace("{price}", from) : t("Ni betalar för de meddelanden ni skickar."), link: t("Se priser"), to: lp("/"), hash: "pris" },
+        { Icon: Wallet, title: t("Betala per meddelande"), copy: from ? t("Listpris från {price} per meddelande, utan bindningstid.").replace("{price}", from) : t("Ni betalar för de meddelanden ni skickar."), link: t("Se priser"), to: lp("/"), hash: "pris" },
       ]}
     />
   );
@@ -113,49 +122,63 @@ export function Difference() {
   );
 }
 
-/** How to get started, as three cards in the same style. */
+/** How to get started: three numbered steps in the logo's drop, each with where to go next. */
 export function Steps() {
   const { t, lp } = useT();
+  const links = [
+    { link: t("Skapa konto"), to: lp("/skapa-konto") },
+    { link: t("Om verifierad avsändare"), to: lp("/blogg/$slug").replace("$slug", "verifierad-avsandare") },
+    { link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
+  ];
   return (
-    <CardGrid
-      id="kom-igang"
-      muted
-      title={t("Från konto till första utskick")}
-      intro={t("Tre steg, och vi hjälper er med avsändaren på vägen.")}
-      cards={STEPS.map((step, index) => ({
-        Icon: step.Icon,
-        title: t(step.title),
-        copy: t(step.copy),
-        ...[
-          { link: t("Skapa konto"), to: lp("/skapa-konto") },
-          { link: t("Om verifierad avsändare"), to: lp("/blogg/$slug").replace("$slug", "verifierad-avsandare") },
-          { link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
-        ][index]!,
-      }))}
-    />
+    <section id="kom-igang" className="scroll-mt-24 bg-muted">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <SectionHead title={t("Från konto till första utskick")} intro={t("Tre steg, och vi hjälper er med avsändaren på vägen.")} />
+        <ol className="grid gap-x-10 lg:grid-cols-3">
+          {STEPS.map((step, index) => (
+            <li key={step.title} data-reveal style={order(index)} className="flex gap-5 border-t border-border py-7 lg:flex-col lg:gap-6 lg:pt-8">
+              <NumberDrop n={index + 1} />
+              <div>
+                <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
+                <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
+                <Link to={links[index]!.to} className={cn(blueLink, "mt-3")}>{links[index]!.link} {arrow}</Link>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 }
 
-/** The three message types as cards, each with its own way to start. */
+/** The three message types as one price list: what each holds, the list price and a way to start. */
 export function Plans() {
   const priser = usePriser();
   const currency = useCurrency();
   const { t, lp, locale } = useT();
-  const icons = [MessageSquareText, Images, MessagesSquare];
   return (
-    <CardGrid
-      id="pris"
-      title={t("Betala för det ni skickar")}
-      intro={t("Priset beror på meddelandetyp och mottagarens operatör. Det kostar inget att starta och det finns ingen bindningstid.")}
-      cards={priser.plans.map((plan, index) => ({
-        Icon: icons[index] ?? MessageSquareText,
-        title: plan.name,
-        copy: `${plan.contents}. ${t("Från")} ${formatPrice(plan.price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" })} ${t("per meddelande")}.`,
-        link: `${t("Välj")} ${plan.name.replace(/^RCS /, "")}`,
-        to: lp("/skapa-konto"),
-        search: { plan: plan.name },
-      }))}
-      after={<Link to={lp("/priser")} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Priser per operatör")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>}
-    />
+    <section id="pris" className="scroll-mt-24 bg-background">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <SectionHead
+          title={t("Betala för det ni skickar")}
+          intro={t("Priset beror på meddelandetyp och mottagarens operatör. Det kostar inget att starta och det finns ingen bindningstid.")}
+          after={<Link to={lp("/priser")} className={blueLink}>{t("Priser per operatör")} {arrow}</Link>}
+        />
+        <ul data-reveal className="divide-y divide-border rounded-2xl border border-border bg-card">
+          {priser.plans.map((plan) => (
+            <li key={plan.slug} className="grid gap-x-8 gap-y-2 px-6 py-6 sm:grid-cols-[1fr_11rem_12rem] sm:items-center sm:px-8">
+              <div>
+                <h3 className="text-xl font-extrabold leading-snug">{plan.name}</h3>
+                <p className="mt-1 text-base text-pretty text-muted-foreground">{plan.contents}</p>
+              </div>
+              <p className="text-base text-muted-foreground sm:text-right">
+                {t("från")} <span className="font-display text-xl font-extrabold tabular-nums text-foreground">{formatPrice(plan.price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" })}</span>
+              </p>
+              <Link to={lp("/skapa-konto")} search={{ plan: plan.name }} className={cn(blueLink, "sm:justify-self-end")}>{t("Välj")} {plan.name.replace(/^RCS /, "")} {arrow}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { priser } from "@/content/priser";
 import { usePriser } from "@/content/localized";
 import { useT } from "@/lib/i18n";
-import { sectionBody, sectionTitleCentered } from "@/lib/typography";
+import { sectionTitle } from "@/lib/typography";
 import { formatPrice, formatTotal, unitPrice, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
@@ -228,9 +228,13 @@ export function FaqSection() {
   const { t, lp } = useT();
   return (
     <section id="fragor" className="relative overflow-hidden bg-muted py-16 sm:py-24">
-      <div className="mx-auto max-w-3xl px-5 lg:px-8">
-        <h2 data-reveal className={sectionTitleCentered}>{t("Frågor vi ofta får")}</h2>
-        <div data-reveal className={cn(sectionBody, "divide-y divide-border rounded-2xl border border-border bg-card px-6 sm:px-8")}>
+      {/* Heading and the way to ask on the left, the questions on the right; stacked on phones. */}
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_2fr] lg:gap-16 lg:px-8">
+        <div data-reveal>
+          <h2 className={sectionTitle}>{t("Frågor vi ofta får")}</h2>
+          <p className="mt-4 text-base text-muted-foreground">{t("Hittar ni inte svaret?")} <Link to={lp("/kontakt")} className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">{t("Kontakta oss")}</Link></p>
+        </div>
+        <div data-reveal className="divide-y divide-border rounded-2xl border border-border bg-card px-6 sm:px-8">
           {priser.faq.map((item) => (
             <details key={item.question} className="group">
               <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
@@ -241,7 +245,6 @@ export function FaqSection() {
             </details>
           ))}
         </div>
-        <p className="mt-6 text-center text-sm text-muted-foreground">{t("Hittar ni inte svaret?")} <Link to={lp("/kontakt")} className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">{t("Kontakta oss")}</Link></p>
       </div>
     </section>
   );
