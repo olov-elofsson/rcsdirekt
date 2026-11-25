@@ -22,15 +22,25 @@ const FLOW = [
   { title: "Ta emot svar", copy: "Trycker kunden på ett förslag kommer en händelse med det postbackData ni satte på knappen. Skriver kunden själv kommer det som ett inkommande meddelande, och ert system kan svara i samma tråd." },
 ];
 
-/** The endpoints and webhooks, in the API's own names. */
-const ENDPOINTS: [kind: string, path: string, copy: string][] = [
-  ["POST", "/rcs/2/messages", "Skicka text, fil, kort, karusell eller mall till en eller flera mottagare, högst 10 MB per anrop."],
-  ["POST", "/rcs/2/capability-check/query", "Kolla om upp till 500 nummer kan ta emot RCS från er avsändare. Inför ett utskick fungerar små omgångar om 1 till 10 nummer bäst."],
-  ["Webhook", "Leveransrapport", "Meddelandet har nått telefonen eller misslyckats, med prisnivån i fältet trafficType."],
-  ["Webhook", "Läsrapport", "Kunden har öppnat meddelandet."],
-  ["Webhook", "Händelse", "Kunden har tryckt på ett förslag. Ni får texten och ert postbackData."],
-  ["Webhook", "Inkommande meddelande", "Kunden har skrivit något eller skickat en fil eller plats."],
-  ["Webhook", "Samtal startat", "Kunden har svarat inom 24 timmar, och meddelandena räknas nu som ett samtal."],
+/** Every call in the API, in its own names; the older v1 send calls do the same as /rcs/2/messages and are left out. */
+const CALLS: [method: string, path: string, copy: string][] = [
+  ["POST", "/rcs/2/messages", "Skicka text, fil, kort, karusell eller mall till en eller flera mottagare."],
+  ["POST", "/rcs/1/events", "Visa att ni skriver, eller att ni har läst kundens meddelande."],
+  ["POST", "/rcs/2/capability-check/query", "Kolla direkt om upp till 500 nummer kan ta emot RCS."],
+  ["POST", "/rcs/2/capability-check/notify", "Samma kontroll för upp till 10 000 nummer, med svaret till en webhook."],
+  ["GET", "/rcs/2/reports", "Hämta leveransrapporter om ni inte tar emot dem som webhook. Varje rapport hämtas en gång."],
+  ["GET", "/rcs/2/logs", "Sök bland meddelanden från de senaste 48 timmarna."],
+];
+
+/** What comes back to the customer's own server. */
+const WEBHOOKS: [name: string, copy: string][] = [
+  ["Leveransrapport", "Meddelandet har nått telefonen eller misslyckats, med prisnivån i fältet trafficType."],
+  ["Läsrapport", "Kunden har öppnat meddelandet."],
+  ["Knapptryck", "Kunden har tryckt på ett förslag. Ni får texten och ert postbackData."],
+  ["Inkommande meddelande", "Kunden har skrivit något eller skickat en fil eller plats."],
+  ["Kunden skriver", "Kunden håller på att skriva ett svar."],
+  ["Samtal startat", "Kunden har svarat inom 24 timmar, och meddelandena räknas nu som ett samtal."],
+  ["Resultat av nummerkontroll", "Svaret på en kontroll som körs i bakgrunden."],
 ];
 
 /** Limits worth knowing before the first request. */
@@ -65,15 +75,49 @@ export function DeveloperPage() {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
-        <PageHeading title="RCS för utvecklare" description={<p>Låt era egna system skicka RCS via vårt REST API. Status och svar från kunderna kommer tillbaka till er med webhooks.</p>}>
+        <PageHeading title="RCS för utvecklare" description={<p>Ett enkelt REST-API med JSON. Ni skickar med ett anrop, och status och svar från kunderna kommer tillbaka till er server med webhooks.</p>}>
           <Button className="border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
           <Link to="/kontakt" className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">Prata med oss</Link>
         </PageHeading>
 
         <section className="pb-16 sm:pb-20">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <h2 className={sectionTitle}>Hela API:t på en skärm</h2>
+            <p className={sectionIntro}>Sex anrop för det ni skickar och hämtar, och webhooks för det som kommer tillbaka. Alla anrop tar och ger JSON och autentiseras med en API-nyckel i huvudet Authorization. Adressen och nyckeln får ni när kontot är aktiverat.</p>
+            <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
+              <div className="rounded-2xl border border-border bg-card">
+                <h3 className="border-b border-border px-5 py-4 text-lg font-extrabold sm:px-6">Anrop</h3>
+                <ul className="divide-y divide-border">
+                  {CALLS.map(([method, path, copy]) => (
+                    <li key={path} className="px-5 py-3.5 sm:px-6">
+                      <p className="flex flex-wrap items-center gap-2">
+                        <span className="w-11 rounded bg-primary-soft py-0.5 text-center font-mono text-[11px] font-semibold">{method}</span>
+                        <code className="font-mono text-[13px] font-semibold break-all">{path}</code>
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-pretty text-muted-foreground">{copy}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-border bg-card">
+                <h3 className="border-b border-border px-5 py-4 text-lg font-extrabold sm:px-6">Webhooks till er server</h3>
+                <ul className="divide-y divide-border">
+                  {WEBHOOKS.map(([name, copy]) => (
+                    <li key={name} className="px-5 py-3.5 sm:px-6">
+                      <p className="text-sm font-semibold">{name}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-pretty text-muted-foreground">{copy}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-muted py-16 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-14 lg:px-8">
             <div>
-              <h2 className={sectionTitle}>Så fungerar flödet</h2>
+              <h2 className={sectionTitle}>Ett utskick från början till slut</h2>
               <ol className="mt-8 grid gap-6">
                 {FLOW.map(({ title: heading, copy }, index) => (
                   <li key={heading} className="grid grid-cols-[2.5rem_1fr] gap-4">
@@ -85,34 +129,14 @@ export function DeveloperPage() {
                   </li>
                 ))}
               </ol>
-            </div>
-            <ApiSketch />
-          </div>
-        </section>
-
-        <section className="bg-muted py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <h2 className={sectionTitle}>Anrop och webhooks</h2>
-            <p className={sectionIntro}>Anropen autentiseras med en API-nyckel i huvudet Authorization. Adressen och nyckeln får ni när kontot är aktiverat, och webhookarna pekar ni mot er egen server.</p>
-            <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-start">
-              <ul className="divide-y divide-border rounded-2xl border border-border bg-card">
-                {ENDPOINTS.map(([kind, path, copy]) => (
-                  <li key={path} className="grid gap-1.5 px-5 py-4 sm:grid-cols-[18rem_1fr] sm:gap-6 sm:px-6">
-                    <p className="flex items-center gap-2 text-sm font-semibold">
-                      <span className="rounded bg-primary-soft px-1.5 py-0.5 font-mono text-[11px]">{kind}</span>
-                      <span className={kind === "POST" ? "font-mono text-[13px] break-all" : ""}>{path}</span>
-                    </p>
-                    <p className="text-sm leading-relaxed text-pretty text-muted-foreground">{copy}</p>
-                  </li>
-                ))}
-              </ul>
-              <div className="rounded-2xl border border-border bg-card px-5 py-5 sm:px-6">
+              <div className="mt-10 rounded-2xl border border-border bg-card px-5 py-5 sm:px-6">
                 <h3 className="text-lg font-extrabold">Bra att veta</h3>
                 <ul className="mt-3 grid gap-2.5 text-sm leading-relaxed text-pretty text-muted-foreground">
                   {LIMITS.map((limit) => <li key={limit} className="border-t border-border pt-2.5 first:border-t-0 first:pt-0">{limit}</li>)}
                 </ul>
               </div>
             </div>
+            <ApiSketch />
           </div>
         </section>
 
