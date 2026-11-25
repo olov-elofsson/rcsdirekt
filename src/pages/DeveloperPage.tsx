@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Copy, ExternalLink, Inbox, KeyRound, ListOrdered, Send, ShieldCheck, Activity } from "lucide-react";
 
 import { ArticleCard } from "@/components/ArticleCard";
+import { ApiReference } from "@/components/ApiReference";
 import { ApiSketch } from "@/components/HomepageSections";
 import { NumberDrop } from "@/components/NumberDrop";
 import { PageHeading } from "@/components/PageHeading";
@@ -20,27 +21,6 @@ const FLOW = [
   { title: "Skicka", copy: "Ert system skickar ett POST-anrop med avsändare, mottagare och innehåll: text, en fil, ett kort, en karusell eller en mall. Når RCS inte telefonen kan samma anrop låta meddelandet gå som SMS eller MMS i stället." },
   { title: "Följ status", copy: "Till er webhook kommer en leveransrapport när meddelandet har nått telefonen och en läsrapport när kunden har öppnat det. Rapporten visar också vilken prisnivå meddelandet fick." },
   { title: "Ta emot svar", copy: "Trycker kunden på ett förslag kommer en händelse med det postbackData ni satte på knappen. Skriver kunden själv kommer det som ett inkommande meddelande, och ert system kan svara i samma tråd." },
-];
-
-/** Every call in the API, in its own names; the older v1 send calls do the same as /rcs/2/messages and are left out. */
-const CALLS: [method: string, path: string, copy: string][] = [
-  ["POST", "/rcs/2/messages", "Skicka text, fil, kort, karusell eller mall till en eller flera mottagare."],
-  ["POST", "/rcs/1/events", "Visa att ni skriver, eller att ni har läst kundens meddelande."],
-  ["POST", "/rcs/2/capability-check/query", "Kolla direkt om upp till 500 nummer kan ta emot RCS."],
-  ["POST", "/rcs/2/capability-check/notify", "Samma kontroll för upp till 10 000 nummer, med svaret till en webhook."],
-  ["GET", "/rcs/2/reports", "Hämta leveransrapporter om ni inte tar emot dem som webhook. Varje rapport hämtas en gång."],
-  ["GET", "/rcs/2/logs", "Sök bland meddelanden från de senaste 48 timmarna."],
-];
-
-/** What comes back to the customer's own server. */
-const WEBHOOKS: [name: string, copy: string][] = [
-  ["Leveransrapport", "Meddelandet har nått telefonen eller misslyckats, med prisnivån i fältet trafficType."],
-  ["Läsrapport", "Kunden har öppnat meddelandet."],
-  ["Knapptryck", "Kunden har tryckt på ett förslag. Ni får texten och ert postbackData."],
-  ["Inkommande meddelande", "Kunden har skrivit något eller skickat en fil eller plats."],
-  ["Kunden skriver", "Kunden håller på att skriva ett svar."],
-  ["Samtal startat", "Kunden har svarat inom 24 timmar, och meddelandena räknas nu som ett samtal."],
-  ["Resultat av nummerkontroll", "Svaret på en kontroll som körs i bakgrunden."],
 ];
 
 /** Limits worth knowing before the first request. */
@@ -77,44 +57,10 @@ export function DeveloperPage() {
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
         <PageHeading title="RCS för utvecklare" description={<p>Ett enkelt REST-API med JSON. Ni skickar med ett anrop, och status och svar från kunderna kommer tillbaka till er server med webhooks.</p>}>
           <Button className="border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
-          <Link to="/kontakt" className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">Prata med oss</Link>
+          <a href="#api-referens" className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">Till API-referensen</a>
         </PageHeading>
 
         <section className="pb-16 sm:pb-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <h2 className={sectionTitle}>Hela API:t på en skärm</h2>
-            <p className={sectionIntro}>Sex anrop för det ni skickar och hämtar, och webhooks för det som kommer tillbaka. Alla anrop tar och ger JSON och autentiseras med en API-nyckel i huvudet Authorization. Adressen och nyckeln får ni när kontot är aktiverat.</p>
-            <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
-              <div className="rounded-2xl border border-border bg-card">
-                <h3 className="border-b border-border px-5 py-4 text-lg font-extrabold sm:px-6">Anrop</h3>
-                <ul className="divide-y divide-border">
-                  {CALLS.map(([method, path, copy]) => (
-                    <li key={path} className="px-5 py-3.5 sm:px-6">
-                      <p className="flex flex-wrap items-center gap-2">
-                        <span className="w-11 rounded bg-primary-soft py-0.5 text-center font-mono text-[11px] font-semibold">{method}</span>
-                        <code className="font-mono text-[13px] font-semibold break-all">{path}</code>
-                      </p>
-                      <p className="mt-1 text-sm leading-relaxed text-pretty text-muted-foreground">{copy}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="rounded-2xl border border-border bg-card">
-                <h3 className="border-b border-border px-5 py-4 text-lg font-extrabold sm:px-6">Webhooks till er server</h3>
-                <ul className="divide-y divide-border">
-                  {WEBHOOKS.map(([name, copy]) => (
-                    <li key={name} className="px-5 py-3.5 sm:px-6">
-                      <p className="text-sm font-semibold">{name}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-pretty text-muted-foreground">{copy}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-muted py-16 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-14 lg:px-8">
             <div>
               <h2 className={sectionTitle}>Ett utskick från början till slut</h2>
@@ -139,6 +85,8 @@ export function DeveloperPage() {
             <ApiSketch />
           </div>
         </section>
+
+        <ApiReference />
 
         <section className="bg-ink py-16 text-ink-foreground sm:py-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">

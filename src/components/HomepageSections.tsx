@@ -58,7 +58,7 @@ const API_RESPONSE = `{
 }`;
 
 /** Light JSON colouring: keys muted, strings bright, punctuation faint. No library. */
-function JsonCode({ code }: { code: string }) {
+export function JsonCode({ code }: { code: string }) {
   const parts = code.split(/("(?:[^"\\]|\\.)*")(\s*:)?/g);
   const out: ReactNode[] = [];
   for (let i = 0; i < parts.length; i += 3) {
