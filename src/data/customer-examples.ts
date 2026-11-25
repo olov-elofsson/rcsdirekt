@@ -32,8 +32,6 @@ export type Step = { text?: string; card?: Card; carousel?: Card[]; chips?: Choi
 export type Scenario = {
   /** The customer case: shown as "Exempel för …" and as the sender. */
   customer: string;
-  /** The company's registered name, as in the customer case in the CMS; the card's name. */
-  company: string;
   title: string;
   copy: string;
   photo: Picture & { alt: string };
@@ -141,7 +139,6 @@ const signedUp: Step = {
 export const scenarios: Scenario[] = [
   {
     customer: "Maptun",
-    company: "Maptun Performance AB",
     title: "Tjänster att svepa mellan",
     copy: "En karusell med en knapp per tjänst. Tiden bokas i samma konversation, med vägbeskrivning och påminnelse.",
     photo: { src: workshopUrl, small: workshopUrlSmall, alt: "En svart Saab i Maptuns verkstad, kopplad till en effektbänk", position: "50% 60%" },
@@ -156,7 +153,6 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Nercia",
-    company: "NERCIA Utbildning Aktiebolag",
     title: "Välkomstbesked inför kursstart",
     copy: "Tid och plats, en knapp för att tacka ja, och det deltagaren behöver inför första dagen som kort att svepa mellan.",
     photo: { src: courseUrl, small: courseUrlSmall, alt: "Nercias namn tryckt i blått på strukturerat papper", position: "50% 50%", messageAt: "right" },
@@ -170,7 +166,6 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Bilia",
-    company: "Bilia AB",
     title: "Inbjudan med anmälan i meddelandet",
     copy: "Gästen anmäler sig med ett tryck, bokar en provkörning samma kväll och lägger tiden i kalendern.",
     photo: { src: carDealerUrl, small: carDealerUrlSmall, alt: "Bilias skylt på en glasfasad mot en blå himmel", position: "50% 30%" },
@@ -193,7 +188,6 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Big Bowl",
-    company: "Big Bowl Sverige AB",
     title: "Boka bana i meddelandet",
     copy: "Kunden väljer tid, lägger till mat och får tiden i kalendern och vägen dit, utan att lämna tråden.",
     photo: { src: bowlingUrl, small: bowlingUrlSmall, alt: "Ett bowlingklot slår ner käglor på en blank bana", position: "50% 50%" },
@@ -216,7 +210,6 @@ export const scenarios: Scenario[] = [
   },
   {
     customer: "Kebabfabriken",
-    company: "Kebabfabriken AB",
     title: "Kundklubb med kuponger och bonus",
     copy: "Nya medlemmar får en välkomstbonus, och alla får veckans erbjudanden, kuponger och poäng direkt i meddelandet.",
     photo: { src: restaurantUrl, small: restaurantUrlSmall, alt: "Gäster äter i en restaurang med växter och böcker på hyllorna", position: "50% 50%" },

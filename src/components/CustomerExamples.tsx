@@ -382,13 +382,13 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
       <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[520px] lg:h-[560px]">
         <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 60vw, 100vw" alt={scenario.photo.alt} decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.company}</span>
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.customer}</span>
         <figcaption className={cn("absolute inset-x-5 bottom-5 top-14 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : scenario.photo.messageAt === "center" ? "items-center" : "sm:right-auto")}>
           <ConversationView sender={scenario.customer} conversation={{ ...conversation, choose }} hint={hint} />
         </figcaption>
       </figure>
       <div className="flex flex-col p-5 sm:p-8 lg:justify-center lg:p-10">
-        <p className="text-sm font-bold">{scenario.company}</p>
+        <p className="text-sm font-bold">{scenario.customer}</p>
         <h3 className="mt-2 text-2xl font-extrabold leading-tight text-balance sm:text-3xl">{scenario.title}</h3>
         <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (
@@ -445,7 +445,7 @@ function CaseShowcase() {
               itemIndex === index ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-primary-soft",
             )}
           >
-            {item.company}
+            {item.customer}
           </button>
         ))}
       </div>
