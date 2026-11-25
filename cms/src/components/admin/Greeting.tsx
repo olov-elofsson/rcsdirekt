@@ -1,7 +1,6 @@
 import type { Payload } from 'payload'
 
-// The top of the CMS dashboard: today's date, one question and what is waiting, in the site's
-// design. A server component, so the counts come straight from the database on every visit.
+// The top of the CMS dashboard: today's date, one question and what is waiting. A server component, so the counts come straight from the database on every visit.
 
 const dateFormat = new Intl.DateTimeFormat('sv-SE', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' })
 const shortDate = new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' })
@@ -47,9 +46,6 @@ export async function Greeting({ payload }: { payload: Payload }) {
   const date = dateFormat.format(now)
   return (
     <section className="rd-greeting" aria-labelledby="rd-greeting-title">
-      <div className="rd-greeting__band" aria-hidden="true">
-        <img className="rd-greeting__symbol" src="/brand/symbol.svg" alt="" />
-      </div>
       <p className="rd-greeting__date">{date.charAt(0).toUpperCase() + date.slice(1)}</p>
       <h1 id="rd-greeting-title" className="rd-greeting__title">Vad ska vi ta tag i i dag?</h1>
       <ul className="rd-greeting__cards">
