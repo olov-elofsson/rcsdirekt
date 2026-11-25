@@ -69,9 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    kundcase: Kundcase;
     artiklar: Artiklar;
-    begrepp: Begrepp;
     kallor: Kallor;
     webinarer: Webinarer;
     forfragningar: Forfragningar;
@@ -84,9 +82,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    kundcase: KundcaseSelect<false> | KundcaseSelect<true>;
     artiklar: ArtiklarSelect<false> | ArtiklarSelect<true>;
-    begrepp: BegreppSelect<false> | BegreppSelect<true>;
     kallor: KallorSelect<false> | KallorSelect<true>;
     webinarer: WebinarerSelect<false> | WebinarerSelect<true>;
     forfragningar: ForfragningarSelect<false> | ForfragningarSelect<true>;
@@ -102,13 +98,11 @@ export interface Config {
   globals: {
     startsida: Startsida;
     priser: Priser;
-    demo: Demo;
     juridiskt: Juridiskt;
   };
   globalsSelect: {
     startsida: StartsidaSelect<false> | StartsidaSelect<true>;
     priser: PriserSelect<false> | PriserSelect<true>;
-    demo: DemoSelect<false> | DemoSelect<true>;
     juridiskt: JuridisktSelect<false> | JuridisktSelect<true>;
   };
   locale: null;
@@ -199,37 +193,6 @@ export interface Media {
       filename?: string | null;
     };
   };
-}
-/**
- * Kundcasen på startsidan och deras presentationer under /demo. Dra för att ändra ordning.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "kundcase".
- */
-export interface Kundcase {
-  id: number;
-  _order?: string | null;
-  /**
-   * Hela bolagsnamnet som det är registrerat, till exempel "Bilia AB".
-   */
-  name: string;
-  /**
-   * Foto som visas överst på kortet, till exempel en miljö eller produkt som hör till kunden. Liggande format, minst 960 × 600 px. Saknas bild visas en ljus yta i brandkitets färger.
-   */
-  image?: (number | null) | Media;
-  /**
-   * Visas inte på startsidan. Sparas för andra sammanhang.
-   */
-  logo?: (number | null) | Media;
-  width?: number | null;
-  height?: number | null;
-  description: string;
-  /**
-   * Namnet på presentationen som visas under rcsdirekt.se/demo/<namn>. Lämna tomt om kunden inte har någon presentation.
-   */
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * Artiklar och begrepp under Insikter (rcsdirekt.se/blogg).
@@ -328,24 +291,6 @@ export interface Kallor {
   createdAt: string;
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "begrepp".
- */
-export interface Begrepp {
-  id: number;
-  _order?: string | null;
-  term: string;
-  /**
-   * Synonymer som också ska hitta begreppet i sökningen.
-   */
-  aliases?: string | null;
-  definition: string;
-  source: number | Kallor;
-  article: number | Artiklar;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * Startsidan visar nästa webinar som inte har slutat. Anmälningar hamnar under Förfrågningar.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -426,16 +371,8 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'kundcase';
-        value: number | Kundcase;
-      } | null)
-    | ({
         relationTo: 'artiklar';
         value: number | Artiklar;
-      } | null)
-    | ({
-        relationTo: 'begrepp';
-        value: number | Begrepp;
       } | null)
     | ({
         relationTo: 'kallor';
@@ -551,22 +488,6 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "kundcase_select".
- */
-export interface KundcaseSelect<T extends boolean = true> {
-  _order?: T;
-  name?: T;
-  image?: T;
-  logo?: T;
-  width?: T;
-  height?: T;
-  description?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "artiklar_select".
  */
 export interface ArtiklarSelect<T extends boolean = true> {
@@ -607,20 +528,6 @@ export interface ArtiklarSelect<T extends boolean = true> {
   related?: T;
   archived?: T;
   replacedBy?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "begrepp_select".
- */
-export interface BegreppSelect<T extends boolean = true> {
-  _order?: T;
-  term?: T;
-  aliases?: T;
-  definition?: T;
-  source?: T;
-  article?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -720,90 +627,6 @@ export interface Startsida {
     description: string;
   };
   /**
-   * Kunderna redigeras under Kunder.
-   */
-  kundcaseHeading: string;
-  fordelar: {
-    heading: string;
-    intro: string;
-    items?:
-      | {
-          icon:
-            | 'trending-up'
-            | 'bar-chart'
-            | 'wallet'
-            | 'globe'
-            | 'code'
-            | 'image'
-            | 'layers'
-            | 'pointer'
-            | 'message'
-            | 'shield'
-            | 'check'
-            | 'sparkles';
-          title: string;
-          copy: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  jamforelse: {
-    heading: string;
-    intro: string;
-    /**
-     * Skriv ✓ för en bock och ✗ för ett kryss. All annan text visas som den är.
-     */
-    rows?:
-      | {
-          label: string;
-          sms: string;
-          rcs: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  vagar: {
-    heading: string;
-    intro: string;
-    items?:
-      | {
-          icon:
-            | 'trending-up'
-            | 'bar-chart'
-            | 'wallet'
-            | 'globe'
-            | 'code'
-            | 'image'
-            | 'layers'
-            | 'pointer'
-            | 'message'
-            | 'shield'
-            | 'check'
-            | 'sparkles';
-          title: string;
-          copy: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  /**
-   * Själva priserna redigeras under Prissida.
-   */
-  pris: {
-    heading: string;
-    subheading: string;
-    intro: string;
-  };
-  blogg: {
-    heading: string;
-    intro: string;
-    picks: (number | Artiklar)[];
-  };
-  kontakt: {
-    heading: string;
-    intro: string;
-  };
-  /**
    * Visas i Googles sökresultat och när sidan delas.
    */
   seo: {
@@ -865,20 +688,6 @@ export interface Priser {
       }[]
     | null;
   vatNote: string;
-  /**
-   * Visas som en egen pristabell på /priser, under meddelandetyperna. Inte på startsidan.
-   */
-  sms?: {
-    name?: string | null;
-    contents?: string | null;
-    operatorPrices?:
-      | {
-          operator: string;
-          price: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
   /**
    * Rubriken på den utfällbara listan med varje nät, till exempel "Alla nät och priser".
    */
@@ -942,61 +751,6 @@ export interface Priser {
   createdAt?: string | null;
 }
 /**
- * Telefonen på startsidan som visar vad RCS kan.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "demo".
- */
-export interface Demo {
-  id: number;
-  /**
-   * Sex funktioner med fasta platser i telefonen, i ordningen 1–6. Ändra text men inte ordning.
-   */
-  features?:
-    | {
-        title: string;
-        copy: string;
-        id?: string | null;
-      }[]
-    | null;
-  richCards?:
-    | {
-        icon:
-          | 'trending-up'
-          | 'bar-chart'
-          | 'wallet'
-          | 'globe'
-          | 'code'
-          | 'image'
-          | 'layers'
-          | 'pointer'
-          | 'message'
-          | 'shield'
-          | 'check'
-          | 'sparkles';
-        title: string;
-        copy: string;
-        id?: string | null;
-      }[]
-    | null;
-  replies?:
-    | {
-        option: string;
-        title: string;
-        copy: string;
-        actions?:
-          | {
-              label: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * Integritetspolicyn (/integritetspolicy) och villkoren (/villkor).
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1055,69 +809,6 @@ export interface StartsidaSelect<T extends boolean = true> {
         highlight?: T;
         description?: T;
       };
-  kundcaseHeading?: T;
-  fordelar?:
-    | T
-    | {
-        heading?: T;
-        intro?: T;
-        items?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              copy?: T;
-              id?: T;
-            };
-      };
-  jamforelse?:
-    | T
-    | {
-        heading?: T;
-        intro?: T;
-        rows?:
-          | T
-          | {
-              label?: T;
-              sms?: T;
-              rcs?: T;
-              id?: T;
-            };
-      };
-  vagar?:
-    | T
-    | {
-        heading?: T;
-        intro?: T;
-        items?:
-          | T
-          | {
-              icon?: T;
-              title?: T;
-              copy?: T;
-              id?: T;
-            };
-      };
-  pris?:
-    | T
-    | {
-        heading?: T;
-        subheading?: T;
-        intro?: T;
-      };
-  blogg?:
-    | T
-    | {
-        heading?: T;
-        intro?: T;
-        picks?: T;
-      };
-  kontakt?:
-    | T
-    | {
-        heading?: T;
-        intro?: T;
-      };
   seo?:
     | T
     | {
@@ -1161,19 +852,6 @@ export interface PriserSelect<T extends boolean = true> {
         id?: T;
       };
   vatNote?: T;
-  sms?:
-    | T
-    | {
-        name?: T;
-        contents?: T;
-        operatorPrices?:
-          | T
-          | {
-              operator?: T;
-              price?: T;
-              id?: T;
-            };
-      };
   networksHeading?: T;
   networksNote?: T;
   networks?:
@@ -1225,44 +903,6 @@ export interface PriserSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "demo_select".
- */
-export interface DemoSelect<T extends boolean = true> {
-  features?:
-    | T
-    | {
-        title?: T;
-        copy?: T;
-        id?: T;
-      };
-  richCards?:
-    | T
-    | {
-        icon?: T;
-        title?: T;
-        copy?: T;
-        id?: T;
-      };
-  replies?:
-    | T
-    | {
-        option?: T;
-        title?: T;
-        copy?: T;
-        actions?:
-          | T
-          | {
-              label?: T;
-              id?: T;
-            };
-        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

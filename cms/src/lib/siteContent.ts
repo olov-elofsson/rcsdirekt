@@ -1,6 +1,6 @@
 import type { Payload } from 'payload'
 
-import type { Article, CustomerCase, GlossaryTerm, SiteContent, Source, Webinar } from './site-content-types'
+import type { Article, SiteContent, Source, Webinar } from './site-content-types'
 
 type Doc = Record<string, any>
 
@@ -8,7 +8,7 @@ const text = (value: unknown) => (typeof value === 'string' ? value : '')
 const list = <T = Doc>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : [])
 const relation = (value: unknown, key: string) => (value && typeof value === 'object' ? text((value as Doc)[key]) : '')
 
-async function all(payload: Payload, collection: 'artiklar' | 'kallor' | 'begrepp' | 'kundcase'): Promise<Doc[]> {
+async function all(payload: Payload, collection: 'artiklar' | 'kallor'): Promise<Doc[]> {
   const result = await payload.find({ collection, depth: 1, limit: 0, pagination: false, sort: '_order' })
   return result.docs as Doc[]
 }
@@ -25,17 +25,14 @@ function legalPage(group: Doc | undefined) {
 
 /** Builds the content the site renders, in the shape of src/content/types.ts. */
 export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
-  const [articleDocs, sourceDocs, glossaryDocs, caseDocs, webinarDocs, startsida, priser, demo, juridiskt] = await Promise.all([
+  const [articleDocs, sourceDocs, webinarDocs, startsida, priser, juridiskt] = await Promise.all([
     all(payload, 'artiklar'),
     all(payload, 'kallor'),
-    all(payload, 'begrepp'),
-    all(payload, 'kundcase'),
     payload
       .find({ collection: 'webinarer', depth: 0, limit: 0, pagination: false, sort: 'startsAt', where: { visible: { equals: true } } })
       .then((result) => result.docs as Doc[]),
-    payload.findGlobal({ slug: 'startsida', depth: 1 }) as Promise<Doc>,
+    payload.findGlobal({ slug: 'startsida', depth: 0 }) as Promise<Doc>,
     payload.findGlobal({ slug: 'priser', depth: 0 }) as Promise<Doc>,
-    payload.findGlobal({ slug: 'demo', depth: 0 }) as Promise<Doc>,
     payload.findGlobal({ slug: 'juridiskt', depth: 0 }) as Promise<Doc>,
   ])
 
@@ -55,8 +52,8 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     .filter((doc) => doc.archived && visibleSlugs.has(relation(doc.replacedBy, 'slug')))
     .map((doc) => ({ from: text(doc.slug), to: relation(doc.replacedBy, 'slug') }))
 
-  // The card uses the generated 'card' size (960x600 WebP) when it exists, otherwise the original.
-  const caseImage = (image: Doc | undefined, name: string): CustomerCase['image'] => {
+  // The article image uses the generated 'card' size (960x600 WebP) when it exists, otherwise the original.
+  const cardImage = (image: Doc | undefined, name: string): Article['image'] => {
     if (!image?.filename) return null
     const card = image.sizes?.card
     const file = card?.filename ? card : image
@@ -76,7 +73,7 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     keywords: list(doc.keywords).map((row) => text(row.keyword)),
     published: text(doc.published),
     author: text(doc.author),
-    image: caseImage(doc.image, text(doc.title)),
+    image: cardImage(doc.image, text(doc.title)),
     sections: list(doc.sections).map((section, index) => ({
       id: text(section.sectionId) || `avsnitt-${index + 1}`,
       title: text(section.title),
@@ -85,27 +82,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       sources: list(section.sources).map((source) => relation(source, 'sourceId')).filter(Boolean),
     })),
     related: list(doc.related).map((related) => relation(related, 'slug')).filter((slug) => visibleSlugs.has(slug)),
-  }))
-
-  const glossary: GlossaryTerm[] = glossaryDocs.map((doc) => ({
-    term: text(doc.term),
-    aliases: text(doc.aliases),
-    definition: text(doc.definition),
-    source: relation(doc.source, 'sourceId'),
-    article: relation(doc.article, 'slug'),
-  }))
-
-  const kundcase: CustomerCase[] = caseDocs.map((doc) => ({
-    name: text(doc.name),
-    logo: {
-      url: doc.logo?.filename ? `/media/${encodeURIComponent(doc.logo.filename)}` : '',
-      alt: text(doc.logo?.alt) || text(doc.name),
-      width: Number(doc.width) || 1,
-      height: Number(doc.height) || 1,
-    },
-    image: caseImage(doc.image, text(doc.name)),
-    description: text(doc.description),
-    slug: text(doc.slug),
   }))
 
   // Only webinars that have not ended; the site also hides one that ends after the build.
@@ -120,7 +96,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     }))
     .filter((webinar) => webinar.title && Date.parse(webinar.startsAt) + webinar.durationMinutes * 60_000 > now)
 
-  const items = (rows: unknown) => list(rows).map((row) => ({ icon: text(row.icon), title: text(row.title), copy: text(row.copy) }))
   const availability = (rows: unknown) => list(rows).map((row) => ({ code: text(row.code), name: text(row.name), available: Boolean(row.available) }))
 
   return {
@@ -128,21 +103,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
     startsida: {
       seo: { title: text(startsida.seo?.title), description: text(startsida.seo?.description) },
       hero: { title: text(startsida.hero?.title), highlight: text(startsida.hero?.highlight), description: text(startsida.hero?.description) },
-      kundcaseHeading: text(startsida.kundcaseHeading),
-      fordelar: { heading: text(startsida.fordelar?.heading), intro: text(startsida.fordelar?.intro), items: items(startsida.fordelar?.items) },
-      jamforelse: {
-        heading: text(startsida.jamforelse?.heading),
-        intro: text(startsida.jamforelse?.intro),
-        rows: list(startsida.jamforelse?.rows).map((row) => ({ label: text(row.label), sms: text(row.sms), rcs: text(row.rcs) })),
-      },
-      vagar: { heading: text(startsida.vagar?.heading), intro: text(startsida.vagar?.intro), items: items(startsida.vagar?.items) },
-      pris: { heading: text(startsida.pris?.heading), subheading: text(startsida.pris?.subheading), intro: text(startsida.pris?.intro) },
-      blogg: {
-        heading: text(startsida.blogg?.heading),
-        intro: text(startsida.blogg?.intro),
-        picks: list(startsida.blogg?.picks).map((article) => relation(article, 'slug')).filter((slug) => visibleSlugs.has(slug)),
-      },
-      kontakt: { heading: text(startsida.kontakt?.heading), intro: text(startsida.kontakt?.intro) },
     },
     priser: {
       seo: { title: text(priser.seo?.title), description: text(priser.seo?.description) },
@@ -170,13 +130,6 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
       faqHeading: text(priser.faqHeading),
       faq: list(priser.faq).map((row) => ({ question: text(row.question), answer: text(row.answer) })),
       volumeText: text(priser.volumeText),
-      sms: {
-        name: text(priser.sms?.name),
-        contents: text(priser.sms?.contents),
-        operatorPrices: list(priser.sms?.operatorPrices)
-          .map((row) => ({ operator: text(row.operator), price: text(row.price) }))
-          .filter((row) => row.operator && row.price),
-      },
       networksHeading: text(priser.networksHeading),
       networksNote: text(priser.networksNote),
       networks: list(priser.networks).map((row) => ({
@@ -188,19 +141,8 @@ export async function buildSiteContent(payload: Payload): Promise<SiteContent> {
         sms: text(row.sms),
       })),
     },
-    kundcase,
     webinarer,
-    demo: {
-      features: list(demo.features).map((row, index) => ({ id: index + 1, title: text(row.title), copy: text(row.copy) })),
-      richCards: items(demo.richCards),
-      replies: list(demo.replies).map((row) => ({
-        option: text(row.option),
-        title: text(row.title),
-        copy: text(row.copy),
-        actions: list(row.actions).map((action) => text(action.label)),
-      })),
-    },
     juridiskt: { integritetspolicy: legalPage(juridiskt.integritetspolicy), villkor: legalPage(juridiskt.villkor) },
-    kunskap: { sources, glossary, articles, redirects },
+    kunskap: { sources, articles, redirects },
   }
 }

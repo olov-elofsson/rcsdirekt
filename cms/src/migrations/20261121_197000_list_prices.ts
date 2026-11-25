@@ -1,4 +1,5 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: list prices per operator (from the price list of
 // November 2026), with the lowest as the "from" price. The purchase price is not stored here.
@@ -48,9 +49,11 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   const description = replaceAll(startsida.seo?.description)
   if (description !== startsida.seo?.description) await payload.updateGlobal({ slug: 'startsida', req, data: { seo: { ...startsida.seo, description } } as never })
 
-  const demo = (await payload.findGlobal({ slug: 'demo', depth: 0, req })) as Doc
-  const replies = ((demo.replies ?? []) as Doc[]).map((reply) => ({ ...reply, copy: replaceAll(reply.copy) }))
-  await payload.updateGlobal({ slug: 'demo', req, data: { replies } as never })
+  if (configured(payload, 'demo')) {
+    const demo = (await payload.findGlobal({ slug: removedSlug('demo'), depth: 0, req })) as Doc
+    const replies = ((demo.replies ?? []) as Doc[]).map((reply) => ({ ...reply, copy: replaceAll(reply.copy) }))
+    await payload.updateGlobal({ slug: removedSlug('demo'), req, data: { replies } as never })
+  }
 
   const { docs } = await payload.find({ collection: 'artiklar', where: { slug: { equals: 'vad-kostar-rcs' } }, depth: 0, limit: 1, req })
   for (const article of docs as Doc[]) {

@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: a photo at the top of each customer case card.
 // The files ship with the CMS in public/kundcase and are uploaded to the media library
@@ -14,8 +15,9 @@ const PHOTOS: { name: string; file: string; alt: string }[] = [
 ]
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
+  if (!configured(payload, 'kundcase')) return
   for (const photo of PHOTOS) {
-    const { docs } = await payload.find({ collection: 'kundcase', where: { name: { equals: photo.name } }, depth: 0, req })
+    const { docs } = await payload.find({ collection: removedSlug('kundcase'), where: { name: { equals: photo.name } }, depth: 0, req })
     const missing = docs.filter((item) => !(item as { image?: unknown }).image)
     if (!missing.length) continue
     let data: Buffer
@@ -32,7 +34,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
       data: { alt: photo.alt },
       file: { data, mimetype: 'image/webp', name: `kundcase-${photo.file}`, size: data.length },
     })
-    for (const item of missing) await payload.update({ collection: 'kundcase', id: item.id, req, data: { image: media.id } })
+    for (const item of missing) await payload.update({ collection: removedSlug('kundcase'), id: item.id, req, data: { image: media.id } as never })
   }
   payload.logger.info('Migration: customer case photos added.')
 }

@@ -9,14 +9,11 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { Articles } from './collections/Articles'
-import { CustomerCases } from './collections/CustomerCases'
-import { Glossary } from './collections/Glossary'
 import { Inquiries } from './collections/Inquiries'
 import { Media } from './collections/Media'
 import { Sources } from './collections/Sources'
 import { Users } from './collections/Users'
 import { Webinars } from './collections/Webinars'
-import { Demo } from './globals/Demo'
 import { Juridiskt } from './globals/Juridiskt'
 import { Priser } from './globals/Priser'
 import { Startsida } from './globals/Startsida'
@@ -97,14 +94,12 @@ export default buildConfig({
   collections: [
     Users,
     publishing(Media),
-    publishing(CustomerCases),
     publishing(Articles),
-    publishing(Glossary),
     publishing(Sources),
     publishing(Webinars),
     Inquiries,
   ],
-  globals: [publishingGlobal(Startsida), publishingGlobal(Priser), publishingGlobal(Demo), publishingGlobal(Juridiskt)],
+  globals: [publishingGlobal(Startsida), publishingGlobal(Priser), publishingGlobal(Juridiskt)],
   endpoints: [
     {
       // Public: the website reads its content from here while it is being built.

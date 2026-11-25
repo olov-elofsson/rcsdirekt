@@ -25,7 +25,6 @@ function problems(content: SiteContent): string[] {
     need(!slugs.has(article.slug), `two articles share the address ${article.slug}`);
     slugs.add(article.slug);
   }
-  for (const slug of content?.startsida?.blogg?.picks ?? []) need(slugs.has(slug), `start page picks a missing article: ${slug}`);
   return found;
 }
 

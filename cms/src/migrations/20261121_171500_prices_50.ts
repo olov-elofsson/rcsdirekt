@@ -1,4 +1,5 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: new prices with a 50 % markup on the
 // purchase price (Basic 0,30 → 0,45, Single 0,425 → 0,64, Conversation 0,63 → 0,95,
@@ -32,12 +33,14 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
     data: { seo: { ...startsida.seo, description: replaceAll(startsida.seo?.description, PRICE_TEXT) } } as never,
   })
 
-  const demo = (await payload.findGlobal({ slug: 'demo', depth: 0, req })) as Record<string, any>
-  await payload.updateGlobal({
-    slug: 'demo',
-    req,
-    data: { replies: (demo.replies ?? []).map((reply: Record<string, any>) => ({ ...reply, copy: replaceAll(reply.copy, PRICE_TEXT) })) } as never,
-  })
+  if (configured(payload, 'demo')) {
+    const demo = (await payload.findGlobal({ slug: removedSlug('demo'), depth: 0, req })) as Record<string, any>
+    await payload.updateGlobal({
+      slug: removedSlug('demo'),
+      req,
+      data: { replies: (demo.replies ?? []).map((reply: Record<string, any>) => ({ ...reply, copy: replaceAll(reply.copy, PRICE_TEXT) })) } as never,
+    })
+  }
 
   const { docs: articles } = await payload.find({ collection: 'artiklar', where: { slug: { equals: 'vad-kostar-rcs' } }, depth: 0, limit: 1, req })
   for (const article of articles as Record<string, any>[]) {
@@ -54,8 +57,10 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
     })
   }
 
-  const { docs: cases } = await payload.find({ collection: 'kundcase', where: { name: { equals: 'DreamCare Omsorg AB' } }, depth: 0, req })
-  for (const item of cases) await payload.update({ collection: 'kundcase', id: item.id, req, data: { name: 'DreamCare' } })
+  if (configured(payload, 'kundcase')) {
+    const { docs: cases } = await payload.find({ collection: removedSlug('kundcase'), where: { name: { equals: 'DreamCare Omsorg AB' } }, depth: 0, req })
+    for (const item of cases) await payload.update({ collection: removedSlug('kundcase'), id: item.id, req, data: { name: 'DreamCare' } as never })
+  }
 
   payload.logger.info('Migration: prices with 50 % markup and DreamCare renamed.')
 }

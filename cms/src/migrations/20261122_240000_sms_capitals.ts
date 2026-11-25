@@ -1,4 +1,5 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: SMS is written in capitals everywhere ("SMS", "SMS:et",
 // "SMS-fallback"), in every text of the site's globals and collections. Addresses, slugs and ids are
@@ -28,7 +29,8 @@ function changedFields(doc: Doc): Doc {
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   let count = 0
-  for (const collection of ['artiklar', 'begrepp', 'kallor', 'kundcase', 'webinarer'] as const) {
+  for (const collection of ['artiklar', 'begrepp', 'kallor', 'kundcase', 'webinarer'] as never[]) {
+    if (!configured(payload, collection)) continue
     const { docs } = await payload.find({ collection, depth: 0, limit: 0, pagination: false, req })
     for (const doc of docs as Doc[]) {
       const data = changedFields(doc)
@@ -39,7 +41,8 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   }
   // Payload merges `context` into the shared request; the global saves should start the build again.
   req.context = { ...req.context, skipRebuild: false }
-  for (const slug of ['demo', 'priser', 'juridiskt', 'startsida'] as const) {
+  for (const slug of ['demo', 'priser', 'juridiskt', 'startsida'] as never[]) {
+    if (!configured(payload, slug)) continue
     const doc = (await payload.findGlobal({ slug, depth: 0, req })) as Doc
     const data = changedFields(doc)
     if (!Object.keys(data).length) continue

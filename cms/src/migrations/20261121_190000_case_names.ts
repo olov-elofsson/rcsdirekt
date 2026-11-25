@@ -1,4 +1,5 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: the customer cases show the full company name.
 // Names checked against the company registers (Bolagsverket via Allabolag, Finansinspektionen).
@@ -10,9 +11,10 @@ const FULL_NAMES: [string[], string][] = [
 ]
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
+  if (!configured(payload, 'kundcase')) return
   for (const [names, fullName] of FULL_NAMES) {
-    const { docs } = await payload.find({ collection: 'kundcase', where: { name: { in: names } }, depth: 0, req })
-    for (const item of docs) await payload.update({ collection: 'kundcase', id: item.id, req, data: { name: fullName } })
+    const { docs } = await payload.find({ collection: removedSlug('kundcase'), where: { name: { in: names } }, depth: 0, req })
+    for (const item of docs) await payload.update({ collection: removedSlug('kundcase'), id: item.id, req, data: { name: fullName } as never })
   }
   payload.logger.info('Migration: customer cases use the full company names.')
 }

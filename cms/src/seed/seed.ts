@@ -9,25 +9,10 @@ import initial from './content.json'
 
 const context = { skipRebuild: true }
 
-async function fetchLogo(url: string): Promise<{ data: Buffer; mimetype: string; name: string; size: number } | null> {
-  const base = process.env.SEED_ASSET_BASE_URL
-  if (!base || !url) return null
-  try {
-    const response = await fetch(new URL(url, base))
-    if (!response.ok) return null
-    const data = Buffer.from(await response.arrayBuffer())
-    const name = decodeURIComponent(url.split('/').pop() || 'logo')
-    const mimetype = name.endsWith('.svg') ? 'image/svg+xml' : (response.headers.get('content-type') ?? 'image/png')
-    return { data, mimetype, name, size: data.length }
-  } catch {
-    return null
-  }
-}
-
 export async function seedIfEmpty(payload: Payload): Promise<void> {
   if (process.env.SEED_ON_EMPTY === 'false') return
   const content = initial as unknown as SiteContent
-  const isEmpty = async (collection: 'kallor' | 'artiklar' | 'begrepp' | 'kundcase') =>
+  const isEmpty = async (collection: 'kallor' | 'artiklar') =>
     (await payload.count({ collection })).totalDocs === 0
 
   const sourceIds = new Map<string, number | string>()
@@ -76,37 +61,6 @@ export async function seedIfEmpty(payload: Payload): Promise<void> {
         data: { related: article.related.map((slug) => articleIds.get(slug)).filter((id) => id !== undefined) as never },
       })
     }
-  } else {
-    const { docs } = await payload.find({ collection: 'artiklar', limit: 0, pagination: false, depth: 0, select: { slug: true } })
-    for (const doc of docs) articleIds.set(doc.slug as string, doc.id)
-  }
-
-  if (await isEmpty('begrepp')) {
-    payload.logger.info('Seed: importing glossary.')
-    for (const entry of content.kunskap.glossary) {
-      await payload.create({
-        collection: 'begrepp',
-        context,
-        data: { term: entry.term, aliases: entry.aliases, definition: entry.definition, source: sourceIds.get(entry.source) as never, article: articleIds.get(entry.article) as never },
-      })
-    }
-  }
-
-  if (await isEmpty('kundcase')) {
-    payload.logger.info('Seed: importing customer cases.')
-    for (const item of content.kundcase) {
-      const file = await fetchLogo(item.logo.url)
-      if (!file) {
-        payload.logger.warn(`Seed: could not fetch the logo for ${item.name}; add it in the CMS.`)
-        continue
-      }
-      const logo = await payload.create({ collection: 'media', context, data: { alt: item.logo.alt }, file })
-      await payload.create({
-        collection: 'kundcase',
-        context,
-        data: { name: item.name, logo: logo.id, width: item.logo.width, height: item.logo.height, description: item.description, slug: item.slug },
-      })
-    }
   }
 
   // Globals count as imported once the start page has a hero title.
@@ -118,10 +72,7 @@ export async function seedIfEmpty(payload: Payload): Promise<void> {
   await payload.updateGlobal({
     slug: 'startsida',
     context,
-    data: {
-      ...home,
-      blogg: { ...home.blogg, picks: home.blogg.picks.map((slug) => articleIds.get(slug)).filter((id) => id !== undefined) },
-    } as never,
+    data: home as never,
   })
 
   const pricing = content.priser
@@ -132,16 +83,6 @@ export async function seedIfEmpty(payload: Payload): Promise<void> {
       ...pricing,
       operators: pricing.operators.map((name) => ({ name })),
       included: pricing.included.map((text) => ({ text })),
-    } as never,
-  })
-
-  await payload.updateGlobal({
-    slug: 'demo',
-    context,
-    data: {
-      features: content.demo.features.map(({ title, copy }) => ({ title, copy })),
-      richCards: content.demo.richCards,
-      replies: content.demo.replies.map((reply) => ({ ...reply, actions: reply.actions.map((label) => ({ label })) })),
     } as never,
   })
 

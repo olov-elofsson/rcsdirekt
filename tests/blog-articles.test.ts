@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { articles, glossary, redirectFor, searchArticles, searchGlossary, sources } from "../src/data/blog-articles";
+import { articles, redirectFor, searchArticles, sources } from "../src/data/blog-articles";
 import { factsForSources } from "../src/data/article-source-facts";
 
 // The blog keeps the most important articles; the rest are hidden in the CMS and their old
@@ -47,15 +47,10 @@ test("varje sakavsnitt och ordlistebegrepp har en befintlig https-källa", () =>
       for (const id of section.sources) expect(sources.find((source) => source.id === id)?.url.startsWith("https://")).toBe(true);
     }
   }
-  for (const term of glossary) expect(sources.find((source) => source.id === term.source)?.url.startsWith("https://")).toBe(true);
 });
 
 test("svenska varianter med samma sökintention hittar samma artikel", () => {
   expect(searchArticles("vad betyder rcs meddelande").map((article) => article.slug)).toEqual(["vad-ar-rcs"]);
-});
-
-test("ordlistan hittar svensk reservkanal som fallback", () => {
-  expect(searchGlossary("reservkanal").map((entry) => entry.term)).toEqual(["Fallback"]);
 });
 
 test("ämnesfilter kombineras med sökning", () => {

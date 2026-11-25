@@ -1,4 +1,5 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: the start page headings use the same names as the menu
 // (Kunder, Plattform, Insikter), whatever earlier wording they still have, and Nercia's case
@@ -13,10 +14,10 @@ const CASE_NAMES: [from: string, to: string][] = [['Nercia Utbildning AB', 'NERC
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   // Cases first, without a site build each; the start page update below starts one build.
-  for (const [from, to] of CASE_NAMES) {
-    const found = await payload.find({ collection: 'kundcase', where: { name: { equals: from } }, depth: 0, limit: 10, req })
+  for (const [from, to] of configured(payload, 'kundcase') ? CASE_NAMES : []) {
+    const found = await payload.find({ collection: removedSlug('kundcase'), where: { name: { equals: from } }, depth: 0, limit: 10, req })
     for (const doc of found.docs) {
-      await payload.update({ collection: 'kundcase', id: doc.id, data: { name: to } as never, req, context: { skipRebuild: true } })
+      await payload.update({ collection: removedSlug('kundcase'), id: doc.id, data: { name: to } as never, req, context: { skipRebuild: true } })
     }
     if (found.docs.length) payload.logger.info(`Migration: case renamed to ${to}.`)
   }

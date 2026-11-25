@@ -1,4 +1,5 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { configured, removedSlug } from '../lib/removed-slugs'
 
 // Content change, not a schema change: the site's copy reviewed with the humanizer and
 // copywriting skills. Dashes, "no X, no Y" lists, sales words and staged fragments are
@@ -111,9 +112,10 @@ function apply(doc: Doc, changes: Change[]): Doc {
 
 async function updateGlobal(args: MigrateUpArgs, slug: 'startsida' | 'priser' | 'demo', changes: Change[], extra?: (doc: Doc) => Doc) {
   const { payload, req } = args
-  const doc = (await payload.findGlobal({ slug, depth: 0, req })) as Doc
+  if (!configured(payload, slug)) return
+  const doc = (await payload.findGlobal({ slug: slug as never, depth: 0, req })) as Doc
   const data = { ...apply(doc, changes), ...(extra?.(doc) ?? {}) }
-  if (Object.keys(data).length) await payload.updateGlobal({ slug, req, data: data as never })
+  if (Object.keys(data).length) await payload.updateGlobal({ slug: slug as never, req, data: data as never })
 }
 
 export async function up(args: MigrateUpArgs): Promise<void> {

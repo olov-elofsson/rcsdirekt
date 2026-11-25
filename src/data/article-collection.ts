@@ -1,11 +1,11 @@
 // The article collection from the CMS (src/content/kunskap): articles with their source facts,
 // search and reading time.
-import type { Article as ContentArticle, GlossaryTerm, Section, Source } from "@/content";
+import type { Article as ContentArticle, Section, Source } from "@/content";
 
-export type { GlossaryTerm, Section, Source };
+export type { Section, Source };
 export type SourceFact = { sourceId: string; finding: string; implication: string };
 export type Article = ContentArticle & { facts?: SourceFact[] };
-type Knowledge = { sources: Source[]; glossary: GlossaryTerm[]; articles: ContentArticle[]; redirects?: { from: string; to: string }[] };
+type Knowledge = { sources: Source[]; articles: ContentArticle[]; redirects?: { from: string; to: string }[] };
 
 export function readingMinutes(article: Article) {
   const text = [
@@ -30,7 +30,6 @@ export function articleCollection(data: Knowledge) {
   const factsForSources = (ids: string[]): SourceFact[] =>
     [...new Set(ids)].flatMap((id) => (sourceFacts[id] ? [sourceFacts[id]] : [])).slice(0, 2);
   const sources = data.sources;
-  const glossary = data.glossary;
   const articles: Article[] = data.articles.map((article) => ({
     ...article,
     facts: factsForSources(article.sections.flatMap((section) => section.sources)),
@@ -40,7 +39,6 @@ export function articleCollection(data: Knowledge) {
   const redirects = new Map((data.redirects ?? []).map((row) => [row.from, row.to]));
   return {
     sources,
-    glossary,
     articles,
     redirectFor: (slug: string) => redirects.get(slug),
     sourceFacts,
@@ -53,10 +51,6 @@ export function articleCollection(data: Knowledge) {
           (category === all || article.category === category) &&
           [article.title, article.description, ...article.keywords].join(" ").toLocaleLowerCase("sv").includes(needle),
       );
-    },
-    searchGlossary(query: string) {
-      const needle = query.trim().toLocaleLowerCase("sv");
-      return glossary.filter((entry) => [entry.term, entry.aliases, entry.definition].join(" ").toLocaleLowerCase("sv").includes(needle));
     },
   };
 }

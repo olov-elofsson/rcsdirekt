@@ -82,33 +82,8 @@ export const Priser: GlobalConfig = {
           ],
         },
         {
-          label: 'SMS och alla nät',
+          label: 'Alla nät',
           fields: [
-            {
-              name: 'sms',
-              label: 'SMS',
-              type: 'group',
-              admin: { description: 'Visas som en egen pristabell på /priser, under meddelandetyperna. Inte på startsidan.' },
-              fields: [
-                { name: 'name', label: 'Namn', type: 'text' },
-                { name: 'contents', label: 'Innehåll i korthet', type: 'text' },
-                {
-                  name: 'operatorPrices',
-                  label: 'Listpris per operatör',
-                  type: 'array',
-                  labels: { singular: 'Pris', plural: 'Priser' },
-                  fields: [
-                    {
-                      type: 'row',
-                      fields: [
-                        { name: 'operator', label: 'Operatör', type: 'text', required: true },
-                        { name: 'price', label: 'Listpris', type: 'text', required: true },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
             { name: 'networksHeading', label: 'Rubrik för alla nät', type: 'text', admin: { description: 'Rubriken på den utfällbara listan med varje nät, till exempel "Alla nät och priser".' } },
             { name: 'networksNote', label: 'Text över listan', type: 'textarea' },
             {
