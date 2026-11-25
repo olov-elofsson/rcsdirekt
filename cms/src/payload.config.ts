@@ -88,6 +88,15 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: { titleSuffix: ' | rcsdirekt.se CMS' },
+    // The site's design (custom.scss); only the light theme is styled.
+    theme: 'light',
+    // Payload's own avatar; the default one is loaded from Gravatar.
+    avatar: 'default',
+    components: {
+      graphics: { Logo: '/components/admin/Brand#Logo', Icon: '/components/admin/Brand#Icon' },
+      beforeDashboard: ['/components/admin/Greeting#Greeting'],
+      beforeNavLinks: ['/components/admin/Brand#NavLogo'],
+    },
     importMap: { baseDir: path.resolve(dirname) },
   },
   i18n: { supportedLanguages: { sv, en }, fallbackLanguage: 'sv' },

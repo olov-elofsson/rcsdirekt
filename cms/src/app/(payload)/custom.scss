@@ -1,0 +1,260 @@
+// rcsdirekt.se CMS: the admin in the site's design (see plugins/rcsdirekt-design). A light,
+// lavender-grey canvas with the content in a white rounded panel, a soft sidebar, Archivo and
+// Hind, and the brand colours instead of Payload's greys. Only the look changes; collections,
+// tabs and fields stay as Payload builds them.
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Hind:wght@400;500;600;700&display=swap');
+
+:root {
+  // Payload derives every shade (background, borders, text) from this scale: white to Marin.
+  --color-base-0: #ffffff;
+  --color-base-50: #f7f7fc;
+  --color-base-100: #efeefc;
+  --color-base-150: #e3e2f5;
+  --color-base-200: #d4d3ea;
+  --color-base-250: #c4c3de;
+  --color-base-300: #b4b3d3;
+  --color-base-350: #a4a2c7;
+  --color-base-400: #9492bc;
+  --color-base-450: #8482b0;
+  --color-base-500: #7472a4;
+  --color-base-550: #656299;
+  --color-base-600: #55528d;
+  --color-base-650: #454282;
+  --color-base-700: #353176;
+  --color-base-750: #25216b;
+  --color-base-800: #15115f;
+  --color-base-850: #110d52;
+  --color-base-900: #0d0a45;
+  --color-base-950: #0a0838;
+  --color-base-1000: #07052b;
+
+  --font-body: 'Hind', ui-sans-serif, system-ui, sans-serif;
+  --style-radius-s: 8px;
+  --style-radius-m: 12px;
+  --style-radius-l: 16px;
+
+  --rd-canvas: #f3f3f9;
+  --rd-marin: #15115f;
+  --rd-bla: #2f7bff;
+  --rd-lavendel: #efeefc;
+  --rd-linje: #e3e2f5;
+  --rd-muted: oklch(0.42 0.05 285);
+  --rd-shadow: 0 0 0 1px rgb(21 17 95 / 6%), 0 1px 2px rgb(21 17 95 / 5%), 0 12px 28px -20px rgb(21 17 95 / 18%);
+  --rd-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+h1, h2, h3, h4, .doc-header__title, .list-header__title {
+  font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
+  word-spacing: 0.06em;
+}
+
+::selection { background: var(--rd-marin); color: #f5f5fc; }
+
+// Canvas and panel: the page is light grey, and the working area a white panel with round corners.
+.template-default,
+.template-default__wrap { background-color: var(--rd-canvas); }
+
+@media (min-width: 1025px) {
+  .template-default__wrap {
+    margin: 12px 12px 12px 0;
+    min-height: calc(100vh - 24px);
+    background: #fff;
+    border: 1px solid var(--rd-linje);
+    border-radius: 20px;
+    box-shadow: var(--rd-shadow);
+    overflow: clip;
+  }
+  .app-header__bg { border-start-start-radius: 20px; border-start-end-radius: 20px; }
+}
+
+// Sidebar: on the canvas, no border, rounded items; the open page is a white pill with a ring.
+.nav {
+  background: var(--rd-canvas);
+  border-inline-end: 0;
+}
+
+.nav-group__toggle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rd-muted);
+  padding-inline: 12px;
+}
+
+.nav__link {
+  min-height: 40px;
+  margin-inline: -8px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--rd-marin);
+  transition: background-color 150ms var(--rd-ease), box-shadow 150ms var(--rd-ease);
+
+  &:hover { background: rgb(255 255 255 / 70%); }
+}
+
+.nav__link:has(.nav__link-indicator) {
+  background: #fff;
+  font-weight: 600;
+  box-shadow: var(--rd-shadow);
+}
+
+.nav__link-indicator { display: none; }
+
+// Cards on the dashboard and elsewhere: white, thin border, lift on hover.
+.card {
+  background: #fff;
+  border: 1px solid var(--rd-linje);
+  border-radius: 16px;
+  box-shadow: none;
+  transition: border-color 200ms var(--rd-ease), box-shadow 200ms var(--rd-ease), transform 200ms var(--rd-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: rgb(47 123 255 / 40%);
+    box-shadow: var(--rd-shadow);
+    transform: translateY(-2px);
+  }
+}
+
+.collections__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rd-muted);
+}
+
+// Buttons are pills, as on the site. The primary one is already Marin (the darkest shade in the
+// scale), so its colours, including the disabled state, stay Payload's.
+.btn { border-radius: 999px; }
+
+// Fields: a little rounder, with the brand's focus ring.
+.field-type input,
+.field-type textarea,
+.react-select .rs__control {
+  border-radius: 10px;
+}
+
+:where(a, button, summary, [role='tab']):focus-visible {
+  outline: 2px solid var(--rd-bla);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover { transform: none; }
+}
+
+// ---------------------------------------------------------------------------------------------
+// The greeting on the dashboard (components/admin/Greeting.tsx)
+// ---------------------------------------------------------------------------------------------
+
+.rd-greeting {
+  margin-bottom: 32px;
+}
+
+.rd-greeting__band {
+  position: relative;
+  height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 90% at 20% 20%, rgb(47 123 255 / 22%), transparent 70%),
+    radial-gradient(50% 80% at 85% 10%, rgb(21 17 95 / 18%), transparent 70%),
+    var(--rd-lavendel);
+}
+
+// A soft white hill rising into the band, with the logo's drop on top.
+.rd-greeting__band::after {
+  content: '';
+  position: absolute;
+  inset: auto -10% -60% -10%;
+  height: 120%;
+  background: #fff;
+  border-radius: 50% 50% 0 0 / 70% 70% 0 0;
+}
+
+.rd-greeting__symbol {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 28px;
+  width: 72px;
+  height: 72px;
+  translate: -50% 0;
+}
+
+.rd-greeting__date {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 18px;
+  color: var(--rd-muted);
+}
+
+.rd-greeting__title {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  color: var(--rd-marin);
+  text-wrap: balance;
+}
+
+.rd-greeting__cards {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.rd-greeting__card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--rd-linje);
+  border-radius: 16px;
+  color: var(--rd-marin);
+  text-decoration: none;
+  transition: border-color 200ms var(--rd-ease), box-shadow 200ms var(--rd-ease);
+
+  &:hover { border-color: rgb(47 123 255 / 40%); box-shadow: var(--rd-shadow); }
+}
+
+.rd-greeting__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0; // the logo's drop
+  background: var(--rd-lavendel);
+  color: var(--rd-marin);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.rd-greeting__text strong { display: block; font-size: 16px; font-weight: 600; }
+.rd-greeting__text span { display: block; font-size: 14px; color: var(--rd-muted); }
+
+// The logo in the sidebar and on the login page.
+.rd-logo { display: block; height: 30px; width: auto; }
+.rd-icon { display: block; height: 26px; width: 26px; }
+
+.rd-nav-logo {
+  display: block;
+  margin: 4px 0 20px;
+  padding-inline: 4px;
+
+  img { display: block; height: 28px; width: auto; }
+}
