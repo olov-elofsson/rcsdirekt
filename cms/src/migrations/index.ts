@@ -56,6 +56,7 @@ import * as migration_20261125_100000_short_hero from './20261125_100000_short_h
 import * as migration_20261125_110000_clearer_articles from './20261125_110000_clearer_articles';
 import * as migration_20261125_120000_thorough_articles from './20261125_120000_thorough_articles';
 import * as migration_20261125_130000_remove_unused from './20261125_130000_remove_unused';
+import * as migration_20261125_140000_seo_descriptions from './20261125_140000_seo_descriptions';
 
 export const migrations = [
   {
@@ -349,5 +350,10 @@ export const migrations = [
     up: migration_20261125_130000_remove_unused.up,
     down: migration_20261125_130000_remove_unused.down,
     name: '20261125_130000_remove_unused',
+  },
+  {
+    up: migration_20261125_140000_seo_descriptions.up,
+    down: migration_20261125_140000_seo_descriptions.down,
+    name: '20261125_140000_seo_descriptions',
   },
 ];

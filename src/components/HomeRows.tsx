@@ -60,6 +60,8 @@ function CardGrid({ id, label, title, intro, cards, after, muted = false, center
   return (
     <section id={id} aria-label={title ? undefined : label} className={muted ? "scroll-mt-24 bg-muted" : "scroll-mt-24 bg-background"}>
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        {/* Without a visible heading the cards still need an H2, so the outline goes H1, H2, H3. */}
+        {title ? null : <h2 className="sr-only">{label}</h2>}
         {title ? <SectionHead title={title} intro={intro} after={after} /> : null}
         <ul className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {cards.map(({ Icon, ...card }, index) => (
@@ -87,7 +89,7 @@ export function Entrances() {
     <CardGrid
       id="vad-ar-rcs"
       centered
-      label="Kom vidare"
+      label="Skicka RCS från webben eller via API"
       cards={[
         { Icon: MonitorSmartphone, title: "Skicka från webben", copy: "Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden.", link: "Prova webbverktyget", to: "/skapa-konto" },
         { Icon: Code2, title: "Koppla in ert system", copy: "Låt era system skicka bekräftelser och påminnelser via API.", link: "Till utvecklarsidan", to: "/utvecklare" },

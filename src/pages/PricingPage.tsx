@@ -205,6 +205,7 @@ export function PricingPage() {
 
         <section className="pb-16 sm:pb-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <h2 className="sr-only">Meddelandetyper och listpriser</h2>
             <PlanCards />
             <p className="mt-6 text-center text-sm leading-relaxed text-pretty text-muted-foreground">
               {inCurrency(page.selectorNote)}

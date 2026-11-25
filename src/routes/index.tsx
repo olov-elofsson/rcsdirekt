@@ -42,6 +42,7 @@ export const Route = createFileRoute("/")({
   links: [{ rel: "canonical", href: "https://rcsdirekt.se/" }],
   scripts: [
     { type: "application/ld+json", children: JSON.stringify({ ...organizationSchema, description: home.seo.description }) },
+    { type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "rcsdirekt.se", url: "https://rcsdirekt.se/", inLanguage: "sv-SE" }) },
     ...webinarSchema(),
   ],
   }),
