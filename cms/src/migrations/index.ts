@@ -61,6 +61,7 @@ import * as migration_20261125_150000_hero_usp from './20261125_150000_hero_usp'
 import * as migration_20261125_160000_remove_unused_fields from './20261125_160000_remove_unused_fields';
 import * as migration_20261125_161000_remove_orphans from './20261125_161000_remove_orphans';
 import * as migration_20261125_170000_sender_use_cases from './20261125_170000_sender_use_cases';
+import * as migration_20261125_180000_direct_answers from './20261125_180000_direct_answers';
 
 export const migrations = [
   {
@@ -379,5 +380,10 @@ export const migrations = [
     up: migration_20261125_170000_sender_use_cases.up,
     down: migration_20261125_170000_sender_use_cases.down,
     name: '20261125_170000_sender_use_cases',
+  },
+  {
+    up: migration_20261125_180000_direct_answers.up,
+    down: migration_20261125_180000_direct_answers.down,
+    name: '20261125_180000_direct_answers',
   },
 ];

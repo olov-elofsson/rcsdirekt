@@ -1211,7 +1211,7 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "RCS står för Rich Communication Services, en standard för meddelanden som går över wifi eller mobildata. Den gemensamma tekniska grunden heter Universal Profile och tas fram av GSMA, mobiloperatörernas branschorganisation. Tele2 och Comviq beskriver RCS som en modernare variant av SMS och MMS.",
+              "RCS står för Rich Communication Services, en standard för meddelanden som går över wifi eller mobildata. Den gemensamma tekniska grunden heter Universal Profile och tas fram av GSMA, mobiloperatörernas branschorganisation. Det är en modernare variant av SMS och MMS.",
               "RCS-funktionerna används bara när alla i samtalet har RCS påslaget. Samma app kan fortfarande skicka SMS och MMS, så alla meddelanden i den går inte nödvändigtvis som RCS. Ett exempel: ett foto till en vän med RCS påslaget visar när hon har läst det, medan samma foto till någon utan stöd går som MMS och utan läskvitto.",
               "Företag kan använda en registrerad avsändare med namn och logotyp och skicka bilder eller svarsknappar. Den tjänsten har egna krav på registrering och räckvidd. Ett privat RCS-samtal och ett företagsutskick behöver därför bedömas var för sig."
             ],
@@ -1228,7 +1228,7 @@
             "id": "funktioner",
             "title": "Vad kan du göra med RCS?",
             "paragraphs": [
-              "Google, Apple, Tele2 och Comviq beskriver ungefär samma funktioner. Skillnaden mot SMS märks mest när du skickar bilder eller vill veta om den andra har läst."
+              "Funktionerna är ungefär desamma oavsett telefon och operatör. Skillnaden mot SMS märks mest när du skickar bilder eller vill veta om den andra har läst."
             ],
             "points": [
               "Se när den andra personen skriver.",
@@ -1247,8 +1247,8 @@
             "id": "app",
             "title": "Behöver du en särskild app?",
             "paragraphs": [
-              "Nej. På Android används Google Meddelanden, och Tele2 och Comviq anger att det fungerar från Android 5.0. Enligt Google kan även andra appar som följer standarden, till exempel Samsung Messages och Meddelanden på iPhone, ansluta till RCS. På iPhone krävs iOS 18 eller senare, och från iOS 26 kan du välja vilken app som ska hantera SMS, MMS och RCS.",
-              "Operatören måste också ha öppnat för RCS på ditt abonnemang. Finns inte inställningen i appen kan det bero på operatören eller på att telefonen behöver en nyare systemversion. Apple skriver att det kan dröja några timmar efter att du har slagit på RCS innan det fungerar."
+              "Nej. På Android används Google Meddelanden, och det fungerar från Android 5.0. Även andra appar som följer standarden, till exempel Samsung Messages och Meddelanden på iPhone, kan ansluta till RCS. På iPhone krävs iOS 18 eller senare, och från iOS 26 kan du välja vilken app som ska hantera SMS, MMS och RCS.",
+              "Operatören måste också ha öppnat för RCS på ditt abonnemang. Finns inte inställningen i appen kan det bero på operatören eller på att telefonen behöver en nyare systemversion. Det kan dröja några timmar efter att du har slagit på RCS innan det fungerar."
             ],
             "points": [],
             "sources": [
@@ -1278,7 +1278,7 @@
             "id": "kostnad",
             "title": "Kostar RCS något extra?",
             "paragraphs": [
-              "RCS använder din datatrafik. Enligt Google kostar det inget extra så länge du är ansluten till ett wifi som du inte betalar för, och över mobildata följer kostnaden ditt abonnemang. Tele2 skriver att RCS ingår i abonnemanget, medan Apple påpekar att operatörsavgifter kan tillkomma. Fråga din operatör om du är osäker."
+              "RCS använder din datatrafik. Det kostar inget extra så länge du är ansluten till ett wifi som du inte betalar för, och över mobildata följer kostnaden ditt abonnemang. Hos Tele2 ingår RCS i abonnemanget, men hos andra operatörer kan avgifter tillkomma. Fråga din operatör om du är osäker."
             ],
             "points": [],
             "sources": [
@@ -1291,8 +1291,8 @@
             "id": "kryptering",
             "title": "Är RCS krypterat?",
             "paragraphs": [
-              "Det beror på vilka appar och operatörer som är inblandade. Google anger att RCS-chattar mellan användare av Google Meddelanden är end-to-end-krypterade som standard. När Google tillhandahåller RCS-tjänsten skyddas meddelandena annars med TLS på vägen mellan telefonen och Google. När vi läste Googles hjälpsida i november 2026 stod det att RCS-chattar med iPhone-användare inte har end-to-end-kryptering.",
-              "Apple har infört end-to-end-krypterad RCS som betaversion i iOS 26.5, hos operatörer som stöder det. Krypteringen gäller bara när alla deltagares operatörer stöder den, och ett krypterat samtal har en låssymbol högst upp. Ser du inget lås ska du utgå från att meddelandet inte är skyddat på det sättet. Företagsmeddelanden via RCS är enligt Google inte end-to-end-krypterade."
+              "Det beror på vilka appar och operatörer som är inblandade. RCS-chattar mellan användare av Google Meddelanden är end-to-end-krypterade som standard. När Google tillhandahåller RCS-tjänsten skyddas meddelandena annars med TLS på vägen mellan telefonen och Google. I november 2026 hade RCS-chattar mellan Google Meddelanden och iPhone inte end-to-end-kryptering.",
+              "Apple har infört end-to-end-krypterad RCS som betaversion i iOS 26.5, hos operatörer som stöder det. Krypteringen gäller bara när alla deltagares operatörer stöder den, och ett krypterat samtal har en låssymbol högst upp. Ser du inget lås ska du utgå från att meddelandet inte är skyddat på det sättet. Företagsmeddelanden via RCS är inte end-to-end-krypterade."
             ],
             "points": [],
             "sources": [
@@ -1308,7 +1308,7 @@
             "title": "Vad är RCS för företag?",
             "paragraphs": [
               "Ett företag kan skicka RCS från en registrerad avsändare. I Google Meddelanden visas företagets namn och logotyp högst upp i samtalet i stället för ett telefonnummer, och en verifierad avsändare har en bock efter namnet. Meddelandet kan innehålla bilder, kort som går att svepa mellan och knappar för till exempel att ringa eller öppna en webbsida.",
-              "Du som mottagare kan blockera ett företag och rapportera det som spam. Google Meddelanden har i flera länder också ett val för att säga upp prenumerationen på oviktiga meddelanden, och på iPhone kan du stänga av RCS-meddelanden från företag under Inställningar, Appar, Meddelanden och RCS-meddelanden. Ett företag kan aldrig vara med i en gruppchatt, så en gruppinbjudan som påstår sig komma från ett företag är enligt Google troligen ett bedrägeriförsök."
+              "Du som mottagare kan blockera ett företag och rapportera det som spam. Google Meddelanden har i flera länder också ett val för att säga upp prenumerationen på oviktiga meddelanden, och på iPhone kan du stänga av RCS-meddelanden från företag under Inställningar, Appar, Meddelanden och RCS-meddelanden. Ett företag kan aldrig vara med i en gruppchatt, så en gruppinbjudan som påstår sig komma från ett företag är troligen ett bedrägeriförsök."
             ],
             "points": [],
             "sources": [
@@ -1373,7 +1373,7 @@
             "id": "tecken",
             "title": "Hur mycket text får plats?",
             "paragraphs": [
-              "Ett SMS-segment rymmer 160 tecken med teckenuppsättningen GSM-7. Innehåller texten tecken utanför den, till exempel emojier, används UCS-2 och då ryms 70 tecken. Längre meddelanden delas upp i flera segment som telefonen sätter ihop, och enligt leverantören Bandwidth debiteras varje segment för sig.",
+              "Ett SMS-segment rymmer 160 tecken med teckenuppsättningen GSM-7. Innehåller texten tecken utanför den, till exempel emojier, används UCS-2 och då ryms 70 tecken. Längre meddelanden delas upp i flera segment som telefonen sätter ihop, och varje segment debiteras för sig.",
               "RCS räknar annorlunda. Google kallar ett textmeddelande på högst 160 tecken för Basic Message och räknar tecknen som byte i UTF-8, där en emoji kan ta 2 till 4 tecken. Texten i ett enskilt RCS-meddelande får vara upp till 3 072 tecken, och längre text än 160 tecken räknas som ett rikare meddelande när det debiteras."
             ],
             "points": [],
@@ -1407,7 +1407,7 @@
             "id": "kvitton",
             "title": "Hur vet du att meddelandet har kommit fram?",
             "paragraphs": [
-              "I RCS skickar mottagarens telefon händelser tillbaka till avsändaren. Google skiljer på levererat, läst och att mottagaren skriver. I privata chattar visar Google Meddelanden samma steg med ikoner vid meddelandet, och de ikonerna visas inte för SMS och MMS.",
+              "I RCS skickar mottagarens telefon händelser tillbaka till avsändaren. Avsändaren ser om meddelandet har levererats, om det har lästs och om mottagaren skriver. I privata chattar visar Google Meddelanden samma steg med ikoner vid meddelandet, och de ikonerna visas inte för SMS och MMS.",
               "Läskvitton går att stänga av, så ett meddelande utan läskvitto kan ändå ha blivit läst. Räkna därför leverans och läsning som olika signaler. Ingen av dem visar att kunden förstått eller gjort något."
             ],
             "points": [],
@@ -1421,7 +1421,7 @@
             "id": "reserv",
             "title": "Vad händer om mottagaren saknar RCS?",
             "paragraphs": [
-              "Har mottagarens telefon inte RCS, eller har avsändaren inte lanserats hos mottagarens operatör, svarar Googles plattform med felet 404 NOT_FOUND. Då kan företagets system skicka ett SMS i stället. Google rekommenderar att systemet först kontrollerar att RCS-meddelandet inte har levererats och försöker dra tillbaka det, så att kunden inte får samma besked två gånger.",
+              "Har mottagarens telefon inte RCS, eller har avsändaren inte lanserats hos mottagarens operatör, svarar Googles plattform med felet 404 NOT_FOUND. Då kan företagets system skicka ett SMS i stället. Systemet bör då först kontrollera att RCS-meddelandet inte har levererats och försöka dra tillbaka det, så att kunden inte får samma besked två gånger.",
               "Alla nät tar inte emot RCS från företag. I rcsdirekt.se:s prislista har flera mindre nät bara ett SMS-pris, vilket betyder att de inte tar emot RCS-typerna. För privata chattar har Google Meddelanden en inställning som skickar om meddelandet som SMS eller MMS när RCS inte går fram."
             ],
             "points": [],
@@ -1437,7 +1437,7 @@
             "id": "avsandare",
             "title": "Ser kunden vem som skickar?",
             "paragraphs": [
-              "Enligt Google visar ett SMS ingen verifiering av avsändaren för mottagaren. Ett RCS-meddelande från en registrerad avsändare visar företagets namn och logotyp, och en verifierad avsändare har en bock efter namnet. SMS och MMS är inte end-to-end-krypterade, och enligt Google är inte heller företagsmeddelanden via RCS det."
+              "Ett SMS visar ingen verifiering av avsändaren för mottagaren. Ett RCS-meddelande från en registrerad avsändare visar företagets namn och logotyp, och en verifierad avsändare har en bock efter namnet. SMS och MMS är inte end-to-end-krypterade, och det är inte heller företagsmeddelanden via RCS."
             ],
             "points": [],
             "sources": [
@@ -1501,8 +1501,8 @@
             "id": "innehall",
             "title": "Vad kan ett företagsmeddelande innehålla?",
             "paragraphs": [
-              "Ett och samma meddelande kan innehålla text, ett kort med bild eller video, en karusell med upp till tio kort och knappar för svar eller åtgärder. En fil får vara högst 100 MiB. Google rekommenderar att kortets viktigaste knapp ligger först, eftersom Google Meddelanden visar det första förslaget direkt i aviseringen på Android.",
-              "Alla funktioner fungerar inte överallt. Google anger till exempel att knappar som ligger kvar inne i meddelandebubblan inte stöds på iPhone eller i Samsung Messages. Gör därför en kapabilitetskontroll, som visar vilka funktioner ett visst nummer stöder, och prova meddelandet på de telefoner kunderna använder."
+              "Ett och samma meddelande kan innehålla text, ett kort med bild eller video, en karusell med upp till tio kort och knappar för svar eller åtgärder. En fil får vara högst 100 MiB. Lägg kortets viktigaste knapp först, eftersom Google Meddelanden visar det första förslaget direkt i aviseringen på Android.",
+              "Alla funktioner fungerar inte överallt. Knappar som ligger kvar inne i meddelandebubblan stöds till exempel inte på iPhone eller i Samsung Messages. Gör därför en kapabilitetskontroll, som visar vilka funktioner ett visst nummer stöder, och prova meddelandet på de telefoner kunderna använder."
             ],
             "points": [],
             "sources": [
@@ -1534,7 +1534,7 @@
             "title": "Hur går det till att börja skicka?",
             "paragraphs": [
               "Först bekräftar en behörig person hos varumärket avsändarens uppgifter och att partnern, alltså företaget som sköter avsändaren tekniskt, får hantera den. Sedan granskas avsändaren av Google, av operatörerna eller av båda. Vissa operatörer hanterar lanseringen själva och kan kräva ett direkt avtal, och för att lansera hos de operatörer som Google hanterar behöver avsändaren först vara lanserad hos minst en operatör i samma land som sköter det själv.",
-              "Enligt Google tar en lansering som Google hanterar 1 till 3 arbetsdagar, om varumärket godkänner inom 24 timmar och underlaget är komplett. Det här behöver vara klart innan:"
+              "En lansering som Google hanterar tar 1 till 3 arbetsdagar, om varumärket godkänner inom 24 timmar och underlaget är komplett. Det här behöver vara klart innan:"
             ],
             "points": [
               "Visningsnamn, logotyp, beskrivning och minst en kontaktväg.",
@@ -1583,7 +1583,7 @@
             "id": "fordjupning",
             "title": "Kanalen behöver ett sammanhang",
             "paragraphs": [
-              "Ett företagsmeddelande är användbart när det hör ihop med något kunden redan förstår: en beställning, en bokning eller en fråga. Google rekommenderar relevanta meddelanden och tydliga val, men det är vägledning och inga uppmätta resultat, så effekten behöver du följa själv.",
+              "Ett företagsmeddelande är användbart när det hör ihop med något kunden redan förstår: en beställning, en bokning eller en fråga. Håll meddelandena relevanta och valen tydliga, och följ själv upp vilken effekt de har.",
               "Planera även vem som äger nästa steg. Säg att en möbelbutik skickar ett leveransbesked med en knapp för att ändra leveransdag. Svaret ska då nå leveranshanteringen och inte fastna i en separat inkorg, och om kunden skriver en fråga i stället för att trycka på knappen behöver någon kunna svara."
             ],
             "points": [],
@@ -1615,7 +1615,7 @@
             "title": "",
             "paragraphs": [
               "I Googles process bekräftar en behörig representant för varumärket avsändarens uppgifter och att partnern, alltså företaget som sköter avsändaren tekniskt, får hantera den. Verifieringen är ett krav före lansering. När avsändaren är verifierad och lanserad visar Google Meddelanden automatiskt en bock efter namnet.",
-              "Enligt Googles hjälpsida för användare betyder bocken att Google, mobiloperatören eller en tredjepartsleverantör har bekräftat företagets identitet. I företagets profil står det dessutom Verifierad, och Google anger att profilen också visar vem som har gjort verifieringen."
+              "Bocken betyder att Google, mobiloperatören eller en tredjepartsleverantör har bekräftat företagets identitet. I företagets profil står det dessutom Verifierad, och där visas också vem som har gjort verifieringen."
             ],
             "points": [],
             "sources": [
@@ -1632,7 +1632,7 @@
             "points": [
               "Kontaktuppgifter till en anställd hos varumärket som har rätt att godkänna uppgifterna. Google vill ha en personlig e-postadress och ingen gruppadress.",
               "Frivilliga underlag, till exempel en fullmakt, som pdf. Högst fem filer på upp till 50 MB vardera.",
-              "En verifieringstoken från en godkänd verifieringsinstans. Den är frivillig i alla länder i dag, men Google skriver att vissa operatörer kommer att kräva den."
+              "En verifieringstoken från en godkänd verifieringsinstans. Den är frivillig i alla länder i dag, men vissa operatörer kommer att kräva den."
             ],
             "sources": [
               "verification",
@@ -1644,7 +1644,7 @@
             "title": "Hur lång tid tar det, och vem hör av sig?",
             "paragraphs": [
               "Verifieringen görs efter att lanseringen har begärts. Hos operatörer där Google sköter lanseringen kontaktas varumärket en gång, och sedan räknas avsändaren som verifierad för alla sådana lanseringar. Operatörer som sköter lanseringen själva kan kontakta varumärket var för sig.",
-              "Google anger 1 till 3 arbetsdagar för en lansering som Google hanterar, om varumärket svarar inom 24 timmar och webbplats, integritetspolicy och villkor är på plats. Det lönar sig därför att meddela kontaktpersonen i förväg att ett mejl kommer."
+              "En lansering som Google hanterar tar 1 till 3 arbetsdagar, om varumärket svarar inom 24 timmar och webbplats, integritetspolicy och villkor är på plats. Det lönar sig därför att meddela kontaktpersonen i förväg att ett mejl kommer."
             ],
             "points": [],
             "sources": [
@@ -1656,8 +1656,8 @@
             "id": "profil",
             "title": "Vad ser kunden?",
             "paragraphs": [
-              "I samtalets rubrik visas företagets namn och logotyp i stället för ett telefonnummer, och i profilen finns beskrivning, kontaktuppgifter och länkar till integritetspolicy och villkor. Google skriver att verifieringsbocken är skyddad mot efterapning och inte kan läggas till för hand.",
-              "Logotypen ska vara 224 × 224 pixlar och visas som en rundad kvadrat i Google Meddelanden. Bannerbilden är 1440 × 448 pixlar, och profilens färg ska ha minst kontrasten 4,5:1 mot vitt. Enligt leverantören Bandwidth ska alla logotyper vara uppdaterade till det nya formatet senast den 1 juni 2027, en ny logotyp kan ta upp till sju dagar att synas, och bytet kan kräva nya godkännanden och avgifter."
+              "I samtalets rubrik visas företagets namn och logotyp i stället för ett telefonnummer, och i profilen finns beskrivning, kontaktuppgifter och länkar till integritetspolicy och villkor. Verifieringsbocken är skyddad mot efterapning och kan inte läggas till för hand.",
+              "Logotypen ska vara 224 × 224 pixlar och visas som en rundad kvadrat i Google Meddelanden. Bannerbilden är 1440 × 448 pixlar, och profilens färg ska ha minst kontrasten 4,5:1 mot vitt. Alla logotyper ska vara uppdaterade till det nya formatet senast den 1 juni 2027, en ny logotyp kan ta upp till sju dagar att synas, och bytet kan kräva nya godkännanden och avgifter."
             ],
             "points": [],
             "sources": [
@@ -1671,14 +1671,14 @@
             "id": "andringar",
             "title": "Vad går inte att ändra i efterhand?",
             "paragraphs": [
-              "En del val låses när avsändaren skapas eller skickas in för lansering, så det lönar sig att bestämma dem tidigt. Enligt Google gäller det här:"
+              "En del val låses när avsändaren skapas eller skickas in för lansering, så det lönar sig att bestämma dem tidigt. Det gäller de här valen:"
             ],
             "points": [
               "Verifieringsuppgifterna kan inte ändras efter att lanseringen har begärts.",
               "Användningsfallet, till exempel transaktioner eller marknadsföring, kan inte ändras efter att avsändaren skickats in för lansering.",
               "Regionen där avsändaren lagrar sina data kan inte ändras efter att den skapats.",
               "En avsändare kan inte raderas.",
-              "En ny logotyp går igenom samma godkännande som tidigare och kan enligt Bandwidth ta upp till sju dagar att synas."
+              "En ny logotyp går igenom samma godkännande som tidigare och kan ta upp till sju dagar att synas."
             ],
             "sources": [
               "agent",
@@ -1691,7 +1691,7 @@
             "id": "andra-appar",
             "title": "Ser profilen likadan ut i alla appar?",
             "paragraphs": [
-              "Inte helt. Google skriver att extra kontaktuppgifter och egna etiketter, som Kundtjänst i stället för Telefon, bara visas i Google Meddelanden. Andra appar visar bara den primära telefonen, webbplatsen och e-postadressen, ibland med en standardetikett. Lägg därför de viktigaste kontaktvägarna i de primära fälten. Google kräver minst en av dem för att avsändaren ska kunna lanseras och rekommenderar alla tre."
+              "Inte helt. Extra kontaktuppgifter och egna etiketter, som Kundtjänst i stället för Telefon, visas bara i Google Meddelanden. Andra appar visar bara den primära telefonen, webbplatsen och e-postadressen, ibland med en standardetikett. Lägg därför de viktigaste kontaktvägarna i de primära fälten. Google kräver minst en av dem för att avsändaren ska kunna lanseras och rekommenderar alla tre."
             ],
             "points": [],
             "sources": [
@@ -1702,8 +1702,8 @@
             "id": "begransningar",
             "title": "Vad säger märkningen inget om?",
             "paragraphs": [
-              "Bocken hjälper kunden att känna igen företaget. Den intygar inte att varje erbjudande eller länk är bra, och den säger inget om kryptering. Google skriver att verifierade RCS-chattar mellan företag och användare inte är end-to-end-krypterade, och att företag, meddelandeleverantörer och ibland operatörer kan komma åt innehållet för leverans och andra ändamål.",
-              "En oväntad begäran om betalning eller känsliga uppgifter bör kunden fortfarande kontrollera på annat sätt. Google påpekar också att ett företag aldrig kan vara med i en gruppchatt, så en gruppinbjudan som påstår sig komma från ett företag är troligen ett bedrägeriförsök."
+              "Bocken hjälper kunden att känna igen företaget. Den intygar inte att varje erbjudande eller länk är bra, och den säger inget om kryptering. Verifierade RCS-chattar mellan företag och användare är inte end-to-end-krypterade, och företag, meddelandeleverantörer och ibland operatörer kan komma åt innehållet för leverans och andra ändamål.",
+              "En oväntad begäran om betalning eller känsliga uppgifter bör kunden fortfarande kontrollera på annat sätt. Ett företag kan heller aldrig vara med i en gruppchatt, så en gruppinbjudan som påstår sig komma från ett företag är troligen ett bedrägeriförsök."
             ],
             "points": [],
             "sources": [
@@ -1805,7 +1805,7 @@
             "title": "Hur skyddar du webhooken?",
             "paragraphs": [
               "Vem som helst kan anropa en öppen adress, så kontrollera varje anrop innan du behandlar det. Google skickar en signatur i rubriken X-Goog-Signature, som du jämför med en HMAC SHA512 av meddelandet beräknad med din klientnyckel. När webhooken registreras skickar Google också ett anrop med en hemlighet som adressen ska svara med. Google avråder från att lita på fasta ip-adresser, eftersom adresserna ändras.",
-              "Svara snabbt. Google rekommenderar att webhooken lägger händelsen i en egen kö och svarar 200 OK inom fem sekunder, och att själva behandlingen sker separat. Alla svar utom 200 OK räknas som misslyckade, och då gör plattformen nya försök i upp till sju dagar innan händelsen raderas. Alla avsändare hos samma partner delar en kö, så en webhook som fallerar kan försena händelser för de andra avsändarna också, även testavsändare."
+              "Svara snabbt. Lägg händelsen i en egen kö, svara 200 OK inom fem sekunder och behandla händelsen separat. Alla svar utom 200 OK räknas som misslyckade, och då gör plattformen nya försök i upp till sju dagar innan händelsen raderas. Alla avsändare hos samma partner delar en kö, så en webhook som fallerar kan försena händelser för de andra avsändarna också, även testavsändare."
             ],
             "points": [],
             "sources": [
@@ -1817,7 +1817,7 @@
             "title": "Hur undviker du dubbletter?",
             "paragraphs": [
               "Händelser levereras minst en gång, vilket betyder att samma händelse ibland kommer två gånger. Kontrollera meddelande-id:t och hoppa över det du redan har behandlat. Misslyckas ett utskick på grund av ett tillfälligt fel eller en tidsgräns, försök igen med samma id och längre väntetid mellan försöken.",
-              "Ett SMS som reserv ska inte skickas bara för att anropet tog lång tid. Google rekommenderar att systemet först kontrollerar att inget leveranskvitto har kommit och försöker dra tillbaka RCS-meddelandet. Misslyckas återkallelsen kan meddelandet redan ha kommit fram. Startar du ett SMS efter ett oklart besked om giltighetstiden och RCS-meddelandet ändå levereras, anger Google att RCS-meddelandet inte debiteras."
+              "Ett SMS som reserv ska inte skickas bara för att anropet tog lång tid. Kontrollera först att inget leveranskvitto har kommit och försök dra tillbaka RCS-meddelandet. Misslyckas återkallelsen kan meddelandet redan ha kommit fram. Startar du ett SMS efter ett oklart besked om giltighetstiden och RCS-meddelandet ändå levereras, debiteras inte RCS-meddelandet."
             ],
             "points": [],
             "sources": [
@@ -1878,7 +1878,7 @@
             "title": "",
             "paragraphs": [
               "För att använda RCS på iPhone behövs två saker. Telefonen måste ha iOS 18 eller senare, och du behöver ett abonnemang med SMS från en operatör som har öppnat för RCS på iPhone. Det räcker alltså inte att uppdatera telefonen om operatören inte är med.",
-              "Så kontrollerar du: öppna Inställningar, välj Appar och sedan Meddelanden. Där ska det finnas ett val som heter RCS-meddelanden. Saknas det, kontrollera först att iOS är uppdaterad och fråga sedan operatören om just din linje. Apple skriver att det kan dröja några timmar innan RCS fungerar efter att du har slagit på det.",
+              "Så kontrollerar du: öppna Inställningar, välj Appar och sedan Meddelanden. Där ska det finnas ett val som heter RCS-meddelanden. Saknas det, kontrollera först att iOS är uppdaterad och fråga sedan operatören om just din linje. Det kan dröja några timmar innan RCS fungerar efter att du har slagit på det.",
               "Vilken kanal ett samtal använder ser du i skrivfältet, där det står RCS-meddelande när RCS används. Gröna bubblor kan vara både RCS och SMS, så färgen säger inget om det. Blå bubblor är iMessage."
             ],
             "points": [],
@@ -1947,7 +1947,7 @@
             "id": "app",
             "title": "Kan du använda en annan app?",
             "paragraphs": [
-              "Från iOS 26 kan du välja vilken app som ska hantera SMS, MMS och RCS på iPhone. Apple påpekar också att operatörsavgifter kan tillkomma, så fråga operatören om du är osäker på vad som ingår i abonnemanget. Tele2 skriver att RCS ingår och använder din vanliga datatrafik."
+              "Från iOS 26 kan du välja vilken app som ska hantera SMS, MMS och RCS på iPhone. Operatörsavgifter kan tillkomma, så fråga operatören om du är osäker på vad som ingår i abonnemanget. Hos Tele2 ingår RCS och använder din vanliga datatrafik."
             ],
             "points": [],
             "sources": [
@@ -1979,7 +1979,7 @@
             "title": "Vad betyder det för företag?",
             "paragraphs": [
               "Skickar du för ett företag och vill nå kunder med iPhone behöver du testa din registrerade avsändare. Att två privatpersoner kan chatta med RCS visar inte att ett företagsutskick når samma telefoner. Inför ett utskick kan leverantören göra en kapabilitetskontroll, som visar om ett visst nummer kan ta emot RCS från avsändaren och vilka funktioner som stöds.",
-              "Räkna också med skillnader i hur meddelandet visas. Google anger att knappar som ligger kvar inne i meddelandebubblan inte stöds på iPhone, så kortet behöver fungera även när knapparna visas under det. iPhone-användare kan dessutom stänga av RCS-meddelanden från företag i inställningarna och rapportera ett meddelande som skräp."
+              "Räkna också med skillnader i hur meddelandet visas. Knappar som ligger kvar inne i meddelandebubblan stöds inte på iPhone, så kortet behöver fungera även när knapparna visas under det. iPhone-användare kan dessutom stänga av RCS-meddelanden från företag i inställningarna och rapportera ett meddelande som skräp."
             ],
             "points": [],
             "sources": [
@@ -2008,7 +2008,7 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Privata RCS-meddelanden går över wifi eller mobildata. Enligt Google kostar de inget extra så länge du använder ett wifi som du inte betalar för, och över mobildata följer kostnaden ditt abonnemang. Tele2 skriver att RCS ingår i abonnemanget, medan Apple påpekar att operatörsavgifter kan tillkomma.",
+              "Privata RCS-meddelanden går över wifi eller mobildata. De kostar inget extra så länge du använder ett wifi som du inte betalar för, och över mobildata följer kostnaden ditt abonnemang. Hos Tele2 ingår RCS i abonnemanget, men hos andra operatörer kan avgifter tillkomma.",
               "För företag är det annorlunda. Operatörerna debiterar RCS från företag efter vad meddelandet innehåller och om kunden svarar, i nivåerna Basic, Single och Conversation. Priset beror också på vilken operatör mottagaren har."
             ],
             "points": [],
@@ -2055,7 +2055,7 @@
             "title": "Vad kostar en SMS-reserv?",
             "paragraphs": [
               "Ska kunder utan RCS få ett SMS i stället behöver du räkna med SMS-priset för de mottagarna. Prissidan visar SMS-priset för varje nät. Flera av de mindre näten tar bara emot SMS, så för deras kunder blir reserven det enda alternativet.",
-              "Ett långt SMS delas upp i segment om 153 tecken, eller 67 tecken om texten innehåller emojier, och enligt leverantören Bandwidth debiteras varje segment för sig. Skriv därför SMS-versionen kort, särskilt om RCS-versionen har mycket text."
+              "Ett långt SMS delas upp i segment om 153 tecken, eller 67 tecken om texten innehåller emojier, och varje segment debiteras för sig. Skriv därför SMS-versionen kort, särskilt om RCS-versionen har mycket text."
             ],
             "points": [],
             "sources": [
@@ -2118,7 +2118,7 @@
             "title": "",
             "paragraphs": [
               "Ett nytt meddelandeformat ändrar inte kraven. Två regelverk gäller oftast samtidigt: dataskyddsförordningen, GDPR, gäller hur du behandlar personuppgifter som telefonnummer och svar, och marknadsföringslagen gäller själva reklamen. De besvarar olika frågor, så en bokningsbekräftelse och ett reklamerbjudande behöver bedömas var för sig, efter vad de är till för.",
-              "Den här genomgången bygger på vad Integritetsskyddsmyndigheten (IMY), Konsumentverket och lagtexten säger. Den ersätter inte juridisk rådgivning, och för ett verkligt upplägg bör du låta en dataskyddskunnig rådgivare eller jurist göra bedömningen."
+              "Genomgången ersätter inte juridisk rådgivning, och för ett verkligt upplägg bör du låta en dataskyddskunnig rådgivare eller jurist göra bedömningen."
             ],
             "points": [],
             "sources": [
@@ -2131,7 +2131,7 @@
             "id": "samtycke",
             "title": "När krävs samtycke för reklam i meddelanden?",
             "paragraphs": [
-              "Enligt 19 § marknadsföringslagen får ett företag använda elektronisk post vid marknadsföring till en privatperson bara om personen har samtyckt i förväg. Lagen definierar elektronisk post som ett individuellt elektroniskt meddelande i form av text, röst, ljud eller bild som kan lagras tills mottagaren hämtar det. Konsumentverket nämner e-post och sms, och IMY skriver e-post, sms, fax eller annan elektronisk kommunikation. RCS nämns inte vid namn, så låt en jurist bekräfta hur regeln gäller ditt utskick.",
+              "Ett företag får använda elektronisk post vid marknadsföring till en privatperson bara om personen har samtyckt i förväg (19 § marknadsföringslagen). Lagen definierar elektronisk post som ett individuellt elektroniskt meddelande i form av text, röst, ljud eller bild som kan lagras tills mottagaren hämtar det. Det omfattar e-post, sms, fax och annan elektronisk kommunikation. RCS nämns inte vid namn, så låt en jurist bekräfta hur regeln gäller ditt utskick.",
               "Har företaget fått kontaktuppgiften när det sålde något till personen gäller ett undantag, men bara om alla tre villkor i lagen är uppfyllda:"
             ],
             "points": [
@@ -2163,8 +2163,8 @@
             "id": "rattslig-grund",
             "title": "Vilken rättslig grund behövs enligt GDPR?",
             "paragraphs": [
-              "All behandling av personuppgifter behöver en av GDPR:s sex rättsliga grunder. IMY skriver att privata företag främst kan använda samtycke, avtal, rättslig förpliktelse och intresseavvägning, och att det ofta inte är lämpligt eller ens möjligt att stödja sig på samtycke. Överväg därför först de andra grunderna.",
-              "Den rättsliga grunden ska vara bestämd innan uppgifterna samlas in, och valet ska dokumenteras. De registrerade ska alltid få veta vilken grund du använder. IMY påpekar också att du inte får byta till intresseavvägning bara för att ett samtycke visar sig vara ogiltigt."
+              "All behandling av personuppgifter behöver en av GDPR:s sex rättsliga grunder. Privata företag kan främst använda samtycke, avtal, rättslig förpliktelse och intresseavvägning, och ofta är det inte lämpligt eller ens möjligt att stödja sig på samtycke. Överväg därför först de andra grunderna.",
+              "Den rättsliga grunden ska vara bestämd innan uppgifterna samlas in, och valet ska dokumenteras. De registrerade ska alltid få veta vilken grund du använder. Du får heller inte byta till intresseavvägning bara för att ett samtycke visar sig vara ogiltigt."
             ],
             "points": [],
             "sources": [
@@ -2175,7 +2175,7 @@
             "id": "principer",
             "title": "Hur länge får du spara nummer och svar?",
             "paragraphs": [
-              "GDPR:s grundprinciper sätter ramarna. Telefonnummer, kundsvar och leveranskvitton är personuppgifter om de går att koppla till en person, och för dem gäller bland annat det här enligt IMY:"
+              "GDPR:s grundprinciper sätter ramarna. Telefonnummer, kundsvar och leveranskvitton är personuppgifter om de går att koppla till en person, och för dem gäller bland annat det här:"
             ],
             "points": [
               "Uppgifterna får bara samlas in för särskilda och uttryckligen angivna ändamål.",
@@ -2192,8 +2192,8 @@
             "id": "invandning",
             "title": "Vad händer när någon säger nej?",
             "paragraphs": [
-              "Enligt IMY är rätten att invända mot direktmarknadsföring absolut. När en person invänder måste behandlingen för det ändamålet upphöra, och svaret ska komma utan onödigt dröjsmål och senast inom en månad. Invändningen måste alltså få effekt i alla system som styr utskicken.",
-              "Google har en liknande regel för RCS. Säger kunden upp prenumerationen i Google Meddelanden får avsändaren händelsen UNSUBSCRIBE och ett STOP-meddelande, och efter det får bara nödvändiga meddelanden skickas, som engångskoder, besked om en tjänst kunden har begärt och en bekräftelse på avregistreringen. Valet fanns inte i Sverige enligt Googles lista i november 2026, men Google kräver att varje avsändare har en fungerande avregistrering redan vid lanseringen."
+              "Rätten att invända mot direktmarknadsföring är absolut. När en person invänder måste behandlingen för det ändamålet upphöra, och svaret ska komma utan onödigt dröjsmål och senast inom en månad. Invändningen måste alltså få effekt i alla system som styr utskicken.",
+              "Google har en liknande regel för RCS. Säger kunden upp prenumerationen i Google Meddelanden får avsändaren händelsen UNSUBSCRIBE och ett STOP-meddelande, och efter det får bara nödvändiga meddelanden skickas, som engångskoder, besked om en tjänst kunden har begärt och en bekräftelse på avregistreringen. Valet fanns inte i Sverige i november 2026, men Google kräver att varje avsändare har en fungerande avregistrering redan vid lanseringen."
             ],
             "points": [],
             "sources": [
@@ -2259,8 +2259,8 @@
             "id": "basic",
             "title": "Vad räknas som Basic?",
             "paragraphs": [
-              "Google räknar ett textmeddelande på högst 160 tecken som Basic. Tecknen räknas som byte i UTF-8, där en emoji tar 2 till 4. Ett meddelande med 150 bokstäver och tre emojier kan alltså gå över gränsen. Google ger emojier som exempel, så fråga leverantören hur svenska tecken som å, ä och ö räknas innan du skriver text nära gränsen.",
-              "Basic får innehålla en länk. Har sidan rätt metadata kan meddelandeappen visa en förhandsvisning med bild och titel, och enligt Google räknas meddelandet ändå som Basic, eftersom förhandsvisningen inte är ett rikt kort. Kunden kan stänga av förhandsvisningar i appen, så texten behöver fungera utan dem."
+              "Ett textmeddelande på högst 160 tecken räknas som Basic. Tecknen räknas som byte i UTF-8, där en emoji tar 2 till 4. Ett meddelande med 150 bokstäver och tre emojier kan alltså gå över gränsen. Å, ä och ö tar två byte var i UTF-8, så fråga leverantören hur de räknas innan du skriver text nära gränsen.",
+              "Basic får innehålla en länk. Har sidan rätt metadata kan meddelandeappen visa en förhandsvisning med bild och titel, och meddelandet räknas ändå som Basic, eftersom förhandsvisningen inte är ett rikt kort. Kunden kan stänga av förhandsvisningar i appen, så texten behöver fungera utan dem."
             ],
             "points": [],
             "sources": [
@@ -2302,7 +2302,7 @@
             "id": "svar",
             "title": "Vilka svar från kunden räknas?",
             "paragraphs": [
-              "Google räknar ett meddelande från kunden när hen skriver text, skickar en fil, trycker på ett föreslaget svar eller delar sin plats. Ett tryck på en föreslagen åtgärd, som att öppna en länk, räknas inte. Operatörerna bestämmer sedan om och hur kundens meddelanden debiteras, och Google skriver att rapporterna för samtal kan dröja upp till två dagar."
+              "Ett meddelande från kunden räknas när hen skriver text, skickar en fil, trycker på ett föreslaget svar eller delar sin plats. Ett tryck på en föreslagen åtgärd, som att öppna en länk, räknas inte. Operatörerna bestämmer sedan om och hur kundens meddelanden debiteras, och rapporterna för samtal kan dröja upp till två dagar."
             ],
             "points": [],
             "sources": [
@@ -2314,7 +2314,7 @@
             "title": "Vad ändrade Google i november 2025?",
             "paragraphs": [
               "Den 20 november 2025 slog Google ihop avsändarkategorierna Basic Message och Single Message till en kategori för avsändare som inte för samtal, Non-conversational. Sedan dess är varje ny avsändare antingen Conversational eller Non-conversational, och Google flyttar befintliga avsändare automatiskt med start den 16 mars 2026. Kategorin väljs när avsändaren skapas.",
-              "Ändringen gällde etiketterna för avsändaren. Google skriver att debiteringslogiken är densamma och att händelserna basic_message och single_message finns kvar för varje meddelande. Därför visar svenska prislistor, som rcsdirekt.se:s, fortfarande tre nivåer: priset följer vad varje meddelande innehåller och om kunden svarar."
+              "Ändringen gällde etiketterna för avsändaren. Debiteringslogiken är densamma, och händelserna basic_message och single_message finns kvar för varje meddelande. Därför visar svenska prislistor, som rcsdirekt.se:s, fortfarande tre nivåer: priset följer vad varje meddelande innehåller och om kunden svarar."
             ],
             "points": [],
             "sources": [
@@ -2347,7 +2347,7 @@
       {
         "slug": "rcs-sverige-operatorer",
         "title": "Vilka svenska operatörer stöder RCS?",
-        "description": "Tele2 och Comviq uppger att RCS fungerar på både iPhone och Android. Hos andra svenska operatörer behöver du fråga om stödet för ditt abonnemang och din telefon.",
+        "description": "Hos Tele2 och Comviq fungerar RCS på både iPhone och Android. Hos andra svenska operatörer behöver du fråga om stödet för ditt abonnemang och din telefon.",
         "category": "Mobil & operatörer",
         "keywords": [
           "rcs operatörer sverige tillgänglighet"
@@ -2360,7 +2360,7 @@
             "id": "forklaring",
             "title": "",
             "paragraphs": [
-              "Tele2 och Comviq beskriver RCS för iPhone och Android på sina supportsidor. Där krävs iOS 18 eller senare på iPhone, eller Android 5.0 eller senare med appen Google Meddelanden. Enligt Hurbra.se fungerar RCS på iPhone även hos Tre i den första testversionen av iOS 27.3, och det har testats med Hallon, men operatörerna har inte bekräftat när alla kunder får det.",
+              "Hos Tele2 och Comviq fungerar RCS på iPhone och Android. Det kräver iOS 18 eller senare på iPhone, eller Android 5.0 eller senare med appen Google Meddelanden. Hos Tre fungerar RCS på iPhone i den första testversionen av iOS 27.3, och det har testats med Hallon, men operatörerna har inte bekräftat när alla kunder får det.",
               "Ska ett företag skicka RCS behövs en annan kontroll. Leverantören måste kunna nå kunderna från företagets registrerade avsändare. Att två personer kan chatta med RCS säger inte om ett företagsutskick når samma telefoner."
             ],
             "points": [],
@@ -2395,7 +2395,7 @@
             "id": "apple-lista",
             "title": "Vad visar Apples operatörslista?",
             "paragraphs": [
-              "Apple publicerar en lista över vilka funktioner varje operatör har på iPhone. Den 1 november 2026 saknade Sveriges avsnitt RCS-markeringar helt. I versionen från den 17 november står Tele2 med end-to-end-krypterade RCS-meddelanden, medan Comviq, Tre, Telia och Telenor saknar RCS-markering, trots att Comviq själv skriver att RCS fungerar på iPhone.",
+              "Apple publicerar en lista över vilka funktioner varje operatör har på iPhone. Den 1 november 2026 saknade Sveriges avsnitt RCS-markeringar helt. I versionen från den 17 november står Tele2 med end-to-end-krypterade RCS-meddelanden, medan Comviq, Tre, Telia och Telenor saknar RCS-markering, trots att RCS fungerar på iPhone hos Comviq.",
               "Listan och operatörernas supportsidor ger alltså inte samma besked. Det går därför inte att ge ett säkert svar för hela Sverige utifrån listan, och för en enskild linje är operatörens egen uppgift det bästa beskedet."
             ],
             "points": [],
@@ -2409,8 +2409,8 @@
             "id": "android",
             "title": "Hur är det på Android?",
             "paragraphs": [
-              "Google skriver att tillgången till RCS varierar mellan regioner och operatörer, och att RCS-chattar tillhandahålls av Google eller av mobiloperatören. I Google Meddelanden ser du status under RCS-chattar i inställningarna. Står det Ansluten fungerar tjänsten, och står det att RCS inte stöds av operatören har operatören inte öppnat för det.",
-              "Har telefonen två SIM-kort anger Google att SIM-kortet för samtal också ska vara inställt för mobildata. Står det Väntar på nytt försök i mer än 30 minuter har Google problem att verifiera numret."
+              "Tillgången till RCS varierar mellan regioner och operatörer, och RCS-chattar tillhandahålls av Google eller av mobiloperatören. I Google Meddelanden ser du status under RCS-chattar i inställningarna. Står det Ansluten fungerar tjänsten, och står det att RCS inte stöds av operatören har operatören inte öppnat för det.",
+              "Har telefonen två SIM-kort ska SIM-kortet för samtal också vara inställt för mobildata. Står det Väntar på nytt försök i mer än 30 minuter har Google problem att verifiera numret."
             ],
             "points": [],
             "sources": [
@@ -2422,7 +2422,7 @@
             "id": "kontrollera",
             "title": "Hur ser du vilket stöd din telefon har?",
             "paragraphs": [
-              "Det snabbaste beskedet för din egen linje får du i telefonens inställningar, som ser likadana ut oavsett operatör. Tele2 och Comviq beskriver samma vägar på sina supportsidor."
+              "Det snabbaste beskedet för din egen linje får du i telefonens inställningar, som ser likadana ut oavsett operatör."
             ],
             "points": [
               "iPhone: Inställningar, Appar, Meddelanden och RCS-meddelanden. Finns valet har operatören öppnat för RCS.",
@@ -2510,7 +2510,7 @@
             "id": "operatorer",
             "title": "Läget hos operatörerna",
             "paragraphs": [
-              "Sammanställningen gäller november 2026 och uppdateras när fler operatörer öppnar för RCS. Tele2 och Comviq beskriver stödet på sina supportsidor. Uppgifterna om Tre och Hallon kommer från tester med testversionen av iOS 27.3 som Hurbra.se har rapporterat om."
+              "Sammanställningen gäller november 2026 och uppdateras när fler operatörer öppnar för RCS. Uppgifterna om Tre och Hallon gäller testversionen av iOS 27.3."
             ],
             "points": [
               "Tele2: öppet för alla kunder",
@@ -2618,7 +2618,7 @@
             "id": "anvandningsfall",
             "title": "De fyra användningsfallen",
             "paragraphs": [
-              "Så här beskriver Google vad varje sorts avsändare får och inte får skicka:"
+              "Varje sorts avsändare får skicka olika saker:"
             ],
             "points": [
               "Engångskoder: koder för inloggning och tvåstegsverifiering, återställning av lösenord och för att slutföra ett köp på nätet. Avsändaren får inte skicka produktinformation eller erbjudanden.",
@@ -2685,7 +2685,7 @@
             "id": "underlag",
             "title": "Vad granskarna vill se",
             "paragraphs": [
-              "Granskningen gäller att avsändaren gör det som användningsfallet säger. Därför vill Google ha antingen en video av samtalen eller utskrifter steg för steg, med de exakta texterna, knapparna och länkarna. Beskrivningarna ska stämma med det användningsfall du valde.",
+              "Granskningen gäller att avsändaren gör det som användningsfallet säger. Därför krävs antingen en video av samtalen eller utskrifter steg för steg, med de exakta texterna, knapparna och länkarna. Beskrivningarna ska stämma med det användningsfall du valde.",
               "Var konkret om vad som utlöser meddelandet. Skriv inte bara att kunden får ett meddelande när hen registrerar sig, utan var och hur registreringen sker. Webbplatsen, integritetspolicyn och villkoren ska vara publicerade och gå att öppna. Formuläret ska innehålla:"
             ],
             "points": [
@@ -2702,7 +2702,7 @@
             "id": "tid",
             "title": "Hur lång tid tar det?",
             "paragraphs": [
-              "Google anger 1 till 3 arbetsdagar för en lansering som Google sköter, om varumärket godkänner inom 24 timmar och allt underlag är på plats. Vissa operatörer sköter lanseringen själva, har egna krav och kan kräva ett direkt avtal. För att få lansera hos en operatör där Google sköter granskningen måste avsändaren först vara lanserad hos minst en operatör i samma land som sköter den själv.",
+              "En lansering som Google sköter tar 1 till 3 arbetsdagar, om varumärket godkänner inom 24 timmar och allt underlag är på plats. Vissa operatörer sköter lanseringen själva, har egna krav och kan kräva ett direkt avtal. För att få lansera hos en operatör där Google sköter granskningen måste avsändaren först vara lanserad hos minst en operatör i samma land som sköter den själv.",
               "Ett steg som kan dra ut på tiden är mejlet till varumärkets kontaktperson. Det kommer från rbm-support@google.com och måste besvaras innan lanseringen går vidare. Ange en personlig adress och inte en gruppadress, och säg till kontaktpersonen i förväg att mejlet kommer."
             ],
             "points": [],
@@ -2716,7 +2716,7 @@
             "id": "samtycke",
             "title": "Registreringen ersätter inte samtycket",
             "paragraphs": [
-              "En godkänd avsändare betyder att Google och operatörerna har kontrollerat vem som skickar och vad den ska skicka. Det ger inget tillstånd att skicka till en viss person. Reklam till privatpersoner kräver enligt marknadsföringslagen samtycke i förväg, med ett undantag för befintliga kunder som har tre villkor.",
+              "En godkänd avsändare betyder att Google och operatörerna har kontrollerat vem som skickar och vad den ska skicka. Det ger inget tillstånd att skicka till en viss person. Marknadsföringslagen kräver samtycke i förväg för reklam till privatpersoner, med ett undantag för befintliga kunder som har tre villkor.",
               "Telefonnumren behöver dessutom en rättslig grund enligt GDPR för varje ändamål. Samma nummer kan användas för ett leveransbesked med avtalet som grund men behöva samtycke för ett kampanjutskick."
             ],
             "points": [],
