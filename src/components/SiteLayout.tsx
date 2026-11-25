@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, CalendarDays, Linkedin, Menu, X } from "lucide-react";
-import { company, phoneHref } from "@/lib/company";
+import { ArrowRight, ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
+import { company } from "@/lib/company";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -345,14 +345,14 @@ export function SiteFooter() {
     <MobileSignupBar />
     <footer className="bg-ink pt-16 pb-8 text-ink-foreground sm:pt-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* The logo on the left, then the link columns and the company's details as the last column. */}
+        {/* The logo on the left, the link columns on the right. */}
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,4fr)] lg:gap-16">
           <div>
             <Link to="/" aria-label="rcsdirekt.se, startsida" className="inline-block">
               <BrandLogo inverse className="h-8" />
             </Link>
           </div>
-          <nav aria-label="Sidfot" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+          <nav aria-label="Sidfot" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {footerNav.map((group) => (
               <div key={group.title}>
                 <p className="text-sm font-semibold text-ink-foreground">{group.title}</p>
@@ -372,18 +372,6 @@ export function SiteFooter() {
                 </ul>
               </div>
             ))}
-            <div>
-              <p className="text-sm font-semibold text-ink-foreground">Företagsinformation</p>
-              {/* leading-10 puts each line on the same rhythm as the links beside it. */}
-              <address className="mt-3 text-sm not-italic leading-10 text-ink-muted">
-                {company.legalName}<br />{company.street}<br />{company.postalCode} {company.city}
-                {company.email ? <><br /><a href={`mailto:${company.email}`} className="transition-colors hover:text-ink-foreground">{company.email}</a></> : null}
-                {company.phone ? <><br /><a href={phoneHref(company.phone)} className="transition-colors hover:text-ink-foreground">{company.phone}</a></> : null}
-              </address>
-              {company.linkedin ? (
-                <a href={company.linkedin} className={footerLinkClass}><Linkedin aria-hidden className="size-4" />LinkedIn</a>
-              ) : null}
-            </div>
           </nav>
         </div>
 
