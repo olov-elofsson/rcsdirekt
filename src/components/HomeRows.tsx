@@ -15,18 +15,18 @@ import { formatPrice, useCurrency } from "@/lib/money";
 
 const order = (index: number) => ({ "--reveal-order": index }) as CSSProperties;
 
-/** The closing blue box: one line and the two ways to start. */
+/** The closing Marin box, like the hero: one line and the two ways to start. */
 export function CtaBox() {
   const { t, lp } = useT();
   return (
     <section id="starta" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div data-reveal className="flex flex-col items-center rounded-3xl bg-logo-blue px-6 py-16 text-center sm:py-20">
-          <h2 className="max-w-3xl text-[2rem] font-extrabold leading-[1.1] text-balance text-white sm:text-[2.6rem]">{t("Kom igång i dag")}</h2>
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-pretty text-white sm:text-[17px]">{t("Skapa ett konto, så hjälper vi er med avsändaren och det första utskicket.")}</p>
+        <div data-reveal className="flex flex-col items-center rounded-3xl bg-ink px-6 py-16 text-center sm:py-20">
+          <h2 className="max-w-3xl text-[2rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.6rem]">{t("Kom igång i dag")}</h2>
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-pretty text-ink-muted sm:text-[17px]">{t("Skapa ett konto, så hjälper vi er med avsändaren och det första utskicket.")}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            <Button asChild size="lg" className="home-cta"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
-            <Link to={lp("/kontakt")} className="inline-flex min-h-11 items-center gap-1.5 text-base font-semibold text-white underline underline-offset-4">{t("Prata med oss")}</Link>
+            <Button asChild size="lg" variant="outline" className="home-cta border-transparent"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
+            <Link to={lp("/kontakt")} className="inline-flex min-h-11 items-center gap-1.5 text-base font-semibold text-ink-foreground underline underline-offset-4">{t("Prata med oss")}</Link>
           </div>
         </div>
       </div>
