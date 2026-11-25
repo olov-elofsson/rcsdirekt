@@ -72,7 +72,7 @@ const SOURCES = [
     "sourceId": "rcsdirekt-prices",
     "title": "rcsdirekt.se: Priser för RCS i Sverige",
     "url": "https://rcsdirekt.se/priser",
-    "finding": "Prislistan anger listpris i SEK exklusive moms per meddelandetyp och mottagarens nät, till exempel Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK. Ett tomt fält betyder att nätet inte tar emot den typen av meddelande.",
+    "finding": "Prislistan anger listpris i SEK exklusive moms per meddelandetyp och mottagarens nät. Ett tomt fält betyder att nätet inte tar emot den typen av meddelande.",
     "implication": "Priset för ett utskick beror på vilka nät mottagarna har. Kontrollera prislistan när du räknar, eftersom den ändras när leverantörens prislista ändras."
   }
 ]
@@ -712,14 +712,9 @@ const ARTICLES: Record<string, Rewrite> = {
         "id": "priser",
         "title": "Vad kostar RCS för företag hos rcsdirekt.se?",
         "paragraphs": [
-          "Listpriserna i november 2026 är Basic från 0,316 SEK, Single från 0,462 SEK och Conversation från 0,641 SEK, exklusive moms. Det finns ingen startavgift, månadsavgift eller bindningstid. Det lägsta priset gäller inte alla mottagare, så räkna med priset för de nät dina kunder har."
+          "De aktuella listpriserna per meddelandetyp och operatör står på prissidan, exklusive moms. Det kostar inget att starta och det finns ingen bindningstid. Det lägsta priset gäller inte alla mottagare, så räkna med priset för de nät dina kunder har."
         ],
-        "points": [
-          "Telia: Basic 0,346, Single 0,483 och Conversation 0,694 SEK.",
-          "Tele2: Basic 0,326, Single 0,462 och Conversation 0,662 SEK.",
-          "Telenor: Basic 0,363, Single 0,557 och Conversation 0,988 SEK.",
-          "Tre: Basic 0,316, Single 0,481 och Conversation 0,641 SEK."
-        ],
+        "points": [],
         "sources": [
           "rcsdirekt-prices"
         ]
@@ -747,7 +742,7 @@ const ARTICLES: Record<string, Rewrite> = {
         "id": "sms-reserv",
         "title": "Vad kostar en SMS-reserv?",
         "paragraphs": [
-          "Ska kunder utan RCS få ett SMS i stället behöver du räkna med SMS-priset för de mottagarna. Hos rcsdirekt.se kostar ett SMS 0,317 SEK till Tre, 0,336 SEK till Tele2, 0,346 SEK till Telia och 0,395 SEK till Telenor, och 0,385 SEK till de flesta mindre nät. Flera av de mindre näten tar bara emot SMS, så för deras kunder blir reserven det enda alternativet.",
+          "Ska kunder utan RCS få ett SMS i stället behöver du räkna med SMS-priset för de mottagarna. Prissidan visar SMS-priset för varje nät. Flera av de mindre näten tar bara emot SMS, så för deras kunder blir reserven det enda alternativet.",
           "Ett långt SMS delas upp i segment om 153 tecken, eller 67 tecken om texten innehåller emojier, och enligt leverantören Bandwidth debiteras varje segment för sig. Skriv därför SMS-versionen kort, särskilt om RCS-versionen har mycket text."
         ],
         "points": [],
