@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import type { PricingPlan } from "@/content";
 import { formatPrice, useCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
-import { useT } from "@/lib/i18n";
 
 /**
  * One message type, kept short as Fortnox keeps its product cards: name, what it holds, the from
@@ -14,7 +13,6 @@ import { useT } from "@/lib/i18n";
 export function PlanCard({ plan, size = "lg", className, style }: { plan: PricingPlan; size?: "md" | "lg"; uses?: boolean; className?: string; style?: CSSProperties }) {
   const featured = Boolean(plan.badge);
   const currency = useCurrency();
-  const { t, lp, locale } = useT();
   const muted = featured ? "text-ink-muted" : "text-muted-foreground";
   return (
     <div data-reveal style={style} className={cn("flex flex-col rounded-2xl transition-[translate,box-shadow] duration-200 ease-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-lift motion-reduce:transition-none motion-reduce:hover:translate-y-0", size === "lg" ? "p-7 sm:p-8" : "p-6", featured ? "bg-ink text-ink-foreground" : "bg-card shadow-card", className)}>
@@ -24,13 +22,13 @@ export function PlanCard({ plan, size = "lg", className, style }: { plan: Pricin
       </div>
       <p className={cn("mt-1.5 text-sm", muted)}>{plan.contents}</p>
       <p className="mt-8 flex flex-1 items-end gap-1.5">
-        <span className={cn("pb-1 text-sm font-semibold", muted)}>{t("från")}</span>
-        <span className={cn("font-extrabold leading-none tabular-nums", size === "lg" ? "text-4xl" : "text-3xl")}>{formatPrice(plan.price, currency, { locale: locale === "en" ? "en-GB" : "sv-SE" })}</span>
+        <span className={cn("pb-1 text-sm font-semibold", muted)}>från</span>
+        <span className={cn("font-extrabold leading-none tabular-nums", size === "lg" ? "text-4xl" : "text-3xl")}>{formatPrice(plan.price, currency)}</span>
       </p>
-      <p className={cn("mt-2 text-sm", muted)}>{t("listpris per meddelande")}</p>
+      <p className={cn("mt-2 text-sm", muted)}>listpris per meddelande</p>
       {/* The plan follows into the sign-up form. */}
       <Button asChild size={size === "lg" ? "lg" : "default"} variant="outline" className={cn("mt-7 w-full", featured && "border-transparent")}>
-        <Link to={lp("/skapa-konto")} search={{ plan: plan.name }}>{t("Välj")} {plan.name.replace(/^RCS /, "")}</Link>
+        <Link to={"/skapa-konto"} search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
       </Button>
     </div>
   );

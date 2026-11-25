@@ -3,11 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, CheckCheck, IdCard, MoreHorizontal, MousePointerClick, ExternalLink, GalleryHorizontal, MapPin, MessagesSquare, Phone, RotateCcw, SquareMousePointer, Ticket, type LucideIcon } from "lucide-react";
 
 import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPhone";
-import { scenarios as scenariosSv, type Card, type Choice, type Scenario, type Step } from "@/data/customer-examples";
-import { scenarios as scenariosEn } from "@/data/en/customer-examples";
-import { translate, useT, type Locale } from "@/lib/i18n";
-
-const useScenarios = () => (useT().locale === "en" ? scenariosEn : scenariosSv);
+import { scenarios, type Card, type Choice, type Scenario, type Step } from "@/data/customer-examples";
 import { sectionBody, sectionIntro, sectionTitle } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +28,6 @@ const choicesIn = (step: Step): Choice[] => [
 
 /** One case's conversation on its photo. */
 function useConversation(start: Step) {
-  const { locale } = useT();
   const [entries, setEntries] = useState<Entry[]>([{ from: "business", step: start }]);
   const [typing, setTyping] = useState(false);
   const timer = useRef<number | undefined>(undefined);
@@ -48,7 +43,7 @@ function useConversation(start: Step) {
   const choose = (choice: Choice) => {
     if (typing || !choicesIn(current).includes(choice)) return;
     if (choice.opens) {
-      setEntries((list) => [...list, { from: "note", text: `${translate(locale, "Öppnar")} ${choice.opens}` }]);
+      setEntries((list) => [...list, { from: "note", text: `Öppnar ${choice.opens}` }]);
       return;
     }
     const next = choice.next;
@@ -128,7 +123,6 @@ function ConversationView({
   conversation: Conversation;
   hint?: Choice | undefined;
 }) {
-  const { t } = useT();
   // A little smaller on phones, so the photo still shows around the message.
   const [compact, setCompact] = useState(false);
   useEffect(() => {
@@ -174,7 +168,7 @@ function ConversationView({
           >
             {sender}
             <VerifiedMark size={13} />
-            <span style={{ opacity: 0.75, fontWeight: 400 }}>· {t("I dag")}</span>
+            <span style={{ opacity: 0.75, fontWeight: 400 }}>· I dag</span>
           </div>
           {entries.map((entry, index) => {
             const gap = index === 0 ? 0 : 8;
@@ -187,7 +181,7 @@ function ConversationView({
                   {/* Read, as Google Messages shows it once the business has answered. */}
                   {entries.slice(index + 1).some((later) => later.from === "business") ? (
                     <div style={{ textAlign: "right", marginTop: 3 }}>
-                      <span className="snippet-note" style={{ marginTop: 0, padding: "1px 8px", fontSize: 11.5 }}>{t("Läst")}</span>
+                      <span className="snippet-note" style={{ marginTop: 0, padding: "1px 8px", fontSize: 11.5 }}>Läst</span>
                     </div>
                   ) : null}
                 </div>
@@ -280,7 +274,7 @@ function ConversationView({
             onClick={conversation.reset}
             className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <RotateCcw aria-hidden className="size-3.5" /> {t("Börja om")}
+            <RotateCcw aria-hidden className="size-3.5" /> Börja om
           </button>
         ) : null}
       </div>
@@ -291,9 +285,9 @@ function ConversationView({
 type Feature = { label: string; Icon: LucideIcon };
 
 /** The RCS features an example really uses, read from its messages, so the tags never claim more. */
-function featuresOf(start: Step, locale: Locale): Feature[] {
+function featuresOf(start: Step): Feature[] {
   const found = new Map<string, Feature>();
-  const add = (label: string, Icon: LucideIcon) => found.set(label, { label: translate(locale, label), Icon });
+  const add = (label: string, Icon: LucideIcon) => found.set(label, { label, Icon });
   // Every RCS business sender is verified, and the example shows the sender's name above it.
   add("Verifierad avsändare", BadgeCheck);
   add("Företagsnamn som avsändare", IdCard);
@@ -302,7 +296,7 @@ function featuresOf(start: Step, locale: Locale): Feature[] {
     if (seen.has(step)) return;
     seen.add(step);
     if (step.card) add("Kort med knappar", SquareMousePointer);
-    if (/^(Kupong|Coupon)/.test(step.card?.title ?? "")) add("Kuponger", Ticket);
+    if (/^Kupong/.test(step.card?.title ?? "")) add("Kuponger", Ticket);
     if (step.carousel) add("Karusell", GalleryHorizontal);
     if (step.chips?.some((chip) => chip.next)) add("Snabbsvar", MousePointerClick);
     for (const choice of choicesIn(step)) {
@@ -322,15 +316,14 @@ function featuresOf(start: Step, locale: Locale): Feature[] {
   walk(start);
   // What this example shows that a plain SMS cannot, at most four; the sender and read receipts are
   // the same in every example, so they are left to the comparison table.
-  const generic = new Set(["Verifierad avsändare", "Företagsnamn som avsändare", "Läskvitto", "Visar att ni skriver", "Svar i tråden"].map((label) => translate(locale, label)));
+  const generic = new Set(["Verifierad avsändare", "Företagsnamn som avsändare", "Läskvitto", "Visar att ni skriver", "Svar i tråden"].map((label) => label));
   return [...found.values()].filter((feature) => !generic.has(feature.label)).slice(0, 4);
 }
 
 /** One case large: the photo with its conversation beside the text, and what the customer can try. */
 function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 | -1) => void }) {
   const conversation = useConversation(scenario.start);
-  const { t, locale } = useT();
-  const features = featuresOf(scenario.start, locale);
+  const features = featuresOf(scenario.start);
   const [hint, setHint] = useState<Choice | undefined>(undefined);
   const touched = useRef(false);
   const box = useRef<HTMLElement>(null);
@@ -371,7 +364,7 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
 
   return (
     <article ref={box} id="kundexempel-panel" role="tabpanel"
-      aria-label={`${t("Exempel för")} ${scenario.customer}`}
+      aria-label={`Exempel för ${scenario.customer}`}
       // A sideways swipe on a phone moves to the next or previous case.
       onTouchStart={(event) => {
         const touch = event.touches[0];
@@ -389,7 +382,7 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
       <figure className="relative h-[460px] overflow-hidden bg-muted sm:h-[520px] lg:h-[560px]">
         <img src={scenario.photo.src} srcSet={scenario.photo.small ? `${scenario.photo.small} 800w, ${scenario.photo.src} 1600w` : undefined} sizes="(min-width: 1024px) 60vw, 100vw" alt={scenario.photo.alt} decoding="async" className="absolute inset-0 size-full object-cover" style={{ objectPosition: scenario.photo.position }} />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">{t("Exempel för")} {scenario.company}</span>
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm">Exempel för {scenario.company}</span>
         <figcaption className={cn("absolute inset-x-5 bottom-5 top-14 flex flex-col justify-end", scenario.photo.messageAt === "right" ? "items-end sm:left-auto" : scenario.photo.messageAt === "center" ? "items-center" : "sm:right-auto")}>
           <ConversationView sender={scenario.customer} conversation={{ ...conversation, choose }} hint={hint} />
         </figcaption>
@@ -399,7 +392,7 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
         <h3 className="mt-2 text-2xl font-extrabold leading-tight text-balance sm:text-3xl">{scenario.title}</h3>
         <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (
-          <ul aria-label={t("Det här använder exemplet")} className="mt-5 flex flex-wrap gap-2">
+          <ul aria-label={"Det här använder exemplet"} className="mt-5 flex flex-wrap gap-2">
             {features.map(({ label, Icon }) => (
               <li key={label} className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold">
                 <Icon aria-hidden strokeWidth={2} className="size-3.5 text-logo-blue" />
@@ -415,8 +408,6 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
 
 /** The examples one at a time: a tab per customer, the chosen one large under them. */
 function CaseShowcase() {
-  const scenarios = useScenarios();
-  const { t } = useT();
   const [index, setIndex] = useState(0);
   const tabs = useRef<HTMLDivElement>(null);
   const scenario = scenarios[index];
@@ -440,7 +431,7 @@ function CaseShowcase() {
   const nextName = scenarios[(index + 1) % scenarios.length]?.customer;
   return (
     <div className={sectionBody}>
-      <div ref={tabs} role="tablist" aria-label={t("Välj kundexempel")} className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
+      <div ref={tabs} role="tablist" aria-label={"Välj kundexempel"} className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
         {scenarios.map((item, itemIndex) => (
           <button
             key={item.customer}
@@ -462,9 +453,9 @@ function CaseShowcase() {
       <CaseRow key={scenario.customer} scenario={scenario} onSwipe={(step) => show(index + step)} />
       {/* On a phone the tabs have scrolled away by the end of a case, so the next one is offered here. */}
       <div className="mt-4 flex items-center justify-between gap-3 lg:hidden">
-        <span className="text-sm text-muted-foreground tabular-nums">{index + 1} {t("av")} {scenarios.length}</span>
+        <span className="text-sm text-muted-foreground tabular-nums">{index + 1} av {scenarios.length}</span>
         <div className="flex gap-2">
-          <button type="button" onClick={() => step(-1)} aria-label={t("Föregående exempel")} className="inline-flex size-11 items-center justify-center rounded-full bg-muted text-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
+          <button type="button" onClick={() => step(-1)} aria-label={"Föregående exempel"} className="inline-flex size-11 items-center justify-center rounded-full bg-muted text-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
             <ArrowLeft aria-hidden className="size-4" />
           </button>
           <button type="button" onClick={() => step(1)} className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-[scale] duration-150 ease-out active:scale-[0.96]">
@@ -477,7 +468,6 @@ function CaseShowcase() {
 }
 
 export function CustomerExamples() {
-  const { t, lp } = useT();
   return (
     <section
       id="exempel"
@@ -489,16 +479,16 @@ export function CustomerExamples() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
-            {t("RCS hos våra kunder")}
+            RCS hos våra kunder
           </h2>
           <p className={sectionIntro}>
-            {t("Tryck på knapparna och se vad som händer. Meddelandena är exempel.")}
+            Tryck på knapparna och se vad som händer. Meddelandena är exempel.
           </p>
         </div>
         <CaseShowcase />
         {/* After the proof, the way to something similar of one's own. */}
         <div data-reveal className="mt-8">
-          <Link to={lp("/kontakt")} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Prata med oss om ert upplägg")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
+          <Link to={"/kontakt"} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">Prata med oss om ert upplägg <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ const description = "Berätta lite om vad ni vill skicka, så hör vi av oss och
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
-    ...pageHead({ title, description, svPath: "/kontakt", lang: "sv" }),
+    ...pageHead({ title, description, svPath: "/kontakt" }),
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "ContactPage", url: "https://rcsdirekt.se/kontakt", mainEntity: organizationSchema }) }],
   }),
   component: ContactPage,

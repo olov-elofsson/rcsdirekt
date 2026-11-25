@@ -5,7 +5,6 @@ import { PhoneIcon, RcsSnippet, Typing, VerifiedMark } from "@/components/RcsPho
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { useAutoToggle } from "@/hooks/use-auto-toggle";
 import { cn } from "@/lib/utils";
-import { useT } from "@/lib/i18n";
 
 const reducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -17,12 +16,11 @@ const note = { marginTop: 0, padding: "1px 8px", fontSize: 11.5 } as const;
 
 /** The same notice as an SMS: a name of at most eleven characters, plain text and a bare link. */
 function AsSms() {
-  const { t } = useT();
   return (
     <RcsSnippet width={300} scale={SCALE}>
       <div style={senderLine}>rcsdirekt</div>
       <div className="inrow">
-        <div className="bubble">{t("Hej Anna! Ditt konto är klart. Logga in här för att skicka ditt första utskick: rcsdirekt.se/l/8k2Q.")}</div>
+        <div className="bubble">Hej Anna! Ditt konto är klart. Logga in här för att skicka ditt första utskick: rcsdirekt.se/l/8k2Q.</div>
       </div>
       <div className="ts tsin" style={{ marginBottom: 0 }}>13:16 · SMS</div>
     </RcsSnippet>
@@ -38,7 +36,6 @@ const SUGGESTIONS: Reply[] = [
 
 /** The same notice as RCS: logo, verified name, a greeting, a card with buttons and suggestions. */
 function AsRcs({ active, onInteract }: { active: boolean; onInteract: () => void }) {
-  const { t } = useT();
   const [sent, setSent] = useState<Reply | null>(null);
   const [typing, setTyping] = useState(false);
   const [answered, setAnswered] = useState(false);
@@ -69,39 +66,39 @@ function AsRcs({ active, onInteract }: { active: boolean; onInteract: () => void
         <VerifiedMark size={15} />
       </div>
       <div className="inrow" style={{ marginBottom: 3 }}>
-        <div className="bubble">{t("Hej Anna! Välkommen till rcsdirekt.se.")}</div>
+        <div className="bubble">Hej Anna! Välkommen till rcsdirekt.se.</div>
       </div>
       <div className="card">
         <img src={rcsDirektSender.profile.banner} alt="" />
-        <div className="ct">{t("Ditt konto är klart")}</div>
-        <div className="cb">{t("Skicka ditt första utskick från webben, eller koppla in ert system via API.")}</div>
+        <div className="ct">Ditt konto är klart</div>
+        <div className="cb">Skicka ditt första utskick från webben, eller koppla in ert system via API.</div>
         <div className="cbtns">
           <button type="button" tabIndex={active ? 0 : -1} className="cbtn" onClick={() => { onInteract(); setOpened("portalen"); }}>
-            <span className="ci"><PhoneIcon name="open" size={18} /></span>{t("Logga in")}
+            <span className="ci"><PhoneIcon name="open" size={18} /></span>Logga in
           </button>
           <button type="button" tabIndex={active ? 0 : -1} className="cbtn" onClick={() => { onInteract(); setOpened("telefonen"); }}>
-            <span className="ci"><PhoneIcon name="call" size={18} /></span>{t("Ring oss")}
+            <span className="ci"><PhoneIcon name="call" size={18} /></span>Ring oss
           </button>
         </div>
       </div>
       <div className="ts tsin" style={{ marginBottom: 0 }}>13:16 · RCS</div>
       {sent ? (
         <div className="animate-message-in" style={{ marginTop: 8 }}>
-          <div className="outrow"><div className="bubble">{t(sent.label)}</div></div>
-          {answered ? <div style={{ textAlign: "right", marginTop: 3 }}><span className="snippet-note" style={note}>{t("Läst")}</span></div> : null}
+          <div className="outrow"><div className="bubble">{sent.label}</div></div>
+          {answered ? <div style={{ textAlign: "right", marginTop: 3 }}><span className="snippet-note" style={note}>Läst</span></div> : null}
         </div>
       ) : null}
       {typing ? <div className="animate-message-in" style={{ marginTop: 8 }}><Typing /></div> : null}
       {answered && sent?.answer ? (
-        <div className="inrow animate-message-in" style={{ marginTop: 8 }}><div className="bubble">{t(sent.answer)}</div></div>
+        <div className="inrow animate-message-in" style={{ marginTop: 8 }}><div className="bubble">{sent.answer}</div></div>
       ) : null}
-      {opened ? <div role="status" className="snippet-note animate-message-in" style={{ display: "table", marginTop: 8 }}>{t("Öppnar")} {t(opened)}</div> : null}
+      {opened ? <div role="status" className="snippet-note animate-message-in" style={{ display: "table", marginTop: 8 }}>Öppnar {opened}</div> : null}
       {!sent ? (
         <div className="chips" style={{ justifyContent: "flex-end", flexWrap: "wrap" }}>
           {SUGGESTIONS.map((reply) => (
             <button key={reply.label} type="button" tabIndex={active ? 0 : -1} className="chip" onClick={() => choose(reply)}>
               {reply.icon ? <PhoneIcon name={reply.icon} size={16} color="#0b57d0" /> : null}
-              {t(reply.label)}
+              {reply.label}
             </button>
           ))}
         </div>
@@ -120,7 +117,6 @@ const SWITCH_MS = 3600;
  */
 /** `bare` drops the label and the grey box, for a picture that already sits on a panel. */
 export function HeroMessage({ className, dark = false, bare = false }: { className?: string; dark?: boolean; bare?: boolean }) {
-  const { t } = useT();
   const box = useRef<HTMLDivElement>(null);
   const { rcs, pick, touch } = useAutoToggle(box, SWITCH_MS, true);
 
@@ -129,7 +125,7 @@ export function HeroMessage({ className, dark = false, bare = false }: { classNa
       {/* A label above the box, in the same style as the line above the hero heading. */}
       <p id="se-skillnaden" className={cn("mb-3 flex items-center justify-center gap-2 text-[13px] font-semibold sm:text-sm", dark ? "text-ink-muted" : "text-muted-foreground", bare && "sr-only")}>
         <MousePointerClick aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
-        {t("Se skillnaden själv")}
+        Se skillnaden själv
       </p>
       <div className={bare ? undefined : "rounded-3xl bg-muted px-4 pt-4 pb-5"}>
       <div role="radiogroup" aria-labelledby="se-skillnaden" className="mx-auto mb-4 grid w-fit grid-cols-2 rounded-full bg-background p-1 text-sm font-semibold shadow-card">

@@ -4,6 +4,6 @@ import { articleCollection } from "./article-collection";
 export type { SourceFact } from "./article-collection";
 export { factPublisher } from "./article-collection";
 
-const collection = articleCollection(kunskap, "sv");
+const collection = articleCollection(kunskap);
 
 export const { sourceFacts, factsForSources } = collection;

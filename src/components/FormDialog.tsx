@@ -2,11 +2,9 @@ import { useEffect, useId, useRef, type ReactNode } from "react";
 import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { useT } from "@/lib/i18n";
 
 /** A plain React-controlled modal (role="dialog", aria-modal) for the site's short forms. */
 export function FormDialog({ title, description, onClose, children }: { title: string; description: ReactNode; onClose: () => void; children: ReactNode }) {
-  const { t } = useT();
   const dialogRef = useRef<HTMLElement>(null);
   const id = useId();
   useEffect(() => {
@@ -37,7 +35,7 @@ export function FormDialog({ title, description, onClose, children }: { title: s
   return (
     <div className="fixed inset-0 z-[70] grid place-items-center overflow-y-auto bg-foreground/70 p-5 animate-opacity-in" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <section ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`} aria-describedby={`${id}-description`} className="relative w-full max-w-lg rounded-lg bg-background p-7 text-left text-foreground shadow-lift animate-scale-in">
-        <Button type="button" variant="ghost" size="icon" className="absolute right-4 top-4" onClick={onClose} aria-label={t("Stäng")}><X /></Button>
+        <Button type="button" variant="ghost" size="icon" className="absolute right-4 top-4" onClick={onClose} aria-label={"Stäng"}><X /></Button>
         <h2 id={`${id}-title`} className="pr-12 text-xl font-bold">{title}</h2>
         <div id={`${id}-description`} className="mt-2 text-sm text-pretty text-muted-foreground">{description}</div>
         <div className="mt-6">{children}</div>

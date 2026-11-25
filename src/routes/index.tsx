@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { startsida } from "@/content/startsida";
 import { webinarer } from "@/content/webinarer";
 import { organizationSchema } from "@/lib/company";
-import { alternates } from "@/lib/i18n";
 import { endsAt } from "@/lib/webinar";
 import { HomePage } from "@/pages/HomePage";
 
@@ -40,7 +39,7 @@ export const Route = createFileRoute("/")({
     { property: "og:type", content: "website" }, { property: "og:url", content: "https://rcsdirekt.se/" },
     { name: "twitter:card", content: "summary_large_image" },
   ],
-  links: [{ rel: "canonical", href: "https://rcsdirekt.se/" }, ...alternates("/")],
+  links: [{ rel: "canonical", href: "https://rcsdirekt.se/" }],
   scripts: [
     { type: "application/ld+json", children: JSON.stringify({ ...organizationSchema, description: home.seo.description }) },
     ...webinarSchema(),

@@ -31,9 +31,7 @@ export const Route = createFileRoute("/api/lead")({
       const key = process.env["LEAD_API_KEY"];
       if (!key) return Response.json({ error: "unavailable" }, { status: 503 });
       if (await tooManyLeads(request)) return Response.json({ error: "limit" }, { status: 429 });
-      const { name, company, email, phone } = parsed.data;
-      // Added after validation, so the prefix never pushes a message past the length limit.
-      const message = body["locale"] === "en" ? `[English site] ${parsed.data.message}` : parsed.data.message;
+      const { name, company, email, phone, message } = parsed.data;
       const response = await fetch(`${CMS_URL}/api/leads`, {
         method: "POST",
         headers: { "content-type": "application/json", "x-lead-key": key },

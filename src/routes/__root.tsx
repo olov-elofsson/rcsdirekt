@@ -3,7 +3,6 @@ import {
   Link,
   createRootRoute,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -16,19 +15,17 @@ import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
 import appCss from "../styles.css?url";
-import { localeOf, useT } from "@/lib/i18n";
 
 function NotFoundComponent() {
-  const { t, lp } = useT();
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="outline-none flex-1">
-        <PageHeading title={t("Sidan finns inte")} description={<p>{t("Sidan du letar efter finns inte eller har flyttats.")}</p>}>
+        <PageHeading title={"Sidan finns inte"} description={<p>Sidan du letar efter finns inte eller har flyttats.</p>}>
           <Button className="border-transparent" asChild size="lg" variant="outline">
-            <Link to={lp("/")}>{t("Till startsidan")} <ArrowRight data-icon="end" /></Link>
+            <Link to={"/"}>Till startsidan <ArrowRight data-icon="end" /></Link>
           </Button>
-          <Link to={lp("/blogg")} className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">{t("Läs om RCS")}</Link>
+          <Link to={"/blogg"} className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">Läs om RCS</Link>
         </PageHeading>
       </main>
       <SiteFooter />
@@ -107,9 +104,8 @@ export const Route = createRootRoute({
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  const lang = useRouterState({ select: (state) => localeOf(state.location.pathname) });
   return (
-    <html lang={lang}>
+    <html lang="sv">
       <head>
         <HeadContent />
       </head>

@@ -69,6 +69,27 @@ export function bucketKey(pathname: string): string | null | undefined {
   return undefined;
 }
 
+// The English pages are gone; their old addresses lead to the Swedish page with a 301.
+const ENGLISH_PAGES: [en: string, sv: string][] = [
+  ["/en/pricing", "/priser"],
+  ["/en/blog", "/blogg"],
+  ["/en/about", "/om-oss"],
+  ["/en/contact", "/kontakt"],
+  ["/en/developers", "/utvecklare"],
+  ["/en/sign-up", "/skapa-konto"],
+  ["/en/privacy", "/integritetspolicy"],
+  ["/en/terms", "/villkor"],
+];
+
+export function swedishRedirect(pathname: string): string | undefined {
+  if (pathname !== "/en" && !pathname.startsWith("/en/")) return undefined;
+  for (const [en, sv] of ENGLISH_PAGES) {
+    if (pathname === en || pathname === `${en}/`) return sv;
+    if (pathname.startsWith(`${en}/`)) return sv + pathname.slice(en.length);
+  }
+  return "/";
+}
+
 async function hostedAsset(request: Request): Promise<Response | undefined> {
   const { pathname } = new URL(request.url);
   const objectKey = bucketKey(pathname);
@@ -100,6 +121,9 @@ async function hostedAsset(request: Request): Promise<Response | undefined> {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const swedish = swedishRedirect(url.pathname);
+      if (swedish) return new Response(null, { status: 301, headers: { location: swedish + url.search } });
       const asset = await hostedAsset(request);
       if (asset) return asset;
       const handler = await getServerEntry();

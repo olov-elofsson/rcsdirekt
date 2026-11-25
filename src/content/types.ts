@@ -25,7 +25,7 @@ export type Article = {
   category: string;
   keywords: string[];
   published: string;
-  /** Shown as "Av …"; empty means rcsdirekt.se. Optional in the English copies. */
+  /** Shown as "Av …"; empty means rcsdirekt.se. */
   author?: string;
   /** Large picture under the heading; without one the site picks a customer-case photo. */
   image?: { url: string; alt: string; width: number; height: number } | null;

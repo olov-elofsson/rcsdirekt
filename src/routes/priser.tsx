@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { priser } from "@/content/priser";
 import { organizationSchema } from "@/lib/company";
 import { priceNumber } from "@/lib/money";
-import { alternates } from "@/lib/i18n";
 import { PricingPage } from "@/pages/PricingPage";
 
 const page = priser;
@@ -23,7 +22,7 @@ export const Route = createFileRoute("/priser")({
       { property: "og:url", content: "https://rcsdirekt.se/priser" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://rcsdirekt.se/priser" }, ...alternates("/priser")],
+    links: [{ rel: "canonical", href: "https://rcsdirekt.se/priser" }],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",

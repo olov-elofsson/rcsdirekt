@@ -1,6 +1,5 @@
-// One language's article collection: articles with their source facts, search and reading time.
-// The Swedish collection comes from the CMS (src/content/kunskap); the English one from
-// src/content/en. Both have the same shape, so the blog pages read either the same way.
+// The article collection from the CMS (src/content/kunskap): articles with their source facts,
+// search and reading time.
 import type { Article as ContentArticle, GlossaryTerm, Section, Source } from "@/content";
 
 export type { GlossaryTerm, Section, Source };
@@ -21,7 +20,7 @@ export function factPublisher(source: Pick<Source, "title">) {
   return source.title.split(":")[0];
 }
 
-export function articleCollection(data: Knowledge, lang: "sv" | "en") {
+export function articleCollection(data: Knowledge) {
   // Findings describe the original publisher's service, not rcsdirekt.se's results.
   const sourceFacts: Record<string, SourceFact> = Object.fromEntries(
     data.sources
@@ -36,7 +35,7 @@ export function articleCollection(data: Knowledge, lang: "sv" | "en") {
     ...article,
     facts: factsForSources(article.sections.flatMap((section) => section.sources)),
   }));
-  const all = lang === "sv" ? "Alla" : "All";
+  const all = "Alla";
   // Old addresses of articles hidden in the CMS, and the article each leads to now.
   const redirects = new Map((data.redirects ?? []).map((row) => [row.from, row.to]));
   return {
@@ -48,16 +47,16 @@ export function articleCollection(data: Knowledge, lang: "sv" | "en") {
     factsForSources,
     findSources: (ids: string[]) => sources.filter((source) => ids.includes(source.id)),
     searchArticles(query: string, category = all) {
-      const needle = query.trim().toLocaleLowerCase(lang);
+      const needle = query.trim().toLocaleLowerCase("sv");
       return articles.filter(
         (article) =>
-          (category === all || category === "Alla" || article.category === category) &&
-          [article.title, article.description, ...article.keywords].join(" ").toLocaleLowerCase(lang).includes(needle),
+          (category === all || article.category === category) &&
+          [article.title, article.description, ...article.keywords].join(" ").toLocaleLowerCase("sv").includes(needle),
       );
     },
     searchGlossary(query: string) {
-      const needle = query.trim().toLocaleLowerCase(lang);
-      return glossary.filter((entry) => [entry.term, entry.aliases, entry.definition].join(" ").toLocaleLowerCase(lang).includes(needle));
+      const needle = query.trim().toLocaleLowerCase("sv");
+      return glossary.filter((entry) => [entry.term, entry.aliases, entry.definition].join(" ").toLocaleLowerCase("sv").includes(needle));
     },
   };
 }

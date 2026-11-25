@@ -9,7 +9,7 @@ const description = "rcsdirekt.se drivs av WIGOSE AB i Örebro. Här skickar sve
 
 export const Route = createFileRoute("/om-oss")({
   head: () => ({
-    ...pageHead({ title, description, svPath: "/om-oss", lang: "sv" }),
+    ...pageHead({ title, description, svPath: "/om-oss" }),
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "AboutPage", url: "https://rcsdirekt.se/om-oss", mainEntity: organizationSchema }) }],
   }),
   component: AboutPage,

@@ -9,9 +9,8 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { Button } from "@/components/ui/button";
 import type { ArticleSummary } from "@/content/article-list";
 import { readingMinutes, type Article, type Source } from "@/data/article-collection";
-import { useT } from "@/lib/i18n";
 
-// An article, in Swedish under /blogg and in English under /en/blog; each route loads its own language.
+// An article under /blogg.
 
 /**
  * The picture at the top when the CMS has none: the article itself as an RCS message from
@@ -21,7 +20,6 @@ import { useT } from "@/lib/i18n";
 const firstSentence = (text: string) => /^.+?[.!?](?=\s|$)/.exec(text.trim())?.[0] ?? text;
 
 function ArticleCover({ article }: { article: Article }) {
-  const { t } = useT();
   return (
     <div
       aria-hidden
@@ -57,7 +55,7 @@ function ArticleCover({ article }: { article: Article }) {
               <span className="ci">
                 <PhoneIcon name="open" size={18} />
               </span>
-              {t("Läs artikeln")}
+              Läs artikeln
             </div>
           </div>
         </div>
@@ -79,7 +77,6 @@ export function ArticlePage({
   references: Source[];
   list: ArticleSummary[];
 }) {
-  const { t, lp, locale } = useT();
   const latest = list
     .filter((item) => item.slug !== article.slug)
     .sort((a, b) => b.published.localeCompare(a.published))
@@ -91,7 +88,7 @@ export function ArticlePage({
       <article className="mx-auto max-w-6xl px-5 pt-10 pb-16 sm:pt-16 sm:pb-24 lg:px-8">
         <header>
           <Link
-            to={lp("/blogg")}
+            to={"/blogg"}
             className="inline-block rounded-md bg-primary-soft px-2.5 py-1 text-xs font-bold tracking-[0.08em] text-foreground uppercase transition-colors duration-150 hover:bg-primary hover:text-primary-foreground"
           >
             {article.category}
@@ -102,18 +99,18 @@ export function ArticlePage({
           <p className="mt-6 flex flex-wrap items-center gap-y-2 text-sm tracking-[0.04em] text-muted-foreground uppercase gap-x-6">
             {Number.isNaN(published.getTime()) ? null : (
               <span>
-                {t("Publicerad")}{" "}
+                Publicerad 
                 <time dateTime={article.published} className="font-bold text-foreground">
-                  {formatDate(article.published, locale)}
+                  {formatDate(article.published)}
                 </time>
               </span>
             )}
             <span>
-              {t("Av")}{" "}
+              Av 
               <span className="font-bold text-foreground">{article.author || "rcsdirekt.se"}</span>
             </span>
             <span>
-              {readingMinutes(article)} {t("min läsning")}
+              {readingMinutes(article)} min läsning
             </span>
           </p>
         </header>
@@ -171,7 +168,7 @@ export function ArticlePage({
               {references.length ? (
                 <details className="group mt-12">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-muted-foreground [&::-webkit-details-marker]:hidden">
-                    {t("Källor")} ({references.length})
+                    Källor ({references.length})
                     <ChevronDown
                       aria-hidden
                       className="size-4 transition-transform duration-200 ease-out group-open:rotate-180"
@@ -192,7 +189,7 @@ export function ArticlePage({
                             className="mt-1 size-3.5 shrink-0 opacity-60"
                           />
                           <span>
-                            {source.title}{" "}
+                            {source.title} 
                             <span className="text-xs opacity-70">
                               {new URL(source.url).hostname}
                             </span>
@@ -213,14 +210,14 @@ export function ArticlePage({
               className="lg:sticky lg:top-28 lg:self-start"
             >
               <h2 id="senaste" className="font-display text-lg font-extrabold">
-                {t("Senaste artiklar")}
+                Senaste artiklar
               </h2>
               {/* Each entry reads like a small article: topic, heading, the start of the summary, date and reading time. */}
               <ul className="mt-4 space-y-3">
                 {latest.map((item) => (
                   <li key={item.slug}>
                     <Link
-                      to={lp("/blogg/$slug")}
+                      to={"/blogg/$slug"}
                       params={{ slug: item.slug }}
                       className="group block rounded-xl bg-background p-4 shadow-card transition-shadow duration-200 ease-out hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
@@ -234,8 +231,8 @@ export function ArticlePage({
                         {item.description}
                       </span>
                       <span className="mt-2 block text-xs text-muted-foreground tabular-nums">
-                        <time dateTime={item.published}>{formatDate(item.published, locale)}</time>{" "}
-                        · {item.minutes} {t("min läsning")}
+                        <time dateTime={item.published}>{formatDate(item.published)}</time> 
+                        · {item.minutes} min läsning
                       </span>
                     </Link>
                   </li>
@@ -251,17 +248,16 @@ export function ArticlePage({
 
 /** Shown for an article address that does not exist, in either language. */
 export function ArticleNotFound() {
-  const { t, lp } = useT();
   return (
     <BlogLayout>
       <div className="mx-auto max-w-3xl px-5 py-24">
-        <h1 className="text-4xl tracking-normal">{t("Artikeln finns inte")}</h1>
+        <h1 className="text-4xl tracking-normal">Artikeln finns inte</h1>
         <p className="mt-5 text-muted-foreground">
-          {t("Den kan ha flyttats eller så är adressen fel.")}
+          Den kan ha flyttats eller så är adressen fel.
         </p>
         <Button asChild className="mt-7">
-          <Link to={lp("/blogg")}>
-            {t("Till Insikter")} <ArrowRight data-icon="end" />
+          <Link to={"/blogg"}>
+            Till Insikter <ArrowRight data-icon="end" />
           </Link>
         </Button>
       </div>

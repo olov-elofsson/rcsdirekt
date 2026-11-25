@@ -4,12 +4,11 @@ import { ArrowRight, BadgeCheck, Coins, Globe, RadioTower, ShieldCheck } from "l
 import { PageHeading } from "@/components/PageHeading";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Button } from "@/components/ui/button";
-import { usePriser } from "@/content/localized";
+import { priser } from "@/content/priser";
 import { company } from "@/lib/company";
-import { useT } from "@/lib/i18n";
 import { sectionIntro, sectionTitle } from "@/lib/typography";
 
-// The about page, in Swedish at /om-oss and in English at /en/about.
+// The about page at /om-oss.
 
 /** How we work, each point backed by something on the site: the sender check, the networks, where data lives, the prices. */
 const principles = (operators: string[]) => [
@@ -21,21 +20,20 @@ const principles = (operators: string[]) => [
 ];
 
 export function AboutPage() {
-  const { t, lp } = useT();
-  const operators = usePriser().operators.filter((name) => !/^(Övriga|Other)/.test(name));
+  const operators = priser.operators.filter((name) => !/^(Övriga|Other)/.test(name));
   // The networks card names the operators; its sentence is built per language around them.
   const text = (heading: string, copy: string) => {
-    if (heading !== "Alla stora nät" || !copy.includes(" | ")) return t(copy);
+    if (heading !== "Alla stora nät" || !copy.includes(" | ")) return copy;
     const [first, last] = copy.split(" | ");
-    return t("Era kunder nås oavsett om de har {first} eller {last}, och även om de har en operatör som använder något av de näten.").replace("{first}", first ?? "").replace("{last}", last ?? "");
+    return "Era kunder nås oavsett om de har {first} eller {last}, och även om de har en operatör som använder något av de näten.".replace("{first}", first ?? "").replace("{last}", last ?? "");
   };
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
         <PageHeading
-          title={t("Om rcsdirekt.se")}
-          description={<p>{t("rcsdirekt.se drivs av {company} i {city}. Vi vill att det ska vara enkelt för svenska företag att skicka RCS, från webben eller via API.").replace("{company}", company.legalName).replace("{city}", company.city)}</p>}
+          title={"Om rcsdirekt.se"}
+          description={<p>{"rcsdirekt.se drivs av {company} i {city}. Vi vill att det ska vara enkelt för svenska företag att skicka RCS, från webben eller via API.".replace("{company}", company.legalName).replace("{city}", company.city)}</p>}
         />
 
         <section className="pb-16 sm:pb-20">
@@ -44,7 +42,7 @@ export function AboutPage() {
             <dl className="grid gap-x-12 gap-y-8 border-t border-border pt-10 sm:grid-cols-2">
               {principles(operators).map(({ title: heading, copy }) => (
                 <div key={heading}>
-                  <dt className="text-lg font-extrabold leading-snug">{t(heading)}</dt>
+                  <dt className="text-lg font-extrabold leading-snug">{heading}</dt>
                   <dd className="mt-2 leading-relaxed text-pretty text-muted-foreground">{text(heading, copy)}</dd>
                 </div>
               ))}
@@ -55,24 +53,24 @@ export function AboutPage() {
         <section className="bg-primary-soft py-16 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:px-8">
             <div>
-              <h2 className={sectionTitle}>{t("Vad vi gör")}</h2>
+              <h2 className={sectionTitle}>Vad vi gör</h2>
               <p className={sectionIntro}>
-                {t("Vi gör det möjligt för företag att skicka meddelanden med namn, logga, bilder och knappar direkt till kundens vanliga meddelandeapp. Ni bygger utskicket själva i webben eller låter ert system skicka via API. Avsändaren och upplägget hjälper vi er med.")}
+                Vi gör det möjligt för företag att skicka meddelanden med namn, logga, bilder och knappar direkt till kundens vanliga meddelandeapp. Ni bygger utskicket själva i webben eller låter ert system skicka via API. Avsändaren och upplägget hjälper vi er med.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
-                <Button asChild size="lg" variant="outline"><Link to={lp("/kontakt")}>{t("Kontakta oss")}</Link></Button>
+                <Button asChild size="lg"><Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+                <Button asChild size="lg" variant="outline"><Link to={"/kontakt"}>Kontakta oss</Link></Button>
               </div>
             </div>
             <div className="rounded-2xl bg-card p-7 shadow-card sm:p-8">
-              <h2 className="text-xl font-extrabold">{t("Företagsuppgifter")}</h2>
+              <h2 className="text-xl font-extrabold">Företagsuppgifter</h2>
               <dl className="mt-5 divide-y divide-border text-sm">
                 {[
-                  [t("Bolag"), company.legalName],
-                  [t("Organisationsnummer"), company.orgNumber],
-                  [t("Adress"), `${company.street}, ${company.postalCode} ${company.city}`],
-                  [t("Tjänst"), company.brand],
-                  ...(company.email ? [[t("E-post"), company.email]] : []),
+                  ["Bolag", company.legalName],
+                  ["Organisationsnummer", company.orgNumber],
+                  ["Adress", `${company.street}, ${company.postalCode} ${company.city}`],
+                  ["Tjänst", company.brand],
+                  ...(company.email ? [["E-post", company.email]] : []),
                 ].map(([term, value]) => (
                   <div key={term} className="flex flex-col gap-1 py-3 sm:flex-row sm:justify-between">
                     <dt className="text-muted-foreground">{term}</dt>
@@ -81,9 +79,9 @@ export function AboutPage() {
                 ))}
               </dl>
               <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
-                <Link to={lp("/villkor")} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">{t("Villkor")}</Link>
-                <Link to={lp("/integritetspolicy")} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">{t("Integritetspolicy")}</Link>
-                <Link to={lp("/kontakt")} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">{t("Kontakt")}</Link>
+                <Link to={"/villkor"} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Villkor</Link>
+                <Link to={"/integritetspolicy"} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Integritetspolicy</Link>
+                <Link to={"/kontakt"} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Kontakt</Link>
                 {company.linkedin ? <a href={company.linkedin} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">LinkedIn</a> : null}
               </p>
             </div>
