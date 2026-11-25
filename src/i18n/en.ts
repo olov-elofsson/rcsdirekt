@@ -6,6 +6,8 @@ export const en: Record<string, string> = {
   "Med RCS ser kunden vem som skriver och svarar med en knapp. Växla mellan SMS och RCS och jämför.": "With RCS the customer sees who is writing and replies with a button. Switch between SMS and RCS and compare.",
   "RCS hos våra kunder": "RCS at our customers",
   "Igång i tre steg": "Up and running in three steps",
+  "Basic, Single och Conversation är operatörernas egna nivåer för RCS. Priserna kommer från deras prislistor, och vi lägger inget påslag på listpriset.": "Basic, Single and Conversation are the operators' own RCS levels. The prices come from their price lists, and we add nothing on top of the list price.",
+  "Så skiljer sig nivåerna": "How the levels differ",
   "Vi hjälper er med avsändaren.": "We help you with the sender.",
   "Det kostar inget att starta. Priset beror på meddelandetyp och mottagarens operatör.": "It costs nothing to start. The price depends on the message type and the recipient's operator.",
   "Prata med oss om ert upplägg": "Talk to us about your setup",
@@ -19,9 +21,7 @@ export const en: Record<string, string> = {
   "Ni betalar för de meddelanden ni skickar.": "You pay for the messages you send.",
   "Läs om skillnaden": "Read about the difference",
   "per meddelande": "per message",
-  "Vår adress": "Our address",
   Kontaktformulär: "Contact form",
-  "Följ oss": "Follow us",
   "Bilder och video": "Images and video",
   "Webb och API": "Web and API",
   "Hittar ni inte svaret?": "Can't find the answer?",
@@ -75,7 +75,6 @@ export const en: Record<string, string> = {
   "RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.":
     "RCS for businesses in Sweden. Send from the web or through an API and pay for the messages you send.",
   "org.nr": "Reg. no.",
-  "Till toppen": "Back to top",
   // Start page sections
   Ja: "Yes",
   Nej: "No",

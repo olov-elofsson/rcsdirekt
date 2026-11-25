@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, ArrowUpRight, CalendarDays, Globe, Linkedin, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CalendarDays, Globe, Linkedin, Menu, X } from "lucide-react";
 import { company, phoneHref } from "@/lib/company";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -319,7 +319,6 @@ const footerNav = [
 const footerLinkClass =
   "group inline-flex min-h-10 items-center gap-1.5 text-sm text-ink-muted transition-colors duration-150 ease-out hover:text-ink-foreground";
 
-/** The footer: who we are, the links grouped, and one line at the bottom. */
 /**
  * On phones: "Skapa konto" fixed at the bottom once the visitor has scrolled past the first screen,
  * hidden again when the footer is in view and on the pages that already are the next step.
@@ -376,80 +375,66 @@ function FooterLanguageLink() {
   );
 }
 
+/** The footer: who we are and how to reach us, the links grouped, and one line at the bottom. */
 export function SiteFooter() {
   const { t, lp } = useT();
   return (
     <>
     <MobileSignupBar />
-    <footer className="relative overflow-hidden bg-ink pt-16 pb-10 text-ink-foreground sm:pt-20">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        {/* As on fortnox.se: the logo and one line centred, the link columns, then who we are. */}
-        <div className="flex flex-col items-center text-center">
-          <Link to={lp("/")} aria-label={t("rcsdirekt.se, startsida")} className="inline-block">
-            <BrandLogo inverse className="h-9" />
-          </Link>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-pretty text-ink-muted">
-            {t("RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.")}
-          </p>
-        </div>
-        <nav aria-label={t("Sidfot")} className="mt-16 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
-          {footerNav.map((group) => (
-            <div key={group.title}>
-              <p className="text-lg font-semibold text-ink-foreground">{t(group.title)}</p>
-              <ul className="mt-3">
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    {"to" in link ? (
-                      <Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} className={footerLinkClass}>{t(link.label)}</Link>
-                    ) : (
-                      <a href={link.href} className={footerLinkClass}>
-                        {t(link.label)}
-                        <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" />
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </nav>
-        <div className="mt-14 grid gap-10 border-t border-ink-foreground/10 pt-12 sm:grid-cols-3">
+    <footer className="bg-ink pt-16 pb-8 text-ink-foreground sm:pt-20">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        {/* Who we are and how to reach us on the left, the link columns on the right. */}
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
-            <p className="font-semibold text-ink-foreground">{t("Vår adress")}</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-muted">{company.legalName}, {t("org.nr")} {company.orgNumber}<br />{company.street}, {company.postalCode} {company.city}</p>
-          </div>
-          <div>
-            <p className="font-semibold text-ink-foreground">{t("Kontakta oss")}</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-              {company.email ? <a href={`mailto:${company.email}`} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.email}</a> : null}
-              {company.phone ? <><br /><a href={phoneHref(company.phone)} className="underline-offset-4 hover:text-ink-foreground hover:underline">{company.phone}</a></> : null}
-              <br /><Link to={lp("/kontakt")} className="underline-offset-4 hover:text-ink-foreground hover:underline">{t("Kontaktformulär")}</Link>
+            <Link to={lp("/")} aria-label={t("rcsdirekt.se, startsida")} className="inline-block">
+              <BrandLogo inverse className="h-8" />
+            </Link>
+            <p className="mt-5 max-w-sm text-base leading-relaxed text-pretty text-ink-muted">
+              {t("RCS för svenska företag. Skicka från webben eller via API och betala för de meddelanden ni skickar.")}
             </p>
+            <address className="mt-8 text-sm not-italic leading-relaxed text-ink-muted">
+              {company.legalName}<br />{company.street}<br />{company.postalCode} {company.city}
+              {company.email ? <><br /><a href={`mailto:${company.email}`} className="text-ink-foreground underline-offset-4 hover:underline">{company.email}</a></> : null}
+              {company.phone ? <><br /><a href={phoneHref(company.phone)} className="text-ink-foreground underline-offset-4 hover:underline">{company.phone}</a></> : null}
+            </address>
+            {company.linkedin ? (
+              <a href={company.linkedin} aria-label="LinkedIn" className="mt-6 grid size-10 place-items-center rounded-full border border-ink-foreground/15 text-ink-muted transition-colors duration-150 hover:border-ink-foreground/40 hover:text-ink-foreground">
+                <Linkedin aria-hidden className="size-4" />
+              </a>
+            ) : null}
           </div>
-          {company.linkedin ? (
-            <div>
-              <p className="font-semibold text-ink-foreground">{t("Följ oss")}</p>
-              <a href={company.linkedin} aria-label="LinkedIn" className="mt-2 inline-flex min-h-10 items-center gap-2 text-sm text-ink-muted transition-colors hover:text-ink-foreground"><Linkedin aria-hidden className="size-5" />LinkedIn</a>
-            </div>
-          ) : null}
+          <nav aria-label={t("Sidfot")} className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+            {footerNav.map((group) => (
+              <div key={group.title}>
+                <p className="text-sm font-semibold text-ink-foreground">{t(group.title)}</p>
+                <ul className="mt-3">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      {"to" in link ? (
+                        <Link to={lp(link.to)} {...("hash" in link ? { hash: link.hash } : {})} className={footerLinkClass}>{t(link.label)}</Link>
+                      ) : (
+                        <a href={link.href} className={footerLinkClass}>
+                          {t(link.label)}
+                          <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-3.5 shrink-0 opacity-70 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-ink-foreground/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-x-5 text-xs text-ink-muted">
-            <p>© {new Date().getFullYear()} WIGOSE AB · rcsdirekt.se</p>
-            {/* For the team: the CMS where the site's texts are edited. */}
-            <a href="https://cms.rcsdirekt.se/admin" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
+        <div className="mt-16 flex flex-col gap-2 border-t border-ink-foreground/10 pt-6 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {company.legalName} · {t("org.nr")} {company.orgNumber}</p>
+          <div className="flex flex-wrap items-center gap-x-5">
             {/* For search engines: served as a file, outside the router. */}
             <a href="/sitemap.xml" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">{t("Webbplatskarta")}</a>
+            {/* For the team: the CMS where the site's texts are edited. */}
+            <a href="https://cms.rcsdirekt.se/admin" className="inline-flex min-h-10 items-center underline-offset-4 transition-colors hover:text-ink-foreground hover:underline">CMS</a>
             <FooterLanguageLink />
           </div>
-          <Button variant="link" size="sm"
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
-            className="self-start px-0 text-ink-muted hover:text-ink-foreground sm:self-auto"
-          >
-            {t("Till toppen")} <ArrowUp className="size-3.5" />
-          </Button>
         </div>
       </div>
     </footer>

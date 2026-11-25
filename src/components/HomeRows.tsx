@@ -178,6 +178,11 @@ export function Plans() {
               <Link to={lp("/skapa-konto")} search={{ plan: plan.name }} className={cn(blueLink, "sm:justify-self-end")}>{t("Välj")} {plan.name.replace(/^RCS /, "")} {arrow}</Link>
             </li>
           ))}
+          {/* Where the three levels come from, so they do not read as packages we made up. */}
+          <li className="flex flex-col gap-x-8 gap-y-2 rounded-b-2xl bg-muted px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <p className="max-w-2xl text-sm leading-relaxed text-pretty text-muted-foreground">{t("Basic, Single och Conversation är operatörernas egna nivåer för RCS. Priserna kommer från deras prislistor, och vi lägger inget påslag på listpriset.")}</p>
+            <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-basic-single-conversation" }} className={cn(blueLink, "shrink-0 text-sm")}>{t("Så skiljer sig nivåerna")} {arrow}</Link>
+          </li>
         </ul>
       </div>
     </section>
