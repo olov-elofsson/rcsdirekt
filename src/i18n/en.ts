@@ -2,20 +2,18 @@
 // t() falls back to the Swedish text when a key is missing; tests/i18n.test.ts lists those.
 export const en: Record<string, string> = {
   // Start page: entrance cards and the reach statement
-  "Låt kunden se vem som skriver": "Let the customer see who is writing",
-  "Ett SMS kommer från ett nummer. Med RCS kommer samma besked med ert namn, er logga och knappar som kunden svarar med. Växla och jämför.": "An SMS comes from a number. With RCS the same notice comes with your name, your logo and buttons the customer replies with. Switch and compare.",
-  "Exempel från våra kunder": "Examples from our customers",
-  "Från konto till första utskick": "From account to first campaign",
-  "Tre steg, och vi hjälper er med avsändaren på vägen.": "Three steps, and we help you with the sender along the way.",
-  "Betala för det ni skickar": "Pay for what you send",
-  "Priset beror på meddelandetyp och mottagarens operatör. Det kostar inget att starta och det finns ingen bindningstid.": "The price depends on the message type and the recipient's operator. It costs nothing to start and there is no lock-in.",
-  "Frågor vi ofta får": "Questions we often get",
+  "Ert namn i stället för ett nummer": "Your name instead of a number",
+  "Med RCS ser kunden vem som skriver och svarar med en knapp. Växla mellan SMS och RCS och jämför.": "With RCS the customer sees who is writing and replies with a button. Switch between SMS and RCS and compare.",
+  "RCS hos våra kunder": "RCS at our customers",
+  "Igång i tre steg": "Up and running in three steps",
+  "Vi hjälper er med avsändaren.": "We help you with the sender.",
+  "Det kostar inget att starta. Priset beror på meddelandetyp och mottagarens operatör.": "It costs nothing to start. The price depends on the message type and the recipient's operator.",
   "Prata med oss om ert upplägg": "Talk to us about your setup",
   "Om verifierad avsändare": "About verified senders",
   "Bygg meddelandet i webbverktyget eller koppla in ert system via API.": "Build the message in the web tool or connect your system through the API.",
   Från: "From",
-  "Kom igång i dag": "Get started today",
-  "Skapa ett konto, så hjälper vi er med avsändaren och det första utskicket.": "Create an account and we will help you with the sender and the first campaign.",
+  "Skicka ert första RCS-meddelande": "Send your first RCS message",
+  "Skapa ett konto, så hjälper vi er med avsändaren.": "Create an account and we will help you with the sender.",
   "Låt era system skicka bekräftelser och påminnelser via API.": "Let your systems send confirmations and reminders through the API.",
   "Listpris från {price} per meddelande, utan bindningstid.": "List price from {price} per message, with no lock-in.",
   "Ni betalar för de meddelanden ni skickar.": "You pay for the messages you send.",
@@ -189,11 +187,10 @@ export const en: Record<string, string> = {
   // Start page
   "Prata med oss": "Talk to us",
   "Skapa ett konto": "Create an account",
-  "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot och hör av oss med nästa steg.": "Tell us who you are and what you want to send. We activate the account and get back to you with the next step.",
+  "Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot.": "Tell us who you are and what you want to send. We activate the account.",
   "Registrera avsändare": "Register your sender",
-  "Ni skickar företagsnamn, logotyp och en kort beskrivning. Vi registrerar avsändaren, och den kontrolleras innan den får skicka.": "You send us your company name, logo and a short description. We register the sender, and it is checked before it can send.",
+  "Skicka namn, logotyp och en kort beskrivning. Avsändaren kontrolleras innan den får skicka.": "Send your name, logo and a short description. The sender is checked before it may send.",
   "Skicka första utskicket": "Send your first campaign",
-  "Bygg meddelandet i webbverktyget eller koppla in ert system via API. Ni betalar för de meddelanden som skickas.": "Build the message in the web tool or connect your system through the API. You pay for the messages that are sent.",
 
   // Not found
   "Sidan finns inte": "Page not found",
@@ -332,6 +329,6 @@ export const en: Record<string, string> = {
   "Se skillnaden själv": "See the difference yourself",
   Webbplatskarta: "Sitemap",
   "Visa hela exemplet": "Show the whole example",
-  "Så kan RCS se ut hos några av våra kunder. Tryck på knapparna och se vad som händer. Meddelandena är exempel.": "This is how RCS can look for some of our customers. Tap the buttons and see what happens. The messages are examples.",
+  "Tryck på knapparna och se vad som händer. Meddelandena är exempel.": "Tap the buttons and see what happens. The messages are examples.",
   Funktion: "Feature",
 };

@@ -489,10 +489,10 @@ export function CustomerExamples() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal>
           <h2 id="exempel-title" className={sectionTitle}>
-            {t("Exempel från våra kunder")}
+            {t("RCS hos våra kunder")}
           </h2>
           <p className={sectionIntro}>
-            {t("Så kan RCS se ut hos några av våra kunder. Tryck på knapparna och se vad som händer. Meddelandena är exempel.")}
+            {t("Tryck på knapparna och se vad som händer. Meddelandena är exempel.")}
           </p>
         </div>
         <CaseShowcase />

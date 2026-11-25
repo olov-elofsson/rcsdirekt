@@ -231,7 +231,7 @@ export function FaqSection() {
       {/* Heading and the way to ask on the left, the questions on the right; stacked on phones. */}
       <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_2fr] lg:gap-16 lg:px-8">
         <div data-reveal>
-          <h2 className={sectionTitle}>{t("Frågor vi ofta får")}</h2>
+          <h2 className={sectionTitle}>{t("Vanliga frågor")}</h2>
           <p className="mt-4 text-base text-muted-foreground">{t("Hittar ni inte svaret?")} <Link to={lp("/kontakt")} className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">{t("Kontakta oss")}</Link></p>
         </div>
         <div data-reveal className="divide-y divide-border rounded-2xl border border-border bg-card px-6 sm:px-8">

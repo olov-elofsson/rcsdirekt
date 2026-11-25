@@ -23,8 +23,8 @@ export function CtaBox() {
     <section id="starta" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div data-reveal className="flex flex-col items-center rounded-3xl bg-ink px-6 py-16 text-center sm:py-20">
-          <h2 className="max-w-3xl text-[2rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.6rem]">{t("Kom igång i dag")}</h2>
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-pretty text-ink-muted sm:text-[17px]">{t("Skapa ett konto, så hjälper vi er med avsändaren och det första utskicket.")}</p>
+          <h2 className="max-w-3xl text-[2rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.6rem]">{t("Skicka ert första RCS-meddelande")}</h2>
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-pretty text-ink-muted sm:text-[17px]">{t("Skapa ett konto, så hjälper vi er med avsändaren.")}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             <Button asChild size="lg" variant="outline" className="home-cta border-transparent"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
             <Link to={lp("/kontakt")} className="inline-flex min-h-11 items-center gap-1.5 text-base font-semibold text-ink-foreground underline underline-offset-4">{t("Prata med oss")}</Link>
@@ -45,12 +45,12 @@ const blueLink = "group inline-flex min-h-10 items-center gap-1.5 text-base font
 const arrow = <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />;
 
 /** A section's heading and lead on the left, with an optional link on the right. */
-function SectionHead({ title, intro, after }: { title: string; intro?: string | undefined; after?: ReactNode }) {
+function SectionHead({ title, intro, after, dark = false }: { title: string; intro?: string | undefined; after?: ReactNode; dark?: boolean }) {
   return (
     <div data-reveal className="mb-10 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <h2 className={sectionHeading}>{title}</h2>
-        {intro ? <p className={sectionLead}>{intro}</p> : null}
+        {intro ? <p className={cn(sectionLead, dark && "text-ink-muted")}>{intro}</p> : null}
       </div>
       {after}
     </div>
@@ -107,8 +107,8 @@ export function Difference() {
     <section id="rcs-mot-sms" className="scroll-mt-24 bg-muted">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2 lg:gap-20 lg:px-8">
         <div data-reveal>
-          <h2 className={sectionHeading}>{t("Låt kunden se vem som skriver")}</h2>
-          <p className={sectionLead}>{t("Ett SMS kommer från ett nummer. Med RCS kommer samma besked med ert namn, er logga och knappar som kunden svarar med. Växla och jämför.")}</p>
+          <h2 className={sectionHeading}>{t("Ert namn i stället för ett nummer")}</h2>
+          <p className={sectionLead}>{t("Med RCS ser kunden vem som skriver och svarar med en knapp. Växla mellan SMS och RCS och jämför.")}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button asChild size="lg" className="home-cta"><Link to={lp("/skapa-konto")}>{t("Skapa konto")} <ArrowRight data-icon="end" /></Link></Button>
             <Link to={lp("/blogg/$slug")} params={{ slug: "rcs-vs-sms" }} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">{t("Läs om skillnaden")} <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
@@ -131,17 +131,18 @@ export function Steps() {
     { link: t("Till utvecklarsidan"), to: lp("/utvecklare") },
   ];
   return (
-    <section id="kom-igang" className="scroll-mt-24 bg-muted">
+    // The one Marin band between the hero and the closing box, so the page has a pause mid-way.
+    <section id="kom-igang" className="scroll-mt-24 bg-ink text-ink-foreground">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHead title={t("Från konto till första utskick")} intro={t("Tre steg, och vi hjälper er med avsändaren på vägen.")} />
+        <SectionHead dark title={t("Igång i tre steg")} intro={t("Vi hjälper er med avsändaren.")} />
         <ol className="grid gap-x-10 lg:grid-cols-3">
           {STEPS.map((step, index) => (
-            <li key={step.title} data-reveal style={order(index)} className="flex gap-5 border-t border-border py-7 lg:flex-col lg:gap-6 lg:pt-8">
-              <NumberDrop n={index + 1} />
+            <li key={step.title} data-reveal style={order(index)} className="flex gap-5 border-t border-ink-foreground/15 py-7 lg:flex-col lg:gap-6 lg:pt-8">
+              <NumberDrop n={index + 1} tone="light" />
               <div>
                 <h3 className="text-xl font-extrabold leading-snug">{t(step.title)}</h3>
-                <p className="mt-2 text-base leading-relaxed text-pretty text-muted-foreground">{t(step.copy)}</p>
-                <Link to={links[index]!.to} className={cn(blueLink, "mt-3")}>{links[index]!.link} {arrow}</Link>
+                <p className="mt-2 text-base leading-relaxed text-pretty text-ink-muted">{t(step.copy)}</p>
+                <Link to={links[index]!.to} className={cn(blueLink, "mt-3 text-ink-foreground underline decoration-ink-foreground/40 underline-offset-4 hover:decoration-ink-foreground")}>{links[index]!.link} {arrow}</Link>
               </div>
             </li>
           ))}
@@ -160,8 +161,8 @@ export function Plans() {
     <section id="pris" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead
-          title={t("Betala för det ni skickar")}
-          intro={t("Priset beror på meddelandetyp och mottagarens operatör. Det kostar inget att starta och det finns ingen bindningstid.")}
+          title={t("Priser")}
+          intro={t("Det kostar inget att starta. Priset beror på meddelandetyp och mottagarens operatör.")}
           after={<Link to={lp("/priser")} className={blueLink}>{t("Priser per operatör")} {arrow}</Link>}
         />
         <ul data-reveal className="divide-y divide-border rounded-2xl border border-border bg-card">
