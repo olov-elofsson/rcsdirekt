@@ -173,7 +173,7 @@ export function Plans() {
           ))}
           {/* What the three levels are and why they exist: the operators bill RCS by what a message does. */}
           <li className="flex flex-col gap-x-8 gap-y-2 rounded-b-2xl bg-muted px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-            <p className="max-w-2xl text-sm leading-relaxed text-pretty text-muted-foreground">Basic, Single och Conversation är nivåerna som operatörerna debiterar RCS efter, och de styrs av vad meddelandet gör. Basic är ren text upp till 160 tecken. Single har bild, knappar eller längre text. Conversation börjar när kunden svarar och gäller sedan i 24 timmar.</p>
+            <p className="max-w-2xl text-sm leading-relaxed text-pretty text-muted-foreground">Basic, Single och Conversation är nivåerna som operatörerna debiterar RCS efter, och de styrs av vad meddelandet gör.</p>
             <Link to={"/blogg/$slug"} params={{ slug: "rcs-basic-single-conversation" }} className={cn(blueLink, "shrink-0 text-sm")}>Så skiljer sig nivåerna {arrow}</Link>
           </li>
         </ul>
