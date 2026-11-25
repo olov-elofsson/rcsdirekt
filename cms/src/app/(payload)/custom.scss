@@ -85,11 +85,11 @@ h1, h2, h3, h4, .doc-header__title, .list-header__title {
 }
 
 .nav__link {
-  min-height: 40px;
+  display: flex;
+  align-items: center;
   margin-inline: -8px;
   padding: 6px 12px;
   border-radius: 10px;
-  font-size: 15px;
   line-height: 1.4;
   color: var(--rd-marin);
   transition: background-color 150ms var(--rd-ease), box-shadow 150ms var(--rd-ease);
@@ -258,3 +258,90 @@ h1, h2, h3, h4, .doc-header__title, .list-header__title {
 
   img { display: block; height: 28px; width: auto; }
 }
+
+
+// ---------------------------------------------------------------------------------------------
+// Sidebar items with icons (Lucide, the site's icon set). Payload gives every item an id,
+// nav-<collection> or nav-global-<global>, so the icon is a CSS mask and Payload's own nav,
+// groups and toggling stay as they are. A new collection gets its icon here.
+// ---------------------------------------------------------------------------------------------
+
+.nav__link,
+.rd-nav-home {
+  gap: 12px;
+  min-height: 44px;
+  font-size: 16px;
+}
+
+.nav__link::before,
+.rd-nav-home::before {
+  content: '';
+  flex: none;
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  -webkit-mask: var(--rd-icon) center / contain no-repeat;
+  mask: var(--rd-icon) center / contain no-repeat;
+  opacity: 0.8;
+}
+
+.nav__link:not([id])::before { display: none; }
+
+.nav__link:has(.nav__link-indicator)::before,
+.rd-nav-home[aria-current='page']::before {
+  background-color: var(--rd-bla);
+  opacity: 1;
+}
+
+#nav-users { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M16%2021v-2a4%204%200%200%200-4-4H6a4%204%200%200%200-4%204v2%22%2F%3E%3Ccircle%20cx%3D%229%22%20cy%3D%227%22%20r%3D%224%22%2F%3E%3Cpath%20d%3D%22M22%2021v-2a4%204%200%200%200-3-3.87%22%2F%3E%3Cpath%20d%3D%22M16%203.13a4%204%200%200%201%200%207.75%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-media { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%2F%3E%3Ccircle%20cx%3D%229%22%20cy%3D%229%22%20r%3D%222%22%2F%3E%3Cpath%20d%3D%22m21%2015-3.086-3.086a2%202%200%200%200-2.828%200L6%2021%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-webinarer { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2%203h20%22%2F%3E%3Cpath%20d%3D%22M21%203v11a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2V3%22%2F%3E%3Cpath%20d%3D%22m7%2021%205-5%205%205%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-artiklar { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M15%202H6a2%202%200%200%200-2%202v16a2%202%200%200%200%202%202h12a2%202%200%200%200%202-2V7Z%22%2F%3E%3Cpath%20d%3D%22M14%202v4a2%202%200%200%200%202%202h4%22%2F%3E%3Cpath%20d%3D%22M10%209H8%22%2F%3E%3Cpath%20d%3D%22M16%2013H8%22%2F%3E%3Cpath%20d%3D%22M16%2017H8%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-kallor { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2%203h6a4%204%200%200%201%204%204v14a3%203%200%200%200-3-3H2z%22%2F%3E%3Cpath%20d%3D%22M22%203h-6a4%204%200%200%200-4%204v14a3%203%200%200%201%203-3h7z%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-forfragningar { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%2222%2012%2016%2012%2014%2015%2010%2015%208%2012%202%2012%22%2F%3E%3Cpath%20d%3D%22M5.45%205.11%202%2012v6a2%202%200%200%200%202%202h16a2%202%200%200%200%202-2v-6l-3.45-6.89A2%202%200%200%200%2016.76%204H7.24a2%202%200%200%200-1.79%201.11z%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-global-startsida { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M15%2021v-8a1%201%200%200%200-1-1h-4a1%201%200%200%200-1%201v8%22%2F%3E%3Cpath%20d%3D%22M3%2010a2%202%200%200%201%20.709-1.528l7-5.999a2%202%200%200%201%202.582%200l7%205.999A2%202%200%200%201%2021%2010v9a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2z%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-global-priser { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M19%207V4a1%201%200%200%200-1-1H5a2%202%200%200%200%200%204h15a1%201%200%200%201%201%201v4h-3a2%202%200%200%200%200%204h3a1%201%200%200%200%201-1v-2a1%201%200%200%200-1-1%22%2F%3E%3Cpath%20d%3D%22M3%205v14a2%202%200%200%200%202%202h15a1%201%200%200%200%201-1v-4%22%2F%3E%3C%2Fsvg%3E'); }
+#nav-global-juridiskt { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m16%2016%203-8%203%208c-.87.65-1.92%201-3%201s-2.13-.35-3-1Z%22%2F%3E%3Cpath%20d%3D%22m2%2016%203-8%203%208c-.87.65-1.92%201-3%201s-2.13-.35-3-1Z%22%2F%3E%3Cpath%20d%3D%22M7%2021h10%22%2F%3E%3Cpath%20d%3D%22M12%203v18%22%2F%3E%3Cpath%20d%3D%22M3%207h2c2%200%205-1%207-2%202%201%205%202%207%202h2%22%2F%3E%3C%2Fsvg%3E'); }
+.rd-nav-home { --rd-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%221%22%2F%3E%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%223%22%20rx%3D%221%22%2F%3E%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%2214%22%20rx%3D%221%22%2F%3E%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%2214%22%20rx%3D%221%22%2F%3E%3C%2Fsvg%3E'); }
+
+// "Översikt" at the top, styled like Payload's items.
+.rd-nav-home {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: calc(100% + 16px);
+  margin: 0 -8px 16px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  color: var(--rd-marin);
+  text-decoration: none;
+  transition: background-color 150ms var(--rd-ease), box-shadow 150ms var(--rd-ease);
+
+  &:hover { background: rgb(255 255 255 / 70%); }
+
+  &[aria-current='page'] {
+    background: #fff;
+    font-weight: 600;
+    box-shadow: var(--rd-shadow);
+  }
+}
+
+// Count badge, filled in by NavTop for new inquiries.
+#nav-forfragningar::after {
+  content: var(--rd-count, none);
+  margin-inline-start: auto;
+  min-width: 26px;
+  padding: 1px 7px;
+  border: 1px solid rgb(47 123 255 / 25%);
+  border-radius: 8px;
+  background: rgb(47 123 255 / 8%);
+  color: var(--rd-bla);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+// Group names: quieter, so the items carry the menu.
+.nav-group { margin-bottom: 18px; }
+.nav-group__toggle { margin-bottom: 4px; padding-inline: 4px; }

@@ -95,7 +95,7 @@ export default buildConfig({
     components: {
       graphics: { Logo: '/components/admin/Brand#Logo', Icon: '/components/admin/Brand#Icon' },
       beforeDashboard: ['/components/admin/Greeting#Greeting'],
-      beforeNavLinks: ['/components/admin/Brand#NavLogo'],
+      beforeNavLinks: ['/components/admin/Brand#NavTop'],
     },
     importMap: { baseDir: path.resolve(dirname) },
   },
