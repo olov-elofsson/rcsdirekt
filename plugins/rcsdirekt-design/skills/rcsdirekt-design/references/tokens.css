@@ -1,0 +1,174 @@
+/*
+ * rcsdirekt.se design tokens, as the site uses them in November 2026.
+ * Copy this file into a project and import it once, before your own styles.
+ *
+ * Part 1 is plain CSS and works anywhere. Part 2 maps the tokens to Tailwind v4
+ * utilities (bg-ink, text-muted-foreground, rounded-2xl …); skip it without Tailwind.
+ * Fonts: load Archivo 600–800 and Hind 400–700 from Google Fonts, see the <link> in SKILL.md.
+ */
+
+/* ---------------------------------------------------------------------------------------- */
+/* Part 1: tokens and base styles (plain CSS)                                                */
+/* ---------------------------------------------------------------------------------------- */
+
+:root {
+  /* Brand colours (brand/BRAND.md) */
+  --marin: #15115f;          /* text, headings, primary buttons, dark bands */
+  --marin-djup: #0d0a45;     /* hover on primary buttons */
+  --bla: #2f7bff;            /* accent only: line icons, arrows, focus ring, "direkt" in the logo */
+  --lavendel: #efeefc;       /* soft surfaces, selected states, method badges */
+  --dimma: #f5f5fc;          /* every other section band; text on Marin */
+  --vit: #ffffff;            /* base background and cards */
+  --linje: #e3e2f5;          /* card borders and dividers */
+
+  /* Roles */
+  --background: var(--vit);
+  --foreground: var(--marin);
+  --card: var(--vit);
+  --muted: var(--dimma);
+  --muted-foreground: oklch(0.42 0.05 285);      /* intros and body text under headings */
+  --ink: var(--marin);                           /* dark band background */
+  --ink-foreground: var(--dimma);                /* text on Marin */
+  --ink-muted: oklch(0.82 0.04 285);             /* intros on Marin */
+  --primary: var(--marin);
+  --primary-foreground: var(--vit);
+  --primary-deep: var(--marin-djup);
+  --primary-soft: var(--lavendel);
+  --accent: var(--lavendel);
+  --border: var(--linje);
+  --input: var(--linje);
+  --ring: var(--marin);
+  --destructive: oklch(0.577 0.245 27.325);
+
+  /* Shape */
+  --radius: 0.5rem;          /* base; cards use 1rem, big boxes 1.5rem, buttons are pills */
+  --radius-card: 1rem;
+  --radius-box: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --content-width: 80rem;    /* max-w-7xl */
+  --gutter: 1.25rem;         /* 2rem from 1024 px */
+  --band-y: 4rem;            /* section padding top and bottom; 6rem from 640 px */
+
+  /* Type */
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
+
+  /* Depth. The first layer is a 1px ring, so cards with a shadow need no border. */
+  --shadow-soft: 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 12px 32px -22px oklch(0.25 0.09 285 / 18%);
+  --shadow-card: 0 0 0 1px oklch(0.25 0.09 285 / 8%), 0 1px 2px oklch(0.25 0.09 285 / 5%), 0 26px 64px -40px oklch(0.25 0.09 285 / 27%);
+  --shadow-card-hover: 0 0 0 1px oklch(0.25 0.09 285 / 12%), 0 2px 6px oklch(0.25 0.09 285 / 6%), 0 34px 72px -40px oklch(0.25 0.09 285 / 32%);
+  --shadow-lift: 0 0 0 1px oklch(0.25 0.09 285 / 8%), 0 2px 8px oklch(0.25 0.09 285 / 7%), 0 50px 100px -52px oklch(0.25 0.09 285 / 38%);
+  --shadow-header: 0 4px 16px -10px rgb(21 17 95 / 0.2);
+  --shadow-header-scrolled: 0 8px 24px -12px rgb(21 17 95 / 0.25);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);   /* hover, press, links */
+  --ease-enter: cubic-bezier(0.23, 1, 0.32, 1); /* things appearing */
+  --duration-fast: 150ms;
+  --duration: 200ms;
+}
+
+* { border-color: var(--border); }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;           /* the floating header covers the top 5rem */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0;
+  word-spacing: 0.06em;               /* Archivo's space is narrow at 800, words run together */
+  text-wrap: balance;
+}
+
+p, li, figcaption, blockquote { text-wrap: pretty; }   /* no lone word on the last line */
+
+a, button, textarea {
+  transition-duration: var(--duration);
+  transition-timing-function: var(--ease-out);
+}
+
+/* One visible focus ring for everything a component does not style itself. */
+:where(a, button, summary, [role="tab"], [role="radio"]):focus-visible {
+  outline: 2px solid var(--bla);
+  outline-offset: 3px;
+}
+
+::selection { background-color: var(--marin); color: var(--dimma); }
+
+/* Entrances: short, and from near full size, never from scale 0. Backdrops only fade. */
+@keyframes rd-fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes rd-opacity-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rd-scale-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes rd-message-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
+.rd-fade-in { animation: rd-fade-in 200ms var(--ease-enter) both; }
+.rd-opacity-in { animation: rd-opacity-in 200ms var(--ease-enter) both; }
+.rd-scale-in { animation: rd-scale-in 220ms var(--ease-enter) both; }
+.rd-message-in { animation: rd-message-in 320ms var(--ease-enter) both; }
+
+/* Cards lift only where there is a real pointer; on touch, :hover sticks after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .rd-card-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+  html { scroll-behavior: auto; }
+  .rd-card-link:hover { transform: none; }
+}
+
+@media (min-width: 640px) { :root { --band-y: 6rem; } }
+@media (min-width: 1024px) { :root { --gutter: 2rem; } }
+
+/* ---------------------------------------------------------------------------------------- */
+/* Part 2: Tailwind v4 mapping. Put this after `@import "tailwindcss";`.                     */
+/* ---------------------------------------------------------------------------------------- */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);   /* 1rem: cards, lists, panels */
+  --radius-3xl: calc(var(--radius) + 12px);  /* 1.25rem */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
+  --shadow-soft: var(--shadow-soft);
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+}
+
+@theme {
+  --color-logo-blue: #2f7bff;   /* text-logo-blue, bg-logo-blue: accents only */
+}

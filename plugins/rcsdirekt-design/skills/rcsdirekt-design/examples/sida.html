@@ -1,0 +1,218 @@
+<!doctype html>
+<!--
+  A standalone page in the rcsdirekt.se style: plain HTML and CSS on top of references/tokens.css,
+  no framework. Open it in a browser to see the bands, cards, steps, price list, questions,
+  closing box and footer together, and copy the parts you need.
+-->
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exempelsida | rcsdirekt.se</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Hind:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../references/tokens.css" />
+  <style>
+    body { margin: 0; font-size: 16px; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--content-width); margin: 0 auto; padding: 0 var(--gutter); }
+    .band { padding: var(--band-y) 0; }
+    .band.dimma { background: var(--muted); }
+    .band.marin { background: var(--ink); color: var(--ink-foreground); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* Header: a floating white pill over the page */
+    .header { position: sticky; top: 0; z-index: 50; padding: 12px 12px 0; pointer-events: none; }
+    .header-bar { pointer-events: auto; max-width: var(--content-width); margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 10px 0 20px; background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-pill); box-shadow: var(--shadow-header); }
+    .header-bar img { height: 26px; display: block; }
+    .nav { display: none; gap: 4px; }
+    .nav a { font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: var(--radius-pill); }
+    .nav a[aria-current] { background: var(--primary-soft); }
+    @media (min-width: 1200px) { .nav { display: flex; } }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; border: 1px solid transparent; transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out); cursor: pointer; }
+    .btn-lg { height: 48px; padding: 0 32px; min-width: 10.5rem; }
+    .btn-primary { background: var(--primary); color: var(--primary-foreground); box-shadow: var(--shadow-soft); }
+    .btn-primary:hover { background: var(--primary-deep); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+    .btn-white { background: var(--background); color: var(--foreground); }
+    .btn-white:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn:active { transform: scale(0.96); }
+    .text-link { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Hero */
+    .hero { margin-top: -4.75rem; background: var(--ink); color: var(--ink-foreground); text-align: center; }
+    .hero .wrap { max-width: 56rem; padding-top: 144px; padding-bottom: 80px; }
+    .hero h1 { margin: 0; font-size: 40px; line-height: 1.05; }
+    .hero p { margin: 28px auto 0; max-width: 42rem; font-size: 18px; color: var(--ink-muted); }
+    .hero .actions { margin-top: 40px; }
+    @media (min-width: 640px) { .hero .wrap { padding-top: 176px; padding-bottom: 112px; } .hero h1 { font-size: 60px; } .hero p { font-size: 20px; } }
+    @media (min-width: 1024px) { .hero h1 { font-size: 68px; } }
+
+    /* Section heading */
+    .head { margin-bottom: 40px; }
+    .head h2 { margin: 0 0 0 -0.04em; max-width: 48rem; font-size: 2.1rem; line-height: 1.1; }
+    .head p { margin: 16px 0 0; max-width: 36rem; color: var(--muted-foreground); }
+    .marin .head p { color: var(--ink-muted); }
+    @media (min-width: 640px) { .head { margin-bottom: 48px; } .head h2 { font-size: 2.65rem; } .head p { font-size: 17px; } }
+
+    /* Entrance cards (once per page) */
+    .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+    @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+    .card { display: flex; flex-direction: column; align-items: center; text-align: center; height: 100%; box-sizing: border-box; padding: 32px 24px 28px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-card); transition: border-color var(--duration) var(--ease-out), box-shadow var(--duration) var(--ease-out); }
+    .card:hover { border-color: rgb(47 123 255 / 0.4); box-shadow: var(--shadow-card); }
+    .card svg { width: 48px; height: 48px; color: var(--bla); }
+    .card h3 { margin: 20px 0 0; font-size: 20px; line-height: 1.3; }
+    .card p { margin: 12px 0 0; flex: 1; color: var(--muted-foreground); }
+    .card .more { margin-top: 28px; font-weight: 600; color: var(--bla); }
+
+    /* Steps on Marin */
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+    @media (min-width: 1024px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+    .step { display: flex; flex-direction: column; gap: 24px; padding: 28px 24px 24px; background: rgb(245 245 252 / 0.06); border: 1px solid rgb(245 245 252 / 0.1); border-radius: var(--radius-card); }
+    .step h3 { margin: 0; font-size: 20px; }
+    .step p { margin: 8px 0 0; color: var(--ink-muted); }
+    .drop { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 50% 50% 50% 0; font-family: var(--font-display); font-weight: 800; font-variant-numeric: tabular-nums; background: var(--ink-foreground); color: var(--ink); }
+
+    /* Price list */
+    .prices { list-style: none; margin: 0; padding: 0; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-card); }
+    .prices li { display: grid; gap: 8px 32px; padding: 24px; border-top: 1px solid var(--border); }
+    .prices li:first-child { border-top: 0; }
+    .prices h3 { margin: 0; font-size: 20px; }
+    .prices .contents { margin: 4px 0 0; color: var(--muted-foreground); }
+    .prices .price { margin: 0; color: var(--muted-foreground); }
+    .prices .price strong { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--foreground); font-variant-numeric: tabular-nums; }
+    .prices .note { background: var(--muted); border-radius: 0 0 var(--radius-card) var(--radius-card); font-size: 14px; color: var(--muted-foreground); }
+    @media (min-width: 640px) { .prices li:not(.note) { grid-template-columns: 1fr 11rem 12rem; align-items: center; padding: 24px 32px; } .prices .price { text-align: right; } .prices li a { justify-self: end; } }
+
+    /* Questions in two columns */
+    .faq { display: grid; gap: 40px; }
+    @media (min-width: 1024px) { .faq { grid-template-columns: 1fr 2fr; gap: 64px; } }
+    .faq-list { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 0 24px; }
+    .faq-list details + details { border-top: 1px solid var(--border); }
+    .faq-list summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 64px; font-weight: 600; cursor: pointer; list-style: none; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: "⌄"; color: var(--muted-foreground); transition: transform var(--duration) var(--ease-out); }
+    .faq-list details[open] summary::after { transform: rotate(180deg); }
+    .faq-list p { margin: 0 0 20px; color: var(--muted-foreground); }
+
+    /* Closing box */
+    .closing { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px; background: var(--ink); color: var(--ink-foreground); border-radius: var(--radius-box); }
+    .closing h2 { margin: 0; max-width: 48rem; font-size: 2rem; line-height: 1.1; }
+    .closing p { margin: 16px 0 0; color: var(--ink-muted); }
+    .closing .actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; align-items: center; }
+    @media (min-width: 640px) { .closing { padding: 80px 24px; } .closing h2 { font-size: 2.6rem; } }
+
+    /* Footer */
+    .footer { background: var(--ink); color: var(--ink-foreground); padding: 64px 0 32px; }
+    .footer-grid { display: grid; gap: 48px; }
+    @media (min-width: 1024px) { .footer-grid { grid-template-columns: 1fr 4fr; gap: 64px; } }
+    .footer img { height: 32px; }
+    .footer-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 32px; }
+    @media (min-width: 640px) { .footer-cols { grid-template-columns: repeat(4, 1fr); } }
+    .footer-cols p { margin: 0; font-size: 14px; font-weight: 600; }
+    .footer-cols ul { list-style: none; margin: 12px 0 0; padding: 0; }
+    .footer-cols a { display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; color: var(--ink-muted); }
+    .footer-cols a:hover { color: var(--ink-foreground); }
+    .footer-bottom { margin-top: 64px; padding-top: 24px; border-top: 1px solid rgb(245 245 252 / 0.1); font-size: 12px; color: var(--ink-muted); }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-bar">
+      <a href="#" aria-label="Startsida"><img src="../assets/rcsdirekt.svg" alt="rcsdirekt.se" /></a>
+      <nav class="nav" aria-label="Huvudmeny">
+        <a href="#" aria-current="location">Plattform</a><a href="#">Jämför</a><a href="#">Kundcase</a><a href="#">Priser</a><a href="#">Insikter</a>
+      </nav>
+      <a class="btn btn-primary" href="#">Skapa konto →</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>RCS för företag i Sverige</h1>
+        <p>Skicka RCS från webben eller via API, med bilder, knappar och verifierad avsändare.</p>
+        <div class="actions"><a class="btn btn-white btn-lg" href="#">Skapa konto</a></div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <h2 class="sr-only">Skicka RCS från webben eller via API</h2>
+        <ul class="cards">
+          <li><a class="card rd-card-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 18h6M9 14v4"/><rect x="17" y="8" width="5" height="12" rx="1.5"/></svg>
+            <h3>Skicka från webben</h3><p>Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden.</p><span class="more">Prova webbverktyget →</span></a></li>
+          <li><a class="card rd-card-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg>
+            <h3>Koppla in ert system</h3><p>Låt era system skicka bekräftelser och påminnelser via API.</p><span class="more">Till utvecklarsidan →</span></a></li>
+          <li><a class="card rd-card-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            <h3>Betala per meddelande</h3><p>Listpris från 0,316 SEK per meddelande, utan bindningstid.</p><span class="more">Se priser →</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band marin">
+      <div class="wrap">
+        <div class="head"><h2>Igång i tre steg</h2><p>Vi hjälper er med avsändaren.</p></div>
+        <ol class="steps">
+          <li class="step"><span class="drop" aria-hidden="true">1</span><div><h3>Skapa ett konto</h3><p>Berätta vilka ni är och vad ni vill skicka. Vi aktiverar kontot.</p><a class="text-link" href="#">Skapa konto →</a></div></li>
+          <li class="step"><span class="drop" aria-hidden="true">2</span><div><h3>Registrera avsändare</h3><p>Skicka namn, logotyp och en kort beskrivning.</p><a class="text-link" href="#">Om verifierad avsändare →</a></div></li>
+          <li class="step"><span class="drop" aria-hidden="true">3</span><div><h3>Skicka första utskicket</h3><p>Bygg meddelandet i webbverktyget eller koppla in ert system via API.</p><a class="text-link" href="#">Till utvecklarsidan →</a></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head"><h2>Priser</h2><p>Det kostar inget att starta. Priset beror på meddelandetyp och mottagarens operatör.</p></div>
+        <ul class="prices">
+          <li><div><h3>RCS Basic</h3><p class="contents">Text upp till 160 tecken</p></div><p class="price">från <strong>0,316 SEK</strong></p><a class="text-link" href="#">Välj Basic →</a></li>
+          <li><div><h3>RCS Single</h3><p class="contents">Bild, video, karusell och knappar</p></div><p class="price">från <strong>0,462 SEK</strong></p><a class="text-link" href="#">Välj Single →</a></li>
+          <li><div><h3>RCS Conversation</h3><p class="contents">Tvåvägsdialog i 24 timmar</p></div><p class="price">från <strong>0,641 SEK</strong></p><a class="text-link" href="#">Välj Conversation →</a></li>
+          <li class="note">Basic, Single och Conversation är nivåerna som operatörerna debiterar RCS efter, och de styrs av vad meddelandet gör.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band dimma">
+      <div class="wrap faq">
+        <div class="head"><h2>Vanliga frågor</h2><p>Hittar ni inte svaret? <a class="text-link" href="#">Kontakta oss</a></p></div>
+        <div class="faq-list">
+          <details><summary>Vad betalar jag för?</summary><p>Ni betalar för de meddelanden ni skickar.</p></details>
+          <details><summary>Finns det några fasta avgifter?</summary><p>Nej, det kostar inget att starta.</p></details>
+          <details><summary>Är priserna inklusive moms?</summary><p>Listpriserna är exklusive moms.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="closing">
+          <h2>Skicka ert första RCS-meddelande</h2>
+          <p>Skapa ett konto, så hjälper vi er med avsändaren.</p>
+          <div class="actions"><a class="btn btn-white btn-lg" href="#">Skapa konto →</a><a class="text-link" href="#">Prata med oss</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <a href="#" aria-label="Startsida"><img src="../assets/rcsdirekt-vit.svg" alt="rcsdirekt.se" /></a>
+        <nav class="footer-cols" aria-label="Sidfot">
+          <div><p>rcsdirekt.se</p><ul><li><a href="#">Om oss</a></li><li><a href="#">Plattform</a></li><li><a href="#">Priser</a></li></ul></div>
+          <div><p>Kom igång</p><ul><li><a href="#">Skapa konto</a></li><li><a href="#">Kontakt</a></li></ul></div>
+          <div><p>Verktyg</p><ul><li><a href="#">För utvecklare</a></li></ul></div>
+          <div><p>Juridiskt</p><ul><li><a href="#">Integritetspolicy</a></li><li><a href="#">Villkor</a></li></ul></div>
+        </nav>
+      </div>
+      <p class="footer-bottom">© 2026 WIGOSE AB · rcsdirekt.se</p>
+    </div>
+  </footer>
+</body>
+</html>

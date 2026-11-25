@@ -55,6 +55,16 @@ Allt ligger i Google Cloud-projektet `rcsdirekt` (europe-west1).
 | `BrandLogo.tsx` | Logotypen. |
 | `rcs-video/RcsVideoGenerator.tsx` | Videogeneratorn på /video-generator. |
 
+## Designsystemet som plugin
+
+Designsystemet finns som skillen `rcsdirekt-design` i `plugins/rcsdirekt-design/` och kan installeras i andra projekt:
+
+```
+/plugin install rcsdirekt-design --marketplace olov-elofsson/rcsdirekt
+```
+
+Se `plugins/rcsdirekt-design/skills/rcsdirekt-design/README.md`.
+
 ## Utveckla lokalt
 
 Kräver [Bun](https://bun.sh).

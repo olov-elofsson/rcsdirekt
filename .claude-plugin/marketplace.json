@@ -1,0 +1,12 @@
+{
+  "name": "rcsdirekt",
+  "description": "Plugins från rcsdirekt.se",
+  "owner": { "name": "WIGOSE AB" },
+  "plugins": [
+    {
+      "name": "rcsdirekt-design",
+      "source": "./plugins/rcsdirekt-design",
+      "description": "Designsystemet för rcsdirekt.se: färger, typsnitt, band, komponenter, rörelse, text och SEO, med en fristående HTML-mall."
+    }
+  ]
+}

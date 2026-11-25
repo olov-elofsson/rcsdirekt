@@ -6,7 +6,7 @@ Tolv skills, var och en med en uppgift på rcsdirekt.se. AGENTS.md säger när d
 
 | Skill | Används till |
 | --- | --- |
-| `rcsdirekt-design` | Designsystemet: hur sajten ser ut och hur något nytt görs i samma stil, även utanför sajten |
+| `rcsdirekt-design` | Designsystemet: hur sajten ser ut och hur något nytt görs i samma stil, även utanför sajten. Ligger i `plugins/rcsdirekt-design/` och delas som plugin (se dess README); mappen här är en symbolisk länk dit |
 | `rcs-phone` | Alla telefoner som visar RCS-meddelanden |
 | `make-interfaces-feel-better` | Radier, linjering, skuggor, typografi, ikoner, övergångar |
 | `emil-design-eng` | Animationer, easing, tryck- och hovertillstånd |
