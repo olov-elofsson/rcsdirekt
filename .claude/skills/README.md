@@ -1,11 +1,12 @@
 # Skills i repot
 
-Elva skills, var och en med en uppgift på rcsdirekt.se. AGENTS.md säger när de ska användas.
+Tolv skills, var och en med en uppgift på rcsdirekt.se. AGENTS.md säger när de ska användas.
 
 ## Egna
 
 | Skill | Används till |
 | --- | --- |
+| `rcsdirekt-design` | Designsystemet: hur sajten ser ut och hur något nytt görs i samma stil, även utanför sajten |
 | `rcs-phone` | Alla telefoner som visar RCS-meddelanden |
 | `make-interfaces-feel-better` | Radier, linjering, skuggor, typografi, ikoner, övergångar |
 | `emil-design-eng` | Animationer, easing, tryck- och hovertillstånd |

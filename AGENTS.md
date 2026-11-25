@@ -13,6 +13,7 @@
 
 Allt UI-arbete i det här repot, nytt eller ändrat, ska gå igenom skillsen i `.claude/skills/` innan det är klart:
 
+- `rcsdirekt-design`: designsystemet (färger, typsnitt, band, komponenter, rörelse, text). Utgå från det när en sida, sektion eller något utanför sajten ska se ut som rcsdirekt.se, och uppdatera det när ägaren godkänner en ny stil.
 - `make-interfaces-feel-better`: radier, optisk linjering, skuggor, typografi, ikoner, övergångar, prestanda.
 - `emil-design-eng`: animationer, easing, längd, tryck- och hovertillstånd.
 - `rcs-phone`: **alla telefoner** som visar RCS-meddelanden ska se ut som telefonen i videogeneratorn (`/video-generator`) och byggas på dess `RCSV_CSS`. Inga egna telefonmockups.
