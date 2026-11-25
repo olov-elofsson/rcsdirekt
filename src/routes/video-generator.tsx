@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { PageHeading } from "@/components/PageHeading";
+import { breadcrumb, jsonLd } from "@/lib/page-head";
 import { RcsVideoGenerator } from "@/components/rcs-video/RcsVideoGenerator";
 
 const title = "Video till RCS-ansökan";
@@ -21,6 +22,20 @@ export const Route = createFileRoute("/video-generator")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://rcsdirekt.se/video-generator" }],
+    scripts: [
+      breadcrumb(["Videogenerator", "/video-generator"]),
+      jsonLd({
+        "@type": "WebApplication",
+        name: title,
+        description: metaDescription(description),
+        url: "https://rcsdirekt.se/video-generator",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Webbläsare",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "SEK" },
+        provider: { "@id": "https://rcsdirekt.se/#organization" },
+        inLanguage: "sv-SE",
+      }),
+    ],
   }),
   component: VideoGeneratorPage,
 });

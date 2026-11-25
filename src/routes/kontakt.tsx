@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { organizationSchema } from "@/lib/company";
-import { pageHead } from "@/lib/page-head";
+import { breadcrumb, jsonLd, pageHead } from "@/lib/page-head";
 import { ContactPage } from "@/pages/ContactPage";
 
 const title = "Kontakta rcsdirekt.se";
@@ -9,8 +9,8 @@ const description = "Berätta lite om vad ni vill skicka, så hör vi av oss och
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
-    ...pageHead({ title, description, svPath: "/kontakt" }),
-    scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "ContactPage", url: "https://rcsdirekt.se/kontakt", mainEntity: organizationSchema }) }],
+    ...pageHead({ title, description, svPath: "/kontakt", crumb: "Kontakt" }),
+    scripts: [breadcrumb(["Kontakt", "/kontakt"]), jsonLd({ "@type": "ContactPage", url: "https://rcsdirekt.se/kontakt", mainEntity: organizationSchema })],
   }),
   component: ContactPage,
 });
