@@ -1,58 +1,60 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
+// DROP TABLE … CASCADE also removes the foreign keys that point at the table, so every drop
+// says IF EXISTS; otherwise the later DROP CONSTRAINT fails and the CMS does not start.
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   ALTER TABLE "kundcase" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "begrepp" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "startsida_fordelar_items" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "startsida_jamforelse_rows" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "startsida_vagar_items" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "startsida_rels" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "priser_sms_operator_prices" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "demo_features" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "demo_rich_cards" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "demo_replies_actions" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "demo_replies" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "demo" DISABLE ROW LEVEL SECURITY;
-  DROP TABLE "kundcase" CASCADE;
-  DROP TABLE "begrepp" CASCADE;
-  DROP TABLE "startsida_fordelar_items" CASCADE;
-  DROP TABLE "startsida_jamforelse_rows" CASCADE;
-  DROP TABLE "startsida_vagar_items" CASCADE;
-  DROP TABLE "startsida_rels" CASCADE;
-  DROP TABLE "priser_sms_operator_prices" CASCADE;
-  DROP TABLE "demo_features" CASCADE;
-  DROP TABLE "demo_rich_cards" CASCADE;
-  DROP TABLE "demo_replies_actions" CASCADE;
-  DROP TABLE "demo_replies" CASCADE;
-  DROP TABLE "demo" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_kundcase_fk";
+   ALTER TABLE IF EXISTS "kundcase" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "begrepp" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "startsida_fordelar_items" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "startsida_jamforelse_rows" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "startsida_vagar_items" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "startsida_rels" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "priser_sms_operator_prices" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "demo_features" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "demo_rich_cards" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "demo_replies_actions" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "demo_replies" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "demo" DISABLE ROW LEVEL SECURITY;
+  DROP TABLE IF EXISTS "kundcase" CASCADE;
+  DROP TABLE IF EXISTS "begrepp" CASCADE;
+  DROP TABLE IF EXISTS "startsida_fordelar_items" CASCADE;
+  DROP TABLE IF EXISTS "startsida_jamforelse_rows" CASCADE;
+  DROP TABLE IF EXISTS "startsida_vagar_items" CASCADE;
+  DROP TABLE IF EXISTS "startsida_rels" CASCADE;
+  DROP TABLE IF EXISTS "priser_sms_operator_prices" CASCADE;
+  DROP TABLE IF EXISTS "demo_features" CASCADE;
+  DROP TABLE IF EXISTS "demo_rich_cards" CASCADE;
+  DROP TABLE IF EXISTS "demo_replies_actions" CASCADE;
+  DROP TABLE IF EXISTS "demo_replies" CASCADE;
+  DROP TABLE IF EXISTS "demo" CASCADE;
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_kundcase_fk";
   
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_begrepp_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_begrepp_fk";
   
-  DROP INDEX "payload_locked_documents_rels_kundcase_id_idx";
-  DROP INDEX "payload_locked_documents_rels_begrepp_id_idx";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "kundcase_id";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "begrepp_id";
-  ALTER TABLE "startsida" DROP COLUMN "kundcase_heading";
-  ALTER TABLE "startsida" DROP COLUMN "fordelar_heading";
-  ALTER TABLE "startsida" DROP COLUMN "fordelar_intro";
-  ALTER TABLE "startsida" DROP COLUMN "jamforelse_heading";
-  ALTER TABLE "startsida" DROP COLUMN "jamforelse_intro";
-  ALTER TABLE "startsida" DROP COLUMN "vagar_heading";
-  ALTER TABLE "startsida" DROP COLUMN "vagar_intro";
-  ALTER TABLE "startsida" DROP COLUMN "pris_heading";
-  ALTER TABLE "startsida" DROP COLUMN "pris_subheading";
-  ALTER TABLE "startsida" DROP COLUMN "pris_intro";
-  ALTER TABLE "startsida" DROP COLUMN "blogg_heading";
-  ALTER TABLE "startsida" DROP COLUMN "blogg_intro";
-  ALTER TABLE "startsida" DROP COLUMN "kontakt_heading";
-  ALTER TABLE "startsida" DROP COLUMN "kontakt_intro";
-  ALTER TABLE "priser" DROP COLUMN "sms_name";
-  ALTER TABLE "priser" DROP COLUMN "sms_contents";
-  DROP TYPE "public"."enum_startsida_fordelar_items_icon";
-  DROP TYPE "public"."enum_startsida_vagar_items_icon";
-  DROP TYPE "public"."enum_demo_rich_cards_icon";`)
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_kundcase_id_idx";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_begrepp_id_idx";
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "kundcase_id";
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "begrepp_id";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "kundcase_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "fordelar_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "fordelar_intro";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "jamforelse_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "jamforelse_intro";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "vagar_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "vagar_intro";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "pris_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "pris_subheading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "pris_intro";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "blogg_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "blogg_intro";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "kontakt_heading";
+  ALTER TABLE "startsida" DROP COLUMN IF EXISTS "kontakt_intro";
+  ALTER TABLE "priser" DROP COLUMN IF EXISTS "sms_name";
+  ALTER TABLE "priser" DROP COLUMN IF EXISTS "sms_contents";
+  DROP TYPE IF EXISTS "public"."enum_startsida_fordelar_items_icon";
+  DROP TYPE IF EXISTS "public"."enum_startsida_vagar_items_icon";
+  DROP TYPE IF EXISTS "public"."enum_demo_rich_cards_icon";`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
