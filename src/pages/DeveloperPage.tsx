@@ -41,9 +41,9 @@ export function DeveloperPage() {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
-        <PageHeading title={"RCS för utvecklare"} description={<p>Låt era egna system skicka RCS via vårt REST API. Status och svar från kunderna kommer tillbaka till er med webhooks.</p>}>
-          <Button className="border-transparent" asChild size="lg" variant="outline"><Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link></Button>
-          <Link to={"/kontakt"} className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">Prata med oss</Link>
+        <PageHeading title="RCS för utvecklare" description={<p>Låt era egna system skicka RCS via vårt REST API. Status och svar från kunderna kommer tillbaka till er med webhooks.</p>}>
+          <Button className="border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+          <Link to="/kontakt" className="inline-flex min-h-11 items-center px-3 text-sm font-semibold text-ink-foreground underline-offset-4 hover:underline">Prata med oss</Link>
         </PageHeading>
 
         <section className="pb-16 sm:pb-20">

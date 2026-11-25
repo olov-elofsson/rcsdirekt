@@ -32,7 +32,7 @@ export function AboutPage() {
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="flex-1 outline-none">
         <PageHeading
-          title={"Om rcsdirekt.se"}
+          title="Om rcsdirekt.se"
           description={<p>{"rcsdirekt.se drivs av {company} i {city}. Vi vill att det ska vara enkelt för svenska företag att skicka RCS, från webben eller via API.".replace("{company}", company.legalName).replace("{city}", company.city)}</p>}
         />
 
@@ -58,8 +58,8 @@ export function AboutPage() {
                 Vi gör det möjligt för företag att skicka meddelanden med namn, logga, bilder och knappar direkt till kundens vanliga meddelandeapp. Ni bygger utskicket själva i webben eller låter ert system skicka via API. Avsändaren och upplägget hjälper vi er med.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg"><Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link></Button>
-                <Button asChild size="lg" variant="outline"><Link to={"/kontakt"}>Kontakta oss</Link></Button>
+                <Button asChild size="lg"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+                <Button asChild size="lg" variant="outline"><Link to="/kontakt">Kontakta oss</Link></Button>
               </div>
             </div>
             <div className="rounded-2xl bg-card p-7 shadow-card sm:p-8">
@@ -79,9 +79,9 @@ export function AboutPage() {
                 ))}
               </dl>
               <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
-                <Link to={"/villkor"} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Villkor</Link>
-                <Link to={"/integritetspolicy"} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Integritetspolicy</Link>
-                <Link to={"/kontakt"} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Kontakt</Link>
+                <Link to="/villkor" className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Villkor</Link>
+                <Link to="/integritetspolicy" className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Integritetspolicy</Link>
+                <Link to="/kontakt" className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">Kontakt</Link>
                 {company.linkedin ? <a href={company.linkedin} className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-logo-blue">LinkedIn</a> : null}
               </p>
             </div>

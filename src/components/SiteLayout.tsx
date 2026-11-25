@@ -175,11 +175,11 @@ export function SiteHeader() {
     {/* A floating, rounded menu bar inset from the edges; the page shows around it, and on the start page the Marin hero runs under it. */}
     <header ref={headerRef} className="pointer-events-none sticky top-0 z-50 px-3 pt-3 sm:px-4">
       <div className={cn("pointer-events-auto mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-full border bg-background pr-2.5 pl-5 transition-[border-color,box-shadow] duration-200 ease-out min-[1200px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:pl-6", scrolled ? "border-border shadow-[0_8px_24px_-12px_rgb(21_17_95/0.25)]" : "border-border/60 shadow-[0_4px_16px_-10px_rgb(21_17_95/0.2)]")}>
-        <Link to={"/"} aria-label={"rcsdirekt.se, startsida"} className="min-w-0 py-2.5">
+        <Link to="/" aria-label="rcsdirekt.se, startsida" className="min-w-0 py-2.5">
           <BrandLogo className="h-6 sm:h-7" />
         </Link>
 
-        <nav ref={navRef} aria-label={"Huvudmeny"} className="relative hidden items-center min-[1200px]:flex">
+        <nav ref={navRef} aria-label="Huvudmeny" className="relative hidden items-center min-[1200px]:flex">
           {/* One pill glides to the active item instead of each item lighting up on its own. */}
           <span
             aria-hidden
@@ -200,7 +200,7 @@ export function SiteHeader() {
           </a>
           </Button>
           <Button asChild className="hidden sm:inline-flex">
-            <Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link>
+            <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
           </Button>
           <Button
             variant="outline"
@@ -224,15 +224,15 @@ export function SiteHeader() {
         <div id="mobile-nav" className="pointer-events-auto fixed inset-x-0 bottom-0 z-40 min-[1200px]:hidden" style={{ top: menuTop }}>
           <button
             type="button"
-            aria-label={"Stäng menyn"}
+            aria-label="Stäng menyn"
             onClick={() => setOpen(false)}
             className="absolute inset-0 h-full w-full bg-foreground/10 backdrop-blur-[2px] animate-opacity-in"
           />
-          <nav aria-label={"Huvudmeny"} className="relative mx-4 max-h-[calc(100dvh-8.5rem)] origin-top-right overflow-y-auto rounded-lg bg-background p-7 shadow-lift animate-scale-in">
+          <nav aria-label="Huvudmeny" className="relative mx-4 max-h-[calc(100dvh-8.5rem)] origin-top-right overflow-y-auto rounded-lg bg-background p-7 shadow-lift animate-scale-in">
             <ul className="divide-y divide-border">
               {headerLinks.map((link) => <li key={link.label}><Link to={link.to} {...("hash" in link ? { hash: link.hash } : {})} activeProps={{ "aria-current": active === link.label ? "page" : undefined }} inactiveProps={{ "aria-current": active === link.label ? "page" : undefined }} className={cn(mobileLinkClass, active === link.label && "text-logo-blue")}>{link.label}<ArrowRight className="size-4 shrink-0 text-muted-foreground" /></Link></li>)}
               <li>
-                <Link to={"/kontakt"} className={mobileLinkClass}>
+                <Link to="/kontakt" className={mobileLinkClass}>
                   Kontakt
                   <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
                 </Link>
@@ -244,7 +244,7 @@ export function SiteHeader() {
                 <a href="https://portal.rcsdirekt.se/login">Logga in</a>
               </Button>
               <Button asChild size="lg" className="w-full">
-                <Link to={"/skapa-konto"}>Skapa konto</Link>
+                <Link to="/skapa-konto">Skapa konto</Link>
               </Button>
             </div>
             <div className="mt-3">
@@ -332,7 +332,7 @@ function MobileSignupBar() {
       aria-hidden={!visible}
     >
       <Button asChild size="lg" className="w-full" tabIndex={visible ? 0 : -1}>
-        <Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link>
+        <Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link>
       </Button>
     </div>
   );
@@ -345,24 +345,14 @@ export function SiteFooter() {
     <MobileSignupBar />
     <footer className="bg-ink pt-16 pb-8 text-ink-foreground sm:pt-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* Who we are and how to reach us on the left, the link columns on the right. */}
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        {/* The logo on the left, then the link columns and the company's details as the last column. */}
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,4fr)] lg:gap-16">
           <div>
-            <Link to={"/"} aria-label={"rcsdirekt.se, startsida"} className="inline-block">
+            <Link to="/" aria-label="rcsdirekt.se, startsida" className="inline-block">
               <BrandLogo inverse className="h-8" />
             </Link>
-            <address className="mt-6 text-sm not-italic leading-relaxed text-ink-muted">
-              {company.legalName}<br />{company.street}<br />{company.postalCode} {company.city}
-              {company.email ? <><br /><a href={`mailto:${company.email}`} className="text-ink-foreground underline-offset-4 hover:underline">{company.email}</a></> : null}
-              {company.phone ? <><br /><a href={phoneHref(company.phone)} className="text-ink-foreground underline-offset-4 hover:underline">{company.phone}</a></> : null}
-            </address>
-            {company.linkedin ? (
-              <a href={company.linkedin} aria-label="LinkedIn" className="mt-6 grid size-10 place-items-center rounded-full border border-ink-foreground/15 text-ink-muted transition-colors duration-150 hover:border-ink-foreground/40 hover:text-ink-foreground">
-                <Linkedin aria-hidden className="size-4" />
-              </a>
-            ) : null}
           </div>
-          <nav aria-label={"Sidfot"} className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+          <nav aria-label="Sidfot" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
             {footerNav.map((group) => (
               <div key={group.title}>
                 <p className="text-sm font-semibold text-ink-foreground">{group.title}</p>
@@ -382,6 +372,18 @@ export function SiteFooter() {
                 </ul>
               </div>
             ))}
+            <div>
+              <p className="text-sm font-semibold text-ink-foreground">Företagsinformation</p>
+              {/* leading-10 puts each line on the same rhythm as the links beside it. */}
+              <address className="mt-3 text-sm not-italic leading-10 text-ink-muted">
+                {company.legalName}<br />{company.street}<br />{company.postalCode} {company.city}
+                {company.email ? <><br /><a href={`mailto:${company.email}`} className="transition-colors hover:text-ink-foreground">{company.email}</a></> : null}
+                {company.phone ? <><br /><a href={phoneHref(company.phone)} className="transition-colors hover:text-ink-foreground">{company.phone}</a></> : null}
+              </address>
+              {company.linkedin ? (
+                <a href={company.linkedin} className={footerLinkClass}><Linkedin aria-hidden className="size-4" />LinkedIn</a>
+              ) : null}
+            </div>
           </nav>
         </div>
 

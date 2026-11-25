@@ -36,7 +36,7 @@ function HeroFirst() {
       <div className="mx-auto flex max-w-4xl flex-col items-center px-5 pt-36 pb-20 text-center sm:pt-44 sm:pb-28 lg:px-8">
         {/* One line on where RCS stands, leading to the article with each operator's status. */}
         <p className="mb-7">
-          <Link to={"/blogg/$slug"} params={{ slug: NEWS_SLUG }} className={labelLink}>
+          <Link to="/blogg/$slug" params={{ slug: NEWS_SLUG }} className={labelLink}>
             <RadioTower aria-hidden strokeWidth={2} className="size-4 text-logo-blue" />
             Tele2 och Comviq har öppnat RCS för iPhone
             <ArrowRight aria-hidden className="hidden size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 sm:block" />
@@ -46,7 +46,7 @@ function HeroFirst() {
           {home.hero.title} <span className="sm:block">{home.hero.highlight}</span>
         </h1>
         <p className="mt-7 max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted sm:text-xl">{home.hero.description}</p>
-        <div className="mt-10 flex justify-center"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to={"/skapa-konto"}>Skapa konto</Link></Button></div>
+        <div className="mt-10 flex justify-center"><Button className="home-cta border-transparent" asChild size="lg" variant="outline"><Link to="/skapa-konto">Skapa konto</Link></Button></div>
       </div>
     </section>
   );

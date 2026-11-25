@@ -29,7 +29,7 @@ export function ArticleCard({ article, className }: { article: ArticleItem; clas
   const Icon = topicIcon(article.category);
   return (
     <Link
-      to={"/blogg/$slug"}
+      to="/blogg/$slug"
       params={{ slug: article.slug }}
       className={cn("group flex min-w-0 flex-col rounded-2xl bg-card p-6 shadow-card transition-[box-shadow,translate] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-safe:hover:-translate-y-0.5 hover:shadow-card-hover", className)}
     >

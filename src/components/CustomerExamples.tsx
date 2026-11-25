@@ -392,7 +392,7 @@ function CaseRow({ scenario, onSwipe }: { scenario: Scenario; onSwipe: (step: 1 
         <h3 className="mt-2 text-2xl font-extrabold leading-tight text-balance sm:text-3xl">{scenario.title}</h3>
         <p className="mt-3 text-base leading-relaxed text-pretty text-muted-foreground">{scenario.copy}</p>
         {features.length ? (
-          <ul aria-label={"Det här använder exemplet"} className="mt-5 flex flex-wrap gap-2">
+          <ul aria-label="Det här använder exemplet" className="mt-5 flex flex-wrap gap-2">
             {features.map(({ label, Icon }) => (
               <li key={label} className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold">
                 <Icon aria-hidden strokeWidth={2} className="size-3.5 text-logo-blue" />
@@ -431,7 +431,7 @@ function CaseShowcase() {
   const nextName = scenarios[(index + 1) % scenarios.length]?.customer;
   return (
     <div className={sectionBody}>
-      <div ref={tabs} role="tablist" aria-label={"Välj kundexempel"} className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
+      <div ref={tabs} role="tablist" aria-label="Välj kundexempel" className="scroll-mt-20 scrollbar-none -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
         {scenarios.map((item, itemIndex) => (
           <button
             key={item.customer}
@@ -455,7 +455,7 @@ function CaseShowcase() {
       <div className="mt-4 flex items-center justify-between gap-3 lg:hidden">
         <span className="text-sm text-muted-foreground tabular-nums">{index + 1} av {scenarios.length}</span>
         <div className="flex gap-2">
-          <button type="button" onClick={() => step(-1)} aria-label={"Föregående exempel"} className="inline-flex size-11 items-center justify-center rounded-full bg-muted text-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
+          <button type="button" onClick={() => step(-1)} aria-label="Föregående exempel" className="inline-flex size-11 items-center justify-center rounded-full bg-muted text-foreground transition-[background-color,scale] duration-150 ease-out active:scale-[0.96]">
             <ArrowLeft aria-hidden className="size-4" />
           </button>
           <button type="button" onClick={() => step(1)} className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-[scale] duration-150 ease-out active:scale-[0.96]">
@@ -488,7 +488,7 @@ export function CustomerExamples() {
         <CaseShowcase />
         {/* After the proof, the way to something similar of one's own. */}
         <div data-reveal className="mt-8">
-          <Link to={"/kontakt"} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">Prata med oss om ert upplägg <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
+          <Link to="/kontakt" className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">Prata med oss om ert upplägg <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
         </div>
       </div>
     </section>

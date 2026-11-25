@@ -88,7 +88,7 @@ export function ArticlePage({
       <article className="mx-auto max-w-6xl px-5 pt-10 pb-16 sm:pt-16 sm:pb-24 lg:px-8">
         <header>
           <Link
-            to={"/blogg"}
+            to="/blogg"
             className="inline-block rounded-md bg-primary-soft px-2.5 py-1 text-xs font-bold tracking-[0.08em] text-foreground uppercase transition-colors duration-150 hover:bg-primary hover:text-primary-foreground"
           >
             {article.category}
@@ -217,7 +217,7 @@ export function ArticlePage({
                 {latest.map((item) => (
                   <li key={item.slug}>
                     <Link
-                      to={"/blogg/$slug"}
+                      to="/blogg/$slug"
                       params={{ slug: item.slug }}
                       className="group block rounded-xl bg-background p-4 shadow-card transition-shadow duration-200 ease-out hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
@@ -256,7 +256,7 @@ export function ArticleNotFound() {
           Den kan ha flyttats eller så är adressen fel.
         </p>
         <Button asChild className="mt-7">
-          <Link to={"/blogg"}>
+          <Link to="/blogg">
             Till Insikter <ArrowRight data-icon="end" />
           </Link>
         </Button>

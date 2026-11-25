@@ -152,7 +152,7 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
     <div data-reveal className="grid gap-8 rounded-2xl bg-primary-soft p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
       <div>
         <h3 className="text-xl font-extrabold">Priskalkyl</h3>
-        <div role="group" aria-label={"Meddelandetyp"} className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
+        <div role="group" aria-label="Meddelandetyp" className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
           {plans.map((option, index) => (
             <button
               key={option.slug}
@@ -174,7 +174,7 @@ export function PriceCalculator({ plans }: { plans: typeof priser.plans }) {
           <input
             type="number"
             inputMode="numeric"
-            aria-label={"Antal meddelanden"}
+            aria-label="Antal meddelanden"
             min={1}
             max={1000000}
             value={count}
@@ -211,7 +211,7 @@ export function FaqSection() {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_2fr] lg:gap-16 lg:px-8">
         <div data-reveal>
           <h2 className={sectionTitle}>Vanliga frågor</h2>
-          <p className="mt-4 text-base text-muted-foreground">Hittar ni inte svaret? <Link to={"/kontakt"} className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">Kontakta oss</Link></p>
+          <p className="mt-4 text-base text-muted-foreground">Hittar ni inte svaret? <Link to="/kontakt" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">Kontakta oss</Link></p>
         </div>
         <div data-reveal className="divide-y divide-border rounded-2xl border border-border bg-card px-6 sm:px-8">
           {priser.faq.map((item) => (

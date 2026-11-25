@@ -28,7 +28,7 @@ export function PlanCard({ plan, size = "lg", className, style }: { plan: Pricin
       <p className={cn("mt-2 text-sm", muted)}>listpris per meddelande</p>
       {/* The plan follows into the sign-up form. */}
       <Button asChild size={size === "lg" ? "lg" : "default"} variant="outline" className={cn("mt-7 w-full", featured && "border-transparent")}>
-        <Link to={"/skapa-konto"} search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
+        <Link to="/skapa-konto" search={{ plan: plan.name }}>Välj {plan.name.replace(/^RCS /, "")}</Link>
       </Button>
     </div>
   );

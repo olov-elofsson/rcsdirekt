@@ -15,7 +15,7 @@ export function SignupPage({ plan }: { plan?: string | undefined }) {
       <SiteHeader />
       <main id="innehall" tabIndex={-1} className="outline-none flex-1">
         <PageHeading
-          title={"Skapa ditt konto"}
+          title="Skapa ditt konto"
           description={<p>Berätta vilka ni är, så aktiverar vi kontot och hör av oss om vad som händer sen. Har ni redan ett konto? <a href="https://portal.rcsdirekt.se/login" className="font-semibold text-primary underline underline-offset-4">Logga in</a></p>}
         />
         <section className="px-5 pb-16 sm:pb-24 lg:px-8">
@@ -54,7 +54,7 @@ export function SignupPage({ plan }: { plan?: string | undefined }) {
                 </div>
               ) : null}
               <p className="text-xs leading-relaxed text-muted-foreground">
-                {"{brand} drivs av {company}, org.nr {org}, {city}.".replace("{brand}", company.brand).replace("{company}", company.legalName).replace("{org}", company.orgNumber).replace("{city}", company.city)} <Link to={"/om-oss"} className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">Om oss</Link>
+                {"{brand} drivs av {company}, org.nr {org}, {city}.".replace("{brand}", company.brand).replace("{company}", company.legalName).replace("{org}", company.orgNumber).replace("{city}", company.city)} <Link to="/om-oss" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">Om oss</Link>
               </p>
             </aside>
           </div>

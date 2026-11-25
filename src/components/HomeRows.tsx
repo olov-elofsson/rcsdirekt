@@ -24,8 +24,8 @@ export function CtaBox() {
           <h2 className="max-w-3xl text-[2rem] font-extrabold leading-[1.1] text-balance text-ink-foreground sm:text-[2.6rem]">Skicka ert första RCS-meddelande</h2>
           <p className="mt-4 max-w-lg text-base leading-relaxed text-pretty text-ink-muted sm:text-[17px]">Skapa ett konto, så hjälper vi er med avsändaren.</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            <Button asChild size="lg" variant="outline" className="home-cta border-transparent"><Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link></Button>
-            <Link to={"/kontakt"} className="inline-flex min-h-11 items-center gap-1.5 text-base font-semibold text-ink-foreground underline underline-offset-4">Prata med oss</Link>
+            <Button asChild size="lg" variant="outline" className="home-cta border-transparent"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+            <Link to="/kontakt" className="inline-flex min-h-11 items-center gap-1.5 text-base font-semibold text-ink-foreground underline underline-offset-4">Prata med oss</Link>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@ export function Entrances() {
     <CardGrid
       id="vad-ar-rcs"
       centered
-      label={"Kom vidare"}
+      label="Kom vidare"
       cards={[
         { Icon: MonitorSmartphone, title: "Skicka från webben", copy: "Bygg utskicket i webbläsaren och se direkt hur det ser ut hos kunden.", link: "Prova webbverktyget", to: "/skapa-konto" },
         { Icon: Code2, title: "Koppla in ert system", copy: "Låt era system skicka bekräftelser och påminnelser via API.", link: "Till utvecklarsidan", to: "/utvecklare" },
@@ -106,8 +106,8 @@ export function Difference() {
           <h2 className={sectionHeading}>Ert namn i stället för ett nummer</h2>
           <p className={sectionLead}>Med RCS ser kunden vem som skriver och svarar med en knapp. Växla mellan SMS och RCS och jämför.</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Button asChild size="lg" className="home-cta"><Link to={"/skapa-konto"}>Skapa konto <ArrowRight data-icon="end" /></Link></Button>
-            <Link to={"/blogg/$slug"} params={{ slug: "rcs-vs-sms" }} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">Läs om skillnaden <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
+            <Button asChild size="lg" className="home-cta"><Link to="/skapa-konto">Skapa konto <ArrowRight data-icon="end" /></Link></Button>
+            <Link to="/blogg/$slug" params={{ slug: "rcs-vs-sms" }} className="group inline-flex min-h-10 items-center gap-1.5 text-base font-semibold text-logo-blue">Läs om skillnaden <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></Link>
           </div>
         </div>
         <div data-reveal style={order(1)} className="flex justify-center rounded-3xl border border-border bg-card px-6 py-12 sm:py-14">
@@ -129,7 +129,7 @@ export function Steps() {
     // The one Marin band between the hero and the closing box, so the page has a pause mid-way.
     <section id="kom-igang" className="scroll-mt-24 bg-ink text-ink-foreground">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHead dark title={"Igång i tre steg"} intro={"Vi hjälper er med avsändaren."} />
+        <SectionHead dark title="Igång i tre steg" intro="Vi hjälper er med avsändaren." />
         <ol className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {STEPS.map((step, index) => (
             <li key={step.title} data-reveal style={order(index)} className="flex flex-col gap-6 rounded-2xl border border-ink-foreground/10 bg-ink-foreground/[0.06] px-6 pt-7 pb-6 sm:px-8 sm:pt-8 sm:pb-7">
@@ -154,9 +154,9 @@ export function Plans() {
     <section id="pris" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHead
-          title={"Priser"}
-          intro={"Det kostar inget att starta. Priset beror på meddelandetyp och mottagarens operatör."}
-          after={<Link to={"/priser"} className={blueLink}>Priser per operatör {arrow}</Link>}
+          title="Priser"
+          intro="Det kostar inget att starta. Priset beror på meddelandetyp och mottagarens operatör."
+          after={<Link to="/priser" className={blueLink}>Priser per operatör {arrow}</Link>}
         />
         <ul data-reveal className="divide-y divide-border rounded-2xl border border-border bg-card">
           {priser.plans.map((plan) => (
@@ -168,13 +168,13 @@ export function Plans() {
               <p className="text-base text-muted-foreground sm:text-right">
                 från <span className="font-display text-xl font-extrabold tabular-nums text-foreground">{formatPrice(plan.price, currency)}</span>
               </p>
-              <Link to={"/skapa-konto"} search={{ plan: plan.name }} className={cn(blueLink, "sm:justify-self-end")}>Välj {plan.name.replace(/^RCS /, "")} {arrow}</Link>
+              <Link to="/skapa-konto" search={{ plan: plan.name }} className={cn(blueLink, "sm:justify-self-end")}>Välj {plan.name.replace(/^RCS /, "")} {arrow}</Link>
             </li>
           ))}
           {/* What the three levels are and why they exist: the operators bill RCS by what a message does. */}
           <li className="flex flex-col gap-x-8 gap-y-2 rounded-b-2xl bg-muted px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <p className="max-w-2xl text-sm leading-relaxed text-pretty text-muted-foreground">Basic, Single och Conversation är nivåerna som operatörerna debiterar RCS efter, och de styrs av vad meddelandet gör.</p>
-            <Link to={"/blogg/$slug"} params={{ slug: "rcs-basic-single-conversation" }} className={cn(blueLink, "shrink-0 text-sm")}>Så skiljer sig nivåerna {arrow}</Link>
+            <Link to="/blogg/$slug" params={{ slug: "rcs-basic-single-conversation" }} className={cn(blueLink, "shrink-0 text-sm")}>Så skiljer sig nivåerna {arrow}</Link>
           </li>
         </ul>
       </div>

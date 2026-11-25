@@ -114,13 +114,13 @@ export function InquiryForm({ mode, defaultMessage, webinar, compact = false }: 
               aria-invalid={!!errors["terms"]}
               aria-describedby={errors["terms"] ? errorId("terms") : undefined}
             />
-            <span>Jag har läst och godkänner <Link to={"/villkor"} target="_blank" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">villkoren</Link>.</span>
+            <span>Jag har läst och godkänner <Link to="/villkor" target="_blank" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">villkoren</Link>.</span>
           </label>
           <div className="mt-1">{fieldError("terms")}</div>
         </div>
       ) : null}
       <p className="text-xs leading-relaxed text-pretty text-muted-foreground">
-        Vi behandlar dina uppgifter enligt vår <Link to={"/integritetspolicy"} target="_blank" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">integritetspolicy</Link>.
+        Vi behandlar dina uppgifter enligt vår <Link to="/integritetspolicy" target="_blank" className="font-semibold text-foreground underline underline-offset-4 hover:text-logo-blue">integritetspolicy</Link>.
       </p>
       {status === "failed" ? (
         <p role="alert" className="rounded-lg bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">

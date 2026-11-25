@@ -168,7 +168,7 @@ function MarketBar({ currency, onCurrency }: { currency: Currency; onCurrency: (
     <div className="flex flex-wrap items-center justify-center gap-3">
       <span className="relative">
         <span className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 overflow-hidden rounded-full outline outline-1 -outline-offset-1 outline-black/10"><Flag code="SE" /></span>
-        <select aria-label={"Välj land"} defaultValue="SE" className={cn(select, "pl-10 pr-9")}>
+        <select aria-label="Välj land" defaultValue="SE" className={cn(select, "pl-10 pr-9")}>
           {pricingCountries.map((country) => (
             <option key={country.code} value={country.code} disabled={!country.available}>{country.available ? country.name : `${country.name} (kommer snart)`}</option>
           ))}
@@ -176,7 +176,7 @@ function MarketBar({ currency, onCurrency }: { currency: Currency; onCurrency: (
         <ChevronDown aria-hidden className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
       </span>
       <span className="relative">
-        <select aria-label={"Välj valuta"} value={currency} onChange={(event) => onCurrency(event.target.value as Currency)} className={cn(select, "pl-4 pr-9")}>
+        <select aria-label="Välj valuta" value={currency} onChange={(event) => onCurrency(event.target.value as Currency)} className={cn(select, "pl-4 pr-9")}>
           {pricingCurrencies.map((option) => (
             <option key={option.code} value={option.code} disabled={!selectable(option)}>{selectable(option) ? option.code : `${option.code} (kommer snart)`}</option>
           ))}
@@ -251,7 +251,7 @@ export function PricingPage() {
             <div>
               <h2 className={sectionTitle}>{page.faqHeading}</h2>
               <p className={sectionIntro}>{page.volumeText}</p>
-              <Button asChild size="lg" className="mt-8"><Link to={"/kontakt"}>Fråga om volympris <ArrowRight data-icon="end" /></Link></Button>
+              <Button asChild size="lg" className="mt-8"><Link to="/kontakt">Fråga om volympris <ArrowRight data-icon="end" /></Link></Button>
             </div>
             <div className="divide-y divide-border border-y border-border">
               {page.faq.map((item) => (
