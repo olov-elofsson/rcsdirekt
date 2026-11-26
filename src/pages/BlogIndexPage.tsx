@@ -13,6 +13,7 @@ const ORDER = [
   "vad-ar-rcs",
   "rcs-vs-sms",
   "rcs-for-foretag",
+  "hur-rcs-hanger-ihop",
   "rcs-basic-single-conversation",
   "vad-kostar-rcs",
   "verifierad-avsandare",
