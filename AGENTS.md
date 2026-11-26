@@ -4,7 +4,7 @@
 - Allt redigerbart innehåll kommer från Payload CMS i `cms/` (tjänsten `rcsdirekt-cms`, cms.rcsdirekt.se). Bygget hämtar det till `src/content/content.json` och stoppar om CMS:et inte svarar efter tre försök; ändra innehåll i CMS:et, inte i den filen.
 - `scripts/split-content.ts` delar upp `content.json` i `src/content/parts/` efter hämtningen, så att varje sida bara laddar det den visar. Importera en del från sin egen modul (`@/content/priser`, `@/content/article-list` …), aldrig hela innehållet; artiklarna (`@/content/kunskap`) hör bara hemma på artikelsidan.
 - Ändringar under `cms/` bygger bara CMS:et, övriga ändringar bara sidan.
-- En push som både lägger till en innehållsmigrering och ändrar sidan startar två byggen av sidan: ett direkt, som hämtar innehållet innan CMS:et har migrerat, och ett som CMS:et startar efter migreringen. Det första kan bli klart sist och skriva över det andra, så att nytt innehåll saknas. Kontrollera sidan efteråt; saknas innehållet räcker en ny ändring utanför `cms/`, eller en sparning i CMS:et, för att bygga om.
+- En push med en ny innehållsmigrering startar sidans bygge direkt, medan CMS:et fortfarande driftsätts. Bygget väntar därför (högst fem minuter) tills CMS:et i svarshuvudet `x-cms-migration` på `/api/site-content` anger samma senaste migrering som `cms/src/migrations/index.ts` (`scripts/cms-migration.ts`, `scripts/fetch-content.ts`); `.dockerignore` släpper in just den filen. Lägg alltid till nya migreringar sist i listan.
 
 ## Brandkit
 

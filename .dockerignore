@@ -3,5 +3,7 @@ node_modules
 .git
 .env
 cms
+# The site build reads the newest migration name from here; see scripts/fetch-content.ts.
+!cms/src/migrations/index.ts
 brand/JPG
 brand/PNG

@@ -114,7 +114,12 @@ export default buildConfig({
       // Public: the website reads its content from here while it is being built.
       path: '/site-content',
       method: 'get',
-      handler: async (req) => Response.json(await cachedSiteContent(req.payload), { headers: { 'cache-control': 'no-store' } }),
+      // x-cms-migration: the newest migration this revision has applied, so a site build can
+      // wait for a new content migration before it reads the content (scripts/fetch-content.ts).
+      handler: async (req) =>
+        Response.json(await cachedSiteContent(req.payload), {
+          headers: { 'cache-control': 'no-store', 'x-cms-migration': migrations.at(-1)?.name ?? '' },
+        }),
     },
     { path: '/leads', method: 'post', handler: createLead },
   ],

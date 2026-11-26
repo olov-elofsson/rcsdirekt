@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 import type { SiteContent } from "../src/content/types";
+import { expectedMigration } from "./cms-migration";
 import { splitContent } from "./split-content";
 
 const target = new URL("../src/content/content.json", import.meta.url);
@@ -47,7 +48,28 @@ async function download(): Promise<Response> {
   process.exit(1);
 }
 
-const response = await download();
+// A push with a new content migration builds the site at once, while the CMS is still deploying.
+// Wait for the CMS to report that migration, so this build does not publish the old content.
+// shortcut: after WAIT_MS the build goes on with what the CMS has; the CMS starts its own build
+// once it has migrated, and that later build then publishes the new content.
+const WAIT_MS = 5 * 60_000;
+async function migratedResponse(): Promise<Response> {
+  const expected = expectedMigration();
+  const started = Date.now();
+  for (;;) {
+    const response = await download();
+    const reported = response.headers.get("x-cms-migration");
+    if (!expected || reported === expected) return response;
+    if (Date.now() - started > WAIT_MS) {
+      console.warn(`[content] The CMS still reports ${reported || "no migration"}, not ${expected}; using its content.`);
+      return response;
+    }
+    console.log(`[content] Waiting for the CMS to apply ${expected} (it reports ${reported || "none"}).`);
+    await new Promise((resolve) => setTimeout(resolve, 20_000));
+  }
+}
+
+const response = await migratedResponse();
 
 const content = (await response.json()) as SiteContent;
 const found = problems(content);
