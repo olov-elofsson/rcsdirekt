@@ -64,29 +64,65 @@ function Figure({ caption, ios, android }: { caption: ReactNode; ios: ReactNode;
 
 const { sender, logo, description } = rcsDirektSender;
 
-/** The "Options" row iPhone attaches to a message for its secondary actions. */
-function Options({ label = "Alternativ" }: { label?: string }) {
+const ICON_PATHS = {
+  chevronDown: "M12 15.4 5.3 8.7l1.4-1.4 5.3 5.3 5.3-5.3 1.4 1.4z",
+  chevronLeft: "M15.4 18.6 8.8 12l6.6-6.6L14 4l-8 8 8 8z",
+  plus: "M11 19v-6H5v-2h6V5h2v6h6v2h-6v6z",
+  mic: "M12 14q-1.25 0-2.125-.875T9 11V5q0-1.25.875-2.125T12 2t2.125.875T15 5v6q0 1.25-.875 2.125T12 14m-1 7v-3.075q-2.6-.35-4.3-2.325T5 11h2q0 2.075 1.463 3.538T12 16t3.538-1.463T17 11h2q0 2.625-1.7 4.6T13 17.925V21z",
+};
+function Svg({ d, size = 16, color = "#8a8a8e" }: { d: string; size?: number; color?: string }) {
   return (
-    <div className="opts">
-      {label}
-      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24">
-        <path fill="#007aff" d="M12 15.4 5.3 8.7l1.4-1.4 5.3 5.3 5.3-5.3 1.4 1.4z" />
-      </svg>
-    </div>
+    <svg aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" style={{ flex: "none" }}>
+      <path fill={color} d={d} />
+    </svg>
   );
 }
 
+/* iPhone: header with the logo and the name in a pill, and the channel line under it. */
+function IosHead() {
+  return (
+    <>
+      <div className="ihead">
+        <div className="iback"><Svg d={ICON_PATHS.chevronLeft} size={20} color="#000" /></div>
+        <img src={logo} alt="" />
+        <div className="ipname">{sender}<i>›</i></div>
+      </div>
+      <div className="ichan">Textmeddelande • RCS<br />Idag 13:12</div>
+    </>
+  );
+}
+const IosNote = () => <div className="inote">{sender} ser vilka åtgärder du väljer</div>;
 function IosComposer() {
   return (
     <div className="icomp">
-      <div className="iplus" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#8a8a8e" d="M11 19v-6H5v-2h6V5h2v6h6v2h-6v6z" /></svg>
-      </div>
-      <div className="ipill">Textmeddelande • RCS</div>
+      <div className="iplus"><Svg d={ICON_PATHS.plus} size={18} /></div>
+      <div className="ipill">Textmeddelande • RCS<Svg d={ICON_PATHS.mic} size={17} /></div>
     </div>
   );
 }
+function IosOptions() {
+  return <div className="iopts">Alternativ<Svg d={ICON_PATHS.chevronDown} size={14} color="#3c3c43" /></div>;
+}
 
+/* Android: the compact header of Google Messages on the tinted surface, then the white sheet. */
+function AndroidHead() {
+  return (
+    <div style={{ position: "relative", height: 56, background: "var(--surf)" }}>
+      <div id="hdr" style={{ top: 2 }}>
+        <div className="back"><PhoneIcon name="back" /></div>
+        <div id="hdr-name"><img src={logo} alt="" /><span>{sender}</span><VerifiedMark size={18} /></div>
+        <div className="more"><PhoneIcon name="more" /></div>
+      </div>
+    </div>
+  );
+}
+function AndroidSheet({ children }: { children: ReactNode }) {
+  return (
+    <div style={{ background: "var(--surf)" }}>
+      <div className="sheet" style={{ borderRadius: "24px 24px 0 0", paddingTop: 14 }}>{children}</div>
+    </div>
+  );
+}
 function AndroidComposer() {
   return (
     <div id="composer" style={{ position: "relative" }}>
@@ -105,27 +141,31 @@ const WEBINAR = {
   title: "Webinar: kom igång med RCS",
   body: "En halvtimme om hur du registrerar en avsändare, skickar ditt första kort och tar emot svar. Vi går igenom ett riktigt utskick från början till slut och svarar på frågor efteråt.",
 };
+const CardImage = ({ height }: { height?: number }) => (
+  <div className="cimg" style={height ? { height } : undefined}><PhoneIcon name="school" size={40} color="#0b57d0" /></div>
+);
 
-/** Sender profile: iPhone shows no banner. */
+/** Sender profile: iPhone shows a contact card without the banner. */
 export function ProfileCompare() {
   return (
     <Figure
-      caption="Avsändarens profil. På iPhone visas inte bannerbilden, medan Google Meddelanden visar banner, logotyp och alla kontaktuppgifter."
+      caption="Avsändarens profil. iPhone visar ett kontaktkort med logotyp, namn, inställningar och kontaktuppgifter, men inte bannerbilden. Google Meddelanden visar banner, logotyp, knappar och alla kontaktuppgifter."
       ios={
         <div className="iprof">
+          <div className="iback"><Svg d={ICON_PATHS.chevronLeft} size={20} color="#000" /></div>
           <img className="logo" src={logo} alt="" />
           <div className="name">{sender}</div>
-          <div className="desc">{description}</div>
-          <div className="acts">
-            <div className="act"><PhoneIcon name="chat" size={20} color="#007aff" />meddelande</div>
-            <div className="act"><PhoneIcon name="globe" size={20} color="#007aff" />webb</div>
+          <div className="ver">Verifierad avsändare</div>
+          <div className="grp">
+            <div>Dölj aviseringar<span className="itog" /></div>
+            <div>Skicka läskvitton<span className="itog" /></div>
           </div>
-          <div className="rows">
+          <div className="h">Om</div>
+          <div className="grp"><div>{description}</div></div>
+          <div className="h">Detaljer</div>
+          <div className="grp">
             {rcsDirektSender.profile.contacts.map((contact) => (
-              <div key={contact.href} className="r">
-                <div className="l">{contact.label}</div>
-                <div className="v">{contact.value}</div>
-              </div>
+              <div key={contact.href}><span><span className="l">{contact.label}</span><span className="v">{contact.value}</span></span></div>
             ))}
           </div>
         </div>
@@ -156,32 +196,43 @@ export function ProfileCompare() {
   );
 }
 
-/** Rich card: iPhone has one fixed image height and cuts long text. */
+/** Rich card: iPhone has one fixed image height, three lines of text and the action as a pill. */
 export function CardCompare() {
   return (
     <Figure
-      caption="Ett kort med hög bild och lång text. Android visar bilden i den höjd avsändaren valt och hela texten. iPhone har en fast bildhöjd och kortar texten, och liggande kort kan visas fel."
+      caption="Ett kort med hög bild och lång text. Android visar bilden i den höjd avsändaren valt, hela texten och knappen som en rad i kortet. iPhone har en fast bildhöjd, kortar texten efter tre rader och visar knappen som en kapsel."
       ios={
-        <div className="sheet">
-          <div className="inrow">
-            <div className="card">
-              <div className="cimg"><PhoneIcon name="school" size={40} color="#0b57d0" /></div>
-              <div className="ct">{WEBINAR.title}</div>
-              <div className="cb">{WEBINAR.body}</div>
+        <div style={{ paddingBottom: 12 }}>
+          <IosHead />
+          <div className="irow">
+            <div className="icard">
+              <CardImage />
+              <div className="ibody">
+                <div className="it">{WEBINAR.title}</div>
+                <div className="id">{WEBINAR.body}</div>
+                <span className="ichev">›</span>
+              </div>
+              <div className="ipillbtn">Anmäl dig<PhoneIcon name="open" size={16} color="#3c3c43" /></div>
             </div>
           </div>
         </div>
       }
       android={
-        <div className="sheet">
-          <div className="inrow">
-            <div className="card">
-              <div className="cimg" style={{ height: 220 }}><PhoneIcon name="school" size={48} color="#0b57d0" /></div>
-              <div className="ct">{WEBINAR.title}</div>
-              <div className="cb">{WEBINAR.body}</div>
+        <>
+          <AndroidHead />
+          <AndroidSheet>
+            <div className="inrow">
+              <div className="card">
+                <CardImage height={220} />
+                <div className="ct">{WEBINAR.title}</div>
+                <div className="cb">{WEBINAR.body}</div>
+                <div className="cbtns">
+                  <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Anmäl dig</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </AndroidSheet>
+        </>
       }
     />
   );
@@ -193,87 +244,139 @@ const CAROUSEL = [
   { icon: "sparkles", title: "Conversation", body: "Svar fram och tillbaka i 24 timmar." },
 ];
 
-/** Carousel: a stack with an Options row per card on iPhone, a horizontal row on Android. */
+/** Carousel: a stack with Options on each card on iPhone, a horizontal row on Android. */
 export function CarouselCompare() {
+  const top = CAROUSEL[1]!;
   return (
     <Figure
-      caption="En karusell med tre kort. Android visar korten i en rad som går att svepa åt sidan, med knapparna synliga. iPhone visar korten staplade, och knapparna ligger under Alternativ på varje kort."
+      caption="En karusell med tre kort. Android visar korten i en rad som går att svepa åt sidan, med knapparna synliga. iPhone visar korten som en hög, ett i taget, och knapparna ligger under Alternativ på varje kort."
       ios={
-        <div className="sheet">
-          <div className="inrow stack">
-            {CAROUSEL.slice(0, 2).map((item) => (
-              <div key={item.title}>
-                <div className="card">
-                  <div className="cimg" style={{ height: 90 }}><PhoneIcon name={item.icon} size={32} color="#0b57d0" /></div>
-                  <div className="ct">{item.title}</div>
-                  <div className="cb">{item.body}</div>
-                </div>
-                <Options />
+        <div style={{ paddingBottom: 12 }}>
+          <IosHead />
+          <div className="istack">
+            <span className="icount">2 av 3</span>
+            <span className="iedge" style={{ left: 0 }} />
+            <span className="iedge" style={{ right: 0 }} />
+            <div className="icard">
+              <div className="cimg" style={{ height: 110 }}><PhoneIcon name={top.icon} size={36} color="#0b57d0" /></div>
+              <div className="ibody" style={{ paddingRight: 12 }}>
+                <div className="it">{top.title}</div>
+                <div className="id">{top.body}</div>
               </div>
-            ))}
+              <IosOptions />
+            </div>
           </div>
+          <IosNote />
         </div>
       }
       android={
-        <div className="sheet">
-          <div className="inrow" style={{ display: "flex", gap: 8, overflow: "hidden" }}>
-            {CAROUSEL.map((item) => (
-              <div key={item.title} className="card narrow" style={{ flex: "none" }}>
-                <div className="cimg"><PhoneIcon name={item.icon} size={36} color="#0b57d0" /></div>
-                <div className="ct">{item.title}</div>
-                <div className="cb">{item.body}</div>
-                <div className="cbtns">
-                  <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div>
+        <>
+          <AndroidHead />
+          <AndroidSheet>
+            <div className="inrow" style={{ display: "flex", gap: 8, overflow: "hidden" }}>
+              {CAROUSEL.map((item) => (
+                <div key={item.title} className="card narrow" style={{ flex: "none" }}>
+                  <div className="cimg"><PhoneIcon name={item.icon} size={36} color="#0b57d0" /></div>
+                  <div className="ct">{item.title}</div>
+                  <div className="cb">{item.body}</div>
+                  <div className="cbtns">
+                    <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
+            </div>
+          </AndroidSheet>
+        </>
       }
     />
   );
 }
 
-/** Buttons and suggested replies: rows and chips on Android, Options on iPhone. */
+/** A card with a primary button and three suggested actions. */
 export function ButtonsCompare() {
+  const actions = ["Lägg in i kalendern", "Påminn mig", "Fler tider"];
   return (
     <Figure
-      caption="Ett kort med tre knappar och tre förslag på svar. På Android ligger knapparna som rader i kortet och förslagen ovanför skrivfältet, där de försvinner när kunden har svarat. På iPhone visas den första knappen i kortet, och resten av knapparna och förslagen samlas under Alternativ, där de ligger kvar."
+      caption="Ett kort med en knapp och tre föreslagna åtgärder. Android visar dem som rader i kortet, i den ordning avsändaren valt. iPhone visar knappen som en kapsel i kortet och åtgärderna i en egen bubbla under, och ordningen kan bli en annan."
       ios={
-        <>
-          <div className="sheet" style={{ paddingBottom: 4 }}>
-            <div className="inrow">
-              <div className="card">
-                <div className="ct">{WEBINAR.title}</div>
-                <div className="cb">Torsdag kl. 10.00, digitalt.</div>
-                <div className="ibtn">Anmäl dig</div>
+        <div style={{ paddingBottom: 4 }}>
+          <IosHead />
+          <div className="irow">
+            <div className="icard">
+              <div className="ibody">
+                <div className="it">{WEBINAR.title}</div>
+                <div className="id">Torsdag kl. 10.00, digitalt.</div>
+                <span className="ichev">›</span>
               </div>
-              <Options />
+              <div className="ipillbtn">Anmäl dig<PhoneIcon name="open" size={16} color="#3c3c43" /></div>
             </div>
+            <div className="iacts">{actions.map((label) => <div key={label}>{label}</div>)}</div>
           </div>
+          <IosNote />
           <IosComposer />
-        </>
+        </div>
       }
       android={
         <>
-          <div className="sheet" style={{ paddingBottom: 4 }}>
+          <AndroidHead />
+          <AndroidSheet>
             <div className="inrow">
               <div className="card">
                 <div className="ct">{WEBINAR.title}</div>
                 <div className="cb">Torsdag kl. 10.00, digitalt.</div>
                 <div className="cbtns">
                   <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Anmäl dig</div>
-                  <div className="cbtn"><span className="ci"><PhoneIcon name="event" size={18} /></span>Lägg in i kalendern</div>
-                  <div className="cbtn">Påminn mig</div>
+                  {actions.map((label) => <div key={label} className="cbtn">{label}</div>)}
                 </div>
               </div>
             </div>
-            <div className="chips" style={{ marginTop: 12, marginBottom: 4 }}>
-              <div className="chip">Ja tack</div>
-              <div className="chip">Kanske</div>
-              <div className="chip">Nej tack</div>
+            <div style={{ height: 12 }} />
+          </AndroidSheet>
+          <AndroidComposer />
+        </>
+      }
+    />
+  );
+}
+
+/** A plain text message with actions: Options in the bubble on iPhone, chips on Android. */
+export function TextActionsCompare() {
+  const text = "Din tid är bokad torsdag kl. 14.00. Vill du boka om kan du ringa oss eller gå till webbplatsen.";
+  const actions = [
+    { icon: "call", label: "Ring oss" },
+    { icon: "globe", label: "Webbplatsen" },
+    { icon: "event", label: "Lägg in i kalendern" },
+  ];
+  return (
+    <Figure
+      caption="Ett vanligt textmeddelande med tre åtgärder. Android visar dem som förslag ovanför skrivfältet. iPhone samlar dem under Alternativ i bubblan, och först när kunden trycker där visas listan."
+      ios={
+        <div>
+          <IosHead />
+          <div className="irow">
+            <div className="ibub">{text}<IosOptions /></div>
+            <div className="imenu">
+              {actions.map((action) => (
+                <div key={action.label}><PhoneIcon name={action.icon} size={18} color="#000" />{action.label}</div>
+              ))}
             </div>
           </div>
+          <IosNote />
+          <IosComposer />
+        </div>
+      }
+      android={
+        <>
+          <AndroidHead />
+          <AndroidSheet>
+            <div className="inrow"><div className="bubble">{text}</div></div>
+            <div className="ts tsin">13:12</div>
+            <div className="chips" style={{ overflow: "hidden" }}>
+              {actions.map((action) => (
+                <div key={action.label} className="chip"><PhoneIcon name={action.icon} size={18} color="#0b57d0" />{action.label}</div>
+              ))}
+            </div>
+          </AndroidSheet>
           <AndroidComposer />
         </>
       }
@@ -283,7 +386,12 @@ export function ButtonsCompare() {
 
 /** The comparisons for each section of the article, by section anchor. */
 export const PLATFORM_FIGURES: Record<string, () => ReactNode> = {
-  knappar: ButtonsCompare,
+  knappar: () => (
+    <>
+      <ButtonsCompare />
+      <TextActionsCompare />
+    </>
+  ),
   bilder: () => (
     <>
       <CardCompare />
