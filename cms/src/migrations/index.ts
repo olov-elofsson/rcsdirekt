@@ -64,6 +64,7 @@ import * as migration_20261125_170000_sender_use_cases from './20261125_170000_s
 import * as migration_20261125_180000_direct_answers from './20261125_180000_direct_answers';
 import * as migration_20261126_100000_how_rcs_connects from './20261126_100000_how_rcs_connects';
 import * as migration_20261128_100000_copykit_search_terms from './20261128_100000_copykit_search_terms';
+import * as migration_20261128_200000_iphone_android_whatsapp from './20261128_200000_iphone_android_whatsapp';
 
 export const migrations = [
   {
@@ -397,5 +398,10 @@ export const migrations = [
     up: migration_20261128_100000_copykit_search_terms.up,
     down: migration_20261128_100000_copykit_search_terms.down,
     name: '20261128_100000_copykit_search_terms',
+  },
+  {
+    up: migration_20261128_200000_iphone_android_whatsapp.up,
+    down: migration_20261128_200000_iphone_android_whatsapp.down,
+    name: '20261128_200000_iphone_android_whatsapp',
   },
 ];

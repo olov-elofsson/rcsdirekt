@@ -12,6 +12,7 @@ import { sectionTitle } from "@/lib/typography";
 const ORDER = [
   "vad-ar-rcs",
   "rcs-vs-sms",
+  "rcs-eller-whatsapp",
   "rcs-for-foretag",
   "hur-rcs-hanger-ihop",
   "rcs-basic-single-conversation",
@@ -20,6 +21,7 @@ const ORDER = [
   "rcs-avsandare-anvandningsfall-registrering",
   "rcs-sverige-operatorer",
   "rcs-pa-iphone",
+  "rcs-iphone-android-skillnader",
   "rcs-gdpr-samtycke",
   "rcs-api-webhooks",
 ];
