@@ -23,6 +23,8 @@ const ORDER = [
   "rcs-pa-iphone",
   "rcs-iphone-android-skillnader",
   "rcs-gdpr-samtycke",
+  "rcs-kopta-telefonnummer",
+  "rcs-reklam-till-foretag",
   "rcs-api-webhooks",
 ];
 const isNews = (category: string) => category === "Nyheter" || category === "News";

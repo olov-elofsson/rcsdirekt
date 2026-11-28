@@ -66,6 +66,7 @@ import * as migration_20261126_100000_how_rcs_connects from './20261126_100000_h
 import * as migration_20261128_100000_copykit_search_terms from './20261128_100000_copykit_search_terms';
 import * as migration_20261128_200000_iphone_android_whatsapp from './20261128_200000_iphone_android_whatsapp';
 import * as migration_20261128_210000_iphone_android_figures from './20261128_210000_iphone_android_figures';
+import * as migration_20261128_220000_legal_lists_b2b from './20261128_220000_legal_lists_b2b';
 
 export const migrations = [
   {
@@ -409,5 +410,10 @@ export const migrations = [
     up: migration_20261128_210000_iphone_android_figures.up,
     down: migration_20261128_210000_iphone_android_figures.down,
     name: '20261128_210000_iphone_android_figures',
+  },
+  {
+    up: migration_20261128_220000_legal_lists_b2b.up,
+    down: migration_20261128_220000_legal_lists_b2b.down,
+    name: '20261128_220000_legal_lists_b2b',
   },
 ];
