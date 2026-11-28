@@ -225,11 +225,17 @@ export const RCSV_CSS = `
   .rcsv.ios .iacts{width:236px;margin-top:4px;border-radius:16px;background:var(--in)}
   .rcsv.ios .iacts div{padding:9px 14px;font-size:14.5px;color:var(--iblue)}
   .rcsv.ios .iacts div + div{border-top:.5px solid var(--isep)}
-  /* stacked carousel: one card on top, the others' edges behind it */
-  .rcsv.ios .istack{position:relative;width:250px;margin-left:26px;padding-top:18px}
-  .rcsv.ios .istack .icount{position:absolute;left:-12px;top:0;font-size:11px;color:var(--muted)}
-  .rcsv.ios .istack .iedge{position:absolute;top:30px;bottom:12px;width:14px;border-radius:14px;background:var(--in2)}
-  .rcsv.ios .istack .icard{position:relative;width:222px;margin:0 auto;box-shadow:0 2px 10px -4px rgba(0,0,0,.25)}
+  /* stacked carousel: the current card in front, the cards before and after it behind, a little
+     smaller and offset to each side, with "2 av 3" above */
+  .rcsv.ios .istack{position:relative;width:236px;margin-left:14px;padding-top:22px}
+  .rcsv.ios .istack .icount{position:absolute;left:2px;top:0;display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+  .rcsv.ios .istack .icard{width:196px}
+  .rcsv.ios .istack .iprev,.rcsv.ios .istack .inext{position:absolute;top:22px;transform:scale(.92);filter:brightness(.96)}
+  .rcsv.ios .istack .iprev{left:0;transform-origin:left center}
+  .rcsv.ios .istack .inext{right:0;transform-origin:right center}
+  .rcsv.ios .istack .iprev > *,.rcsv.ios .istack .inext > *{visibility:hidden}
+  .rcsv.ios .istack .iprev,.rcsv.ios .istack .inext{background-image:linear-gradient(#d3e3fd 0 110px,transparent 110px)}
+  .rcsv.ios .istack .ifront{position:relative;z-index:2;margin:0 auto;box-shadow:0 2px 12px -4px rgba(0,0,0,.3)}
   .rcsv.ios .istack .iopts{margin:0 10px 10px}
   /* the bubble tail at the bottom left of incoming messages, cards and the actions bubble */
   .rcsv.ios .itail{position:relative;display:inline-block;vertical-align:top}

@@ -248,7 +248,16 @@ const CAROUSEL = [
 
 /** Carousel: a stack with Options on each card on iPhone, a horizontal row on Android. */
 export function CarouselCompare() {
-  const top = CAROUSEL[1]!;
+  const card = (item: (typeof CAROUSEL)[number], className: string) => (
+    <div className={`icard ${className}`}>
+      <div className="cimg" style={{ height: 110 }}><PhoneIcon name={item.icon} size={36} color="#0b57d0" /></div>
+      <div className="ibody" style={{ paddingRight: 12 }}>
+        <div className="it">{item.title}</div>
+        <div className="id">{item.body}</div>
+      </div>
+      <IosOptions />
+    </div>
+  );
   return (
     <Figure
       caption="En karusell med tre kort. Android visar korten i en rad som går att svepa åt sidan, med knapparna synliga. iPhone visar korten som en hög, ett i taget, och knapparna ligger under Alternativ på varje kort."
@@ -256,17 +265,10 @@ export function CarouselCompare() {
         <div style={{ paddingBottom: 12 }}>
           <IosHead />
           <div className="istack">
-            <span className="icount">2 av 3</span>
-            <span className="iedge" style={{ left: 0 }} />
-            <span className="iedge" style={{ right: 0 }} />
-            <div className="icard">
-              <div className="cimg" style={{ height: 110 }}><PhoneIcon name={top.icon} size={36} color="#0b57d0" /></div>
-              <div className="ibody" style={{ paddingRight: 12 }}>
-                <div className="it">{top.title}</div>
-                <div className="id">{top.body}</div>
-              </div>
-              <IosOptions />
-            </div>
+            <span className="icount"><PhoneIcon name="layers" size={13} color="#8a8a8e" />2 av 3</span>
+            {card(CAROUSEL[0]!, "iprev")}
+            {card(CAROUSEL[2]!, "inext")}
+            {card(CAROUSEL[1]!, "ifront")}
           </div>
           <IosNote />
         </div>
@@ -275,17 +277,20 @@ export function CarouselCompare() {
         <>
           <AndroidHead />
           <AndroidSheet>
-            <div className="inrow" style={{ display: "flex", gap: 8, overflow: "hidden" }}>
-              {CAROUSEL.map((item) => (
-                <div key={item.title} className="card narrow" style={{ flex: "none" }}>
-                  <div className="cimg"><PhoneIcon name={item.icon} size={36} color="#0b57d0" /></div>
-                  <div className="ct">{item.title}</div>
-                  <div className="cb">{item.body}</div>
-                  <div className="cbtns">
-                    <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div>
+            {/* swiped to the second card, as "2 av 3" on the iPhone */}
+            <div className="inrow" style={{ overflow: "hidden" }}>
+              <div style={{ display: "flex", gap: 8, marginLeft: -226 }}>
+                {CAROUSEL.map((item) => (
+                  <div key={item.title} className="card narrow" style={{ flex: "none" }}>
+                    <div className="cimg"><PhoneIcon name={item.icon} size={36} color="#0b57d0" /></div>
+                    <div className="ct">{item.title}</div>
+                    <div className="cb">{item.body}</div>
+                    <div className="cbtns">
+                      <div className="cbtn"><span className="ci"><PhoneIcon name="open" size={18} /></span>Läs mer</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </AndroidSheet>
         </>
