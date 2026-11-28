@@ -90,6 +90,47 @@ export function swedishRedirect(pathname: string): string | undefined {
   return "/";
 }
 
+// copykit.se is closed and points here. Its old pages lead with a 301 to the closest page on
+// rcsdirekt.se, chosen from copykit.se's Search Console data; everything else goes to the start page.
+const COPYKIT_HOSTS = new Set(["copykit.se", "www.copykit.se"]);
+
+const COPYKIT_PAGES: [old: string, target: string][] = [
+  ["/artiklar/vad-har-operatorerna-faktiskt-sagt", "/blogg/svenska-operatorer-oppnar-rcs-pa-iphone"],
+  ["/artiklar/varfor-drojer-rcs-pa-iphone-i-sverige-0h7kq", "/blogg/svenska-operatorer-oppnar-rcs-pa-iphone"],
+  ["/artiklar/rcs-tar-nasta-steg-i-sverige", "/blogg/svenska-operatorer-oppnar-rcs-pa-iphone"],
+  ["/artiklar/kommer-rcs-att-sla-i-sverige", "/blogg/rcs-sverige-operatorer"],
+  ["/artiklar/apple-ett-steg-narmare-saker-rcs-ny-kod-i-ios-26-3-avslojar-planerna", "/blogg/rcs-pa-iphone"],
+  ["/artiklar/vad-ar-rcs-meddelande", "/blogg/vad-ar-rcs"],
+  ["/artiklar/rcs-kommunikation", "/blogg/vad-ar-rcs"],
+  ["/artiklar/historien-bakom-nasta-generations-sms", "/blogg/vad-ar-rcs"],
+  ["/artiklar/universal-profile-v3-1", "/blogg/hur-rcs-hanger-ihop"],
+  ["/artiklar/rcs-tekniska-funktioner-och-fordelar", "/blogg/rcs-vs-sms"],
+  ["/artiklar/kraftigt-okad-efterfragan-pa-rcs", "/blogg/rcs-for-foretag"],
+  ["/artiklar/hur-kommer-rcs-meddelanden-att-forandra-kunddialogen", "/blogg/rcs-for-foretag"],
+  ["/kunskapsbank/vad-ar-rcs-och-hur-kommer-det-att-forandra-kunddialogen", "/blogg/vad-ar-rcs"],
+  ["/sms-marknadsforing", "/blogg/rcs-vs-sms"],
+  ["/rcs", "/blogg/vad-ar-rcs"],
+  ["/artiklar", "/blogg"],
+  ["/blogg", "/blogg"],
+  ["/blogg-kategori", "/blogg"],
+  ["/kunskapsbank", "/blogg"],
+  ["/resurser", "/blogg"],
+  ["/typ", "/blogg"],
+  ["/checkout", "/priser"],
+  ["/paypal-checkout", "/priser"],
+  ["/privacy-policy", "/integritetspolicy"],
+  ["/terms-of-service", "/villkor"],
+];
+
+export function copykitRedirect(host: string, pathname: string): string | undefined {
+  if (!COPYKIT_HOSTS.has(host.toLowerCase().replace(/:\d+$/, ""))) return undefined;
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  for (const [old, target] of COPYKIT_PAGES) {
+    if (path === old || path.startsWith(`${old}/`)) return `https://rcsdirekt.se${target}`;
+  }
+  return "https://rcsdirekt.se/";
+}
+
 async function hostedAsset(request: Request): Promise<Response | undefined> {
   const { pathname } = new URL(request.url);
   const objectKey = bucketKey(pathname);
@@ -122,6 +163,8 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const url = new URL(request.url);
+      const copykit = copykitRedirect(request.headers.get("host") ?? url.host, url.pathname);
+      if (copykit) return new Response(null, { status: 301, headers: { location: copykit, "cache-control": "public, max-age=86400" } });
       const swedish = swedishRedirect(url.pathname);
       if (swedish) return new Response(null, { status: 301, headers: { location: swedish + url.search } });
       const asset = await hostedAsset(request);

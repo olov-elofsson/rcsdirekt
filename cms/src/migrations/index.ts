@@ -63,6 +63,7 @@ import * as migration_20261125_161000_remove_orphans from './20261125_161000_rem
 import * as migration_20261125_170000_sender_use_cases from './20261125_170000_sender_use_cases';
 import * as migration_20261125_180000_direct_answers from './20261125_180000_direct_answers';
 import * as migration_20261126_100000_how_rcs_connects from './20261126_100000_how_rcs_connects';
+import * as migration_20261128_100000_copykit_search_terms from './20261128_100000_copykit_search_terms';
 
 export const migrations = [
   {
@@ -391,5 +392,10 @@ export const migrations = [
     up: migration_20261126_100000_how_rcs_connects.up,
     down: migration_20261126_100000_how_rcs_connects.down,
     name: '20261126_100000_how_rcs_connects',
+  },
+  {
+    up: migration_20261128_100000_copykit_search_terms.up,
+    down: migration_20261128_100000_copykit_search_terms.down,
+    name: '20261128_100000_copykit_search_terms',
   },
 ];

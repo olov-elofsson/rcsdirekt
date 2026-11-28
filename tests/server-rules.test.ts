@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { inquirySchema } from "../src/lib/inquiries/schema";
-import { bucketKey, swedishRedirect } from "../src/server";
+import { bucketKey, copykitRedirect, swedishRedirect } from "../src/server";
 
 test("bucketKey maps /media/ names to cms-media and refuses paths", () => {
   expect(bucketKey("/media/logo.png")).toBe("cms-media/logo.png");
@@ -29,4 +29,17 @@ test("old English addresses lead to the Swedish page", () => {
   expect(swedishRedirect("/en/okand")).toBe("/");
   expect(swedishRedirect("/engelska")).toBeUndefined();
   expect(swedishRedirect("/priser")).toBeUndefined();
+});
+
+test("copykitRedirect leads copykit.se pages to rcsdirekt.se and leaves other hosts alone", () => {
+  expect(copykitRedirect("rcsdirekt.se", "/blogg")).toBeUndefined();
+  expect(copykitRedirect("www.copykit.se", "/")).toBe("https://rcsdirekt.se/");
+  expect(copykitRedirect("copykit.se", "/artiklar/vad-har-operatorerna-faktiskt-sagt")).toBe(
+    "https://rcsdirekt.se/blogg/svenska-operatorer-oppnar-rcs-pa-iphone",
+  );
+  expect(copykitRedirect("WWW.copykit.se:443", "/artiklar/vad-ar-rcs-meddelande/")).toBe("https://rcsdirekt.se/blogg/vad-ar-rcs");
+  expect(copykitRedirect("www.copykit.se", "/resurser/nyheter")).toBe("https://rcsdirekt.se/blogg");
+  expect(copykitRedirect("www.copykit.se", "/privacy-policy")).toBe("https://rcsdirekt.se/integritetspolicy");
+  expect(copykitRedirect("www.copykit.se", "/kundcase/kebabfabriken")).toBe("https://rcsdirekt.se/");
+  expect(copykitRedirect("www.copykit.se", "/rcsx")).toBe("https://rcsdirekt.se/");
 });
