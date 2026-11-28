@@ -200,10 +200,11 @@ export const RCSV_CSS = `
      bubble or under Options, stacked carousel, contact card). See .claude/skills/rcs-phone. */
   .rcsv.ios{--in:#e9e9eb;--in2:#d9d9de;--text:#000;--muted:#8a8a8e;--iblue:#007aff;--isep:rgba(60,60,67,.18);--igroup:#f2f2f7;
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:var(--text);background:#fff}
-  .rcsv.ios .ihead{position:relative;padding:10px 0 6px;text-align:center}
+  .rcsv.ios .ihead{position:relative;padding:10px 0 8px;text-align:center;border-bottom:.5px solid rgba(60,60,67,.2)}
+  .rcsv.ios .ihead .imore,.rcsv.ios .iprof .imore{position:absolute;right:12px;top:16px}
   .rcsv.ios .ihead .iback{position:absolute;left:12px;top:10px;width:34px;height:34px;border-radius:50%;background:var(--in);display:flex;align-items:center;justify-content:center}
   .rcsv.ios .ihead img{display:block;width:46px;height:46px;margin:0 auto;border-radius:12px;object-fit:cover;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.12)}
-  .rcsv.ios .ihead .ipname{display:inline-flex;align-items:center;gap:3px;margin-top:5px;padding:3px 10px;border-radius:13px;background:var(--in);font-size:13px;font-weight:600}
+  .rcsv.ios .ihead .ipname{display:inline-flex;align-items:center;gap:3px;margin-top:5px;font-size:13px;font-weight:600}
   .rcsv.ios .ihead .ipname i{font-style:normal;color:var(--muted);font-weight:400}
   .rcsv.ios .ichan{text-align:center;font-size:11px;line-height:14px;color:var(--muted);margin:6px 0 8px}
   .rcsv.ios .irow{padding:0 14px}
@@ -242,12 +243,17 @@ export const RCSV_CSS = `
   .rcsv.ios .itail::before{content:'';position:absolute;left:-6px;bottom:0;width:20px;height:18px;background:var(--in);border-bottom-right-radius:14px;z-index:0}
   .rcsv.ios .itail::after{content:'';position:absolute;left:-10px;bottom:0;width:10px;height:18px;background:#fff;border-bottom-right-radius:10px;z-index:0}
   .rcsv.ios .itail > *{position:relative;z-index:1}
+  /* link preview: its own bubble under the text, image and a small grey caption */
+  .rcsv.ios .ilink{color:var(--iblue);text-decoration:underline}
+  .rcsv.ios .iprev-link{width:236px;border-radius:18px;overflow:hidden;background:var(--in)}
+  .rcsv.ios .iprev-link .cimg{display:grid;place-items:center;height:120px;background:#d3e3fd}
+  .rcsv.ios .iprev-link .cap{padding:7px 12px 9px;font-size:11px;line-height:14px;color:#3c3c43}
   /* composer */
   .rcsv.ios .icomp{display:flex;align-items:center;gap:8px;padding:8px 12px 10px}
   .rcsv.ios .iplus{flex:none;width:32px;height:32px;border-radius:50%;background:var(--in);display:flex;align-items:center;justify-content:center}
   .rcsv.ios .ipill{flex:1;display:flex;align-items:center;justify-content:space-between;height:34px;border:1px solid #d1d1d6;border-radius:17px;padding:0 10px 0 12px;color:var(--muted);font-size:15px;white-space:nowrap}
   /* contact card: grouped grey page, logo tile, toggles, About and Details, no banner */
-  .rcsv.ios .iprof{background:var(--igroup);padding:12px 16px 16px}
+  .rcsv.ios .iprof{position:relative;background:var(--igroup);padding:12px 16px 16px}
   .rcsv.ios .iprof .iback{width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
   .rcsv.ios .iprof .logo{display:block;width:72px;height:72px;margin:0 auto;border-radius:18px;object-fit:cover;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.1)}
   .rcsv.ios .iprof .name{margin-top:8px;text-align:center;font-size:22px;font-weight:700}

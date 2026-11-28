@@ -68,6 +68,7 @@ const ICON_PATHS = {
   chevronDown: "M12 15.4 5.3 8.7l1.4-1.4 5.3 5.3 5.3-5.3 1.4 1.4z",
   chevronLeft: "M15.4 18.6 8.8 12l6.6-6.6L14 4l-8 8 8 8z",
   plus: "M11 19v-6H5v-2h6V5h2v6h6v2h-6v6z",
+  more: "M12 20q-.825 0-1.412-.587T10 18t.588-1.412T12 16t1.413.588T14 18t-.587 1.413T12 20m0-6q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m0-6q-.825 0-1.412-.587T10 6t.588-1.412T12 4t1.413.588T14 6t-.587 1.413T12 8",
   mic: "M12 14q-1.25 0-2.125-.875T9 11V5q0-1.25.875-2.125T12 2t2.125.875T15 5v6q0 1.25-.875 2.125T12 14m-1 7v-3.075q-2.6-.35-4.3-2.325T5 11h2q0 2.075 1.463 3.538T12 16t3.538-1.463T17 11h2q0 2.625-1.7 4.6T13 17.925V21z",
 };
 function Svg({ d, size = 16, color = "#8a8a8e" }: { d: string; size?: number; color?: string }) {
@@ -84,6 +85,7 @@ function IosHead() {
     <>
       <div className="ihead">
         <div className="iback"><Svg d={ICON_PATHS.chevronLeft} size={20} color="#000" /></div>
+        <span className="imore"><Svg d={ICON_PATHS.more} size={20} color="#8a8a8e" /></span>
         <img src={logo} alt="" />
         <div className="ipname">{sender}<i>›</i></div>
       </div>
@@ -153,6 +155,7 @@ export function ProfileCompare() {
       ios={
         <div className="iprof">
           <div className="iback"><Svg d={ICON_PATHS.chevronLeft} size={20} color="#000" /></div>
+          <span className="imore"><Svg d={ICON_PATHS.more} size={20} color="#8a8a8e" /></span>
           <img className="logo" src={logo} alt="" />
           <div className="name">{sender}</div>
           <div className="grp">
@@ -391,6 +394,48 @@ export function TextActionsCompare() {
   );
 }
 
+/** A link last in the text: Android shows the preview in the bubble, iPhone as a bubble of its own. */
+export function LinkCompare() {
+  const text = "Här är våra priser per meddelande.";
+  const url = "https://rcsdirekt.se/priser";
+  const title = "RCS-priser i Sverige: betala per meddelande";
+  return (
+    <Figure
+      caption="Ett meddelande med en länk sist i texten. Android visar förhandsvisningen i samma bubbla som texten. iPhone visar den som en egen bubbla, och bara när länken står sist, utan text efter."
+      ios={
+        <div style={{ paddingBottom: 12 }}>
+          <IosHead />
+          <div className="irow">
+            <div className="itail"><div className="ibub">{text} <span className="ilink">{url}</span></div></div>
+            <div style={{ height: 4 }} />
+            <div className="itail"><div className="iprev-link">
+              <div className="cimg"><PhoneIcon name="wallet" size={36} color="#0b57d0" /></div>
+              <div className="cap">{title}<br />rcsdirekt.se</div>
+            </div></div>
+          </div>
+        </div>
+      }
+      android={
+        <>
+          <AndroidHead />
+          <AndroidSheet>
+            <div className="inrow">
+              <div style={{ display: "inline-block", width: 272, borderRadius: 20, overflow: "hidden", background: "var(--in)", lineHeight: "normal" }}>
+                <div style={{ padding: "10px 16px", fontSize: 15.5, lineHeight: "21px" }}>{text} <span style={{ color: "#0b57d0", textDecoration: "underline", wordBreak: "break-all" }}>{url}</span></div>
+                <div className="cimg" style={{ display: "grid", placeItems: "center", height: 140, background: "#d3e3fd" }}><PhoneIcon name="wallet" size={40} color="#0b57d0" /></div>
+                <div style={{ padding: "10px 16px 12px" }}>
+                  <div style={{ fontSize: 15.5, fontWeight: 500, lineHeight: "21px" }}>{title}</div>
+                  <div style={{ marginTop: 2, fontSize: 12.5, color: "var(--muted)" }}>rcsdirekt.se</div>
+                </div>
+              </div>
+            </div>
+          </AndroidSheet>
+        </>
+      }
+    />
+  );
+}
+
 /** The comparisons for each section of the article, by section anchor. */
 export const PLATFORM_FIGURES: Record<string, () => ReactNode> = {
   knappar: () => (
@@ -403,6 +448,7 @@ export const PLATFORM_FIGURES: Record<string, () => ReactNode> = {
     <>
       <CardCompare />
       <CarouselCompare />
+      <LinkCompare />
     </>
   ),
   avsandaren: ProfileCompare,

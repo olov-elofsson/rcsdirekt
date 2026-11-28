@@ -56,7 +56,7 @@ Artikeln om skillnaderna mellan iPhone och Android (`rcs-iphone-android-skillnad
 
 - Utsnitten är `.rcsv.crop`: 360 px breda i telefonens egna pixlar, med höjden efter innehållet, och skalas som helhet med `zoom` till kolumnen. Ingen telefonram, bara en tunn kant runt varje utsnitt och en etikett ovanför ("iPhone · Meddelanden", "Android · Google Meddelanden").
 - Android byggs med de vanliga klasserna i `RCSV_CSS`, med det kompakta huvudet och det vita arket. iPhone har varianten `.rcsv.ios` i samma CSS och följer hur iOS visar RCS från företag: huvud med logotyp i rundad kvadrat och namnet i en kapsel, raden "Textmeddelande • RCS" med tiden, grå bubblor, kort med fast bildhöjd, tre rader text och en pil, kortets knapp som en kapsel, övriga åtgärder i en egen bubbla med blå text, Alternativ i bubblan med en utfälld meny, karusellen som en hög med "2 av 3", raden "<avsändare> ser vilka åtgärder du väljer", skrivfältet "Textmeddelande • RCS" och ett kontaktkort med reglagen Dölj aviseringar och Skicka läskvitton, Om och Detaljer, utan banner. Ljust läge och systemtypsnittet (SF på Apple-enheter).
-- iPhone-vyn är en illustration byggd på beskrivningar (Voxtelesys, Klaviyo), inte på Apples egna mockups. Varje figur har en bildtext som säger det. Ändra den när Apple ändrar hur RCS från företag visas.
+- iPhone-vyn är en illustration byggd på skärmdumpar och beskrivningar från Voxtelesys, Text-Em-All, Postscript och Klaviyo, inte på Apples egna mockups. Huvudet har en meny med tre prickar till höger och en tunn linje under, och namnet står utan kapsel i ljust läge. Länkförhandsvisningen är en egen bubbla under texten. Varje figur har en bildtext som säger det. Ändra den när Apple ändrar hur RCS från företag visas.
 
 ## Ramen
 
