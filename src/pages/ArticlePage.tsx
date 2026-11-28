@@ -10,6 +10,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { Button } from "@/components/ui/button";
 import type { ArticleSummary } from "@/content/article-list";
 import { readingMinutes, type Article, type Source } from "@/data/article-collection";
+import { isLegalArticle } from "@/data/legal-articles";
 
 // An article under /blogg.
 
@@ -104,11 +105,12 @@ export function ArticlePage({
       <ReadingProgress />
       <article className="mx-auto max-w-6xl px-5 pt-10 pb-16 sm:pt-16 sm:pb-24 lg:px-8">
         <header>
+          {/* The articles on rules belong to /regler; their topic links there. */}
           <Link
-            to="/blogg"
+            to={isLegalArticle(article.slug) ? "/regler" : "/blogg"}
             className="inline-block rounded-md bg-primary-soft px-2.5 py-1 text-xs font-bold tracking-[0.08em] text-foreground uppercase transition-colors duration-150 hover:bg-primary hover:text-primary-foreground"
           >
-            {article.category}
+            {isLegalArticle(article.slug) ? "Regler för RCS-utskick" : article.category}
           </Link>
           <h1 className="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {article.title}

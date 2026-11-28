@@ -207,22 +207,22 @@ export const RCSV_CSS = `
   .rcsv.ios .ihead .ipname i{font-style:normal;color:var(--muted);font-weight:400}
   .rcsv.ios .ichan{text-align:center;font-size:11px;line-height:14px;color:var(--muted);margin:6px 0 8px}
   .rcsv.ios .irow{padding:0 14px}
-  .rcsv.ios .ibub{display:inline-block;max-width:250px;padding:8px 12px;border-radius:18px;background:var(--in);font-size:15px;line-height:20px;color:var(--text)}
+  .rcsv.ios .ibub{display:inline-block;max-width:236px;padding:8px 12px;border-radius:18px;background:var(--in);font-size:15px;line-height:20px;color:var(--text)}
   .rcsv.ios .inote{padding:5px 14px 10px;font-size:10.5px;color:var(--muted)}
   /* Options, in the bubble: a darker row with a chevron; opened, a floating menu */
   .rcsv.ios .iopts{display:flex;align-items:center;justify-content:space-between;margin:8px -4px 0;padding:7px 10px;border-radius:9px;background:var(--in2);font-size:14px}
   .rcsv.ios .imenu{width:210px;margin-top:4px;padding:4px 0;border-radius:14px;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 10px 30px -6px rgba(0,0,0,.3)}
   .rcsv.ios .imenu div{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:15px}
   /* rich card: image, title, three lines of text with a chevron, the primary action as a pill */
-  .rcsv.ios .icard{width:250px;border-radius:18px;overflow:hidden;background:var(--in)}
-  .rcsv.ios .icard .cimg{display:grid;place-items:center;height:128px;background:#d3e3fd}
+  .rcsv.ios .icard{width:236px;border-radius:18px;overflow:hidden;background:var(--in)}
+  .rcsv.ios .icard .cimg{display:grid;place-items:center;height:160px;background:#d3e3fd}
   .rcsv.ios .icard .ibody{position:relative;padding:9px 30px 10px 12px}
-  .rcsv.ios .icard .it{font-size:14px;font-weight:600;line-height:18px}
-  .rcsv.ios .icard .id{margin-top:2px;font-size:12.5px;line-height:16px;color:#3c3c43;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .rcsv.ios .icard .it{font-size:15px;font-weight:600;line-height:19px}
+  .rcsv.ios .icard .id{margin-top:2px;font-size:13px;line-height:17px;color:#3c3c43;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .rcsv.ios .icard .ichev{position:absolute;right:12px;top:50%;margin-top:-8px;color:var(--muted);font-size:16px;line-height:16px}
   .rcsv.ios .ipillbtn{display:flex;align-items:center;justify-content:space-between;margin:0 10px 10px;padding:7px 12px;border-radius:16px;background:var(--in2);font-size:14px}
   /* actions in a bubble of their own under the card, blue text in rows */
-  .rcsv.ios .iacts{width:250px;margin-top:4px;border-radius:16px;background:var(--in)}
+  .rcsv.ios .iacts{width:236px;margin-top:4px;border-radius:16px;background:var(--in)}
   .rcsv.ios .iacts div{padding:9px 14px;font-size:14.5px;color:var(--iblue)}
   .rcsv.ios .iacts div + div{border-top:.5px solid var(--isep)}
   /* stacked carousel: one card on top, the others' edges behind it */
@@ -231,6 +231,11 @@ export const RCSV_CSS = `
   .rcsv.ios .istack .iedge{position:absolute;top:30px;bottom:12px;width:14px;border-radius:14px;background:var(--in2)}
   .rcsv.ios .istack .icard{position:relative;width:222px;margin:0 auto;box-shadow:0 2px 10px -4px rgba(0,0,0,.25)}
   .rcsv.ios .istack .iopts{margin:0 10px 10px}
+  /* the bubble tail at the bottom left of incoming messages, cards and the actions bubble */
+  .rcsv.ios .itail{position:relative;display:inline-block;vertical-align:top}
+  .rcsv.ios .itail::before{content:'';position:absolute;left:-6px;bottom:0;width:20px;height:18px;background:var(--in);border-bottom-right-radius:14px;z-index:0}
+  .rcsv.ios .itail::after{content:'';position:absolute;left:-10px;bottom:0;width:10px;height:18px;background:#fff;border-bottom-right-radius:10px;z-index:0}
+  .rcsv.ios .itail > *{position:relative;z-index:1}
   /* composer */
   .rcsv.ios .icomp{display:flex;align-items:center;gap:8px;padding:8px 12px 10px}
   .rcsv.ios .iplus{flex:none;width:32px;height:32px;border-radius:50%;background:var(--in);display:flex;align-items:center;justify-content:center}

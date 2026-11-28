@@ -155,7 +155,6 @@ export function ProfileCompare() {
           <div className="iback"><Svg d={ICON_PATHS.chevronLeft} size={20} color="#000" /></div>
           <img className="logo" src={logo} alt="" />
           <div className="name">{sender}</div>
-          <div className="ver">Verifierad avsändare</div>
           <div className="grp">
             <div>Dölj aviseringar<span className="itog" /></div>
             <div>Skicka läskvitton<span className="itog" /></div>
@@ -171,7 +170,7 @@ export function ProfileCompare() {
         </div>
       }
       android={
-        <div className="layer" id="prof" style={{ height: 520 }}>
+        <div className="layer" id="prof" style={{ height: 538 }}>
           <div className="back"><PhoneIcon name="back" /></div>
           <div className="more"><PhoneIcon name="more" /></div>
           <img className="banner" src={rcsDirektSender.profile.banner} alt="" />
@@ -179,12 +178,15 @@ export function ProfileCompare() {
           <div className="name" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>{sender}<VerifiedMark size={19} /></div>
           <div className="desc">{description}</div>
           {rcsDirektSender.profile.contacts.map((contact, index, all) => (
-            <div key={contact.href} className="act" style={{ left: 180 - 24 + (index - (all.length - 1) / 2) * 80 }}>
-              <PhoneIcon name={contact.icon} size={22} color="#0b57d0" />
+            <div key={contact.href}>
+              <div className="act" style={{ left: 180 - 24 + (index - (all.length - 1) / 2) * 80 }}>
+                <PhoneIcon name={contact.icon} size={22} color="#0b57d0" />
+              </div>
+              <div style={{ position: "absolute", top: 374, left: 180 - 40 + (index - (all.length - 1) / 2) * 80, width: 80, textAlign: "center", fontSize: 12.5, color: "var(--muted)" }}>{contact.label}</div>
             </div>
           ))}
           {rcsDirektSender.profile.contacts.map((contact, index, all) => (
-            <div key={`row-${contact.href}`} className={`crow${index === 0 ? " first" : ""}${index === all.length - 1 ? " last" : ""}`} style={{ top: 386 + index * 61 }}>
+            <div key={`row-${contact.href}`} className={`crow${index === 0 ? " first" : ""}${index === all.length - 1 ? " last" : ""}`} style={{ top: 404 + index * 61 }}>
               <span dangerouslySetInnerHTML={{ __html: icon(contact.icon, 22, "#1f1f1f") }} />
               <div className="v">{contact.value}</div>
               <div className="l">{contact.label}</div>
@@ -205,7 +207,7 @@ export function CardCompare() {
         <div style={{ paddingBottom: 12 }}>
           <IosHead />
           <div className="irow">
-            <div className="icard">
+            <div className="itail"><div className="icard">
               <CardImage />
               <div className="ibody">
                 <div className="it">{WEBINAR.title}</div>
@@ -213,7 +215,7 @@ export function CardCompare() {
                 <span className="ichev">›</span>
               </div>
               <div className="ipillbtn">Anmäl dig<PhoneIcon name="open" size={16} color="#3c3c43" /></div>
-            </div>
+            </div></div>
           </div>
         </div>
       }
@@ -302,15 +304,15 @@ export function ButtonsCompare() {
         <div style={{ paddingBottom: 4 }}>
           <IosHead />
           <div className="irow">
-            <div className="icard">
+            <div className="itail"><div className="icard">
               <div className="ibody">
                 <div className="it">{WEBINAR.title}</div>
                 <div className="id">Torsdag kl. 10.00, digitalt.</div>
                 <span className="ichev">›</span>
               </div>
               <div className="ipillbtn">Anmäl dig<PhoneIcon name="open" size={16} color="#3c3c43" /></div>
-            </div>
-            <div className="iacts">{actions.map((label) => <div key={label}>{label}</div>)}</div>
+            </div></div>
+            <div><div className="itail"><div className="iacts">{actions.map((label) => <div key={label}>{label}</div>)}</div></div></div>
           </div>
           <IosNote />
           <IosComposer />
@@ -354,7 +356,7 @@ export function TextActionsCompare() {
         <div>
           <IosHead />
           <div className="irow">
-            <div className="ibub">{text}<IosOptions /></div>
+            <div className="itail"><div className="ibub">{text}<IosOptions /></div></div>
             <div className="imenu">
               {actions.map((action) => (
                 <div key={action.label}><PhoneIcon name={action.icon} size={18} color="#000" />{action.label}</div>

@@ -287,6 +287,7 @@ const footerNav = [
   {
     title: "Juridiskt",
     links: [
+      { label: "Regler för RCS-utskick", to: "/regler" },
       { label: "Integritetspolicy", to: "/integritetspolicy" },
       { label: "Villkor", to: "/villkor" },
     ],

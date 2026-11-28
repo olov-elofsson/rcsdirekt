@@ -14,6 +14,7 @@ import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolic
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as OmOssRouteImport } from './routes/om-oss'
 import { Route as PriserRouteImport } from './routes/priser'
+import { Route as ReglerRouteImport } from './routes/regler'
 import { Route as SkapaKontoRouteImport } from './routes/skapa-konto'
 import { Route as UtvecklareRouteImport } from './routes/utvecklare'
 import { Route as VideoGeneratorRouteImport } from './routes/video-generator'
@@ -48,6 +49,11 @@ const OmOssRoute = OmOssRouteImport.update({
 const PriserRoute = PriserRouteImport.update({
   id: '/priser',
   path: '/priser',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReglerRoute = ReglerRouteImport.update({
+  id: '/regler',
+  path: '/regler',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkapaKontoRoute = SkapaKontoRouteImport.update({
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
+  '/regler': typeof ReglerRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/utvecklare': typeof UtvecklareRoute
   '/video-generator': typeof VideoGeneratorRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
+  '/regler': typeof ReglerRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/utvecklare': typeof UtvecklareRoute
   '/video-generator': typeof VideoGeneratorRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/om-oss': typeof OmOssRoute
   '/priser': typeof PriserRoute
+  '/regler': typeof ReglerRoute
   '/skapa-konto': typeof SkapaKontoRoute
   '/utvecklare': typeof UtvecklareRoute
   '/video-generator': typeof VideoGeneratorRoute
@@ -161,6 +170,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/om-oss'
     | '/priser'
+    | '/regler'
     | '/skapa-konto'
     | '/utvecklare'
     | '/video-generator'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/om-oss'
     | '/priser'
+    | '/regler'
     | '/skapa-konto'
     | '/utvecklare'
     | '/video-generator'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/om-oss'
     | '/priser'
+    | '/regler'
     | '/skapa-konto'
     | '/utvecklare'
     | '/video-generator'
@@ -213,6 +225,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   OmOssRoute: typeof OmOssRoute
   PriserRoute: typeof PriserRoute
+  ReglerRoute: typeof ReglerRoute
   SkapaKontoRoute: typeof SkapaKontoRoute
   UtvecklareRoute: typeof UtvecklareRoute
   VideoGeneratorRoute: typeof VideoGeneratorRoute
@@ -260,6 +273,13 @@ declare module '@tanstack/react-router' {
       path: '/priser'
       fullPath: '/priser'
       preLoaderRoute: typeof PriserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regler': {
+      id: '/regler'
+      path: '/regler'
+      fullPath: '/regler'
+      preLoaderRoute: typeof ReglerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skapa-konto': {
@@ -341,6 +361,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   OmOssRoute: OmOssRoute,
   PriserRoute: PriserRoute,
+  ReglerRoute: ReglerRoute,
   SkapaKontoRoute: SkapaKontoRoute,
   UtvecklareRoute: UtvecklareRoute,
   VideoGeneratorRoute: VideoGeneratorRoute,

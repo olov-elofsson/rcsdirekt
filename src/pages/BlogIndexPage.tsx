@@ -5,7 +5,8 @@ import { formatDate } from "@/components/ArticleCard";
 import { BlogLayout } from "@/components/BlogLayout";
 import { NumberDrop } from "@/components/NumberDrop";
 import { PageHeading } from "@/components/PageHeading";
-import { articleList as articles } from "@/content/article-list";
+import { articleList } from "@/content/article-list";
+import { isLegalArticle } from "@/data/legal-articles";
 import { sectionTitle } from "@/lib/typography";
 
 /** The order of the important articles, from what RCS is to the details; others follow after. */
@@ -22,11 +23,10 @@ const ORDER = [
   "rcs-sverige-operatorer",
   "rcs-pa-iphone",
   "rcs-iphone-android-skillnader",
-  "rcs-gdpr-samtycke",
-  "rcs-kopta-telefonnummer",
-  "rcs-reklam-till-foretag",
   "rcs-api-webhooks",
 ];
+/** The articles on rules and law are collected on /regler, not in the reading list. */
+const articles = articleList.filter((article) => !isLegalArticle(article.slug));
 const isNews = (category: string) => category === "Nyheter" || category === "News";
 
 /**
