@@ -50,6 +50,14 @@ Ange alla mått i telefonens egna pixlar och skala hela skärmen. Ändra aldrig 
 
 På startsidan kan några meddelanden ligga direkt på ett foto, utan telefon, som utdrag ur skärmen (`PhotoScenarios`, exemplen i `src/data/rcs-scenarios.ts`). De byggs med `RcsSnippet` och samma `.rcsv`-klasser och mått. Bara här är bubblor och kort vita och har en mjuk skugga, så att de syns mot fotot (`.rcsv.snippet` i `RCSV_CSS`). Knapparna går att trycka på, som i appen: ett svar (`reply`) skickas som mottagarens blå bubbla och företaget svarar efter skrivindikatorn, förslagen försvinner efter svaret, och en åtgärd med ikon (`opens`) skickar inget utan visar bara vad som öppnas. "Börja om" återställer exemplet. Meddelandena på fotona har inga egna bilder: fotot bär bilden, och korten är kompakta så att fotot syns runt dem. På mobil visas meddelandet något mindre. Avsändarens namn står i vit text på en mörk etikett ovanför, så att det syns även på ljusa foton. Exemplen gäller våra kundcase: varje foto märks "Exempel för <kund>", och meddelandet ska stämma med upplägget i kundcasets beskrivning i CMS:et, så att det inte ser ut som ett uppmätt resultat.
 
+## Jämförelser med iPhone (`PlatformCompare`)
+
+Artikeln om skillnaderna mellan iPhone och Android (`rcs-iphone-android-skillnader`) visar utsnitt av skärmen sida vid sida, med iPhone till vänster och Android till höger (`src/components/PlatformCompare.tsx`, kopplade till avsnittens ankare i `ArticlePage`). Ägaren beställde dem i november 2026.
+
+- Utsnitten är `.rcsv.crop`: 360 px breda i telefonens egna pixlar, med höjden efter innehållet, och skalas som helhet med `zoom` till kolumnen. Ingen telefonram, bara en tunn kant runt varje utsnitt och en etikett ovanför ("iPhone · Meddelanden", "Android · Google Meddelanden").
+- Android byggs med de vanliga klasserna i `RCSV_CSS`. iPhone har varianten `.rcsv.ios` i samma CSS: Apples Meddelanden i ljust läge med systemtypsnittet (SF på Apple-enheter), grå inkommande bubblor `#e9e9eb` med radie 18 px, kort med fast bildhöjd och tre rader text, raden Alternativ för fler åtgärder och förslag, skrivfältet "Textmeddelande • RCS" och ett kontaktkort utan banner.
+- iPhone-vyn är en illustration byggd på beskrivningar (Voxtelesys, Klaviyo), inte på Apples egna mockups. Varje figur har en bildtext som säger det. Ändra den när Apple ändrar hur RCS från företag visas.
+
 ## Ramen
 
 - `rounded-[32px]`, `border-[6px] border-foreground/90` och `shadow-xl` runt skärmen, utan ytterligare inre ram.

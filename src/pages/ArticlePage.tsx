@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { PhoneIcon, RcsSnippet, VerifiedMark } from "@/components/RcsPhone";
 import { rcsDirektSender } from "@/data/rcs-sender";
 import { ArrowRight, ChevronDown, ExternalLink } from "lucide-react";
@@ -11,6 +12,22 @@ import type { ArticleSummary } from "@/content/article-list";
 import { readingMinutes, type Article, type Source } from "@/data/article-collection";
 
 // An article under /blogg.
+
+/**
+ * Illustrations that belong to one article, shown after a section with the given anchor.
+ * Loaded only for that article, so other articles do not carry them.
+ */
+const PlatformFigure = lazy(() =>
+  import("@/components/PlatformCompare").then((module) => ({
+    default: ({ section }: { section: string }) => {
+      const Render = module.PLATFORM_FIGURES[section];
+      return Render ? <Render /> : null;
+    },
+  })),
+);
+const FIGURE_SECTIONS: Record<string, string[]> = {
+  "rcs-iphone-android-skillnader": ["knappar", "bilder", "avsandaren"],
+};
 
 /**
  * The picture at the top when the CMS has none: the article itself as an RCS message from
@@ -161,6 +178,11 @@ export function ArticlePage({
                         </ul>
                       ) : null}
                     </div>
+                    {FIGURE_SECTIONS[article.slug]?.includes(section.id) ? (
+                      <Suspense fallback={null}>
+                        <PlatformFigure section={section.id} />
+                      </Suspense>
+                    ) : null}
                   </section>
                 ))}
               </div>

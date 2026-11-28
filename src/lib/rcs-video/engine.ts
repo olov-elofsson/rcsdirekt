@@ -190,6 +190,42 @@ export const RCSV_CSS = `
   .rcsv #gesture{position:absolute;width:32px;height:32px;border-radius:50%;background:#5f6368;z-index:81;display:flex;align-items:center;justify-content:center}
 
   .rcsv img{max-width:none;vertical-align:baseline}
+
+  /* website: a slice of the screen, for side-by-side comparisons (PlatformCompare) */
+  .rcsv.crop{height:auto;overflow:hidden;background:var(--bg)}
+  .rcsv.crop .sheet{border-radius:0;padding:12px 0}
+  .rcsv.crop .layer{position:relative}
+  /* iPhone variant for comparisons: Apple Messages, light theme. Illustrative, from public
+     descriptions of how iOS shows RCS for Business (see .claude/skills/rcs-phone). */
+  .rcsv.ios{--in:#e9e9eb;--text:#000;--muted:#8a8a8e;--iblue:#007aff;--isep:rgba(60,60,67,.29);--igroup:#f2f2f7;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:var(--text)}
+  .rcsv.ios .sheet{padding:12px 0}
+  .rcsv.ios .inrow{padding-left:12px;padding-right:12px}
+  .rcsv.ios .bubble{border-radius:18px;padding:7px 12px;font-size:16px;line-height:21px;max-width:262px;background:var(--in);color:var(--text)}
+  .rcsv.ios .card{width:262px;border-radius:18px;background:var(--in)}
+  .rcsv.ios .card img,.rcsv.ios .card .cimg{height:132px}
+  .rcsv.ios .card .ct{padding:10px 12px 0;font-size:15px;font-weight:600;line-height:20px;color:var(--text)}
+  .rcsv.ios .card .cb{padding:2px 12px 0;margin-bottom:10px;max-height:60px;font-size:15px;line-height:20px;color:#3c3c43;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .rcsv.ios .ibtn{display:flex;align-items:center;justify-content:center;min-height:42px;border-top:.5px solid var(--isep);color:var(--iblue);font-size:16px}
+  .rcsv.ios .opts{display:flex;align-items:center;justify-content:space-between;width:262px;min-height:40px;margin-top:3px;padding:0 14px;border-radius:18px;background:var(--in);color:var(--iblue);font-size:16px}
+  .rcsv.ios .opts svg{flex:none}
+  .rcsv.ios .stack > * + *{margin-top:8px}
+  .rcsv.ios .ts{color:var(--muted);font-size:12px}
+  .rcsv.ios .icomp{display:flex;align-items:center;gap:8px;padding:8px 10px 10px}
+  .rcsv.ios .iplus{flex:none;width:34px;height:34px;border-radius:50%;background:var(--in);display:flex;align-items:center;justify-content:center}
+  .rcsv.ios .ipill{flex:1;height:36px;border:1px solid #c6c6c8;border-radius:18px;padding:0 12px;display:flex;align-items:center;color:var(--muted);font-size:16px;white-space:nowrap}
+  /* contact card: grey grouped page, no banner */
+  .rcsv.ios .iprof{background:var(--igroup);padding:20px 16px 16px;text-align:center}
+  .rcsv.ios .iprof .logo{display:block;width:96px;height:96px;margin:0 auto;border-radius:50%;object-fit:cover;background:#fff}
+  .rcsv.ios .iprof .name{margin-top:10px;font-size:24px;font-weight:600;letter-spacing:-.2px}
+  .rcsv.ios .iprof .desc{margin-top:4px;font-size:14px;line-height:19px;color:var(--muted)}
+  .rcsv.ios .iprof .acts{display:flex;gap:8px;margin-top:16px}
+  .rcsv.ios .iprof .act{flex:1;height:58px;border-radius:12px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--iblue);font-size:12px}
+  .rcsv.ios .iprof .rows{margin-top:16px;border-radius:12px;background:#fff;text-align:left}
+  .rcsv.ios .iprof .r{padding:9px 14px}
+  .rcsv.ios .iprof .r + .r{border-top:.5px solid var(--isep)}
+  .rcsv.ios .iprof .r .l{font-size:13px;color:var(--text)}
+  .rcsv.ios .iprof .r .v{font-size:16px;color:var(--iblue)}
 `;
 
 const FPS = 30;
